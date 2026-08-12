@@ -35,7 +35,7 @@ Statuses are Proposed, Accepted, Rejected, Deprecated, and Superseded. Accepted 
 | [`ADR-0002`](ADR-0002-repository-root-and-configuration.md) | Canonical Repository Root and Configuration | Accepted | 2026-08-12 | — |
 | [`ADR-0003`](ADR-0003-stable-source-and-document-identity.md) | Stable Source and Document Identity | Accepted | 2026-08-12 | — |
 | [`ADR-0004`](ADR-0004-safe-deterministic-ingestion-boundary.md) | Safe Deterministic Canonical Ingestion Boundary | Accepted | 2026-08-12 | — |
-| [`ADR-0005`](ADR-0005-mvp-core-implementation-topology.md) | MVP Core Implementation Topology | Proposed | 2026-08-12 | — |
+| [`ADR-0005`](ADR-0005-mvp-core-implementation-topology.md) | MVP Core Implementation Topology | Accepted | 2026-08-12 | — |
 
 ## Machine and EOS projections
 
