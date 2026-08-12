@@ -1,0 +1,85 @@
+{
+  "content": "# Work Packets\n\nA work packet is the smallest authorized unit of project work. It produces one\nreviewable result, has a single accountable owner, and contains enough context\nto execute without reconstructing decisions from chat or memory.\n\n## Packet characteristics\n\n- advances one increment outcome or retires one named risk;\n- can normally complete within a few focused days;\n- has explicit scope and exclusions;\n- includes testable acceptance and evidence locations;\n- names dependencies, reviewers, and required access;\n- includes documentation, security, and operations impact;\n- closes independently without hidden follow-up required for correctness.\n\n## Lifecycle\n\n`candidate → ready → active → review → done`\n\nExceptional states are `blocked`, `cancelled`, and `superseded`. Only ready\npackets may enter a work cycle. Active packets appear in `active.md`; qualified\nfuture packets appear in `backlog.md`. The packet record, not the index, holds\nthe complete execution contract.\n\n## Naming\n\nUse `WP-NNNN-short-result.md` with immutable sequential IDs. A title names the\nfinished result, such as `Durable workflow identity`, rather than an activity\nsuch as `Work on database`.\n\n## Sizing and splitting\n\nSplit by demonstrable behavior, business rule, failure path, data transition,\nor risk experiment. Avoid horizontal packets that produce no integrated\nevidence. When a packet grows during execution, preserve the essential outcome,\nmove optional scope to candidate packets, and re-review acceptance.\n\n## Closure\n\nThe owner links acceptance evidence, records decisions and remaining risk,\nupdates affected sources of truth, and requests acceptance. A reviewer verifies\nthe result against the packet and Definition of Done. Closure date and final\nstate are then reflected in the relevant indexes.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "A work packet is the smallest authorized unit of project work. It produces one reviewable result, has a single accountable owner, and contains enough context to execute without reconstructing decisions from chat or memory.",
+    "title": "Work Packets"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "work-packets",
+      "text": "# Work Packets\n\nA work packet is the smallest authorized unit of project work. It produces one\nreviewable result, has a single accountable owner, and contains enough context\nto execute without reconstructing decisions from chat or memory.",
+      "title": "Work Packets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 16,
+      "line_start": 7,
+      "section_id": "packet-characteristics",
+      "text": "## Packet characteristics\n\n- advances one increment outcome or retires one named risk;\n- can normally complete within a few focused days;\n- has explicit scope and exclusions;\n- includes testable acceptance and evidence locations;\n- names dependencies, reviewers, and required access;\n- includes documentation, security, and operations impact;\n- closes independently without hidden follow-up required for correctness.",
+      "title": "Packet characteristics"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 17,
+      "section_id": "lifecycle",
+      "text": "## Lifecycle\n\n`candidate → ready → active → review → done`\n\nExceptional states are `blocked`, `cancelled`, and `superseded`. Only ready\npackets may enter a work cycle. Active packets appear in `active.md`; qualified\nfuture packets appear in `backlog.md`. The packet record, not the index, holds\nthe complete execution contract.",
+      "title": "Lifecycle"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 26,
+      "section_id": "naming",
+      "text": "## Naming\n\nUse `WP-NNNN-short-result.md` with immutable sequential IDs. A title names the\nfinished result, such as `Durable workflow identity`, rather than an activity\nsuch as `Work on database`.",
+      "title": "Naming"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 32,
+      "section_id": "sizing-and-splitting",
+      "text": "## Sizing and splitting\n\nSplit by demonstrable behavior, business rule, failure path, data transition,\nor risk experiment. Avoid horizontal packets that produce no integrated\nevidence. When a packet grows during execution, preserve the essential outcome,\nmove optional scope to candidate packets, and re-review acceptance.",
+      "title": "Sizing and splitting"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 39,
+      "section_id": "closure",
+      "text": "## Closure\n\nThe owner links acceptance evidence, records decisions and remaining risk,\nupdates affected sources of truth, and requests acceptance. A reviewer verifies\nthe result against the packet and Definition of Done. Closure date and final\nstate are then reflected in the relevant indexes.",
+      "title": "Closure"
+    }
+  ],
+  "source": {
+    "bytes": 1810,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 44,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/README.md",
+    "sha256": "fd4eca34c1ea159afdd8644937c32acabeab9c895afd6efc69bcf144687ee4a3"
+  }
+}

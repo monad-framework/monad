@@ -1,0 +1,125 @@
+{
+  "content": "# Threat Model\n\n## Scope and assumptions\n\nThis baseline covers the primary journey, application boundary, workflow and\ndomain state, evidence, external adapters, operator access, and software\ndelivery path. It assumes the client and network are untrusted, dependencies can\nfail or be compromised, valid accounts may act maliciously, and mistakes are\nmore common than sophisticated attacks but can have equal impact.\n\n## Assets\n\n- authoritative domain and workflow integrity;\n- confidential and restricted user or business data;\n- user, administrator, operator, service, and release credentials;\n- policy, configuration, and authorization decisions;\n- evidence needed for accountability and incident response;\n- source, dependencies, build identity, and release artifacts;\n- service availability, capacity, cost budget, and user trust.\n\n## Trust boundaries\n\n1. User-controlled client to public application interface.\n2. Application runtime to identity, secrets, and data stores.\n3. Internal capability to another capability's owned contract.\n4. Product runtime to external provider.\n5. Operator workstation to privileged production control.\n6. Pull-request or dependency input to protected build and release authority.\n\n## Priority threats\n\n| ID | Threat and consequence | Primary mitigations | Verification |\n| --- | --- | --- | --- |\n| T-001 | Account or session takeover enables unauthorized action | Strong authentication, secure sessions, reauthentication, revocation | Session and abuse tests |\n| T-002 | Broken object authorization exposes another resource | Resource-owner authorization, deny by default, tenant and object tests | Negative authorization matrix |\n| T-003 | Injection changes queries, commands, templates, or output | Typed validation, parameterization, encoding, constrained interpreters | Fuzzing and adversarial tests |\n| T-004 | Duplicate or reordered request causes repeated effect | Idempotency keys, state invariants, concurrency control, reconciliation | Retry and race tests |\n| T-005 | Sensitive data leaks through telemetry, export, cache, or error | Data minimization, field allow-list, redaction, access and retention | Data-flow and log inspection |\n| T-006 | Privileged operator action exceeds intended scope | Separate roles, just-in-time access, confirmation, audit, dual control | Access review and admin tests |\n| T-007 | Dependency or outbound request enables data theft or SSRF | Egress allow-list, URL validation, network isolation, response limits | Controlled malicious endpoint tests |\n| T-008 | Resource abuse exhausts availability or cost | Authentication, quotas, rate and concurrency limits, backpressure | Abuse and saturation tests |\n| T-009 | Build input steals release secrets or modifies artifact | Untrusted-job isolation, scoped tokens, pinned dependencies, provenance | Pipeline permission review |\n| T-010 | Backup or restore path bypasses access and integrity | Separate credentials, encryption, immutable copies, restore verification | Quarterly recovery exercise |\n\n## Abuse cases\n\n- A valid user enumerates identifiers to access another user's result.\n- An attacker submits payloads that expand, recurse, or consume unbounded work.\n- A user repeats confirmation after a timeout to create duplicate effects.\n- A compromised dependency attempts unexpected network or secret access.\n- A maintainer's pull request executes with production deployment authority.\n- An operator uses broad export or repair tooling without scoped approval.\n- An error response or trace reveals secrets, internal topology, or private data.\n\n## Residual risk\n\nNo control removes all risk. Residual risks receive an owner, exposure decision,\nmonitoring signal, contingency, review date, and treatment work. Critical and\nhigh residual risk cannot be hidden in this document; it must appear in the\nrisk register and release decision.\n\n## Review triggers\n\nUpdate the model for a new actor, data class, trust boundary, integration,\nprivileged operation, execution engine, public endpoint, deployment authority,\nor material incident. Validate the model against implementation and telemetry\nbefore production exposure and at least annually.\n",
+  "document_id": "doc:security%2Fthreat-model.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "T-001",
+    "T-002",
+    "T-003",
+    "T-004",
+    "T-005",
+    "T-006",
+    "T-007",
+    "T-008",
+    "T-009",
+    "T-010"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "security",
+    "normative": true,
+    "summary": "This baseline covers the primary journey, application boundary, workflow and domain state, evidence, external adapters, operator access, and software delivery path. It assumes the client and network are untrusted, dependencies can fail or be compromised, valid accounts may act maliciously, and mistakes are more common than sophisticated attacks but can have equal impact.",
+    "title": "Threat Model"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "threat-model",
+      "text": "# Threat Model",
+      "title": "Threat Model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 3,
+      "section_id": "scope-and-assumptions",
+      "text": "## Scope and assumptions\n\nThis baseline covers the primary journey, application boundary, workflow and\ndomain state, evidence, external adapters, operator access, and software\ndelivery path. It assumes the client and network are untrusted, dependencies can\nfail or be compromised, valid accounts may act maliciously, and mistakes are\nmore common than sophisticated attacks but can have equal impact.",
+      "title": "Scope and assumptions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 20,
+      "line_start": 11,
+      "section_id": "assets",
+      "text": "## Assets\n\n- authoritative domain and workflow integrity;\n- confidential and restricted user or business data;\n- user, administrator, operator, service, and release credentials;\n- policy, configuration, and authorization decisions;\n- evidence needed for accountability and incident response;\n- source, dependencies, build identity, and release artifacts;\n- service availability, capacity, cost budget, and user trust.",
+      "title": "Assets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 21,
+      "section_id": "trust-boundaries",
+      "text": "## Trust boundaries\n\n1. User-controlled client to public application interface.\n2. Application runtime to identity, secrets, and data stores.\n3. Internal capability to another capability's owned contract.\n4. Product runtime to external provider.\n5. Operator workstation to privileged production control.\n6. Pull-request or dependency input to protected build and release authority.",
+      "title": "Trust boundaries"
+    },
+    {
+      "identifiers": [
+        "T-001",
+        "T-002",
+        "T-003",
+        "T-004",
+        "T-005",
+        "T-006",
+        "T-007",
+        "T-008",
+        "T-009",
+        "T-010"
+      ],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 30,
+      "section_id": "priority-threats",
+      "text": "## Priority threats\n\n| ID | Threat and consequence | Primary mitigations | Verification |\n| --- | --- | --- | --- |\n| T-001 | Account or session takeover enables unauthorized action | Strong authentication, secure sessions, reauthentication, revocation | Session and abuse tests |\n| T-002 | Broken object authorization exposes another resource | Resource-owner authorization, deny by default, tenant and object tests | Negative authorization matrix |\n| T-003 | Injection changes queries, commands, templates, or output | Typed validation, parameterization, encoding, constrained interpreters | Fuzzing and adversarial tests |\n| T-004 | Duplicate or reordered request causes repeated effect | Idempotency keys, state invariants, concurrency control, reconciliation | Retry and race tests |\n| T-005 | Sensitive data leaks through telemetry, export, cache, or error | Data minimization, field allow-list, redaction, access and retention | Data-flow and log inspection |\n| T-006 | Privileged operator action exceeds intended scope | Separate roles, just-in-time access, confirmation, audit, dual control | Access review and admin tests |\n| T-007 | Dependency or outbound request enables data theft or SSRF | Egress allow-list, URL validation, network isolation, response limits | Controlled malicious endpoint tests |\n| T-008 | Resource abuse exhausts availability or cost | Authentication, quotas, rate and concurrency limits, backpressure | Abuse and saturation tests |\n| T-009 | Build input steals release secrets or modifies artifact | Untrusted-job isolation, scoped tokens, pinned dependencies, provenance | Pipeline permission review |\n| T-010 | Backup or restore path bypasses access and integrity | Separate credentials, encryption, immutable copies, restore verification | Quarterly recovery exercise |",
+      "title": "Priority threats"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 45,
+      "section_id": "abuse-cases",
+      "text": "## Abuse cases\n\n- A valid user enumerates identifiers to access another user's result.\n- An attacker submits payloads that expand, recurse, or consume unbounded work.\n- A user repeats confirmation after a timeout to create duplicate effects.\n- A compromised dependency attempts unexpected network or secret access.\n- A maintainer's pull request executes with production deployment authority.\n- An operator uses broad export or repair tooling without scoped approval.\n- An error response or trace reveals secrets, internal topology, or private data.",
+      "title": "Abuse cases"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 61,
+      "line_start": 55,
+      "section_id": "residual-risk",
+      "text": "## Residual risk\n\nNo control removes all risk. Residual risks receive an owner, exposure decision,\nmonitoring signal, contingency, review date, and treatment work. Critical and\nhigh residual risk cannot be hidden in this document; it must appear in the\nrisk register and release decision.",
+      "title": "Residual risk"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 62,
+      "section_id": "review-triggers",
+      "text": "## Review triggers\n\nUpdate the model for a new actor, data class, trust boundary, integration,\nprivileged operation, execution engine, public endpoint, deployment authority,\nor material incident. Validate the model against implementation and telemetry\nbefore production exposure and at least annually.",
+      "title": "Review triggers"
+    }
+  ],
+  "source": {
+    "bytes": 4171,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 67,
+    "media_type": "text/markdown",
+    "path": "security/threat-model.md",
+    "sha256": "869f4590e79709282d5cdde2a3a7567f50f13c8fd60f22a459e6536240273b68"
+  }
+}

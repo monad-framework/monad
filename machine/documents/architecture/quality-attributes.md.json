@@ -1,0 +1,170 @@
+{
+  "content": "# Quality Attributes\n\nQuality attributes are evaluated as scenarios: source, stimulus, environment,\nartifact, response, and measurable response. Initial budgets are provisional\nuntil representative load and risk analysis approve the production baseline.\n\n## QA-01 — Functional correctness\n\nGiven a valid, authorized request under normal operation, the system reaches one\nallowed terminal state, applies each consequential effect at most once, and\nreturns evidence matching authoritative state. Property, example, and contract\ntests cover invariants and boundary conditions.\n\n## QA-02 — Availability and reliability\n\nDuring the supported service window, the primary journey targets 99.9% monthly\navailability and at least 99.5% valid-attempt completion excluding declared\nmaintenance. Measurement is end-to-end and cannot be inferred solely from\nprocess uptime.\n\n## QA-03 — Performance\n\nAt reference load, synchronous user interactions target p95 below 400 ms and\np99 below 1 s, excluding explicitly asynchronous work. Progress acknowledgment\noccurs within 2 seconds. End-to-end workflow budgets are specified per use case\nand include dependency time.\n\n## QA-04 — Recoverability\n\nFor authoritative production data, the provisional recovery point objective is\n15 minutes and recovery time objective is 60 minutes. Workflow recovery must\ndistinguish known uncommitted, committed, and unknown external effects. Restore\nand reconciliation are exercised before production readiness and quarterly.\n\n## QA-05 — Security\n\nAn unauthenticated or unauthorized actor cannot read or change protected\nresources. Authentication, authorization, input, secret, cryptographic, and\naudit controls fail closed for consequential operations. Critical findings\nblock release; high findings require remediation or explicit time-bounded risk\nacceptance.\n\n## QA-06 — Privacy\n\nFor a data-subject or administrator request, the system can identify purpose,\nlocation, access, retention, export, and deletion behavior for in-scope data.\nTelemetry and lower environments do not retain undeclared copies.\n\n## QA-07 — Usability and accessibility\n\nA representative new user can complete the primary journey without private\ncoaching. The supported interface targets WCAG 2.2 AA, full keyboard operation,\npredictable focus, programmatic names and errors, and non-color communication.\n\n## QA-08 — Observability\n\nWhen journey success declines or latency exceeds budget, owned signals identify\nthe affected cohort, workflow state, dependency, and recent change without\nrequiring sensitive payload inspection. Critical alerts map to a runbook and\nactionable owner.\n\n## QA-09 — Modifiability\n\nA compatible change inside one boundary should require changes only in that\nboundary and its tests. Contract changes identify consumers through automated\ncompatibility evidence and follow a documented deprecation window.\n\n## QA-10 — Cost efficiency\n\nThe system measures infrastructure and external-service cost per successful\nprimary outcome. Capacity protections prevent an individual tenant, actor, or\nfailure loop from exhausting the approved budget or degrading all users.\n\n## Review and evidence\n\nEach release maps these scenarios to tests, telemetry, exercises, or accepted\nrisk. A target may be tightened through normal baselining; weakening a target\nrequires product, architecture, and operational approval with user impact.\n",
+  "document_id": "doc:architecture%2Fquality-attributes.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "QA-01",
+    "QA-02",
+    "QA-03",
+    "QA-04",
+    "QA-05",
+    "QA-06",
+    "QA-07",
+    "QA-08",
+    "QA-09",
+    "QA-10"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "Quality attributes are evaluated as scenarios: source, stimulus, environment, artifact, response, and measurable response. Initial budgets are provisional until representative load and risk analysis approve the production baseline.",
+    "title": "Quality Attributes"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "quality-attributes",
+      "text": "# Quality Attributes\n\nQuality attributes are evaluated as scenarios: source, stimulus, environment,\nartifact, response, and measurable response. Initial budgets are provisional\nuntil representative load and risk analysis approve the production baseline.",
+      "title": "Quality Attributes"
+    },
+    {
+      "identifiers": [
+        "QA-01"
+      ],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 7,
+      "section_id": "qa-01-functional-correctness",
+      "text": "## QA-01 — Functional correctness\n\nGiven a valid, authorized request under normal operation, the system reaches one\nallowed terminal state, applies each consequential effect at most once, and\nreturns evidence matching authoritative state. Property, example, and contract\ntests cover invariants and boundary conditions.",
+      "title": "QA-01 — Functional correctness"
+    },
+    {
+      "identifiers": [
+        "QA-02"
+      ],
+      "level": 2,
+      "line_end": 20,
+      "line_start": 14,
+      "section_id": "qa-02-availability-and-reliability",
+      "text": "## QA-02 — Availability and reliability\n\nDuring the supported service window, the primary journey targets 99.9% monthly\navailability and at least 99.5% valid-attempt completion excluding declared\nmaintenance. Measurement is end-to-end and cannot be inferred solely from\nprocess uptime.",
+      "title": "QA-02 — Availability and reliability"
+    },
+    {
+      "identifiers": [
+        "QA-03"
+      ],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 21,
+      "section_id": "qa-03-performance",
+      "text": "## QA-03 — Performance\n\nAt reference load, synchronous user interactions target p95 below 400 ms and\np99 below 1 s, excluding explicitly asynchronous work. Progress acknowledgment\noccurs within 2 seconds. End-to-end workflow budgets are specified per use case\nand include dependency time.",
+      "title": "QA-03 — Performance"
+    },
+    {
+      "identifiers": [
+        "QA-04"
+      ],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 28,
+      "section_id": "qa-04-recoverability",
+      "text": "## QA-04 — Recoverability\n\nFor authoritative production data, the provisional recovery point objective is\n15 minutes and recovery time objective is 60 minutes. Workflow recovery must\ndistinguish known uncommitted, committed, and unknown external effects. Restore\nand reconciliation are exercised before production readiness and quarterly.",
+      "title": "QA-04 — Recoverability"
+    },
+    {
+      "identifiers": [
+        "QA-05"
+      ],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 35,
+      "section_id": "qa-05-security",
+      "text": "## QA-05 — Security\n\nAn unauthenticated or unauthorized actor cannot read or change protected\nresources. Authentication, authorization, input, secret, cryptographic, and\naudit controls fail closed for consequential operations. Critical findings\nblock release; high findings require remediation or explicit time-bounded risk\nacceptance.",
+      "title": "QA-05 — Security"
+    },
+    {
+      "identifiers": [
+        "QA-06"
+      ],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 43,
+      "section_id": "qa-06-privacy",
+      "text": "## QA-06 — Privacy\n\nFor a data-subject or administrator request, the system can identify purpose,\nlocation, access, retention, export, and deletion behavior for in-scope data.\nTelemetry and lower environments do not retain undeclared copies.",
+      "title": "QA-06 — Privacy"
+    },
+    {
+      "identifiers": [
+        "QA-07"
+      ],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 49,
+      "section_id": "qa-07-usability-and-accessibility",
+      "text": "## QA-07 — Usability and accessibility\n\nA representative new user can complete the primary journey without private\ncoaching. The supported interface targets WCAG 2.2 AA, full keyboard operation,\npredictable focus, programmatic names and errors, and non-color communication.",
+      "title": "QA-07 — Usability and accessibility"
+    },
+    {
+      "identifiers": [
+        "QA-08"
+      ],
+      "level": 2,
+      "line_end": 61,
+      "line_start": 55,
+      "section_id": "qa-08-observability",
+      "text": "## QA-08 — Observability\n\nWhen journey success declines or latency exceeds budget, owned signals identify\nthe affected cohort, workflow state, dependency, and recent change without\nrequiring sensitive payload inspection. Critical alerts map to a runbook and\nactionable owner.",
+      "title": "QA-08 — Observability"
+    },
+    {
+      "identifiers": [
+        "QA-09"
+      ],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 62,
+      "section_id": "qa-09-modifiability",
+      "text": "## QA-09 — Modifiability\n\nA compatible change inside one boundary should require changes only in that\nboundary and its tests. Contract changes identify consumers through automated\ncompatibility evidence and follow a documented deprecation window.",
+      "title": "QA-09 — Modifiability"
+    },
+    {
+      "identifiers": [
+        "QA-10"
+      ],
+      "level": 2,
+      "line_end": 73,
+      "line_start": 68,
+      "section_id": "qa-10-cost-efficiency",
+      "text": "## QA-10 — Cost efficiency\n\nThe system measures infrastructure and external-service cost per successful\nprimary outcome. Capacity protections prevent an individual tenant, actor, or\nfailure loop from exhausting the approved budget or degrading all users.",
+      "title": "QA-10 — Cost efficiency"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 78,
+      "line_start": 74,
+      "section_id": "review-and-evidence",
+      "text": "## Review and evidence\n\nEach release maps these scenarios to tests, telemetry, exercises, or accepted\nrisk. A target may be tightened through normal baselining; weakening a target\nrequires product, architecture, and operational approval with user impact.",
+      "title": "Review and evidence"
+    }
+  ],
+  "source": {
+    "bytes": 3403,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 78,
+    "media_type": "text/markdown",
+    "path": "architecture/quality-attributes.md",
+    "sha256": "7604131082859944b2b78b367d5a264094854ab054d378b0de4c1145bcacb80f"
+  }
+}

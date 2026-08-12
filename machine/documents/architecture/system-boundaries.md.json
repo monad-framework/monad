@@ -1,0 +1,103 @@
+{
+  "content": "# System Boundaries\n\n## Boundary model\n\nBoundaries isolate reasons to change, authority, data ownership, and failure.\nThey are logical before they are physical: two modules in one process can have\na stronger boundary than two services sharing a database.\n\n## Owned boundaries\n\n| Boundary | Owns | Does not own |\n| --- | --- | --- |\n| Experience | Presentation, interaction state, accessibility | Domain truth, authorization policy |\n| Application | Use-case orchestration and contract mapping | Business invariants, vendor behavior |\n| Workflow | Durable workflow state and transition policy | Domain data, presentation |\n| Policy | Versioned rule evaluation and explanations | Workflow progression, identity proofing |\n| Domain | Business invariants and authoritative domain state | Transport, deployment, external SDKs |\n| Evidence | Append-oriented evidence, access, retention | Primary business state |\n| Adapters | Translation to external systems | Core policy or cross-provider abstractions |\n| Operations | Deployment, telemetry, continuity, response | Product behavior decisions |\n\n## Allowed dependency direction\n\n- Experience depends on published application contracts.\n- Application depends on domain, workflow, policy, and evidence ports.\n- Domain code depends only on domain-owned abstractions and stable shared\n  primitives with no infrastructure behavior.\n- Adapters implement inward-facing ports and translate external failure models.\n- Operations configures and observes deployables without importing product\n  policy into delivery automation.\n\nReverse dependencies use interfaces, events, or explicit composition. Direct\nimports, shared mutable storage, and hidden callbacks across ownership\nboundaries are prohibited.\n\n## Data ownership\n\nA boundary may read another owner's data only through an approved contract or\nowned replica. Cross-owner writes are not permitted. Derived views identify\ntheir source, freshness, rebuild procedure, and behavior when lagged or\nunavailable.\n\n## Transaction boundaries\n\nAtomic transactions remain within one data owner. Multi-owner outcomes use a\ndurable coordinator and explicit steps. Each step states whether it is\nidempotent, retryable, compensatable, or irreversible. Unknown outcomes enter\nreconciliation rather than blind retry.\n\n## Trust and privilege boundaries\n\nUser, operator, service, build, and deployment identities are distinct. Service\nidentity does not grant unrestricted domain access. Administrative actions use\nseparate authorization, stronger authentication when warranted, auditable\npurpose, and a bounded session.\n\n## Boundary change test\n\nA change to ownership, dependency direction, data authority, public contract,\nor trust relationship requires an ADR and migration plan. Deployment separation\nalone does not create ownership; merging deployables does not remove it.\n",
+  "document_id": "doc:architecture%2Fsystem-boundaries.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "Boundaries isolate reasons to change, authority, data ownership, and failure. They are logical before they are physical: two modules in one process can have a stronger boundary than two services sharing a database.",
+    "title": "System Boundaries"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "system-boundaries",
+      "text": "# System Boundaries",
+      "title": "System Boundaries"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 8,
+      "line_start": 3,
+      "section_id": "boundary-model",
+      "text": "## Boundary model\n\nBoundaries isolate reasons to change, authority, data ownership, and failure.\nThey are logical before they are physical: two modules in one process can have\na stronger boundary than two services sharing a database.",
+      "title": "Boundary model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 9,
+      "section_id": "owned-boundaries",
+      "text": "## Owned boundaries\n\n| Boundary | Owns | Does not own |\n| --- | --- | --- |\n| Experience | Presentation, interaction state, accessibility | Domain truth, authorization policy |\n| Application | Use-case orchestration and contract mapping | Business invariants, vendor behavior |\n| Workflow | Durable workflow state and transition policy | Domain data, presentation |\n| Policy | Versioned rule evaluation and explanations | Workflow progression, identity proofing |\n| Domain | Business invariants and authoritative domain state | Transport, deployment, external SDKs |\n| Evidence | Append-oriented evidence, access, retention | Primary business state |\n| Adapters | Translation to external systems | Core policy or cross-provider abstractions |\n| Operations | Deployment, telemetry, continuity, response | Product behavior decisions |",
+      "title": "Owned boundaries"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 22,
+      "section_id": "allowed-dependency-direction",
+      "text": "## Allowed dependency direction\n\n- Experience depends on published application contracts.\n- Application depends on domain, workflow, policy, and evidence ports.\n- Domain code depends only on domain-owned abstractions and stable shared\n  primitives with no infrastructure behavior.\n- Adapters implement inward-facing ports and translate external failure models.\n- Operations configures and observes deployables without importing product\n  policy into delivery automation.\n\nReverse dependencies use interfaces, events, or explicit composition. Direct\nimports, shared mutable storage, and hidden callbacks across ownership\nboundaries are prohibited.",
+      "title": "Allowed dependency direction"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 36,
+      "section_id": "data-ownership",
+      "text": "## Data ownership\n\nA boundary may read another owner's data only through an approved contract or\nowned replica. Cross-owner writes are not permitted. Derived views identify\ntheir source, freshness, rebuild procedure, and behavior when lagged or\nunavailable.",
+      "title": "Data ownership"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 43,
+      "section_id": "transaction-boundaries",
+      "text": "## Transaction boundaries\n\nAtomic transactions remain within one data owner. Multi-owner outcomes use a\ndurable coordinator and explicit steps. Each step states whether it is\nidempotent, retryable, compensatable, or irreversible. Unknown outcomes enter\nreconciliation rather than blind retry.",
+      "title": "Transaction boundaries"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 50,
+      "section_id": "trust-and-privilege-boundaries",
+      "text": "## Trust and privilege boundaries\n\nUser, operator, service, build, and deployment identities are distinct. Service\nidentity does not grant unrestricted domain access. Administrative actions use\nseparate authorization, stronger authentication when warranted, auditable\npurpose, and a bounded session.",
+      "title": "Trust and privilege boundaries"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 61,
+      "line_start": 57,
+      "section_id": "boundary-change-test",
+      "text": "## Boundary change test\n\nA change to ownership, dependency direction, data authority, public contract,\nor trust relationship requires an ADR and migration plan. Deployment separation\nalone does not create ownership; merging deployables does not remove it.",
+      "title": "Boundary change test"
+    }
+  ],
+  "source": {
+    "bytes": 2848,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 61,
+    "media_type": "text/markdown",
+    "path": "architecture/system-boundaries.md",
+    "sha256": "745595f3311f1414d0928cf910ad4a09bd577f15f37bf5338717f5e8d541a712"
+  }
+}

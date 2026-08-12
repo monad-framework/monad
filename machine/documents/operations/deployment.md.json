@@ -1,0 +1,94 @@
+{
+  "content": "# Deployment\n\n## Release artifact\n\nA deployment uses an immutable artifact built once from an identified commit.\nThe artifact includes or links provenance, dependency inventory, checksums,\ntest evidence, configuration schema version, and release notes. Production\nverifies identity and integrity before activation.\n\n## Standard deployment flow\n\n1. Confirm approved change scope and release quality gates.\n2. Verify artifact identity, provenance, vulnerability state, and compatibility.\n3. Validate target configuration, secrets references, capacity, and dependency\n   health.\n4. Apply backward-compatible data changes before behavior that depends on them.\n5. Expose the release incrementally when the platform supports safe progressive\n   delivery.\n6. Run automated smoke, contract, security, and journey checks.\n7. Observe user outcomes, errors, latency, saturation, and cost during the\n   defined window.\n8. Complete, pause, roll back, or initiate incident response using explicit\n   thresholds.\n\n## Database and state change\n\nUse expand-migrate-contract: introduce compatible structures, deploy behavior\nthat can operate across versions, migrate and verify data, then remove old\nstructures only after rollback and consumer windows close. Destructive changes\nrequire backup or compensating recovery, reconciliation evidence, and major\nchange approval.\n\n## Rollback\n\nRollback restores the last known safe artifact and configuration without\nassuming data can move backward. Define triggers such as failed journey checks,\nerror-budget burn, integrity mismatch, security exposure, or unknown state.\nWhen rollback cannot restore correctness, stop exposure and execute a forward\nfix or compensation under incident control.\n\n## Deployment evidence\n\nRecord change ID, artifact digest, actor, approvals, environment, configuration\nversion, start and end times, migration result, checks, observed signals,\nprogressive steps, final decision, and rollback if used. Evidence must be\nqueryable by incident responders.\n\n## Access and safety\n\nDeployment identities are separate from developer identities, scoped to the\ntarget environment, and protected from untrusted pull-request code. Manual\nproduction deployment is an exception with the same approval and evidence\nrequirements as automation.\n",
+  "document_id": "doc:operations%2Fdeployment.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "operations",
+    "normative": true,
+    "summary": "A deployment uses an immutable artifact built once from an identified commit. The artifact includes or links provenance, dependency inventory, checksums, test evidence, configuration schema version, and release notes. Production verifies identity and integrity before activation.",
+    "title": "Deployment"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "deployment",
+      "text": "# Deployment",
+      "title": "Deployment"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 9,
+      "line_start": 3,
+      "section_id": "release-artifact",
+      "text": "## Release artifact\n\nA deployment uses an immutable artifact built once from an identified commit.\nThe artifact includes or links provenance, dependency inventory, checksums,\ntest evidence, configuration schema version, and release notes. Production\nverifies identity and integrity before activation.",
+      "title": "Release artifact"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 10,
+      "section_id": "standard-deployment-flow",
+      "text": "## Standard deployment flow\n\n1. Confirm approved change scope and release quality gates.\n2. Verify artifact identity, provenance, vulnerability state, and compatibility.\n3. Validate target configuration, secrets references, capacity, and dependency\n   health.\n4. Apply backward-compatible data changes before behavior that depends on them.\n5. Expose the release incrementally when the platform supports safe progressive\n   delivery.\n6. Run automated smoke, contract, security, and journey checks.\n7. Observe user outcomes, errors, latency, saturation, and cost during the\n   defined window.\n8. Complete, pause, roll back, or initiate incident response using explicit\n   thresholds.",
+      "title": "Standard deployment flow"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 25,
+      "section_id": "database-and-state-change",
+      "text": "## Database and state change\n\nUse expand-migrate-contract: introduce compatible structures, deploy behavior\nthat can operate across versions, migrate and verify data, then remove old\nstructures only after rollback and consumer windows close. Destructive changes\nrequire backup or compensating recovery, reconciliation evidence, and major\nchange approval.",
+      "title": "Database and state change"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 33,
+      "section_id": "rollback",
+      "text": "## Rollback\n\nRollback restores the last known safe artifact and configuration without\nassuming data can move backward. Define triggers such as failed journey checks,\nerror-budget burn, integrity mismatch, security exposure, or unknown state.\nWhen rollback cannot restore correctness, stop exposure and execute a forward\nfix or compensation under incident control.",
+      "title": "Rollback"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 41,
+      "section_id": "deployment-evidence",
+      "text": "## Deployment evidence\n\nRecord change ID, artifact digest, actor, approvals, environment, configuration\nversion, start and end times, migration result, checks, observed signals,\nprogressive steps, final decision, and rollback if used. Evidence must be\nqueryable by incident responders.",
+      "title": "Deployment evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 48,
+      "section_id": "access-and-safety",
+      "text": "## Access and safety\n\nDeployment identities are separate from developer identities, scoped to the\ntarget environment, and protected from untrusted pull-request code. Manual\nproduction deployment is an exception with the same approval and evidence\nrequirements as automation.",
+      "title": "Access and safety"
+    }
+  ],
+  "source": {
+    "bytes": 2282,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 53,
+    "media_type": "text/markdown",
+    "path": "operations/deployment.md",
+    "sha256": "c6255585c9d1f9d01c3fd83d01cb79dc54f7d36834e633825cc27b1bf7c4b463"
+  }
+}

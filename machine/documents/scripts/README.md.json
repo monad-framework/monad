@@ -1,0 +1,85 @@
+{
+  "content": "# Repository Scripts\n\nThis directory contains maintained automation for repeatable project actions\nsuch as bootstrap, validation, generation, migration, release evidence, and\noperational checks. Scripts are productized interfaces for contributors and\nautomation—not undocumented personal shortcuts.\n\n## Script requirements\n\n- Use a portable interpreter or declare and verify the required runtime.\n- Enable strict error handling appropriate to the language.\n- Provide `--help`, documented inputs, meaningful exit codes, and actionable\n  errors for user-facing scripts.\n- Quote paths and inputs; avoid unsafe word splitting, globbing, and command\n  construction.\n- Validate targets before mutation and reject broad or ambiguous destructive\n  paths.\n- Prefer dry-run, preview, confirmation, backup, or transactional behavior for\n  consequential actions.\n- Never print secrets or accept them as ordinary command-line arguments when a\n  safer channel exists.\n- Produce deterministic output where practical and identify generated files.\n- Include automated tests for parsing, failure, rerun, and boundary behavior.\n\n## Naming\n\nUse action-oriented lowercase names such as `check-docs`, `verify-release`, or\n`migrate-schema`. Platform-specific extensions are allowed. Avoid names that\nhide consequence, such as `cleanup`, when the script deletes or rewrites data.\n\n## Ownership and review\n\nEvery script has a clear owner through CODEOWNERS or its related capability.\nChanges to build, release, credentials, production access, migration, or\ndestructive operations require elevated review. Pin and review external tools\ndownloaded or executed by scripts.\n\n## Human/machine document synchronization\n\n`sync-machine-docs.py` treats UTF-8 files outside `machine/` as canonical and\ngenerates deterministic semantic companions, a manifest, a knowledge graph, and\na section corpus. After changing a canonical file, run:\n\n```bash\npython3 scripts/sync-machine-docs.py --write\npython3 scripts/sync-machine-docs.py --check\n```\n\nCommit canonical and generated changes together. The check mode performs no\nwrites and is enforced by `.github/workflows/document-sync.yml`. Generated\ncompanions are never the direct edit target.\n\n## Generated artifacts\n\nDocument source, destination, reproducibility, overwrite behavior, and whether\ngenerated output is committed. CI should detect drift when committed generated\nfiles must match their source.\n",
+  "document_id": "doc:scripts%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "automation",
+    "normative": false,
+    "summary": "This directory contains maintained automation for repeatable project actions such as bootstrap, validation, generation, migration, release evidence, and operational checks. Scripts are productized interfaces for contributors and automation—not undocumented personal shortcuts.",
+    "title": "Repository Scripts"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "repository-scripts",
+      "text": "# Repository Scripts\n\nThis directory contains maintained automation for repeatable project actions\nsuch as bootstrap, validation, generation, migration, release evidence, and\noperational checks. Scripts are productized interfaces for contributors and\nautomation—not undocumented personal shortcuts.",
+      "title": "Repository Scripts"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 8,
+      "section_id": "script-requirements",
+      "text": "## Script requirements\n\n- Use a portable interpreter or declare and verify the required runtime.\n- Enable strict error handling appropriate to the language.\n- Provide `--help`, documented inputs, meaningful exit codes, and actionable\n  errors for user-facing scripts.\n- Quote paths and inputs; avoid unsafe word splitting, globbing, and command\n  construction.\n- Validate targets before mutation and reject broad or ambiguous destructive\n  paths.\n- Prefer dry-run, preview, confirmation, backup, or transactional behavior for\n  consequential actions.\n- Never print secrets or accept them as ordinary command-line arguments when a\n  safer channel exists.\n- Produce deterministic output where practical and identify generated files.\n- Include automated tests for parsing, failure, rerun, and boundary behavior.",
+      "title": "Script requirements"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 25,
+      "section_id": "naming",
+      "text": "## Naming\n\nUse action-oriented lowercase names such as `check-docs`, `verify-release`, or\n`migrate-schema`. Platform-specific extensions are allowed. Avoid names that\nhide consequence, such as `cleanup`, when the script deletes or rewrites data.",
+      "title": "Naming"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 31,
+      "section_id": "ownership-and-review",
+      "text": "## Ownership and review\n\nEvery script has a clear owner through CODEOWNERS or its related capability.\nChanges to build, release, credentials, production access, migration, or\ndestructive operations require elevated review. Pin and review external tools\ndownloaded or executed by scripts.",
+      "title": "Ownership and review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 38,
+      "section_id": "human-machine-document-synchronization",
+      "text": "## Human/machine document synchronization\n\n`sync-machine-docs.py` treats UTF-8 files outside `machine/` as canonical and\ngenerates deterministic semantic companions, a manifest, a knowledge graph, and\na section corpus. After changing a canonical file, run:\n\n```bash\npython3 scripts/sync-machine-docs.py --write\npython3 scripts/sync-machine-docs.py --check\n```\n\nCommit canonical and generated changes together. The check mode performs no\nwrites and is enforced by `.github/workflows/document-sync.yml`. Generated\ncompanions are never the direct edit target.",
+      "title": "Human/machine document synchronization"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 57,
+      "line_start": 53,
+      "section_id": "generated-artifacts",
+      "text": "## Generated artifacts\n\nDocument source, destination, reproducibility, overwrite behavior, and whether\ngenerated output is committed. CI should detect drift when committed generated\nfiles must match their source.",
+      "title": "Generated artifacts"
+    }
+  ],
+  "source": {
+    "bytes": 2419,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 57,
+    "media_type": "text/markdown",
+    "path": "scripts/README.md",
+    "sha256": "caf506d7d7b39b491b177b384d59755cd8667b218fd320cef78d2fbc4fbae6a3"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "content": "# Engineering Reviews\n\nReviews are decision records supported by evidence. They determine whether an\nartifact, packet, increment, milestone, release, incident follow-up, or risk is\nacceptable for its next lifecycle state.\n\n## Review types\n\n- **Design review:** verifies drivers, boundaries, trade-offs, and validation.\n- **Packet review:** accepts a completed work result against its criteria.\n- **Cycle review:** inspects integrated progress, flow, risk, and forecast.\n- **Increment review:** accepts or redirects an integrated product advance.\n- **Release review:** evaluates product, quality, security, operational, and\n  change evidence before exposure.\n- **Post-incident review:** identifies contributing system conditions and owned\n  corrective work without blame.\n\n## Record format\n\nName records `<TYPE>-NNNN-YYYY-MM-DD-short-subject.md` and include scope,\nparticipants and roles, evidence reviewed, findings by severity, decisions,\nconditions, dissent, accepted risks, action owners and dates, and follow-up\nreview. Link source evidence rather than copying mutable summaries.\n\n## Finding severity\n\n- **Blocking:** safety, correctness, security, compatibility, or acceptance\n  failure that prevents the requested state transition.\n- **Required follow-up:** acceptable within current exposure only with an owner\n  and date.\n- **Advisory:** improvement that does not block the reviewed outcome.\n\n## Independence and closure\n\nAuthors may explain and demonstrate but should not be the sole acceptance\nauthority for consequential work. A reviewer declares conflicts and recuses\nwhen impartiality is compromised. Every finding is resolved, accepted with\nexplicit authority, converted to owned work, or rejected with rationale before\nthe review closes.\n",
+  "document_id": "doc:engineering%2Freviews%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Reviews are decision records supported by evidence. They determine whether an artifact, packet, increment, milestone, release, incident follow-up, or risk is acceptable for its next lifecycle state.",
+    "title": "Engineering Reviews"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "engineering-reviews",
+      "text": "# Engineering Reviews\n\nReviews are decision records supported by evidence. They determine whether an\nartifact, packet, increment, milestone, release, incident follow-up, or risk is\nacceptable for its next lifecycle state.",
+      "title": "Engineering Reviews"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 7,
+      "section_id": "review-types",
+      "text": "## Review types\n\n- **Design review:** verifies drivers, boundaries, trade-offs, and validation.\n- **Packet review:** accepts a completed work result against its criteria.\n- **Cycle review:** inspects integrated progress, flow, risk, and forecast.\n- **Increment review:** accepts or redirects an integrated product advance.\n- **Release review:** evaluates product, quality, security, operational, and\n  change evidence before exposure.\n- **Post-incident review:** identifies contributing system conditions and owned\n  corrective work without blame.",
+      "title": "Review types"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 18,
+      "section_id": "record-format",
+      "text": "## Record format\n\nName records `<TYPE>-NNNN-YYYY-MM-DD-short-subject.md` and include scope,\nparticipants and roles, evidence reviewed, findings by severity, decisions,\nconditions, dissent, accepted risks, action owners and dates, and follow-up\nreview. Link source evidence rather than copying mutable summaries.",
+      "title": "Record format"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 25,
+      "section_id": "finding-severity",
+      "text": "## Finding severity\n\n- **Blocking:** safety, correctness, security, compatibility, or acceptance\n  failure that prevents the requested state transition.\n- **Required follow-up:** acceptable within current exposure only with an owner\n  and date.\n- **Advisory:** improvement that does not block the reviewed outcome.",
+      "title": "Finding severity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 33,
+      "section_id": "independence-and-closure",
+      "text": "## Independence and closure\n\nAuthors may explain and demonstrate but should not be the sole acceptance\nauthority for consequential work. A reviewer declares conflicts and recuses\nwhen impartiality is compromised. Every finding is resolved, accepted with\nexplicit authority, converted to owned work, or rejected with rationale before\nthe review closes.",
+      "title": "Independence and closure"
+    }
+  ],
+  "source": {
+    "bytes": 1753,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 39,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/README.md",
+    "sha256": "ce094ce71628222ef707a17936e936c330572c04602751197b6e3ee268bdf7d9"
+  }
+}

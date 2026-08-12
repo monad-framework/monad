@@ -1,0 +1,94 @@
+{
+  "content": "# Change Control\n\nChange control ensures that modifications to baselined behavior, architecture,\ndata, operations, or governance are evaluated, approved, implemented, and\nverified at the level their consequence requires.\n\n## Change classes\n\n- **Standard:** pre-authorized, repeatable, low-risk change with tested procedure\n  and rollback.\n- **Normal:** planned change requiring scoped impact analysis and designated\n  approval.\n- **Major:** cross-cutting, irreversible, public-contract, sensitive-data,\n  strategic, or high-risk change requiring formal review.\n- **Emergency:** minimum change needed to contain active harm or restore service,\n  followed by retrospective control completion.\n\n## Change request content\n\nEvery normal or major change states purpose, scope, affected requirements and\nsystems, user impact, dependencies, security and privacy impact, data and\nmigration behavior, service risk, test and observability evidence, deployment\nplan, rollback or compensation, communication, owner, window, and approvers.\n\n## Workflow\n\n1. Submit and classify the change.\n2. Identify affected owners and source-of-truth documents.\n3. Evaluate impact, failure modes, compatibility, capacity, cost, and timing.\n4. Produce required decision, test, security, and operational evidence.\n5. Approve, reject, or approve with explicit conditions.\n6. Implement through the protected delivery path.\n7. Verify technical health and user outcome during the observation window.\n8. Close with evidence, update records, or initiate rollback and incident\n   handling.\n\n## Emergency changes\n\nThe incident commander may authorize the smallest reversible mitigation when\ndelay increases harm. Record who authorized it, what is changing, affected\nscope, expected result, verification, and rollback. Do not bundle unrelated\nimprovements. Complete review, testing gaps, documentation, and durable repair\nwithin the follow-up window set by incident severity.\n\n## Failure and rollback\n\nStop when preconditions fail, unexpected impact exceeds threshold, verification\ncannot establish safe state, or rollback capacity is lost. A rollback is a\nplanned change with its own verification. When data or external effects are not\nreversible, use a tested forward fix or compensation and communicate residual\nimpact.\n\n## Audit evidence\n\nRetain the request, approval, artifact identity, provenance, deployment actor,\ntimes, environment, automated and manual checks, observed result, rollback if\nused, and linked incident or follow-up. Evidence access and retention follow\nclassification policy.\n",
+  "document_id": "doc:governance%2Fchange-control.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "governance",
+    "normative": true,
+    "summary": "Change control ensures that modifications to baselined behavior, architecture, data, operations, or governance are evaluated, approved, implemented, and verified at the level their consequence requires.",
+    "title": "Change Control"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "change-control",
+      "text": "# Change Control\n\nChange control ensures that modifications to baselined behavior, architecture,\ndata, operations, or governance are evaluated, approved, implemented, and\nverified at the level their consequence requires.",
+      "title": "Change Control"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 7,
+      "section_id": "change-classes",
+      "text": "## Change classes\n\n- **Standard:** pre-authorized, repeatable, low-risk change with tested procedure\n  and rollback.\n- **Normal:** planned change requiring scoped impact analysis and designated\n  approval.\n- **Major:** cross-cutting, irreversible, public-contract, sensitive-data,\n  strategic, or high-risk change requiring formal review.\n- **Emergency:** minimum change needed to contain active harm or restore service,\n  followed by retrospective control completion.",
+      "title": "Change classes"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 18,
+      "section_id": "change-request-content",
+      "text": "## Change request content\n\nEvery normal or major change states purpose, scope, affected requirements and\nsystems, user impact, dependencies, security and privacy impact, data and\nmigration behavior, service risk, test and observability evidence, deployment\nplan, rollback or compensation, communication, owner, window, and approvers.",
+      "title": "Change request content"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 25,
+      "section_id": "workflow",
+      "text": "## Workflow\n\n1. Submit and classify the change.\n2. Identify affected owners and source-of-truth documents.\n3. Evaluate impact, failure modes, compatibility, capacity, cost, and timing.\n4. Produce required decision, test, security, and operational evidence.\n5. Approve, reject, or approve with explicit conditions.\n6. Implement through the protected delivery path.\n7. Verify technical health and user outcome during the observation window.\n8. Close with evidence, update records, or initiate rollback and incident\n   handling.",
+      "title": "Workflow"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 37,
+      "section_id": "emergency-changes",
+      "text": "## Emergency changes\n\nThe incident commander may authorize the smallest reversible mitigation when\ndelay increases harm. Record who authorized it, what is changing, affected\nscope, expected result, verification, and rollback. Do not bundle unrelated\nimprovements. Complete review, testing gaps, documentation, and durable repair\nwithin the follow-up window set by incident severity.",
+      "title": "Emergency changes"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 45,
+      "section_id": "failure-and-rollback",
+      "text": "## Failure and rollback\n\nStop when preconditions fail, unexpected impact exceeds threshold, verification\ncannot establish safe state, or rollback capacity is lost. A rollback is a\nplanned change with its own verification. When data or external effects are not\nreversible, use a tested forward fix or compensation and communicate residual\nimpact.",
+      "title": "Failure and rollback"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 53,
+      "section_id": "audit-evidence",
+      "text": "## Audit evidence\n\nRetain the request, approval, artifact identity, provenance, deployment actor,\ntimes, environment, automated and manual checks, observed result, rollback if\nused, and linked incident or follow-up. Evidence access and retention follow\nclassification policy.",
+      "title": "Audit evidence"
+    }
+  ],
+  "source": {
+    "bytes": 2561,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 58,
+    "media_type": "text/markdown",
+    "path": "governance/change-control.md",
+    "sha256": "6c63640e5d4cdbfa969db11ca370380edc2e8a5f8c39b08dae052f5b03755ccd"
+  }
+}

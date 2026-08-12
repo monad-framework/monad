@@ -1,0 +1,130 @@
+{
+  "content": "# WP-NNNN: Outcome-oriented title\n\n- **Status:** candidate\n- **Owner:** one accountable person\n- **Parent increment:** INC-NNNN\n- **Target work cycle:** WC-NNNN\n- **Reviewers:** product, engineering, security, operations, or domain owners\n- **Created:** YYYY-MM-DD\n- **Target decision:** YYYY-MM-DD\n\n## Outcome\n\nDescribe the observable result this packet will create and why it matters to the\nincrement. Use one paragraph that can later be evaluated as true or false.\n\n## Context\n\nSummarize current behavior, relevant evidence, constraints, and prior decisions.\nLink requirements, specifications, ADRs, research findings, incidents, or risks\nrather than duplicating them.\n\n## Scope\n\n- Included behavior, boundaries, artifacts, and environments.\n- Required quality, security, data, operations, and documentation work.\n- Integration or migration needed for a complete result.\n\n## Exclusions\n\n- Name tempting adjacent work that this packet will not perform.\n- State where deferred work is recorded and what would trigger it.\n\n## Acceptance criteria\n\n1. Given explicit preconditions, when the supported action occurs, then the\n   expected observable result and evidence are produced.\n2. Invalid, unauthorized, boundary, and dependency-failure behavior is verified\n   where relevant.\n3. Affected quality budgets, compatibility, accessibility, telemetry, and\n   recovery expectations pass their defined checks.\n4. Documentation and sources of truth describe the delivered behavior.\n\n## Evidence plan\n\n| Claim | Evidence | Location | Reviewer |\n| --- | --- | --- | --- |\n| Primary behavior works | Acceptance test or demonstration | Link when produced | Product owner |\n| Boundary contract holds | Contract or integration test | Link when produced | Engineering reviewer |\n| Risk is controlled | Security, performance, or recovery evidence | Link when produced | Concern owner |\n\n## Execution plan\n\nList the smallest ordered steps, emphasizing early integration and the earliest\npoint at which the riskiest assumption can be tested. This is a plan, not a\ncommit-by-commit prescription.\n\n## Dependencies and access\n\nName blocking decisions, upstream artifacts, environments, test data, accounts,\nor reviewers. Confirm availability before marking Ready.\n\n## Risks and rollback\n\nDescribe failure impact, containment, reversibility, data migration, feature\nexposure, and the condition that stops or rolls back the work.\n\n## Completion record\n\n- **Final status:** done, cancelled, or superseded\n- **Completed:** YYYY-MM-DD\n- **Evidence:** links to tests, reviews, release, or findings\n- **Decisions and deviations:** what changed from the packet and why\n- **Follow-up:** separately identified work with owners\n",
+  "document_id": "doc:engineering%2Fwork-packets%2Ftemplate.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Describe the observable result this packet will create and why it matters to the increment. Use one paragraph that can later be evaluated as true or false.",
+    "title": "WP-NNNN: Outcome-oriented title"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 10,
+      "line_start": 1,
+      "section_id": "wp-nnnn-outcome-oriented-title",
+      "text": "# WP-NNNN: Outcome-oriented title\n\n- **Status:** candidate\n- **Owner:** one accountable person\n- **Parent increment:** INC-NNNN\n- **Target work cycle:** WC-NNNN\n- **Reviewers:** product, engineering, security, operations, or domain owners\n- **Created:** YYYY-MM-DD\n- **Target decision:** YYYY-MM-DD",
+      "title": "WP-NNNN: Outcome-oriented title"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 11,
+      "section_id": "outcome",
+      "text": "## Outcome\n\nDescribe the observable result this packet will create and why it matters to the\nincrement. Use one paragraph that can later be evaluated as true or false.",
+      "title": "Outcome"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 16,
+      "section_id": "context",
+      "text": "## Context\n\nSummarize current behavior, relevant evidence, constraints, and prior decisions.\nLink requirements, specifications, ADRs, research findings, incidents, or risks\nrather than duplicating them.",
+      "title": "Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 22,
+      "section_id": "scope",
+      "text": "## Scope\n\n- Included behavior, boundaries, artifacts, and environments.\n- Required quality, security, data, operations, and documentation work.\n- Integration or migration needed for a complete result.",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 28,
+      "section_id": "exclusions",
+      "text": "## Exclusions\n\n- Name tempting adjacent work that this packet will not perform.\n- State where deferred work is recorded and what would trigger it.",
+      "title": "Exclusions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 33,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n1. Given explicit preconditions, when the supported action occurs, then the\n   expected observable result and evidence are produced.\n2. Invalid, unauthorized, boundary, and dependency-failure behavior is verified\n   where relevant.\n3. Affected quality budgets, compatibility, accessibility, telemetry, and\n   recovery expectations pass their defined checks.\n4. Documentation and sources of truth describe the delivered behavior.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 43,
+      "section_id": "evidence-plan",
+      "text": "## Evidence plan\n\n| Claim | Evidence | Location | Reviewer |\n| --- | --- | --- | --- |\n| Primary behavior works | Acceptance test or demonstration | Link when produced | Product owner |\n| Boundary contract holds | Contract or integration test | Link when produced | Engineering reviewer |\n| Risk is controlled | Security, performance, or recovery evidence | Link when produced | Concern owner |",
+      "title": "Evidence plan"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 51,
+      "section_id": "execution-plan",
+      "text": "## Execution plan\n\nList the smallest ordered steps, emphasizing early integration and the earliest\npoint at which the riskiest assumption can be tested. This is a plan, not a\ncommit-by-commit prescription.",
+      "title": "Execution plan"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 61,
+      "line_start": 57,
+      "section_id": "dependencies-and-access",
+      "text": "## Dependencies and access\n\nName blocking decisions, upstream artifacts, environments, test data, accounts,\nor reviewers. Confirm availability before marking Ready.",
+      "title": "Dependencies and access"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 66,
+      "line_start": 62,
+      "section_id": "risks-and-rollback",
+      "text": "## Risks and rollback\n\nDescribe failure impact, containment, reversibility, data migration, feature\nexposure, and the condition that stops or rolls back the work.",
+      "title": "Risks and rollback"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 73,
+      "line_start": 67,
+      "section_id": "completion-record",
+      "text": "## Completion record\n\n- **Final status:** done, cancelled, or superseded\n- **Completed:** YYYY-MM-DD\n- **Evidence:** links to tests, reviews, release, or findings\n- **Decisions and deviations:** what changed from the packet and why\n- **Follow-up:** separately identified work with owners",
+      "title": "Completion record"
+    }
+  ],
+  "source": {
+    "bytes": 2698,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 73,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/template.md",
+    "sha256": "aae09cde4a3356d1d3589ab8699c40678699b7709b5dae821bbd616af54ed286"
+  }
+}

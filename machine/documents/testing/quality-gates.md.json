@@ -1,0 +1,94 @@
+{
+  "content": "# Quality Gates\n\nQuality gates are explicit state-transition controls. A green pipeline is\nnecessary but not sufficient when required human, operational, or product\nevidence is missing.\n\n## Change gate\n\nRequired for every proposed merge:\n\n- scoped issue or work packet and reviewed change;\n- formatting, lint, type, schema, policy, and architecture checks;\n- unit, property, contract, and affected integration tests;\n- secret, dependency, source, and license checks;\n- documentation and changelog impact addressed;\n- no unresolved blocking review finding.\n\n## Integration gate\n\nRequired on the protected branch:\n\n- clean reproducible build from the merged revision;\n- immutable artifact, checksum, SBOM, and provenance;\n- integration and migration tests against supported dependencies;\n- primary smoke journey and negative authorization checks;\n- artifact vulnerability policy satisfied.\n\n## Increment gate\n\nRequired before accepting an increment:\n\n- all committed requirement and packet acceptance evidence;\n- integrated primary and failure journeys;\n- accessibility, security, performance, and recovery evidence appropriate to\n  the increment;\n- risk, architecture, specifications, operations, and user docs updated;\n- incomplete work explicitly removed, re-planned, or accepted as risk.\n\n## Release gate\n\nRequired before production exposure:\n\n- product owner accepts outcome and scope;\n- engineering accepts artifact and test integrity;\n- security accepts threat, vulnerability, data, and provenance state;\n- operations accepts service objectives, capacity, deployment, rollback,\n  telemetry, backup, restore, runbooks, and support readiness;\n- change approval and communication are complete;\n- no unaccepted critical or high release-blocking risk remains.\n\n## Post-deployment gate\n\nVerify artifact identity, configuration, migrations, primary journey, error and\nlatency budgets, security signals, and user impact during the observation\nwindow. Complete the release or roll back according to the deployment plan.\n\n## Waiver control\n\nWaivers are exceptional and never implicit. Each states the failed gate,\nevidence, consequence, exposure, compensating control, approving authority,\nexpiration, and corrective packet. Critical integrity loss, active credential\nexposure, unknown destructive state, or uncontained severe user harm cannot be\nwaived for ordinary release.\n",
+  "document_id": "doc:testing%2Fquality-gates.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "quality-assurance",
+    "normative": true,
+    "summary": "Quality gates are explicit state-transition controls. A green pipeline is necessary but not sufficient when required human, operational, or product evidence is missing.",
+    "title": "Quality Gates"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "quality-gates",
+      "text": "# Quality Gates\n\nQuality gates are explicit state-transition controls. A green pipeline is\nnecessary but not sufficient when required human, operational, or product\nevidence is missing.",
+      "title": "Quality Gates"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 7,
+      "section_id": "change-gate",
+      "text": "## Change gate\n\nRequired for every proposed merge:\n\n- scoped issue or work packet and reviewed change;\n- formatting, lint, type, schema, policy, and architecture checks;\n- unit, property, contract, and affected integration tests;\n- secret, dependency, source, and license checks;\n- documentation and changelog impact addressed;\n- no unresolved blocking review finding.",
+      "title": "Change gate"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 18,
+      "section_id": "integration-gate",
+      "text": "## Integration gate\n\nRequired on the protected branch:\n\n- clean reproducible build from the merged revision;\n- immutable artifact, checksum, SBOM, and provenance;\n- integration and migration tests against supported dependencies;\n- primary smoke journey and negative authorization checks;\n- artifact vulnerability policy satisfied.",
+      "title": "Integration gate"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 28,
+      "section_id": "increment-gate",
+      "text": "## Increment gate\n\nRequired before accepting an increment:\n\n- all committed requirement and packet acceptance evidence;\n- integrated primary and failure journeys;\n- accessibility, security, performance, and recovery evidence appropriate to\n  the increment;\n- risk, architecture, specifications, operations, and user docs updated;\n- incomplete work explicitly removed, re-planned, or accepted as risk.",
+      "title": "Increment gate"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 39,
+      "section_id": "release-gate",
+      "text": "## Release gate\n\nRequired before production exposure:\n\n- product owner accepts outcome and scope;\n- engineering accepts artifact and test integrity;\n- security accepts threat, vulnerability, data, and provenance state;\n- operations accepts service objectives, capacity, deployment, rollback,\n  telemetry, backup, restore, runbooks, and support readiness;\n- change approval and communication are complete;\n- no unaccepted critical or high release-blocking risk remains.",
+      "title": "Release gate"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 51,
+      "section_id": "post-deployment-gate",
+      "text": "## Post-deployment gate\n\nVerify artifact identity, configuration, migrations, primary journey, error and\nlatency budgets, security signals, and user impact during the observation\nwindow. Complete the release or roll back according to the deployment plan.",
+      "title": "Post-deployment gate"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 63,
+      "line_start": 57,
+      "section_id": "waiver-control",
+      "text": "## Waiver control\n\nWaivers are exceptional and never implicit. Each states the failed gate,\nevidence, consequence, exposure, compensating control, approving authority,\nexpiration, and corrective packet. Critical integrity loss, active credential\nexposure, unknown destructive state, or uncontained severe user harm cannot be\nwaived for ordinary release.",
+      "title": "Waiver control"
+    }
+  ],
+  "source": {
+    "bytes": 2371,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 63,
+    "media_type": "text/markdown",
+    "path": "testing/quality-gates.md",
+    "sha256": "69d1acc1f470ba081b08600f214f4fa9d48f850f3e6afec881f40e3a8458775d"
+  }
+}

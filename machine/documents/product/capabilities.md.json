@@ -1,0 +1,164 @@
+{
+  "content": "# Product Capabilities\n\nCapabilities describe durable abilities independent of a particular interface\nor component. They are the bridge between user outcomes and architecture.\n\n## Capability map\n\n### C-01 — Identity and access\n\nAuthenticate actors, establish session context, authorize actions and evidence,\nand apply least privilege. Initial maturity: one supported identity authority\nwith explicit roles and resource checks.\n\n### C-02 — Intent and input management\n\nCapture the desired outcome and required inputs, preserve drafts, classify\ndata, and explain validation. Initial maturity: the primary workflow's bounded\ninput model and safe import path.\n\n### C-03 — Policy and validation\n\nEvaluate structural, semantic, authorization, and safety rules before effects\nare committed. Rules must be versioned, explainable, and testable.\n\n### C-04 — Workflow coordination\n\nCreate one traceable instance, enforce allowed transitions, coordinate work,\nhandle idempotency, and manage retry, compensation, and cancellation.\n\n### C-05 — Result verification\n\nEvaluate postconditions, distinguish complete and partial outcomes, associate\nevidence, and communicate justified status.\n\n### C-06 — Evidence and audit\n\nRecord minimum necessary actor, action, policy, state, and result facts; enforce\naccess and retention; support authorized reconstruction.\n\n### C-07 — Experience delivery\n\nPresent accessible, responsive, and consistent user interactions across the\nsupported journey, including progress and recovery.\n\n### C-08 — Operations and assurance\n\nMeasure health and cost, manage configuration and releases, detect threats and\nfailures, restore service, and produce quality-gate evidence.\n\n## Capability dependencies\n\nThe primary journey composes all eight capabilities. Workflow coordination may\ndepend on identity, validation, and evidence contracts but should not embed\ntheir policies. Experience delivery consumes stable contracts and does not own\nauthoritative workflow state. Operations observes every critical capability\nwithout becoming a runtime dependency for ordinary success.\n\n## Maturity scale\n\n- **M0 Unproven:** intent exists without tested behavior.\n- **M1 Bounded:** one supported path with manual exceptions.\n- **M2 Reliable:** objectives, recovery, and ownership are demonstrated.\n- **M3 Scalable:** capacity and repeatability are proven across expected load.\n- **M4 Extensible:** controlled variation is supported through stable contracts.\n\nThe first release targets M2 for the primary path and at least M1 for supporting\nadministrative paths. A capability cannot claim maturity when its security,\noperability, or recovery evidence is missing.\n",
+  "document_id": "doc:product%2Fcapabilities.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "C-01",
+    "C-02",
+    "C-03",
+    "C-04",
+    "C-05",
+    "C-06",
+    "C-07",
+    "C-08"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "product",
+    "normative": true,
+    "summary": "Capabilities describe durable abilities independent of a particular interface or component. They are the bridge between user outcomes and architecture.",
+    "title": "Product Capabilities"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 5,
+      "line_start": 1,
+      "section_id": "product-capabilities",
+      "text": "# Product Capabilities\n\nCapabilities describe durable abilities independent of a particular interface\nor component. They are the bridge between user outcomes and architecture.",
+      "title": "Product Capabilities"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 7,
+      "line_start": 6,
+      "section_id": "capability-map",
+      "text": "## Capability map",
+      "title": "Capability map"
+    },
+    {
+      "identifiers": [
+        "C-01"
+      ],
+      "level": 3,
+      "line_end": 13,
+      "line_start": 8,
+      "section_id": "c-01-identity-and-access",
+      "text": "### C-01 — Identity and access\n\nAuthenticate actors, establish session context, authorize actions and evidence,\nand apply least privilege. Initial maturity: one supported identity authority\nwith explicit roles and resource checks.",
+      "title": "C-01 — Identity and access"
+    },
+    {
+      "identifiers": [
+        "C-02"
+      ],
+      "level": 3,
+      "line_end": 19,
+      "line_start": 14,
+      "section_id": "c-02-intent-and-input-management",
+      "text": "### C-02 — Intent and input management\n\nCapture the desired outcome and required inputs, preserve drafts, classify\ndata, and explain validation. Initial maturity: the primary workflow's bounded\ninput model and safe import path.",
+      "title": "C-02 — Intent and input management"
+    },
+    {
+      "identifiers": [
+        "C-03"
+      ],
+      "level": 3,
+      "line_end": 24,
+      "line_start": 20,
+      "section_id": "c-03-policy-and-validation",
+      "text": "### C-03 — Policy and validation\n\nEvaluate structural, semantic, authorization, and safety rules before effects\nare committed. Rules must be versioned, explainable, and testable.",
+      "title": "C-03 — Policy and validation"
+    },
+    {
+      "identifiers": [
+        "C-04"
+      ],
+      "level": 3,
+      "line_end": 29,
+      "line_start": 25,
+      "section_id": "c-04-workflow-coordination",
+      "text": "### C-04 — Workflow coordination\n\nCreate one traceable instance, enforce allowed transitions, coordinate work,\nhandle idempotency, and manage retry, compensation, and cancellation.",
+      "title": "C-04 — Workflow coordination"
+    },
+    {
+      "identifiers": [
+        "C-05"
+      ],
+      "level": 3,
+      "line_end": 34,
+      "line_start": 30,
+      "section_id": "c-05-result-verification",
+      "text": "### C-05 — Result verification\n\nEvaluate postconditions, distinguish complete and partial outcomes, associate\nevidence, and communicate justified status.",
+      "title": "C-05 — Result verification"
+    },
+    {
+      "identifiers": [
+        "C-06"
+      ],
+      "level": 3,
+      "line_end": 39,
+      "line_start": 35,
+      "section_id": "c-06-evidence-and-audit",
+      "text": "### C-06 — Evidence and audit\n\nRecord minimum necessary actor, action, policy, state, and result facts; enforce\naccess and retention; support authorized reconstruction.",
+      "title": "C-06 — Evidence and audit"
+    },
+    {
+      "identifiers": [
+        "C-07"
+      ],
+      "level": 3,
+      "line_end": 44,
+      "line_start": 40,
+      "section_id": "c-07-experience-delivery",
+      "text": "### C-07 — Experience delivery\n\nPresent accessible, responsive, and consistent user interactions across the\nsupported journey, including progress and recovery.",
+      "title": "C-07 — Experience delivery"
+    },
+    {
+      "identifiers": [
+        "C-08"
+      ],
+      "level": 3,
+      "line_end": 49,
+      "line_start": 45,
+      "section_id": "c-08-operations-and-assurance",
+      "text": "### C-08 — Operations and assurance\n\nMeasure health and cost, manage configuration and releases, detect threats and\nfailures, restore service, and produce quality-gate evidence.",
+      "title": "C-08 — Operations and assurance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 57,
+      "line_start": 50,
+      "section_id": "capability-dependencies",
+      "text": "## Capability dependencies\n\nThe primary journey composes all eight capabilities. Workflow coordination may\ndepend on identity, validation, and evidence contracts but should not embed\ntheir policies. Experience delivery consumes stable contracts and does not own\nauthoritative workflow state. Operations observes every critical capability\nwithout becoming a runtime dependency for ordinary success.",
+      "title": "Capability dependencies"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 58,
+      "section_id": "maturity-scale",
+      "text": "## Maturity scale\n\n- **M0 Unproven:** intent exists without tested behavior.\n- **M1 Bounded:** one supported path with manual exceptions.\n- **M2 Reliable:** objectives, recovery, and ownership are demonstrated.\n- **M3 Scalable:** capacity and repeatability are proven across expected load.\n- **M4 Extensible:** controlled variation is supported through stable contracts.\n\nThe first release targets M2 for the primary path and at least M1 for supporting\nadministrative paths. A capability cannot claim maturity when its security,\noperability, or recovery evidence is missing.",
+      "title": "Maturity scale"
+    }
+  ],
+  "source": {
+    "bytes": 2674,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 68,
+    "media_type": "text/markdown",
+    "path": "product/capabilities.md",
+    "sha256": "2e876ae65d134dfdb0e116180bb1d485d8fec3697afa7b73340a315e3dca6e74"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "content": "# Architecture Explorations\n\nExplorations reduce uncertainty before a durable decision. They are time-boxed,\nevidence-producing investigations, not an alternate backlog or a place for\nunowned prototypes.\n\n## When to explore\n\nUse an exploration when a decision depends on uncertain performance,\ncompatibility, operability, security, developer experience, migration, or cost.\nDo not use one when primary documentation or a small local test already answers\nthe question.\n\n## Exploration record\n\nName files `EXP-NNNN-short-question.md` and include:\n\n- the decision or risk the work informs;\n- falsifiable question and current hypothesis;\n- scope, exclusions, time and resource budget;\n- representative data, load, environment, and success measures;\n- procedure sufficient for another person to reproduce;\n- observations separated from interpretation;\n- limitations, threats to validity, and unexpected results;\n- recommendation and required next decision.\n\nCode or configuration produced by an exploration is disposable unless it passes\nnormal production review. Label it clearly and never route production traffic\nthrough an unapproved experiment.\n\n## Completion\n\nAn exploration ends with one of four outcomes: evidence supports an option,\nevidence rejects an option, evidence is inconclusive with a bounded next test,\nor the underlying decision is no longer needed. Link the result from the\nrelated ADR, specification, risk, or work packet and archive obsolete artifacts.\n",
+  "document_id": "doc:architecture%2Fexplorations%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "Explorations reduce uncertainty before a durable decision. They are time-boxed, evidence-producing investigations, not an alternate backlog or a place for unowned prototypes.",
+    "title": "Architecture Explorations"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "architecture-explorations",
+      "text": "# Architecture Explorations\n\nExplorations reduce uncertainty before a durable decision. They are time-boxed,\nevidence-producing investigations, not an alternate backlog or a place for\nunowned prototypes.",
+      "title": "Architecture Explorations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 7,
+      "section_id": "when-to-explore",
+      "text": "## When to explore\n\nUse an exploration when a decision depends on uncertain performance,\ncompatibility, operability, security, developer experience, migration, or cost.\nDo not use one when primary documentation or a small local test already answers\nthe question.",
+      "title": "When to explore"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 14,
+      "section_id": "exploration-record",
+      "text": "## Exploration record\n\nName files `EXP-NNNN-short-question.md` and include:\n\n- the decision or risk the work informs;\n- falsifiable question and current hypothesis;\n- scope, exclusions, time and resource budget;\n- representative data, load, environment, and success measures;\n- procedure sufficient for another person to reproduce;\n- observations separated from interpretation;\n- limitations, threats to validity, and unexpected results;\n- recommendation and required next decision.\n\nCode or configuration produced by an exploration is disposable unless it passes\nnormal production review. Label it clearly and never route production traffic\nthrough an unapproved experiment.",
+      "title": "Exploration record"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 31,
+      "section_id": "completion",
+      "text": "## Completion\n\nAn exploration ends with one of four outcomes: evidence supports an option,\nevidence rejects an option, evidence is inconclusive with a bounded next test,\nor the underlying decision is no longer needed. Link the result from the\nrelated ADR, specification, risk, or work packet and archive obsolete artifacts.",
+      "title": "Completion"
+    }
+  ],
+  "source": {
+    "bytes": 1470,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 36,
+    "media_type": "text/markdown",
+    "path": "architecture/explorations/README.md",
+    "sha256": "32e81c16d46dbeb2aece42804666fabd2805ce618d25f6aabae38d05c5efe9d8"
+  }
+}

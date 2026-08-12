@@ -1,0 +1,80 @@
+{
+  "content": "# Architecture Decision Records\n\nArchitecture Decision Records preserve the context and consequences of\nsignificant choices. An ADR explains why the accepted option was reasonable at\nthe time; it is not a retrospective claim that alternatives had no merit.\n\n## Naming and lifecycle\n\nUse `ADR-NNNN-short-kebab-title.md` with monotonically increasing numbers.\nStatuses are `proposed`, `accepted`, `rejected`, `deprecated`, and `superseded`.\nAccepted records are immutable except for factual corrections and status links.\nA changed decision receives a new ADR that supersedes the old one.\n\n## Process\n\n1. Copy `ADR-0000-template.md` and assign the next number.\n2. State the decision pressure and constraints before presenting options.\n3. Compare at least two credible options, including continuing the current\n   state when relevant.\n4. Describe positive, negative, neutral, operational, security, and migration\n   consequences.\n5. Identify evidence required to validate uncertain claims.\n6. Obtain reviews from affected owners and record the decision.\n7. Link implementation and validation work.\n\n## Decision index\n\n| ADR | Title | Status | Date | Supersedes |\n| --- | --- | --- | --- | --- |\n| None | No architecture decision has been accepted yet | — | — | — |\n\nUpdate the index in the same change that accepts or supersedes an ADR.\n\n## ADR quality test\n\nA reader unfamiliar with the discussion should understand the problem, forces,\nchosen option, rejected options, trade-offs, and how success or failure will be\nrecognized. Vague preferences, technology lists without drivers, and decisions\nthat merely restate existing implementation are returned for revision.\n",
+  "document_id": "doc:architecture%2Fdecisions%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0000"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "Architecture Decision Records preserve the context and consequences of significant choices. An ADR explains why the accepted option was reasonable at the time; it is not a retrospective claim that alternatives had no merit.",
+    "title": "Architecture Decision Records"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "architecture-decision-records",
+      "text": "# Architecture Decision Records\n\nArchitecture Decision Records preserve the context and consequences of\nsignificant choices. An ADR explains why the accepted option was reasonable at\nthe time; it is not a retrospective claim that alternatives had no merit.",
+      "title": "Architecture Decision Records"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 7,
+      "section_id": "naming-and-lifecycle",
+      "text": "## Naming and lifecycle\n\nUse `ADR-NNNN-short-kebab-title.md` with monotonically increasing numbers.\nStatuses are `proposed`, `accepted`, `rejected`, `deprecated`, and `superseded`.\nAccepted records are immutable except for factual corrections and status links.\nA changed decision receives a new ADR that supersedes the old one.",
+      "title": "Naming and lifecycle"
+    },
+    {
+      "identifiers": [
+        "ADR-0000"
+      ],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 14,
+      "section_id": "process",
+      "text": "## Process\n\n1. Copy `ADR-0000-template.md` and assign the next number.\n2. State the decision pressure and constraints before presenting options.\n3. Compare at least two credible options, including continuing the current\n   state when relevant.\n4. Describe positive, negative, neutral, operational, security, and migration\n   consequences.\n5. Identify evidence required to validate uncertain claims.\n6. Obtain reviews from affected owners and record the decision.\n7. Link implementation and validation work.",
+      "title": "Process"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 26,
+      "section_id": "decision-index",
+      "text": "## Decision index\n\n| ADR | Title | Status | Date | Supersedes |\n| --- | --- | --- | --- | --- |\n| None | No architecture decision has been accepted yet | — | — | — |\n\nUpdate the index in the same change that accepts or supersedes an ADR.",
+      "title": "Decision index"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 34,
+      "section_id": "adr-quality-test",
+      "text": "## ADR quality test\n\nA reader unfamiliar with the discussion should understand the problem, forces,\nchosen option, rejected options, trade-offs, and how success or failure will be\nrecognized. Vague preferences, technology lists without drivers, and decisions\nthat merely restate existing implementation are returned for revision.",
+      "title": "ADR quality test"
+    }
+  ],
+  "source": {
+    "bytes": 1670,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 39,
+    "media_type": "text/markdown",
+    "path": "architecture/decisions/README.md",
+    "sha256": "161320ce95727f26123fe364cfa28baa80ac8cb71ba06b964ed4edcde9ac782f"
+  }
+}

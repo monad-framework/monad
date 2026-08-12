@@ -1,0 +1,166 @@
+{
+  "content": "# Architecture Overview\n\n## Drivers\n\nThe architecture supports one traceable journey from authenticated intent to a\nverified result. The strongest drivers are correctness, explicit workflow\nstate, least privilege, interruption recovery, diagnosability, accessibility,\nand the ability to evolve internals without silently breaking user promises.\n\n## Logical view\n\n```mermaid\nflowchart TD\n    UI[\"Experience\"] --> API[\"Application boundary\"]\n    API --> WF[\"Workflow coordination\"]\n    WF --> POL[\"Policy and validation\"]\n    WF --> CORE[\"Domain capabilities\"]\n    WF --> EVID[\"Evidence and audit\"]\n    CORE --> ADAPT[\"External adapters\"]\n```\n\n### Experience\n\nDelivers the supported user and operator interactions. It owns presentation,\nlocal interaction state, and accessibility behavior, but not authoritative\nworkflow state or security policy.\n\n### Application boundary\n\nAuthenticates request context, applies coarse transport protections, validates\ncontract shape, coordinates application use cases, and maps domain outcomes to\nversioned interface responses. It is not the source of domain truth.\n\n### Workflow coordination\n\nOwns workflow identity, allowed state transitions, idempotency, durable\nprogress, timeouts, retries, compensation, and escalation. It invokes domain\ncapabilities through ports and records outcome-relevant transitions.\n\n### Policy and validation\n\nEvaluates versioned structural, semantic, authorization, and safety rules. A\ndecision includes the rule version, outcome, explanation safe for its audience,\nand evidence reference.\n\n### Domain capabilities\n\nOwn business invariants and authoritative domain state. Domain behavior is\nisolated from transport, storage, vendor SDKs, and user-interface concerns.\n\n### Evidence and audit\n\nStores minimum necessary, append-oriented records for security, outcome, and\ncontrol reconstruction. Evidence access is separately authorized and retention\nis enforced by classification.\n\n### External adapters\n\nTranslate explicit ports to identity, persistence, messaging, notification, or\nother external dependencies. Adapters contain vendor-specific behavior and\nfailure translation so dependencies remain replaceable.\n\n## Primary flow\n\n1. The experience submits an authenticated request with an idempotency key and\n   correlation context.\n2. The application boundary validates the interface contract and authorization\n   context.\n3. Workflow coordination creates or returns the existing workflow instance.\n4. Policy and domain capabilities validate the proposed action.\n5. After required confirmation, the workflow commits work through owned domain\n   capabilities and external ports.\n6. Evidence records state transitions and relevant policy context.\n7. Verification evaluates postconditions before the result is declared\n   successful.\n\n## Failure model\n\nFailures are classified as invalid request, unauthorized action, policy denial,\ndomain conflict, transient dependency failure, permanent dependency failure,\ntimeout, or internal defect. Each class has an allowed retry and disclosure\npolicy. Unknown commit status is never represented as a clean failure; it enters\nreconciliation or escalation.\n\n## Data and consistency\n\nEach domain capability owns its authoritative data. A transaction does not span\nindependent ownership boundaries. Cross-boundary workflows use durable state,\nidempotent commands, explicit events, and compensation where reversal is\npossible. Read views may be eventually consistent and must expose freshness\nwhen a user decision depends on it.\n\n## Deployment view\n\nThe initial deployment favors the smallest operable shape: independently\ntestable modules may run in one deployable unit until scaling, isolation, or\nownership evidence justifies separation. Runtime configuration is externalized,\nsecrets come from an approved secret store, schema changes are forward-compatible,\nand every release supports automated health verification and rollback.\n\n## Cross-cutting controls\n\nAuthentication, fine-grained authorization, correlation, structured errors,\ntelemetry, data classification, configuration validation, rate protection, and\nrelease provenance apply at their owning boundaries. Shared libraries may\nstandardize mechanics but may not become a hidden source of domain policy.\n",
+  "document_id": "doc:architecture%2Foverview.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "The architecture supports one traceable journey from authenticated intent to a verified result. The strongest drivers are correctness, explicit workflow state, least privilege, interruption recovery, diagnosability, accessibility, and the ability to evolve internals without silently breaking user promises.",
+    "title": "Architecture Overview"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "architecture-overview",
+      "text": "# Architecture Overview",
+      "title": "Architecture Overview"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 9,
+      "line_start": 3,
+      "section_id": "drivers",
+      "text": "## Drivers\n\nThe architecture supports one traceable journey from authenticated intent to a\nverified result. The strongest drivers are correctness, explicit workflow\nstate, least privilege, interruption recovery, diagnosability, accessibility,\nand the ability to evolve internals without silently breaking user promises.",
+      "title": "Drivers"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 10,
+      "section_id": "logical-view",
+      "text": "## Logical view\n\n```mermaid\nflowchart TD\n    UI[\"Experience\"] --> API[\"Application boundary\"]\n    API --> WF[\"Workflow coordination\"]\n    WF --> POL[\"Policy and validation\"]\n    WF --> CORE[\"Domain capabilities\"]\n    WF --> EVID[\"Evidence and audit\"]\n    CORE --> ADAPT[\"External adapters\"]\n```",
+      "title": "Logical view"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 27,
+      "line_start": 22,
+      "section_id": "experience",
+      "text": "### Experience\n\nDelivers the supported user and operator interactions. It owns presentation,\nlocal interaction state, and accessibility behavior, but not authoritative\nworkflow state or security policy.",
+      "title": "Experience"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 33,
+      "line_start": 28,
+      "section_id": "application-boundary",
+      "text": "### Application boundary\n\nAuthenticates request context, applies coarse transport protections, validates\ncontract shape, coordinates application use cases, and maps domain outcomes to\nversioned interface responses. It is not the source of domain truth.",
+      "title": "Application boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 39,
+      "line_start": 34,
+      "section_id": "workflow-coordination",
+      "text": "### Workflow coordination\n\nOwns workflow identity, allowed state transitions, idempotency, durable\nprogress, timeouts, retries, compensation, and escalation. It invokes domain\ncapabilities through ports and records outcome-relevant transitions.",
+      "title": "Workflow coordination"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 45,
+      "line_start": 40,
+      "section_id": "policy-and-validation",
+      "text": "### Policy and validation\n\nEvaluates versioned structural, semantic, authorization, and safety rules. A\ndecision includes the rule version, outcome, explanation safe for its audience,\nand evidence reference.",
+      "title": "Policy and validation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 50,
+      "line_start": 46,
+      "section_id": "domain-capabilities",
+      "text": "### Domain capabilities\n\nOwn business invariants and authoritative domain state. Domain behavior is\nisolated from transport, storage, vendor SDKs, and user-interface concerns.",
+      "title": "Domain capabilities"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 56,
+      "line_start": 51,
+      "section_id": "evidence-and-audit",
+      "text": "### Evidence and audit\n\nStores minimum necessary, append-oriented records for security, outcome, and\ncontrol reconstruction. Evidence access is separately authorized and retention\nis enforced by classification.",
+      "title": "Evidence and audit"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 62,
+      "line_start": 57,
+      "section_id": "external-adapters",
+      "text": "### External adapters\n\nTranslate explicit ports to identity, persistence, messaging, notification, or\nother external dependencies. Adapters contain vendor-specific behavior and\nfailure translation so dependencies remain replaceable.",
+      "title": "External adapters"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 76,
+      "line_start": 63,
+      "section_id": "primary-flow",
+      "text": "## Primary flow\n\n1. The experience submits an authenticated request with an idempotency key and\n   correlation context.\n2. The application boundary validates the interface contract and authorization\n   context.\n3. Workflow coordination creates or returns the existing workflow instance.\n4. Policy and domain capabilities validate the proposed action.\n5. After required confirmation, the workflow commits work through owned domain\n   capabilities and external ports.\n6. Evidence records state transitions and relevant policy context.\n7. Verification evaluates postconditions before the result is declared\n   successful.",
+      "title": "Primary flow"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 84,
+      "line_start": 77,
+      "section_id": "failure-model",
+      "text": "## Failure model\n\nFailures are classified as invalid request, unauthorized action, policy denial,\ndomain conflict, transient dependency failure, permanent dependency failure,\ntimeout, or internal defect. Each class has an allowed retry and disclosure\npolicy. Unknown commit status is never represented as a clean failure; it enters\nreconciliation or escalation.",
+      "title": "Failure model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 92,
+      "line_start": 85,
+      "section_id": "data-and-consistency",
+      "text": "## Data and consistency\n\nEach domain capability owns its authoritative data. A transaction does not span\nindependent ownership boundaries. Cross-boundary workflows use durable state,\nidempotent commands, explicit events, and compensation where reversal is\npossible. Read views may be eventually consistent and must expose freshness\nwhen a user decision depends on it.",
+      "title": "Data and consistency"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 100,
+      "line_start": 93,
+      "section_id": "deployment-view",
+      "text": "## Deployment view\n\nThe initial deployment favors the smallest operable shape: independently\ntestable modules may run in one deployable unit until scaling, isolation, or\nownership evidence justifies separation. Runtime configuration is externalized,\nsecrets come from an approved secret store, schema changes are forward-compatible,\nand every release supports automated health verification and rollback.",
+      "title": "Deployment view"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 106,
+      "line_start": 101,
+      "section_id": "cross-cutting-controls",
+      "text": "## Cross-cutting controls\n\nAuthentication, fine-grained authorization, correlation, structured errors,\ntelemetry, data classification, configuration validation, rate protection, and\nrelease provenance apply at their owning boundaries. Shared libraries may\nstandardize mechanics but may not become a hidden source of domain policy.",
+      "title": "Cross-cutting controls"
+    }
+  ],
+  "source": {
+    "bytes": 4266,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 106,
+    "media_type": "text/markdown",
+    "path": "architecture/overview.md",
+    "sha256": "200539959fa6281e8a14b0d24f208dc9902610d79bbb737a9be8b321fabb0e64"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "content": "# Success Criteria\n\nSuccess is a decision supported by a balanced set of outcome, adoption,\nquality, safety, and operational evidence. Activity metrics may explain a\nresult but cannot substitute for one.\n\n## Decision scorecard\n\n| Dimension | Primary measure | Initial success threshold | Guardrail |\n| --- | --- | --- | --- |\n| Outcome | Successful completion of the primary job | Material improvement over measured baseline | No decline in result quality |\n| Effort | Active user time and avoidable handoffs | Lower median and tail effort | No hidden transfer to operators |\n| Adoption | Eligible users completing repeat use | Sustained use across the target cohort | No coercive or accidental use |\n| Usability | Unassisted task completion | Representative users finish the core path | Accessibility conformance maintained |\n| Reliability | Successful valid requests and journey completion | Meets published service objectives | Recovery paths pass exercises |\n| Security | Open high-severity findings and control evidence | No unaccepted critical or high risk | Data use stays within declared purpose |\n| Operability | Detection, diagnosis, deployment, and restoration | Meets operational budgets | Alert load remains actionable |\n| Economics | Cost per successful outcome | Within the approved unit-cost budget | No unsafe quality reduction |\n\nExact numeric targets are baselined from discovery data and approved in the\nfirst increment record. Any later target change requires a rationale and must\npreserve the original value for comparison.\n\n## Evidence sources\n\n- instrumented journey events with documented semantics;\n- representative usability and accessibility studies;\n- acceptance, performance, security, and recovery test results;\n- incident, support, and operator-workload records;\n- cohort-based retention and repeat-use analysis;\n- direct qualitative research linked to participant and sampling notes;\n- cost allocation tied to successful outcomes rather than raw requests.\n\n## Measurement rules\n\n1. Define the denominator before collecting results.\n2. Separate eligible attempts, user cancellations, invalid requests, product\n   failures, and dependency failures.\n3. Report median and tail distributions where averages can hide harm.\n4. Segment by supported persona, environment, accessibility mode, and other\n   relevant factors without collecting unnecessary sensitive data.\n5. Record instrumentation gaps and confidence limits.\n6. Do not remove inconvenient observations from the reporting window.\n\n## Decision cadence\n\nReview leading indicators each work cycle, operational health continuously,\nproduct outcomes monthly during pilots, and strategic success quarterly. Each\nreview ends with one explicit decision: continue, correct, narrow, expand,\npause, pivot, or stop.\n\n## Stop conditions\n\nPause expansion when a critical safety or security risk is uncontained, the\nprimary outcome cannot be verified, users cannot provide informed control, the\noperating cost exceeds its approved bound without a credible correction, or\nevidence shows that the product is not solving the validated problem.\n",
+  "document_id": "doc:vision%2Fsuccess-criteria.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "vision",
+    "normative": true,
+    "summary": "Success is a decision supported by a balanced set of outcome, adoption, quality, safety, and operational evidence. Activity metrics may explain a result but cannot substitute for one.",
+    "title": "Success Criteria"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "success-criteria",
+      "text": "# Success Criteria\n\nSuccess is a decision supported by a balanced set of outcome, adoption,\nquality, safety, and operational evidence. Activity metrics may explain a\nresult but cannot substitute for one.",
+      "title": "Success Criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 7,
+      "section_id": "decision-scorecard",
+      "text": "## Decision scorecard\n\n| Dimension | Primary measure | Initial success threshold | Guardrail |\n| --- | --- | --- | --- |\n| Outcome | Successful completion of the primary job | Material improvement over measured baseline | No decline in result quality |\n| Effort | Active user time and avoidable handoffs | Lower median and tail effort | No hidden transfer to operators |\n| Adoption | Eligible users completing repeat use | Sustained use across the target cohort | No coercive or accidental use |\n| Usability | Unassisted task completion | Representative users finish the core path | Accessibility conformance maintained |\n| Reliability | Successful valid requests and journey completion | Meets published service objectives | Recovery paths pass exercises |\n| Security | Open high-severity findings and control evidence | No unaccepted critical or high risk | Data use stays within declared purpose |\n| Operability | Detection, diagnosis, deployment, and restoration | Meets operational budgets | Alert load remains actionable |\n| Economics | Cost per successful outcome | Within the approved unit-cost budget | No unsafe quality reduction |\n\nExact numeric targets are baselined from discovery data and approved in the\nfirst increment record. Any later target change requires a rationale and must\npreserve the original value for comparison.",
+      "title": "Decision scorecard"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 24,
+      "section_id": "evidence-sources",
+      "text": "## Evidence sources\n\n- instrumented journey events with documented semantics;\n- representative usability and accessibility studies;\n- acceptance, performance, security, and recovery test results;\n- incident, support, and operator-workload records;\n- cohort-based retention and repeat-use analysis;\n- direct qualitative research linked to participant and sampling notes;\n- cost allocation tied to successful outcomes rather than raw requests.",
+      "title": "Evidence sources"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 34,
+      "section_id": "measurement-rules",
+      "text": "## Measurement rules\n\n1. Define the denominator before collecting results.\n2. Separate eligible attempts, user cancellations, invalid requests, product\n   failures, and dependency failures.\n3. Report median and tail distributions where averages can hide harm.\n4. Segment by supported persona, environment, accessibility mode, and other\n   relevant factors without collecting unnecessary sensitive data.\n5. Record instrumentation gaps and confidence limits.\n6. Do not remove inconvenient observations from the reporting window.",
+      "title": "Measurement rules"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 51,
+      "line_start": 45,
+      "section_id": "decision-cadence",
+      "text": "## Decision cadence\n\nReview leading indicators each work cycle, operational health continuously,\nproduct outcomes monthly during pilots, and strategic success quarterly. Each\nreview ends with one explicit decision: continue, correct, narrow, expand,\npause, pivot, or stop.",
+      "title": "Decision cadence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 57,
+      "line_start": 52,
+      "section_id": "stop-conditions",
+      "text": "## Stop conditions\n\nPause expansion when a critical safety or security risk is uncontained, the\nprimary outcome cannot be verified, users cannot provide informed control, the\noperating cost exceeds its approved bound without a credible correction, or\nevidence shows that the product is not solving the validated problem.",
+      "title": "Stop conditions"
+    }
+  ],
+  "source": {
+    "bytes": 3113,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 57,
+    "media_type": "text/markdown",
+    "path": "vision/success-criteria.md",
+    "sha256": "b422a6b26af7ab771240ad341ba491e35bfca3681c2b397642b22da63e19b7f5"
+  }
+}

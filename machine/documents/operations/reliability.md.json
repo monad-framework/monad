@@ -1,0 +1,103 @@
+{
+  "content": "# Reliability\n\nReliability means the intended user outcome succeeds within its defined\nconditions and can be restored when it does not. Service objectives manage the\ntrade between product change and operational stability.\n\n## Service indicators\n\n- valid primary-journey completion rate;\n- availability of required synchronous interactions;\n- interactive and end-to-end latency distributions;\n- workflow recovery and reconciliation success;\n- freshness and correctness of user-visible state;\n- durability and restore success for authoritative data;\n- dependency contribution to failure and latency;\n- cost and saturation per successful outcome.\n\n## Initial objectives\n\nProvisional targets are 99.9% monthly availability for the supported service\nwindow, 99.5% valid primary-journey completion, p95 interactive latency below\n400 ms, 15-minute RPO, and 60-minute RTO. These become commitments only after\nrepresentative baselining and accountable approval.\n\n## Error-budget policy\n\nThe allowed unreliability is the difference between perfect service and the\napproved objective. Fast burn pauses risky releases and prioritizes containment.\nSustained budget exhaustion requires corrective reliability work before feature\nexpansion. A healthy budget does not justify known critical safety or security\nrisk.\n\n## Resilience controls\n\nUse bounded timeouts, retries with jitter only for safe transient operations,\nidempotency, concurrency and rate limits, bulkheads, circuit behavior, backpressure,\ncapacity margin, graceful degradation, and reconciliation. Each control must\nhave telemetry and a failure-mode test; retries are not resilience when they\namplify dependency failure.\n\n## Continuity\n\nBack up authoritative state according to classification and recovery point.\nProtect backups with separate access and integrity controls. Restore into an\nisolated environment, verify application-level correctness, and exercise the\nfull recovery decision at least quarterly before production maturity.\n\n## Capacity and cost\n\nTest expected, peak, burst, dependency-degraded, and recovery load with\nrepresentative data. Define saturation thresholds and scaling delay. Protect\nthe service with per-actor and global budgets so an error loop or abusive client\ncannot exhaust shared capacity or cost.\n\n## Toil\n\nTrack repetitive manual operational work, interruption burden, privileged\nrepair, alert load, and deployment effort. Automate high-frequency, well-\nunderstood procedures while preserving review and rollback for consequential\nactions.\n",
+  "document_id": "doc:operations%2Freliability.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "operations",
+    "normative": true,
+    "summary": "Reliability means the intended user outcome succeeds within its defined conditions and can be restored when it does not. Service objectives manage the trade between product change and operational stability.",
+    "title": "Reliability"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "reliability",
+      "text": "# Reliability\n\nReliability means the intended user outcome succeeds within its defined\nconditions and can be restored when it does not. Service objectives manage the\ntrade between product change and operational stability.",
+      "title": "Reliability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 7,
+      "section_id": "service-indicators",
+      "text": "## Service indicators\n\n- valid primary-journey completion rate;\n- availability of required synchronous interactions;\n- interactive and end-to-end latency distributions;\n- workflow recovery and reconciliation success;\n- freshness and correctness of user-visible state;\n- durability and restore success for authoritative data;\n- dependency contribution to failure and latency;\n- cost and saturation per successful outcome.",
+      "title": "Service indicators"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 18,
+      "section_id": "initial-objectives",
+      "text": "## Initial objectives\n\nProvisional targets are 99.9% monthly availability for the supported service\nwindow, 99.5% valid primary-journey completion, p95 interactive latency below\n400 ms, 15-minute RPO, and 60-minute RTO. These become commitments only after\nrepresentative baselining and accountable approval.",
+      "title": "Initial objectives"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 25,
+      "section_id": "error-budget-policy",
+      "text": "## Error-budget policy\n\nThe allowed unreliability is the difference between perfect service and the\napproved objective. Fast burn pauses risky releases and prioritizes containment.\nSustained budget exhaustion requires corrective reliability work before feature\nexpansion. A healthy budget does not justify known critical safety or security\nrisk.",
+      "title": "Error-budget policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 33,
+      "section_id": "resilience-controls",
+      "text": "## Resilience controls\n\nUse bounded timeouts, retries with jitter only for safe transient operations,\nidempotency, concurrency and rate limits, bulkheads, circuit behavior, backpressure,\ncapacity margin, graceful degradation, and reconciliation. Each control must\nhave telemetry and a failure-mode test; retries are not resilience when they\namplify dependency failure.",
+      "title": "Resilience controls"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 41,
+      "section_id": "continuity",
+      "text": "## Continuity\n\nBack up authoritative state according to classification and recovery point.\nProtect backups with separate access and integrity controls. Restore into an\nisolated environment, verify application-level correctness, and exercise the\nfull recovery decision at least quarterly before production maturity.",
+      "title": "Continuity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 48,
+      "section_id": "capacity-and-cost",
+      "text": "## Capacity and cost\n\nTest expected, peak, burst, dependency-degraded, and recovery load with\nrepresentative data. Define saturation thresholds and scaling delay. Protect\nthe service with per-actor and global budgets so an error loop or abusive client\ncannot exhaust shared capacity or cost.",
+      "title": "Capacity and cost"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 55,
+      "section_id": "toil",
+      "text": "## Toil\n\nTrack repetitive manual operational work, interruption burden, privileged\nrepair, alert load, and deployment effort. Automate high-frequency, well-\nunderstood procedures while preserving review and rollback for consequential\nactions.",
+      "title": "Toil"
+    }
+  ],
+  "source": {
+    "bytes": 2523,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 60,
+    "media_type": "text/markdown",
+    "path": "operations/reliability.md",
+    "sha256": "368554ca2794b13758a2019545ccb0be38d6e9528286585a47513f71da09831f"
+  }
+}

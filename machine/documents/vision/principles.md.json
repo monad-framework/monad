@@ -1,0 +1,185 @@
+{
+  "content": "# Product and Project Principles\n\nPrinciples are decision rules, not slogans. When two principles conflict, the\nteam documents the trade-off and gives priority to user safety, legal and\nethical obligations, correctness, and recoverability before convenience or\ndelivery speed.\n\n## P-01 — Outcomes before output\n\nMeasure whether users achieve the intended result. Features, tickets, and code\nvolume are inputs, not evidence of value.\n\n## P-02 — Evidence before confidence\n\nLabel assumptions and validate the riskiest ones early. Claims about value,\nquality, security, and readiness require observable evidence.\n\n## P-03 — One coherent path before breadth\n\nComplete and harden the primary journey before adding adjacent workflows,\npersonas, integrations, or extensive configuration.\n\n## P-04 — Explicit state and ownership\n\nUsers and operators should be able to determine what happened, what is true\nnow, who owns the next action, and which transition is allowed.\n\n## P-05 — Safe failure and practical recovery\n\nPrevent foreseeable harm, contain failures, preserve diagnostic evidence, and\nprovide a tested route to retry, compensate, restore, or escalate.\n\n## P-06 — Least authority and least data\n\nCollect, retain, and expose only what is necessary. Grant the narrowest\nprivilege for the shortest useful duration.\n\n## P-07 — Stable contracts, replaceable internals\n\nProtect user and component contracts while allowing implementation choices to\nevolve behind clear boundaries.\n\n## P-08 — Operability is part of design\n\nHealth signals, resource budgets, deployment, rollback, and incident response\nare designed with the capability, not added after release.\n\n## P-09 — Accessible by default\n\nThe primary workflow must work across supported input modes and assistive\ntechnologies. Accessibility defects are product defects.\n\n## P-10 — Reversible decisions when uncertain\n\nPrefer low-cost experiments and reversible choices until evidence supports a\ndurable commitment. Irreversible choices require greater review and explicit\nrationale.\n\n## P-11 — Automation preserves accountability\n\nAutomate repeatable mechanics while keeping consequential authority, review,\nand appeal visible. Automation must not make responsibility disappear.\n\n## P-12 — Documentation is executable governance\n\nDocuments name owners, states, inputs, outputs, checks, and change paths. A\ndocument that cannot guide a decision or test is rewritten or removed.\n",
+  "document_id": "doc:vision%2Fprinciples.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "P-01",
+    "P-02",
+    "P-03",
+    "P-04",
+    "P-05",
+    "P-06",
+    "P-07",
+    "P-08",
+    "P-09",
+    "P-10",
+    "P-11",
+    "P-12"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "vision",
+    "normative": true,
+    "summary": "Principles are decision rules, not slogans. When two principles conflict, the team documents the trade-off and gives priority to user safety, legal and ethical obligations, correctness, and recoverability before convenience or delivery speed.",
+    "title": "Product and Project Principles"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "product-and-project-principles",
+      "text": "# Product and Project Principles\n\nPrinciples are decision rules, not slogans. When two principles conflict, the\nteam documents the trade-off and gives priority to user safety, legal and\nethical obligations, correctness, and recoverability before convenience or\ndelivery speed.",
+      "title": "Product and Project Principles"
+    },
+    {
+      "identifiers": [
+        "P-01"
+      ],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 8,
+      "section_id": "p-01-outcomes-before-output",
+      "text": "## P-01 — Outcomes before output\n\nMeasure whether users achieve the intended result. Features, tickets, and code\nvolume are inputs, not evidence of value.",
+      "title": "P-01 — Outcomes before output"
+    },
+    {
+      "identifiers": [
+        "P-02"
+      ],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 13,
+      "section_id": "p-02-evidence-before-confidence",
+      "text": "## P-02 — Evidence before confidence\n\nLabel assumptions and validate the riskiest ones early. Claims about value,\nquality, security, and readiness require observable evidence.",
+      "title": "P-02 — Evidence before confidence"
+    },
+    {
+      "identifiers": [
+        "P-03"
+      ],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 18,
+      "section_id": "p-03-one-coherent-path-before-breadth",
+      "text": "## P-03 — One coherent path before breadth\n\nComplete and harden the primary journey before adding adjacent workflows,\npersonas, integrations, or extensive configuration.",
+      "title": "P-03 — One coherent path before breadth"
+    },
+    {
+      "identifiers": [
+        "P-04"
+      ],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 23,
+      "section_id": "p-04-explicit-state-and-ownership",
+      "text": "## P-04 — Explicit state and ownership\n\nUsers and operators should be able to determine what happened, what is true\nnow, who owns the next action, and which transition is allowed.",
+      "title": "P-04 — Explicit state and ownership"
+    },
+    {
+      "identifiers": [
+        "P-05"
+      ],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 28,
+      "section_id": "p-05-safe-failure-and-practical-recovery",
+      "text": "## P-05 — Safe failure and practical recovery\n\nPrevent foreseeable harm, contain failures, preserve diagnostic evidence, and\nprovide a tested route to retry, compensate, restore, or escalate.",
+      "title": "P-05 — Safe failure and practical recovery"
+    },
+    {
+      "identifiers": [
+        "P-06"
+      ],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 33,
+      "section_id": "p-06-least-authority-and-least-data",
+      "text": "## P-06 — Least authority and least data\n\nCollect, retain, and expose only what is necessary. Grant the narrowest\nprivilege for the shortest useful duration.",
+      "title": "P-06 — Least authority and least data"
+    },
+    {
+      "identifiers": [
+        "P-07"
+      ],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 38,
+      "section_id": "p-07-stable-contracts-replaceable-internals",
+      "text": "## P-07 — Stable contracts, replaceable internals\n\nProtect user and component contracts while allowing implementation choices to\nevolve behind clear boundaries.",
+      "title": "P-07 — Stable contracts, replaceable internals"
+    },
+    {
+      "identifiers": [
+        "P-08"
+      ],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 43,
+      "section_id": "p-08-operability-is-part-of-design",
+      "text": "## P-08 — Operability is part of design\n\nHealth signals, resource budgets, deployment, rollback, and incident response\nare designed with the capability, not added after release.",
+      "title": "P-08 — Operability is part of design"
+    },
+    {
+      "identifiers": [
+        "P-09"
+      ],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 48,
+      "section_id": "p-09-accessible-by-default",
+      "text": "## P-09 — Accessible by default\n\nThe primary workflow must work across supported input modes and assistive\ntechnologies. Accessibility defects are product defects.",
+      "title": "P-09 — Accessible by default"
+    },
+    {
+      "identifiers": [
+        "P-10"
+      ],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 53,
+      "section_id": "p-10-reversible-decisions-when-uncertain",
+      "text": "## P-10 — Reversible decisions when uncertain\n\nPrefer low-cost experiments and reversible choices until evidence supports a\ndurable commitment. Irreversible choices require greater review and explicit\nrationale.",
+      "title": "P-10 — Reversible decisions when uncertain"
+    },
+    {
+      "identifiers": [
+        "P-11"
+      ],
+      "level": 2,
+      "line_end": 63,
+      "line_start": 59,
+      "section_id": "p-11-automation-preserves-accountability",
+      "text": "## P-11 — Automation preserves accountability\n\nAutomate repeatable mechanics while keeping consequential authority, review,\nand appeal visible. Automation must not make responsibility disappear.",
+      "title": "P-11 — Automation preserves accountability"
+    },
+    {
+      "identifiers": [
+        "P-12"
+      ],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 64,
+      "section_id": "p-12-documentation-is-executable-governance",
+      "text": "## P-12 — Documentation is executable governance\n\nDocuments name owners, states, inputs, outputs, checks, and change paths. A\ndocument that cannot guide a decision or test is rewritten or removed.",
+      "title": "P-12 — Documentation is executable governance"
+    }
+  ],
+  "source": {
+    "bytes": 2451,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 67,
+    "media_type": "text/markdown",
+    "path": "vision/principles.md",
+    "sha256": "c13dd8a771ce1777b1503d4701cb27fd022c5d106ad86551ecf7ffc43d0caace"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "content": "# Engineering Operating System\n\nEngineering converts approved intent into verified increments while preserving\nquality, safety, and decision history. Work is organized by outcomes and\nevidence rather than by disconnected task lists.\n\n## Delivery hierarchy\n\n| Level | Purpose | Typical horizon | Closure evidence |\n| --- | --- | --- | --- |\n| Milestone | A major product or capability outcome | One or more increments | Outcome and readiness review |\n| Increment | A releasable, integrated step toward a milestone | Several work cycles | Integrated acceptance evidence |\n| Work cycle | A short inspect-and-adapt execution window | One or two weeks | Cycle review and updated forecast |\n| Work packet | Smallest authorized unit with one result | Hours to a few days | Acceptance evidence and review |\n\nMilestones contain increments; increments authorize work cycles; work cycles\npull ready work packets. Urgent incident or security work may enter through an\nexpedited path but must receive traceability and review after containment.\n\n## Sources of truth\n\n- `engineering-plan.md` defines the delivery strategy and phase gates.\n- `project-status.md` is the current portfolio-level status snapshot.\n- `definition-of-ready.md` controls entry into committed work.\n- `definition-of-done.md` controls closure and release eligibility.\n- `work-packets/active.md` lists currently authorized work.\n- `work-packets/backlog.md` orders qualified candidate work.\n- `risks/risk-register.md` contains active delivery and product risks.\n\n## Flow rules\n\n1. Pull only work that advances an authorized increment outcome.\n2. Limit work in progress; finishing and integrating outrank starting.\n3. Slice vertically through a demonstrable behavior or risk reduction.\n4. Build quality, documentation, security, and telemetry into the packet.\n5. Surface blocked work within one business day and name the needed decision.\n6. Update status from evidence, not percentage-complete intuition.\n7. Close work only when acceptance and the Definition of Done are satisfied.\n\n## Review cadence\n\n- Daily: owners update blockers and material scope changes.\n- Each work cycle: demonstrate evidence, review flow and risk, and reforecast.\n- Each increment: integrate acceptance, architecture, security, operations, and\n  product outcome evidence.\n- Each milestone: decide whether to proceed, correct, narrow, expand, or stop.\n\n## Engineering values\n\nPrefer a small change that proves an end-to-end claim over a large change that\ncreates invisible integration risk. Make unsafe states difficult to represent,\nmake failure diagnosable, and make recovery testable. Record why a constraint\nexists so future maintainers can change it deliberately.\n",
+  "document_id": "doc:engineering%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Engineering converts approved intent into verified increments while preserving quality, safety, and decision history. Work is organized by outcomes and evidence rather than by disconnected task lists.",
+    "title": "Engineering Operating System"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "engineering-operating-system",
+      "text": "# Engineering Operating System\n\nEngineering converts approved intent into verified increments while preserving\nquality, safety, and decision history. Work is organized by outcomes and\nevidence rather than by disconnected task lists.",
+      "title": "Engineering Operating System"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 7,
+      "section_id": "delivery-hierarchy",
+      "text": "## Delivery hierarchy\n\n| Level | Purpose | Typical horizon | Closure evidence |\n| --- | --- | --- | --- |\n| Milestone | A major product or capability outcome | One or more increments | Outcome and readiness review |\n| Increment | A releasable, integrated step toward a milestone | Several work cycles | Integrated acceptance evidence |\n| Work cycle | A short inspect-and-adapt execution window | One or two weeks | Cycle review and updated forecast |\n| Work packet | Smallest authorized unit with one result | Hours to a few days | Acceptance evidence and review |\n\nMilestones contain increments; increments authorize work cycles; work cycles\npull ready work packets. Urgent incident or security work may enter through an\nexpedited path but must receive traceability and review after containment.",
+      "title": "Delivery hierarchy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 20,
+      "section_id": "sources-of-truth",
+      "text": "## Sources of truth\n\n- `engineering-plan.md` defines the delivery strategy and phase gates.\n- `project-status.md` is the current portfolio-level status snapshot.\n- `definition-of-ready.md` controls entry into committed work.\n- `definition-of-done.md` controls closure and release eligibility.\n- `work-packets/active.md` lists currently authorized work.\n- `work-packets/backlog.md` orders qualified candidate work.\n- `risks/risk-register.md` contains active delivery and product risks.",
+      "title": "Sources of truth"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 30,
+      "section_id": "flow-rules",
+      "text": "## Flow rules\n\n1. Pull only work that advances an authorized increment outcome.\n2. Limit work in progress; finishing and integrating outrank starting.\n3. Slice vertically through a demonstrable behavior or risk reduction.\n4. Build quality, documentation, security, and telemetry into the packet.\n5. Surface blocked work within one business day and name the needed decision.\n6. Update status from evidence, not percentage-complete intuition.\n7. Close work only when acceptance and the Definition of Done are satisfied.",
+      "title": "Flow rules"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 40,
+      "section_id": "review-cadence",
+      "text": "## Review cadence\n\n- Daily: owners update blockers and material scope changes.\n- Each work cycle: demonstrate evidence, review flow and risk, and reforecast.\n- Each increment: integrate acceptance, architecture, security, operations, and\n  product outcome evidence.\n- Each milestone: decide whether to proceed, correct, narrow, expand, or stop.",
+      "title": "Review cadence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 48,
+      "section_id": "engineering-values",
+      "text": "## Engineering values\n\nPrefer a small change that proves an end-to-end claim over a large change that\ncreates invisible integration risk. Make unsafe states difficult to represent,\nmake failure diagnosable, and make recovery testable. Record why a constraint\nexists so future maintainers can change it deliberately.",
+      "title": "Engineering values"
+    }
+  ],
+  "source": {
+    "bytes": 2699,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 53,
+    "media_type": "text/markdown",
+    "path": "engineering/README.md",
+    "sha256": "474b4c7c791261a755739f02427788dc283c63cb9cf3246ed581cce40a4dda92"
+  }
+}

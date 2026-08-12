@@ -1,0 +1,185 @@
+{
+  "content": "# Architecture Principles\n\n## AP-01 — Domain rules are independent of delivery technology\n\nBusiness invariants depend on domain types and explicit ports, not frameworks,\ntransport protocols, databases, or vendor SDKs.\n\n## AP-02 — One owner for authoritative state\n\nEach fact has one authoritative owner. Other components consume contracts or\nmaintain clearly labeled derived views rather than writing shared tables.\n\n## AP-03 — Dependencies point toward stable policy\n\nUser interfaces and infrastructure depend on application and domain contracts.\nStable policy does not import volatile implementation details.\n\n## AP-04 — Contracts are explicit and versioned\n\nRequests, responses, events, errors, compatibility rules, and deprecation paths\nare specified and tested at every boundary.\n\n## AP-05 — State transitions are deliberate\n\nLong-running or consequential workflows use explicit states, allowed\ntransitions, idempotency, timeout behavior, and terminal outcomes.\n\n## AP-06 — Failure is part of the contract\n\nEvery dependency and operation defines invalid, denied, transient, permanent,\npartial, and unknown outcomes with safe retry and disclosure behavior.\n\n## AP-07 — Secure at the protected resource\n\nEdge checks improve efficiency but do not replace authorization and invariant\nenforcement where the resource or effect is owned.\n\n## AP-08 — Observability follows user journeys\n\nTelemetry correlates a user-visible outcome across boundaries. Component health\nwithout journey health is insufficient.\n\n## AP-09 — Evolution precedes distribution\n\nBegin with modular boundaries in the smallest practical deployment. Separate\nruntime units only for measured scaling, isolation, availability, technology,\nor ownership needs.\n\n## AP-10 — Build for recovery\n\nData, deployments, configuration, workflows, and dependencies have tested\nrestore, rollback, reconciliation, or compensation paths.\n\n## AP-11 — Configuration is validated and observable\n\nRuntime configuration is externalized, typed, fail-fast, version-aware, and\nreported without exposing secrets.\n\n## AP-12 — Exceptions expire\n\nAny violation of an architecture principle records scope, rationale, risk,\nowner, mitigation, expiration, and removal work. Repeated exceptions trigger a\nprinciple or architecture review.\n",
+  "document_id": "doc:architecture%2Fprinciples.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "AP-01",
+    "AP-02",
+    "AP-03",
+    "AP-04",
+    "AP-05",
+    "AP-06",
+    "AP-07",
+    "AP-08",
+    "AP-09",
+    "AP-10",
+    "AP-11",
+    "AP-12"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "Business invariants depend on domain types and explicit ports, not frameworks, transport protocols, databases, or vendor SDKs.",
+    "title": "Architecture Principles"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "architecture-principles",
+      "text": "# Architecture Principles",
+      "title": "Architecture Principles"
+    },
+    {
+      "identifiers": [
+        "AP-01"
+      ],
+      "level": 2,
+      "line_end": 7,
+      "line_start": 3,
+      "section_id": "ap-01-domain-rules-are-independent-of-delivery-technology",
+      "text": "## AP-01 — Domain rules are independent of delivery technology\n\nBusiness invariants depend on domain types and explicit ports, not frameworks,\ntransport protocols, databases, or vendor SDKs.",
+      "title": "AP-01 — Domain rules are independent of delivery technology"
+    },
+    {
+      "identifiers": [
+        "AP-02"
+      ],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 8,
+      "section_id": "ap-02-one-owner-for-authoritative-state",
+      "text": "## AP-02 — One owner for authoritative state\n\nEach fact has one authoritative owner. Other components consume contracts or\nmaintain clearly labeled derived views rather than writing shared tables.",
+      "title": "AP-02 — One owner for authoritative state"
+    },
+    {
+      "identifiers": [
+        "AP-03"
+      ],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 13,
+      "section_id": "ap-03-dependencies-point-toward-stable-policy",
+      "text": "## AP-03 — Dependencies point toward stable policy\n\nUser interfaces and infrastructure depend on application and domain contracts.\nStable policy does not import volatile implementation details.",
+      "title": "AP-03 — Dependencies point toward stable policy"
+    },
+    {
+      "identifiers": [
+        "AP-04"
+      ],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 18,
+      "section_id": "ap-04-contracts-are-explicit-and-versioned",
+      "text": "## AP-04 — Contracts are explicit and versioned\n\nRequests, responses, events, errors, compatibility rules, and deprecation paths\nare specified and tested at every boundary.",
+      "title": "AP-04 — Contracts are explicit and versioned"
+    },
+    {
+      "identifiers": [
+        "AP-05"
+      ],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 23,
+      "section_id": "ap-05-state-transitions-are-deliberate",
+      "text": "## AP-05 — State transitions are deliberate\n\nLong-running or consequential workflows use explicit states, allowed\ntransitions, idempotency, timeout behavior, and terminal outcomes.",
+      "title": "AP-05 — State transitions are deliberate"
+    },
+    {
+      "identifiers": [
+        "AP-06"
+      ],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 28,
+      "section_id": "ap-06-failure-is-part-of-the-contract",
+      "text": "## AP-06 — Failure is part of the contract\n\nEvery dependency and operation defines invalid, denied, transient, permanent,\npartial, and unknown outcomes with safe retry and disclosure behavior.",
+      "title": "AP-06 — Failure is part of the contract"
+    },
+    {
+      "identifiers": [
+        "AP-07"
+      ],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 33,
+      "section_id": "ap-07-secure-at-the-protected-resource",
+      "text": "## AP-07 — Secure at the protected resource\n\nEdge checks improve efficiency but do not replace authorization and invariant\nenforcement where the resource or effect is owned.",
+      "title": "AP-07 — Secure at the protected resource"
+    },
+    {
+      "identifiers": [
+        "AP-08"
+      ],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 38,
+      "section_id": "ap-08-observability-follows-user-journeys",
+      "text": "## AP-08 — Observability follows user journeys\n\nTelemetry correlates a user-visible outcome across boundaries. Component health\nwithout journey health is insufficient.",
+      "title": "AP-08 — Observability follows user journeys"
+    },
+    {
+      "identifiers": [
+        "AP-09"
+      ],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 43,
+      "section_id": "ap-09-evolution-precedes-distribution",
+      "text": "## AP-09 — Evolution precedes distribution\n\nBegin with modular boundaries in the smallest practical deployment. Separate\nruntime units only for measured scaling, isolation, availability, technology,\nor ownership needs.",
+      "title": "AP-09 — Evolution precedes distribution"
+    },
+    {
+      "identifiers": [
+        "AP-10"
+      ],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 49,
+      "section_id": "ap-10-build-for-recovery",
+      "text": "## AP-10 — Build for recovery\n\nData, deployments, configuration, workflows, and dependencies have tested\nrestore, rollback, reconciliation, or compensation paths.",
+      "title": "AP-10 — Build for recovery"
+    },
+    {
+      "identifiers": [
+        "AP-11"
+      ],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 54,
+      "section_id": "ap-11-configuration-is-validated-and-observable",
+      "text": "## AP-11 — Configuration is validated and observable\n\nRuntime configuration is externalized, typed, fail-fast, version-aware, and\nreported without exposing secrets.",
+      "title": "AP-11 — Configuration is validated and observable"
+    },
+    {
+      "identifiers": [
+        "AP-12"
+      ],
+      "level": 2,
+      "line_end": 63,
+      "line_start": 59,
+      "section_id": "ap-12-exceptions-expire",
+      "text": "## AP-12 — Exceptions expire\n\nAny violation of an architecture principle records scope, rationale, risk,\nowner, mitigation, expiration, and removal work. Repeated exceptions trigger a\nprinciple or architecture review.",
+      "title": "AP-12 — Exceptions expire"
+    }
+  ],
+  "source": {
+    "bytes": 2298,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 63,
+    "media_type": "text/markdown",
+    "path": "architecture/principles.md",
+    "sha256": "d24943124b27275cfda893fa5cdb9bd386ba57d21bdebf03b2e203909f5c339e"
+  }
+}

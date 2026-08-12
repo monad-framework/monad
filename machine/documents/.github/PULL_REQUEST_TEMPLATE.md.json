@@ -1,0 +1,85 @@
+{
+  "content": "## Outcome\n\nDescribe the observable result of this change and why it is needed. Link the\nissue, work packet, requirement, specification, risk, incident, or ADR that\nauthorizes it.\n\n- Related record:\n- Intended outcome:\n- Affected users or operators:\n\n## Change\n\nSummarize the implementation and important design choices. Identify changed\ncontracts, state, data, dependencies, configuration, permissions, or deployment\nbehavior. List explicit exclusions so reviewers can distinguish omitted scope\nfrom missed work.\n\n## Acceptance evidence\n\nFor each acceptance criterion, link or describe the test, demonstration,\nanalysis, or review evidence. Include success, invalid input, unauthorized,\nboundary, failure, retry, and recovery behavior when relevant.\n\n## Risk and impact\n\n- Security/privacy impact:\n- Data/schema/migration impact:\n- Compatibility/deprecation impact:\n- Reliability/performance/cost impact:\n- Accessibility and documentation impact:\n- Deployment, observation, and rollback plan:\n\n## Verification checklist\n\n- [ ] Scope is authorized and satisfies the Definition of Ready.\n- [ ] Tests cover changed behavior at the appropriate levels.\n- [ ] Formatting, lint, type, contract, dependency, and secret checks pass.\n- [ ] Requirements, specifications, ADRs, risk, and changelog are updated where\n      needed.\n- [ ] Errors, telemetry, and evidence contain no secrets or unnecessary\n      sensitive data.\n- [ ] Accessibility behavior is verified for affected interactions.\n- [ ] Migration, configuration, deployment, and rollback are tested where\n      applicable.\n- [ ] No unrelated generated files, debug code, bypasses, or warnings remain.\n\n## Reviewer guidance\n\nPlease distinguish blocking findings from advisory suggestions. Review the user\noutcome, boundary and invariant correctness, failure and recovery, security and\ndata handling, tests, operability, and maintainability. Approval means the\nchange is safe to merge within the evidence provided; it does not transfer\nownership from the author or component owner.\n",
+  "document_id": "doc:.github%2FPULL_REQUEST_TEMPLATE.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-governance",
+    "normative": false,
+    "summary": "Describe the observable result of this change and why it is needed. Link the issue, work packet, requirement, specification, risk, incident, or ADR that authorizes it.",
+    "title": "Pull Request Template"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 1,
+      "section_id": "outcome",
+      "text": "## Outcome\n\nDescribe the observable result of this change and why it is needed. Link the\nissue, work packet, requirement, specification, risk, incident, or ADR that\nauthorizes it.\n\n- Related record:\n- Intended outcome:\n- Affected users or operators:",
+      "title": "Outcome"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 11,
+      "section_id": "change",
+      "text": "## Change\n\nSummarize the implementation and important design choices. Identify changed\ncontracts, state, data, dependencies, configuration, permissions, or deployment\nbehavior. List explicit exclusions so reviewers can distinguish omitted scope\nfrom missed work.",
+      "title": "Change"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 18,
+      "section_id": "acceptance-evidence",
+      "text": "## Acceptance evidence\n\nFor each acceptance criterion, link or describe the test, demonstration,\nanalysis, or review evidence. Include success, invalid input, unauthorized,\nboundary, failure, retry, and recovery behavior when relevant.",
+      "title": "Acceptance evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 24,
+      "section_id": "risk-and-impact",
+      "text": "## Risk and impact\n\n- Security/privacy impact:\n- Data/schema/migration impact:\n- Compatibility/deprecation impact:\n- Reliability/performance/cost impact:\n- Accessibility and documentation impact:\n- Deployment, observation, and rollback plan:",
+      "title": "Risk and impact"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 33,
+      "section_id": "verification-checklist",
+      "text": "## Verification checklist\n\n- [ ] Scope is authorized and satisfies the Definition of Ready.\n- [ ] Tests cover changed behavior at the appropriate levels.\n- [ ] Formatting, lint, type, contract, dependency, and secret checks pass.\n- [ ] Requirements, specifications, ADRs, risk, and changelog are updated where\n      needed.\n- [ ] Errors, telemetry, and evidence contain no secrets or unnecessary\n      sensitive data.\n- [ ] Accessibility behavior is verified for affected interactions.\n- [ ] Migration, configuration, deployment, and rollback are tested where\n      applicable.\n- [ ] No unrelated generated files, debug code, bypasses, or warnings remain.",
+      "title": "Verification checklist"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 47,
+      "section_id": "reviewer-guidance",
+      "text": "## Reviewer guidance\n\nPlease distinguish blocking findings from advisory suggestions. Review the user\noutcome, boundary and invariant correctness, failure and recovery, security and\ndata handling, tests, operability, and maintainability. Approval means the\nchange is safe to merge within the evidence provided; it does not transfer\nownership from the author or component owner.",
+      "title": "Reviewer guidance"
+    }
+  ],
+  "source": {
+    "bytes": 2030,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 53,
+    "media_type": "text/markdown",
+    "path": ".github/PULL_REQUEST_TEMPLATE.md",
+    "sha256": "be8dd9a0437642b7c5e9055961b65af34bb241cc9546b5812de2cbdb79a2bcfb"
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "content": "# Security Model\n\n## Objectives\n\n- Only authenticated and authorized actors perform protected actions.\n- Domain and workflow integrity is preserved across retries, failures, and\n  administrative intervention.\n- Sensitive data is collected and exposed only for declared purposes.\n- Service and data remain available within approved resilience objectives.\n- Security-relevant actions are attributable and reviewable.\n- Compromise of one actor, component, tenant, dependency, or environment is\n  contained to the smallest practical scope.\n\n## Identity classes\n\n| Identity | Purpose | Key controls |\n| --- | --- | --- |\n| End user | Perform supported product actions | Strong session handling, resource authorization, rate protection |\n| Administrator | Manage bounded product configuration | Separate role, stronger authentication, audited purpose |\n| Operator | Deploy, diagnose, and restore | Just-in-time privilege, environment scoping, command evidence |\n| Workload | Call another component or dependency | Unique service identity, short-lived credentials, audience restriction |\n| Build/release | Produce and promote artifacts | Protected workflow, isolated secrets, provenance, environment approval |\n\nAuthentication proves an identity under stated assurance. Authorization is a\nseparate decision using actor, action, resource, context, and policy version.\nEdge authorization may reject early, but the resource owner enforces the final\ndecision.\n\n## Data classification\n\n- **Public:** approved for unrestricted disclosure.\n- **Internal:** non-public project information with limited harm if exposed.\n- **Confidential:** business, customer, personal, or operational data requiring\n  explicit access and lifecycle controls.\n- **Restricted:** credentials, high-impact personal data, cryptographic material,\n  or data whose exposure creates severe harm.\n\nEvery data element has an owner, purpose, classification, source, allowed use,\nretention, deletion, and export rule. Derived data inherits the strongest\nrelevant classification unless a reviewed transformation proves otherwise.\n\n## Control baseline\n\n### Access\n\nDefault deny; least privilege; separation of user, admin, operator, and service\nroles; periodic access review; session expiration; revocation; and evidence for\nprivileged action.\n\n### Input and output\n\nValidate type, length, format, range, relationship, authorization, and business\ninvariants. Use parameterized data access and context-appropriate output\nencoding. Treat files, URLs, redirects, templates, and serialized objects as\nuntrusted.\n\n### Secrets and cryptography\n\nSecrets come from an approved store, are scoped and rotated, and never appear in\nsource or telemetry. Use maintained standard cryptographic libraries and\napproved protocols; do not design custom cryptography. Key access, rotation,\nbackup, and destruction match data consequence.\n\n### Network and dependency access\n\nAllow only required ingress and egress. Authenticate sensitive service calls,\nvalidate peer and destination, bound time and size, and contain dependency\nfailure. Do not trust internal network location as identity.\n\n### Evidence and detection\n\nRecord authentication, authorization denial, privileged change, sensitive data\nadministration, policy change, security control failure, and suspicious abuse\nsignals. Protect evidence integrity and access while minimizing payloads.\n\n## Administrative safety\n\nAdministrative operations show target, scope, effect, and reversibility; require\nexplicit confirmation; use bounded batch sizes; and provide dry-run or preview\nfor destructive or broad actions where feasible. Emergency access is time-\nlimited, separately approved when possible, and reviewed after use.\n\n## Verification\n\nSecurity evidence includes unit and integration tests for controls, negative\nauthorization tests, abuse and rate tests, dependency and secret scanning,\nthreat-model review, artifact provenance, recovery exercises, and targeted\nindependent assessment before material production exposure.\n",
+  "document_id": "doc:security%2Fsecurity-model.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "security",
+    "normative": true,
+    "summary": "administrative intervention.",
+    "title": "Security Model"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "security-model",
+      "text": "# Security Model",
+      "title": "Security Model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 3,
+      "section_id": "objectives",
+      "text": "## Objectives\n\n- Only authenticated and authorized actors perform protected actions.\n- Domain and workflow integrity is preserved across retries, failures, and\n  administrative intervention.\n- Sensitive data is collected and exposed only for declared purposes.\n- Service and data remain available within approved resilience objectives.\n- Security-relevant actions are attributable and reviewable.\n- Compromise of one actor, component, tenant, dependency, or environment is\n  contained to the smallest practical scope.",
+      "title": "Objectives"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 28,
+      "line_start": 14,
+      "section_id": "identity-classes",
+      "text": "## Identity classes\n\n| Identity | Purpose | Key controls |\n| --- | --- | --- |\n| End user | Perform supported product actions | Strong session handling, resource authorization, rate protection |\n| Administrator | Manage bounded product configuration | Separate role, stronger authentication, audited purpose |\n| Operator | Deploy, diagnose, and restore | Just-in-time privilege, environment scoping, command evidence |\n| Workload | Call another component or dependency | Unique service identity, short-lived credentials, audience restriction |\n| Build/release | Produce and promote artifacts | Protected workflow, isolated secrets, provenance, environment approval |\n\nAuthentication proves an identity under stated assurance. Authorization is a\nseparate decision using actor, action, resource, context, and policy version.\nEdge authorization may reject early, but the resource owner enforces the final\ndecision.",
+      "title": "Identity classes"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 41,
+      "line_start": 29,
+      "section_id": "data-classification",
+      "text": "## Data classification\n\n- **Public:** approved for unrestricted disclosure.\n- **Internal:** non-public project information with limited harm if exposed.\n- **Confidential:** business, customer, personal, or operational data requiring\n  explicit access and lifecycle controls.\n- **Restricted:** credentials, high-impact personal data, cryptographic material,\n  or data whose exposure creates severe harm.\n\nEvery data element has an owner, purpose, classification, source, allowed use,\nretention, deletion, and export rule. Derived data inherits the strongest\nrelevant classification unless a reviewed transformation proves otherwise.",
+      "title": "Data classification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 42,
+      "section_id": "control-baseline",
+      "text": "## Control baseline",
+      "title": "Control baseline"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 49,
+      "line_start": 44,
+      "section_id": "access",
+      "text": "### Access\n\nDefault deny; least privilege; separation of user, admin, operator, and service\nroles; periodic access review; session expiration; revocation; and evidence for\nprivileged action.",
+      "title": "Access"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 56,
+      "line_start": 50,
+      "section_id": "input-and-output",
+      "text": "### Input and output\n\nValidate type, length, format, range, relationship, authorization, and business\ninvariants. Use parameterized data access and context-appropriate output\nencoding. Treat files, URLs, redirects, templates, and serialized objects as\nuntrusted.",
+      "title": "Input and output"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 63,
+      "line_start": 57,
+      "section_id": "secrets-and-cryptography",
+      "text": "### Secrets and cryptography\n\nSecrets come from an approved store, are scoped and rotated, and never appear in\nsource or telemetry. Use maintained standard cryptographic libraries and\napproved protocols; do not design custom cryptography. Key access, rotation,\nbackup, and destruction match data consequence.",
+      "title": "Secrets and cryptography"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 69,
+      "line_start": 64,
+      "section_id": "network-and-dependency-access",
+      "text": "### Network and dependency access\n\nAllow only required ingress and egress. Authenticate sensitive service calls,\nvalidate peer and destination, bound time and size, and contain dependency\nfailure. Do not trust internal network location as identity.",
+      "title": "Network and dependency access"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 75,
+      "line_start": 70,
+      "section_id": "evidence-and-detection",
+      "text": "### Evidence and detection\n\nRecord authentication, authorization denial, privileged change, sensitive data\nadministration, policy change, security control failure, and suspicious abuse\nsignals. Protect evidence integrity and access while minimizing payloads.",
+      "title": "Evidence and detection"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 82,
+      "line_start": 76,
+      "section_id": "administrative-safety",
+      "text": "## Administrative safety\n\nAdministrative operations show target, scope, effect, and reversibility; require\nexplicit confirmation; use bounded batch sizes; and provide dry-run or preview\nfor destructive or broad actions where feasible. Emergency access is time-\nlimited, separately approved when possible, and reviewed after use.",
+      "title": "Administrative safety"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 88,
+      "line_start": 83,
+      "section_id": "verification",
+      "text": "## Verification\n\nSecurity evidence includes unit and integration tests for controls, negative\nauthorization tests, abuse and rate tests, dependency and secret scanning,\nthreat-model review, artifact provenance, recovery exercises, and targeted\nindependent assessment before material production exposure.",
+      "title": "Verification"
+    }
+  ],
+  "source": {
+    "bytes": 4014,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 88,
+    "media_type": "text/markdown",
+    "path": "security/security-model.md",
+    "sha256": "b92b29c17f4f7f8e26f6670bfc1a3fff56bb1ccb9baf1fde6649eb2ce226bdeb"
+  }
+}

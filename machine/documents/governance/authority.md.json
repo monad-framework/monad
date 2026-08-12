@@ -1,0 +1,94 @@
+{
+  "content": "# Authority Model\n\n## Roles\n\nRoles describe decision responsibility and may be held by one person in a small\nproject. When one person holds conflicting roles, the decision record states the\nexception and obtains independent review for high-consequence changes.\n\n| Role | Accountable for | May approve |\n| --- | --- | --- |\n| Project Steward | Mission, governance, sustainability, and final escalation | Vision and existential direction |\n| Product Owner | User outcomes, requirements, priorities, and acceptance | Product baseline and scope within strategy |\n| Architecture Owner | Boundaries, quality trade-offs, and strategic technical choices | Architecture baseline and ADRs |\n| Engineering Owner | Delivery method, implementation quality, and technical integration | Engineering plans and completed technical work |\n| Security Owner | Security risk, controls, vulnerability response, and exceptions | Security baseline and risk treatment within delegated limit |\n| Operations Owner | Service objectives, deployment, continuity, and incident readiness | Operational readiness and production changes |\n| Document Owner | Accuracy, review, and lifecycle of an assigned record | Editorial and scoped document changes |\n\n## Decision rights\n\nRoutine, reversible decisions remain with the owner closest to the work when\nthey preserve approved requirements, contracts, budgets, and controls. Changes\ncrossing ownership boundaries require affected owners. A decision changing\nvision, public promise, accepted risk, legal posture, or irreversible commitment\nrequires the accountable role identified by governance.\n\n## Approval matrix\n\n| Decision | Accountable | Required concurrence |\n| --- | --- | --- |\n| Vision or non-goal change | Project Steward | Product Owner |\n| Product baseline or release scope | Product Owner | Engineering; Security/Operations when affected |\n| System boundary or strategic dependency | Architecture Owner | Owning components; Security/Operations when affected |\n| Production release | Product Owner | Engineering, Security, and Operations readiness |\n| Security risk acceptance | Security Owner within limit; Steward above limit | Affected product and operations owners |\n| Emergency mitigation | Incident Commander | Retrospective approval after stabilization |\n| Data-purpose or retention change | Product Owner | Security/privacy authority and data owner |\n\n## Separation of duties\n\nNo person should unilaterally author, approve, and deploy a high-consequence\nproduction change. Releases, privileged access, security exceptions, and\ndestructive data operations use independent confirmation where practical.\nAutomation may enforce approval but does not own the decision.\n\n## Delegation\n\nDelegation states scope, permitted decisions, limits, start and end dates,\nreporting expectations, and revocation. Delegated authority cannot be\nre-delegated unless explicitly allowed and never exceeds the delegator's own\nauthority.\n\n## Escalation\n\nEscalate when owners disagree on a cross-boundary risk, a decision exceeds\ndelegated limits, a required owner is unavailable beyond the decision window,\nor evidence reveals a legal, ethical, or safety concern. Escalation packages the\ndecision, options, evidence, deadline, impact of delay, and recommendation.\n",
+  "document_id": "doc:governance%2Fauthority.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "governance",
+    "normative": true,
+    "summary": "Roles describe decision responsibility and may be held by one person in a small project. When one person holds conflicting roles, the decision record states the exception and obtains independent review for high-consequence changes.",
+    "title": "Authority Model"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "authority-model",
+      "text": "# Authority Model",
+      "title": "Authority Model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 3,
+      "section_id": "roles",
+      "text": "## Roles\n\nRoles describe decision responsibility and may be held by one person in a small\nproject. When one person holds conflicting roles, the decision record states the\nexception and obtains independent review for high-consequence changes.\n\n| Role | Accountable for | May approve |\n| --- | --- | --- |\n| Project Steward | Mission, governance, sustainability, and final escalation | Vision and existential direction |\n| Product Owner | User outcomes, requirements, priorities, and acceptance | Product baseline and scope within strategy |\n| Architecture Owner | Boundaries, quality trade-offs, and strategic technical choices | Architecture baseline and ADRs |\n| Engineering Owner | Delivery method, implementation quality, and technical integration | Engineering plans and completed technical work |\n| Security Owner | Security risk, controls, vulnerability response, and exceptions | Security baseline and risk treatment within delegated limit |\n| Operations Owner | Service objectives, deployment, continuity, and incident readiness | Operational readiness and production changes |\n| Document Owner | Accuracy, review, and lifecycle of an assigned record | Editorial and scoped document changes |",
+      "title": "Roles"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 19,
+      "section_id": "decision-rights",
+      "text": "## Decision rights\n\nRoutine, reversible decisions remain with the owner closest to the work when\nthey preserve approved requirements, contracts, budgets, and controls. Changes\ncrossing ownership boundaries require affected owners. A decision changing\nvision, public promise, accepted risk, legal posture, or irreversible commitment\nrequires the accountable role identified by governance.",
+      "title": "Decision rights"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 27,
+      "section_id": "approval-matrix",
+      "text": "## Approval matrix\n\n| Decision | Accountable | Required concurrence |\n| --- | --- | --- |\n| Vision or non-goal change | Project Steward | Product Owner |\n| Product baseline or release scope | Product Owner | Engineering; Security/Operations when affected |\n| System boundary or strategic dependency | Architecture Owner | Owning components; Security/Operations when affected |\n| Production release | Product Owner | Engineering, Security, and Operations readiness |\n| Security risk acceptance | Security Owner within limit; Steward above limit | Affected product and operations owners |\n| Emergency mitigation | Incident Commander | Retrospective approval after stabilization |\n| Data-purpose or retention change | Product Owner | Security/privacy authority and data owner |",
+      "title": "Approval matrix"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 45,
+      "line_start": 39,
+      "section_id": "separation-of-duties",
+      "text": "## Separation of duties\n\nNo person should unilaterally author, approve, and deploy a high-consequence\nproduction change. Releases, privileged access, security exceptions, and\ndestructive data operations use independent confirmation where practical.\nAutomation may enforce approval but does not own the decision.",
+      "title": "Separation of duties"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 46,
+      "section_id": "delegation",
+      "text": "## Delegation\n\nDelegation states scope, permitted decisions, limits, start and end dates,\nreporting expectations, and revocation. Delegated authority cannot be\nre-delegated unless explicitly allowed and never exceeds the delegator's own\nauthority.",
+      "title": "Delegation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 53,
+      "section_id": "escalation",
+      "text": "## Escalation\n\nEscalate when owners disagree on a cross-boundary risk, a decision exceeds\ndelegated limits, a required owner is unavailable beyond the decision window,\nor evidence reveals a legal, ethical, or safety concern. Escalation packages the\ndecision, options, evidence, deadline, impact of delay, and recommendation.",
+      "title": "Escalation"
+    }
+  ],
+  "source": {
+    "bytes": 3273,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 58,
+    "media_type": "text/markdown",
+    "path": "governance/authority.md",
+    "sha256": "34dc1ecb4da4d5affd0d4297adb70b423f910ba6e481cba2413f67e3f5d34b19"
+  }
+}

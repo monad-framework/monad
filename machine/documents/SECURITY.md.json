@@ -1,0 +1,94 @@
+{
+  "content": "# Security Policy\n\nMonadV2 treats coordinated vulnerability disclosure as a safety\nprocess. Good-faith research performed within this policy will be handled\nrespectfully and investigated promptly.\n\n## Supported versions\n\nUntil the first stable release, only the latest commit on the default branch is\nsupported. After stable releases begin, the current major version and the\nimmediately preceding major version receive security fixes unless a release\nnotice states otherwise.\n\n## Private reporting\n\nSend reports to **thomasjcarter613@gmail.com**. Do not disclose the issue publicly,\nopen a public ticket, or include sensitive evidence in third-party paste sites.\nEncrypt the report when a public key is published by the project.\n\nInclude:\n\n- affected version, commit, component, and deployment assumptions;\n- vulnerability class and practical impact;\n- reproducible steps or a minimal proof of concept;\n- required privileges and user interaction;\n- known mitigations and suggested remediation, if available;\n- your preferred name and disclosure coordination needs.\n\n## Response targets\n\n| Event | Target |\n| --- | --- |\n| Receipt acknowledged | 3 business days |\n| Initial triage and severity | 7 business days |\n| Remediation plan or status update | 14 business days |\n| Coordinated disclosure | Mutually agreed after a fix is available |\n\nTargets may change for complex findings, but the reporter will receive a status\nupdate at least every 14 days while the case remains open.\n\n## Research boundaries\n\nDo not access data that is not yours, degrade service, persist after proving the\nissue, use social engineering, or test third-party systems without permission.\nStop immediately if personal data, secrets, or cross-tenant access is exposed.\nPreserve only the minimum evidence needed for verification.\n\n## Severity and remediation\n\nThe security owner assesses exploitability, impact, exposure, and available\ncontrols. Critical issues can trigger an incident, release freeze, credential\nrotation, or emergency patch. Fixes require regression tests and review by an\nowner independent of the author whenever practical.\n\n## Disclosure credit\n\nThe project will offer public credit when requested and legally permissible.\nDo not promise bounties: no reward program exists unless separately announced.\n",
+  "document_id": "doc:SECURITY.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-record",
+    "normative": true,
+    "summary": "MonadV2 treats coordinated vulnerability disclosure as a safety process. Good-faith research performed within this policy will be handled respectfully and investigated promptly.",
+    "title": "Security Policy"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "security-policy",
+      "text": "# Security Policy\n\nMonadV2 treats coordinated vulnerability disclosure as a safety\nprocess. Good-faith research performed within this policy will be handled\nrespectfully and investigated promptly.",
+      "title": "Security Policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 7,
+      "section_id": "supported-versions",
+      "text": "## Supported versions\n\nUntil the first stable release, only the latest commit on the default branch is\nsupported. After stable releases begin, the current major version and the\nimmediately preceding major version receive security fixes unless a release\nnotice states otherwise.",
+      "title": "Supported versions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 28,
+      "line_start": 14,
+      "section_id": "private-reporting",
+      "text": "## Private reporting\n\nSend reports to **thomasjcarter613@gmail.com**. Do not disclose the issue publicly,\nopen a public ticket, or include sensitive evidence in third-party paste sites.\nEncrypt the report when a public key is published by the project.\n\nInclude:\n\n- affected version, commit, component, and deployment assumptions;\n- vulnerability class and practical impact;\n- reproducible steps or a minimal proof of concept;\n- required privileges and user interaction;\n- known mitigations and suggested remediation, if available;\n- your preferred name and disclosure coordination needs.",
+      "title": "Private reporting"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 29,
+      "section_id": "response-targets",
+      "text": "## Response targets\n\n| Event | Target |\n| --- | --- |\n| Receipt acknowledged | 3 business days |\n| Initial triage and severity | 7 business days |\n| Remediation plan or status update | 14 business days |\n| Coordinated disclosure | Mutually agreed after a fix is available |\n\nTargets may change for complex findings, but the reporter will receive a status\nupdate at least every 14 days while the case remains open.",
+      "title": "Response targets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 41,
+      "section_id": "research-boundaries",
+      "text": "## Research boundaries\n\nDo not access data that is not yours, degrade service, persist after proving the\nissue, use social engineering, or test third-party systems without permission.\nStop immediately if personal data, secrets, or cross-tenant access is exposed.\nPreserve only the minimum evidence needed for verification.",
+      "title": "Research boundaries"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 48,
+      "section_id": "severity-and-remediation",
+      "text": "## Severity and remediation\n\nThe security owner assesses exploitability, impact, exposure, and available\ncontrols. Critical issues can trigger an incident, release freeze, credential\nrotation, or emergency patch. Fixes require regression tests and review by an\nowner independent of the author whenever practical.",
+      "title": "Severity and remediation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 55,
+      "section_id": "disclosure-credit",
+      "text": "## Disclosure credit\n\nThe project will offer public credit when requested and legally permissible.\nDo not promise bounties: no reward program exists unless separately announced.",
+      "title": "Disclosure credit"
+    }
+  ],
+  "source": {
+    "bytes": 2297,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 58,
+    "media_type": "text/markdown",
+    "path": "SECURITY.md",
+    "sha256": "e47596bc4cf4eaae4c10e3e59b0b20297f30acc474dd70d22596efd6857a256d"
+  }
+}

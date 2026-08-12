@@ -1,0 +1,85 @@
+{
+  "content": "# Development Tools\n\nThis directory contains tool configuration, wrappers, or project-owned helpers\nthat do not belong in ordinary runtime code. Tool choices support the project;\nthey do not become product architecture by accident.\n\n## Selection criteria\n\nEvaluate a tool by the problem it solves, maintained status, security model,\nlicense, installation and update path, reproducibility, platform support,\nautomation interface, output stability, performance, total operating cost, and\nexit strategy. Prefer a smaller coherent toolchain over overlapping utilities.\n\n## Version policy\n\nPin versions needed for reproducible build, test, generation, migration, and\nrelease behavior. Record the authoritative version in one place and automate\nupdate checks. Updates are reviewed like code: release notes, compatibility,\nsecurity, generated diffs, and rollback are considered.\n\n## Execution policy\n\nTools and plugins execute code with contributor or automation authority. Use\ntrusted sources, verify integrity, minimize permissions and network access, and\ndo not expose production credentials to formatting, linting, or untrusted\nextension processes.\n\n## Wrappers\n\nProvide a project wrapper when it normalizes complex arguments, enforces safety,\nor makes local and CI behavior identical. Wrappers should pass through useful\nexit status, expose the underlying tool version, and avoid concealing failures.\n\n## Removal\n\nA tool is removed when its need disappears, maintenance or security becomes\nunacceptable, or a simpler existing capability replaces it. Remove configuration,\ncaches, automation references, documentation, and dependency permissions as\npart of the same change.\n",
+  "document_id": "doc:tools%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "tooling",
+    "normative": false,
+    "summary": "This directory contains tool configuration, wrappers, or project-owned helpers that do not belong in ordinary runtime code. Tool choices support the project; they do not become product architecture by accident.",
+    "title": "Development Tools"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "development-tools",
+      "text": "# Development Tools\n\nThis directory contains tool configuration, wrappers, or project-owned helpers\nthat do not belong in ordinary runtime code. Tool choices support the project;\nthey do not become product architecture by accident.",
+      "title": "Development Tools"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 7,
+      "section_id": "selection-criteria",
+      "text": "## Selection criteria\n\nEvaluate a tool by the problem it solves, maintained status, security model,\nlicense, installation and update path, reproducibility, platform support,\nautomation interface, output stability, performance, total operating cost, and\nexit strategy. Prefer a smaller coherent toolchain over overlapping utilities.",
+      "title": "Selection criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 20,
+      "line_start": 14,
+      "section_id": "version-policy",
+      "text": "## Version policy\n\nPin versions needed for reproducible build, test, generation, migration, and\nrelease behavior. Record the authoritative version in one place and automate\nupdate checks. Updates are reviewed like code: release notes, compatibility,\nsecurity, generated diffs, and rollback are considered.",
+      "title": "Version policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 21,
+      "section_id": "execution-policy",
+      "text": "## Execution policy\n\nTools and plugins execute code with contributor or automation authority. Use\ntrusted sources, verify integrity, minimize permissions and network access, and\ndo not expose production credentials to formatting, linting, or untrusted\nextension processes.",
+      "title": "Execution policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 28,
+      "section_id": "wrappers",
+      "text": "## Wrappers\n\nProvide a project wrapper when it normalizes complex arguments, enforces safety,\nor makes local and CI behavior identical. Wrappers should pass through useful\nexit status, expose the underlying tool version, and avoid concealing failures.",
+      "title": "Wrappers"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 34,
+      "section_id": "removal",
+      "text": "## Removal\n\nA tool is removed when its need disappears, maintenance or security becomes\nunacceptable, or a simpler existing capability replaces it. Remove configuration,\ncaches, automation references, documentation, and dependency permissions as\npart of the same change.",
+      "title": "Removal"
+    }
+  ],
+  "source": {
+    "bytes": 1671,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 39,
+    "media_type": "text/markdown",
+    "path": "tools/README.md",
+    "sha256": "3279e5426578ab8c7bdad93b910d90d780f80b22c7a119eb10907ad53940d750"
+  }
+}

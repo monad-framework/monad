@@ -1,0 +1,115 @@
+{
+  "content": "# Contributing to MonadV2\n\nContributions are welcome when they preserve the repository's traceability,\nquality, and safety guarantees. This guide defines the common path from an idea\nto an accepted change.\n\n## Before starting\n\n1. Search issues, work packets, ADRs, and pull requests for related work.\n2. Open an issue when the behavior, scope, or ownership is unclear.\n3. Obtain an accepted work packet for changes that cross boundaries, alter a\n   public contract, or require more than one focused pull request.\n4. Read the relevant requirements, architecture decisions, and quality gates.\n5. Never include credentials, production data, private keys, or personal data.\n\n## Change workflow\n\n1. Fork or branch from the current default branch.\n2. Use a short branch name such as `feat/short-description` or\n   `fix/issue-number-description`.\n3. Make the smallest coherent change that satisfies the acceptance criteria.\n4. Add or update tests and documentation in the same change.\n5. Run all applicable local checks and review the diff for secrets and noise.\n6. Open a pull request using the repository template.\n7. Address review findings with new commits; avoid rewriting reviewed history\n   unless a maintainer requests it.\n\n## Commit standard\n\nUse Conventional Commit subjects:\n\n```text\n<type>(optional-scope): concise imperative summary\n```\n\nPreferred types are `feat`, `fix`, `docs`, `test`, `refactor`, `perf`, `build`,\n`ci`, `chore`, and `revert`. Explain the reason and consequences in the body.\nMark compatibility breaks with `!` and a `BREAKING CHANGE:` footer.\n\n## Quality expectations\n\n- Requirements and acceptance criteria are explicit and testable.\n- New behavior includes positive, negative, and boundary tests.\n- Public interfaces remain compatible or include an approved migration plan.\n- Errors are actionable and do not reveal secrets or sensitive internals.\n- Telemetry supports diagnosis without collecting unnecessary data.\n- Documentation is accurate for users, operators, and maintainers.\n- Generated or vendored changes are isolated and reproducible.\n\n## Architecture and governance\n\nCreate an ADR before merging a decision that is costly to reverse, changes a\nsystem boundary, introduces a strategic dependency, or modifies a quality\nattribute. Use the change-control process for baselined documents. Reviewers\nmay return technically correct changes that lack required traceability.\n\n## Review conduct\n\nReview the work, not the person. Distinguish blocking correctness or safety\nfindings from optional suggestions. Authors should resolve every conversation\nor state why no change is needed. Approval means the reviewer believes the\nchange is safe to merge within the evidence available.\n\n## Reporting security issues\n\nDo not open public issues for suspected vulnerabilities. Follow\n[`SECURITY.md`](SECURITY.md) and report privately to thomasjcarter613@gmail.com.\n",
+  "document_id": "doc:CONTRIBUTING.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [
+    {
+      "kind": "local",
+      "resolved_source": "SECURITY.md",
+      "target": "SECURITY.md"
+    }
+  ],
+  "metadata": {
+    "document_type": "project-record",
+    "normative": true,
+    "summary": "Contributions are welcome when they preserve the repository's traceability, quality, and safety guarantees. This guide defines the common path from an idea to an accepted change.",
+    "title": "Contributing to MonadV2"
+  },
+  "relations": [
+    {
+      "target_document_id": "doc:SECURITY.md",
+      "target_source": "SECURITY.md",
+      "type": "references"
+    }
+  ],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "contributing-to-monadv2",
+      "text": "# Contributing to MonadV2\n\nContributions are welcome when they preserve the repository's traceability,\nquality, and safety guarantees. This guide defines the common path from an idea\nto an accepted change.",
+      "title": "Contributing to MonadV2"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 7,
+      "section_id": "before-starting",
+      "text": "## Before starting\n\n1. Search issues, work packets, ADRs, and pull requests for related work.\n2. Open an issue when the behavior, scope, or ownership is unclear.\n3. Obtain an accepted work packet for changes that cross boundaries, alter a\n   public contract, or require more than one focused pull request.\n4. Read the relevant requirements, architecture decisions, and quality gates.\n5. Never include credentials, production data, private keys, or personal data.",
+      "title": "Before starting"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 16,
+      "section_id": "change-workflow",
+      "text": "## Change workflow\n\n1. Fork or branch from the current default branch.\n2. Use a short branch name such as `feat/short-description` or\n   `fix/issue-number-description`.\n3. Make the smallest coherent change that satisfies the acceptance criteria.\n4. Add or update tests and documentation in the same change.\n5. Run all applicable local checks and review the diff for secrets and noise.\n6. Open a pull request using the repository template.\n7. Address review findings with new commits; avoid rewriting reviewed history\n   unless a maintainer requests it.",
+      "title": "Change workflow"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 28,
+      "section_id": "commit-standard",
+      "text": "## Commit standard\n\nUse Conventional Commit subjects:\n\n```text\n<type>(optional-scope): concise imperative summary\n```\n\nPreferred types are `feat`, `fix`, `docs`, `test`, `refactor`, `perf`, `build`,\n`ci`, `chore`, and `revert`. Explain the reason and consequences in the body.\nMark compatibility breaks with `!` and a `BREAKING CHANGE:` footer.",
+      "title": "Commit standard"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 40,
+      "section_id": "quality-expectations",
+      "text": "## Quality expectations\n\n- Requirements and acceptance criteria are explicit and testable.\n- New behavior includes positive, negative, and boundary tests.\n- Public interfaces remain compatible or include an approved migration plan.\n- Errors are actionable and do not reveal secrets or sensitive internals.\n- Telemetry supports diagnosis without collecting unnecessary data.\n- Documentation is accurate for users, operators, and maintainers.\n- Generated or vendored changes are isolated and reproducible.",
+      "title": "Quality expectations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 50,
+      "section_id": "architecture-and-governance",
+      "text": "## Architecture and governance\n\nCreate an ADR before merging a decision that is costly to reverse, changes a\nsystem boundary, introduces a strategic dependency, or modifies a quality\nattribute. Use the change-control process for baselined documents. Reviewers\nmay return technically correct changes that lack required traceability.",
+      "title": "Architecture and governance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 63,
+      "line_start": 57,
+      "section_id": "review-conduct",
+      "text": "## Review conduct\n\nReview the work, not the person. Distinguish blocking correctness or safety\nfindings from optional suggestions. Authors should resolve every conversation\nor state why no change is needed. Approval means the reviewer believes the\nchange is safe to merge within the evidence available.",
+      "title": "Review conduct"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 64,
+      "section_id": "reporting-security-issues",
+      "text": "## Reporting security issues\n\nDo not open public issues for suspected vulnerabilities. Follow\n[`SECURITY.md`](SECURITY.md) and report privately to thomasjcarter613@gmail.com.",
+      "title": "Reporting security issues"
+    }
+  ],
+  "source": {
+    "bytes": 2888,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 67,
+    "media_type": "text/markdown",
+    "path": "CONTRIBUTING.md",
+    "sha256": "8c0c4425cdae1a585d17f492388f5abd684c9274db725b94bce60aefbd965232"
+  }
+}

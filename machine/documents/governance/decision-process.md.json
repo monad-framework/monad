@@ -1,0 +1,121 @@
+{
+  "content": "# Decision Process\n\n## Decision classes\n\n### Class 1 — Local and reversible\n\nLimited to one owned area, low consequence, easy to reverse, and compliant with\napproved contracts. The responsible owner decides and records the result in the\nwork artifact or review.\n\n### Class 2 — Cross-cutting or durable\n\nAffects multiple owners, a public contract, architecture, data handling,\noperability, cost, or meaningful migration. Use a decision record or ADR and\nobtain affected-owner review.\n\n### Class 3 — Strategic or high consequence\n\nChanges vision, legal or ethical posture, high-severity risk, irreversible\ncommitment, production exposure, or business viability. Requires the accountable\nauthority, documented evidence, dissent, and explicit approval.\n\n## Standard process\n\n1. **Frame:** state the decision, owner, deadline, affected scope, and cost of\n   delay.\n2. **Establish drivers:** rank outcomes, constraints, risks, and quality needs.\n3. **Gather evidence:** distinguish facts, assumptions, forecasts, and unknowns.\n4. **Develop options:** include credible alternatives and the status quo.\n5. **Evaluate:** compare benefits, harms, cost, failure modes, reversibility, and\n   migration using the same criteria.\n6. **Consult:** obtain input from affected owners and people bearing material\n   consequences.\n7. **Decide:** record choice, rationale, authority, conditions, and dissent.\n8. **Implement and verify:** link work and evidence; review assumptions at the\n   stated trigger.\n\n## Decision record\n\nA material record includes ID, status, date, owner, participants, question,\ncontext, drivers, options, evidence, decision, consequences, risks, actions,\nreview trigger, and supersession links. Chat discussion may inform the record\nbut is not the authoritative decision.\n\n## Consent and dissent\n\nConsensus is useful but not mandatory. Required reviewers may approve, approve\nwith conditions, abstain, or object with evidence and impact. The accountable\nowner resolves disagreement within their authority and preserves material\ndissent so later reviews understand the uncertainty.\n\n## Decision latency\n\nSet a decision deadline proportional to consequence and cost of delay. If\nevidence cannot be obtained in time, prefer the safest reversible option or\nreduce exposure. Silence is not approval unless a documented process explicitly\ndefines it for low-risk changes.\n\n## Reconsideration\n\nReopen a decision when its stated trigger fires, a key assumption fails,\nconsequence changes materially, or new evidence makes the accepted option\nunsafe or clearly inferior. Supersede the prior record rather than erasing it.\n",
+  "document_id": "doc:governance%2Fdecision-process.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "governance",
+    "normative": true,
+    "summary": "Limited to one owned area, low consequence, easy to reverse, and compliant with approved contracts. The responsible owner decides and records the result in the work artifact or review.",
+    "title": "Decision Process"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "decision-process",
+      "text": "# Decision Process",
+      "title": "Decision Process"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 4,
+      "line_start": 3,
+      "section_id": "decision-classes",
+      "text": "## Decision classes",
+      "title": "Decision classes"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 10,
+      "line_start": 5,
+      "section_id": "class-1-local-and-reversible",
+      "text": "### Class 1 — Local and reversible\n\nLimited to one owned area, low consequence, easy to reverse, and compliant with\napproved contracts. The responsible owner decides and records the result in the\nwork artifact or review.",
+      "title": "Class 1 — Local and reversible"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 16,
+      "line_start": 11,
+      "section_id": "class-2-cross-cutting-or-durable",
+      "text": "### Class 2 — Cross-cutting or durable\n\nAffects multiple owners, a public contract, architecture, data handling,\noperability, cost, or meaningful migration. Use a decision record or ADR and\nobtain affected-owner review.",
+      "title": "Class 2 — Cross-cutting or durable"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 22,
+      "line_start": 17,
+      "section_id": "class-3-strategic-or-high-consequence",
+      "text": "### Class 3 — Strategic or high consequence\n\nChanges vision, legal or ethical posture, high-severity risk, irreversible\ncommitment, production exposure, or business viability. Requires the accountable\nauthority, documented evidence, dissent, and explicit approval.",
+      "title": "Class 3 — Strategic or high consequence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 23,
+      "section_id": "standard-process",
+      "text": "## Standard process\n\n1. **Frame:** state the decision, owner, deadline, affected scope, and cost of\n   delay.\n2. **Establish drivers:** rank outcomes, constraints, risks, and quality needs.\n3. **Gather evidence:** distinguish facts, assumptions, forecasts, and unknowns.\n4. **Develop options:** include credible alternatives and the status quo.\n5. **Evaluate:** compare benefits, harms, cost, failure modes, reversibility, and\n   migration using the same criteria.\n6. **Consult:** obtain input from affected owners and people bearing material\n   consequences.\n7. **Decide:** record choice, rationale, authority, conditions, and dissent.\n8. **Implement and verify:** link work and evidence; review assumptions at the\n   stated trigger.",
+      "title": "Standard process"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 38,
+      "section_id": "decision-record",
+      "text": "## Decision record\n\nA material record includes ID, status, date, owner, participants, question,\ncontext, drivers, options, evidence, decision, consequences, risks, actions,\nreview trigger, and supersession links. Chat discussion may inform the record\nbut is not the authoritative decision.",
+      "title": "Decision record"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 51,
+      "line_start": 45,
+      "section_id": "consent-and-dissent",
+      "text": "## Consent and dissent\n\nConsensus is useful but not mandatory. Required reviewers may approve, approve\nwith conditions, abstain, or object with evidence and impact. The accountable\nowner resolves disagreement within their authority and preserves material\ndissent so later reviews understand the uncertainty.",
+      "title": "Consent and dissent"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 52,
+      "section_id": "decision-latency",
+      "text": "## Decision latency\n\nSet a decision deadline proportional to consequence and cost of delay. If\nevidence cannot be obtained in time, prefer the safest reversible option or\nreduce exposure. Silence is not approval unless a documented process explicitly\ndefines it for low-risk changes.",
+      "title": "Decision latency"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 63,
+      "line_start": 59,
+      "section_id": "reconsideration",
+      "text": "## Reconsideration\n\nReopen a decision when its stated trigger fires, a key assumption fails,\nconsequence changes materially, or new evidence makes the accepted option\nunsafe or clearly inferior. Supersede the prior record rather than erasing it.",
+      "title": "Reconsideration"
+    }
+  ],
+  "source": {
+    "bytes": 2623,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 63,
+    "media_type": "text/markdown",
+    "path": "governance/decision-process.md",
+    "sha256": "916cf67f783103009dcb56f41574b1603fed8d0311e5256a64adc0503b970228"
+  }
+}

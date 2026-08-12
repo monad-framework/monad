@@ -1,0 +1,121 @@
+{
+  "content": "# Software Supply-Chain Security\n\n## Objective\n\nEvery release should be traceable from reviewed source through controlled\ndependencies and an isolated build to an immutable verified artifact. A\nconvenient pipeline is not trusted merely because it runs on a familiar\nplatform.\n\n## Source controls\n\n- Protect the default and release branches with required review and checks.\n- Require independent approval for workflow, permission, dependency-source, and\n  release-policy changes.\n- Detect secrets before merge and respond as if committed secrets are exposed.\n- Sign or otherwise verify release tags and preserve reviewer identity.\n- Restrict force-push and deletion of protected history.\n\n## Dependency controls\n\nUse supported package sources, committed lockfiles, integrity verification, and\nminimal direct dependencies. Review purpose, maintenance, license, transitive\nrisk, install scripts, network behavior, and exit cost before adding a strategic\ndependency. Automated updates remain subject to tests and review.\n\n## Build controls\n\nBuild from a clean, identified source revision in an ephemeral environment.\nSeparate untrusted pull-request checks from jobs holding write, signing, package,\nor deployment authority. Scope tokens to the job, avoid persistent runners for\nuntrusted code, pin reusable workflow dependencies, and prevent artifact\nsubstitution between build and release.\n\n## Artifact controls\n\nProduce an immutable artifact, checksum, software bill of materials, provenance,\ntest results, and vulnerability findings. Sign release artifacts when the\ndistribution path supports verification. Promote the same digest through\nenvironments and verify it before deployment.\n\n## Vulnerability management\n\nContinuously scan direct and transitive dependencies, container or system\npackages, source, and released artifacts. Triage exploitability and exposure,\nnot score alone. Critical exploitable findings trigger immediate containment;\nother findings receive risk-based service targets, owners, and verification.\n\n## Tool and action policy\n\nThird-party build actions, generators, compilers, and package scripts execute\ncode and are dependencies. Pin immutable versions, minimize permissions, review\nsource and ownership, and replace abandoned or overly privileged tools.\n\n## Release verification\n\nA release gate verifies source revision, required approvals, protected workflow,\ndependency integrity, SBOM, provenance, signatures or checksums, vulnerability\nstate, test evidence, and target artifact digest. Failure blocks promotion\nunless handled by the explicit security risk-acceptance process.\n\n## Response\n\nFor a compromised dependency, credential, build service, or artifact: stop\npromotion, identify affected versions and consumers, revoke authority, preserve\nevidence, rebuild from a trusted state, rotate exposed material, communicate\nimpact, and verify clean provenance before resuming releases.\n",
+  "document_id": "doc:security%2Fsupply-chain.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "security",
+    "normative": true,
+    "summary": "Every release should be traceable from reviewed source through controlled dependencies and an isolated build to an immutable verified artifact. A convenient pipeline is not trusted merely because it runs on a familiar platform.",
+    "title": "Software Supply-Chain Security"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "software-supply-chain-security",
+      "text": "# Software Supply-Chain Security",
+      "title": "Software Supply-Chain Security"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 9,
+      "line_start": 3,
+      "section_id": "objective",
+      "text": "## Objective\n\nEvery release should be traceable from reviewed source through controlled\ndependencies and an isolated build to an immutable verified artifact. A\nconvenient pipeline is not trusted merely because it runs on a familiar\nplatform.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 10,
+      "section_id": "source-controls",
+      "text": "## Source controls\n\n- Protect the default and release branches with required review and checks.\n- Require independent approval for workflow, permission, dependency-source, and\n  release-policy changes.\n- Detect secrets before merge and respond as if committed secrets are exposed.\n- Sign or otherwise verify release tags and preserve reviewer identity.\n- Restrict force-push and deletion of protected history.",
+      "title": "Source controls"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 19,
+      "section_id": "dependency-controls",
+      "text": "## Dependency controls\n\nUse supported package sources, committed lockfiles, integrity verification, and\nminimal direct dependencies. Review purpose, maintenance, license, transitive\nrisk, install scripts, network behavior, and exit cost before adding a strategic\ndependency. Automated updates remain subject to tests and review.",
+      "title": "Dependency controls"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 26,
+      "section_id": "build-controls",
+      "text": "## Build controls\n\nBuild from a clean, identified source revision in an ephemeral environment.\nSeparate untrusted pull-request checks from jobs holding write, signing, package,\nor deployment authority. Scope tokens to the job, avoid persistent runners for\nuntrusted code, pin reusable workflow dependencies, and prevent artifact\nsubstitution between build and release.",
+      "title": "Build controls"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 34,
+      "section_id": "artifact-controls",
+      "text": "## Artifact controls\n\nProduce an immutable artifact, checksum, software bill of materials, provenance,\ntest results, and vulnerability findings. Sign release artifacts when the\ndistribution path supports verification. Promote the same digest through\nenvironments and verify it before deployment.",
+      "title": "Artifact controls"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 41,
+      "section_id": "vulnerability-management",
+      "text": "## Vulnerability management\n\nContinuously scan direct and transitive dependencies, container or system\npackages, source, and released artifacts. Triage exploitability and exposure,\nnot score alone. Critical exploitable findings trigger immediate containment;\nother findings receive risk-based service targets, owners, and verification.",
+      "title": "Vulnerability management"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 48,
+      "section_id": "tool-and-action-policy",
+      "text": "## Tool and action policy\n\nThird-party build actions, generators, compilers, and package scripts execute\ncode and are dependencies. Pin immutable versions, minimize permissions, review\nsource and ownership, and replace abandoned or overly privileged tools.",
+      "title": "Tool and action policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 54,
+      "section_id": "release-verification",
+      "text": "## Release verification\n\nA release gate verifies source revision, required approvals, protected workflow,\ndependency integrity, SBOM, provenance, signatures or checksums, vulnerability\nstate, test evidence, and target artifact digest. Failure blocks promotion\nunless handled by the explicit security risk-acceptance process.",
+      "title": "Release verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 66,
+      "line_start": 61,
+      "section_id": "response",
+      "text": "## Response\n\nFor a compromised dependency, credential, build service, or artifact: stop\npromotion, identify affected versions and consumers, revoke authority, preserve\nevidence, rebuild from a trusted state, rotate exposed material, communicate\nimpact, and verify clean provenance before resuming releases.",
+      "title": "Response"
+    }
+  ],
+  "source": {
+    "bytes": 2913,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 66,
+    "media_type": "text/markdown",
+    "path": "security/supply-chain.md",
+    "sha256": "5ab4edea6dd0403feccc8c2de481f1a0802b37b6e6a73dad9712766f4714a4aa"
+  }
+}

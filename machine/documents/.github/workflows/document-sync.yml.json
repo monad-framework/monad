@@ -1,0 +1,40 @@
+{
+  "content": "name: Machine document synchronization\n\non:\n  pull_request:\n  push:\n    branches:\n      - main\n\npermissions:\n  contents: read\n\nconcurrency:\n  group: document-sync-${{ github.ref }}\n  cancel-in-progress: true\n\njobs:\n  verify:\n    name: Verify human and machine documents\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - name: Check out the reviewed revision\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n\n      - name: Verify generated semantic companions\n        shell: bash\n        run: python3 scripts/sync-machine-docs.py --check\n",
+  "document_id": "doc:.github%2Fworkflows%2Fdocument-sync.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/document-sync.yml.",
+    "title": "Document Sync"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 27,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Machine document synchronization\n\non:\n  pull_request:\n  push:\n    branches:\n      - main\n\npermissions:\n  contents: read\n\nconcurrency:\n  group: document-sync-${{ github.ref }}\n  cancel-in-progress: true\n\njobs:\n  verify:\n    name: Verify human and machine documents\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - name: Check out the reviewed revision\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n\n      - name: Verify generated semantic companions\n        shell: bash\n        run: python3 scripts/sync-machine-docs.py --check",
+      "title": "Document Sync"
+    }
+  ],
+  "source": {
+    "bytes": 589,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 27,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/document-sync.yml",
+    "sha256": "1c63a925fcc3724f28c9d8655785a80b2e7f5c1c9940d12fd06642186495e4f6"
+  }
+}

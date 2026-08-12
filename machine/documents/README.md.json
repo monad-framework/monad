@@ -1,0 +1,186 @@
+{
+  "content": "# MonadV2\n\nMonadV2 is organized as a documentation-first project: the problem,\nproduct intent, architecture, specifications, delivery plan, controls, and\noperating practices are versioned beside the implementation they govern. This\nrepository begins with an executable system of record rather than a loose set\nof notes.\n\n## Current state\n\nThe project is in **inception**. The initial objective is to validate the\nproblem and freeze enough of the product and architecture baseline to begin the\nfirst implementation increment without hiding unresolved risk.\n\n| Area | Source of truth | Initial decision gate |\n| --- | --- | --- |\n| Why the project exists | `vision/` | Vision review |\n| What must be delivered | `product/` and `specifications/` | Product baseline |\n| How the system is shaped | `architecture/` | Architecture review |\n| How work is controlled | `engineering/` | Increment authorization |\n| How change is governed | `governance/` | Change approval |\n| How quality and safety are proven | `testing/` and `security/` | Release readiness |\n| How the service is run | `operations/` | Operational readiness |\n\n## Start here\n\n1. Read [`idea.md`](idea.md) for the original hypothesis and validation plan.\n2. Confirm the problem in [`vision/problem-statement.md`](vision/problem-statement.md).\n3. Review the product baseline in [`product/product-requirements.md`](product/product-requirements.md).\n4. Review the system shape in [`architecture/overview.md`](architecture/overview.md).\n5. Select authorized work from [`engineering/work-packets/active.md`](engineering/work-packets/active.md).\n6. Use [`CONTRIBUTING.md`](CONTRIBUTING.md) before proposing a change.\n\n## Repository map\n\n- `vision/` — enduring intent, principles, goals, exclusions, and outcomes.\n- `product/` — users, journeys, capabilities, requirements, and roadmap.\n- `architecture/` — system context, boundaries, quality attributes, and ADRs.\n- `specifications/` — testable functional and technical contracts.\n- `engineering/` — milestones, increments, work cycles, packets, reviews, and risks.\n- `research/` — questions, evidence, experiments, and references.\n- `governance/` — authority, decisions, change control, lifecycle, and language.\n- `operations/` — environments, delivery, telemetry, reliability, and incidents.\n- `security/` — security objectives, threats, controls, and supply-chain policy.\n- `testing/` — verification strategy, acceptance, performance, and quality gates.\n- `docs/` — user and maintainer documentation intended for publication.\n- `journal/` — chronological project narrative and rationale.\n- `machine/` — generated JSON companions, manifest, graph, and section corpus\n  for AI agents, search, validation, and automation.\n\n## Working agreements\n\n- Every material claim links to evidence or is labeled as an assumption.\n- Every requirement has a stable identifier and verifiable acceptance criteria.\n- Every irreversible or cross-cutting architecture choice receives an ADR.\n- Work begins only when the Definition of Ready is met and closes only when the\n  Definition of Done is satisfied.\n- Security, operability, accessibility, and documentation are product work,\n  not post-release cleanup.\n- Decisions are changed by superseding records, never by silently rewriting\n  history.\n- Human-readable source files are canonical. Generated machine companions must\n  pass `python3 scripts/sync-machine-docs.py --check` before merge.\n\n## Contribution and support\n\nUse issues for observable problems and bounded proposals. Use pull requests for\nreviewable changes. Security reports must follow [`SECURITY.md`](SECURITY.md)\nand must not be filed publicly. Project conduct is governed by\n[`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).\n\n## License\n\nCopyright © 2026 Thomas Carter. Released under the MIT License; see\n[`LICENSE`](LICENSE).\n",
+  "document_id": "doc:README.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [
+    {
+      "kind": "local",
+      "resolved_source": "idea.md",
+      "target": "idea.md"
+    },
+    {
+      "kind": "local",
+      "resolved_source": "vision/problem-statement.md",
+      "target": "vision/problem-statement.md"
+    },
+    {
+      "kind": "local",
+      "resolved_source": "product/product-requirements.md",
+      "target": "product/product-requirements.md"
+    },
+    {
+      "kind": "local",
+      "resolved_source": "architecture/overview.md",
+      "target": "architecture/overview.md"
+    },
+    {
+      "kind": "local",
+      "resolved_source": "engineering/work-packets/active.md",
+      "target": "engineering/work-packets/active.md"
+    },
+    {
+      "kind": "local",
+      "resolved_source": "CONTRIBUTING.md",
+      "target": "CONTRIBUTING.md"
+    },
+    {
+      "kind": "local",
+      "resolved_source": "SECURITY.md",
+      "target": "SECURITY.md"
+    },
+    {
+      "kind": "local",
+      "resolved_source": "CODE_OF_CONDUCT.md",
+      "target": "CODE_OF_CONDUCT.md"
+    },
+    {
+      "kind": "local",
+      "resolved_source": "LICENSE",
+      "target": "LICENSE"
+    }
+  ],
+  "metadata": {
+    "document_type": "repository-index",
+    "normative": false,
+    "summary": "MonadV2 is organized as a documentation-first project: the problem, product intent, architecture, specifications, delivery plan, controls, and operating practices are versioned beside the implementation they govern. This repository begins with an executable system of record rather than a loose set of notes.",
+    "title": "MonadV2"
+  },
+  "relations": [
+    {
+      "target_document_id": "doc:CODE_OF_CONDUCT.md",
+      "target_source": "CODE_OF_CONDUCT.md",
+      "type": "references"
+    },
+    {
+      "target_document_id": "doc:CONTRIBUTING.md",
+      "target_source": "CONTRIBUTING.md",
+      "type": "references"
+    },
+    {
+      "target_document_id": "doc:LICENSE",
+      "target_source": "LICENSE",
+      "type": "references"
+    },
+    {
+      "target_document_id": "doc:SECURITY.md",
+      "target_source": "SECURITY.md",
+      "type": "references"
+    },
+    {
+      "target_document_id": "doc:architecture%2Foverview.md",
+      "target_source": "architecture/overview.md",
+      "type": "references"
+    },
+    {
+      "target_document_id": "doc:engineering%2Fwork-packets%2Factive.md",
+      "target_source": "engineering/work-packets/active.md",
+      "type": "references"
+    },
+    {
+      "target_document_id": "doc:idea.md",
+      "target_source": "idea.md",
+      "type": "references"
+    },
+    {
+      "target_document_id": "doc:product%2Fproduct-requirements.md",
+      "target_source": "product/product-requirements.md",
+      "type": "references"
+    },
+    {
+      "target_document_id": "doc:vision%2Fproblem-statement.md",
+      "target_source": "vision/problem-statement.md",
+      "type": "references"
+    }
+  ],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "monadv2",
+      "text": "# MonadV2\n\nMonadV2 is organized as a documentation-first project: the problem,\nproduct intent, architecture, specifications, delivery plan, controls, and\noperating practices are versioned beside the implementation they govern. This\nrepository begins with an executable system of record rather than a loose set\nof notes.",
+      "title": "MonadV2"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 9,
+      "section_id": "current-state",
+      "text": "## Current state\n\nThe project is in **inception**. The initial objective is to validate the\nproblem and freeze enough of the product and architecture baseline to begin the\nfirst implementation increment without hiding unresolved risk.\n\n| Area | Source of truth | Initial decision gate |\n| --- | --- | --- |\n| Why the project exists | `vision/` | Vision review |\n| What must be delivered | `product/` and `specifications/` | Product baseline |\n| How the system is shaped | `architecture/` | Architecture review |\n| How work is controlled | `engineering/` | Increment authorization |\n| How change is governed | `governance/` | Change approval |\n| How quality and safety are proven | `testing/` and `security/` | Release readiness |\n| How the service is run | `operations/` | Operational readiness |",
+      "title": "Current state"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 25,
+      "section_id": "start-here",
+      "text": "## Start here\n\n1. Read [`idea.md`](idea.md) for the original hypothesis and validation plan.\n2. Confirm the problem in [`vision/problem-statement.md`](vision/problem-statement.md).\n3. Review the product baseline in [`product/product-requirements.md`](product/product-requirements.md).\n4. Review the system shape in [`architecture/overview.md`](architecture/overview.md).\n5. Select authorized work from [`engineering/work-packets/active.md`](engineering/work-packets/active.md).\n6. Use [`CONTRIBUTING.md`](CONTRIBUTING.md) before proposing a change.",
+      "title": "Start here"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 34,
+      "section_id": "repository-map",
+      "text": "## Repository map\n\n- `vision/` — enduring intent, principles, goals, exclusions, and outcomes.\n- `product/` — users, journeys, capabilities, requirements, and roadmap.\n- `architecture/` — system context, boundaries, quality attributes, and ADRs.\n- `specifications/` — testable functional and technical contracts.\n- `engineering/` — milestones, increments, work cycles, packets, reviews, and risks.\n- `research/` — questions, evidence, experiments, and references.\n- `governance/` — authority, decisions, change control, lifecycle, and language.\n- `operations/` — environments, delivery, telemetry, reliability, and incidents.\n- `security/` — security objectives, threats, controls, and supply-chain policy.\n- `testing/` — verification strategy, acceptance, performance, and quality gates.\n- `docs/` — user and maintainer documentation intended for publication.\n- `journal/` — chronological project narrative and rationale.\n- `machine/` — generated JSON companions, manifest, graph, and section corpus\n  for AI agents, search, validation, and automation.",
+      "title": "Repository map"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 64,
+      "line_start": 51,
+      "section_id": "working-agreements",
+      "text": "## Working agreements\n\n- Every material claim links to evidence or is labeled as an assumption.\n- Every requirement has a stable identifier and verifiable acceptance criteria.\n- Every irreversible or cross-cutting architecture choice receives an ADR.\n- Work begins only when the Definition of Ready is met and closes only when the\n  Definition of Done is satisfied.\n- Security, operability, accessibility, and documentation are product work,\n  not post-release cleanup.\n- Decisions are changed by superseding records, never by silently rewriting\n  history.\n- Human-readable source files are canonical. Generated machine companions must\n  pass `python3 scripts/sync-machine-docs.py --check` before merge.",
+      "title": "Working agreements"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 71,
+      "line_start": 65,
+      "section_id": "contribution-and-support",
+      "text": "## Contribution and support\n\nUse issues for observable problems and bounded proposals. Use pull requests for\nreviewable changes. Security reports must follow [`SECURITY.md`](SECURITY.md)\nand must not be filed publicly. Project conduct is governed by\n[`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).",
+      "title": "Contribution and support"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 75,
+      "line_start": 72,
+      "section_id": "license",
+      "text": "## License\n\nCopyright © 2026 Thomas Carter. Released under the MIT License; see\n[`LICENSE`](LICENSE).",
+      "title": "License"
+    }
+  ],
+  "source": {
+    "bytes": 3853,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 75,
+    "media_type": "text/markdown",
+    "path": "README.md",
+    "sha256": "d02e7593f1caefab751aac689920c03f9c5476ced1bd50a1a20088e0787324a6"
+  }
+}

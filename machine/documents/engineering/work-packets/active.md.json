@@ -1,0 +1,93 @@
+{
+  "content": "# Active Work Packets\n\nThis index contains only work explicitly authorized for current execution.\nDetailed scope and acceptance live in the individual packet record. Work is\nremoved from this list when it is done, cancelled, superseded, or returned to\nthe backlog.\n\n## Work-in-progress policy\n\n- One active packet per accountable owner unless an expedite is approved.\n- Finish review and integration before pulling another packet.\n- Update blockers within one business day with a named decision or dependency.\n- Do not add work directly; it must meet the Definition of Ready and belong to\n  an authorized increment or inception outcome.\n\n## Active\n\n### WP-0001 — Validated problem and current-state baseline\n\n- **Status:** active\n- **Owner:** Product owner\n- **Outcome:** representative evidence confirms, narrows, or rejects the core\n  problem and establishes a quantitative baseline for the primary journey.\n- **Acceptance:** at least five practitioner and three accountable-stakeholder\n  interviews; at least three direct workflow or artifact observations; baseline\n  definitions and measurements; alternatives compared; assumptions A-01 through\n  A-05 updated; findings reviewed with product and engineering.\n- **Dependencies:** access to representative participants and non-sensitive\n  workflow evidence.\n- **Evidence location:** `research/findings/` and approved updates to vision and\n  product documents.\n\n## Blocked\n\nNo packet is currently classified as blocked. When one is blocked, record the\nstart date, reason, impact, owner of the unblock action, and next escalation\ntime rather than using status alone.\n\n## Recently completed\n\nThe documentation and governance scaffold was established during project\ninception. Completion of a scaffold is not treated as validation of the product\nhypothesis.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2Factive.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "A-01",
+    "A-05",
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "This index contains only work explicitly authorized for current execution. Detailed scope and acceptance live in the individual packet record. Work is removed from this list when it is done, cancelled, superseded, or returned to the backlog.",
+    "title": "Active Work Packets"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "active-work-packets",
+      "text": "# Active Work Packets\n\nThis index contains only work explicitly authorized for current execution.\nDetailed scope and acceptance live in the individual packet record. Work is\nremoved from this list when it is done, cancelled, superseded, or returned to\nthe backlog.",
+      "title": "Active Work Packets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 8,
+      "section_id": "work-in-progress-policy",
+      "text": "## Work-in-progress policy\n\n- One active packet per accountable owner unless an expedite is approved.\n- Finish review and integration before pulling another packet.\n- Update blockers within one business day with a named decision or dependency.\n- Do not add work directly; it must meet the Definition of Ready and belong to\n  an authorized increment or inception outcome.",
+      "title": "Work-in-progress policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 16,
+      "section_id": "active",
+      "text": "## Active",
+      "title": "Active"
+    },
+    {
+      "identifiers": [
+        "A-01",
+        "A-05",
+        "WP-0001"
+      ],
+      "level": 3,
+      "line_end": 32,
+      "line_start": 18,
+      "section_id": "wp-0001-validated-problem-and-current-state-baseline",
+      "text": "### WP-0001 — Validated problem and current-state baseline\n\n- **Status:** active\n- **Owner:** Product owner\n- **Outcome:** representative evidence confirms, narrows, or rejects the core\n  problem and establishes a quantitative baseline for the primary journey.\n- **Acceptance:** at least five practitioner and three accountable-stakeholder\n  interviews; at least three direct workflow or artifact observations; baseline\n  definitions and measurements; alternatives compared; assumptions A-01 through\n  A-05 updated; findings reviewed with product and engineering.\n- **Dependencies:** access to representative participants and non-sensitive\n  workflow evidence.\n- **Evidence location:** `research/findings/` and approved updates to vision and\n  product documents.",
+      "title": "WP-0001 — Validated problem and current-state baseline"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 33,
+      "section_id": "blocked",
+      "text": "## Blocked\n\nNo packet is currently classified as blocked. When one is blocked, record the\nstart date, reason, impact, owner of the unblock action, and next escalation\ntime rather than using status alone.",
+      "title": "Blocked"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 39,
+      "section_id": "recently-completed",
+      "text": "## Recently completed\n\nThe documentation and governance scaffold was established during project\ninception. Completion of a scaffold is not treated as validation of the product\nhypothesis.",
+      "title": "Recently completed"
+    }
+  ],
+  "source": {
+    "bytes": 1808,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 43,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/active.md",
+    "sha256": "efc807344aca42819e81221f5ee7d2573f5d1914e36fd26d428ce74e3c49c889"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "content": "# Specifications\n\nSpecifications turn approved product and architecture intent into precise,\ntestable contracts. They describe required behavior at a boundary or within an\nowned concern without duplicating implementation code.\n\n## Classification\n\n- `functional/` — domain behavior, rules, states, and user-visible outcomes.\n- `technical/` — runtime protocols, algorithms, resource budgets, and platform\n  constraints.\n- `interfaces/` — synchronous APIs, events, files, commands, and compatibility.\n- `data/` — canonical models, ownership, classification, retention, and quality.\n- `security/` — control behavior, identities, permissions, crypto, and evidence.\n- `operations/` — deployment, telemetry, service objectives, backup, and\n  recovery contracts.\n\n## Identifier and filename\n\nUse `<CLASS>-<AREA>-NNNN-short-title.md`, for example\n`FUN-WORKFLOW-0001-state-model.md`. IDs are never reused. A specification states\nits status, owner, reviewers, version, related requirements, decisions, risks,\nand verification assets.\n\n## Required anatomy\n\n1. **Purpose and scope** — the contract and what it excludes.\n2. **Definitions** — precise terms, units, and identifiers.\n3. **Preconditions and invariants** — truths required before and during use.\n4. **Normative behavior** — inputs, outputs, states, rules, errors, and timing.\n5. **Security and data** — classification, authority, privacy, and evidence.\n6. **Failure and recovery** — invalid, denied, transient, partial, unknown, and\n   terminal behavior.\n7. **Compatibility** — versioning, consumer obligations, and migration.\n8. **Verification** — tests, examples, telemetry, and acceptance mapping.\n\n## Normative language\n\n`MUST` and `MUST NOT` are mandatory; `SHOULD` and `SHOULD NOT` require a\ndocumented reason for deviation; `MAY` is optional. Use these terms only for\nverifiable behavior. Examples clarify a rule but do not silently expand it.\n\n## Lifecycle\n\nStatuses are `draft`, `review`, `approved`, `implemented`, `deprecated`, and\n`retired`. Approved meaning changes require version impact, affected-consumer\nanalysis, updated verification, and change approval. Code and tests may reveal\na specification defect, but they do not silently supersede the approved text.\n\n## Traceability\n\nEvery committed product requirement maps to at least one specification or a\ndocumented reason none is needed. Each normative rule maps to automated or\nmanual evidence. Release review reports missing, failed, or waived evidence.\n",
+  "document_id": "doc:specifications%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "specification",
+    "normative": true,
+    "summary": "Specifications turn approved product and architecture intent into precise, testable contracts. They describe required behavior at a boundary or within an owned concern without duplicating implementation code.",
+    "title": "Specifications"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "specifications",
+      "text": "# Specifications\n\nSpecifications turn approved product and architecture intent into precise,\ntestable contracts. They describe required behavior at a boundary or within an\nowned concern without duplicating implementation code.",
+      "title": "Specifications"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 7,
+      "section_id": "classification",
+      "text": "## Classification\n\n- `functional/` — domain behavior, rules, states, and user-visible outcomes.\n- `technical/` — runtime protocols, algorithms, resource budgets, and platform\n  constraints.\n- `interfaces/` — synchronous APIs, events, files, commands, and compatibility.\n- `data/` — canonical models, ownership, classification, retention, and quality.\n- `security/` — control behavior, identities, permissions, crypto, and evidence.\n- `operations/` — deployment, telemetry, service objectives, backup, and\n  recovery contracts.",
+      "title": "Classification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 18,
+      "section_id": "identifier-and-filename",
+      "text": "## Identifier and filename\n\nUse `<CLASS>-<AREA>-NNNN-short-title.md`, for example\n`FUN-WORKFLOW-0001-state-model.md`. IDs are never reused. A specification states\nits status, owner, reviewers, version, related requirements, decisions, risks,\nand verification assets.",
+      "title": "Identifier and filename"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 25,
+      "section_id": "required-anatomy",
+      "text": "## Required anatomy\n\n1. **Purpose and scope** — the contract and what it excludes.\n2. **Definitions** — precise terms, units, and identifiers.\n3. **Preconditions and invariants** — truths required before and during use.\n4. **Normative behavior** — inputs, outputs, states, rules, errors, and timing.\n5. **Security and data** — classification, authority, privacy, and evidence.\n6. **Failure and recovery** — invalid, denied, transient, partial, unknown, and\n   terminal behavior.\n7. **Compatibility** — versioning, consumer obligations, and migration.\n8. **Verification** — tests, examples, telemetry, and acceptance mapping.",
+      "title": "Required anatomy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 37,
+      "section_id": "normative-language",
+      "text": "## Normative language\n\n`MUST` and `MUST NOT` are mandatory; `SHOULD` and `SHOULD NOT` require a\ndocumented reason for deviation; `MAY` is optional. Use these terms only for\nverifiable behavior. Examples clarify a rule but do not silently expand it.",
+      "title": "Normative language"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 43,
+      "section_id": "lifecycle",
+      "text": "## Lifecycle\n\nStatuses are `draft`, `review`, `approved`, `implemented`, `deprecated`, and\n`retired`. Approved meaning changes require version impact, affected-consumer\nanalysis, updated verification, and change approval. Code and tests may reveal\na specification defect, but they do not silently supersede the approved text.",
+      "title": "Lifecycle"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 50,
+      "section_id": "traceability",
+      "text": "## Traceability\n\nEvery committed product requirement maps to at least one specification or a\ndocumented reason none is needed. Each normative rule maps to automated or\nmanual evidence. Release review reports missing, failed, or waived evidence.",
+      "title": "Traceability"
+    }
+  ],
+  "source": {
+    "bytes": 2500,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 54,
+    "media_type": "text/markdown",
+    "path": "specifications/README.md",
+    "sha256": "c12d29a8b32d9d341c4b24eca9b0e8cb7272ebf5e720537dedf1b788d12ac1ab"
+  }
+}

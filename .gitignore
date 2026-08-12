@@ -1,0 +1,86 @@
+# Operating-system and editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+*.swp
+*.swo
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+
+# Logs, temporary files, and local state
+*.log
+*.tmp
+*.temp
+*.pid
+.cache/
+.tmp/
+tmp/
+coverage/
+.coverage
+htmlcov/
+
+# Build and package output
+build/
+dist/
+out/
+target/
+bin/
+obj/
+*.tgz
+*.zip
+
+# JavaScript and TypeScript
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.turbo/
+.next/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.venv/
+venv/
+
+# Go
+*.test
+*.out
+vendor/
+
+# Rust
+**/*.rs.bk
+
+# Java and JVM
+.gradle/
+*.class
+*.jar
+
+# Infrastructure and local deployment state
+.terraform/
+*.tfstate
+*.tfstate.*
+.serverless/
+.aws-sam/
+
+# Keep dependency lockfiles committed for reproducibility. Do not add lockfiles
+# here unless the selected ecosystem explicitly requires otherwise.

@@ -1,0 +1,76 @@
+{
+  "content": "# Operations\n\nOperations defines how MonadV2 is configured, released, observed,\nkept reliable, and restored. Operational readiness is part of product\nacceptance because users experience the running system, not the source tree.\n\n## Operating documents\n\n- `environments.md` — purpose, boundaries, data, access, and promotion.\n- `deployment.md` — artifact promotion, migration, verification, and rollback.\n- `observability.md` — signals, semantics, dashboards, alerts, and privacy.\n- `reliability.md` — objectives, error budgets, capacity, continuity, and toil.\n- `incident-response.md` — detection through learning and corrective work.\n\n## Ownership\n\nEach production capability has a service owner, support expectation, escalation\npath, critical dependencies, dashboards, alerts, and runbooks. Ownership covers\nuser-impact outcomes and recovery, not just process uptime.\n\n## Operational readiness gate\n\nBefore external production exposure:\n\n- configuration and secrets are controlled and validated;\n- release and rollback are automated and rehearsed;\n- authoritative data backup and restore meet approved objectives;\n- critical journeys, dependencies, and resource saturation are observable;\n- alerts are actionable and routed to an available owner;\n- capacity and unit cost are tested at expected and failure load;\n- incident roles, communication, and evidence access are practiced;\n- known risk and manual toil are accepted by accountable owners.\n\n## Operating principle\n\nPrefer simple, observable components and tested procedures over theoretical\nresilience. Redundancy is useful only when failure is isolated, state remains\ncorrect, and the team can operate and verify it under pressure.\n",
+  "document_id": "doc:operations%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "operations",
+    "normative": true,
+    "summary": "Operations defines how MonadV2 is configured, released, observed, kept reliable, and restored. Operational readiness is part of product acceptance because users experience the running system, not the source tree.",
+    "title": "Operations"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "operations",
+      "text": "# Operations\n\nOperations defines how MonadV2 is configured, released, observed,\nkept reliable, and restored. Operational readiness is part of product\nacceptance because users experience the running system, not the source tree.",
+      "title": "Operations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 7,
+      "section_id": "operating-documents",
+      "text": "## Operating documents\n\n- `environments.md` — purpose, boundaries, data, access, and promotion.\n- `deployment.md` — artifact promotion, migration, verification, and rollback.\n- `observability.md` — signals, semantics, dashboards, alerts, and privacy.\n- `reliability.md` — objectives, error budgets, capacity, continuity, and toil.\n- `incident-response.md` — detection through learning and corrective work.",
+      "title": "Operating documents"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 20,
+      "line_start": 15,
+      "section_id": "ownership",
+      "text": "## Ownership\n\nEach production capability has a service owner, support expectation, escalation\npath, critical dependencies, dashboards, alerts, and runbooks. Ownership covers\nuser-impact outcomes and recovery, not just process uptime.",
+      "title": "Ownership"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 21,
+      "section_id": "operational-readiness-gate",
+      "text": "## Operational readiness gate\n\nBefore external production exposure:\n\n- configuration and secrets are controlled and validated;\n- release and rollback are automated and rehearsed;\n- authoritative data backup and restore meet approved objectives;\n- critical journeys, dependencies, and resource saturation are observable;\n- alerts are actionable and routed to an available owner;\n- capacity and unit cost are tested at expected and failure load;\n- incident roles, communication, and evidence access are practiced;\n- known risk and manual toil are accepted by accountable owners.",
+      "title": "Operational readiness gate"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 34,
+      "section_id": "operating-principle",
+      "text": "## Operating principle\n\nPrefer simple, observable components and tested procedures over theoretical\nresilience. Redundancy is useful only when failure is isolated, state remains\ncorrect, and the team can operate and verify it under pressure.",
+      "title": "Operating principle"
+    }
+  ],
+  "source": {
+    "bytes": 1700,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 38,
+    "media_type": "text/markdown",
+    "path": "operations/README.md",
+    "sha256": "4321c42b969dc22802ba409afb0844a528364d0331076d0f3fa3df0f4535342f"
+  }
+}

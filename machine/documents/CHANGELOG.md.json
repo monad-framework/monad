@@ -1,0 +1,130 @@
+{
+  "content": "# Changelog\n\nAll notable changes to MonadV2 are recorded here. The format follows\n[Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and releases use\n[Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## [Unreleased]\n\n### Added\n\n- Documentation-first repository baseline.\n- Product, architecture, engineering, governance, security, testing, and\n  operations control documents.\n- Decision, work-packet, review, research, and journal record systems.\n- Deterministic machine-readable companions, semantic manifest, knowledge\n  graph, AI retrieval corpus, and synchronization enforcement.\n\n### Changed\n\n- Nothing yet.\n\n### Deprecated\n\n- Nothing yet.\n\n### Removed\n\n- Nothing yet.\n\n### Fixed\n\n- Nothing yet.\n\n### Security\n\n- Initial vulnerability-reporting and supply-chain policies established.\n\n## Release policy\n\n1. Move user-visible entries from `Unreleased` into a dated release section.\n2. Use `MAJOR.MINOR.PATCH` according to compatibility impact.\n3. Link each entry to an issue, work packet, ADR, or pull request when one\n   exists.\n4. Describe effects and migration needs; do not merely restate commit titles.\n5. Create and sign the matching Git tag only after release gates pass.\n\n## Entry guidance\n\n- **Added**: new capabilities or supported behaviors.\n- **Changed**: backward-compatible changes to existing behavior.\n- **Deprecated**: supported behavior scheduled for removal.\n- **Removed**: deleted behavior or compatibility breaks.\n- **Fixed**: corrected defects.\n- **Security**: vulnerability fixes or meaningful control changes.\n\n[Unreleased]: https://github.com/monad-framework/monadv2/compare/main...HEAD\n",
+  "document_id": "doc:CHANGELOG.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [
+    {
+      "kind": "external",
+      "target": "https://keepachangelog.com/en/1.1.0/"
+    },
+    {
+      "kind": "external",
+      "target": "https://semver.org/spec/v2.0.0.html"
+    }
+  ],
+  "metadata": {
+    "document_type": "changelog",
+    "normative": false,
+    "summary": "All notable changes to MonadV2 are recorded here. The format follows Keep a Changelog, and releases use Semantic Versioning.",
+    "title": "Changelog"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "changelog",
+      "text": "# Changelog\n\nAll notable changes to MonadV2 are recorded here. The format follows\n[Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and releases use\n[Semantic Versioning](https://semver.org/spec/v2.0.0.html).",
+      "title": "Changelog"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 8,
+      "line_start": 7,
+      "section_id": "unreleased",
+      "text": "## [Unreleased]",
+      "title": "[Unreleased]"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 17,
+      "line_start": 9,
+      "section_id": "added",
+      "text": "### Added\n\n- Documentation-first repository baseline.\n- Product, architecture, engineering, governance, security, testing, and\n  operations control documents.\n- Decision, work-packet, review, research, and journal record systems.\n- Deterministic machine-readable companions, semantic manifest, knowledge\n  graph, AI retrieval corpus, and synchronization enforcement.",
+      "title": "Added"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 21,
+      "line_start": 18,
+      "section_id": "changed",
+      "text": "### Changed\n\n- Nothing yet.",
+      "title": "Changed"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 25,
+      "line_start": 22,
+      "section_id": "deprecated",
+      "text": "### Deprecated\n\n- Nothing yet.",
+      "title": "Deprecated"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 29,
+      "line_start": 26,
+      "section_id": "removed",
+      "text": "### Removed\n\n- Nothing yet.",
+      "title": "Removed"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 33,
+      "line_start": 30,
+      "section_id": "fixed",
+      "text": "### Fixed\n\n- Nothing yet.",
+      "title": "Fixed"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 37,
+      "line_start": 34,
+      "section_id": "security",
+      "text": "### Security\n\n- Initial vulnerability-reporting and supply-chain policies established.",
+      "title": "Security"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 38,
+      "section_id": "release-policy",
+      "text": "## Release policy\n\n1. Move user-visible entries from `Unreleased` into a dated release section.\n2. Use `MAJOR.MINOR.PATCH` according to compatibility impact.\n3. Link each entry to an issue, work packet, ADR, or pull request when one\n   exists.\n4. Describe effects and migration needs; do not merely restate commit titles.\n5. Create and sign the matching Git tag only after release gates pass.",
+      "title": "Release policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 47,
+      "section_id": "entry-guidance",
+      "text": "## Entry guidance\n\n- **Added**: new capabilities or supported behaviors.\n- **Changed**: backward-compatible changes to existing behavior.\n- **Deprecated**: supported behavior scheduled for removal.\n- **Removed**: deleted behavior or compatibility breaks.\n- **Fixed**: corrected defects.\n- **Security**: vulnerability fixes or meaningful control changes.\n\n[Unreleased]: https://github.com/monad-framework/monadv2/compare/main...HEAD",
+      "title": "Entry guidance"
+    }
+  ],
+  "source": {
+    "bytes": 1634,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 56,
+    "media_type": "text/markdown",
+    "path": "CHANGELOG.md",
+    "sha256": "58c1e1e7ce533950e4635278d89c613baedae2cbe6b47e0bb62d63041d15c79d"
+  }
+}

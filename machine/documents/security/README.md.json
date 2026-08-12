@@ -1,0 +1,76 @@
+{
+  "content": "# Security\n\nSecurity protects users, data, service integrity, and the project's ability to\noperate. Controls are selected from explicit threats and obligations, then\nverified as product behavior and operational evidence.\n\n## Security documents\n\n- `security-model.md` defines objectives, identities, data, and control\n  expectations.\n- `threat-model.md` identifies assets, boundaries, abuse cases, mitigations, and\n  residual risk.\n- `supply-chain.md` protects source, dependencies, build, artifacts, and release.\n- Root `SECURITY.md` defines coordinated vulnerability reporting.\n\n## Secure-delivery requirements\n\n1. Model threats before exposing a new trust boundary or sensitive data flow.\n2. Authenticate identities and authorize at the resource or effect owner.\n3. Validate all untrusted input and encode output for its destination.\n4. Keep secrets outside source, images, logs, tests, and ordinary configuration.\n5. Protect data in transit and at rest according to classification.\n6. Generate evidence for privileged, security-relevant, and consequential\n   actions without recording prohibited payloads.\n7. Scan source, dependencies, artifacts, infrastructure, and secret exposure in\n   the protected delivery path.\n8. Test denial, isolation, rate protection, recovery, and security monitoring.\n\n## Release policy\n\nKnown exploitable critical findings block release. High findings block unless\nthe Security Owner and affected accountable owner accept a time-bounded risk\nwith exposure, compensating controls, monitoring, expiration, and remediation\nwork. Medium and low findings follow risk-based service targets.\n\n## Security ownership\n\nEvery component owner owns secure implementation and response for that\ncomponent. The Security Owner sets policy, reviews elevated risk, coordinates\nvulnerabilities, and may stop exposure when a credible critical condition is\nuncontained. Security review does not transfer responsibility away from product,\nengineering, or operations.\n",
+  "document_id": "doc:security%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "security",
+    "normative": true,
+    "summary": "Security protects users, data, service integrity, and the project's ability to operate. Controls are selected from explicit threats and obligations, then verified as product behavior and operational evidence.",
+    "title": "Security"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "security",
+      "text": "# Security\n\nSecurity protects users, data, service integrity, and the project's ability to\noperate. Controls are selected from explicit threats and obligations, then\nverified as product behavior and operational evidence.",
+      "title": "Security"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 7,
+      "section_id": "security-documents",
+      "text": "## Security documents\n\n- `security-model.md` defines objectives, identities, data, and control\n  expectations.\n- `threat-model.md` identifies assets, boundaries, abuse cases, mitigations, and\n  residual risk.\n- `supply-chain.md` protects source, dependencies, build, artifacts, and release.\n- Root `SECURITY.md` defines coordinated vulnerability reporting.",
+      "title": "Security documents"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 28,
+      "line_start": 16,
+      "section_id": "secure-delivery-requirements",
+      "text": "## Secure-delivery requirements\n\n1. Model threats before exposing a new trust boundary or sensitive data flow.\n2. Authenticate identities and authorize at the resource or effect owner.\n3. Validate all untrusted input and encode output for its destination.\n4. Keep secrets outside source, images, logs, tests, and ordinary configuration.\n5. Protect data in transit and at rest according to classification.\n6. Generate evidence for privileged, security-relevant, and consequential\n   actions without recording prohibited payloads.\n7. Scan source, dependencies, artifacts, infrastructure, and secret exposure in\n   the protected delivery path.\n8. Test denial, isolation, rate protection, recovery, and security monitoring.",
+      "title": "Secure-delivery requirements"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 29,
+      "section_id": "release-policy",
+      "text": "## Release policy\n\nKnown exploitable critical findings block release. High findings block unless\nthe Security Owner and affected accountable owner accept a time-bounded risk\nwith exposure, compensating controls, monitoring, expiration, and remediation\nwork. Medium and low findings follow risk-based service targets.",
+      "title": "Release policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 36,
+      "section_id": "security-ownership",
+      "text": "## Security ownership\n\nEvery component owner owns secure implementation and response for that\ncomponent. The Security Owner sets policy, reviews elevated risk, coordinates\nvulnerabilities, and may stop exposure when a credible critical condition is\nuncontained. Security review does not transfer responsibility away from product,\nengineering, or operations.",
+      "title": "Security ownership"
+    }
+  ],
+  "source": {
+    "bytes": 1977,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 42,
+    "media_type": "text/markdown",
+    "path": "security/README.md",
+    "sha256": "9a4ed416415237a38909f44beceeed2fdbac4d7314ab365e56d76788e36aae17"
+  }
+}

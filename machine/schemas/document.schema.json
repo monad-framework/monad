@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "document.schema.json",
+  "title": "Machine-readable project document",
+  "description": "Deterministic semantic projection of one canonical UTF-8 source file.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "schema_version",
+    "document_id",
+    "source",
+    "metadata",
+    "content",
+    "sections",
+    "links",
+    "identifiers",
+    "relations",
+    "generation"
+  ],
+  "properties": {
+    "schema": {"const": "machine/schemas/document.schema.json"},
+    "schema_version": {"const": "1.0.0"},
+    "document_id": {"type": "string", "pattern": "^doc:"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "media_type", "language", "bytes", "lines", "canonical"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "media_type": {"type": "string", "minLength": 1},
+        "language": {"type": "string", "minLength": 1},
+        "bytes": {"type": "integer", "minimum": 0},
+        "lines": {"type": "integer", "minimum": 1},
+        "canonical": {"const": true}
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "summary", "document_type", "normative"],
+      "properties": {
+        "title": {"type": "string", "minLength": 1},
+        "summary": {"type": "string"},
+        "document_type": {"type": "string", "minLength": 1},
+        "normative": {"type": "boolean"}
+      }
+    },
+    "content": {"type": "string"},
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["section_id", "title", "level", "line_start", "line_end", "text", "identifiers"],
+        "properties": {
+          "section_id": {"type": "string", "minLength": 1},
+          "title": {"type": "string"},
+          "level": {"type": "integer", "minimum": 0, "maximum": 6},
+          "line_start": {"type": "integer", "minimum": 1},
+          "line_end": {"type": "integer", "minimum": 1},
+          "text": {"type": "string"},
+          "identifiers": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+        }
+      }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["target", "kind"],
+        "properties": {
+          "target": {"type": "string"},
+          "kind": {"enum": ["local", "external", "anchor", "other"]},
+          "resolved_source": {"type": "string"}
+        }
+      }
+    },
+    "identifiers": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "target_document_id", "target_source"],
+        "properties": {
+          "type": {"const": "references"},
+          "target_document_id": {"type": "string", "pattern": "^doc:"},
+          "target_source": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tool", "version", "deterministic"],
+      "properties": {
+        "tool": {"const": "sync-machine-docs"},
+        "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "deterministic": {"const": true}
+      }
+    }
+  }
+}

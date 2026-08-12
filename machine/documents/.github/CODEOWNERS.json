@@ -1,0 +1,40 @@
+{
+  "content": "# CODEOWNERS is evaluated from top to bottom; the last matching pattern wins.\n# Set GITHUB_CODEOWNER when generating, for example:\n# GITHUB_CODEOWNER=@your-org/maintainers ./generate-project-tree.sh --force\n\n*                                      @monad-framework\n\n/vision/                               @monad-framework\n/product/                              @monad-framework\n/architecture/                         @monad-framework\n/specifications/                       @monad-framework\n/engineering/                          @monad-framework\n/research/                             @monad-framework\n/governance/                           @monad-framework\n/operations/                           @monad-framework\n/security/                             @monad-framework\n/testing/                              @monad-framework\n/docs/                                 @monad-framework\n/machine/                              @monad-framework\n\n/.github/                              @monad-framework\n/scripts/                              @monad-framework\n/tools/                                @monad-framework\n/SECURITY.md                           @monad-framework\n/CODE_OF_CONDUCT.md                    @monad-framework\n/LICENSE                               @monad-framework\n",
+  "document_id": "doc:.github%2FCODEOWNERS",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-governance",
+    "normative": false,
+    "summary": "Canonical codeowners source for .github/CODEOWNERS.",
+    "title": "Codeowners"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 25,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "# CODEOWNERS is evaluated from top to bottom; the last matching pattern wins.\n# Set GITHUB_CODEOWNER when generating, for example:\n# GITHUB_CODEOWNER=@your-org/maintainers ./generate-project-tree.sh --force\n\n*                                      @monad-framework\n\n/vision/                               @monad-framework\n/product/                              @monad-framework\n/architecture/                         @monad-framework\n/specifications/                       @monad-framework\n/engineering/                          @monad-framework\n/research/                             @monad-framework\n/governance/                           @monad-framework\n/operations/                           @monad-framework\n/security/                             @monad-framework\n/testing/                              @monad-framework\n/docs/                                 @monad-framework\n/machine/                              @monad-framework\n\n/.github/                              @monad-framework\n/scripts/                              @monad-framework\n/tools/                                @monad-framework\n/SECURITY.md                           @monad-framework\n/CODE_OF_CONDUCT.md                    @monad-framework\n/LICENSE                               @monad-framework",
+      "title": "Codeowners"
+    }
+  ],
+  "source": {
+    "bytes": 1274,
+    "canonical": true,
+    "language": "codeowners",
+    "lines": 25,
+    "media_type": "text/plain",
+    "path": ".github/CODEOWNERS",
+    "sha256": "9a9eccc788f62a3a557056dca2236a32381c4c49dc9f088f4cc7b2851939eac9"
+  }
+}

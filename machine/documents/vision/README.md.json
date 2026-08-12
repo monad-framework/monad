@@ -1,0 +1,76 @@
+{
+  "content": "# Vision System\n\nThe vision documents define the durable intent of MonadV2. They state\nwhy the project deserves to exist, which outcomes matter, the principles that\nconstrain choices, and the evidence that would justify continued investment.\nImplementation details must conform to this layer unless the vision is changed\nthrough governance.\n\n## Document set\n\n| Document | Governs | Review trigger |\n| --- | --- | --- |\n| `product-vision.md` | Desired future and strategic position | Annual strategy review or material pivot |\n| `problem-statement.md` | Validated problem and affected users | Contradictory research or changed market |\n| `principles.md` | Decision rules and trade-off posture | Repeated exception or principle conflict |\n| `goals.md` | Time-bounded outcomes | Quarterly outcome review |\n| `non-goals.md` | Deliberate exclusions | New evidence or completed prerequisite |\n| `success-criteria.md` | Measures, guardrails, and decision thresholds | Measurement failure or goal revision |\n\n## Reading order\n\nRead the problem first, then the future state, principles, goals, exclusions,\nand success criteria. That order prevents a preferred solution from quietly\nredefining the problem.\n\n## Authority and change\n\nVision documents are **normative**. Conflicts are resolved in this order:\nethical and legal obligations, approved vision, baselined product requirements,\narchitecture decisions, specifications, then delivery plans. A proposed vision\nchange must include evidence, affected decisions, migration consequences, and\nan explicit approval recorded through `governance/change-control.md`.\n\n## Quality standard\n\nA vision statement is useful only when it is specific enough to exclude\nattractive alternatives. Claims must distinguish observations from assumptions.\nGoals require measures and dates. Non-goals require rationale and a trigger for\nreconsideration. Success criteria include guardrails so that one metric cannot\nbe improved by transferring harm elsewhere.\n",
+  "document_id": "doc:vision%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "vision",
+    "normative": true,
+    "summary": "The vision documents define the durable intent of MonadV2. They state why the project deserves to exist, which outcomes matter, the principles that constrain choices, and the evidence that would justify continued investment. Implementation details must conform to this layer unless the vision is changed through governance.",
+    "title": "Vision System"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "vision-system",
+      "text": "# Vision System\n\nThe vision documents define the durable intent of MonadV2. They state\nwhy the project deserves to exist, which outcomes matter, the principles that\nconstrain choices, and the evidence that would justify continued investment.\nImplementation details must conform to this layer unless the vision is changed\nthrough governance.",
+      "title": "Vision System"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 9,
+      "section_id": "document-set",
+      "text": "## Document set\n\n| Document | Governs | Review trigger |\n| --- | --- | --- |\n| `product-vision.md` | Desired future and strategic position | Annual strategy review or material pivot |\n| `problem-statement.md` | Validated problem and affected users | Contradictory research or changed market |\n| `principles.md` | Decision rules and trade-off posture | Repeated exception or principle conflict |\n| `goals.md` | Time-bounded outcomes | Quarterly outcome review |\n| `non-goals.md` | Deliberate exclusions | New evidence or completed prerequisite |\n| `success-criteria.md` | Measures, guardrails, and decision thresholds | Measurement failure or goal revision |",
+      "title": "Document set"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 20,
+      "section_id": "reading-order",
+      "text": "## Reading order\n\nRead the problem first, then the future state, principles, goals, exclusions,\nand success criteria. That order prevents a preferred solution from quietly\nredefining the problem.",
+      "title": "Reading order"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 26,
+      "section_id": "authority-and-change",
+      "text": "## Authority and change\n\nVision documents are **normative**. Conflicts are resolved in this order:\nethical and legal obligations, approved vision, baselined product requirements,\narchitecture decisions, specifications, then delivery plans. A proposed vision\nchange must include evidence, affected decisions, migration consequences, and\nan explicit approval recorded through `governance/change-control.md`.",
+      "title": "Authority and change"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 34,
+      "section_id": "quality-standard",
+      "text": "## Quality standard\n\nA vision statement is useful only when it is specific enough to exclude\nattractive alternatives. Claims must distinguish observations from assumptions.\nGoals require measures and dates. Non-goals require rationale and a trigger for\nreconsideration. Success criteria include guardrails so that one metric cannot\nbe improved by transferring harm elsewhere.",
+      "title": "Quality standard"
+    }
+  ],
+  "source": {
+    "bytes": 1981,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 40,
+    "media_type": "text/markdown",
+    "path": "vision/README.md",
+    "sha256": "987b176b9e707e6c050bbe11603e41b1580348a0d57e8b227a6836934f977ce6"
+  }
+}

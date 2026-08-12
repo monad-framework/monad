@@ -1,0 +1,40 @@
+{
+  "content": "# Operating-system and editor noise\n.DS_Store\nThumbs.db\nDesktop.ini\n*~\n*.swp\n*.swo\n.idea/\n.vscode/*\n!.vscode/extensions.json\n!.vscode/settings.json\n\n# Secrets and local environment\n.env\n.env.*\n!.env.example\n*.pem\n*.key\n*.p12\n*.pfx\nsecrets/\n\n# Logs, temporary files, and local state\n*.log\n*.tmp\n*.temp\n*.pid\n.cache/\n.tmp/\ntmp/\ncoverage/\n.coverage\nhtmlcov/\n\n# Build and package output\nbuild/\ndist/\nout/\ntarget/\nbin/\nobj/\n*.tgz\n*.zip\n\n# JavaScript and TypeScript\nnode_modules/\n.npm/\n.pnpm-store/\n.yarn/cache/\n.yarn/unplugged/\n.turbo/\n.next/\n\n# Python\n__pycache__/\n*.py[cod]\n.pytest_cache/\n.mypy_cache/\n.ruff_cache/\n.tox/\n.nox/\n.venv/\nvenv/\n\n# Go\n*.test\n*.out\nvendor/\n\n# Rust\n**/*.rs.bk\n\n# Java and JVM\n.gradle/\n*.class\n*.jar\n\n# Infrastructure and local deployment state\n.terraform/\n*.tfstate\n*.tfstate.*\n.serverless/\n.aws-sam/\n\n# Keep dependency lockfiles committed for reproducibility. Do not add lockfiles\n# here unless the selected ecosystem explicitly requires otherwise.\n",
+  "document_id": "doc:.gitignore",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-configuration",
+    "normative": true,
+    "summary": "Canonical gitignore source for .gitignore.",
+    "title": "Gitignore"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 86,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "# Operating-system and editor noise\n.DS_Store\nThumbs.db\nDesktop.ini\n*~\n*.swp\n*.swo\n.idea/\n.vscode/*\n!.vscode/extensions.json\n!.vscode/settings.json\n\n# Secrets and local environment\n.env\n.env.*\n!.env.example\n*.pem\n*.key\n*.p12\n*.pfx\nsecrets/\n\n# Logs, temporary files, and local state\n*.log\n*.tmp\n*.temp\n*.pid\n.cache/\n.tmp/\ntmp/\ncoverage/\n.coverage\nhtmlcov/\n\n# Build and package output\nbuild/\ndist/\nout/\ntarget/\nbin/\nobj/\n*.tgz\n*.zip\n\n# JavaScript and TypeScript\nnode_modules/\n.npm/\n.pnpm-store/\n.yarn/cache/\n.yarn/unplugged/\n.turbo/\n.next/\n\n# Python\n__pycache__/\n*.py[cod]\n.pytest_cache/\n.mypy_cache/\n.ruff_cache/\n.tox/\n.nox/\n.venv/\nvenv/\n\n# Go\n*.test\n*.out\nvendor/\n\n# Rust\n**/*.rs.bk\n\n# Java and JVM\n.gradle/\n*.class\n*.jar\n\n# Infrastructure and local deployment state\n.terraform/\n*.tfstate\n*.tfstate.*\n.serverless/\n.aws-sam/\n\n# Keep dependency lockfiles committed for reproducibility. Do not add lockfiles\n# here unless the selected ecosystem explicitly requires otherwise.",
+      "title": "Gitignore"
+    }
+  ],
+  "source": {
+    "bytes": 973,
+    "canonical": true,
+    "language": "gitignore",
+    "lines": 86,
+    "media_type": "text/plain",
+    "path": ".gitignore",
+    "sha256": "fa49cfaf423b64d09e07d26c4d3e3c353446c13c1a16cb9e596f6e9472c4a35f"
+  }
+}

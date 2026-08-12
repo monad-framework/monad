@@ -1,0 +1,76 @@
+{
+  "content": "# Governance\n\nGovernance defines who may decide, which evidence is required, how changes are\ncontrolled, and how project records remain trustworthy. Its purpose is faster,\nclearer accountable decisions—not bureaucracy for routine reversible work.\n\n## Governance documents\n\n| Document | Governs |\n| --- | --- |\n| `authority.md` | Roles, decision rights, escalation, and separation of duties |\n| `decision-process.md` | Decision classes, process, evidence, and records |\n| `change-control.md` | Impact assessment, approval, implementation, and verification |\n| `document-lifecycle.md` | Status, ownership, review, versioning, and retirement |\n| `terminology.md` | Shared meaning of important project terms |\n\n## Governance principles\n\n- Authority is explicit, scoped, and paired with accountability.\n- Decisions are made at the lowest level with sufficient context and authority.\n- Consequence, irreversibility, and uncertainty determine review depth.\n- Evidence and dissent are recorded for material decisions.\n- Emergency authority is narrow and followed by retrospective review.\n- Conflicts of interest are disclosed and managed.\n- No document or process overrides law, safety obligations, or ethical duties.\n\n## Precedence\n\nWhen approved sources conflict, use this order: legal and ethical obligations;\ngovernance and accepted decisions; vision; product baseline; architecture;\nspecifications; engineering plans; explanatory documentation. The higher-level\nsource does not answer lower-level implementation questions, but it constrains\nacceptable answers.\n\n## Governance review\n\nReview governance after a material incident, repeated decision delay, recurring\nwaiver, organizational change, or at least annually. Simplify controls that do\nnot improve decisions or evidence. Strengthen controls where consequence or\nobserved failure justifies them.\n",
+  "document_id": "doc:governance%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "governance",
+    "normative": true,
+    "summary": "Governance defines who may decide, which evidence is required, how changes are controlled, and how project records remain trustworthy. Its purpose is faster, clearer accountable decisions—not bureaucracy for routine reversible work.",
+    "title": "Governance"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "governance",
+      "text": "# Governance\n\nGovernance defines who may decide, which evidence is required, how changes are\ncontrolled, and how project records remain trustworthy. Its purpose is faster,\nclearer accountable decisions—not bureaucracy for routine reversible work.",
+      "title": "Governance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 16,
+      "line_start": 7,
+      "section_id": "governance-documents",
+      "text": "## Governance documents\n\n| Document | Governs |\n| --- | --- |\n| `authority.md` | Roles, decision rights, escalation, and separation of duties |\n| `decision-process.md` | Decision classes, process, evidence, and records |\n| `change-control.md` | Impact assessment, approval, implementation, and verification |\n| `document-lifecycle.md` | Status, ownership, review, versioning, and retirement |\n| `terminology.md` | Shared meaning of important project terms |",
+      "title": "Governance documents"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 17,
+      "section_id": "governance-principles",
+      "text": "## Governance principles\n\n- Authority is explicit, scoped, and paired with accountability.\n- Decisions are made at the lowest level with sufficient context and authority.\n- Consequence, irreversibility, and uncertainty determine review depth.\n- Evidence and dissent are recorded for material decisions.\n- Emergency authority is narrow and followed by retrospective review.\n- Conflicts of interest are disclosed and managed.\n- No document or process overrides law, safety obligations, or ethical duties.",
+      "title": "Governance principles"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 27,
+      "section_id": "precedence",
+      "text": "## Precedence\n\nWhen approved sources conflict, use this order: legal and ethical obligations;\ngovernance and accepted decisions; vision; product baseline; architecture;\nspecifications; engineering plans; explanatory documentation. The higher-level\nsource does not answer lower-level implementation questions, but it constrains\nacceptable answers.",
+      "title": "Precedence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 35,
+      "section_id": "governance-review",
+      "text": "## Governance review\n\nReview governance after a material incident, repeated decision delay, recurring\nwaiver, organizational change, or at least annually. Simplify controls that do\nnot improve decisions or evidence. Strengthen controls where consequence or\nobserved failure justifies them.",
+      "title": "Governance review"
+    }
+  ],
+  "source": {
+    "bytes": 1851,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 40,
+    "media_type": "text/markdown",
+    "path": "governance/README.md",
+    "sha256": "74151417f42930111fac62aecca121258951beaa42e1ef51048471e79b7a17d2"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "content": "# Non-Goals\n\nNon-goals protect the first product from accidental expansion. They are not\nclaims that these ideas lack value; they state what the current strategy will\nnot optimize or promise.\n\n## NG-01 — Universal workflow coverage\n\nThe initial product will not model every adjacent process or edge case. It\nsupports one primary journey and escalates unsupported cases clearly.\n\n**Reconsider when:** the primary journey meets success and reliability targets\nand evidence identifies a repeated adjacent need.\n\n## NG-02 — Unbounded customization\n\nThe product will not expose configuration for every internal choice. Supported\nvariation must have a clear user need, validation, documentation, and test\nstrategy.\n\n**Reconsider when:** multiple validated segments need the same controlled\nextension point.\n\n## NG-03 — Autonomous consequential decisions\n\nThe system will not silently make high-impact legal, financial, employment,\nmedical, safety, or access decisions on a person's behalf.\n\n**Reconsider when:** never without domain governance, explainability, review,\nappeal, and demonstrated legal and ethical fitness.\n\n## NG-04 — Premature platform construction\n\nThe first increments will not build a general platform, marketplace, plugin\necosystem, or multi-product control plane before one product workflow is proven.\n\n**Reconsider when:** repeated product needs demonstrate stable shared\ncapabilities and platform ownership is funded.\n\n## NG-05 — Every integration\n\nOnly integrations required by the validated primary journey are in scope.\nManual import or export is acceptable during validation when safe.\n\n**Reconsider when:** integration absence is a measured adoption or outcome\nbarrier.\n\n## NG-06 — Global deployment and compliance coverage\n\nThe initial release supports one declared operating region and a bounded set of\nregulatory obligations. It will not claim compliance by implication.\n\n**Reconsider when:** expansion has an accountable owner, legal analysis, data\nmap, control plan, and operational capacity.\n\n## NG-07 — Optimization before correctness\n\nThe project will not trade correctness, accessibility, recovery, or essential\ntelemetry for superficial speed. Performance work follows budgets and measured\nbottlenecks.\n\n## Scope test\n\nA proposal is out of scope when the primary journey can meet its committed\noutcome without it and delaying the proposal does not create unacceptable\nsafety, legal, security, or architectural risk. Deferred proposals belong in\nthe roadmap or backlog with their reconsideration trigger.\n",
+  "document_id": "doc:vision%2Fnon-goals.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "NG-01",
+    "NG-02",
+    "NG-03",
+    "NG-04",
+    "NG-05",
+    "NG-06",
+    "NG-07"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "vision",
+    "normative": true,
+    "summary": "Non-goals protect the first product from accidental expansion. They are not claims that these ideas lack value; they state what the current strategy will not optimize or promise.",
+    "title": "Non-Goals"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "non-goals",
+      "text": "# Non-Goals\n\nNon-goals protect the first product from accidental expansion. They are not\nclaims that these ideas lack value; they state what the current strategy will\nnot optimize or promise.",
+      "title": "Non-Goals"
+    },
+    {
+      "identifiers": [
+        "NG-01"
+      ],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 7,
+      "section_id": "ng-01-universal-workflow-coverage",
+      "text": "## NG-01 — Universal workflow coverage\n\nThe initial product will not model every adjacent process or edge case. It\nsupports one primary journey and escalates unsupported cases clearly.\n\n**Reconsider when:** the primary journey meets success and reliability targets\nand evidence identifies a repeated adjacent need.",
+      "title": "NG-01 — Universal workflow coverage"
+    },
+    {
+      "identifiers": [
+        "NG-02"
+      ],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 15,
+      "section_id": "ng-02-unbounded-customization",
+      "text": "## NG-02 — Unbounded customization\n\nThe product will not expose configuration for every internal choice. Supported\nvariation must have a clear user need, validation, documentation, and test\nstrategy.\n\n**Reconsider when:** multiple validated segments need the same controlled\nextension point.",
+      "title": "NG-02 — Unbounded customization"
+    },
+    {
+      "identifiers": [
+        "NG-03"
+      ],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 24,
+      "section_id": "ng-03-autonomous-consequential-decisions",
+      "text": "## NG-03 — Autonomous consequential decisions\n\nThe system will not silently make high-impact legal, financial, employment,\nmedical, safety, or access decisions on a person's behalf.\n\n**Reconsider when:** never without domain governance, explainability, review,\nappeal, and demonstrated legal and ethical fitness.",
+      "title": "NG-03 — Autonomous consequential decisions"
+    },
+    {
+      "identifiers": [
+        "NG-04"
+      ],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 32,
+      "section_id": "ng-04-premature-platform-construction",
+      "text": "## NG-04 — Premature platform construction\n\nThe first increments will not build a general platform, marketplace, plugin\necosystem, or multi-product control plane before one product workflow is proven.\n\n**Reconsider when:** repeated product needs demonstrate stable shared\ncapabilities and platform ownership is funded.",
+      "title": "NG-04 — Premature platform construction"
+    },
+    {
+      "identifiers": [
+        "NG-05"
+      ],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 40,
+      "section_id": "ng-05-every-integration",
+      "text": "## NG-05 — Every integration\n\nOnly integrations required by the validated primary journey are in scope.\nManual import or export is acceptable during validation when safe.\n\n**Reconsider when:** integration absence is a measured adoption or outcome\nbarrier.",
+      "title": "NG-05 — Every integration"
+    },
+    {
+      "identifiers": [
+        "NG-06"
+      ],
+      "level": 2,
+      "line_end": 55,
+      "line_start": 48,
+      "section_id": "ng-06-global-deployment-and-compliance-coverage",
+      "text": "## NG-06 — Global deployment and compliance coverage\n\nThe initial release supports one declared operating region and a bounded set of\nregulatory obligations. It will not claim compliance by implication.\n\n**Reconsider when:** expansion has an accountable owner, legal analysis, data\nmap, control plan, and operational capacity.",
+      "title": "NG-06 — Global deployment and compliance coverage"
+    },
+    {
+      "identifiers": [
+        "NG-07"
+      ],
+      "level": 2,
+      "line_end": 61,
+      "line_start": 56,
+      "section_id": "ng-07-optimization-before-correctness",
+      "text": "## NG-07 — Optimization before correctness\n\nThe project will not trade correctness, accessibility, recovery, or essential\ntelemetry for superficial speed. Performance work follows budgets and measured\nbottlenecks.",
+      "title": "NG-07 — Optimization before correctness"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 62,
+      "section_id": "scope-test",
+      "text": "## Scope test\n\nA proposal is out of scope when the primary journey can meet its committed\noutcome without it and delaying the proposal does not create unacceptable\nsafety, legal, security, or architectural risk. Deferred proposals belong in\nthe roadmap or backlog with their reconsideration trigger.",
+      "title": "Scope test"
+    }
+  ],
+  "source": {
+    "bytes": 2550,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 67,
+    "media_type": "text/markdown",
+    "path": "vision/non-goals.md",
+    "sha256": "641b92712bf8aa14fecde37de3ca9ee867858da120e68bef5462f1fcc271799f"
+  }
+}

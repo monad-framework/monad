@@ -1,0 +1,67 @@
+{
+  "content": "# Testing and Quality Assurance\n\nTesting produces evidence about product promises, system invariants, risks, and\noperational readiness. It cannot prove the absence of every defect, so the test\nsystem prioritizes consequence, uncertainty, and representative behavior.\n\n## Test documents\n\n- `strategy.md` defines levels, ownership, data, environments, and evidence.\n- `acceptance.md` makes the primary user and system outcomes executable.\n- `performance.md` defines workload, method, budgets, and analysis.\n- `quality-gates.md` states the evidence required at change and release stages.\n\n## Quality principles\n\n- Test behavior at the cheapest level that gives trustworthy evidence.\n- Keep most tests deterministic, isolated, fast, and diagnosable.\n- Use contract tests at ownership boundaries and a smaller number of integrated\n  journey tests for composition.\n- Test failure, retry, interruption, concurrency, and recovery—not only the\n  successful demonstration path.\n- Use production-like structure and synthetic representative data without\n  copying uncontrolled sensitive data.\n- Treat flaky tests as defects; quarantine only with owner and repair deadline.\n- Preserve evidence by artifact, environment, configuration, and source version.\n\n## Ownership\n\nAuthors own tests for their changes. Component owners maintain contract and\ninvariant suites. Product owns acceptance meaning. Security owns elevated\nsecurity assurance. Operations owns deployment, resilience, backup, and restore\nexercises. Quality is shared; no testing role is a downstream gatekeeper for\nwork designed without testability.\n",
+  "document_id": "doc:testing%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "quality-assurance",
+    "normative": true,
+    "summary": "Testing produces evidence about product promises, system invariants, risks, and operational readiness. It cannot prove the absence of every defect, so the test system prioritizes consequence, uncertainty, and representative behavior.",
+    "title": "Testing and Quality Assurance"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "testing-and-quality-assurance",
+      "text": "# Testing and Quality Assurance\n\nTesting produces evidence about product promises, system invariants, risks, and\noperational readiness. It cannot prove the absence of every defect, so the test\nsystem prioritizes consequence, uncertainty, and representative behavior.",
+      "title": "Testing and Quality Assurance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 7,
+      "section_id": "test-documents",
+      "text": "## Test documents\n\n- `strategy.md` defines levels, ownership, data, environments, and evidence.\n- `acceptance.md` makes the primary user and system outcomes executable.\n- `performance.md` defines workload, method, budgets, and analysis.\n- `quality-gates.md` states the evidence required at change and release stages.",
+      "title": "Test documents"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 14,
+      "section_id": "quality-principles",
+      "text": "## Quality principles\n\n- Test behavior at the cheapest level that gives trustworthy evidence.\n- Keep most tests deterministic, isolated, fast, and diagnosable.\n- Use contract tests at ownership boundaries and a smaller number of integrated\n  journey tests for composition.\n- Test failure, retry, interruption, concurrency, and recovery—not only the\n  successful demonstration path.\n- Use production-like structure and synthetic representative data without\n  copying uncontrolled sensitive data.\n- Treat flaky tests as defects; quarantine only with owner and repair deadline.\n- Preserve evidence by artifact, environment, configuration, and source version.",
+      "title": "Quality principles"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 27,
+      "section_id": "ownership",
+      "text": "## Ownership\n\nAuthors own tests for their changes. Component owners maintain contract and\ninvariant suites. Product owns acceptance meaning. Security owns elevated\nsecurity assurance. Operations owns deployment, resilience, backup, and restore\nexercises. Quality is shared; no testing role is a downstream gatekeeper for\nwork designed without testability.",
+      "title": "Ownership"
+    }
+  ],
+  "source": {
+    "bytes": 1601,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 33,
+    "media_type": "text/markdown",
+    "path": "testing/README.md",
+    "sha256": "a2641f12d570f182bd8fe9c58c99cb43b4403ed4ffa8e52e851947edf948ee47"
+  }
+}

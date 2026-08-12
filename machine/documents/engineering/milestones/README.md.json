@@ -1,0 +1,76 @@
+{
+  "content": "# Milestones\n\nA milestone is a major, reviewable outcome that materially changes product\ncapability, evidence, or readiness. It may span multiple increments but must be\nsmall enough to support a meaningful continue, correct, or stop decision.\n\n## Naming\n\nUse `MS-NNNN-short-outcome.md`. Numbers are chronological and never reused.\nTitles describe the achieved condition, such as `Validated Primary Journey`,\nnot an activity such as `Build Features`.\n\n## Milestone record\n\nEach record contains:\n\n- outcome statement and connection to vision goals;\n- scope, exclusions, accountable owner, and target review window;\n- entry evidence and assumptions;\n- ordered increments and critical dependencies;\n- outcome, quality, security, operational, and economic measures;\n- risks, stop conditions, and contingency;\n- exit evidence and approval authorities;\n- final review decision and lessons.\n\n## Lifecycle\n\nStatuses are `proposed`, `authorized`, `active`, `at risk`, `achieved`,\n`stopped`, and `superseded`. Only one status is current. Authorization confirms\nthat the outcome justifies investment and initial increments are feasible; it\ndoes not commit every later scope detail.\n\n## Review\n\nAt milestone review, compare actual outcomes with baselines and guardrails,\ninspect unresolved risk and operational burden, and decide whether to proceed,\ncorrect, narrow, expand, pause, or stop. Incomplete work is not automatically\ncarried forward. Preserve the review result in the milestone record and journal.\n",
+  "document_id": "doc:engineering%2Fmilestones%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "A milestone is a major, reviewable outcome that materially changes product capability, evidence, or readiness. It may span multiple increments but must be small enough to support a meaningful continue, correct, or stop decision.",
+    "title": "Milestones"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "milestones",
+      "text": "# Milestones\n\nA milestone is a major, reviewable outcome that materially changes product\ncapability, evidence, or readiness. It may span multiple increments but must be\nsmall enough to support a meaningful continue, correct, or stop decision.",
+      "title": "Milestones"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 7,
+      "section_id": "naming",
+      "text": "## Naming\n\nUse `MS-NNNN-short-outcome.md`. Numbers are chronological and never reused.\nTitles describe the achieved condition, such as `Validated Primary Journey`,\nnot an activity such as `Build Features`.",
+      "title": "Naming"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 13,
+      "section_id": "milestone-record",
+      "text": "## Milestone record\n\nEach record contains:\n\n- outcome statement and connection to vision goals;\n- scope, exclusions, accountable owner, and target review window;\n- entry evidence and assumptions;\n- ordered increments and critical dependencies;\n- outcome, quality, security, operational, and economic measures;\n- risks, stop conditions, and contingency;\n- exit evidence and approval authorities;\n- final review decision and lessons.",
+      "title": "Milestone record"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 26,
+      "section_id": "lifecycle",
+      "text": "## Lifecycle\n\nStatuses are `proposed`, `authorized`, `active`, `at risk`, `achieved`,\n`stopped`, and `superseded`. Only one status is current. Authorization confirms\nthat the outcome justifies investment and initial increments are feasible; it\ndoes not commit every later scope detail.",
+      "title": "Lifecycle"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 33,
+      "section_id": "review",
+      "text": "## Review\n\nAt milestone review, compare actual outcomes with baselines and guardrails,\ninspect unresolved risk and operational burden, and decide whether to proceed,\ncorrect, narrow, expand, pause, or stop. Incomplete work is not automatically\ncarried forward. Preserve the review result in the milestone record and journal.",
+      "title": "Review"
+    }
+  ],
+  "source": {
+    "bytes": 1496,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 38,
+    "media_type": "text/markdown",
+    "path": "engineering/milestones/README.md",
+    "sha256": "99f8350281c8d41b9374adf5f928a897e83628a38b81042f34ce404b7518d98b"
+  }
+}

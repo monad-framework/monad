@@ -1,0 +1,173 @@
+{
+  "content": "# Research Questions\n\nQuestions are ordered by the cost of being wrong and their ability to change a\nnear-term decision. Each question closes when evidence supports a decision,\nnot merely when research activity ends.\n\n## Priority 1 — Product viability\n\n### RQ-001 — Is the core problem recurring and material?\n\n- **Decision:** proceed, narrow, pivot, or stop the product hypothesis.\n- **Method:** recent-event interviews, workflow observation, and artifact review.\n- **Evidence threshold:** consistent failure pattern across representative\n  users plus a quantified baseline and committed participation in a test.\n\n### RQ-002 — Which user and journey should define the first release?\n\n- **Decision:** freeze the primary persona and use case.\n- **Method:** compare frequency, consequence, current alternatives, authority,\n  reachability, and measurable improvement.\n- **Evidence threshold:** one segment has a coherent high-value journey that can\n  be tested end to end within initial constraints.\n\n### RQ-003 — What does a verified successful outcome mean?\n\n- **Decision:** approve product acceptance and measurement semantics.\n- **Method:** domain interviews, existing evidence review, error analysis, and\n  observed downstream use.\n- **Evidence threshold:** practitioners and accountable owners agree on\n  postconditions, tolerances, and partial or failed states.\n\n## Priority 2 — Adoption and safety\n\n### RQ-004 — Which trust signals and controls are required for adoption?\n\n- **Decision:** confirmation, explanation, evidence, and human-review design.\n- **Method:** prototype usability tests across normal and failure scenarios.\n- **Evidence threshold:** representative users correctly understand outcome,\n  limits, next action, and reversibility without private coaching.\n\n### RQ-005 — Which data and authority does the journey actually require?\n\n- **Decision:** data model, integration, identity, and privacy baseline.\n- **Method:** task decomposition, data inventory, permission mapping, and least-\n  privilege walkthrough.\n- **Evidence threshold:** every field and privilege has a purpose, owner,\n  lifecycle, and safe failure behavior.\n\n## Priority 3 — Technical and operational feasibility\n\n### RQ-006 — Can the primary workflow meet reliability and recovery needs?\n\n- **Decision:** workflow and persistence architecture.\n- **Method:** state-model exploration, fault injection, idempotency tests, and\n  recovery exercise.\n\n### RQ-007 — Can the product meet latency, capacity, and unit-cost budgets?\n\n- **Decision:** implementation shape and dependency selection.\n- **Method:** representative benchmark with realistic data and dependency\n  behavior, including tail latency and failure loops.\n\n### RQ-008 — Can a small team operate the service safely?\n\n- **Decision:** pilot exposure and operational model.\n- **Method:** deployment rehearsal, alert review, incident simulation, backup\n  restore, and measured manual toil.\n\n## Maintenance\n\nEach question has one decision owner and review date in its linked finding or\nexperiment. Retire questions when the decision disappears, and add a new\nquestion when material uncertainty is discovered rather than rewriting the old\nquestion to match the answer.\n",
+  "document_id": "doc:research%2Fquestions.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "RQ-001",
+    "RQ-002",
+    "RQ-003",
+    "RQ-004",
+    "RQ-005",
+    "RQ-006",
+    "RQ-007",
+    "RQ-008"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "research",
+    "normative": false,
+    "summary": "Questions are ordered by the cost of being wrong and their ability to change a near-term decision. Each question closes when evidence supports a decision, not merely when research activity ends.",
+    "title": "Research Questions"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "research-questions",
+      "text": "# Research Questions\n\nQuestions are ordered by the cost of being wrong and their ability to change a\nnear-term decision. Each question closes when evidence supports a decision,\nnot merely when research activity ends.",
+      "title": "Research Questions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 8,
+      "line_start": 7,
+      "section_id": "priority-1-product-viability",
+      "text": "## Priority 1 — Product viability",
+      "title": "Priority 1 — Product viability"
+    },
+    {
+      "identifiers": [
+        "RQ-001"
+      ],
+      "level": 3,
+      "line_end": 15,
+      "line_start": 9,
+      "section_id": "rq-001-is-the-core-problem-recurring-and-material",
+      "text": "### RQ-001 — Is the core problem recurring and material?\n\n- **Decision:** proceed, narrow, pivot, or stop the product hypothesis.\n- **Method:** recent-event interviews, workflow observation, and artifact review.\n- **Evidence threshold:** consistent failure pattern across representative\n  users plus a quantified baseline and committed participation in a test.",
+      "title": "RQ-001 — Is the core problem recurring and material?"
+    },
+    {
+      "identifiers": [
+        "RQ-002"
+      ],
+      "level": 3,
+      "line_end": 23,
+      "line_start": 16,
+      "section_id": "rq-002-which-user-and-journey-should-define-the-first-release",
+      "text": "### RQ-002 — Which user and journey should define the first release?\n\n- **Decision:** freeze the primary persona and use case.\n- **Method:** compare frequency, consequence, current alternatives, authority,\n  reachability, and measurable improvement.\n- **Evidence threshold:** one segment has a coherent high-value journey that can\n  be tested end to end within initial constraints.",
+      "title": "RQ-002 — Which user and journey should define the first release?"
+    },
+    {
+      "identifiers": [
+        "RQ-003"
+      ],
+      "level": 3,
+      "line_end": 31,
+      "line_start": 24,
+      "section_id": "rq-003-what-does-a-verified-successful-outcome-mean",
+      "text": "### RQ-003 — What does a verified successful outcome mean?\n\n- **Decision:** approve product acceptance and measurement semantics.\n- **Method:** domain interviews, existing evidence review, error analysis, and\n  observed downstream use.\n- **Evidence threshold:** practitioners and accountable owners agree on\n  postconditions, tolerances, and partial or failed states.",
+      "title": "RQ-003 — What does a verified successful outcome mean?"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 32,
+      "section_id": "priority-2-adoption-and-safety",
+      "text": "## Priority 2 — Adoption and safety",
+      "title": "Priority 2 — Adoption and safety"
+    },
+    {
+      "identifiers": [
+        "RQ-004"
+      ],
+      "level": 3,
+      "line_end": 40,
+      "line_start": 34,
+      "section_id": "rq-004-which-trust-signals-and-controls-are-required-for-adoption",
+      "text": "### RQ-004 — Which trust signals and controls are required for adoption?\n\n- **Decision:** confirmation, explanation, evidence, and human-review design.\n- **Method:** prototype usability tests across normal and failure scenarios.\n- **Evidence threshold:** representative users correctly understand outcome,\n  limits, next action, and reversibility without private coaching.",
+      "title": "RQ-004 — Which trust signals and controls are required for adoption?"
+    },
+    {
+      "identifiers": [
+        "RQ-005"
+      ],
+      "level": 3,
+      "line_end": 48,
+      "line_start": 41,
+      "section_id": "rq-005-which-data-and-authority-does-the-journey-actually-require",
+      "text": "### RQ-005 — Which data and authority does the journey actually require?\n\n- **Decision:** data model, integration, identity, and privacy baseline.\n- **Method:** task decomposition, data inventory, permission mapping, and least-\n  privilege walkthrough.\n- **Evidence threshold:** every field and privilege has a purpose, owner,\n  lifecycle, and safe failure behavior.",
+      "title": "RQ-005 — Which data and authority does the journey actually require?"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 49,
+      "section_id": "priority-3-technical-and-operational-feasibility",
+      "text": "## Priority 3 — Technical and operational feasibility",
+      "title": "Priority 3 — Technical and operational feasibility"
+    },
+    {
+      "identifiers": [
+        "RQ-006"
+      ],
+      "level": 3,
+      "line_end": 56,
+      "line_start": 51,
+      "section_id": "rq-006-can-the-primary-workflow-meet-reliability-and-recovery-needs",
+      "text": "### RQ-006 — Can the primary workflow meet reliability and recovery needs?\n\n- **Decision:** workflow and persistence architecture.\n- **Method:** state-model exploration, fault injection, idempotency tests, and\n  recovery exercise.",
+      "title": "RQ-006 — Can the primary workflow meet reliability and recovery needs?"
+    },
+    {
+      "identifiers": [
+        "RQ-007"
+      ],
+      "level": 3,
+      "line_end": 62,
+      "line_start": 57,
+      "section_id": "rq-007-can-the-product-meet-latency-capacity-and-unit-cost-budgets",
+      "text": "### RQ-007 — Can the product meet latency, capacity, and unit-cost budgets?\n\n- **Decision:** implementation shape and dependency selection.\n- **Method:** representative benchmark with realistic data and dependency\n  behavior, including tail latency and failure loops.",
+      "title": "RQ-007 — Can the product meet latency, capacity, and unit-cost budgets?"
+    },
+    {
+      "identifiers": [
+        "RQ-008"
+      ],
+      "level": 3,
+      "line_end": 68,
+      "line_start": 63,
+      "section_id": "rq-008-can-a-small-team-operate-the-service-safely",
+      "text": "### RQ-008 — Can a small team operate the service safely?\n\n- **Decision:** pilot exposure and operational model.\n- **Method:** deployment rehearsal, alert review, incident simulation, backup\n  restore, and measured manual toil.",
+      "title": "RQ-008 — Can a small team operate the service safely?"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 74,
+      "line_start": 69,
+      "section_id": "maintenance",
+      "text": "## Maintenance\n\nEach question has one decision owner and review date in its linked finding or\nexperiment. Retire questions when the decision disappears, and add a new\nquestion when material uncertainty is discovered rather than rewriting the old\nquestion to match the answer.",
+      "title": "Maintenance"
+    }
+  ],
+  "source": {
+    "bytes": 3229,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 74,
+    "media_type": "text/markdown",
+    "path": "research/questions.md",
+    "sha256": "247e5c2fe54f34bc507e5032fc9bec4c28de8250cd1d8abbdf6e035bd81b78f4"
+  }
+}

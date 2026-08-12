@@ -1,0 +1,94 @@
+{
+  "content": "# Performance and Capacity Testing\n\nPerformance testing determines whether the product meets user, reliability, and\ncost budgets under representative and adverse conditions. It is not a race for\nthe highest synthetic request count.\n\n## Workload model\n\nDefine active users, request and workflow mix, payload distributions, state\ncardinality, concurrency, arrival pattern, read/write ratio, dependency latency\nand error behavior, background work, cache state, and data volume. Base the\nmodel on measured or explicitly forecast use and preserve its version.\n\n## Test types\n\n- **Baseline:** one-user and low-load cost and latency by operation.\n- **Load:** expected sustained and daily peak demand.\n- **Stress:** increasing demand to identify saturation and failure shape.\n- **Spike:** rapid demand change and scaling response.\n- **Soak:** sustained execution to expose leaks, drift, queues, and cost growth.\n- **Dependency degradation:** timeout, throttle, partial response, and outage.\n- **Recovery:** backlog drain, restart, failover, restore, and reconciliation.\n\n## Provisional budgets\n\n- p95 interactive response below 400 ms and p99 below 1 second at reference\n  load, excluding explicitly asynchronous completion;\n- progress acknowledgment within 2 seconds;\n- no correctness loss or duplicate effect under supported concurrency;\n- resource utilization remains below the approved saturation threshold with\n  recovery margin;\n- unit cost remains within the product-approved successful-outcome budget.\n\nWorkflow-specific completion budgets are defined in technical specifications\nafter the baseline is measured.\n\n## Method\n\nUse the release artifact and production-like topology, warm and cold cases,\nrepresentative data, controlled background load, synchronized clocks, and\ninstrumented dependencies. Run enough iterations to report distributions and\nconfidence, not a single favorable sample. Record test-client limits and verify\nthe generator is not the bottleneck.\n\n## Analysis\n\nReport throughput, concurrency, latency percentiles, errors by class, queue\ndepth, saturation, scaling, retry amplification, dependency time, resource and\nexternal-service cost, and successful outcomes. Compare with the previous\naccepted baseline and explain regressions.\n\n## Pass and stop rules\n\nPass only when budgets hold with no integrity or guardrail failure. Stop a test\nthat threatens shared systems, exceeds cost authorization, corrupts state, or\ninvalidates measurement. A waiver includes user impact, exposure, evidence,\nowner, and corrective deadline.\n",
+  "document_id": "doc:testing%2Fperformance.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "quality-assurance",
+    "normative": true,
+    "summary": "Performance testing determines whether the product meets user, reliability, and cost budgets under representative and adverse conditions. It is not a race for the highest synthetic request count.",
+    "title": "Performance and Capacity Testing"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "performance-and-capacity-testing",
+      "text": "# Performance and Capacity Testing\n\nPerformance testing determines whether the product meets user, reliability, and\ncost budgets under representative and adverse conditions. It is not a race for\nthe highest synthetic request count.",
+      "title": "Performance and Capacity Testing"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 7,
+      "section_id": "workload-model",
+      "text": "## Workload model\n\nDefine active users, request and workflow mix, payload distributions, state\ncardinality, concurrency, arrival pattern, read/write ratio, dependency latency\nand error behavior, background work, cache state, and data volume. Base the\nmodel on measured or explicitly forecast use and preserve its version.",
+      "title": "Workload model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 14,
+      "section_id": "test-types",
+      "text": "## Test types\n\n- **Baseline:** one-user and low-load cost and latency by operation.\n- **Load:** expected sustained and daily peak demand.\n- **Stress:** increasing demand to identify saturation and failure shape.\n- **Spike:** rapid demand change and scaling response.\n- **Soak:** sustained execution to expose leaks, drift, queues, and cost growth.\n- **Dependency degradation:** timeout, throttle, partial response, and outage.\n- **Recovery:** backlog drain, restart, failover, restore, and reconciliation.",
+      "title": "Test types"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 24,
+      "section_id": "provisional-budgets",
+      "text": "## Provisional budgets\n\n- p95 interactive response below 400 ms and p99 below 1 second at reference\n  load, excluding explicitly asynchronous completion;\n- progress acknowledgment within 2 seconds;\n- no correctness loss or duplicate effect under supported concurrency;\n- resource utilization remains below the approved saturation threshold with\n  recovery margin;\n- unit cost remains within the product-approved successful-outcome budget.\n\nWorkflow-specific completion budgets are defined in technical specifications\nafter the baseline is measured.",
+      "title": "Provisional budgets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 37,
+      "section_id": "method",
+      "text": "## Method\n\nUse the release artifact and production-like topology, warm and cold cases,\nrepresentative data, controlled background load, synchronized clocks, and\ninstrumented dependencies. Run enough iterations to report distributions and\nconfidence, not a single favorable sample. Record test-client limits and verify\nthe generator is not the bottleneck.",
+      "title": "Method"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 51,
+      "line_start": 45,
+      "section_id": "analysis",
+      "text": "## Analysis\n\nReport throughput, concurrency, latency percentiles, errors by class, queue\ndepth, saturation, scaling, retry amplification, dependency time, resource and\nexternal-service cost, and successful outcomes. Compare with the previous\naccepted baseline and explain regressions.",
+      "title": "Analysis"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 57,
+      "line_start": 52,
+      "section_id": "pass-and-stop-rules",
+      "text": "## Pass and stop rules\n\nPass only when budgets hold with no integrity or guardrail failure. Stop a test\nthat threatens shared systems, exceeds cost authorization, corrupts state, or\ninvalidates measurement. A waiver includes user impact, exposure, evidence,\nowner, and corrective deadline.",
+      "title": "Pass and stop rules"
+    }
+  ],
+  "source": {
+    "bytes": 2545,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 57,
+    "media_type": "text/markdown",
+    "path": "testing/performance.md",
+    "sha256": "3ef8f7d1a9a1c13bad807799e215576acc8496fe3c9e234eb15113b4b5f2c06a"
+  }
+}

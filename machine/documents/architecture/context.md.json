@@ -1,0 +1,139 @@
+{
+  "content": "# System Context\n\n## System of interest\n\nMonadV2 is the system of interest. It accepts authorized user intent,\ncoordinates the primary workflow, integrates with bounded external services,\nand returns a verifiable outcome with appropriate evidence.\n\n## Actors\n\n| Actor | Uses the system to | Trust and access considerations |\n| --- | --- | --- |\n| Responsible Practitioner | Complete and recover the primary workflow | Access limited to authorized resources and actions |\n| Accountable Owner | Review outcomes, risk, adoption, and evidence | Aggregate access does not imply unrestricted payload access |\n| Service Operator | Deploy, diagnose, mitigate, and restore | Privileged access is time-bounded, audited, and separated |\n| Maintainer | Change code, configuration, and documentation | Changes require review and protected release paths |\n| Affected Stakeholder | Exercise applicable data or decision rights | May not hold an ordinary product account |\n\n## External systems\n\n### Identity authority\n\nAuthenticates users and supplies stable subject and authentication context. The\nproduct remains responsible for resource authorization. Unavailability blocks\nnew privileged sessions but does not erase established audit context.\n\n### Data store\n\nPersists authoritative domain and workflow state. Encryption, backup, restore,\nschema compatibility, and access isolation are owned operational concerns, not\nassumed provider properties.\n\n### Communication or integration services\n\nDeliver optional notifications or exchange bounded data with the surrounding\nworkflow. Their failures cannot be mistaken for completed domain outcomes.\nOutbound data is minimized and classified before transmission.\n\n### Observability system\n\nReceives metrics, logs, and traces needed to operate the service. It must not\nbecome an uncontrolled secondary store for secrets or business payloads.\n\n### Source and artifact services\n\nHost reviewed source, dependencies, build evidence, and release artifacts.\nProtected branches, immutable provenance, least-privilege automation, and\nartifact verification establish the software supply-chain boundary.\n\n## Trust boundaries\n\n1. Public or user-controlled clients to the application boundary.\n2. Application runtime to privileged data and secret stores.\n3. Product-controlled runtime to third-party services.\n4. Build and release automation to production deployment authority.\n5. Ordinary support access to restricted evidence and administrative actions.\n\nEvery crossing authenticates its peer where feasible, validates input, limits\nauthority, protects data in transit, and produces sufficient security evidence.\n\n## Data flows\n\nUser input enters through a versioned contract, is classified and validated,\nand is stored only by the owning capability. Derived results retain provenance\nneeded for verification. Evidence records identifiers and decisions rather than\nunnecessary payloads. Exports and deletion follow the data lifecycle rather\nthan bypassing it through ad hoc operator access.\n\n## Dependency policy\n\nAn external dependency receives an owner, purpose, data classification,\navailability and latency expectation, failure behavior, cost budget, exit\nstrategy, and review date. The project does not treat a vendor service level as\nan end-to-end guarantee.\n",
+  "document_id": "doc:architecture%2Fcontext.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "MonadV2 is the system of interest. It accepts authorized user intent, coordinates the primary workflow, integrates with bounded external services, and returns a verifiable outcome with appropriate evidence.",
+    "title": "System Context"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "system-context",
+      "text": "# System Context",
+      "title": "System Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 8,
+      "line_start": 3,
+      "section_id": "system-of-interest",
+      "text": "## System of interest\n\nMonadV2 is the system of interest. It accepts authorized user intent,\ncoordinates the primary workflow, integrates with bounded external services,\nand returns a verifiable outcome with appropriate evidence.",
+      "title": "System of interest"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 9,
+      "section_id": "actors",
+      "text": "## Actors\n\n| Actor | Uses the system to | Trust and access considerations |\n| --- | --- | --- |\n| Responsible Practitioner | Complete and recover the primary workflow | Access limited to authorized resources and actions |\n| Accountable Owner | Review outcomes, risk, adoption, and evidence | Aggregate access does not imply unrestricted payload access |\n| Service Operator | Deploy, diagnose, mitigate, and restore | Privileged access is time-bounded, audited, and separated |\n| Maintainer | Change code, configuration, and documentation | Changes require review and protected release paths |\n| Affected Stakeholder | Exercise applicable data or decision rights | May not hold an ordinary product account |",
+      "title": "Actors"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 20,
+      "line_start": 19,
+      "section_id": "external-systems",
+      "text": "## External systems",
+      "title": "External systems"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 26,
+      "line_start": 21,
+      "section_id": "identity-authority",
+      "text": "### Identity authority\n\nAuthenticates users and supplies stable subject and authentication context. The\nproduct remains responsible for resource authorization. Unavailability blocks\nnew privileged sessions but does not erase established audit context.",
+      "title": "Identity authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 32,
+      "line_start": 27,
+      "section_id": "data-store",
+      "text": "### Data store\n\nPersists authoritative domain and workflow state. Encryption, backup, restore,\nschema compatibility, and access isolation are owned operational concerns, not\nassumed provider properties.",
+      "title": "Data store"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 38,
+      "line_start": 33,
+      "section_id": "communication-or-integration-services",
+      "text": "### Communication or integration services\n\nDeliver optional notifications or exchange bounded data with the surrounding\nworkflow. Their failures cannot be mistaken for completed domain outcomes.\nOutbound data is minimized and classified before transmission.",
+      "title": "Communication or integration services"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 43,
+      "line_start": 39,
+      "section_id": "observability-system",
+      "text": "### Observability system\n\nReceives metrics, logs, and traces needed to operate the service. It must not\nbecome an uncontrolled secondary store for secrets or business payloads.",
+      "title": "Observability system"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 49,
+      "line_start": 44,
+      "section_id": "source-and-artifact-services",
+      "text": "### Source and artifact services\n\nHost reviewed source, dependencies, build evidence, and release artifacts.\nProtected branches, immutable provenance, least-privilege automation, and\nartifact verification establish the software supply-chain boundary.",
+      "title": "Source and artifact services"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 50,
+      "section_id": "trust-boundaries",
+      "text": "## Trust boundaries\n\n1. Public or user-controlled clients to the application boundary.\n2. Application runtime to privileged data and secret stores.\n3. Product-controlled runtime to third-party services.\n4. Build and release automation to production deployment authority.\n5. Ordinary support access to restricted evidence and administrative actions.\n\nEvery crossing authenticates its peer where feasible, validates input, limits\nauthority, protects data in transit, and produces sufficient security evidence.",
+      "title": "Trust boundaries"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 61,
+      "section_id": "data-flows",
+      "text": "## Data flows\n\nUser input enters through a versioned contract, is classified and validated,\nand is stored only by the owning capability. Derived results retain provenance\nneeded for verification. Evidence records identifiers and decisions rather than\nunnecessary payloads. Exports and deletion follow the data lifecycle rather\nthan bypassing it through ad hoc operator access.",
+      "title": "Data flows"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 74,
+      "line_start": 69,
+      "section_id": "dependency-policy",
+      "text": "## Dependency policy\n\nAn external dependency receives an owner, purpose, data classification,\navailability and latency expectation, failure behavior, cost budget, exit\nstrategy, and review date. The project does not treat a vendor service level as\nan end-to-end guarantee.",
+      "title": "Dependency policy"
+    }
+  ],
+  "source": {
+    "bytes": 3284,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 74,
+    "media_type": "text/markdown",
+    "path": "architecture/context.md",
+    "sha256": "393050aa5ad2f4e666b5cb7c9b220559144f8c0eb4338319c857aaf1f2f0a7e1"
+  }
+}

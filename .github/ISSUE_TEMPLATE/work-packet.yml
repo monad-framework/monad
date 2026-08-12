@@ -1,0 +1,29 @@
+name: Work Packet
+description: Track an engineering work packet
+title: "WP: "
+labels:
+  - work-packet
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: What engineering outcome must this work produce?
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What is included and excluded?
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: How will completion be demonstrated?
+    validations:
+      required: true

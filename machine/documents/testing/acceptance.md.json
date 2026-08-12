@@ -1,0 +1,170 @@
+{
+  "content": "# Acceptance Model\n\nAcceptance confirms that the integrated product satisfies approved user and\nsystem outcomes. Scenarios use stable requirement and use-case IDs and execute\nthrough supported contracts.\n\n## AC-001 — Authorized successful journey\n\nGiven an authenticated practitioner with valid authority and inputs, when the\nprimary workflow is confirmed, then one workflow instance reaches a verified\nsuccessful state, the expected result is available, and minimum necessary\nevidence links actor, policy, state, and outcome.\n\n## AC-002 — Invalid input\n\nGiven missing, malformed, out-of-range, or inconsistent input, when validation\nruns, then no consequential effect occurs and the response identifies the\nspecific correction without exposing sensitive internals.\n\n## AC-003 — Unauthorized action\n\nGiven an authenticated actor without permission for the resource or action,\nwhen the request is attempted, then access is denied at the resource owner,\nprotected existence is not disclosed unnecessarily, and security evidence is\nrecorded.\n\n## AC-004 — Duplicate request\n\nGiven an operation that has been accepted or completed, when the same\nidempotency identity is submitted again, then no duplicate consequential effect\noccurs and the caller receives the existing result or authoritative status.\n\n## AC-005 — Interruption and recovery\n\nGiven an interruption at each durable workflow state, when the user reconnects\nor the system retries, then completed work is preserved, allowed next actions\nare accurate, and the workflow reaches a verified terminal or escalated state.\n\n## AC-006 — Dependency failure\n\nGiven a timeout, throttling response, invalid dependency result, or unavailable\nexternal service, when the workflow executes, then failure is contained,\nbounded retry policy is honored, unknown effects enter reconciliation, and the\nuser receives an actionable status.\n\n## AC-007 — User cancellation or reversal\n\nGiven a cancellable state, when the user cancels, then no disallowed later step\nstarts, compensation occurs where required, and the terminal outcome accurately\ndescribes completed and reversed effects.\n\n## AC-008 — Evidence access\n\nGiven an authorized accountable owner, when outcome evidence is requested, then\nthe system returns only permitted records with consistent definitions and\nrecords the access. Unauthorized and over-broad queries are denied.\n\n## AC-009 — Accessible primary journey\n\nGiven keyboard-only and supported screen-reader operation, when a representative\nuser completes the primary journey and encounters errors, then controls, focus,\nstatus, validation, confirmation, and recovery remain understandable and\noperable without relying on color or pointer input.\n\n## AC-010 — Operational diagnosis\n\nGiven a simulated primary-journey failure, when the operator follows the alert\nand runbook, then correlation and signals identify affected state, dependency,\nand recent change without inspecting prohibited sensitive payloads.\n\n## Acceptance evidence\n\nEach scenario records environment, artifact, configuration, data set, result,\nsupporting logs or reports, reviewer, and deviations. Product accepts user\nmeaning; engineering accepts technical integrity; security and operations\naccept their relevant evidence before release.\n",
+  "document_id": "doc:testing%2Facceptance.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "AC-001",
+    "AC-002",
+    "AC-003",
+    "AC-004",
+    "AC-005",
+    "AC-006",
+    "AC-007",
+    "AC-008",
+    "AC-009",
+    "AC-010"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "quality-assurance",
+    "normative": true,
+    "summary": "Acceptance confirms that the integrated product satisfies approved user and system outcomes. Scenarios use stable requirement and use-case IDs and execute through supported contracts.",
+    "title": "Acceptance Model"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "acceptance-model",
+      "text": "# Acceptance Model\n\nAcceptance confirms that the integrated product satisfies approved user and\nsystem outcomes. Scenarios use stable requirement and use-case IDs and execute\nthrough supported contracts.",
+      "title": "Acceptance Model"
+    },
+    {
+      "identifiers": [
+        "AC-001"
+      ],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 7,
+      "section_id": "ac-001-authorized-successful-journey",
+      "text": "## AC-001 — Authorized successful journey\n\nGiven an authenticated practitioner with valid authority and inputs, when the\nprimary workflow is confirmed, then one workflow instance reaches a verified\nsuccessful state, the expected result is available, and minimum necessary\nevidence links actor, policy, state, and outcome.",
+      "title": "AC-001 — Authorized successful journey"
+    },
+    {
+      "identifiers": [
+        "AC-002"
+      ],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 14,
+      "section_id": "ac-002-invalid-input",
+      "text": "## AC-002 — Invalid input\n\nGiven missing, malformed, out-of-range, or inconsistent input, when validation\nruns, then no consequential effect occurs and the response identifies the\nspecific correction without exposing sensitive internals.",
+      "title": "AC-002 — Invalid input"
+    },
+    {
+      "identifiers": [
+        "AC-003"
+      ],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 20,
+      "section_id": "ac-003-unauthorized-action",
+      "text": "## AC-003 — Unauthorized action\n\nGiven an authenticated actor without permission for the resource or action,\nwhen the request is attempted, then access is denied at the resource owner,\nprotected existence is not disclosed unnecessarily, and security evidence is\nrecorded.",
+      "title": "AC-003 — Unauthorized action"
+    },
+    {
+      "identifiers": [
+        "AC-004"
+      ],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 27,
+      "section_id": "ac-004-duplicate-request",
+      "text": "## AC-004 — Duplicate request\n\nGiven an operation that has been accepted or completed, when the same\nidempotency identity is submitted again, then no duplicate consequential effect\noccurs and the caller receives the existing result or authoritative status.",
+      "title": "AC-004 — Duplicate request"
+    },
+    {
+      "identifiers": [
+        "AC-005"
+      ],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 33,
+      "section_id": "ac-005-interruption-and-recovery",
+      "text": "## AC-005 — Interruption and recovery\n\nGiven an interruption at each durable workflow state, when the user reconnects\nor the system retries, then completed work is preserved, allowed next actions\nare accurate, and the workflow reaches a verified terminal or escalated state.",
+      "title": "AC-005 — Interruption and recovery"
+    },
+    {
+      "identifiers": [
+        "AC-006"
+      ],
+      "level": 2,
+      "line_end": 45,
+      "line_start": 39,
+      "section_id": "ac-006-dependency-failure",
+      "text": "## AC-006 — Dependency failure\n\nGiven a timeout, throttling response, invalid dependency result, or unavailable\nexternal service, when the workflow executes, then failure is contained,\nbounded retry policy is honored, unknown effects enter reconciliation, and the\nuser receives an actionable status.",
+      "title": "AC-006 — Dependency failure"
+    },
+    {
+      "identifiers": [
+        "AC-007"
+      ],
+      "level": 2,
+      "line_end": 51,
+      "line_start": 46,
+      "section_id": "ac-007-user-cancellation-or-reversal",
+      "text": "## AC-007 — User cancellation or reversal\n\nGiven a cancellable state, when the user cancels, then no disallowed later step\nstarts, compensation occurs where required, and the terminal outcome accurately\ndescribes completed and reversed effects.",
+      "title": "AC-007 — User cancellation or reversal"
+    },
+    {
+      "identifiers": [
+        "AC-008"
+      ],
+      "level": 2,
+      "line_end": 57,
+      "line_start": 52,
+      "section_id": "ac-008-evidence-access",
+      "text": "## AC-008 — Evidence access\n\nGiven an authorized accountable owner, when outcome evidence is requested, then\nthe system returns only permitted records with consistent definitions and\nrecords the access. Unauthorized and over-broad queries are denied.",
+      "title": "AC-008 — Evidence access"
+    },
+    {
+      "identifiers": [
+        "AC-009"
+      ],
+      "level": 2,
+      "line_end": 64,
+      "line_start": 58,
+      "section_id": "ac-009-accessible-primary-journey",
+      "text": "## AC-009 — Accessible primary journey\n\nGiven keyboard-only and supported screen-reader operation, when a representative\nuser completes the primary journey and encounters errors, then controls, focus,\nstatus, validation, confirmation, and recovery remain understandable and\noperable without relying on color or pointer input.",
+      "title": "AC-009 — Accessible primary journey"
+    },
+    {
+      "identifiers": [
+        "AC-010"
+      ],
+      "level": 2,
+      "line_end": 70,
+      "line_start": 65,
+      "section_id": "ac-010-operational-diagnosis",
+      "text": "## AC-010 — Operational diagnosis\n\nGiven a simulated primary-journey failure, when the operator follows the alert\nand runbook, then correlation and signals identify affected state, dependency,\nand recent change without inspecting prohibited sensitive payloads.",
+      "title": "AC-010 — Operational diagnosis"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 76,
+      "line_start": 71,
+      "section_id": "acceptance-evidence",
+      "text": "## Acceptance evidence\n\nEach scenario records environment, artifact, configuration, data set, result,\nsupporting logs or reports, reviewer, and deviations. Product accepts user\nmeaning; engineering accepts technical integrity; security and operations\naccept their relevant evidence before release.",
+      "title": "Acceptance evidence"
+    }
+  ],
+  "source": {
+    "bytes": 3280,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 76,
+    "media_type": "text/markdown",
+    "path": "testing/acceptance.md",
+    "sha256": "31ccc3074591a7c409f7d03fe1b7846aac763d5b33c7431fb947826859035638"
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "content": "# Use Cases\n\nUse cases define supported actor-system contracts. Each includes a successful\npath, controlled alternatives, and an observable postcondition.\n\n## UC-001 — Complete the primary workflow\n\n- **Primary actor:** Responsible Practitioner\n- **Trigger:** The actor has a valid outcome to achieve and required authority.\n- **Preconditions:** Identity is verified; required dependencies are available;\n  input classification is supported.\n- **Success postcondition:** A verified result and evidence record exist in a\n  terminal successful state.\n\n### Main flow\n\n1. The actor states the intended outcome.\n2. The system presents required inputs, constraints, and expected effect.\n3. The actor supplies or selects inputs.\n4. The system validates data, authorization, and applicable rules.\n5. The actor reviews and confirms consequential action.\n6. The system executes while exposing durable progress.\n7. The system verifies the result and presents evidence and next actions.\n\n### Alternate flows\n\n- Invalid input returns field- or rule-specific correction guidance.\n- A warning requires explicit acknowledgment without being misrepresented as a\n  successful validation.\n- A dependency interruption preserves safe state and offers retry or escalation.\n- A duplicate request returns the existing result or safe status rather than\n  repeating the effect.\n- Unsupported conditions stop before commitment and identify the supported\n  alternative or escalation path.\n\n## UC-002 — Resume or recover a workflow\n\nThe practitioner locates an interrupted instance, reviews its last durable\nstate, and chooses an allowed retry, compensation, cancellation, or escalation.\nRecovery must not require editing internal state or interpreting raw logs.\n\n**Success postcondition:** the instance reaches a defined terminal state or is\nassigned to an accountable escalation owner with preserved evidence.\n\n## UC-003 — Review outcome and control evidence\n\nThe Accountable Owner filters authorized workflow outcomes by period, cohort,\nstatus, or policy and examines aggregate measures and individual evidence.\nSensitive payloads remain minimized and access is audited.\n\n**Success postcondition:** the owner can support an outcome or control decision\nusing consistent definitions and traceable evidence.\n\n## UC-004 — Diagnose and restore service\n\nThe Service Operator receives a symptom tied to user impact, identifies the\naffected journey and recent changes, applies a documented mitigation or\nrollback, verifies recovery, and opens follow-up work.\n\n**Success postcondition:** service returns to its defined safe state and the\nincident timeline contains enough evidence for review.\n\n## Use-case traceability\n\nUC-001 maps to FR-001 through FR-008. UC-002 emphasizes FR-003 through FR-006.\nUC-003 emphasizes FR-004 and FR-007. UC-004 maps to the reliability and\noperability quality requirements. Acceptance suites should preserve these IDs.\n",
+  "document_id": "doc:product%2Fuse-cases.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "FR-001",
+    "FR-003",
+    "FR-004",
+    "FR-006",
+    "FR-007",
+    "FR-008",
+    "UC-001",
+    "UC-002",
+    "UC-003",
+    "UC-004"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "product",
+    "normative": true,
+    "summary": "Use cases define supported actor-system contracts. Each includes a successful path, controlled alternatives, and an observable postcondition.",
+    "title": "Use Cases"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 5,
+      "line_start": 1,
+      "section_id": "use-cases",
+      "text": "# Use Cases\n\nUse cases define supported actor-system contracts. Each includes a successful\npath, controlled alternatives, and an observable postcondition.",
+      "title": "Use Cases"
+    },
+    {
+      "identifiers": [
+        "UC-001"
+      ],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 6,
+      "section_id": "uc-001-complete-the-primary-workflow",
+      "text": "## UC-001 — Complete the primary workflow\n\n- **Primary actor:** Responsible Practitioner\n- **Trigger:** The actor has a valid outcome to achieve and required authority.\n- **Preconditions:** Identity is verified; required dependencies are available;\n  input classification is supported.\n- **Success postcondition:** A verified result and evidence record exist in a\n  terminal successful state.",
+      "title": "UC-001 — Complete the primary workflow"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 24,
+      "line_start": 15,
+      "section_id": "main-flow",
+      "text": "### Main flow\n\n1. The actor states the intended outcome.\n2. The system presents required inputs, constraints, and expected effect.\n3. The actor supplies or selects inputs.\n4. The system validates data, authorization, and applicable rules.\n5. The actor reviews and confirms consequential action.\n6. The system executes while exposing durable progress.\n7. The system verifies the result and presents evidence and next actions.",
+      "title": "Main flow"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 35,
+      "line_start": 25,
+      "section_id": "alternate-flows",
+      "text": "### Alternate flows\n\n- Invalid input returns field- or rule-specific correction guidance.\n- A warning requires explicit acknowledgment without being misrepresented as a\n  successful validation.\n- A dependency interruption preserves safe state and offers retry or escalation.\n- A duplicate request returns the existing result or safe status rather than\n  repeating the effect.\n- Unsupported conditions stop before commitment and identify the supported\n  alternative or escalation path.",
+      "title": "Alternate flows"
+    },
+    {
+      "identifiers": [
+        "UC-002"
+      ],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 36,
+      "section_id": "uc-002-resume-or-recover-a-workflow",
+      "text": "## UC-002 — Resume or recover a workflow\n\nThe practitioner locates an interrupted instance, reviews its last durable\nstate, and chooses an allowed retry, compensation, cancellation, or escalation.\nRecovery must not require editing internal state or interpreting raw logs.\n\n**Success postcondition:** the instance reaches a defined terminal state or is\nassigned to an accountable escalation owner with preserved evidence.",
+      "title": "UC-002 — Resume or recover a workflow"
+    },
+    {
+      "identifiers": [
+        "UC-003"
+      ],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 45,
+      "section_id": "uc-003-review-outcome-and-control-evidence",
+      "text": "## UC-003 — Review outcome and control evidence\n\nThe Accountable Owner filters authorized workflow outcomes by period, cohort,\nstatus, or policy and examines aggregate measures and individual evidence.\nSensitive payloads remain minimized and access is audited.\n\n**Success postcondition:** the owner can support an outcome or control decision\nusing consistent definitions and traceable evidence.",
+      "title": "UC-003 — Review outcome and control evidence"
+    },
+    {
+      "identifiers": [
+        "UC-004"
+      ],
+      "level": 2,
+      "line_end": 62,
+      "line_start": 54,
+      "section_id": "uc-004-diagnose-and-restore-service",
+      "text": "## UC-004 — Diagnose and restore service\n\nThe Service Operator receives a symptom tied to user impact, identifies the\naffected journey and recent changes, applies a documented mitigation or\nrollback, verifies recovery, and opens follow-up work.\n\n**Success postcondition:** service returns to its defined safe state and the\nincident timeline contains enough evidence for review.",
+      "title": "UC-004 — Diagnose and restore service"
+    },
+    {
+      "identifiers": [
+        "FR-001",
+        "FR-003",
+        "FR-004",
+        "FR-006",
+        "FR-007",
+        "FR-008",
+        "UC-001",
+        "UC-002",
+        "UC-003",
+        "UC-004"
+      ],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 63,
+      "section_id": "use-case-traceability",
+      "text": "## Use-case traceability\n\nUC-001 maps to FR-001 through FR-008. UC-002 emphasizes FR-003 through FR-006.\nUC-003 emphasizes FR-004 and FR-007. UC-004 maps to the reliability and\noperability quality requirements. Acceptance suites should preserve these IDs.",
+      "title": "Use-case traceability"
+    }
+  ],
+  "source": {
+    "bytes": 2923,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 67,
+    "media_type": "text/markdown",
+    "path": "product/use-cases.md",
+    "sha256": "e95eefa727547a265e50352c12f4ee44d633b5f27dedd5cb6a71207641799c83"
+  }
+}

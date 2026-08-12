@@ -1,0 +1,49 @@
+{
+  "content": "# Terminology\n\nShared language reduces ambiguity across product, architecture, engineering,\nsecurity, and operations. Terms use their definitions here unless a scoped\nspecification explicitly narrows them.\n\n| Term | Definition |\n| --- | --- |\n| Acceptance criterion | Observable condition and evidence required to accept a bounded result. |\n| Actor | A person, role, service, or system that interacts with a defined boundary. |\n| Artifact | Versioned output such as code, document, package, image, evidence, or release. |\n| Baseline | Approved reference state against which change or outcome is evaluated. |\n| Capability | Durable ability required to produce an outcome, independent of implementation. |\n| Contract | Explicit, testable agreement at a boundary, including success and failure behavior. |\n| Control | Policy, process, or mechanism that changes the likelihood or impact of a risk. |\n| Evidence | Verifiable information supporting a claim, decision, control, or acceptance. |\n| Guardrail | Measure that prevents improvement of one outcome by causing unacceptable harm elsewhere. |\n| Idempotent | Produces no additional consequential effect when the same operation is safely repeated. |\n| Increment | Integrated, potentially releasable advance toward a milestone outcome. |\n| Invariant | Condition that must remain true across all allowed states and transitions. |\n| Milestone | Major outcome and decision gate composed of one or more increments. |\n| Outcome | Observable change in user, system, risk, or operational state—not work performed. |\n| Persona | Evidence-based behavioral model of users sharing material goals and constraints. |\n| Policy | Versioned rule or set of rules governing a decision or allowed behavior. |\n| Recovery | Return to a defined safe state through retry, restore, reconciliation, compensation, or escalation. |\n| Requirement | Identified, testable product behavior or quality obligation. |\n| Risk | Uncertainty that may affect objectives; represented by cause, event, and consequence. |\n| Service objective | Target reliability or performance level used to manage a service. |\n| Specification | Normative, testable detail implementing an approved requirement or contract. |\n| Trust boundary | Crossing where identity, authority, data protection, or validation assumptions change. |\n| Verified result | Outcome whose defined postconditions have been checked against authoritative evidence. |\n| Work cycle | Fixed, short execution and learning window within an increment. |\n| Work packet | Smallest authorized unit producing one independently reviewable result. |\n\n## Usage rules\n\nAvoid using `user` when a specific actor matters, `done` without its acceptance\nscope, `real time` without a latency bound, `secure` without a threat and\ncontrol, `available` without a measurement window, or `compliant` without named\nobligations and evidence. Add terms when inconsistent interpretation changes a\ndecision or test; do not expand the glossary with ordinary language.\n",
+  "document_id": "doc:governance%2Fterminology.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "governance",
+    "normative": true,
+    "summary": "Shared language reduces ambiguity across product, architecture, engineering, security, and operations. Terms use their definitions here unless a scoped specification explicitly narrows them.",
+    "title": "Terminology"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 34,
+      "line_start": 1,
+      "section_id": "terminology",
+      "text": "# Terminology\n\nShared language reduces ambiguity across product, architecture, engineering,\nsecurity, and operations. Terms use their definitions here unless a scoped\nspecification explicitly narrows them.\n\n| Term | Definition |\n| --- | --- |\n| Acceptance criterion | Observable condition and evidence required to accept a bounded result. |\n| Actor | A person, role, service, or system that interacts with a defined boundary. |\n| Artifact | Versioned output such as code, document, package, image, evidence, or release. |\n| Baseline | Approved reference state against which change or outcome is evaluated. |\n| Capability | Durable ability required to produce an outcome, independent of implementation. |\n| Contract | Explicit, testable agreement at a boundary, including success and failure behavior. |\n| Control | Policy, process, or mechanism that changes the likelihood or impact of a risk. |\n| Evidence | Verifiable information supporting a claim, decision, control, or acceptance. |\n| Guardrail | Measure that prevents improvement of one outcome by causing unacceptable harm elsewhere. |\n| Idempotent | Produces no additional consequential effect when the same operation is safely repeated. |\n| Increment | Integrated, potentially releasable advance toward a milestone outcome. |\n| Invariant | Condition that must remain true across all allowed states and transitions. |\n| Milestone | Major outcome and decision gate composed of one or more increments. |\n| Outcome | Observable change in user, system, risk, or operational state—not work performed. |\n| Persona | Evidence-based behavioral model of users sharing material goals and constraints. |\n| Policy | Versioned rule or set of rules governing a decision or allowed behavior. |\n| Recovery | Return to a defined safe state through retry, restore, reconciliation, compensation, or escalation. |\n| Requirement | Identified, testable product behavior or quality obligation. |\n| Risk | Uncertainty that may affect objectives; represented by cause, event, and consequence. |\n| Service objective | Target reliability or performance level used to manage a service. |\n| Specification | Normative, testable detail implementing an approved requirement or contract. |\n| Trust boundary | Crossing where identity, authority, data protection, or validation assumptions change. |\n| Verified result | Outcome whose defined postconditions have been checked against authoritative evidence. |\n| Work cycle | Fixed, short execution and learning window within an increment. |\n| Work packet | Smallest authorized unit producing one independently reviewable result. |",
+      "title": "Terminology"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 41,
+      "line_start": 35,
+      "section_id": "usage-rules",
+      "text": "## Usage rules\n\nAvoid using `user` when a specific actor matters, `done` without its acceptance\nscope, `real time` without a latency bound, `secure` without a threat and\ncontrol, `available` without a measurement window, or `compliant` without named\nobligations and evidence. Add terms when inconsistent interpretation changes a\ndecision or test; do not expand the glossary with ordinary language.",
+      "title": "Usage rules"
+    }
+  ],
+  "source": {
+    "bytes": 3004,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 41,
+    "media_type": "text/markdown",
+    "path": "governance/terminology.md",
+    "sha256": "ebc0bfe8a1b032d28446a1986b5f9ba2d47a6a24cd3d043a1e11745711cabe1d"
+  }
+}

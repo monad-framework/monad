@@ -1,0 +1,76 @@
+{
+  "content": "# Architecture System\n\nArchitecture defines the system's significant structures, boundaries, quality\ndecisions, and evolutionary constraints. It exists to make change safer and\ntrade-offs explicit, not to prescribe implementation detail that can remain\nlocal to a component.\n\n## Architecture set\n\n| Artifact | Purpose | Normative status |\n| --- | --- | --- |\n| `overview.md` | Major components, responsibilities, flows, and deployment shape | Baselined architecture |\n| `context.md` | Actors, external systems, trust relationships, and dependencies | Baselined context |\n| `principles.md` | Rules that guide structural decisions | Normative |\n| `system-boundaries.md` | Ownership and allowed dependency directions | Normative |\n| `quality-attributes.md` | Measurable runtime and change scenarios | Acceptance input |\n| `diagrams/` | Maintained visual views with sources | Explanatory unless cited as normative |\n| `decisions/` | Accepted and superseded ADRs | Normative decision history |\n| `explorations/` | Time-bounded options and experiments | Informative until accepted |\n\n## Decision threshold\n\nCreate an ADR when a choice changes a public contract, system boundary, data\nownership, trust boundary, runtime topology, strategic dependency, quality\nbudget, or operating model; is costly to reverse; or constrains multiple work\npackets. Local implementation choices remain with the owning component when\nthey preserve established contracts and attributes.\n\n## Review method\n\nReview architecture from drivers to evidence:\n\n1. Confirm the user outcome and constraints.\n2. Test the proposed boundaries and dependency direction.\n3. Walk the primary and failure flows.\n4. Evaluate each quality-attribute scenario.\n5. Identify threats, operational burden, cost, and migration risk.\n6. Record accepted decisions, unresolved risks, and validation work.\n\n## Consistency rules\n\nDiagrams, prose, specifications, and code must use the shared terminology in\n`governance/terminology.md`. A component owns authoritative state for its\ndeclared responsibility. Cross-boundary interactions use explicit contracts.\nExceptions are visible, time-bounded, and linked to a remediation decision.\n",
+  "document_id": "doc:architecture%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "Architecture defines the system's significant structures, boundaries, quality decisions, and evolutionary constraints. It exists to make change safer and trade-offs explicit, not to prescribe implementation detail that can remain local to a component.",
+    "title": "Architecture System"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "architecture-system",
+      "text": "# Architecture System\n\nArchitecture defines the system's significant structures, boundaries, quality\ndecisions, and evolutionary constraints. It exists to make change safer and\ntrade-offs explicit, not to prescribe implementation detail that can remain\nlocal to a component.",
+      "title": "Architecture System"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 20,
+      "line_start": 8,
+      "section_id": "architecture-set",
+      "text": "## Architecture set\n\n| Artifact | Purpose | Normative status |\n| --- | --- | --- |\n| `overview.md` | Major components, responsibilities, flows, and deployment shape | Baselined architecture |\n| `context.md` | Actors, external systems, trust relationships, and dependencies | Baselined context |\n| `principles.md` | Rules that guide structural decisions | Normative |\n| `system-boundaries.md` | Ownership and allowed dependency directions | Normative |\n| `quality-attributes.md` | Measurable runtime and change scenarios | Acceptance input |\n| `diagrams/` | Maintained visual views with sources | Explanatory unless cited as normative |\n| `decisions/` | Accepted and superseded ADRs | Normative decision history |\n| `explorations/` | Time-bounded options and experiments | Informative until accepted |",
+      "title": "Architecture set"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 28,
+      "line_start": 21,
+      "section_id": "decision-threshold",
+      "text": "## Decision threshold\n\nCreate an ADR when a choice changes a public contract, system boundary, data\nownership, trust boundary, runtime topology, strategic dependency, quality\nbudget, or operating model; is costly to reverse; or constrains multiple work\npackets. Local implementation choices remain with the owning component when\nthey preserve established contracts and attributes.",
+      "title": "Decision threshold"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 29,
+      "section_id": "review-method",
+      "text": "## Review method\n\nReview architecture from drivers to evidence:\n\n1. Confirm the user outcome and constraints.\n2. Test the proposed boundaries and dependency direction.\n3. Walk the primary and failure flows.\n4. Evaluate each quality-attribute scenario.\n5. Identify threats, operational burden, cost, and migration risk.\n6. Record accepted decisions, unresolved risks, and validation work.",
+      "title": "Review method"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 45,
+      "line_start": 40,
+      "section_id": "consistency-rules",
+      "text": "## Consistency rules\n\nDiagrams, prose, specifications, and code must use the shared terminology in\n`governance/terminology.md`. A component owns authoritative state for its\ndeclared responsibility. Cross-boundary interactions use explicit contracts.\nExceptions are visible, time-bounded, and linked to a remediation decision.",
+      "title": "Consistency rules"
+    }
+  ],
+  "source": {
+    "bytes": 2175,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 45,
+    "media_type": "text/markdown",
+    "path": "architecture/README.md",
+    "sha256": "a55dc1bc168e983a83893e57b732442fff98742081f9b697ebdedd2ad1faae81"
+  }
+}

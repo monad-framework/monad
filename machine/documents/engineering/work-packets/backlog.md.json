@@ -1,0 +1,71 @@
+{
+  "content": "# Work Packet Backlog\n\nThe backlog contains qualified candidate outcomes, ordered by risk reduction\nand dependency—not a promise that every item will be delivered. A candidate\nmust pass the Definition of Ready before it can enter a work cycle.\n\n## Ordering policy\n\n1. Contain critical safety, security, privacy, or reliability risk.\n2. Test assumptions that could invalidate the product or architecture.\n3. Complete the thinnest end-to-end path to a verified user outcome.\n4. Remove blockers and high-cost uncertainty.\n5. Improve proven adoption, reliability, accessibility, or economics.\n\n## Ordered candidates\n\n| Order | Candidate result | Why next | Readiness gap |\n| --- | --- | --- | --- |\n| 1 | Approved primary-journey specification | Converts validated behavior into a testable contract | Awaiting WP-0001 findings |\n| 2 | Accepted data classification and lifecycle | Determines safe prototype data handling | Data inventory and owner review |\n| 3 | Walking-skeleton architecture decisions | Resolves identity, workflow state, persistence, and deployment choices | Quality baselines and exploration results |\n| 4 | Protected repository quality path | Establishes repeatable review, test, secret, dependency, and artifact checks | Implementation stack selection |\n| 5 | Authenticated vertical slice | Proves interface-to-domain-to-evidence path | First increment authorization |\n| 6 | Durable idempotent workflow state | Retires duplicate-effect and interruption risk | State-model specification |\n| 7 | Correlated journey observability | Enables outcome measurement and diagnosis | Event semantics and privacy review |\n| 8 | Automated deployment and rollback evidence | Establishes safe delivery and recovery | Reference environment decision |\n| 9 | Representative primary acceptance suite | Makes the product promise executable | Approved workflow and test data |\n| 10 | Pilot operational readiness | Enables bounded external use | Completed journey and risk review |\n\n## Candidate hygiene\n\nReview the backlog each work cycle. Remove items that no longer advance an\nauthorized outcome, split oversized work, merge duplicates, and record new\nevidence. Do not keep low-value work solely because effort was previously spent\ndescribing it.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2Fbacklog.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "The backlog contains qualified candidate outcomes, ordered by risk reduction and dependency—not a promise that every item will be delivered. A candidate must pass the Definition of Ready before it can enter a work cycle.",
+    "title": "Work Packet Backlog"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "work-packet-backlog",
+      "text": "# Work Packet Backlog\n\nThe backlog contains qualified candidate outcomes, ordered by risk reduction\nand dependency—not a promise that every item will be delivered. A candidate\nmust pass the Definition of Ready before it can enter a work cycle.",
+      "title": "Work Packet Backlog"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 7,
+      "section_id": "ordering-policy",
+      "text": "## Ordering policy\n\n1. Contain critical safety, security, privacy, or reliability risk.\n2. Test assumptions that could invalidate the product or architecture.\n3. Complete the thinnest end-to-end path to a verified user outcome.\n4. Remove blockers and high-cost uncertainty.\n5. Improve proven adoption, reliability, accessibility, or economics.",
+      "title": "Ordering policy"
+    },
+    {
+      "identifiers": [
+        "WP-0001"
+      ],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 15,
+      "section_id": "ordered-candidates",
+      "text": "## Ordered candidates\n\n| Order | Candidate result | Why next | Readiness gap |\n| --- | --- | --- | --- |\n| 1 | Approved primary-journey specification | Converts validated behavior into a testable contract | Awaiting WP-0001 findings |\n| 2 | Accepted data classification and lifecycle | Determines safe prototype data handling | Data inventory and owner review |\n| 3 | Walking-skeleton architecture decisions | Resolves identity, workflow state, persistence, and deployment choices | Quality baselines and exploration results |\n| 4 | Protected repository quality path | Establishes repeatable review, test, secret, dependency, and artifact checks | Implementation stack selection |\n| 5 | Authenticated vertical slice | Proves interface-to-domain-to-evidence path | First increment authorization |\n| 6 | Durable idempotent workflow state | Retires duplicate-effect and interruption risk | State-model specification |\n| 7 | Correlated journey observability | Enables outcome measurement and diagnosis | Event semantics and privacy review |\n| 8 | Automated deployment and rollback evidence | Establishes safe delivery and recovery | Reference environment decision |\n| 9 | Representative primary acceptance suite | Makes the product promise executable | Approved workflow and test data |\n| 10 | Pilot operational readiness | Enables bounded external use | Completed journey and risk review |",
+      "title": "Ordered candidates"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 30,
+      "section_id": "candidate-hygiene",
+      "text": "## Candidate hygiene\n\nReview the backlog each work cycle. Remove items that no longer advance an\nauthorized outcome, split oversized work, merge duplicates, and record new\nevidence. Do not keep low-value work solely because effort was previously spent\ndescribing it.",
+      "title": "Candidate hygiene"
+    }
+  ],
+  "source": {
+    "bytes": 2247,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 35,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/backlog.md",
+    "sha256": "b4a6bb882503ba1117077b2e12819d92fc4cd10b71a3334482fea03f6dbcd3bb"
+  }
+}

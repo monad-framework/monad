@@ -1,0 +1,40 @@
+{
+  "content": "# EditorConfig keeps basic whitespace behavior consistent across editors.\n# See https://editorconfig.org/ for supported client integrations.\n\nroot = true\n\n[*]\ncharset = utf-8\nend_of_line = lf\ninsert_final_newline = true\nindent_style = space\nindent_size = 2\ntrim_trailing_whitespace = true\n\n[*.md]\nmax_line_length = 100\ntrim_trailing_whitespace = false\n\n[*.{py,rs,go,java}]\nindent_size = 4\n\n[*.{js,jsx,ts,tsx,json,jsonc,yaml,yml}]\nindent_size = 2\n\n[Makefile]\nindent_style = tab\n\n[*.bat]\nend_of_line = crlf\n\n[*.{png,jpg,jpeg,gif,webp,ico,pdf}]\ninsert_final_newline = unset\ntrim_trailing_whitespace = unset\n",
+  "document_id": "doc:.editorconfig",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-configuration",
+    "normative": true,
+    "summary": "Canonical editorconfig source for .editorconfig.",
+    "title": "Editorconfig"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 32,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "# EditorConfig keeps basic whitespace behavior consistent across editors.\n# See https://editorconfig.org/ for supported client integrations.\n\nroot = true\n\n[*]\ncharset = utf-8\nend_of_line = lf\ninsert_final_newline = true\nindent_style = space\nindent_size = 2\ntrim_trailing_whitespace = true\n\n[*.md]\nmax_line_length = 100\ntrim_trailing_whitespace = false\n\n[*.{py,rs,go,java}]\nindent_size = 4\n\n[*.{js,jsx,ts,tsx,json,jsonc,yaml,yml}]\nindent_size = 2\n\n[Makefile]\nindent_style = tab\n\n[*.bat]\nend_of_line = crlf\n\n[*.{png,jpg,jpeg,gif,webp,ico,pdf}]\ninsert_final_newline = unset\ntrim_trailing_whitespace = unset",
+      "title": "Editorconfig"
+    }
+  ],
+  "source": {
+    "bytes": 604,
+    "canonical": true,
+    "language": "editorconfig",
+    "lines": 32,
+    "media_type": "text/plain",
+    "path": ".editorconfig",
+    "sha256": "e4084b400c5ee3fbfecc7b63392f462e9864ee8ba2a08858e80ac8c9d5827394"
+  }
+}

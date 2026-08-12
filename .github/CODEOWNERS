@@ -1,0 +1,25 @@
+# CODEOWNERS is evaluated from top to bottom; the last matching pattern wins.
+# Set GITHUB_CODEOWNER when generating, for example:
+# GITHUB_CODEOWNER=@your-org/maintainers ./generate-project-tree.sh --force
+
+*                                      @monad-framework
+
+/vision/                               @monad-framework
+/product/                              @monad-framework
+/architecture/                         @monad-framework
+/specifications/                       @monad-framework
+/engineering/                          @monad-framework
+/research/                             @monad-framework
+/governance/                           @monad-framework
+/operations/                           @monad-framework
+/security/                             @monad-framework
+/testing/                              @monad-framework
+/docs/                                 @monad-framework
+/machine/                              @monad-framework
+
+/.github/                              @monad-framework
+/scripts/                              @monad-framework
+/tools/                                @monad-framework
+/SECURITY.md                           @monad-framework
+/CODE_OF_CONDUCT.md                    @monad-framework
+/LICENSE                               @monad-framework

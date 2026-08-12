@@ -1,0 +1,109 @@
+{
+  "content": "# Project Status\n\n**Overall state:** Inception — establishing the evidence and baseline required\nto authorize the first implementation increment.\n\n## Executive summary\n\nThe repository operating system is established. Product and architecture\ndocuments define a coherent initial target, but their assumptions still require\nrepresentative user research and accountable review. No production readiness or\nmarket validation is implied by document completion.\n\n## Outcome dashboard\n\n| Area | Status | Evidence now | Next decision |\n| --- | --- | --- | --- |\n| Problem validation | In progress | Hypotheses and evidence plan defined | Accept, revise, or reject the core problem |\n| Product baseline | Proposed | Primary journey and requirements drafted | Baseline after research synthesis |\n| Architecture | Proposed | Boundaries and quality scenarios drafted | Accept first-slice decisions |\n| Engineering | Ready to plan | Delivery hierarchy and gates defined | Authorize Increment 0001 |\n| Security and privacy | Initial analysis | Security model and threat baseline drafted | Confirm data and authority scope |\n| Operations | Initial design | Service, deployment, and incident expectations drafted | Approve pilot operating model |\n\n## Active work\n\n- WP-0001: validate the problem and quantify the current-state baseline.\n- Review product assumptions with representative primary and accountable users.\n- Convert validated behavior into the first approved functional specifications.\n- Identify ADRs required before the walking skeleton begins.\n\n## Blockers and decisions needed\n\n1. Confirm the exact primary workflow and participating user segment.\n2. Approve data classification, retention, and supported operating region.\n3. Choose the initial identity authority and deployment environment.\n4. Establish numeric outcome, reliability, performance, recovery, and cost\n   baselines from evidence.\n\n## Top risks\n\n- Building from assumptions before problem validation.\n- Expanding scope before one end-to-end journey is proven.\n- Treating generic quality targets as evidence without reference testing.\n- Underestimating operational and security ownership for external use.\n\nSee `risks/risk-register.md` for ownership and responses.\n\n## Next checkpoint\n\nThe inception review occurs when WP-0001 evidence is complete. The decision is\none of: proceed to a walking-skeleton increment, narrow or change the product\nhypothesis, perform a bounded additional experiment, or stop. The review record\nupdates this status document and the active work list.\n\n## Status-reporting rule\n\nUpdate this file when a decision, outcome, blocker, forecast, or top risk\nchanges—not merely on a calendar. Use `On track`, `At risk`, or `Blocked` only\nagainst an explicit outcome and date, with the evidence that supports the state.\n",
+  "document_id": "doc:engineering%2Fproject-status.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Overall state: Inception — establishing the evidence and baseline required to authorize the first implementation increment.",
+    "title": "Project Status"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 5,
+      "line_start": 1,
+      "section_id": "project-status",
+      "text": "# Project Status\n\n**Overall state:** Inception — establishing the evidence and baseline required\nto authorize the first implementation increment.",
+      "title": "Project Status"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 6,
+      "section_id": "executive-summary",
+      "text": "## Executive summary\n\nThe repository operating system is established. Product and architecture\ndocuments define a coherent initial target, but their assumptions still require\nrepresentative user research and accountable review. No production readiness or\nmarket validation is implied by document completion.",
+      "title": "Executive summary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 13,
+      "section_id": "outcome-dashboard",
+      "text": "## Outcome dashboard\n\n| Area | Status | Evidence now | Next decision |\n| --- | --- | --- | --- |\n| Problem validation | In progress | Hypotheses and evidence plan defined | Accept, revise, or reject the core problem |\n| Product baseline | Proposed | Primary journey and requirements drafted | Baseline after research synthesis |\n| Architecture | Proposed | Boundaries and quality scenarios drafted | Accept first-slice decisions |\n| Engineering | Ready to plan | Delivery hierarchy and gates defined | Authorize Increment 0001 |\n| Security and privacy | Initial analysis | Security model and threat baseline drafted | Confirm data and authority scope |\n| Operations | Initial design | Service, deployment, and incident expectations drafted | Approve pilot operating model |",
+      "title": "Outcome dashboard"
+    },
+    {
+      "identifiers": [
+        "WP-0001"
+      ],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 24,
+      "section_id": "active-work",
+      "text": "## Active work\n\n- WP-0001: validate the problem and quantify the current-state baseline.\n- Review product assumptions with representative primary and accountable users.\n- Convert validated behavior into the first approved functional specifications.\n- Identify ADRs required before the walking skeleton begins.",
+      "title": "Active work"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 31,
+      "section_id": "blockers-and-decisions-needed",
+      "text": "## Blockers and decisions needed\n\n1. Confirm the exact primary workflow and participating user segment.\n2. Approve data classification, retention, and supported operating region.\n3. Choose the initial identity authority and deployment environment.\n4. Establish numeric outcome, reliability, performance, recovery, and cost\n   baselines from evidence.",
+      "title": "Blockers and decisions needed"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 39,
+      "section_id": "top-risks",
+      "text": "## Top risks\n\n- Building from assumptions before problem validation.\n- Expanding scope before one end-to-end journey is proven.\n- Treating generic quality targets as evidence without reference testing.\n- Underestimating operational and security ownership for external use.\n\nSee `risks/risk-register.md` for ownership and responses.",
+      "title": "Top risks"
+    },
+    {
+      "identifiers": [
+        "WP-0001"
+      ],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 48,
+      "section_id": "next-checkpoint",
+      "text": "## Next checkpoint\n\nThe inception review occurs when WP-0001 evidence is complete. The decision is\none of: proceed to a walking-skeleton increment, narrow or change the product\nhypothesis, perform a bounded additional experiment, or stop. The review record\nupdates this status document and the active work list.",
+      "title": "Next checkpoint"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 59,
+      "line_start": 55,
+      "section_id": "status-reporting-rule",
+      "text": "## Status-reporting rule\n\nUpdate this file when a decision, outcome, blocker, forecast, or top risk\nchanges—not merely on a calendar. Use `On track`, `At risk`, or `Blocked` only\nagainst an explicit outcome and date, with the evidence that supports the state.",
+      "title": "Status-reporting rule"
+    }
+  ],
+  "source": {
+    "bytes": 2804,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 59,
+    "media_type": "text/markdown",
+    "path": "engineering/project-status.md",
+    "sha256": "7ada013a1d54e872fd018bc3ee33529e18366f4497cb99fff26361ec0166c721"
+  }
+}

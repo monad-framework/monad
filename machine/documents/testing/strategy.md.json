@@ -1,0 +1,148 @@
+{
+  "content": "# Test Strategy\n\n## Risk model\n\nTest depth increases with user harm, security or data consequence, complexity,\nchange frequency, dependency uncertainty, irreversibility, and defect history.\nTrace critical risks to explicit tests or exercises and record residual risk.\n\n## Test levels\n\n### Static assurance\n\nFormatting, linting, type and schema checks, policy checks, secret detection,\ndependency analysis, license rules, and architecture constraints provide fast\nfeedback without executing the product.\n\n### Unit and property tests\n\nVerify domain invariants, policy decisions, state transitions, transformations,\nand error classification in isolation. Property tests explore broad input and\nsequence spaces for high-value invariants.\n\n### Contract tests\n\nVerify request, response, event, error, compatibility, timeout, and security\nbehavior at every owned boundary. Consumer and provider evidence must use the\nsame versioned contract.\n\n### Integration tests\n\nVerify adapters with real or production-faithful dependencies, including\nschema, transaction, identity, network, and failure behavior. Emulators are not\naccepted when they omit the behavior under test.\n\n### Acceptance and journey tests\n\nVerify the primary use cases through supported interfaces in a representative\nenvironment. Include accessibility and human evaluation where automation cannot\nestablish the claim.\n\n### Nonfunctional assurance\n\nPerformance, capacity, reliability, recovery, security, accessibility, and\noperational exercises verify the quality scenarios and threat controls.\n\n## Test data\n\nGenerate deterministic synthetic fixtures representing valid, invalid,\nboundary, adversarial, legacy, and high-volume cases. Assign classification and\nretention to test evidence. Production data requires exceptional documented\napproval, minimization or protection, and a deletion plan.\n\n## Environments\n\nUnit and contract tests run on every change. Integration tests use isolated\nephemeral dependencies. Staging provides production-like topology for release,\nperformance, migration, security, and recovery checks. Environment differences\nare recorded with the evidence they may invalidate.\n\n## Failure and flakiness\n\nA failed required test blocks its gate until behavior is corrected, the test is\nproven invalid, or an authorized waiver exists. Rerunning to obtain a pass does\nnot erase failure. Flaky tests receive an owner, diagnosis evidence, containment,\nand repair deadline; critical-path flaky tests block release confidence.\n\n## Evidence retention\n\nRecord source revision, artifact, configuration, dependency versions,\nenvironment, test selection, timestamps, results, logs, and reports. Retain\nrelease evidence long enough to investigate the supported version and satisfy\napplicable obligations.\n",
+  "document_id": "doc:testing%2Fstrategy.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "quality-assurance",
+    "normative": true,
+    "summary": "Test depth increases with user harm, security or data consequence, complexity, change frequency, dependency uncertainty, irreversibility, and defect history. Trace critical risks to explicit tests or exercises and record residual risk.",
+    "title": "Test Strategy"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "test-strategy",
+      "text": "# Test Strategy",
+      "title": "Test Strategy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 8,
+      "line_start": 3,
+      "section_id": "risk-model",
+      "text": "## Risk model\n\nTest depth increases with user harm, security or data consequence, complexity,\nchange frequency, dependency uncertainty, irreversibility, and defect history.\nTrace critical risks to explicit tests or exercises and record residual risk.",
+      "title": "Risk model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 9,
+      "section_id": "test-levels",
+      "text": "## Test levels",
+      "title": "Test levels"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 16,
+      "line_start": 11,
+      "section_id": "static-assurance",
+      "text": "### Static assurance\n\nFormatting, linting, type and schema checks, policy checks, secret detection,\ndependency analysis, license rules, and architecture constraints provide fast\nfeedback without executing the product.",
+      "title": "Static assurance"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 22,
+      "line_start": 17,
+      "section_id": "unit-and-property-tests",
+      "text": "### Unit and property tests\n\nVerify domain invariants, policy decisions, state transitions, transformations,\nand error classification in isolation. Property tests explore broad input and\nsequence spaces for high-value invariants.",
+      "title": "Unit and property tests"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 28,
+      "line_start": 23,
+      "section_id": "contract-tests",
+      "text": "### Contract tests\n\nVerify request, response, event, error, compatibility, timeout, and security\nbehavior at every owned boundary. Consumer and provider evidence must use the\nsame versioned contract.",
+      "title": "Contract tests"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 34,
+      "line_start": 29,
+      "section_id": "integration-tests",
+      "text": "### Integration tests\n\nVerify adapters with real or production-faithful dependencies, including\nschema, transaction, identity, network, and failure behavior. Emulators are not\naccepted when they omit the behavior under test.",
+      "title": "Integration tests"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 40,
+      "line_start": 35,
+      "section_id": "acceptance-and-journey-tests",
+      "text": "### Acceptance and journey tests\n\nVerify the primary use cases through supported interfaces in a representative\nenvironment. Include accessibility and human evaluation where automation cannot\nestablish the claim.",
+      "title": "Acceptance and journey tests"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 45,
+      "line_start": 41,
+      "section_id": "nonfunctional-assurance",
+      "text": "### Nonfunctional assurance\n\nPerformance, capacity, reliability, recovery, security, accessibility, and\noperational exercises verify the quality scenarios and threat controls.",
+      "title": "Nonfunctional assurance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 46,
+      "section_id": "test-data",
+      "text": "## Test data\n\nGenerate deterministic synthetic fixtures representing valid, invalid,\nboundary, adversarial, legacy, and high-volume cases. Assign classification and\nretention to test evidence. Production data requires exceptional documented\napproval, minimization or protection, and a deletion plan.",
+      "title": "Test data"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 59,
+      "line_start": 53,
+      "section_id": "environments",
+      "text": "## Environments\n\nUnit and contract tests run on every change. Integration tests use isolated\nephemeral dependencies. Staging provides production-like topology for release,\nperformance, migration, security, and recovery checks. Environment differences\nare recorded with the evidence they may invalidate.",
+      "title": "Environments"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 66,
+      "line_start": 60,
+      "section_id": "failure-and-flakiness",
+      "text": "## Failure and flakiness\n\nA failed required test blocks its gate until behavior is corrected, the test is\nproven invalid, or an authorized waiver exists. Rerunning to obtain a pass does\nnot erase failure. Flaky tests receive an owner, diagnosis evidence, containment,\nand repair deadline; critical-path flaky tests block release confidence.",
+      "title": "Failure and flakiness"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 72,
+      "line_start": 67,
+      "section_id": "evidence-retention",
+      "text": "## Evidence retention\n\nRecord source revision, artifact, configuration, dependency versions,\nenvironment, test selection, timestamps, results, logs, and reports. Retain\nrelease evidence long enough to investigate the supported version and satisfy\napplicable obligations.",
+      "title": "Evidence retention"
+    }
+  ],
+  "source": {
+    "bytes": 2771,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 72,
+    "media_type": "text/markdown",
+    "path": "testing/strategy.md",
+    "sha256": "74f1475ce1c525da8058185ec48372778e4d96490c5ba1d7af2b1659e29db815"
+  }
+}

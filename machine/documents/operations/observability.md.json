@@ -1,0 +1,103 @@
+{
+  "content": "# Observability\n\nObservability connects internal behavior to user outcomes and operator action.\nCollect the minimum signals needed to detect, diagnose, explain, and improve the\nservice without turning telemetry into an uncontrolled sensitive-data store.\n\n## Signal model\n\n- **Metrics:** aggregate demand, success, latency, errors, saturation, cost, and\n  business-outcome rates.\n- **Logs:** structured discrete events with severity, service, environment,\n  correlation, event name, outcome, and safe diagnostic attributes.\n- **Traces:** end-to-end causality and latency across the primary journey and\n  dependencies.\n- **Profiles or diagnostics:** restricted, time-bounded evidence for measured\n  resource problems.\n\n## Required journey signals\n\nInstrument eligibility, start, validation result, confirmation, durable state\ntransition, dependency attempt, verification, terminal outcome, recovery, and\nrepeat use. Event names and outcome categories must match product and data\nspecifications.\n\n## Correlation\n\nPropagate a non-secret correlation ID across supported boundaries. Keep workflow\nand request IDs distinct where their lifetimes differ. Do not use email,\nusername, access token, or raw business data as a correlation key.\n\n## Dashboards\n\nThe service overview shows user-impact success, latency distributions, error-\nbudget burn, demand, saturation, dependency health, deployment markers, and\nunit cost. Drill-down follows the workflow state and error taxonomy. Dashboard\npanels state source, unit, aggregation, and freshness.\n\n## Alerts\n\nPage only for actionable conditions requiring timely human response. Each alert\nstates user impact, urgency, owning service, runbook, and safe first checks.\nTicket sustained lower-urgency degradation. Review noisy, unactionable, or\nduplicate alerts as operational defects.\n\n## Data protection\n\nDefault to deny-list plus allow-list structured fields at boundaries; redact\nsecrets and sensitive values before emission. Set retention by diagnostic and\nlegal need, restrict access, audit privileged queries, and test that prohibited\ndata does not enter telemetry.\n\n## Telemetry reliability\n\nThe product must continue safely when optional telemetry is degraded. Buffer or\nsample within bounded resource limits, expose dropped-signal health, and never\nblock a critical user result solely to preserve nonessential observability.\n",
+  "document_id": "doc:operations%2Fobservability.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "operations",
+    "normative": true,
+    "summary": "Observability connects internal behavior to user outcomes and operator action. Collect the minimum signals needed to detect, diagnose, explain, and improve the service without turning telemetry into an uncontrolled sensitive-data store.",
+    "title": "Observability"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "observability",
+      "text": "# Observability\n\nObservability connects internal behavior to user outcomes and operator action.\nCollect the minimum signals needed to detect, diagnose, explain, and improve the\nservice without turning telemetry into an uncontrolled sensitive-data store.",
+      "title": "Observability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 7,
+      "section_id": "signal-model",
+      "text": "## Signal model\n\n- **Metrics:** aggregate demand, success, latency, errors, saturation, cost, and\n  business-outcome rates.\n- **Logs:** structured discrete events with severity, service, environment,\n  correlation, event name, outcome, and safe diagnostic attributes.\n- **Traces:** end-to-end causality and latency across the primary journey and\n  dependencies.\n- **Profiles or diagnostics:** restricted, time-bounded evidence for measured\n  resource problems.",
+      "title": "Signal model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 18,
+      "section_id": "required-journey-signals",
+      "text": "## Required journey signals\n\nInstrument eligibility, start, validation result, confirmation, durable state\ntransition, dependency attempt, verification, terminal outcome, recovery, and\nrepeat use. Event names and outcome categories must match product and data\nspecifications.",
+      "title": "Required journey signals"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 25,
+      "section_id": "correlation",
+      "text": "## Correlation\n\nPropagate a non-secret correlation ID across supported boundaries. Keep workflow\nand request IDs distinct where their lifetimes differ. Do not use email,\nusername, access token, or raw business data as a correlation key.",
+      "title": "Correlation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 31,
+      "section_id": "dashboards",
+      "text": "## Dashboards\n\nThe service overview shows user-impact success, latency distributions, error-\nbudget burn, demand, saturation, dependency health, deployment markers, and\nunit cost. Drill-down follows the workflow state and error taxonomy. Dashboard\npanels state source, unit, aggregation, and freshness.",
+      "title": "Dashboards"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 38,
+      "section_id": "alerts",
+      "text": "## Alerts\n\nPage only for actionable conditions requiring timely human response. Each alert\nstates user impact, urgency, owning service, runbook, and safe first checks.\nTicket sustained lower-urgency degradation. Review noisy, unactionable, or\nduplicate alerts as operational defects.",
+      "title": "Alerts"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 51,
+      "line_start": 45,
+      "section_id": "data-protection",
+      "text": "## Data protection\n\nDefault to deny-list plus allow-list structured fields at boundaries; redact\nsecrets and sensitive values before emission. Set retention by diagnostic and\nlegal need, restrict access, audit privileged queries, and test that prohibited\ndata does not enter telemetry.",
+      "title": "Data protection"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 52,
+      "section_id": "telemetry-reliability",
+      "text": "## Telemetry reliability\n\nThe product must continue safely when optional telemetry is degraded. Buffer or\nsample within bounded resource limits, expose dropped-signal health, and never\nblock a critical user result solely to preserve nonessential observability.",
+      "title": "Telemetry reliability"
+    }
+  ],
+  "source": {
+    "bytes": 2369,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 56,
+    "media_type": "text/markdown",
+    "path": "operations/observability.md",
+    "sha256": "0c6f9c614a6b6aaf456d7bff9afe01613aeb9d96099e94cb2702eb05913bc229"
+  }
+}

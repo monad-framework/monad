@@ -1,0 +1,96 @@
+{
+  "content": "# Risk Register\n\nRisks are uncertain events or conditions that could affect user outcomes,\nsafety, delivery, operation, or viability. Issues that have already occurred\nbelong in active work or incident management, with any remaining uncertainty\ntracked here.\n\n## Scale\n\nLikelihood and impact are scored 1 (low) through 5 (very high). Exposure is\ntheir product. Scores of 15–25 require immediate owner attention, 8–14 require\nplanned treatment, and 1–7 are monitored. Safety or legal severity may override\nthe numeric band.\n\n## Active risks\n\n| ID | Risk | L | I | Exposure | Response and leading indicator | Owner | State |\n| --- | --- | ---: | ---: | ---: | --- | --- | --- |\n| R-001 | Product is built before the core problem is validated | 4 | 5 | 20 | Complete WP-0001 before broad build; watch untested requirement count | Product owner | Treating |\n| R-002 | Scope expands beyond one coherent primary journey | 4 | 4 | 16 | Enforce non-goals and increment gates; watch active personas and workflows | Product owner | Treating |\n| R-003 | Workflow interruption causes duplicate or unknown effects | 3 | 5 | 15 | Specify idempotency, durable states, reconciliation, and failure tests | Architecture owner | Open |\n| R-004 | Sensitive data is collected or copied without defined lifecycle | 3 | 5 | 15 | Approve inventory, classification, purpose, retention, and telemetry rules | Security owner | Open |\n| R-005 | Generic quality targets are accepted without representative evidence | 4 | 4 | 16 | Baseline with reference load and recovery exercises before release | Engineering owner | Open |\n| R-006 | External dependency failure becomes end-to-end product failure | 3 | 4 | 12 | Define budgets, timeouts, isolation, fallback, and exit strategy | Operations owner | Open |\n| R-007 | Small-team operational load is unsustainable | 3 | 4 | 12 | Measure alerts, support, deployment effort, and toil during pilot | Operations owner | Open |\n| R-008 | Documentation and implementation diverge | 3 | 3 | 9 | Trace requirements to tests; review docs in behavior changes | Engineering owner | Monitoring |\n\n## Risk record requirements\n\nEach risk includes cause, uncertain event, consequence, affected scope,\nlikelihood, impact, indicators, prevention, contingency, owner, review date, and\nresidual risk after treatment. Link corrective work and decision records.\n\n## Review cadence\n\nReview high exposure weekly and all active risks at each work-cycle and\nincrement review. Escalate when exposure increases, a trigger fires, treatment\nmisses its date, or a decision exceeds the owner's acceptance authority. Closed\nrisks retain final evidence and any resulting lesson or control.\n",
+  "document_id": "doc:engineering%2Frisks%2Frisk-register.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "R-001",
+    "R-002",
+    "R-003",
+    "R-004",
+    "R-005",
+    "R-006",
+    "R-007",
+    "R-008",
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Risks are uncertain events or conditions that could affect user outcomes, safety, delivery, operation, or viability. Issues that have already occurred belong in active work or incident management, with any remaining uncertainty tracked here.",
+    "title": "Risk Register"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "risk-register",
+      "text": "# Risk Register\n\nRisks are uncertain events or conditions that could affect user outcomes,\nsafety, delivery, operation, or viability. Issues that have already occurred\nbelong in active work or incident management, with any remaining uncertainty\ntracked here.",
+      "title": "Risk Register"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 8,
+      "section_id": "scale",
+      "text": "## Scale\n\nLikelihood and impact are scored 1 (low) through 5 (very high). Exposure is\ntheir product. Scores of 15–25 require immediate owner attention, 8–14 require\nplanned treatment, and 1–7 are monitored. Safety or legal severity may override\nthe numeric band.",
+      "title": "Scale"
+    },
+    {
+      "identifiers": [
+        "R-001",
+        "R-002",
+        "R-003",
+        "R-004",
+        "R-005",
+        "R-006",
+        "R-007",
+        "R-008",
+        "WP-0001"
+      ],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 15,
+      "section_id": "active-risks",
+      "text": "## Active risks\n\n| ID | Risk | L | I | Exposure | Response and leading indicator | Owner | State |\n| --- | --- | ---: | ---: | ---: | --- | --- | --- |\n| R-001 | Product is built before the core problem is validated | 4 | 5 | 20 | Complete WP-0001 before broad build; watch untested requirement count | Product owner | Treating |\n| R-002 | Scope expands beyond one coherent primary journey | 4 | 4 | 16 | Enforce non-goals and increment gates; watch active personas and workflows | Product owner | Treating |\n| R-003 | Workflow interruption causes duplicate or unknown effects | 3 | 5 | 15 | Specify idempotency, durable states, reconciliation, and failure tests | Architecture owner | Open |\n| R-004 | Sensitive data is collected or copied without defined lifecycle | 3 | 5 | 15 | Approve inventory, classification, purpose, retention, and telemetry rules | Security owner | Open |\n| R-005 | Generic quality targets are accepted without representative evidence | 4 | 4 | 16 | Baseline with reference load and recovery exercises before release | Engineering owner | Open |\n| R-006 | External dependency failure becomes end-to-end product failure | 3 | 4 | 12 | Define budgets, timeouts, isolation, fallback, and exit strategy | Operations owner | Open |\n| R-007 | Small-team operational load is unsustainable | 3 | 4 | 12 | Measure alerts, support, deployment effort, and toil during pilot | Operations owner | Open |\n| R-008 | Documentation and implementation diverge | 3 | 3 | 9 | Trace requirements to tests; review docs in behavior changes | Engineering owner | Monitoring |",
+      "title": "Active risks"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 28,
+      "section_id": "risk-record-requirements",
+      "text": "## Risk record requirements\n\nEach risk includes cause, uncertain event, consequence, affected scope,\nlikelihood, impact, indicators, prevention, contingency, owner, review date, and\nresidual risk after treatment. Link corrective work and decision records.",
+      "title": "Risk record requirements"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 34,
+      "section_id": "review-cadence",
+      "text": "## Review cadence\n\nReview high exposure weekly and all active risks at each work-cycle and\nincrement review. Escalate when exposure increases, a trigger fires, treatment\nmisses its date, or a decision exceeds the owner's acceptance authority. Closed\nrisks retain final evidence and any resulting lesson or control.",
+      "title": "Review cadence"
+    }
+  ],
+  "source": {
+    "bytes": 2682,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 39,
+    "media_type": "text/markdown",
+    "path": "engineering/risks/risk-register.md",
+    "sha256": "a37dff2cef2bfc99aaf90bb20ba08939ccf2acafa587ec933ce5969702706aae"
+  }
+}

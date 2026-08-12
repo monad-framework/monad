@@ -1,0 +1,222 @@
+{
+  "content": "# Product Requirements\n\n## Document control\n\n- **Status:** Proposed baseline\n- **Product:** MonadV2\n- **Release focus:** First validated end-to-end journey\n- **Decision owner:** Product owner\n- **Reviewers:** Engineering, design, security, operations, and affected domain\n  stakeholders\n\n## Objective\n\nDeliver a narrow product that lets the primary user initiate, complete, verify,\nand recover the core workflow without undocumented expert intervention. The\nrelease proves the product hypothesis while establishing minimum safety and\noperability needed for real use.\n\n## Users and outcome\n\nThe primary practitioner needs to transform a valid intent and required inputs\ninto a dependable result. The accountable owner needs evidence that the result\nand controls are valid. The operator needs enough state and telemetry to detect,\ndiagnose, and recover failures.\n\n## Functional requirements\n\n### FR-001 — Start an authorized workflow\n\nThe system shall allow an authenticated, authorized user to start the primary\nworkflow with a clear statement of purpose, required inputs, expected result,\nand applicable constraints.\n\n**Acceptance:** valid input creates one traceable workflow instance; missing,\ninvalid, or unauthorized input produces an actionable response and no partial\nside effect.\n\n### FR-002 — Validate before commitment\n\nThe system shall validate required data, permissions, compatibility, and known\nsafety constraints before committing consequential changes.\n\n**Acceptance:** validation findings identify the affected field or rule,\nexplain the corrective action, and distinguish warnings from blocking errors.\n\n### FR-003 — Expose state and progress\n\nThe system shall expose the current workflow state, completed steps, responsible\nactor, blocked dependency, and next permitted action.\n\n**Acceptance:** refresh, reconnect, and concurrent observation do not create\ncontradictory user-visible state.\n\n### FR-004 — Produce a verifiable result\n\nThe system shall produce a result linked to its workflow instance, relevant\ninputs, applied version or policy, completion time, and verification status.\n\n**Acceptance:** the user can distinguish successful, partial, failed, and\ncancelled outcomes and can retrieve the result during the retention window.\n\n### FR-005 — Handle interruption and retry\n\nThe system shall preserve safe progress across supported interruptions and\nprovide idempotent retry, compensation, or escalation according to the failure\nclass.\n\n**Acceptance:** repeated requests do not duplicate consequential effects and\ntested recovery paths restore a defined state.\n\n### FR-006 — Provide user control\n\nThe system shall allow a user to review consequential actions before commitment\nand cancel or reverse them when the underlying operation supports reversal.\n\n**Acceptance:** confirmation identifies the effect and scope; cancellation has\na documented terminal state; irreversible actions are labeled before approval.\n\n### FR-007 — Record accountable evidence\n\nThe system shall record security-relevant and outcome-relevant events with a\nstable correlation identifier, actor, action, time, result, and policy context.\n\n**Acceptance:** authorized reviewers can reconstruct the workflow without logs\ncontaining secrets or unnecessary sensitive payloads.\n\n### FR-008 — Support accessible operation\n\nThe primary journey shall support keyboard operation, meaningful focus order,\nprogrammatic labels, non-color status cues, readable errors, and supported\nscreen-reader workflows.\n\n**Acceptance:** automated checks and manual assistive-technology testing pass\nthe documented accessibility acceptance suite.\n\n## Quality requirements\n\n- **QR-001 Reliability:** valid workflow attempts meet the committed success\n  objective and fail safely outside it.\n- **QR-002 Performance:** interactive responses and end-to-end completion stay\n  within approved budgets under the reference load.\n- **QR-003 Security:** authentication, authorization, input validation,\n  encryption, audit, and dependency controls satisfy the security model.\n- **QR-004 Privacy:** collection, purpose, retention, access, export, and\n  deletion rules are explicit and enforced.\n- **QR-005 Operability:** all critical paths emit health, demand, error,\n  saturation, and trace signals with owned response procedures.\n- **QR-006 Maintainability:** public contracts are versioned and component\n  responsibilities remain within approved boundaries.\n\n## Release acceptance\n\nThe release may proceed when all must-have requirements trace to passing tests,\nthe primary journey succeeds in representative use, no unaccepted critical or\nhigh risk remains, recovery and rollback are demonstrated, operations accepts\nthe runbook, and the product owner accepts measured outcome evidence.\n\n## Dependencies and assumptions\n\nThe baseline assumes one supported operating region, one identity authority,\none primary persona, a bounded data classification, and availability of the\ncritical dependencies named by architecture. Changes to these assumptions\nrequire impact review.\n\n## Explicit exclusions\n\nUniversal workflows, autonomous high-impact decisions, extensive customization,\nunvalidated integrations, and multi-region active-active operation are outside\nthe first release. See `vision/non-goals.md` for reconsideration triggers.\n",
+  "document_id": "doc:product%2Fproduct-requirements.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "FR-001",
+    "FR-002",
+    "FR-003",
+    "FR-004",
+    "FR-005",
+    "FR-006",
+    "FR-007",
+    "FR-008",
+    "QR-001",
+    "QR-002",
+    "QR-003",
+    "QR-004",
+    "QR-005",
+    "QR-006"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "product",
+    "normative": true,
+    "summary": "stakeholders",
+    "title": "Product Requirements"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "product-requirements",
+      "text": "# Product Requirements",
+      "title": "Product Requirements"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 3,
+      "section_id": "document-control",
+      "text": "## Document control\n\n- **Status:** Proposed baseline\n- **Product:** MonadV2\n- **Release focus:** First validated end-to-end journey\n- **Decision owner:** Product owner\n- **Reviewers:** Engineering, design, security, operations, and affected domain\n  stakeholders",
+      "title": "Document control"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 12,
+      "section_id": "objective",
+      "text": "## Objective\n\nDeliver a narrow product that lets the primary user initiate, complete, verify,\nand recover the core workflow without undocumented expert intervention. The\nrelease proves the product hypothesis while establishing minimum safety and\noperability needed for real use.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 19,
+      "section_id": "users-and-outcome",
+      "text": "## Users and outcome\n\nThe primary practitioner needs to transform a valid intent and required inputs\ninto a dependable result. The accountable owner needs evidence that the result\nand controls are valid. The operator needs enough state and telemetry to detect,\ndiagnose, and recover failures.",
+      "title": "Users and outcome"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 26,
+      "section_id": "functional-requirements",
+      "text": "## Functional requirements",
+      "title": "Functional requirements"
+    },
+    {
+      "identifiers": [
+        "FR-001"
+      ],
+      "level": 3,
+      "line_end": 37,
+      "line_start": 28,
+      "section_id": "fr-001-start-an-authorized-workflow",
+      "text": "### FR-001 — Start an authorized workflow\n\nThe system shall allow an authenticated, authorized user to start the primary\nworkflow with a clear statement of purpose, required inputs, expected result,\nand applicable constraints.\n\n**Acceptance:** valid input creates one traceable workflow instance; missing,\ninvalid, or unauthorized input produces an actionable response and no partial\nside effect.",
+      "title": "FR-001 — Start an authorized workflow"
+    },
+    {
+      "identifiers": [
+        "FR-002"
+      ],
+      "level": 3,
+      "line_end": 45,
+      "line_start": 38,
+      "section_id": "fr-002-validate-before-commitment",
+      "text": "### FR-002 — Validate before commitment\n\nThe system shall validate required data, permissions, compatibility, and known\nsafety constraints before committing consequential changes.\n\n**Acceptance:** validation findings identify the affected field or rule,\nexplain the corrective action, and distinguish warnings from blocking errors.",
+      "title": "FR-002 — Validate before commitment"
+    },
+    {
+      "identifiers": [
+        "FR-003"
+      ],
+      "level": 3,
+      "line_end": 53,
+      "line_start": 46,
+      "section_id": "fr-003-expose-state-and-progress",
+      "text": "### FR-003 — Expose state and progress\n\nThe system shall expose the current workflow state, completed steps, responsible\nactor, blocked dependency, and next permitted action.\n\n**Acceptance:** refresh, reconnect, and concurrent observation do not create\ncontradictory user-visible state.",
+      "title": "FR-003 — Expose state and progress"
+    },
+    {
+      "identifiers": [
+        "FR-004"
+      ],
+      "level": 3,
+      "line_end": 61,
+      "line_start": 54,
+      "section_id": "fr-004-produce-a-verifiable-result",
+      "text": "### FR-004 — Produce a verifiable result\n\nThe system shall produce a result linked to its workflow instance, relevant\ninputs, applied version or policy, completion time, and verification status.\n\n**Acceptance:** the user can distinguish successful, partial, failed, and\ncancelled outcomes and can retrieve the result during the retention window.",
+      "title": "FR-004 — Produce a verifiable result"
+    },
+    {
+      "identifiers": [
+        "FR-005"
+      ],
+      "level": 3,
+      "line_end": 70,
+      "line_start": 62,
+      "section_id": "fr-005-handle-interruption-and-retry",
+      "text": "### FR-005 — Handle interruption and retry\n\nThe system shall preserve safe progress across supported interruptions and\nprovide idempotent retry, compensation, or escalation according to the failure\nclass.\n\n**Acceptance:** repeated requests do not duplicate consequential effects and\ntested recovery paths restore a defined state.",
+      "title": "FR-005 — Handle interruption and retry"
+    },
+    {
+      "identifiers": [
+        "FR-006"
+      ],
+      "level": 3,
+      "line_end": 78,
+      "line_start": 71,
+      "section_id": "fr-006-provide-user-control",
+      "text": "### FR-006 — Provide user control\n\nThe system shall allow a user to review consequential actions before commitment\nand cancel or reverse them when the underlying operation supports reversal.\n\n**Acceptance:** confirmation identifies the effect and scope; cancellation has\na documented terminal state; irreversible actions are labeled before approval.",
+      "title": "FR-006 — Provide user control"
+    },
+    {
+      "identifiers": [
+        "FR-007"
+      ],
+      "level": 3,
+      "line_end": 86,
+      "line_start": 79,
+      "section_id": "fr-007-record-accountable-evidence",
+      "text": "### FR-007 — Record accountable evidence\n\nThe system shall record security-relevant and outcome-relevant events with a\nstable correlation identifier, actor, action, time, result, and policy context.\n\n**Acceptance:** authorized reviewers can reconstruct the workflow without logs\ncontaining secrets or unnecessary sensitive payloads.",
+      "title": "FR-007 — Record accountable evidence"
+    },
+    {
+      "identifiers": [
+        "FR-008"
+      ],
+      "level": 3,
+      "line_end": 95,
+      "line_start": 87,
+      "section_id": "fr-008-support-accessible-operation",
+      "text": "### FR-008 — Support accessible operation\n\nThe primary journey shall support keyboard operation, meaningful focus order,\nprogrammatic labels, non-color status cues, readable errors, and supported\nscreen-reader workflows.\n\n**Acceptance:** automated checks and manual assistive-technology testing pass\nthe documented accessibility acceptance suite.",
+      "title": "FR-008 — Support accessible operation"
+    },
+    {
+      "identifiers": [
+        "QR-001",
+        "QR-002",
+        "QR-003",
+        "QR-004",
+        "QR-005",
+        "QR-006"
+      ],
+      "level": 2,
+      "line_end": 110,
+      "line_start": 96,
+      "section_id": "quality-requirements",
+      "text": "## Quality requirements\n\n- **QR-001 Reliability:** valid workflow attempts meet the committed success\n  objective and fail safely outside it.\n- **QR-002 Performance:** interactive responses and end-to-end completion stay\n  within approved budgets under the reference load.\n- **QR-003 Security:** authentication, authorization, input validation,\n  encryption, audit, and dependency controls satisfy the security model.\n- **QR-004 Privacy:** collection, purpose, retention, access, export, and\n  deletion rules are explicit and enforced.\n- **QR-005 Operability:** all critical paths emit health, demand, error,\n  saturation, and trace signals with owned response procedures.\n- **QR-006 Maintainability:** public contracts are versioned and component\n  responsibilities remain within approved boundaries.",
+      "title": "Quality requirements"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 117,
+      "line_start": 111,
+      "section_id": "release-acceptance",
+      "text": "## Release acceptance\n\nThe release may proceed when all must-have requirements trace to passing tests,\nthe primary journey succeeds in representative use, no unaccepted critical or\nhigh risk remains, recovery and rollback are demonstrated, operations accepts\nthe runbook, and the product owner accepts measured outcome evidence.",
+      "title": "Release acceptance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 124,
+      "line_start": 118,
+      "section_id": "dependencies-and-assumptions",
+      "text": "## Dependencies and assumptions\n\nThe baseline assumes one supported operating region, one identity authority,\none primary persona, a bounded data classification, and availability of the\ncritical dependencies named by architecture. Changes to these assumptions\nrequire impact review.",
+      "title": "Dependencies and assumptions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 129,
+      "line_start": 125,
+      "section_id": "explicit-exclusions",
+      "text": "## Explicit exclusions\n\nUniversal workflows, autonomous high-impact decisions, extensive customization,\nunvalidated integrations, and multi-region active-active operation are outside\nthe first release. See `vision/non-goals.md` for reconsideration triggers.",
+      "title": "Explicit exclusions"
+    }
+  ],
+  "source": {
+    "bytes": 5311,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 129,
+    "media_type": "text/markdown",
+    "path": "product/product-requirements.md",
+    "sha256": "ae7b3338f409f1c4f6530139cf5e5609e6e0460069b9c0b970905b2ed78c6ea0"
+  }
+}

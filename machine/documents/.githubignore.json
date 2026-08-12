@@ -1,0 +1,40 @@
+{
+  "content": "# Context-exclusion patterns for tools that explicitly support .githubignore.\n# This file is not a Git feature and is not a security boundary. Verify support\n# in each consuming GitHub integration before relying on it.\n\n# Credentials and local configuration\n.env\n.env.*\nsecrets/\n*.pem\n*.key\n*.p12\n*.pfx\n\n# Version-control internals and local editors\n.git/\n.idea/\n.vscode/\n\n# Dependencies, build output, caches, and test artifacts\nnode_modules/\nvendor/\ntarget/\nbuild/\ndist/\nout/\ncoverage/\n.cache/\n.pytest_cache/\n.mypy_cache/\n.ruff_cache/\n\n# Large or generated binary artifacts\n*.zip\n*.tar\n*.gz\n*.png\n*.jpg\n*.jpeg\n*.gif\n*.webp\n*.pdf\n\n# Never use ignore rules as a substitute for removing committed secrets or\n# enforcing access control. Sensitive material does not belong in the repository.\n",
+  "document_id": "doc:.githubignore",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-configuration",
+    "normative": true,
+    "summary": "Canonical gitignore-patterns source for .githubignore.",
+    "title": "Githubignore"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 44,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "# Context-exclusion patterns for tools that explicitly support .githubignore.\n# This file is not a Git feature and is not a security boundary. Verify support\n# in each consuming GitHub integration before relying on it.\n\n# Credentials and local configuration\n.env\n.env.*\nsecrets/\n*.pem\n*.key\n*.p12\n*.pfx\n\n# Version-control internals and local editors\n.git/\n.idea/\n.vscode/\n\n# Dependencies, build output, caches, and test artifacts\nnode_modules/\nvendor/\ntarget/\nbuild/\ndist/\nout/\ncoverage/\n.cache/\n.pytest_cache/\n.mypy_cache/\n.ruff_cache/\n\n# Large or generated binary artifacts\n*.zip\n*.tar\n*.gz\n*.png\n*.jpg\n*.jpeg\n*.gif\n*.webp\n*.pdf\n\n# Never use ignore rules as a substitute for removing committed secrets or\n# enforcing access control. Sensitive material does not belong in the repository.",
+      "title": "Githubignore"
+    }
+  ],
+  "source": {
+    "bytes": 789,
+    "canonical": true,
+    "language": "gitignore-patterns",
+    "lines": 44,
+    "media_type": "text/plain",
+    "path": ".githubignore",
+    "sha256": "ced6a218bb61ac84a17ed998c2b8530300f959ef85f93fa633c56b6cef50f998"
+  }
+}

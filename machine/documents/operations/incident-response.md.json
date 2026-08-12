@@ -1,0 +1,94 @@
+{
+  "content": "# Incident Response\n\nAn incident is an unplanned event that harms or credibly threatens users,\nsecurity, data, compliance, or a committed service outcome. Response prioritizes\npeople, containment, safe restoration, and clear evidence.\n\n## Severity\n\n- **SEV-1 Critical:** widespread or severe user harm, confirmed sensitive-data\n  exposure, loss of control, or unsafe system state. Immediate response.\n- **SEV-2 High:** significant degradation or contained serious risk with no\n  acceptable routine workaround. Urgent coordinated response.\n- **SEV-3 Moderate:** limited impact with a viable workaround or low expansion\n  risk. Managed during normal support with an owner.\n- **SEV-4 Low:** minor defect or operational observation with negligible current\n  impact. Track through ordinary work.\n\n## Roles\n\nThe Incident Commander owns coordination and decisions; Operations Lead owns\ntechnical mitigation; Communications Lead provides accurate audience updates;\nScribe preserves timeline, evidence, decisions, and actions. One person may hold\nmultiple roles in a small response, but command remains explicit.\n\n## Response flow\n\n1. Detect or receive the report and open an incident record.\n2. Assess current and potential impact, severity, affected scope, and safety.\n3. Establish command, communication channel, evidence handling, and update\n   cadence.\n4. Contain spread or exposure using the least risky effective action.\n5. Diagnose from correlated evidence while preserving forensic value.\n6. Mitigate or restore; verify authoritative state and user outcomes.\n7. Communicate resolution, residual impact, and user actions.\n8. Monitor for recurrence and close active response deliberately.\n9. Review contributing conditions and authorize corrective work.\n\n## Communication\n\nState known impact, start time, current status, action underway, workaround if\nsafe, and next update. Separate confirmed fact from investigation. Never expose\npersonal data, exploit detail, credentials, or unsupported attribution.\n\n## Evidence and security\n\nPreserve relevant logs, traces, configuration, artifact identity, access\nrecords, timeline, commands, and decisions under appropriate access and\nretention. A suspected security incident follows the same command structure\nwith restricted information and legal or privacy escalation as required.\n\n## Post-incident review\n\nHold a blameless review proportional to impact. Identify technical,\norganizational, and detection conditions; what helped; where response struggled;\nand which controls should prevent, limit, or detect recurrence. Every corrective\naction has an owner, priority, due date, and verification. Track recurring\nthemes across incidents rather than closing isolated symptoms.\n",
+  "document_id": "doc:operations%2Fincident-response.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "operations",
+    "normative": true,
+    "summary": "An incident is an unplanned event that harms or credibly threatens users, security, data, compliance, or a committed service outcome. Response prioritizes people, containment, safe restoration, and clear evidence.",
+    "title": "Incident Response"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "incident-response",
+      "text": "# Incident Response\n\nAn incident is an unplanned event that harms or credibly threatens users,\nsecurity, data, compliance, or a committed service outcome. Response prioritizes\npeople, containment, safe restoration, and clear evidence.",
+      "title": "Incident Response"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 7,
+      "section_id": "severity",
+      "text": "## Severity\n\n- **SEV-1 Critical:** widespread or severe user harm, confirmed sensitive-data\n  exposure, loss of control, or unsafe system state. Immediate response.\n- **SEV-2 High:** significant degradation or contained serious risk with no\n  acceptable routine workaround. Urgent coordinated response.\n- **SEV-3 Moderate:** limited impact with a viable workaround or low expansion\n  risk. Managed during normal support with an owner.\n- **SEV-4 Low:** minor defect or operational observation with negligible current\n  impact. Track through ordinary work.",
+      "title": "Severity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 18,
+      "section_id": "roles",
+      "text": "## Roles\n\nThe Incident Commander owns coordination and decisions; Operations Lead owns\ntechnical mitigation; Communications Lead provides accurate audience updates;\nScribe preserves timeline, evidence, decisions, and actions. One person may hold\nmultiple roles in a small response, but command remains explicit.",
+      "title": "Roles"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 25,
+      "section_id": "response-flow",
+      "text": "## Response flow\n\n1. Detect or receive the report and open an incident record.\n2. Assess current and potential impact, severity, affected scope, and safety.\n3. Establish command, communication channel, evidence handling, and update\n   cadence.\n4. Contain spread or exposure using the least risky effective action.\n5. Diagnose from correlated evidence while preserving forensic value.\n6. Mitigate or restore; verify authoritative state and user outcomes.\n7. Communicate resolution, residual impact, and user actions.\n8. Monitor for recurrence and close active response deliberately.\n9. Review contributing conditions and authorize corrective work.",
+      "title": "Response flow"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 38,
+      "section_id": "communication",
+      "text": "## Communication\n\nState known impact, start time, current status, action underway, workaround if\nsafe, and next update. Separate confirmed fact from investigation. Never expose\npersonal data, exploit detail, credentials, or unsupported attribution.",
+      "title": "Communication"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 44,
+      "section_id": "evidence-and-security",
+      "text": "## Evidence and security\n\nPreserve relevant logs, traces, configuration, artifact identity, access\nrecords, timeline, commands, and decisions under appropriate access and\nretention. A suspected security incident follows the same command structure\nwith restricted information and legal or privacy escalation as required.",
+      "title": "Evidence and security"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 57,
+      "line_start": 51,
+      "section_id": "post-incident-review",
+      "text": "## Post-incident review\n\nHold a blameless review proportional to impact. Identify technical,\norganizational, and detection conditions; what helped; where response struggled;\nand which controls should prevent, limit, or detect recurrence. Every corrective\naction has an owner, priority, due date, and verification. Track recurring\nthemes across incidents rather than closing isolated symptoms.",
+      "title": "Post-incident review"
+    }
+  ],
+  "source": {
+    "bytes": 2717,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 57,
+    "media_type": "text/markdown",
+    "path": "operations/incident-response.md",
+    "sha256": "995ca92414d5879af10ab04cbeb65bb23819b55257c2f21c67de95581e978851"
+  }
+}

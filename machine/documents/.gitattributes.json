@@ -1,0 +1,40 @@
+{
+  "content": "# Normalize text in the repository while preserving platform-specific scripts.\n* text=auto eol=lf\n\n*.sh              text eol=lf\n*.bash            text eol=lf\n*.zsh             text eol=lf\n*.ps1             text eol=crlf\n*.bat             text eol=crlf\n*.cmd             text eol=crlf\n\n# Common binary formats must never receive line-ending conversion.\n*.png             binary\n*.jpg             binary\n*.jpeg            binary\n*.gif             binary\n*.webp            binary\n*.ico             binary\n*.pdf             binary\n*.zip             binary\n*.gz              binary\n*.woff            binary\n*.woff2           binary\n\n# Improve generated and vendored diff behavior when these paths are introduced.\n*.lock            -diff\nvendor/**         linguist-vendored\ngenerated/**      linguist-generated\nmachine/documents/** linguist-generated\nmachine/manifest.json linguist-generated\nmachine/graph.json linguist-generated\nmachine/corpus.jsonl linguist-generated\n",
+  "document_id": "doc:.gitattributes",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-configuration",
+    "normative": true,
+    "summary": "Canonical gitattributes source for .gitattributes.",
+    "title": "Gitattributes"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 31,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "# Normalize text in the repository while preserving platform-specific scripts.\n* text=auto eol=lf\n\n*.sh              text eol=lf\n*.bash            text eol=lf\n*.zsh             text eol=lf\n*.ps1             text eol=crlf\n*.bat             text eol=crlf\n*.cmd             text eol=crlf\n\n# Common binary formats must never receive line-ending conversion.\n*.png             binary\n*.jpg             binary\n*.jpeg            binary\n*.gif             binary\n*.webp            binary\n*.ico             binary\n*.pdf             binary\n*.zip             binary\n*.gz              binary\n*.woff            binary\n*.woff2           binary\n\n# Improve generated and vendored diff behavior when these paths are introduced.\n*.lock            -diff\nvendor/**         linguist-vendored\ngenerated/**      linguist-generated\nmachine/documents/** linguist-generated\nmachine/manifest.json linguist-generated\nmachine/graph.json linguist-generated\nmachine/corpus.jsonl linguist-generated",
+      "title": "Gitattributes"
+    }
+  ],
+  "source": {
+    "bytes": 965,
+    "canonical": true,
+    "language": "gitattributes",
+    "lines": 31,
+    "media_type": "text/plain",
+    "path": ".gitattributes",
+    "sha256": "f70d11f9d7ac393aeeb9fee297ae9c48ef5911317000496e88593cab4c6490d2"
+  }
+}

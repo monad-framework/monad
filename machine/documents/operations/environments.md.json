@@ -1,0 +1,112 @@
+{
+  "content": "# Environments\n\nEnvironments provide controlled levels of fidelity and exposure. Configuration\nchanges across environments; the released artifact does not.\n\n## Local development\n\nUsed for fast implementation and deterministic tests. Uses synthetic or\napproved sanitized data, least-privilege developer credentials, reproducible\ndependency versions, and no implicit production access. Local success is not\nrelease evidence.\n\n## Continuous integration\n\nCreated from clean source to run static analysis, unit, contract, integration,\nsecurity, and packaging checks. Jobs receive short-lived, scoped credentials.\nArtifacts are immutable, identified, and accompanied by provenance and test\nevidence.\n\n## Test or integration\n\nValidates component interaction, migrations, and dependency adapters with\nrepresentative topology. Test data is controlled and resettable. Shared state\nmust not make tests order-dependent or leak between contributors.\n\n## Staging\n\nMirrors the production architecture and configuration shape closely enough for\nrelease, performance, security, recovery, and operational checks. It does not\nreceive uncontrolled production copies. Differences from production are\ndocumented and included in risk review.\n\n## Production\n\nProcesses real authorized use under published service, security, data, and\nsupport commitments. Access is strongly authenticated, least-privilege,\ntime-bounded where possible, and audited. Direct mutation bypassing the product\nor approved operational procedure is prohibited except during an authorized\nincident.\n\n## Promotion\n\nSource produces one verified artifact. The artifact is promoted through\nenvironments with environment-specific configuration and approval. Rebuilding\nfor production is prohibited because it breaks provenance. Schema and contract\nchanges remain compatible through the promotion and rollback window.\n\n## Data and access matrix\n\nEvery environment records permitted data classes, identity source, network\nboundary, secret source, retention, backup, external integrations, logging\nlevel, and access approvers. Review the matrix before a new data class,\nintegration, or privileged role is enabled.\n\n## Ephemeral environments\n\nShort-lived review environments use isolated names, data, credentials, and\nbudgets. They expire automatically and produce no dependency for production or\nlong-term evidence.\n",
+  "document_id": "doc:operations%2Fenvironments.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "operations",
+    "normative": true,
+    "summary": "Environments provide controlled levels of fidelity and exposure. Configuration changes across environments; the released artifact does not.",
+    "title": "Environments"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 5,
+      "line_start": 1,
+      "section_id": "environments",
+      "text": "# Environments\n\nEnvironments provide controlled levels of fidelity and exposure. Configuration\nchanges across environments; the released artifact does not.",
+      "title": "Environments"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 6,
+      "section_id": "local-development",
+      "text": "## Local development\n\nUsed for fast implementation and deterministic tests. Uses synthetic or\napproved sanitized data, least-privilege developer credentials, reproducible\ndependency versions, and no implicit production access. Local success is not\nrelease evidence.",
+      "title": "Local development"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 13,
+      "section_id": "continuous-integration",
+      "text": "## Continuous integration\n\nCreated from clean source to run static analysis, unit, contract, integration,\nsecurity, and packaging checks. Jobs receive short-lived, scoped credentials.\nArtifacts are immutable, identified, and accompanied by provenance and test\nevidence.",
+      "title": "Continuous integration"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 20,
+      "section_id": "test-or-integration",
+      "text": "## Test or integration\n\nValidates component interaction, migrations, and dependency adapters with\nrepresentative topology. Test data is controlled and resettable. Shared state\nmust not make tests order-dependent or leak between contributors.",
+      "title": "Test or integration"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 26,
+      "section_id": "staging",
+      "text": "## Staging\n\nMirrors the production architecture and configuration shape closely enough for\nrelease, performance, security, recovery, and operational checks. It does not\nreceive uncontrolled production copies. Differences from production are\ndocumented and included in risk review.",
+      "title": "Staging"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 33,
+      "section_id": "production",
+      "text": "## Production\n\nProcesses real authorized use under published service, security, data, and\nsupport commitments. Access is strongly authenticated, least-privilege,\ntime-bounded where possible, and audited. Direct mutation bypassing the product\nor approved operational procedure is prohibited except during an authorized\nincident.",
+      "title": "Production"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 41,
+      "section_id": "promotion",
+      "text": "## Promotion\n\nSource produces one verified artifact. The artifact is promoted through\nenvironments with environment-specific configuration and approval. Rebuilding\nfor production is prohibited because it breaks provenance. Schema and contract\nchanges remain compatible through the promotion and rollback window.",
+      "title": "Promotion"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 48,
+      "section_id": "data-and-access-matrix",
+      "text": "## Data and access matrix\n\nEvery environment records permitted data classes, identity source, network\nboundary, secret source, retention, backup, external integrations, logging\nlevel, and access approvers. Review the matrix before a new data class,\nintegration, or privileged role is enabled.",
+      "title": "Data and access matrix"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 59,
+      "line_start": 55,
+      "section_id": "ephemeral-environments",
+      "text": "## Ephemeral environments\n\nShort-lived review environments use isolated names, data, credentials, and\nbudgets. They expire automatically and produce no dependency for production or\nlong-term evidence.",
+      "title": "Ephemeral environments"
+    }
+  ],
+  "source": {
+    "bytes": 2357,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 59,
+    "media_type": "text/markdown",
+    "path": "operations/environments.md",
+    "sha256": "456e816dd55d2188740ef8aa6a1e1f7b17a38117323f79e17b7096163171296e"
+  }
+}

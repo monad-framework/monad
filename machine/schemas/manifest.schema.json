@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "manifest.schema.json",
+  "title": "Machine-readable document manifest",
+  "description": "Deterministic index of canonical sources and generated semantic companions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "schema_version",
+    "canonical_representation",
+    "generator",
+    "source_root",
+    "source_count",
+    "source_tree_sha256",
+    "documents"
+  ],
+  "properties": {
+    "schema": {"const": "machine/schemas/manifest.schema.json"},
+    "schema_version": {"const": "1.0.0"},
+    "canonical_representation": {"const": "human-readable source files outside machine/"},
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "deterministic"],
+      "properties": {
+        "name": {"const": "sync-machine-docs"},
+        "version": {"type": "string"},
+        "deterministic": {"const": true}
+      }
+    },
+    "source_root": {"const": "."},
+    "source_count": {"type": "integer", "minimum": 1},
+    "source_tree_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "document_id",
+          "source_path",
+          "source_sha256",
+          "companion_path",
+          "companion_sha256",
+          "title",
+          "document_type",
+          "normative",
+          "section_count",
+          "identifier_count",
+          "relation_count"
+        ],
+        "properties": {
+          "document_id": {"type": "string", "pattern": "^doc:"},
+          "source_path": {"type": "string", "minLength": 1},
+          "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "companion_path": {"type": "string", "pattern": "^machine/documents/"},
+          "companion_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "title": {"type": "string", "minLength": 1},
+          "document_type": {"type": "string", "minLength": 1},
+          "normative": {"type": "boolean"},
+          "section_count": {"type": "integer", "minimum": 1},
+          "identifier_count": {"type": "integer", "minimum": 0},
+          "relation_count": {"type": "integer", "minimum": 0}
+        }
+      }
+    }
+  }
+}

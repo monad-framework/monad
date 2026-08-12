@@ -1,0 +1,184 @@
+{
+  "content": "# ADR-NNNN: Concise decision title\n\n- **Status:** proposed\n- **Date:** YYYY-MM-DD\n- **Decision owners:** Architecture owner and affected capability owners\n- **Reviewers:** Security, operations, product, and domain owners as applicable\n- **Related:** requirement IDs, quality scenarios, work packets, and prior ADRs\n- **Supersedes:** none\n- **Superseded by:** none\n\n## Decision summary\n\nState the selected option and its intended scope in one paragraph. A reader\nshould know what will be done without reading the evaluation first.\n\n## Context\n\nDescribe the problem, current state, decision deadline, affected users and\nsystems, known constraints, and why an explicit decision is required now.\nSeparate observed facts from assumptions.\n\n## Decision drivers\n\nRank the forces that distinguish the options, such as correctness, security,\nrecoverability, latency, scale, portability, team capability, delivery time,\ntotal cost, and reversibility. Link measurable quality scenarios.\n\n## Options considered\n\n### Option A — Descriptive name\n\nExplain the design, prerequisites, strengths, weaknesses, failure modes,\noperational impact, security impact, and exit cost.\n\n### Option B — Descriptive name\n\nEvaluate against the same drivers and level of detail as Option A.\n\n### Option C — Continue the current state\n\nWhen credible, explain the cost and risk of deferring or making no change.\n\n## Decision\n\nIdentify the chosen option, why it best fits the ranked drivers, and which\ndisadvantages are knowingly accepted. State scope boundaries and any decisions\nexplicitly deferred.\n\n## Consequences\n\n### Positive\n\n- List new capabilities, reduced risks, or simplified responsibilities.\n\n### Negative\n\n- List costs, constraints, coupling, migration burden, and new failure modes.\n\n### Neutral or follow-on\n\n- List training, documentation, monitoring, ownership, or future review needs.\n\n## Security, privacy, and operations\n\nDescribe trust-boundary changes, data handling, privileges, telemetry, capacity,\ndeployment, rollback, backup, recovery, incident response, and on-call burden.\n\n## Migration and rollback\n\nDefine phases, compatibility, data movement, cutover, verification, rollback\ncriteria, irreversible steps, and the owner of each transition.\n\n## Validation\n\nList experiments, tests, service indicators, cost measurements, and review dates\nthat will confirm or challenge the decision. State the condition that would\ntrigger reconsideration.\n\n## References\n\nLink primary documentation, internal evidence, research findings, prototypes,\nand related decisions. Record access dates for changeable external sources.\n",
+  "document_id": "doc:architecture%2Fdecisions%2FADR-0000-template.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "State the selected option and its intended scope in one paragraph. A reader should know what will be done without reading the evaluation first.",
+    "title": "ADR-NNNN: Concise decision title"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 10,
+      "line_start": 1,
+      "section_id": "adr-nnnn-concise-decision-title",
+      "text": "# ADR-NNNN: Concise decision title\n\n- **Status:** proposed\n- **Date:** YYYY-MM-DD\n- **Decision owners:** Architecture owner and affected capability owners\n- **Reviewers:** Security, operations, product, and domain owners as applicable\n- **Related:** requirement IDs, quality scenarios, work packets, and prior ADRs\n- **Supersedes:** none\n- **Superseded by:** none",
+      "title": "ADR-NNNN: Concise decision title"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 11,
+      "section_id": "decision-summary",
+      "text": "## Decision summary\n\nState the selected option and its intended scope in one paragraph. A reader\nshould know what will be done without reading the evaluation first.",
+      "title": "Decision summary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 16,
+      "section_id": "context",
+      "text": "## Context\n\nDescribe the problem, current state, decision deadline, affected users and\nsystems, known constraints, and why an explicit decision is required now.\nSeparate observed facts from assumptions.",
+      "title": "Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 22,
+      "section_id": "decision-drivers",
+      "text": "## Decision drivers\n\nRank the forces that distinguish the options, such as correctness, security,\nrecoverability, latency, scale, portability, team capability, delivery time,\ntotal cost, and reversibility. Link measurable quality scenarios.",
+      "title": "Decision drivers"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 28,
+      "section_id": "options-considered",
+      "text": "## Options considered",
+      "title": "Options considered"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 34,
+      "line_start": 30,
+      "section_id": "option-a-descriptive-name",
+      "text": "### Option A — Descriptive name\n\nExplain the design, prerequisites, strengths, weaknesses, failure modes,\noperational impact, security impact, and exit cost.",
+      "title": "Option A — Descriptive name"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 38,
+      "line_start": 35,
+      "section_id": "option-b-descriptive-name",
+      "text": "### Option B — Descriptive name\n\nEvaluate against the same drivers and level of detail as Option A.",
+      "title": "Option B — Descriptive name"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 42,
+      "line_start": 39,
+      "section_id": "option-c-continue-the-current-state",
+      "text": "### Option C — Continue the current state\n\nWhen credible, explain the cost and risk of deferring or making no change.",
+      "title": "Option C — Continue the current state"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 43,
+      "section_id": "decision",
+      "text": "## Decision\n\nIdentify the chosen option, why it best fits the ranked drivers, and which\ndisadvantages are knowingly accepted. State scope boundaries and any decisions\nexplicitly deferred.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 49,
+      "section_id": "consequences",
+      "text": "## Consequences",
+      "title": "Consequences"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 54,
+      "line_start": 51,
+      "section_id": "positive",
+      "text": "### Positive\n\n- List new capabilities, reduced risks, or simplified responsibilities.",
+      "title": "Positive"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 58,
+      "line_start": 55,
+      "section_id": "negative",
+      "text": "### Negative\n\n- List costs, constraints, coupling, migration burden, and new failure modes.",
+      "title": "Negative"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 62,
+      "line_start": 59,
+      "section_id": "neutral-or-follow-on",
+      "text": "### Neutral or follow-on\n\n- List training, documentation, monitoring, ownership, or future review needs.",
+      "title": "Neutral or follow-on"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 63,
+      "section_id": "security-privacy-and-operations",
+      "text": "## Security, privacy, and operations\n\nDescribe trust-boundary changes, data handling, privileges, telemetry, capacity,\ndeployment, rollback, backup, recovery, incident response, and on-call burden.",
+      "title": "Security, privacy, and operations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 72,
+      "line_start": 68,
+      "section_id": "migration-and-rollback",
+      "text": "## Migration and rollback\n\nDefine phases, compatibility, data movement, cutover, verification, rollback\ncriteria, irreversible steps, and the owner of each transition.",
+      "title": "Migration and rollback"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 78,
+      "line_start": 73,
+      "section_id": "validation",
+      "text": "## Validation\n\nList experiments, tests, service indicators, cost measurements, and review dates\nthat will confirm or challenge the decision. State the condition that would\ntrigger reconsideration.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 82,
+      "line_start": 79,
+      "section_id": "references",
+      "text": "## References\n\nLink primary documentation, internal evidence, research findings, prototypes,\nand related decisions. Record access dates for changeable external sources.",
+      "title": "References"
+    }
+  ],
+  "source": {
+    "bytes": 2612,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 82,
+    "media_type": "text/markdown",
+    "path": "architecture/decisions/ADR-0000-template.md",
+    "sha256": "11de9e99e0fc851ce43cb95f619d2728df1900e3472acbade997175a5715760b"
+  }
+}

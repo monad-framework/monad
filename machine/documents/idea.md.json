@@ -1,0 +1,124 @@
+{
+  "content": "# Project Idea: MonadV2\n\n## One-sentence hypothesis\n\nIf the project gives its target users a dependable way to complete the primary\njob described in the product requirements, then they will adopt it repeatedly\nbecause it reduces avoidable effort, uncertainty, and operational risk while\nleaving users in control of consequential decisions.\n\n## Opportunity\n\nTeams often begin implementation before they share a testable problem, explicit\nboundaries, or measurable outcome. The result is feature activity without\nreliable evidence of value. MonadV2 begins by converting an idea into\na governed chain of intent: problem → outcome → requirement → decision → work →\nevidence → release.\n\n## Intended users\n\n- **Primary user:** the person who performs the core workflow and needs a\n  reliable result with minimal unnecessary coordination.\n- **Economic or accountable buyer:** the person responsible for value, risk,\n  cost, and adoption.\n- **Operator or maintainer:** the person responsible for continuity, diagnosis,\n  change, and recovery.\n- **Affected stakeholder:** a person whose data, work, or decisions may be\n  influenced by the system even when they are not a direct user.\n\n## Proposed value\n\nThe product should make the desired outcome faster to reach, easier to verify,\nand safer to repeat. It should expose assumptions and failure states rather\nthan creating false confidence. The smallest viable product is the narrowest\nend-to-end workflow that proves this value under realistic conditions.\n\n## Critical assumptions\n\n| ID | Assumption | Risk if false | Cheapest useful test |\n| --- | --- | --- | --- |\n| A-01 | The problem is frequent and costly enough to motivate change. | No sustained demand. | Five problem interviews using recent examples. |\n| A-02 | Existing alternatives fail in a consistent, addressable way. | Weak differentiation. | Comparative task observation and artifact review. |\n| A-03 | Users can trust the proposed workflow and understand its limits. | Rejection or unsafe use. | Usability test with visible confidence and recovery paths. |\n| A-04 | A narrow end-to-end slice can deliver measurable value. | Scope cannot be contained. | Time-boxed concierge or prototype experiment. |\n| A-05 | The system can meet security, reliability, and cost constraints. | Product is not operable. | Architecture spike with explicit budgets. |\n\n## Validation plan\n\n1. Recruit at least five representative primary users and three accountable\n   stakeholders.\n2. Collect recent, concrete examples of the problem and quantify frequency,\n   duration, error cost, delay, and workarounds.\n3. Rank current alternatives by outcome quality, effort, risk, and switching\n   friction.\n4. Test a low-fidelity workflow before automating it.\n5. Define a baseline and compare it with the prototype using the success\n   criteria in `vision/success-criteria.md`.\n6. Record findings in `research/findings/` and update or reject assumptions.\n\n## Evidence required to proceed\n\nProceed to the first build increment only when evidence shows a recurring\nproblem, a reachable user population, a credible advantage, acceptable ethical\nand operational constraints, and a measurable end-to-end outcome. Pause or\npivot when evidence contradicts the core problem or shows that a safer,\nsimpler non-software intervention is preferable.\n\n## Initial scope decision\n\nThe first release will support one primary persona, one high-value journey, one\noperational environment, and one clearly bounded data path. Integrations,\nautomation, and customization expand only after the core path is observable,\nrecoverable, secure, and repeatedly useful.\n",
+  "document_id": "doc:idea.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "A-01",
+    "A-02",
+    "A-03",
+    "A-04",
+    "A-05"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-record",
+    "normative": false,
+    "summary": "If the project gives its target users a dependable way to complete the primary job described in the product requirements, then they will adopt it repeatedly because it reduces avoidable effort, uncertainty, and operational risk while leaving users in control of consequential decisions.",
+    "title": "Project Idea: MonadV2"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 2,
+      "line_start": 1,
+      "section_id": "project-idea-monadv2",
+      "text": "# Project Idea: MonadV2",
+      "title": "Project Idea: MonadV2"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 9,
+      "line_start": 3,
+      "section_id": "one-sentence-hypothesis",
+      "text": "## One-sentence hypothesis\n\nIf the project gives its target users a dependable way to complete the primary\njob described in the product requirements, then they will adopt it repeatedly\nbecause it reduces avoidable effort, uncertainty, and operational risk while\nleaving users in control of consequential decisions.",
+      "title": "One-sentence hypothesis"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 10,
+      "section_id": "opportunity",
+      "text": "## Opportunity\n\nTeams often begin implementation before they share a testable problem, explicit\nboundaries, or measurable outcome. The result is feature activity without\nreliable evidence of value. MonadV2 begins by converting an idea into\na governed chain of intent: problem → outcome → requirement → decision → work →\nevidence → release.",
+      "title": "Opportunity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 28,
+      "line_start": 18,
+      "section_id": "intended-users",
+      "text": "## Intended users\n\n- **Primary user:** the person who performs the core workflow and needs a\n  reliable result with minimal unnecessary coordination.\n- **Economic or accountable buyer:** the person responsible for value, risk,\n  cost, and adoption.\n- **Operator or maintainer:** the person responsible for continuity, diagnosis,\n  change, and recovery.\n- **Affected stakeholder:** a person whose data, work, or decisions may be\n  influenced by the system even when they are not a direct user.",
+      "title": "Intended users"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 29,
+      "section_id": "proposed-value",
+      "text": "## Proposed value\n\nThe product should make the desired outcome faster to reach, easier to verify,\nand safer to repeat. It should expose assumptions and failure states rather\nthan creating false confidence. The smallest viable product is the narrowest\nend-to-end workflow that proves this value under realistic conditions.",
+      "title": "Proposed value"
+    },
+    {
+      "identifiers": [
+        "A-01",
+        "A-02",
+        "A-03",
+        "A-04",
+        "A-05"
+      ],
+      "level": 2,
+      "line_end": 45,
+      "line_start": 36,
+      "section_id": "critical-assumptions",
+      "text": "## Critical assumptions\n\n| ID | Assumption | Risk if false | Cheapest useful test |\n| --- | --- | --- | --- |\n| A-01 | The problem is frequent and costly enough to motivate change. | No sustained demand. | Five problem interviews using recent examples. |\n| A-02 | Existing alternatives fail in a consistent, addressable way. | Weak differentiation. | Comparative task observation and artifact review. |\n| A-03 | Users can trust the proposed workflow and understand its limits. | Rejection or unsafe use. | Usability test with visible confidence and recovery paths. |\n| A-04 | A narrow end-to-end slice can deliver measurable value. | Scope cannot be contained. | Time-boxed concierge or prototype experiment. |\n| A-05 | The system can meet security, reliability, and cost constraints. | Product is not operable. | Architecture spike with explicit budgets. |",
+      "title": "Critical assumptions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 46,
+      "section_id": "validation-plan",
+      "text": "## Validation plan\n\n1. Recruit at least five representative primary users and three accountable\n   stakeholders.\n2. Collect recent, concrete examples of the problem and quantify frequency,\n   duration, error cost, delay, and workarounds.\n3. Rank current alternatives by outcome quality, effort, risk, and switching\n   friction.\n4. Test a low-fidelity workflow before automating it.\n5. Define a baseline and compare it with the prototype using the success\n   criteria in `vision/success-criteria.md`.\n6. Record findings in `research/findings/` and update or reject assumptions.",
+      "title": "Validation plan"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 66,
+      "line_start": 59,
+      "section_id": "evidence-required-to-proceed",
+      "text": "## Evidence required to proceed\n\nProceed to the first build increment only when evidence shows a recurring\nproblem, a reachable user population, a credible advantage, acceptable ethical\nand operational constraints, and a measurable end-to-end outcome. Pause or\npivot when evidence contradicts the core problem or shows that a safer,\nsimpler non-software intervention is preferable.",
+      "title": "Evidence required to proceed"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 72,
+      "line_start": 67,
+      "section_id": "initial-scope-decision",
+      "text": "## Initial scope decision\n\nThe first release will support one primary persona, one high-value journey, one\noperational environment, and one clearly bounded data path. Integrations,\nautomation, and customization expand only after the core path is observable,\nrecoverable, secure, and repeatedly useful.",
+      "title": "Initial scope decision"
+    }
+  ],
+  "source": {
+    "bytes": 3633,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 72,
+    "media_type": "text/markdown",
+    "path": "idea.md",
+    "sha256": "79837fa66f64f290bdfa9dd7f1a641f9a2cc3fb781d5d90d05bfb1dfd4c1656f"
+  }
+}

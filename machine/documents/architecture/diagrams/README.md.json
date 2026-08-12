@@ -1,0 +1,76 @@
+{
+  "content": "# Architecture Diagrams\n\nThis directory contains version-controlled diagrams that explain views not\ncommunicated efficiently by prose. Diagrams complement decisions and\nspecifications; they do not replace responsibilities, contracts, or measurable\nbehavior.\n\n## Required views\n\n- system context: people, external systems, trust boundaries, and data flows;\n- container or deployable view: runtime responsibilities and communication;\n- component view: internal boundaries for the primary deployable;\n- primary sequence: intent through verification;\n- recovery sequence: interruption, retry, compensation, and reconciliation;\n- deployment view: environments, ingress, state, secrets, and telemetry;\n- threat or data-flow view when security analysis requires it.\n\n## Source standard\n\nPrefer Mermaid stored directly in Markdown when it communicates the view\nclearly. Store editable source beside any exported image. Do not commit an image\nwithout its source, owner, and last-reviewed date. Use short identifiers that\nmatch architecture and terminology documents.\n\n## Diagram header\n\nEvery diagram document states:\n\n- purpose and intended audience;\n- scope and level of abstraction;\n- authoritative sources and related ADRs;\n- assumptions and omitted concerns;\n- owner, status, and last review date.\n\n## Review checklist\n\nConfirm that responsibilities have one owner, arrows have direction and\nmeaning, trust and data boundaries are visible, sync versus async interaction\nis unambiguous, failure paths are represented where material, and names match\nthe current architecture. Remove obsolete diagrams rather than preserving\nmisleading history outside version control.\n",
+  "document_id": "doc:architecture%2Fdiagrams%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "This directory contains version-controlled diagrams that explain views not communicated efficiently by prose. Diagrams complement decisions and specifications; they do not replace responsibilities, contracts, or measurable behavior.",
+    "title": "Architecture Diagrams"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "architecture-diagrams",
+      "text": "# Architecture Diagrams\n\nThis directory contains version-controlled diagrams that explain views not\ncommunicated efficiently by prose. Diagrams complement decisions and\nspecifications; they do not replace responsibilities, contracts, or measurable\nbehavior.",
+      "title": "Architecture Diagrams"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 8,
+      "section_id": "required-views",
+      "text": "## Required views\n\n- system context: people, external systems, trust boundaries, and data flows;\n- container or deployable view: runtime responsibilities and communication;\n- component view: internal boundaries for the primary deployable;\n- primary sequence: intent through verification;\n- recovery sequence: interruption, retry, compensation, and reconciliation;\n- deployment view: environments, ingress, state, secrets, and telemetry;\n- threat or data-flow view when security analysis requires it.",
+      "title": "Required views"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 18,
+      "section_id": "source-standard",
+      "text": "## Source standard\n\nPrefer Mermaid stored directly in Markdown when it communicates the view\nclearly. Store editable source beside any exported image. Do not commit an image\nwithout its source, owner, and last-reviewed date. Use short identifiers that\nmatch architecture and terminology documents.",
+      "title": "Source standard"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 25,
+      "section_id": "diagram-header",
+      "text": "## Diagram header\n\nEvery diagram document states:\n\n- purpose and intended audience;\n- scope and level of abstraction;\n- authoritative sources and related ADRs;\n- assumptions and omitted concerns;\n- owner, status, and last review date.",
+      "title": "Diagram header"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 41,
+      "line_start": 35,
+      "section_id": "review-checklist",
+      "text": "## Review checklist\n\nConfirm that responsibilities have one owner, arrows have direction and\nmeaning, trust and data boundaries are visible, sync versus async interaction\nis unambiguous, failure paths are represented where material, and names match\nthe current architecture. Remove obsolete diagrams rather than preserving\nmisleading history outside version control.",
+      "title": "Review checklist"
+    }
+  ],
+  "source": {
+    "bytes": 1662,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 41,
+    "media_type": "text/markdown",
+    "path": "architecture/diagrams/README.md",
+    "sha256": "e4a7e5bdd8a2cbb57c63860d9a41014aca052dc160675a727fd33a994fb0f542"
+  }
+}
