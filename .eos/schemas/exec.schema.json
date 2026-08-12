@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eos://schemas/exec/1.0.0",
+  "type": "object",
+  "required": ["id", "path", "target", "status", "branch", "worktree", "baseline_commit", "governing_hash", "contract_hash", "created", "updated"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^EXEC-[0-9]{4}$"},
+    "path": {"type": "string", "minLength": 1},
+    "target": {"type": "string", "pattern": "^WP(?:-[A-Z][A-Z0-9]{1,15})?-[0-9]{4}$"},
+    "status": {"type": "string"},
+    "branch": {"type": "string"},
+    "worktree": {"type": "string"},
+    "baseline_commit": {"type": "string"},
+    "governing_hash": {"type": "string"},
+    "contract_hash": {"type": "string"},
+    "result_path": {"type": "string"},
+    "actor": {"type": "string"},
+    "created": {"type": "string", "minLength": 1},
+    "updated": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

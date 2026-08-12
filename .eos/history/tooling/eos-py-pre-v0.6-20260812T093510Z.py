@@ -31,9 +31,7 @@ ID_RE = re.compile(
     r"CR-\d{4}|"
     r"MNT-\d{4}|"
     r"RISK-\d{3,4}|"
-    r"REL-\d+\.\d+\.\d+|"
-    r"EXEC-\d{4}|"
-    r"EVID-\d{4}"
+    r"REL-\d+\.\d+\.\d+"
     r")\b"
 )
 
@@ -55,8 +53,6 @@ VALID_STATES = {
     "CR": {"DRAFT", "PROPOSED", "APPROVED", "APPLIED", "CLOSED", "REJECTED"},
     "MNT": {"OPEN", "PLANNED", "IN_PROGRESS", "VERIFYING", "CLOSED", "DEFERRED"},
     "REL": {"PROPOSED", "READY", "RELEASED", "WITHDRAWN"},
-    "EXEC": {"PREPARED", "RUNNING", "RESULT_INGESTED", "VERIFIED", "BLOCKED", "FAILED", "INVALIDATED", "ABORTED", "CLOSED"},
-    "EVID": {"CAPTURED", "VALIDATED", "FAILED", "STALE", "SUPERSEDED"},
 }
 
 REGISTRY_FIELDS = {
@@ -77,8 +73,6 @@ REGISTRY_FIELDS = {
     "CR": ["id", "path", "target", "summary", "status", "created", "updated", "github_url"],
     "MNT": ["id", "path", "type", "summary", "status", "created", "updated", "github_url"],
     "REL": ["id", "path", "version", "status", "created", "updated", "github_url"],
-    "EXEC": ["id", "path", "target", "status", "branch", "worktree", "baseline_commit", "governing_hash", "contract_hash", "result_path", "actor", "created", "updated"],
-    "EVID": ["id", "path", "target", "execution", "validator", "profile", "kind", "status", "result", "exit_code", "command", "source_hash", "environment_hash", "artifact_hash", "covers", "created", "updated"],
 }
 
 REGISTRY_PATHS = {
@@ -88,8 +82,6 @@ REGISTRY_PATHS = {
     "CR": ".eos/change-requests.tsv",
     "MNT": ".eos/maintenance.tsv",
     "REL": ".eos/releases.tsv",
-    "EXEC": ".eos/executions.tsv",
-    "EVID": ".eos/evidence.tsv",
 }
 
 
@@ -290,7 +282,7 @@ def ensure_event_ledger_seeded() -> None:
         reason="initialize append-only EOS lifecycle event ledger",
         metadata={"root": str(ROOT)},
     )
-    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC", "EVID"):
+    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
         for row in registry(kind):
             append_event(
                 "ENTITY_IMPORTED",
@@ -363,8 +355,6 @@ def ensure_dirs() -> None:
         EOS / "policies",
         EOS / "cache",
         EOS / "sync",
-        EOS / "executions",
-        EOS / "locks",
         ROOT / "engineering" / "reviews",
         ROOT / "engineering" / "increments",
         ROOT / "engineering" / "work-cycles",
@@ -372,7 +362,6 @@ def ensure_dirs() -> None:
         ROOT / "engineering" / "changes",
         ROOT / "engineering" / "releases",
         ROOT / "engineering" / "maintenance",
-        ROOT / "engineering" / "evidence",
     ):
         d.mkdir(parents=True, exist_ok=True)
 
@@ -557,10 +546,6 @@ def kind_for_id(target: str) -> str:
         return "MNT"
     if re.fullmatch(r"REL-\d+\.\d+\.\d+", target):
         return "REL"
-    if re.fullmatch(r"EXEC-\d{4}", target):
-        return "EXEC"
-    if re.fullmatch(r"EVID-\d{4}", target):
-        return "EVID"
     raise EosError(f"Unsupported lifecycle target: {target}")
 
 
@@ -613,8 +598,6 @@ def next_number(kind: str, width: int, *, prefix: str | None = None) -> int:
         pattern = re.compile(r"^CR-(\d{4})$")
     elif kind == "MNT":
         pattern = re.compile(r"^MNT-(\d{4})$")
-    elif kind == "EXEC":
-        pattern = re.compile(r"^EXEC-(\d{4})$")
     else:
         raise EosError(f"Cannot allocate ID for kind {kind}")
     for row in rows:
@@ -651,7 +634,7 @@ def replace_state_line(path: Path, new_state: str) -> None:
 
 
 def sync_artifact_state(path: Path, state: str) -> None:
-    if not path.exists() or path.suffix != ".md":
+    if not path.exists():
         return
     replace_state_line(path, state)
     data, _ = parse_frontmatter(path) if path.suffix == ".md" else ({}, "")
@@ -1726,12 +1709,6 @@ TBD.
 
 TBD.
 
-## Execution Scope
-
-EOSE blocks Git/EOS internals and governed-artifact changes by default. Add
-`allowed-path`, `forbidden-path`, or `allowed-governed-path` directives when this
-work packet requires a more explicit machine-enforced file boundary.
-
 ## Governing Artifacts
 
 - Requirements: TBD
@@ -1749,7 +1726,7 @@ TBD.
 
 ## Acceptance Criteria
 
-- [ ] AC-001: TBD
+- [ ] TBD
 
 ## Validation
 
@@ -2643,9 +2620,7 @@ def trace_coverage_report() -> dict:
     for row in registry("WP"):
         if row["status"] != "CLOSED":
             continue
-        first_class = any(e.get("target") == row["id"] and e.get("status") == "VALIDATED" for e in registry("EVID"))
-        legacy = bool(list((EOS / "evidence").glob(f"{row['id']}-*")))
-        if not first_class and not legacy:
+        if not list((EOS / "evidence").glob(f"{row['id']}-*")):
             closed_without_evidence.append(row["id"])
 
     total = len(requirements) + len(specifications) + len(work_packets)
@@ -3794,7 +3769,7 @@ def cmd_state_machine(args: argparse.Namespace) -> None:
     except EosError:
         kind = target
     if kind not in REGISTRY_PATHS:
-        raise EosError("State machine target must be PI, WC, WP, CR, MNT, REL, EXEC, EVID, or an entity ID")
+        raise EosError("State machine target must be PI, WC, WP, CR, MNT, REL, or an entity ID")
     machine = state_machine(kind)
     if args.json:
         print(json.dumps(machine, indent=2, sort_keys=True))
@@ -3812,10 +3787,10 @@ def cmd_schema(args: argparse.Namespace) -> None:
     name = args.name.lower()
     aliases = {
         "pi": "pi", "wc": "wc", "wp": "wp", "cr": "cr", "mnt": "mnt",
-        "rel": "rel", "exec": "exec", "evid": "evid", "artifact": "artifact", "event": "event",
+        "rel": "rel", "artifact": "artifact", "event": "event",
     }
     if name not in aliases:
-        raise EosError("Schema must be one of PI, WC, WP, CR, MNT, REL, EXEC, EVID, artifact, event")
+        raise EosError("Schema must be one of PI, WC, WP, CR, MNT, REL, artifact, event")
     schema = load_json(SCHEMA_DIR / f"{aliases[name]}.schema.json")
     print(json.dumps(schema, indent=2, sort_keys=True))
 
@@ -3823,7 +3798,7 @@ def cmd_schema(args: argparse.Namespace) -> None:
 def cmd_rebuild_state(args: argparse.Namespace) -> None:
     projected = event_projected_state()
     mismatches: list[tuple[str, str, str, str]] = []
-    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC", "EVID"):
+    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
         for row in registry(kind):
             key = (kind, row["id"])
             if key not in projected:
@@ -3931,7 +3906,7 @@ def verify_all(*, strict: bool = False) -> tuple[bool, str]:
     all_pi = {r["id"]: r for r in registry("PI")}
     all_wc = {r["id"]: r for r in registry("WC")}
     all_wp = {r["id"]: r for r in registry("WP")}
-    for kind, rows in (("PI", all_pi.values()), ("WC", all_wc.values()), ("WP", all_wp.values()), ("CR", registry("CR")), ("MNT", registry("MNT")), ("REL", registry("REL")), ("EXEC", registry("EXEC")), ("EVID", registry("EVID"))):
+    for kind, rows in (("PI", all_pi.values()), ("WC", all_wc.values()), ("WP", all_wp.values()), ("CR", registry("CR")), ("MNT", registry("MNT")), ("REL", registry("REL"))):
         ids: set[str] = set()
         for row in rows:
             rid = row["id"]
@@ -3972,7 +3947,7 @@ def verify_all(*, strict: bool = False) -> tuple[bool, str]:
                     )
 
     # Declarative state-machine integrity.
-    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC", "EVID"):
+    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
         try:
             machine = state_machine(kind)
             states = set(machine.get("states", []))
@@ -4015,7 +3990,7 @@ def verify_all(*, strict: bool = False) -> tuple[bool, str]:
                         f"illegal recorded transition in {event_id}: {kind} {frm} -> {to}"
                     )
         projected = event_projected_state()
-        for kind in ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC"):
+        for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
             for row in registry(kind):
                 expected = projected.get((kind, row["id"]))
                 if expected and expected != row["status"]:
@@ -4136,11 +4111,10 @@ def cmd_doctor(_: argparse.Namespace) -> None:
 TOP_LEVEL_COMPLETION_COMMANDS = (
     "layers", "status", "next", "prompt", "complete", "reopen", "version",
     "history", "rollback", "checkpoint", "plan", "create-wc", "create-wp",
-    "ready", "authorize", "start", "preflight", "worktree", "execute", "execution", "contract", "codex", "validate", "review", "close",
+    "ready", "authorize", "start", "codex", "validate", "review", "close",
     "close-cycle", "close-pi", "trace", "impact", "github-sync", "change",
     "maintain", "release", "planning", "policy", "gate", "override", "stale", "events",
     "state-machine", "schema", "rebuild-state", "verify", "doctor",
-    "validators", "validation", "evidence", "performance", "security", "supply-chain",
     "responsibilities", "completion",
 )
 
@@ -4150,12 +4124,7 @@ COMMAND_COMPLETION_OPTIONS = {
     "create-wp": ("--wc", "--domain", "--title"),
     "ready": ("--reason", "--by"),
     "authorize": ("--force", "--reason", "--by"),
-    "codex": ("--force", "--no-worktree", "--base", "--actor", "--json"),
-    "preflight": ("--no-worktree", "--base", "--json"),
-    "execute": ("--no-worktree", "--base", "--actor", "--json"),
-    "worktree": ("--base", "--path", "--force"),
-    "execution": ("--target", "--json", "--reason", "--by"),
-    "contract": ("--json",),
+    "codex": ("--force",),
     "close": ("--force", "--reason", "--by"),
     "close-cycle": ("--force", "--reason", "--by"),
     "close-pi": ("--force", "--reason", "--by"),
@@ -4164,12 +4133,7 @@ COMMAND_COMPLETION_OPTIONS = {
     "events": ("--limit", "--json"),
     "state-machine": ("--json",),
     "rebuild-state": ("--apply",),
-    "verify": ("--strict", "--json"),
-    "validate": ("--profile", "--execution", "--covers", "--json"),
-    "evidence": ("--json", "--all", "--relation", "--actor"),
-    "performance": ("--target", "--unit", "--direction", "--tolerance", "--command", "--json"),
-    "security": ("--execution", "--json"),
-    "supply-chain": ("--execution", "--json"),
+    "verify": ("--strict",),
     "trace": ("--json",),
     "impact": ("--json",),
     "stale": ("--all", "--by", "--reason"),
@@ -4294,12 +4258,6 @@ def completion_candidates(words: list[str]) -> list[str]:
     previous = prior[-1] if prior else ""
 
     # Subcommand discovery.
-    if command == "worktree" and len(args) == 1:
-        return filter_completion(("create", "list", "remove"), current)
-    if command == "execution" and len(args) == 1:
-        return filter_completion(("list", "show", "ingest", "check", "close", "abort", "environment"), current)
-    if command == "contract" and len(args) == 1:
-        return filter_completion(("verify", "show"), current)
     if command == "change" and len(args) == 1:
         return filter_completion(("create", "approve", "apply", "close"), current)
     if command == "maintain" and len(args) == 1:
@@ -4314,18 +4272,6 @@ def completion_candidates(words: list[str]) -> list[str]:
         return filter_completion(("create", "list", "expire"), current)
     if command == "stale" and len(args) == 1:
         return filter_completion(("list", "clear"), current)
-    if command == "validators" and len(args) == 1:
-        return filter_completion(("list", "show"), current)
-    if command == "validation" and len(args) == 1:
-        return filter_completion(("profiles", "show"), current)
-    if command == "evidence" and len(args) == 1:
-        return filter_completion(("list", "show", "coverage", "audit", "link"), current)
-    if command == "performance" and len(args) == 1:
-        return filter_completion(("record", "check", "list"), current)
-    if command == "security" and len(args) == 1:
-        return filter_completion(("scan",), current)
-    if command == "supply-chain" and len(args) == 1:
-        return filter_completion(("inventory",), current)
     if command == "completion" and len(args) == 1:
         return filter_completion(("bash", "zsh", "fish", "write", "install"), current)
 
@@ -4372,29 +4318,6 @@ def completion_candidates(words: list[str]) -> list[str]:
             elif args[0] == "graph":
                 options += [o for o in ("--format",) if o not in args]
         return filter_completion(options, current)
-
-    if command == "validators" and args and args[0] == "show":
-        return filter_completion(("eos-integrity", "repository", "execution-acceptance", "secret-scan", "supply-chain", "reproducibility", "performance"), current)
-    if command == "validation" and args and args[0] == "show":
-        return filter_completion(("default", "wp", "security", "release", "reproducibility", "performance"), current)
-    if command == "validate":
-        if previous == "--profile":
-            return filter_completion(("default", "wp", "security", "release", "reproducibility", "performance"), current)
-        if previous == "--execution":
-            return filter_completion(completion_ids("EXEC"), current)
-        return filter_completion(completion_ids("WP", "EXEC"), current)
-    if command == "evidence" and args:
-        if args[0] == "show":
-            return filter_completion(completion_ids("EVID"), current)
-        if args[0] in {"list", "coverage"}:
-            return filter_completion(completion_ids("WP", "EXEC"), current)
-        if args[0] == "link":
-            positional = [a for a in args[1:] if not a.startswith("-")]
-            if len(positional) <= 1:
-                return filter_completion(completion_ids("EVID"), current)
-            return filter_completion(completion_artifact_ids(), current)
-    if command in {"security", "supply-chain"}:
-        return filter_completion(completion_ids("WP", "EXEC"), current)
 
     # Bootstrap/versioning commands.
     if command in {"prompt", "complete", "reopen"}:
@@ -4444,13 +4367,13 @@ def completion_candidates(words: list[str]) -> list[str]:
     if command in {"impact", "events"}:
         return filter_completion(completion_artifact_ids(), current)
     if command == "state-machine":
-        values = ["PI", "WC", "WP", "CR", "MNT", "REL", "EXEC"] + completion_ids(
-            "PI", "WC", "WP", "CR", "MNT", "REL", "EXEC"
+        values = ["PI", "WC", "WP", "CR", "MNT", "REL"] + completion_ids(
+            "PI", "WC", "WP", "CR", "MNT", "REL"
         )
         return filter_completion(values, current.upper())
     if command == "schema":
         return filter_completion(
-            ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC", "artifact", "event", "override"),
+            ("PI", "WC", "WP", "CR", "MNT", "REL", "artifact", "event", "override"),
             current,
         )
     if command == "release":
@@ -4516,34 +4439,6 @@ def completion_candidates(words: list[str]) -> list[str]:
         if subcmd == "clear" and len(subargs) <= 1:
             values = [r["id"] for r in stale_rows() if r.get("status") == "OPEN"]
             return filter_completion(values, subcurrent.upper())
-        return []
-
-    # EOSE Execution v2 subcommands.
-    if command in {"preflight", "execute", "codex"}:
-        return filter_completion(completion_ids("WP"), current)
-
-    if command == "worktree" and args:
-        subcmd = args[0]
-        subargs = args[1:]
-        subcurrent = subargs[-1] if subargs else ""
-        if subcmd in {"create", "remove"} and len(subargs) <= 1:
-            return filter_completion(completion_ids("WP"), subcurrent)
-        return []
-
-    if command == "execution" and args:
-        subcmd = args[0]
-        subargs = args[1:]
-        subcurrent = subargs[-1] if subargs else ""
-        if subcmd in {"show", "ingest", "check", "close", "abort", "environment"} and len(subargs) <= 1:
-            return filter_completion(completion_ids("EXEC"), subcurrent)
-        return []
-
-    if command == "contract" and args:
-        subcmd = args[0]
-        subargs = args[1:]
-        subcurrent = subargs[-1] if subargs else ""
-        if subcmd in {"verify", "show"} and len(subargs) <= 1:
-            return filter_completion(completion_ids("EXEC"), subcurrent)
         return []
 
     # Change/maintenance subcommands.
@@ -4712,13 +4607,6 @@ def add_override_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--force", action="store_true", help="Explicit human gate override")
     parser.add_argument("--reason", default="", help="Reason for action or override")
     parser.add_argument("--by", default="", help="Human actor/approver identity")
-
-
-def cmd_delegate_verification(_: argparse.Namespace) -> None:
-    module = ROOT / "tools" / "eos" / "verification_v2.py"
-    proc = subprocess.run([sys.executable, str(module), *sys.argv[1:]], cwd=ROOT)
-    if proc.returncode:
-        raise EosError(f"EOSV delegated command failed with exit code {proc.returncode}")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -4996,18 +4884,6 @@ def build_parser() -> argparse.ArgumentParser:
     p = completion_sub.add_parser("candidates", help=argparse.SUPPRESS)
     p.add_argument("words", nargs=argparse.REMAINDER)
     p.set_defaults(func=cmd_completion)
-
-    for delegated_name, delegated_help in (
-        ("validators", "Inspect EOSV typed validator definitions"),
-        ("validation", "Inspect EOSV validation profiles"),
-        ("evidence", "Inspect/link/audit first-class EVID-* verification evidence"),
-        ("performance", "Record/check governed performance baselines"),
-        ("security", "Run EOSV security verification profiles"),
-        ("supply-chain", "Capture EOSV supply-chain inventory evidence"),
-    ):
-        p = sub.add_parser(delegated_name, help=delegated_help, add_help=False)
-        p.add_argument("delegate_args", nargs=argparse.REMAINDER)
-        p.set_defaults(func=cmd_delegate_verification)
 
     p = sub.add_parser("responsibilities", help="Show Human/ChatGPT/Codex/GitHub responsibilities")
     p.set_defaults(func=cmd_responsibilities)

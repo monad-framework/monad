@@ -10,14 +10,4 @@ if ! command -v python3 >/dev/null 2>&1; then
   exit 127
 fi
 
-case "${1:-}" in
-  preflight|worktree|execute|execution|contract|codex)
-    exec python3 "$ROOT/tools/eos/execution_v2.py" "$@"
-    ;;
-  validate|validators|validation|evidence|performance|security|supply-chain|verify)
-    exec python3 "$ROOT/tools/eos/verification_v2.py" "$@"
-    ;;
-  *)
-    exec python3 "$ROOT/tools/eos/eos.py" "$@"
-    ;;
-esac
+exec python3 "$ROOT/tools/eos/eos.py" "$@"
