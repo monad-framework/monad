@@ -1,0 +1,40 @@
+{
+  "content": "name: Stabilization materialization\n\non:\n  push:\n    branches:\n      - foundation/stabilization\n\npermissions:\n  contents: write\n\nconcurrency:\n  group: stabilization-materialization-${{ github.ref }}\n  cancel-in-progress: false\n\njobs:\n  materialize:\n    if: github.actor != 'github-actions[bot]'\n    runs-on: ubuntu-latest\n    timeout-minutes: 20\n\n    steps:\n      - name: Check out stabilization branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n        with:\n          ref: foundation/stabilization\n          fetch-depth: 0\n\n      - name: Populate empty artifact-system documents\n        run: python3 scripts/populate-artifact-system.py\n\n      - name: Regenerate machine-readable knowledge layer\n        run: python3 scripts/sync-machine-docs.py --write\n\n      - name: Verify artifact-system population\n        run: python3 scripts/populate-artifact-system.py --check\n\n      - name: Verify machine-readable knowledge layer\n        run: python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit deterministic derivatives and generated Draft baselines\n        shell: bash\n        run: |\n          if git diff --quiet -- artifact-system machine; then\n            echo \"No materialization changes required.\"\n            exit 0\n          fi\n\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add artifact-system machine\n          git commit -m \"docs(artifact-system): materialize draft corpus and machine layer\"\n          git push origin HEAD:foundation/stabilization\n",
+  "document_id": "doc:.github%2Fworkflows%2Fstabilization-materialize.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/stabilization-materialize.yml.",
+    "title": "Stabilization Materialize"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 52,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Stabilization materialization\n\non:\n  push:\n    branches:\n      - foundation/stabilization\n\npermissions:\n  contents: write\n\nconcurrency:\n  group: stabilization-materialization-${{ github.ref }}\n  cancel-in-progress: false\n\njobs:\n  materialize:\n    if: github.actor != 'github-actions[bot]'\n    runs-on: ubuntu-latest\n    timeout-minutes: 20\n\n    steps:\n      - name: Check out stabilization branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n        with:\n          ref: foundation/stabilization\n          fetch-depth: 0\n\n      - name: Populate empty artifact-system documents\n        run: python3 scripts/populate-artifact-system.py\n\n      - name: Regenerate machine-readable knowledge layer\n        run: python3 scripts/sync-machine-docs.py --write\n\n      - name: Verify artifact-system population\n        run: python3 scripts/populate-artifact-system.py --check\n\n      - name: Verify machine-readable knowledge layer\n        run: python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit deterministic derivatives and generated Draft baselines\n        shell: bash\n        run: |\n          if git diff --quiet -- artifact-system machine; then\n            echo \"No materialization changes required.\"\n            exit 0\n          fi\n\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add artifact-system machine\n          git commit -m \"docs(artifact-system): materialize draft corpus and machine layer\"\n          git push origin HEAD:foundation/stabilization",
+      "title": "Stabilization Materialize"
+    }
+  ],
+  "source": {
+    "bytes": 1616,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 52,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/stabilization-materialize.yml",
+    "sha256": "a3e49792c0900656ec0ffbda7a814a633de2a01c3fb161160c7c9a556771592e"
+  }
+}

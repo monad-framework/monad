@@ -1,0 +1,139 @@
+{
+  "content": "# Expected Artifacts\n\n**Status:** Draft  \n**Artifact class:** Work Packets / Engineering Artifact  \n**Owner:** Engineering Owner  \n**Required reviewers:** Engineering Owner  \n**Authority:** Proposed baseline; not authoritative until approved under the document lifecycle  \n**Generator baseline:** `populate-artifact-system.py` v1.0.0\n\n## Purpose\n\nThis artifact defines the stable responsibilities, rules, evidence, and change boundaries for this artifact. It exists within Monad's work packets concern, which covers the work packets concern within Monad's engineering knowledge compilation and operating model. The document turns that concern into an explicit, reviewable engineering contract rather than leaving it in chat history, tribal knowledge, tool defaults, or implementation accidents.\n\n## Scope\n\nIn scope are the semantics, responsibilities, evidence, lifecycle, and interfaces directly needed to make **Expected Artifacts** dependable. The primary quality concerns are explicit scope, stable identity, traceability, review, verification.\n\nOut of scope are unrelated implementation choices, vendor-specific behavior that does not affect the contract, and authority that belongs to a higher-level vision, governance, accepted ADR, or approved specification. This artifact may constrain implementation but must not silently expand project scope.\n\n## Governing principles\n\n- Expected Artifacts has an explicit scope and must not silently absorb neighboring responsibilities.\n- Every normative claim must be testable, reviewable, or linked to evidence that can be independently inspected.\n- Stable identifiers are never reused for semantically different concepts or records.\n- Changes that alter public behavior, compatibility, authority, security posture, or accepted risk require impact analysis before approval.\n- Generated projections may summarize or index this artifact but may not silently redefine its meaning.\n\n## Required inputs\n\n- the current approved product and architecture intent relevant to this concern;\n- applicable accepted ADRs and approved specifications;\n- known security, privacy, reliability, performance, and operational constraints;\n- stable identifiers for governed entities and related artifacts;\n- evidence from implementation, tests, research, incidents, or prior reviews when available;\n- explicit assumptions wherever evidence is incomplete.\n\n## Interfaces and traceability\n\nThis artifact participates in Monad's end-to-end traceability chain. It should link upward to the vision, requirement, decision, risk, or policy that justifies it and downward to the specifications, work packets, implementation, tests, generated artifacts, releases, or operational evidence that realize or verify it. Those links are semantic relationships, not decorative references.\n\nWhen another artifact depends on this contract, the dependency should be machine-discoverable through stable identifiers or resolvable repository references. A change to this artifact must therefore include impact analysis for known consumers and must regenerate the machine-readable knowledge projection.\n\n## Failure and exception handling\n\nA violation of this contract is represented explicitly. Invalid input, denied authority, incompatible version, missing evidence, transient dependency failure, permanent failure, and unknown outcome are not collapsed into a generic success/failure flag when they require different recovery or governance.\n\nExceptions are narrow, owned, justified by evidence, time- or trigger-bounded where practical, and recorded with the residual risk they introduce. An exception cannot silently redefine the underlying rule.\n\n## Lifecycle and change control\n\n1. **Draft:** authorship and evidence collection; not relied upon as approved authority.\n2. **Review:** scope and semantics are stable enough for designated reviewers to evaluate.\n3. **Approved:** the accountable authority accepts the contract within its stated scope.\n4. **Implemented:** delivered behavior and evidence conform where implementation status is meaningful.\n5. **Deprecated/Superseded/Retired:** transition is explicit, dependencies are migrated, and history is preserved.\n\nMeaning-changing updates identify affected consumers, compatibility impact, migration needs, risk change, and verification changes. Accepted historical meaning is superseded rather than rewritten without trace.\n\n## Verification\n\n- Verify that the document's scope and terminology agree with higher-authority artifacts.\n- Verify that every mandatory rule has an observable conformance or review method.\n- Verify success, boundary, invalid, unauthorized, interrupted, and recovery behavior where applicable.\n- Verify compatibility and migration behavior for any externally consumed representation or protocol.\n- Verify security and privacy properties at every trust or data boundary introduced by this artifact.\n- Verify generated machine companions are synchronized with the canonical source.\n- Record evidence links in the implementing work packet, review, or release record.\n\n## Acceptance criteria\n\n- [ ] Purpose, scope, exclusions, and owner are explicit.\n- [ ] Terminology is consistent with `governance/terminology.md` or intentionally narrows it.\n- [ ] Governing decisions, requirements, risks, and dependent artifacts are linked.\n- [ ] Normative statements are testable or have a defined manual evidence path.\n- [ ] Compatibility, security, failure, and recovery concerns are addressed where applicable.\n- [ ] Reviewers can distinguish current evidence from assumptions and proposals.\n- [ ] Machine-readable projections regenerate without drift.\n- [ ] Approval, if granted, records authority, date, scope, conditions, and dissent.\n\n## Review trigger\n\nReview this artifact when a governing requirement or ADR changes, an implementation or incident contradicts an assumption, compatibility or security impact changes, ownership changes, or a dependent artifact cannot be implemented or verified without reinterpretation.\n\n## Canonicality\n\n`artifact-system/work-packets/expected-artifacts.md` is the human-readable canonical source for this artifact once approved. Any representation under `machine/` is a deterministic derivative and must not be edited independently.\n",
+  "document_id": "doc:artifact-system%2Fwork-packets%2Fexpected-artifacts.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Status: Draft Artifact class: Work Packets / Engineering Artifact Owner: Engineering Owner Required reviewers: Engineering Owner Authority: Proposed baseline; not authoritative until approved under the document lifecycle Generator baseline: populate-artifact-system.py v1.0.0",
+    "title": "Expected Artifacts"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "expected-artifacts",
+      "text": "# Expected Artifacts\n\n**Status:** Draft  \n**Artifact class:** Work Packets / Engineering Artifact  \n**Owner:** Engineering Owner  \n**Required reviewers:** Engineering Owner  \n**Authority:** Proposed baseline; not authoritative until approved under the document lifecycle  \n**Generator baseline:** `populate-artifact-system.py` v1.0.0",
+      "title": "Expected Artifacts"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 10,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nThis artifact defines the stable responsibilities, rules, evidence, and change boundaries for this artifact. It exists within Monad's work packets concern, which covers the work packets concern within Monad's engineering knowledge compilation and operating model. The document turns that concern into an explicit, reviewable engineering contract rather than leaving it in chat history, tribal knowledge, tool defaults, or implementation accidents.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 14,
+      "section_id": "scope",
+      "text": "## Scope\n\nIn scope are the semantics, responsibilities, evidence, lifecycle, and interfaces directly needed to make **Expected Artifacts** dependable. The primary quality concerns are explicit scope, stable identity, traceability, review, verification.\n\nOut of scope are unrelated implementation choices, vendor-specific behavior that does not affect the contract, and authority that belongs to a higher-level vision, governance, accepted ADR, or approved specification. This artifact may constrain implementation but must not silently expand project scope.",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 20,
+      "section_id": "governing-principles",
+      "text": "## Governing principles\n\n- Expected Artifacts has an explicit scope and must not silently absorb neighboring responsibilities.\n- Every normative claim must be testable, reviewable, or linked to evidence that can be independently inspected.\n- Stable identifiers are never reused for semantically different concepts or records.\n- Changes that alter public behavior, compatibility, authority, security posture, or accepted risk require impact analysis before approval.\n- Generated projections may summarize or index this artifact but may not silently redefine its meaning.",
+      "title": "Governing principles"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 28,
+      "section_id": "required-inputs",
+      "text": "## Required inputs\n\n- the current approved product and architecture intent relevant to this concern;\n- applicable accepted ADRs and approved specifications;\n- known security, privacy, reliability, performance, and operational constraints;\n- stable identifiers for governed entities and related artifacts;\n- evidence from implementation, tests, research, incidents, or prior reviews when available;\n- explicit assumptions wherever evidence is incomplete.",
+      "title": "Required inputs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 37,
+      "section_id": "interfaces-and-traceability",
+      "text": "## Interfaces and traceability\n\nThis artifact participates in Monad's end-to-end traceability chain. It should link upward to the vision, requirement, decision, risk, or policy that justifies it and downward to the specifications, work packets, implementation, tests, generated artifacts, releases, or operational evidence that realize or verify it. Those links are semantic relationships, not decorative references.\n\nWhen another artifact depends on this contract, the dependency should be machine-discoverable through stable identifiers or resolvable repository references. A change to this artifact must therefore include impact analysis for known consumers and must regenerate the machine-readable knowledge projection.",
+      "title": "Interfaces and traceability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 43,
+      "section_id": "failure-and-exception-handling",
+      "text": "## Failure and exception handling\n\nA violation of this contract is represented explicitly. Invalid input, denied authority, incompatible version, missing evidence, transient dependency failure, permanent failure, and unknown outcome are not collapsed into a generic success/failure flag when they require different recovery or governance.\n\nExceptions are narrow, owned, justified by evidence, time- or trigger-bounded where practical, and recorded with the residual risk they introduce. An exception cannot silently redefine the underlying rule.",
+      "title": "Failure and exception handling"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 49,
+      "section_id": "lifecycle-and-change-control",
+      "text": "## Lifecycle and change control\n\n1. **Draft:** authorship and evidence collection; not relied upon as approved authority.\n2. **Review:** scope and semantics are stable enough for designated reviewers to evaluate.\n3. **Approved:** the accountable authority accepts the contract within its stated scope.\n4. **Implemented:** delivered behavior and evidence conform where implementation status is meaningful.\n5. **Deprecated/Superseded/Retired:** transition is explicit, dependencies are migrated, and history is preserved.\n\nMeaning-changing updates identify affected consumers, compatibility impact, migration needs, risk change, and verification changes. Accepted historical meaning is superseded rather than rewritten without trace.",
+      "title": "Lifecycle and change control"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 59,
+      "section_id": "verification",
+      "text": "## Verification\n\n- Verify that the document's scope and terminology agree with higher-authority artifacts.\n- Verify that every mandatory rule has an observable conformance or review method.\n- Verify success, boundary, invalid, unauthorized, interrupted, and recovery behavior where applicable.\n- Verify compatibility and migration behavior for any externally consumed representation or protocol.\n- Verify security and privacy properties at every trust or data boundary introduced by this artifact.\n- Verify generated machine companions are synchronized with the canonical source.\n- Record evidence links in the implementing work packet, review, or release record.",
+      "title": "Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 79,
+      "line_start": 69,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] Purpose, scope, exclusions, and owner are explicit.\n- [ ] Terminology is consistent with `governance/terminology.md` or intentionally narrows it.\n- [ ] Governing decisions, requirements, risks, and dependent artifacts are linked.\n- [ ] Normative statements are testable or have a defined manual evidence path.\n- [ ] Compatibility, security, failure, and recovery concerns are addressed where applicable.\n- [ ] Reviewers can distinguish current evidence from assumptions and proposals.\n- [ ] Machine-readable projections regenerate without drift.\n- [ ] Approval, if granted, records authority, date, scope, conditions, and dissent.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 83,
+      "line_start": 80,
+      "section_id": "review-trigger",
+      "text": "## Review trigger\n\nReview this artifact when a governing requirement or ADR changes, an implementation or incident contradicts an assumption, compatibility or security impact changes, ownership changes, or a dependent artifact cannot be implemented or verified without reinterpretation.",
+      "title": "Review trigger"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 86,
+      "line_start": 84,
+      "section_id": "canonicality",
+      "text": "## Canonicality\n\n`artifact-system/work-packets/expected-artifacts.md` is the human-readable canonical source for this artifact once approved. Any representation under `machine/` is a deterministic derivative and must not be edited independently.",
+      "title": "Canonicality"
+    }
+  ],
+  "source": {
+    "bytes": 6247,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 86,
+    "media_type": "text/markdown",
+    "path": "artifact-system/work-packets/expected-artifacts.md",
+    "sha256": "14d853b78b18375baae7e043fc9870504e8599800da594d570341b764e451a31"
+  }
+}

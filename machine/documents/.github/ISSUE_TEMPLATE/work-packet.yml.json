@@ -1,0 +1,40 @@
+{
+  "content": "name: Work Packet\ndescription: Track an engineering work packet\ntitle: \"WP: \"\nlabels:\n  - work-packet\nbody:\n  - type: textarea\n    id: objective\n    attributes:\n      label: Objective\n      description: What engineering outcome must this work produce?\n    validations:\n      required: true\n\n  - type: textarea\n    id: scope\n    attributes:\n      label: Scope\n      description: What is included and excluded?\n    validations:\n      required: true\n\n  - type: textarea\n    id: acceptance\n    attributes:\n      label: Acceptance Criteria\n      description: How will completion be demonstrated?\n    validations:\n      required: true\n",
+  "document_id": "doc:.github%2FISSUE_TEMPLATE%2Fwork-packet.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-governance",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/ISSUE_TEMPLATE/work-packet.yml.",
+    "title": "Work Packet"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 29,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Work Packet\ndescription: Track an engineering work packet\ntitle: \"WP: \"\nlabels:\n  - work-packet\nbody:\n  - type: textarea\n    id: objective\n    attributes:\n      label: Objective\n      description: What engineering outcome must this work produce?\n    validations:\n      required: true\n\n  - type: textarea\n    id: scope\n    attributes:\n      label: Scope\n      description: What is included and excluded?\n    validations:\n      required: true\n\n  - type: textarea\n    id: acceptance\n    attributes:\n      label: Acceptance Criteria\n      description: How will completion be demonstrated?\n    validations:\n      required: true",
+      "title": "Work Packet"
+    }
+  ],
+  "source": {
+    "bytes": 629,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 29,
+    "media_type": "application/yaml",
+    "path": ".github/ISSUE_TEMPLATE/work-packet.yml",
+    "sha256": "3a67843a905cf43aa5266dafd51eb8dba25e57bfadc24de7569b8defa2c976ad"
+  }
+}
