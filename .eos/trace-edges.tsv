@@ -2,6 +2,13 @@ source_id	target_id	edge_type	source_path	evidence
 ADR-0003	ADR-0001	references	architecture/decisions/ADR-0003-stable-source-and-document-identity.md	inferred-reference
 ADR-0003	WP-MVP-0001	references	architecture/decisions/ADR-0003-stable-source-and-document-identity.md	inferred-reference
 FILE:.github/workflows/repository-integrity.yml	ADR-0001	references	.github/workflows/repository-integrity.yml	inferred-reference
+FILE:engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md	WP-MVP-0001	references	engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md	inferred-reference
+FILE:engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md	WP-MVP-0012	references	engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md	inferred-reference
+FILE:engineering/increments/PI-MVP-002-INTELLIGENCE-CONTEXT.md	WP-MVP-0013	references	engineering/increments/PI-MVP-002-INTELLIGENCE-CONTEXT.md	inferred-reference
+FILE:engineering/increments/PI-MVP-002-INTELLIGENCE-CONTEXT.md	WP-MVP-0023	references	engineering/increments/PI-MVP-002-INTELLIGENCE-CONTEXT.md	inferred-reference
+FILE:engineering/increments/PI-MVP-003-INTEGRATION-RELEASE.md	WP-MVP-0024	references	engineering/increments/PI-MVP-003-INTEGRATION-RELEASE.md	inferred-reference
+FILE:engineering/increments/PI-MVP-003-INTEGRATION-RELEASE.md	WP-MVP-0033	references	engineering/increments/PI-MVP-003-INTEGRATION-RELEASE.md	inferred-reference
+FILE:engineering/milestones/M-000-FOUNDATION-STABILIZED.md	ADR-0005	references	engineering/milestones/M-000-FOUNDATION-STABILIZED.md	inferred-reference
 FILE:engineering/github/PROJECT-V2-CONFIGURATION.md	PI-MVP-001	references	engineering/github/PROJECT-V2-CONFIGURATION.md	inferred-reference
 FILE:engineering/github/PROJECT-V2-CONFIGURATION.md	WC-MVP-0001	references	engineering/github/PROJECT-V2-CONFIGURATION.md	inferred-reference
 FILE:engineering/milestones/M-000-FOUNDATION-STABILIZED.md	ADR-0005	references	engineering/milestones/M-000-FOUNDATION-STABILIZED.md	inferred-reference
@@ -17,6 +24,11 @@ FILE:engineering/milestones/M-003-MVP-RELEASE-1.md	WC-0009	references	engineerin
 FILE:engineering/milestones/M-003-MVP-RELEASE-1.md	WC-0012	references	engineering/milestones/M-003-MVP-RELEASE-1.md	inferred-reference
 FILE:engineering/project-status.md	ADR-0001	references	engineering/project-status.md	inferred-reference
 FILE:engineering/project-status.md	ADR-0002	references	engineering/project-status.md	inferred-reference
+FILE:engineering/project-status.md	ADR-0005	references	engineering/project-status.md	inferred-reference
+FILE:engineering/project-status.md	WP-MVP-0001	references	engineering/project-status.md	inferred-reference
+FILE:engineering/project-status.md	WP-MVP-0002	references	engineering/project-status.md	inferred-reference
+FILE:engineering/project-status.md	WP-STAB-0001	references	engineering/project-status.md	inferred-reference
+FILE:engineering/reviews/FOUNDATION-STABILIZATION-CLOSURE-2026-08-12.md	ADR-0005	references	engineering/reviews/FOUNDATION-STABILIZATION-CLOSURE-2026-08-12.md	inferred-reference
 FILE:engineering/project-status.md	PI-001	references	engineering/project-status.md	inferred-reference
 FILE:engineering/project-status.md	PI-MVP-001	references	engineering/project-status.md	inferred-reference
 FILE:engineering/project-status.md	WC-0001	references	engineering/project-status.md	inferred-reference
@@ -231,6 +243,9 @@ WP-MVP-0005	WP-MVP-0003	references	engineering/work-packets/WP-MVP-0005.md	infer
 WP-MVP-0006	ADR-0003	conforms-to	engineering/work-packets/WP-MVP-0006.md	inferred-reference
 WP-MVP-0006	ADR-0004	conforms-to	engineering/work-packets/WP-MVP-0006.md	inferred-reference
 WP-MVP-0006	ADR-0005	conforms-to	engineering/work-packets/WP-MVP-0006.md	inferred-reference
+WP-MVP-0006	WP-MVP-0003	references	engineering/work-packets/WP-MVP-0006.md	inferred-reference
+WP-MVP-0006	WP-MVP-0004	references	engineering/work-packets/WP-MVP-0006.md	inferred-reference
+WP-MVP-0006	WP-MVP-0005	references	engineering/work-packets/WP-MVP-0006.md	inferred-reference
 WP-MVP-0006	PI-MVP-001	references	engineering/work-packets/WP-MVP-0006.md	inferred-reference
 WP-MVP-0006	WC-MVP-0002	references	engineering/work-packets/WP-MVP-0006.md	inferred-reference
 WP-MVP-0006	WP-MVP-0003	references	engineering/work-packets/WP-MVP-0006.md	inferred-reference
