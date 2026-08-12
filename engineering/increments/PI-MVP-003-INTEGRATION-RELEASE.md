@@ -1,4 +1,4 @@
-# PI-003 — Integration and MVP Release
+# PI-MVP-003 — Integration and MVP Release
 
 **Status:** Forecast  
 **Forecast:** 2026-10-12 through 2026-11-08
@@ -9,10 +9,10 @@ Integrate native validation/change intelligence, dogfood Monad, package/document
 
 ## Work Cycles
 
-- WC-0009 Change intelligence/native validation
-- WC-0010 Dogfood and GitHub projection
-- WC-0011 Packaging/docs/provenance
-- WC-0012 Acceptance and release
+- WC-MVP-0009 Change intelligence/native validation
+- WC-MVP-0010 Dogfood and GitHub projection
+- WC-MVP-0011 Packaging/docs/provenance
+- WC-MVP-0012 Acceptance and release
 
 ## Included Work Packets
 

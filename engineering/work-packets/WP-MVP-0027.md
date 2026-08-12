@@ -3,7 +3,7 @@
 
 **Status:** Planned  
 **Epic:** EPIC-012  
-**Work Cycle / Sprint:** WC-0010  
+**Work Cycle / Sprint:** WC-MVP-0010  
 **Product Goal:** PG-001  
 **Target:** MVP Release 1
 

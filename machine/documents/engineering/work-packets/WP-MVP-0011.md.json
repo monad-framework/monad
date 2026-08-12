@@ -1,19 +1,17 @@
 {
-  "content": "<!-- mvp-work-packet-forecast:v1 -->\n# WP-MVP-0011 — Diagnostic contract\n\n**Status:** Planned  \n**Epic:** EPIC-006  \n**Work Cycle / Sprint:** WC-0004  \n**Product Goal:** PG-001  \n**Target:** MVP Release 1\n\n## Objective\n\nDeliver **diagnostic contract** as one independently reviewable vertical engineering outcome that advances PG-001 without expanding beyond the MVP boundary.\n\n## Context\n\nThis packet is forecast in `product/backlog/MVP-BACKLOG.md`. It becomes **Ready** only after its required governing ADRs/specifications are accepted or explicitly identified as not required, upstream packet dependencies have passing evidence, and task-level implementation scope can be bounded without guessing.\n\n## Scope\n\n### In scope\n\n- behavior necessary to satisfy the linked stories/enablers;\n- deterministic positive, negative, boundary, and failure behavior;\n- diagnostics, provenance, documentation, and tests required by the Definition of Done;\n- compatibility/security implications introduced by this packet.\n\n### Out of scope\n\n- unrelated refactoring;\n- post-MVP generalization not required by PG-001;\n- silent changes to accepted architecture/specification authority;\n- introducing hosted, remote, or agent autonomy dependencies unless explicitly authorized.\n\n## Governing artifacts\n\nBefore activation, replace unresolved entries with concrete links:\n\n- Product Goal: `product/PRODUCT-GOAL.md`\n- MVP contract: `product/MVP-RELEASE-1.md`\n- Product requirements: `product/product-requirements.md`\n- Architecture: `architecture/overview.md`\n- Required ADR(s): **TBD during refinement**\n- Required specification(s): **TBD during refinement**\n\n## Dependencies\n\nDependencies are the accepted outputs of earlier packets on the critical path plus any explicit native-tool/schema contracts discovered during refinement. A packet MUST NOT become Ready while a dependency capable of changing its public semantic contract remains unresolved.\n\n## Acceptance criteria\n\n- [ ] US-034 define stable diagnostic identifiers.\n- [ ] US-035 carry severity location and entity.\n- [ ] US-036 support human and structured forms.\n- [ ] Required negative and boundary behavior is verified.\n- [ ] Deterministic output/order/identity requirements relevant to this packet pass.\n- [ ] Diagnostics and provenance are sufficient to explain failure and derived state.\n- [ ] No new unaccepted critical/high security or correctness risk remains.\n- [ ] Canonical documentation and machine projection are synchronized.\n\n## Implementation constraints\n\n1. Core semantic truth must not depend on LLM output.\n2. Canonical repository inspection must not execute untrusted project code implicitly.\n3. Stable public identifiers/schemas require explicit compatibility treatment.\n4. Native tool results remain authoritative for native semantics.\n5. Agent execution scope cannot exceed this Work Packet or its governing authority.\n6. Generated state must be rebuildable or explicitly treated as external evidence.\n\n## Validation\n\nRefinement MUST identify exact commands/tests before authorization. Expected evidence includes focused unit tests, conformance/golden/property tests where semantics are canonical, integration tests across the affected boundary, machine-document synchronization, and end-to-end evidence when the packet changes a user-visible journey.\n\n## Risks\n\nPrimary risks are semantic ambiguity, accidental coupling to future architecture, nondeterminism, insufficient provenance, and over-broad MVP scope. Any discovered risk that changes the governing contract triggers refinement or escalation rather than being hidden in implementation.\n\n## Completion evidence\n\nPopulate with branch/commit, PR, test commands/results, semantic/architecture review, generated artifacts, and closure disposition. Merge alone is not completion.\n\n## Refinement state\n\nThis forecast packet is intentionally not Ready merely because it has been generated. Remove `<!-- mvp-work-packet-forecast:v1 -->` when the packet has been manually refined and authorized; the generator will then stop owning its contents.\n",
+  "content": "<!-- mvp-work-packet-forecast:v1 -->\n# WP-MVP-0011 — Diagnostic contract\n\n**Status:** Planned  \n**Epic:** EPIC-006  \n**Work Cycle / Sprint:** WC-MVP-0004  \n**Product Goal:** PG-001  \n**Target:** MVP Release 1\n\n## Objective\n\nDeliver **diagnostic contract** as one independently reviewable vertical engineering outcome that advances PG-001 without expanding beyond the MVP boundary.\n\n## Context\n\nThis packet is forecast in `product/backlog/MVP-BACKLOG.md`. It becomes **Ready** only after its required governing ADRs/specifications are accepted or explicitly identified as not required, upstream packet dependencies have passing evidence, and task-level implementation scope can be bounded without guessing.\n\n## Scope\n\n### In scope\n\n- behavior necessary to satisfy the linked stories/enablers;\n- deterministic positive, negative, boundary, and failure behavior;\n- diagnostics, provenance, documentation, and tests required by the Definition of Done;\n- compatibility/security implications introduced by this packet.\n\n### Out of scope\n\n- unrelated refactoring;\n- post-MVP generalization not required by PG-001;\n- silent changes to accepted architecture/specification authority;\n- introducing hosted, remote, or agent autonomy dependencies unless explicitly authorized.\n\n## Governing artifacts\n\nBefore activation, replace unresolved entries with concrete links:\n\n- Product Goal: `product/PRODUCT-GOAL.md`\n- MVP contract: `product/MVP-RELEASE-1.md`\n- Product requirements: `product/product-requirements.md`\n- Architecture: `architecture/overview.md`\n- Required ADR(s): **TBD during refinement**\n- Required specification(s): **TBD during refinement**\n\n## Dependencies\n\nDependencies are the accepted outputs of earlier packets on the critical path plus any explicit native-tool/schema contracts discovered during refinement. A packet MUST NOT become Ready while a dependency capable of changing its public semantic contract remains unresolved.\n\n## Acceptance criteria\n\n- [ ] US-034 define stable diagnostic identifiers.\n- [ ] US-035 carry severity location and entity.\n- [ ] US-036 support human and structured forms.\n- [ ] Required negative and boundary behavior is verified.\n- [ ] Deterministic output/order/identity requirements relevant to this packet pass.\n- [ ] Diagnostics and provenance are sufficient to explain failure and derived state.\n- [ ] No new unaccepted critical/high security or correctness risk remains.\n- [ ] Canonical documentation and machine projection are synchronized.\n\n## Implementation constraints\n\n1. Core semantic truth must not depend on LLM output.\n2. Canonical repository inspection must not execute untrusted project code implicitly.\n3. Stable public identifiers/schemas require explicit compatibility treatment.\n4. Native tool results remain authoritative for native semantics.\n5. Agent execution scope cannot exceed this Work Packet or its governing authority.\n6. Generated state must be rebuildable or explicitly treated as external evidence.\n\n## Validation\n\nRefinement MUST identify exact commands/tests before authorization. Expected evidence includes focused unit tests, conformance/golden/property tests where semantics are canonical, integration tests across the affected boundary, machine-document synchronization, and end-to-end evidence when the packet changes a user-visible journey.\n\n## Risks\n\nPrimary risks are semantic ambiguity, accidental coupling to future architecture, nondeterminism, insufficient provenance, and over-broad MVP scope. Any discovered risk that changes the governing contract triggers refinement or escalation rather than being hidden in implementation.\n\n## Completion evidence\n\nPopulate with branch/commit, PR, test commands/results, semantic/architecture review, generated artifacts, and closure disposition. Merge alone is not completion.\n\n## Refinement state\n\nThis forecast packet is intentionally not Ready merely because it has been generated. Remove `<!-- mvp-work-packet-forecast:v1 -->` when the packet has been manually refined and authorized; the generator will then stop owning its contents.\n",
   "document_id": "doc:engineering%2Fwork-packets%2FWP-MVP-0011.md",
   "generation": {
     "deterministic": true,
     "tool": "sync-machine-docs",
     "version": "1.0.0"
   },
-  "identifiers": [
-    "WC-0004"
-  ],
+  "identifiers": [],
   "links": [],
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "Status: Planned Epic: EPIC-006 Work Cycle / Sprint: WC-0004 Product Goal: PG-001 Target: MVP Release 1",
+    "summary": "Status: Planned Epic: EPIC-006 Work Cycle / Sprint: WC-MVP-0004 Product Goal: PG-001 Target: MVP Release 1",
     "title": "WP-MVP-0011 — Diagnostic contract"
   },
   "relations": [],
@@ -30,14 +28,12 @@
       "title": "Preamble"
     },
     {
-      "identifiers": [
-        "WC-0004"
-      ],
+      "identifiers": [],
       "level": 1,
       "line_end": 9,
       "line_start": 2,
       "section_id": "wp-mvp-0011-diagnostic-contract",
-      "text": "# WP-MVP-0011 — Diagnostic contract\n\n**Status:** Planned  \n**Epic:** EPIC-006  \n**Work Cycle / Sprint:** WC-0004  \n**Product Goal:** PG-001  \n**Target:** MVP Release 1",
+      "text": "# WP-MVP-0011 — Diagnostic contract\n\n**Status:** Planned  \n**Epic:** EPIC-006  \n**Work Cycle / Sprint:** WC-MVP-0004  \n**Product Goal:** PG-001  \n**Target:** MVP Release 1",
       "title": "WP-MVP-0011 — Diagnostic contract"
     },
     {
@@ -159,12 +155,12 @@
     }
   ],
   "source": {
-    "bytes": 4064,
+    "bytes": 4068,
     "canonical": true,
     "language": "markdown",
     "lines": 83,
     "media_type": "text/markdown",
     "path": "engineering/work-packets/WP-MVP-0011.md",
-    "sha256": "f2f1d6d62ed00bb4c2c3f84cae75607097aa3f464659697c6ee6c0d1e07c20e6"
+    "sha256": "69dc9d197823ed5602eb99ca43b0b04b222ccff705bf5b4869ae1adca8e8e491"
   }
 }

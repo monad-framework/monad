@@ -1,4 +1,4 @@
-# PI-002 — Intelligence and Agent Context
+# PI-MVP-002 — Intelligence and Agent Context
 
 **Status:** Forecast  
 **Forecast:** 2026-09-14 through 2026-10-11
@@ -9,10 +9,10 @@ Turn the semantic kernel into useful local engineering intelligence: query, expl
 
 ## Work Cycles
 
-- WC-0005 Query and explanation
-- WC-0006 Work Packet/agent context
-- WC-0007 CLI and developer experience
-- WC-0008 Determinism, security, performance
+- WC-MVP-0005 Query and explanation
+- WC-MVP-0006 Work Packet/agent context
+- WC-MVP-0007 CLI and developer experience
+- WC-MVP-0008 Determinism, security, performance
 
 ## Included Work Packets
 

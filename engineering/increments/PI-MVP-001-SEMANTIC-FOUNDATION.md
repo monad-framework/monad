@@ -1,4 +1,4 @@
-# PI-001 — Semantic Foundation
+# PI-MVP-001 — Semantic Foundation
 
 **Status:** Planned; blocked by M-000 authorization  
 **Forecast:** 2026-08-17 through 2026-09-13
@@ -9,10 +9,10 @@ Build the deterministic semantic kernel needed to turn canonical repository arti
 
 ## Work Cycles
 
-- WC-0001 Workspace, discovery, identity
-- WC-0002 Parsing and reference resolution
-- WC-0003 Semantic graph
-- WC-0004 KIR and diagnostics
+- WC-MVP-0001 Workspace, discovery, identity
+- WC-MVP-0002 Parsing and reference resolution
+- WC-MVP-0003 Semantic graph
+- WC-MVP-0004 KIR and diagnostics
 
 ## Included Work Packets
 
