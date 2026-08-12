@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/specification.schema.json\",\"title\":\"EOS Specification\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"specification_kind\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^SPEC-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"Specification\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"DRAFT\",\"IN_REVIEW\",\"APPROVED\",\"IMPLEMENTING\",\"VERIFIED\",\"SUPERSEDED\",\"RETIRED\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"specification_kind\":{\"type\":\"string\",\"minLength\":1},\"scope\":{\"type\":\"string\"},\"normative\":{\"type\":\"boolean\"}},\"unevaluatedProperties\":false}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Fspecification.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/specification.schema.json.",
+    "title": "Specification.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/specification.schema.json\",\"title\":\"EOS Specification\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"specification_kind\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^SPEC-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"Specification\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"DRAFT\",\"IN_REVIEW\",\"APPROVED\",\"IMPLEMENTING\",\"VERIFIED\",\"SUPERSEDED\",\"RETIRED\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"specification_kind\":{\"type\":\"string\",\"minLength\":1},\"scope\":{\"type\":\"string\"},\"normative\":{\"type\":\"boolean\"}},\"unevaluatedProperties\":false}",
+      "title": "Specification.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 695,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/specification.schema.json",
+    "sha256": "982adfeb98a4a975e751efaad7d4952c284ddce2bb1bbb9b612cf4c9d599ee77"
+  }
+}

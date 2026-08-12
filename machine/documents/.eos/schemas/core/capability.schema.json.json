@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/capability.schema.json\",\"title\":\"EOS Capability\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^CAP-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"Capability\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"PROPOSED\",\"PLANNED\",\"ACTIVE\",\"VERIFIED\",\"DEPRECATED\",\"RETIRED\"]},\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":\"string\"},\"outcomes\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"unevaluatedProperties\":false}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Fcapability.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/capability.schema.json.",
+    "title": "Capability.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/capability.schema.json\",\"title\":\"EOS Capability\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^CAP-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"Capability\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"PROPOSED\",\"PLANNED\",\"ACTIVE\",\"VERIFIED\",\"DEPRECATED\",\"RETIRED\"]},\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":\"string\"},\"outcomes\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"unevaluatedProperties\":false}",
+      "title": "Capability.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 622,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/capability.schema.json",
+    "sha256": "a632d6f43d7f9d3d9816b349e77db706eb4e3be37dca997674de604ef2c4c187"
+  }
+}

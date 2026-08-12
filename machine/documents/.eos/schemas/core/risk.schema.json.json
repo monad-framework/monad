@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/risk.schema.json\",\"title\":\"EOS Risk\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"likelihood\",\"impact\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^RISK-[0-9]{3,4}$\"},\"entity_type\":{\"const\":\"Risk\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"IDENTIFIED\",\"ANALYZED\",\"MITIGATING\",\"ACCEPTED\",\"CLOSED\",\"MATERIALIZED\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"likelihood\":{\"type\":\"string\",\"enum\":[\"VERY_LOW\",\"LOW\",\"MEDIUM\",\"HIGH\",\"VERY_HIGH\"]},\"impact\":{\"type\":\"string\",\"enum\":[\"NEGLIGIBLE\",\"LOW\",\"MEDIUM\",\"HIGH\",\"CRITICAL\"]},\"mitigation\":{\"type\":\"string\"},\"owner\":{\"type\":\"string\"}},\"unevaluatedProperties\":false}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Frisk.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/risk.schema.json.",
+    "title": "Risk.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/risk.schema.json\",\"title\":\"EOS Risk\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"likelihood\",\"impact\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^RISK-[0-9]{3,4}$\"},\"entity_type\":{\"const\":\"Risk\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"IDENTIFIED\",\"ANALYZED\",\"MITIGATING\",\"ACCEPTED\",\"CLOSED\",\"MATERIALIZED\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"likelihood\":{\"type\":\"string\",\"enum\":[\"VERY_LOW\",\"LOW\",\"MEDIUM\",\"HIGH\",\"VERY_HIGH\"]},\"impact\":{\"type\":\"string\",\"enum\":[\"NEGLIGIBLE\",\"LOW\",\"MEDIUM\",\"HIGH\",\"CRITICAL\"]},\"mitigation\":{\"type\":\"string\"},\"owner\":{\"type\":\"string\"}},\"unevaluatedProperties\":false}",
+      "title": "Risk.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 767,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/risk.schema.json",
+    "sha256": "011148b227c566af946f4caffa377730d82e160c6818c550dc542071ed188003"
+  }
+}

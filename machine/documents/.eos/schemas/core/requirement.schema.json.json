@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/requirement.schema.json\",\"title\":\"EOS Requirement\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"statement\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^REQ-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"Requirement\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"DRAFT\",\"PROPOSED\",\"APPROVED\",\"IMPLEMENTING\",\"SATISFIED\",\"DEFERRED\",\"REJECTED\",\"RETIRED\"]},\"statement\":{\"type\":\"string\",\"minLength\":1},\"priority\":{\"type\":\"string\",\"enum\":[\"CRITICAL\",\"HIGH\",\"MEDIUM\",\"LOW\"]},\"verification_method\":{\"type\":\"string\"},\"rationale\":{\"type\":\"string\"}},\"unevaluatedProperties\":false}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Frequirement.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/requirement.schema.json.",
+    "title": "Requirement.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/requirement.schema.json\",\"title\":\"EOS Requirement\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"statement\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^REQ-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"Requirement\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"DRAFT\",\"PROPOSED\",\"APPROVED\",\"IMPLEMENTING\",\"SATISFIED\",\"DEFERRED\",\"REJECTED\",\"RETIRED\"]},\"statement\":{\"type\":\"string\",\"minLength\":1},\"priority\":{\"type\":\"string\",\"enum\":[\"CRITICAL\",\"HIGH\",\"MEDIUM\",\"LOW\"]},\"verification_method\":{\"type\":\"string\"},\"rationale\":{\"type\":\"string\"}},\"unevaluatedProperties\":false}",
+      "title": "Requirement.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 715,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/requirement.schema.json",
+    "sha256": "f07d8308e9520b595590ab67d3b58e74a48a5313fb764b0b30cb9a1e0a8515ff"
+  }
+}
