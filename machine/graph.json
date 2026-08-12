@@ -852,7 +852,22 @@
     },
     {
       "source": "doc:engineering%2Fproject-status.md",
-      "target": "identifier:ADR-0005",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fproject-status.md",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FEOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FEOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
+      "target": "identifier:WP-0001",
       "type": "declares"
     },
     {
@@ -2875,18 +2890,10 @@
     },
     {
       "document_type": "continuous-integration",
-      "id": "doc:.github%2Fworkflows%2Feos-v08-program-adoption-v2.yml",
+      "id": "doc:.github%2Fworkflows%2Feos-v08-final-sync.yml",
       "normative": false,
-      "source_path": ".github/workflows/eos-v08-program-adoption-v2.yml",
-      "title": "Eos V08 Program Adoption V2",
-      "type": "document"
-    },
-    {
-      "document_type": "continuous-integration",
-      "id": "doc:.github%2Fworkflows%2Feos-v08-program-adoption.yml",
-      "normative": false,
-      "source_path": ".github/workflows/eos-v08-program-adoption.yml",
-      "title": "Eos V08 Program Adoption",
+      "source_path": ".github/workflows/eos-v08-final-sync.yml",
+      "title": "Eos V08 Final Sync",
       "type": "document"
     },
     {
@@ -9395,6 +9402,14 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Freviews%2FEOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
+      "normative": true,
+      "source_path": "engineering/reviews/EOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
+      "title": "EOS 0.8 Program Adoption Review",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Freviews%2FFOUNDATION-STABILIZATION-CLOSURE-2026-08-12.md",
       "normative": true,
       "source_path": "engineering/reviews/FOUNDATION-STABILIZATION-CLOSURE-2026-08-12.md",
@@ -10223,14 +10238,6 @@
       "normative": false,
       "source_path": "scripts/test-eos-0.8-program-adoption.py",
       "title": "Test Eos 0.8 Program Adoption",
-      "type": "document"
-    },
-    {
-      "document_type": "automation",
-      "id": "doc:scripts%2Fupgrade-eos-0.8.py",
-      "normative": false,
-      "source_path": "scripts/upgrade-eos-0.8.py",
-      "title": "Upgrade Eos 0.8",
       "type": "document"
     },
     {
@@ -11088,5 +11095,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "60fd8e5cedae3794b399d2b393baeb4abfd9a7b242050a1cf0d00f5c06bd6cff"
+  "source_tree_sha256": "c7af20bd18912597bbb81d6a0efe06cbc5d7a2831115b69a0f2ec97bedadac7a"
 }
