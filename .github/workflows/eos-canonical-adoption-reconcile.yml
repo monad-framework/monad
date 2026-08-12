@@ -1,0 +1,62 @@
+name: EOS Canonical Adoption Reconciliation
+
+# Temporary integration workflow; removed before merge.
+# Run 5 validates canonical-aware adoption safety fixtures.
+on:
+  push:
+    branches: [eos/canonical-adoption-reconcile]
+    paths:
+      - '.github/workflows/eos-canonical-adoption-reconcile.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify reconciliation regression contract
+        run: python3 tools/eos/test_canonical_reconciliation.py
+
+      - name: Apply evidence-consensus reconciliation
+        run: python3 scripts/reconcile-eos-canonical-state.py --apply
+
+      - name: Verify canonical state converged
+        run: |
+          python3 scripts/reconcile-eos-canonical-state.py
+          ./scripts/eos state status
+
+      - name: Verify EOS contracts
+        run: |
+          python3 tools/eos/test_canonical_state.py
+          python3 scripts/sync-eos-lifecycle-model.py
+          python3 scripts/test-eos-0.8-program-adoption.py
+          python3 scripts/test-eos-0.8-adoption-safety.py
+          ./scripts/eos verify --strict
+
+      - name: Synchronize machine documentation
+        run: |
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Commit reconciled canonical state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .eos/state/current.json .eos/state/projections.json machine
+          if git diff --cached --quiet --exit-code; then
+            echo "No generated reconciliation changes remained to commit."
+            exit 0
+          fi
+          git commit -m "fix(eos): reconcile accepted adoption into canonical state"
+          git push origin "HEAD:eos/canonical-adoption-reconcile"

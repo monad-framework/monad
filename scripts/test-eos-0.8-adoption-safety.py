@@ -44,6 +44,32 @@ def eos(root: Path, *args: str, expect: int = 0) -> subprocess.CompletedProcess[
     return proc
 
 
+def compatibility_eos(root: Path, *args: str, expect: int = 0) -> subprocess.CompletedProcess[str]:
+    """Run the TSV compatibility runtime for synthetic ordering fixtures.
+
+    The priority/recency tests intentionally construct lifecycle rows that are
+    not valid canonical repository state. Running them through `scripts/eos`
+    would correctly fail closed before the compatibility selection algorithm is
+    reached. These two tests target only `latest_active` / `next` ordering, so
+    they invoke the compatibility runtime directly in an isolated temp repo.
+    """
+    env = os.environ.copy()
+    env["EOS_ROOT"] = str(root)
+    proc = subprocess.run(
+        [sys.executable, str(root / "tools" / "eos" / "eos.py"), *args],
+        cwd=root,
+        env=env,
+        text=True,
+        capture_output=True,
+    )
+    if proc.returncode != expect:
+        raise Failure(
+            f"compatibility eos {' '.join(args)} returned {proc.returncode}, expected {expect}\n"
+            f"stdout:\n{proc.stdout}\nstderr:\n{proc.stderr}"
+        )
+    return proc
+
+
 def snapshot(root: Path) -> dict[str, bytes]:
     paths = (
         ".eos/workflow.tsv",
@@ -229,7 +255,7 @@ def test_inflight_priority(root: Path) -> None:
         wp_row("WP-MVP-0099", "VERIFYING"),
     ]
     write_tsv(root / ".eos/work-packets.tsv", rows)
-    out = eos(root, "next").stdout
+    out = compatibility_eos(root, "next").stdout
     if "verify WP-MVP-0099" not in out:
         raise Failure(f"next did not prioritize VERIFYING work over pre-start work:\n{out}")
 
@@ -238,7 +264,7 @@ def test_equal_priority_recency(root: Path) -> None:
     activate_parents(root)
     rows = [wp_row("WP-MVP-0096", "READY"), wp_row("WP-MVP-0097", "READY")]
     write_tsv(root / ".eos/work-packets.tsv", rows)
-    out = eos(root, "next").stdout
+    out = compatibility_eos(root, "next").stdout
     if "authorize ready work packet WP-MVP-0097" not in out:
         raise Failure(f"next did not choose the newest equally prioritized record:\n{out}")
 
