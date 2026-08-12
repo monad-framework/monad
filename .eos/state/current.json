@@ -1,0 +1,119 @@
+{
+  "entities": {
+    "CR": {},
+    "MNT": {},
+    "PI": {
+      "PI-001": {
+        "authority_level": "L3_BINDING",
+        "created_at": "2026-08-12T00:00:00Z",
+        "entity_type": "PI",
+        "id": "PI-001",
+        "kind": "PI",
+        "lifecycle_state": "DRAFT",
+        "operational_metadata": {
+          "github_url": "",
+          "path": "engineering/increments/PI-001.md",
+          "title": "Program Increment 001"
+        },
+        "provenance": {
+          "created_by": "EOS canonical-state adapter",
+          "generation_method": "seed from accepted registry + event ledger",
+          "origin": "MIGRATION",
+          "source_refs": [
+            ".eos/program-increments.tsv",
+            "engineering/increments/PI-001.md",
+            ".eos/events.jsonl"
+          ]
+        },
+        "relationships": [],
+        "schema_version": "2.0.0",
+        "updated_at": "2026-08-12T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    "REL": {},
+    "WC": {
+      "WC-0001": {
+        "authority_level": "L3_BINDING",
+        "created_at": "2026-08-12T00:00:00Z",
+        "entity_type": "WC",
+        "id": "WC-0001",
+        "kind": "WC",
+        "lifecycle_state": "DRAFT",
+        "operational_metadata": {
+          "github_url": "",
+          "path": "engineering/work-cycles/WC-0001.md",
+          "pi": "PI-001",
+          "title": "Work Cycle 0001"
+        },
+        "provenance": {
+          "created_by": "EOS canonical-state adapter",
+          "generation_method": "seed from accepted registry + event ledger",
+          "origin": "MIGRATION",
+          "source_refs": [
+            ".eos/work-cycles.tsv",
+            "engineering/work-cycles/WC-0001.md",
+            ".eos/events.jsonl"
+          ]
+        },
+        "relationships": [
+          {
+            "target_id": "PI-001",
+            "target_type": "PI",
+            "type": "BELONGS_TO"
+          }
+        ],
+        "schema_version": "2.0.0",
+        "updated_at": "2026-08-12T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    "WP": {
+      "WP-0001": {
+        "authority_level": "L3_BINDING",
+        "created_at": "2026-08-12T00:00:00Z",
+        "entity_type": "WP",
+        "id": "WP-0001",
+        "kind": "WP",
+        "lifecycle_state": "DRAFT",
+        "operational_metadata": {
+          "domain": "",
+          "github_url": "",
+          "path": "engineering/work-packets/WP-0001.md",
+          "pi": "PI-001",
+          "title": "First Work Packet",
+          "wc": "WC-0001"
+        },
+        "provenance": {
+          "created_by": "EOS canonical-state adapter",
+          "generation_method": "seed from accepted registry + event ledger",
+          "origin": "MIGRATION",
+          "source_refs": [
+            ".eos/work-packets.tsv",
+            "engineering/work-packets/WP-0001.md",
+            ".eos/events.jsonl"
+          ]
+        },
+        "relationships": [
+          {
+            "target_id": "PI-001",
+            "target_type": "PI",
+            "type": "BELONGS_TO"
+          },
+          {
+            "target_id": "WC-0001",
+            "target_type": "WC",
+            "type": "BELONGS_TO"
+          }
+        ],
+        "schema_version": "2.0.0",
+        "updated_at": "2026-08-12T00:00:00Z",
+        "version": "1.0.0"
+      }
+    }
+  },
+  "model": "EOS-SINGLE-CANONICAL-STATE-1",
+  "revision": 1,
+  "schema_version": "1.0.0",
+  "updated_at": "2026-08-12T12:28:00Z"
+}

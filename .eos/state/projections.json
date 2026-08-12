@@ -1,0 +1,90 @@
+{
+  "canonical_digest": "957426240dadc646d8fb757a3eb94f1cd18baeadd659cc0fa2baf16c9e40b50d",
+  "canonical_revision": 1,
+  "github": {
+    "network_verification": "ON_DEMAND",
+    "receipts": {}
+  },
+  "markdown": {
+    "PI-001": {
+      "canonical_revision": 1,
+      "path": "engineering/increments/PI-001.md",
+      "state_fingerprint": "428cfba2f16693b16cb6ee2b1f367fe1e93adad9b2f9824c5d2feffd38711b9f"
+    },
+    "WC-0001": {
+      "canonical_revision": 1,
+      "path": "engineering/work-cycles/WC-0001.md",
+      "state_fingerprint": "d3447b42b49e9d0be2c620965768f20bdc7899cc52b7684fe07f38eff9f44350"
+    },
+    "WP-0001": {
+      "canonical_revision": 1,
+      "path": "engineering/work-packets/WP-0001.md",
+      "state_fingerprint": "ba5efa7aa20b562b7b9ee106321540d7ec86b95f4360e61c79070c2043f7af33"
+    }
+  },
+  "policy": {
+    "canonical": {
+      "path": ".eos/state/current.json",
+      "role": "SOLE_OPERATIONAL_AUTHORITY",
+      "write_policy": "EOS_TRANSACTION_ONLY"
+    },
+    "event_ledger": {
+      "canonical_current_state": false,
+      "path": ".eos/events.jsonl",
+      "role": "APPEND_ONLY_MUTATION_HISTORY"
+    },
+    "git": {
+      "canonical_current_state": false,
+      "role": "VERSION_HISTORY_AND_INTEGRITY_LEDGER"
+    },
+    "github": {
+      "external_edits": "DRIFT_UNTIL_EXPLICIT_RECONCILIATION",
+      "role": "SYNCHRONIZED_COLLABORATION_PROJECTION",
+      "write_back_policy": "NEVER_IMPLICIT"
+    },
+    "markdown": {
+      "content_authority": "GOVERNED_HUMAN_ARTIFACT",
+      "drift_policy": "FAIL_CLOSED_FOR_LIFECYCLE_METADATA",
+      "lifecycle_fields": "PROJECTION_OF_CANONICAL_STATE",
+      "role": "HUMAN_READABLE_GOVERNED_ARTIFACT"
+    },
+    "tsv": {
+      "drift_policy": "FAIL_CLOSED",
+      "role": "GENERATED_COMPATIBILITY_PROJECTION",
+      "write_policy": "READ_ONLY_OUTSIDE_EOS"
+    }
+  },
+  "schema_version": "1.0.0",
+  "tsv": {
+    ".eos/change-requests.tsv": {
+      "actual_sha256": "0dd542ae209514721fd0a7363ee3eb44b4c827fbb498716957c8437f1e605411",
+      "canonical_revision": 1,
+      "expected_sha256": "0dd542ae209514721fd0a7363ee3eb44b4c827fbb498716957c8437f1e605411"
+    },
+    ".eos/maintenance.tsv": {
+      "actual_sha256": "60c57d27149a54b2859bc9f3ace3a3aa4a4f68b9acddc724ce1ad5636b3e245c",
+      "canonical_revision": 1,
+      "expected_sha256": "60c57d27149a54b2859bc9f3ace3a3aa4a4f68b9acddc724ce1ad5636b3e245c"
+    },
+    ".eos/program-increments.tsv": {
+      "actual_sha256": "1255424255aa6270628dca3b5eb39b2add09fb4490ac600a438cae06eb5d7a4d",
+      "canonical_revision": 1,
+      "expected_sha256": "1255424255aa6270628dca3b5eb39b2add09fb4490ac600a438cae06eb5d7a4d"
+    },
+    ".eos/releases.tsv": {
+      "actual_sha256": "fbd66de69e6c5882faf4d33ae64250e9921c25739a0807152433bd817ef986f9",
+      "canonical_revision": 1,
+      "expected_sha256": "fbd66de69e6c5882faf4d33ae64250e9921c25739a0807152433bd817ef986f9"
+    },
+    ".eos/work-cycles.tsv": {
+      "actual_sha256": "e7f344f42620775e13fad7f486c8ee98f2c2605d4d8078190eed7051dd5ed1f8",
+      "canonical_revision": 1,
+      "expected_sha256": "e7f344f42620775e13fad7f486c8ee98f2c2605d4d8078190eed7051dd5ed1f8"
+    },
+    ".eos/work-packets.tsv": {
+      "actual_sha256": "40a01447a905d888b909f1dd72e7a14a8223e81ce526aaa86d8162bcfe65a277",
+      "canonical_revision": 1,
+      "expected_sha256": "40a01447a905d888b909f1dd72e7a14a8223e81ce526aaa86d8162bcfe65a277"
+    }
+  }
+}

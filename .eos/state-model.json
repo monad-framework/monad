@@ -1,0 +1,85 @@
+{
+  "canonical_current_state": {
+    "format": "JSON",
+    "path": ".eos/state/current.json",
+    "role": "SOLE_OPERATIONAL_AUTHORITY",
+    "schema": ".eos/schemas/canonical-state.schema.json",
+    "writes": "EOS_TRANSACTION_ONLY"
+  },
+  "commands": {
+    "github_sync": "./scripts/eos github-sync --apply",
+    "legacy_rebuild_alias": "./scripts/eos rebuild-state [--apply] -> canonical projection",
+    "project": "./scripts/eos state project --apply",
+    "reconcile_github": "./scripts/eos state reconcile github --target <ID> --strategy canonical-wins",
+    "reconcile_local": "./scripts/eos state reconcile local --strategy canonical-wins",
+    "status": "./scripts/eos state status"
+  },
+  "drift_classes": {
+    "EVENT_HISTORY_DRIFT": "BLOCK_ALL_ORDINARY_EOS_OPERATIONS",
+    "GITHUB_REMOTE_DRIFT": "BLOCK_AUTOMATIC_GITHUB_OVERWRITE",
+    "GITHUB_STALE_AFTER_CANONICAL_CHANGE": "EXPLICITLY_REPORTED_AND_MUST_BE_SYNCHRONIZED_BEFORE_SUBSEQUENT_ORDINARY_WORK",
+    "LOCAL_PROJECTION_DRIFT": "BLOCK_ALL_ORDINARY_EOS_OPERATIONS"
+  },
+  "model_id": "EOS-SINGLE-CANONICAL-STATE-1",
+  "mutation_history": {
+    "canonical_current_state": false,
+    "event_ledger": ".eos/events.jsonl",
+    "git": "repository history",
+    "role": "AUDIT_AND_RECONSTRUCTION_EVIDENCE",
+    "rule": "History may prove or challenge canonical state but never silently replaces it."
+  },
+  "projections": {
+    "github": {
+      "direction": "CANONICAL_TO_GITHUB",
+      "drift": "RECEIPT_AND_REMOTE_FINGERPRINT_REQUIRED",
+      "external_edits": "PROPOSALS_OR_DRIFT_NOT_CANONICAL_WRITES",
+      "role": "SYNCHRONIZED_COLLABORATION_PROJECTION",
+      "write_back": "EXPLICIT_GOVERNED_RECONCILIATION_ONLY"
+    },
+    "git": {
+      "canonical_current_state": false,
+      "role": "VERSION_HISTORY_AND_INTEGRITY"
+    },
+    "markdown": {
+      "content": "GOVERNED_HUMAN_CONTENT",
+      "direct_lifecycle_write": "FORBIDDEN",
+      "drift": "FAIL_CLOSED",
+      "lifecycle_metadata": "CANONICAL_TO_PROJECTION",
+      "role": "HUMAN_READABLE_GOVERNED_ARTIFACT"
+    },
+    "tsv": {
+      "direct_write": "FORBIDDEN",
+      "direction": "CANONICAL_TO_PROJECTION",
+      "drift": "FAIL_CLOSED",
+      "paths": [
+        ".eos/program-increments.tsv",
+        ".eos/work-cycles.tsv",
+        ".eos/work-packets.tsv",
+        ".eos/change-requests.tsv",
+        ".eos/maintenance.tsv",
+        ".eos/releases.tsv"
+      ],
+      "role": "GENERATED_COMPATIBILITY_PROJECTION"
+    }
+  },
+  "reconciliation": {
+    "default": "NEVER_AUTO_ADOPT_PROJECTION",
+    "event_ledger": "APPEND_CORRECTIVE_GOVERNED_EVENTS; NEVER REWRITE HISTORY",
+    "github": "CANONICAL_WINS_ONLY_BY_EXPLICIT_RECONCILE; EXTERNAL PROPOSALS MUST ENTER EOS THROUGH A GOVERNED CHANGE",
+    "local": "CANONICAL_WINS"
+  },
+  "schema_version": "1.0.0",
+  "status": "NORMATIVE",
+  "transaction_protocol": [
+    "preflight canonical schema and local projection consistency",
+    "verify GitHub remote receipt before an applying GitHub synchronization",
+    "record canonical revision and event count in an ephemeral transaction receipt",
+    "run the compatibility EOS operation against generated projections",
+    "on failure discard transaction receipt and leave canonical state unchanged",
+    "on success require TSV, Markdown lifecycle metadata, and event history to agree",
+    "capture the successful mutation into canonical current state and increment revision only when operational state changed",
+    "regenerate machine projections from canonical state",
+    "record projection fingerprints and synchronization receipts",
+    "fail or explicitly report any remaining projection drift"
+  ]
+}

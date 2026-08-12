@@ -1,0 +1,97 @@
+{
+  "$id": "eos://schemas/projection-manifest/1.0.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "canonical_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "canonical_revision": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "github": {
+      "properties": {
+        "network_verification": {
+          "type": "string"
+        },
+        "receipts": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "receipts",
+        "network_verification"
+      ],
+      "type": "object"
+    },
+    "markdown": {
+      "additionalProperties": {
+        "properties": {
+          "canonical_revision": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "path": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "state_fingerprint": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "canonical_revision",
+          "state_fingerprint"
+        ],
+        "type": "object"
+      },
+      "type": "object"
+    },
+    "policy": {
+      "type": "object"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "tsv": {
+      "additionalProperties": {
+        "properties": {
+          "actual_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "canonical_revision": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "expected_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "canonical_revision",
+          "expected_sha256",
+          "actual_sha256"
+        ],
+        "type": "object"
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "canonical_revision",
+    "canonical_digest",
+    "policy",
+    "tsv",
+    "markdown",
+    "github"
+  ],
+  "title": "EOS Projection Manifest",
+  "type": "object"
+}

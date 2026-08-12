@@ -10,4 +10,39 @@ if ! command -v python3 >/dev/null 2>&1; then
   exit 127
 fi
 
-exec python3 "$ROOT/tools/eos/eos.py" "$@"
+CANONICAL="$ROOT/tools/eos/canonical_state.py"
+LEGACY="$ROOT/tools/eos/eos.py"
+
+# Canonical-state administration is handled directly by the state controller.
+if [[ "${1:-}" == "state" ]]; then
+  shift
+  exec python3 "$CANONICAL" "$@"
+fi
+
+# `rebuild-state` historically treated the event ledger as the current-state
+# authority. Under the single-canonical-state model it is retained as a
+# compatibility alias for projecting the canonical snapshot.
+if [[ "${1:-}" == "rebuild-state" ]]; then
+  shift
+  printf 'NOTE: rebuild-state now projects from .eos/state/current.json (canonical).\n' >&2
+  exec python3 "$CANONICAL" project "$@"
+fi
+
+# Every legacy EOS command runs inside a canonical transaction:
+# 1. fail closed if any projection already drifted;
+# 2. let the compatibility runtime operate on generated projections;
+# 3. capture only a successful, internally consistent mutation into canonical
+#    machine-readable state; otherwise canonical state never advances.
+python3 "$CANONICAL" pre -- "$@"
+
+set +e
+python3 "$LEGACY" "$@"
+rc=$?
+set -e
+
+if (( rc != 0 )); then
+  rm -f "$ROOT/.eos/cache/canonical-state-transaction.json"
+  exit "$rc"
+fi
+
+python3 "$CANONICAL" post -- "$@"
