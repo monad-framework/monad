@@ -1,67 +1,65 @@
 # Non-Goals
 
-Non-goals protect the first product from accidental expansion. They are not
-claims that these ideas lack value; they state what the current strategy will
-not optimize or promise.
+**Status:** Proposed foundation baseline
 
-## NG-01 — Universal workflow coverage
+Non-goals protect Monad from becoming a collection of adjacent engineering features before its semantic core proves value. They may be reconsidered only through explicit product and architecture review.
 
-The initial product will not model every adjacent process or edge case. It
-supports one primary journey and escalates unsupported cases clearly.
+## NG-01 — Replace Git
 
-**Reconsider when:** the primary journey meets success and reliability targets
-and evidence identifies a repeated adjacent need.
+Git remains the source/history transport for repository content. Monad may model Git state and changes but does not invent a competing version-control system.
 
-## NG-02 — Unbounded customization
+## NG-02 — Replace native language and ecosystem tools
 
-The product will not expose configuration for every internal choice. Supported
-variation must have a clear user need, validation, documentation, and test
-strategy.
+Monad does not reimplement Cargo, Go tooling, Bun/npm, TypeScript, Python tooling, JVM build systems, Terraform, Docker, or similar mature tools merely to own their mechanics. It coordinates them through explicit adapters and execution plans.
 
-**Reconsider when:** multiple validated segments need the same controlled
-extension point.
+## NG-03 — Become a universal package manager
 
-## NG-03 — Autonomous consequential decisions
+Dependency knowledge and policy are in scope; replacing every ecosystem's package distribution semantics is not.
 
-The system will not silently make high-impact legal, financial, employment,
-medical, safety, or access decisions on a person's behalf.
+## NG-04 — Require a hosted Monad service
 
-**Reconsider when:** never without domain governance, explainability, review,
-appeal, and demonstrated legal and ethical fitness.
+Core workspace discovery, semantic compilation, validation, query, impact analysis, context generation, planning, and local execution must remain useful offline.
 
-## NG-04 — Premature platform construction
+## NG-05 — Make an LLM the source of semantic truth
 
-The first increments will not build a general platform, marketplace, plugin
-ecosystem, or multi-product control plane before one product workflow is proven.
+Models may assist authorship and explanation, but canonical identity, graph semantics, KIR, diagnostics, planning, and conformance cannot depend on nondeterministic model output.
 
-**Reconsider when:** repeated product needs demonstrate stable shared
-capabilities and platform ownership is funded.
+## NG-06 — Define a universal programming language
 
-## NG-05 — Every integration
+Monad may define specification/configuration languages and machine representations when justified, but it does not seek to replace general-purpose programming languages.
 
-Only integrations required by the validated primary journey are in scope.
-Manual import or export is acceptable during validation when safe.
+## NG-07 — Replace the IDE
 
-**Reconsider when:** integration absence is a measured adoption or outcome
-barrier.
+IDE integrations may expose Monad knowledge, but the product is not an editor or an attempt to own the entire coding interface.
 
-## NG-06 — Global deployment and compliance coverage
+## NG-08 — Become a general ticketing or project-management application
 
-The initial release supports one declared operating region and a bounded set of
-regulatory obligations. It will not claim compliance by implication.
+Monad models authorized engineering work and projects state into systems such as GitHub. It does not replace mature issue trackers with an unrelated proprietary planning system.
 
-**Reconsider when:** expansion has an accountable owner, legal analysis, data
-map, control plan, and operational capacity.
+## NG-09 — Split the ecosystem into many repositories during architectural instability
 
-## NG-07 — Optimization before correctness
+Release 1 remains centered on the canonical `monad` repository. New repositories require independent lifecycle, distribution, security, ownership, or community evidence.
 
-The project will not trade correctness, accessibility, recovery, or essential
-telemetry for superficial speed. Performance work follows budgets and measured
-bottlenecks.
+## NG-10 — Remote execution in MVP Release 1
 
-## Scope test
+The architecture should leave room for remote cache and execution, but Release 1 only needs deterministic local execution and serializable plans.
 
-A proposal is out of scope when the primary journey can meet its committed
-outcome without it and delaying the proposal does not create unacceptable
-safety, legal, security, or architectural risk. Deferred proposals belong in
-the roadmap or backlog with their reconsideration trigger.
+## NG-11 — Enterprise fleet administration in MVP Release 1
+
+SSO administration, organization policy fleets, centralized analytics, and multi-tenant enterprise control planes are later horizons.
+
+## NG-12 — Autonomous high-consequence engineering authority
+
+An AI agent cannot approve its own architecture changes, security exceptions, releases, destructive operations, or other decisions reserved for human authority.
+
+## NG-13 — Perfect semantic understanding of arbitrary repositories
+
+Monad should expose confidence boundaries, unknowns, unsupported artifact classes, and adapter limits. Conservative partial knowledge is preferable to fabricated completeness.
+
+## NG-14 — Optimize every workflow before proving the semantic kernel
+
+Remote collaboration, rich TUI, marketplace, hosted services, broad SDK coverage, and advanced commercial features do not outrank proving the deterministic repository → graph → impact → plan → evidence loop.
+
+## Reconsideration rule
+
+A non-goal may move into scope when user evidence demonstrates material value, the semantic kernel is stable enough to support it, its dependencies and risks are understood, and the Product Owner explicitly authorizes the scope change. Architectural consequences receive an ADR when required.

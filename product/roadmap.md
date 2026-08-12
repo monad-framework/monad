@@ -1,58 +1,103 @@
-# Outcome Roadmap
+# Product Roadmap
 
-The roadmap orders learning and outcomes, not a fixed inventory of features.
-Dates become commitments only within an authorized increment. Movement between
-horizons depends on evidence and capacity.
+**Status:** Proposed roadmap baseline  
+**Primary target:** MVP Release 1 — 2026-11-23 aggressive forecast
 
-## Now — Validate and prove
+The roadmap orders product outcomes rather than committing every future feature to a date. Release 1 proves the local semantic engineering loop. Later horizons expand execution, ecosystem, collaboration, and enterprise capability only after the core demonstrates value.
 
-**Outcome:** prove that the primary persona can achieve the core result more
-reliably under realistic constraints.
+## Horizon 0 — Stabilize the foundation
 
-- Complete problem research and baseline measurement.
-- Freeze the primary journey, requirements, data classification, and quality
-  scenarios.
-- Build one vertical slice from authenticated intent to verified result.
-- Demonstrate validation, idempotency, interruption recovery, evidence, and
-  operator diagnosis.
-- Pilot with representative users and compare results with the baseline.
+**Now through 2026-08-23**
 
-**Exit gate:** product success thresholds are credible, the primary acceptance
-suite passes, and no unaccepted critical or high risk remains.
+Outcomes:
 
-## Next — Strengthen and repeat
+- one coherent Engineering Knowledge Compilation product thesis;
+- canonical ADR/authority structure;
+- complete Draft artifact taxonomy and synchronized machine projection;
+- accepted minimum C0/C1 foundation;
+- GitHub operating/project baseline;
+- Ready implementation backlog.
 
-**Outcome:** make the proven workflow dependable for repeated use without
-maintainer-assisted operation.
+## Horizon 1 — MVP semantic kernel
 
-- Address pilot friction and the highest-value failure modes.
-- Establish service objectives, capacity evidence, backup and restore, and
-  cost controls.
-- Improve administration, onboarding, accessibility, and evidence review.
-- Add only the integration that removes the largest measured barrier.
-- Automate release evidence and operational readiness checks.
+**2026-08-24 through 2026-09-27**
 
-**Entry condition:** repeat use shows the workflow solves the validated problem.
+Outcomes:
 
-## Later — Extend deliberately
+- workspace/repository discovery;
+- canonical artifact inventory/adapters;
+- stable identity, normalization, hashing, and provenance;
+- deterministic Monad Semantic Graph;
+- versioned KIR;
+- structured diagnostics and consistency validation;
+- entity/relationship query and explanation;
+- first conservative change-impact analysis.
 
-**Outcome:** expand value through adjacent workflows or segments while
-preserving trust and operational control.
+## Horizon 2 — Executable engineering loop
 
-- Evaluate controlled extension points from repeated product needs.
-- Support an adjacent persona or journey with independent validation.
-- Consider additional regions, identity providers, or deployment shapes.
-- Extract platform capabilities only when ownership and economics are clear.
+**2026-09-28 through 2026-10-25**
 
-## Roadmap decision rules
+Outcomes:
 
-An item enters `Now` only when it advances a committed goal, has an accountable
-owner, satisfies the Definition of Ready, fits available capacity, and has a
-measurable outcome. Security, legal, or reliability work may preempt feature
-work when it protects the product's ability to operate safely.
+- hardened diagnostics and affected-set reasoning;
+- semantic incrementality and fingerprints;
+- execution-plan schema and planner;
+- native-tool adapters and local runtime;
+- verified cache first slice;
+- coherent CLI;
+- bounded AI-agent context and Codex work-packet export;
+- execution/evidence traceability.
 
-## Review cadence
+## Horizon 3 — MVP hardening and Release 1
 
-Review the `Now` horizon each work cycle, horizon transitions at increment
-reviews, and strategic order quarterly. Record decisions and displaced work;
-do not silently roll unfinished commitments forward.
+**2026-10-26 through 2026-11-23**
+
+Outcomes:
+
+- integrated conformance/reference scenarios;
+- deterministic/reproducibility suite;
+- performance baselines;
+- security and supply-chain verification;
+- compatibility/versioning policy;
+- packaging/install/upgrade/rollback;
+- dogfooding against Monad;
+- user/maintainer documentation and publication;
+- release automation, provenance, release-readiness review;
+- MVP Release 1.
+
+## Horizon 4 — Extensible ecosystem
+
+**Post-MVP, evidence-ordered**
+
+Candidate outcomes:
+
+- stable plugin/adapter SDK;
+- plugin manifest, capability and permission model;
+- registry protocol and trusted distribution;
+- richer IDE/TUI integrations;
+- cross-repository semantic knowledge;
+- remote cache and remote execution;
+- organization policy packs;
+- expanded language/tool adapters.
+
+## Horizon 5 — Team, hosted, and enterprise capabilities
+
+**Future; not scheduled until validated**
+
+Candidate outcomes:
+
+- shared/team semantic indexes;
+- hosted control-plane services;
+- collaborative policy/governance;
+- fleet analytics and engineering intelligence;
+- enterprise identity/administration;
+- managed remote execution/cache;
+- commercial support/SLA and sustainable hosted offerings.
+
+## Product sequencing rule
+
+A feature moves earlier when it materially improves the shortest path to a verified semantic engineering outcome, retires an existential correctness/security risk, or is required by a validated user scenario. It moves later when it adds platform breadth without strengthening Release 1 evidence.
+
+## Scope discipline
+
+MVP Release 1 is complete when the product requirements and reference acceptance scenarios are satisfied—not when every artifact-system document or long-term capability is implemented. The backlog may contain future Epics for visibility; their existence is not a delivery commitment.

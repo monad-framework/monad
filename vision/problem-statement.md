@@ -1,72 +1,90 @@
 # Problem Statement
 
+**Status:** Proposed foundation baseline
+
 ## Context
 
-The target workflow currently spans disconnected information, tools, approvals,
-and tacit knowledge. Users must reconstruct state, determine what is trustworthy,
-coordinate handoffs, and verify completion manually. The burden grows when the
-work is interrupted, repeated, audited, or performed by someone without the
-original operator's context.
+Modern software systems are governed by a web of engineering knowledge distributed across source code, requirements, architecture decisions, specifications, configuration, dependency metadata, tests, issues, pull requests, build definitions, security controls, releases, runbooks, incident history, and human reasoning.
+
+The tools that store those artifacts generally understand only their local representation. Git tracks file history but not why a file exists. Issue trackers represent work but not the full architecture they affect. Build systems know dependency mechanics but rarely the product or governance reason a check matters. Documentation describes intent but often drifts from implementation. AI assistants can read large amounts of text but are frequently given context without a reliable model of authority, provenance, relationships, or current validity.
 
 ## Core problem
 
-Primary users cannot consistently convert an intended outcome into a verified
-result with acceptable effort and risk because the current process does not
-provide a single clear model of state, rules, evidence, ownership, and recovery.
-They compensate with memory, duplicate records, private checklists, repeated
-questions, and manual inspection.
+Software engineers, maintainers, reviewers, and AI agents cannot reliably answer consequential questions about a project without manually reconstructing context from fragmented sources.
+
+They must infer:
+
+- which artifacts are authoritative;
+- how concepts and components relate;
+- why a decision or file exists;
+- what a proposed change affects;
+- which tests and validation are required;
+- which assumptions are current;
+- what an AI agent is authorized to change;
+- whether generated documentation or cached results are still valid;
+- how a release result can be reproduced.
+
+This reconstruction is repetitive, expensive, inconsistent, and increasingly difficult as repositories become polyglot, multi-tool, AI-assisted, and organizationally distributed.
 
 ## Who is affected
 
-- Practitioners lose time assembling context and checking routine work.
-- Accountable owners lack dependable evidence that outcomes and controls were
-  achieved.
-- Operators diagnose failures without sufficient state or correlation.
-- New participants depend on informal coaching and are more likely to miss
-  hidden constraints.
-- People represented in the data may bear privacy or fairness risks without a
-  direct voice in product operation.
+### Individual engineers
+
+Spend time locating context, tracing dependencies, determining commands, rereading architectural history, and manually checking whether a change is safe.
+
+### Maintainers and architects
+
+Must detect drift between architecture, specifications, code, tests, and documentation while reviewing changes under limited time and incomplete context.
+
+### AI-assisted development workflows
+
+Agents can make fast repository changes but may lack the minimum authoritative context needed to understand intent, prohibited changes, blast radius, or acceptance evidence. More context is not automatically better context.
+
+### CI and release systems
+
+Often execute broad predefined pipelines rather than semantically minimal, explainable validation tied to the actual affected engineering graph.
+
+### Tool and ecosystem authors
+
+Lack a common semantic substrate for interoperating over project meaning, provenance, policy, and engineering relationships.
 
 ## Observable consequences
 
-The problem appears as longer cycle time, rework, inconsistent outcomes,
-unclear ownership, avoidable incidents, audit difficulty, poor onboarding, and
-decisions made with unjustified confidence. These symptoms must be baselined
-before product impact can be claimed.
+The problem appears as:
+
+- repeated repository archaeology before meaningful work begins;
+- architecture and documentation drift;
+- overbroad or incomplete CI execution;
+- duplicated or contradictory engineering records;
+- difficult impact analysis;
+- fragile AI-agent prompting and oversized context windows;
+- tests that exist without clear requirement coverage;
+- requirements or decisions with no observable implementation evidence;
+- build and release results that are hard to reproduce or explain;
+- maintainers becoming irreplaceable stores of project context.
 
 ## Jobs to be done
 
-When a user has a defined outcome to achieve, they need to understand the
-required inputs and constraints, execute the workflow, see its current state,
-handle exceptions, and produce evidence of completion so they can proceed
-without reconstructing the process or depending on a particular expert.
+When changing or evaluating a software system, an engineer needs to understand the relevant project knowledge, determine the semantic impact of the proposed work, identify the governing constraints and required verification, execute the correct native tools, and retain evidence of the result without reconstructing the project from scratch.
+
+When delegating work to an AI agent, a human needs to provide the smallest sufficient authoritative context, bounded permissions, acceptance criteria, and validation plan so the resulting change is reviewable and does not gain authority from model confidence alone.
 
 ## Existing alternatives
 
-Current alternatives include manual documents, spreadsheets, chat threads,
-general-purpose project tools, point solutions, and bespoke scripts. Research
-must compare these options fairly. Familiarity, local flexibility, low cost,
-and human judgment are advantages the proposed product must not accidentally
-discard.
+Current alternatives include repository search, README files, architecture docs, ADRs, code ownership, monorepo/build systems, dependency graphs, IDE indexes, static analysis, knowledge bases, issue trackers, CI configuration, RAG systems, agent instruction files, and experienced maintainers.
 
-## Evidence plan
+Monad should integrate with and learn from these tools rather than dismiss them. Its differentiation must come from compiling the relationships among engineering artifacts into one deterministic semantic model that can drive both understanding and execution.
 
-Evidence will come from recent-event interviews, direct workflow observation,
-artifact inspection, support or incident records, and a quantified baseline.
-Participants should describe the last occurrence rather than predict future
-behavior. Findings must record sample limits and plausible competing
-explanations.
+## Problem acceptance tests
 
-## Problem acceptance test
+The problem is sufficiently validated for MVP implementation when representative engineering tasks demonstrate that:
 
-The problem is considered validated when representative users independently
-report the same high-cost failure pattern, observed behavior confirms it,
-existing alternatives do not resolve it acceptably, and at least one reachable
-stakeholder commits time, data, or budget to test a better workflow.
+1. meaningful context is distributed across several artifact classes rather than available from source code alone;
+2. maintainers spend nontrivial effort reconstructing that context or validating change impact;
+3. a deterministic semantic model can answer at least some high-value questions more reliably than ad hoc search;
+4. bounded semantic context improves at least one controlled human/AI engineering workflow;
+5. native-tool execution can be planned from semantic impact without sacrificing correctness.
 
 ## Falsification conditions
 
-The project must reconsider or stop if the problem is rare, inexpensive, or
-already solved well; if adoption requires authority users cannot grant; if the
-proposed intervention transfers unacceptable harm; or if a simpler process
-change produces the same outcome with lower total cost and risk.
+Monad should narrow, pivot, or stop if repository studies show that the semantic graph cannot be kept accurate enough for consequential use; if the explicit knowledge needed to feed the system imposes more cost than it saves; if affected-set computation cannot be made conservative and explainable; if bounded semantic context does not improve AI-assisted work; or if existing tools already provide the combined value with materially lower complexity.

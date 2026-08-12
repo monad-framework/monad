@@ -1,74 +1,92 @@
 # System Context
 
+**Status:** Proposed foundation baseline
+
 ## System of interest
 
-MonadV2 is the system of interest. It accepts authorized user intent,
-coordinates the primary workflow, integrates with bounded external services,
-and returns a verifiable outcome with appropriate evidence.
+Monad is the local-first Engineering Knowledge Compilation Platform. It observes canonical engineering artifacts and repository state, compiles them into a semantic model, exposes understanding and impact through deterministic interfaces, generates bounded AI-agent context, and executes explicit native-tool plans under human-controlled authority.
 
-## Actors
+## Human actors
 
-| Actor | Uses the system to | Trust and access considerations |
+| Actor | Uses Monad to | Authority boundary |
 | --- | --- | --- |
-| Responsible Practitioner | Complete and recover the primary workflow | Access limited to authorized resources and actions |
-| Accountable Owner | Review outcomes, risk, adoption, and evidence | Aggregate access does not imply unrestricted payload access |
-| Service Operator | Deploy, diagnose, mitigate, and restore | Privileged access is time-bounded, audited, and separated |
-| Maintainer | Change code, configuration, and documentation | Changes require review and protected release paths |
-| Affected Stakeholder | Exercise applicable data or decision rights | May not hold an ordinary product account |
+| Software Engineer / Maintainer | Inspect, query, change, validate, plan, and run engineering work | May act within repository/work authorization; material decisions remain governed |
+| Product Owner / Project Steward | Define outcomes, order work, accept product scope and releases | Owns product acceptance and strategic direction |
+| Architecture Owner | Define and review boundaries, contracts, semantic models, and strategic technical decisions | Accepts architecture/ADR decisions within delegated authority |
+| Engineering Owner | Plan delivery, review implementation evidence, maintain integration quality | Authorizes engineering execution within approved product/architecture scope |
+| Security / Operations Owner | Review trust, dependency, release, and operational risk | Owns delegated security/operability readiness decisions |
+| Contributor / Plugin Author | Extend or integrate Monad through public contracts | No implicit authority over core semantics or release decisions |
 
-## External systems
+One person may hold several roles in the current project, but the role distinction remains explicit so authority can scale without rewriting semantics.
 
-### Identity authority
+## Machine actors
 
-Authenticates users and supplies stable subject and authentication context. The
-product remains responsible for resource authorization. Unavailability blocks
-new privileged sessions but does not erase established audit context.
+### Codex
 
-### Data store
+Codex is an implementation agent. Monad should be able to provide it a bounded task/work-packet context containing objective, governing artifacts, authorized scope, dependencies, acceptance criteria, validation commands, prohibited changes, and provenance.
 
-Persists authoritative domain and workflow state. Encryption, backup, restore,
-schema compatibility, and access isolation are owned operational concerns, not
-assumed provider properties.
+Codex is not an independent architecture or release authority.
 
-### Communication or integration services
+### ChatGPT
 
-Deliver optional notifications or exchange bounded data with the surrounding
-workflow. Their failures cannot be mistaken for completed domain outcomes.
-Outbound data is minimized and classified before transmission.
+ChatGPT is used for architecture, product/specification authoring, decomposition, backlog refinement, review preparation, governance, and cross-artifact reasoning. Finalized authoritative changes are persisted through Git/GitHub and the repository lifecycle; conversation text alone is not canonical project authority.
 
-### Observability system
+### CI automation
 
-Receives metrics, logs, and traces needed to operate the service. It must not
-become an uncontrolled secondary store for secrets or business payloads.
+GitHub Actions and future CI systems reproduce validation, machine projection, tests, release gates, provenance, and publishing in a controlled environment. Automation enforces declared rules but does not own the rule or approval decision.
 
-### Source and artifact services
+## External systems and resources
 
-Host reviewed source, dependencies, build evidence, and release artifacts.
-Protected branches, immutable provenance, least-privilege automation, and
-artifact verification establish the software supply-chain boundary.
+### Git and the filesystem
+
+Primary local source/history boundary. Monad reads working-tree/index/commit state, canonical files, configuration, and repository topology. Repository content is untrusted input.
+
+### Native ecosystem tools
+
+Compilers, formatters, linters, test runners, package managers, infrastructure tools, containers, and documentation generators remain responsible for their mechanics. Monad discovers supported tools and invokes them through explicit adapters/plans.
+
+### GitHub
+
+Durable collaboration and projection system for repository source, issues, pull requests, project views, CI, releases, wiki, and community workflows. GitHub state may be modeled by Monad, but canonical engineering authority remains defined by repository governance.
+
+### Optional AI providers
+
+External model providers may assist explanation, drafting, navigation, or implementation. Context sent outside the local trust boundary is minimized, classified, explicitly authorized, and attributable. The deterministic kernel cannot require one provider.
+
+### Future Monad registry and hosted services
+
+May distribute schemas, plugins, adapters, policies, templates, metadata, remote cache/execution, or collaborative indexes. They are outside Release 1's required success path.
 
 ## Trust boundaries
 
-1. Public or user-controlled clients to the application boundary.
-2. Application runtime to privileged data and secret stores.
-3. Product-controlled runtime to third-party services.
-4. Build and release automation to production deployment authority.
-5. Ordinary support access to restricted evidence and administrative actions.
+1. **Repository input → Monad parser/adapter boundary.** Files, links, paths, symlinks, configuration, code snippets, and generated text are untrusted input.
+2. **Knowledge Plane → Control Plane.** Semantic reachability or a declared command does not itself create execution authority.
+3. **Control Plane → Execution Plane.** Only supported, explicit, inspectable plans may cause local side effects.
+4. **Local process → native external tools.** Environment, working directory, inputs, outputs, exit status, timeouts, and tool identity are captured.
+5. **Local repository → external AI/provider.** Only task-authorized minimal context crosses this boundary.
+6. **Developer workstation → GitHub/remote collaboration.** Repository and evidence publication follow Git/GitHub credentials and project governance.
+7. **Ordinary project data → secrets/sensitive data.** Sensitive material is excluded from generated context, diagnostics, and telemetry unless specifically required and authorized.
 
-Every crossing authenticates its peer where feasible, validates input, limits
-authority, protects data in transit, and produces sufficient security evidence.
+## Primary MVP flow
 
-## Data flows
+1. User invokes Monad in a repository.
+2. Workspace discovery identifies root, configuration, artifact sources, components, toolchains, and Git state.
+3. Adapters parse supported artifacts without causing side effects.
+4. Identity/provenance normalization produces stable semantic inputs.
+5. Monad constructs and validates the semantic graph and KIR.
+6. User inspects, queries, explains, or supplies a bounded change/task.
+7. Change-impact/context logic traverses relevant semantic relationships under policy/authority constraints.
+8. Planner emits an explicit execution plan.
+9. User or authorized automation inspects/approves execution as required.
+10. Execution adapters invoke native tools and capture structured evidence.
+11. Diagnostics/results are returned to the user and may update canonical project knowledge through normal review/change control.
 
-User input enters through a versioned contract, is classified and validated,
-and is stored only by the owning capability. Derived results retain provenance
-needed for verification. Evidence records identifiers and decisions rather than
-unnecessary payloads. Exports and deletion follow the data lifecycle rather
-than bypassing it through ad hoc operator access.
+## Data handling
+
+Release 1 should not need a central project-content database. Canonical state remains in the repository; local indexes/caches are disposable derived state. Persistent machine representations are versioned projections when committed or deliberately exported.
+
+Source content is not transmitted externally by default. Optional provider integration identifies purpose, selected context, data classification, and retention implications before transmission.
 
 ## Dependency policy
 
-An external dependency receives an owner, purpose, data classification,
-availability and latency expectation, failure behavior, cost budget, exit
-strategy, and review date. The project does not treat a vendor service level as
-an end-to-end guarantee.
+Every material external dependency or tool adapter must have a purpose, supported version/compatibility range, owner, failure behavior, security/supply-chain assessment proportional to risk, and exit/migration strategy where lock-in would affect the product. Vendor guarantees are never treated as an end-to-end Monad guarantee.
