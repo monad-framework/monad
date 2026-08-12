@@ -1,5 +1,7 @@
 name: EOS trace projection repair
 
+# Temporary repair workflow. Final regeneration pass includes the permanent
+# repair review artifact before this workflow is removed.
 on:
   push:
     branches: [eos/trace-projection-integrity]
