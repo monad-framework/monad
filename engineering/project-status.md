@@ -1,45 +1,44 @@
 # Project Status
 
-**Overall state:** Foundation stabilization — conditional pass, pre-implementation  
+**Overall state:** Foundation stabilization — technical gates passed, conditional owner/architecture closure  
 **Current milestone:** M-000 Foundation Stabilized  
 **Current review:** `engineering/reviews/FOUNDATION-STABILIZATION-REVIEW.md`  
+**Latest evidence:** `engineering/reviews/FOUNDATION-STABILIZATION-EVIDENCE-2026-08-12.md`  
 **Integration PR:** #158
 
 ## Executive summary
 
-Monad's refoundation is structurally and semantically coherent. EOS v0.5 is reconciled, `architecture/decisions/` is the sole ADR root, the artifact and machine systems are synchronized by deterministic generation, MVP Release 1 is fully decomposed at rolling-wave planning depth, and the canonical backlog is projected into live GitHub Issues/milestones with native sub-issue hierarchy.
+Monad's repository refoundation is structurally and semantically coherent. EOS v0.5 is reconciled; `architecture/decisions/` is the sole ADR root; the artifact and machine systems are deterministic and synchronized; MVP Release 1 is decomposed at rolling-wave depth; and the canonical backlog is projected into live GitHub Issues/milestones with native sub-issue hierarchy.
 
-M-000 is **not yet closed**. Three bounded gates remain: latest PR checks need GitHub Actions approval/execution, owner-only Project/Wiki setup needs verification, and ADR-0005 must be accepted/replaced before WP-MVP-0001 can become Ready for implementation.
+The final synchronized human-capped PR head passed Machine document synchronization, EOS Integrity, and Repository integrity. No technical CI waiver remains.
+
+M-000 is **not yet closed** because two categories of explicit human authority remain: owner-only organization Project/Wiki setup must be executed/verified, and proposed ADR-0005 must be accepted or replaced before the first MVP implementation Work Packet can become Ready.
 
 ## Current outcomes
 
 | Area | Status | Evidence | Next gate |
 | --- | --- | --- | --- |
 | Product identity | Stable for MVP | Vision/product/README aligned on Engineering Knowledge Compilation Platform | Controlled change only |
-| ADR system | Stable | `architecture/decisions/`; ADR-0001..0004 Accepted, ADR-0005 Proposed | ADR-0005 disposition |
+| ADR system | Stable except implementation topology | `architecture/decisions/`; ADR-0001..0004 Accepted, ADR-0005 Proposed | ADR-0005 disposition |
 | Artifact system | Baseline complete | substantive Draft catalog contracts; activation remains just-in-time | specialize as needed |
-| Machine layer | Synchronized | deterministic generation and manifest/graph companions | latest PR Actions execution |
-| EOS | Reconciled | EOS v0.5 + eight permanent operating layers | strict verification run |
+| Machine layer | PASS | deterministic generation + final PR Machine check green | ongoing freshness |
+| EOS | PASS | EOS v0.5 reconciled; final `EOS Integrity` green using strict verification | ongoing verification |
+| Repository integrity | PASS | final PR Repository integrity green | preserve gates |
 | MVP planning | Complete at rolling-wave level | PG-001; 14 Epics; 34 Features/WPs; 105 stories + 3 enablers; 13 MVP WCs | refine next horizon |
-| GitHub Issues | Live | 156 canonical tracking Issues with hierarchy and 4 milestones | ongoing sync |
+| GitHub Issues | Live / PASS | 156 canonical tracking Issues, hierarchy, 4 milestones | ongoing sync |
 | GitHub Project/Wiki | Staged, owner action pending | `engineering/github/` + owner setup script | run/verify owner setup |
 | First two MVP sprints | Semantically refined | ADR-0002..0004 + 6 Approved specs + WP-MVP-0001..0006 | implementation topology |
 | Implementation | Not started | packets correctly not Ready | accept/replace ADR-0005 then Ready review |
 
-## Active Work Packets
-
-- **WP-STAB-0001** — foundation stabilization and GitHub operating surface; conditional review.
-- **WP-0001** — EOS bootstrap Architecture Baseline; preserved as separate unqualified EOS namespace/history.
-
 ## Immediate critical path
 
-1. Approve/retrigger latest PR #158 Actions and require green Machine/EOS/Repository integrity.
-2. Execute/verify `./scripts/setup-github-owner.sh project` and `wiki` in an owner-authenticated GitHub CLI environment.
-3. Dispose ADR-0005 (proposed Rust `monad-core` + `monad-cli` topology).
-4. Convert WP-MVP-0001 to Ready with exact implementation/test commands.
-5. Complete M-000 evidence supplement and accept/close WP-STAB-0001.
-6. Begin WC-MVP-0001 with only the authorized first Work Packet.
-7. Apply/harden the `main` ruleset after the stabilization PR establishes stable required-check contexts.
+1. Execute and verify `./scripts/setup-github-owner.sh project` and `wiki` in an owner-authenticated GitHub CLI environment.
+2. Dispose ADR-0005 (proposed Rust `monad-core` + `monad-cli` topology).
+3. Convert WP-MVP-0001 to Ready with exact implementation/test commands.
+4. Complete M-000 evidence/closure and accept/close WP-STAB-0001.
+5. Accept/merge PR #158 through the normal review path when the owner gates are satisfied.
+6. Begin WC-MVP-0001 with only the first authorized Ready Work Packet.
+7. Apply/harden the staged `main` ruleset after merge and final required-check policy confirmation.
 
 ## Planning inventory
 
@@ -56,4 +55,4 @@ M-000 is **not yet closed**. Three bounded gates remain: latest PR checks need G
 
 ## Rule
 
-No state is considered complete because a file, Issue, Project item, or generated record exists. Completion requires the applicable authority transition and passing evidence. Scheduling is not readiness; readiness is not authorization; merge is not acceptance by itself.
+No state is complete because a file, Issue, Project item, workflow, or generated record exists. Completion requires the applicable authority transition and passing evidence. Scheduling is not readiness; readiness is not authorization; merge is not acceptance by itself.
