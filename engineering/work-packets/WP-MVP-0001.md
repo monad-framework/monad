@@ -1,83 +1,67 @@
-<!-- mvp-work-packet-forecast:v1 -->
-# WP-MVP-0001 — Repository identity and configuration
+# WP-MVP-0001 — Repository identity and effective configuration
 
-**Status:** Planned  
+**Status:** Refined — blocked from Ready by ADR-0005  
 **Epic:** EPIC-002  
-**Work Cycle / Sprint:** WC-MVP-0001  
-**Product Goal:** PG-001  
-**Target:** MVP Release 1
+**Feature:** F-002-01  
+**Program Increment:** PI-MVP-001  
+**Work Cycle:** WC-MVP-0001  
+**Product Goal:** PG-001
 
 ## Objective
 
-Deliver **repository identity and configuration** as one independently reviewable vertical engineering outcome that advances PG-001 without expanding beyond the MVP boundary.
+Implement the deterministic bootstrap boundary that locates a Monad repository, validates `monad.toml`, produces effective configuration with provenance, and emits actionable failures without executing repository code.
 
-## Context
+## Governing authority
 
-This packet is forecast in `product/backlog/MVP-BACKLOG.md`. It becomes **Ready** only after its required governing ADRs/specifications are accepted or explicitly identified as not required, upstream packet dependencies have passing evidence, and task-level implementation scope can be bounded without guessing.
-
-## Scope
-
-### In scope
-
-- behavior necessary to satisfy the linked stories/enablers;
-- deterministic positive, negative, boundary, and failure behavior;
-- diagnostics, provenance, documentation, and tests required by the Definition of Done;
-- compatibility/security implications introduced by this packet.
-
-### Out of scope
-
-- unrelated refactoring;
-- post-MVP generalization not required by PG-001;
-- silent changes to accepted architecture/specification authority;
-- introducing hosted, remote, or agent autonomy dependencies unless explicitly authorized.
-
-## Governing artifacts
-
-Before activation, replace unresolved entries with concrete links:
-
-- Product Goal: `product/PRODUCT-GOAL.md`
-- MVP contract: `product/MVP-RELEASE-1.md`
-- Product requirements: `product/product-requirements.md`
-- Architecture: `architecture/overview.md`
-- Required ADR(s): **TBD during refinement**
-- Required specification(s): **TBD during refinement**
+- `product/MVP-RELEASE-1.md`
+- `product/product-requirements.md` — FR-001; QR-001, QR-003, QR-006
+- `architecture/decisions/ADR-0002-repository-root-and-configuration.md`
+- `architecture/decisions/ADR-0004-safe-deterministic-ingestion-boundary.md`
+- `specifications/interfaces/IFC-WORKSPACE-0001-repository-root-and-effective-configuration.md`
+- Proposed implementation topology: `architecture/decisions/ADR-0005-mvp-core-implementation-topology.md`
 
 ## Dependencies
 
-Dependencies are the accepted outputs of earlier packets on the critical path plus any explicit native-tool/schema contracts discovered during refinement. A packet MUST NOT become Ready while a dependency capable of changing its public semantic contract remains unresolved.
+Semantic dependencies are resolved. Implementation authorization is blocked only until ADR-0005 is accepted or replaced by another accepted implementation-topology decision.
+
+## In scope
+
+- root discovery from explicit/current path;
+- nearest `monad.toml` semantics and nested root behavior;
+- schema-v1 TOML validation;
+- defaults/file/CLI precedence and provenance;
+- effective configuration model and explanation-ready structured representation;
+- stable diagnostics for missing root and invalid configuration;
+- unit/golden/conformance fixtures for IFC-WORKSPACE-0001.
+
+## Out of scope
+
+- `monad.lock` semantics;
+- general artifact discovery (WP-MVP-0002);
+- semantic ingestion of configuration into the graph pipeline (WP-MVP-0005);
+- environment variables changing semantic configuration;
+- remote config, plugins, package-manager execution, or network access.
+
+## Implementation boundary
+
+If ADR-0005 is accepted, authorized product changes are limited to initial Cargo workspace scaffolding plus workspace/config modules in `crates/monad-core`, minimal CLI/bootstrap wiring in `crates/monad-cli`, root `Cargo.toml`/lock/toolchain files as needed, and focused tests/fixtures. EOS implementation under `tools/eos` is not in scope.
 
 ## Acceptance criteria
 
-- [ ] US-002 detect repository root.
-- [ ] US-003 resolve configuration precedence.
-- [ ] US-004 explain effective configuration.
-- [ ] Required negative and boundary behavior is verified.
-- [ ] Deterministic output/order/identity requirements relevant to this packet pass.
-- [ ] Diagnostics and provenance are sufficient to explain failure and derived state.
-- [ ] No new unaccepted critical/high security or correctness risk remains.
-- [ ] Canonical documentation and machine projection are synchronized.
+- [ ] US-002: invocation at root/descendant detects the nearest valid Monad root.
+- [ ] US-003: schema-v1 configuration resolves with documented precedence.
+- [ ] US-004: effective configuration is explainable with value provenance.
+- [ ] no `monad.toml` yields a stable repository-not-found diagnostic.
+- [ ] malformed/unsupported/unknown semantic config cannot become valid state silently.
+- [ ] environment differences do not change semantic configuration in conformance tests.
+- [ ] nested Monad-root fixtures bind to the nearest root.
+- [ ] repository code/network is never executed during bootstrap.
+- [ ] repeated structured output for identical inputs is byte-equivalent where declared canonical.
 
-## Implementation constraints
+## Validation commands
 
-1. Core semantic truth must not depend on LLM output.
-2. Canonical repository inspection must not execute untrusted project code implicitly.
-3. Stable public identifiers/schemas require explicit compatibility treatment.
-4. Native tool results remain authoritative for native semantics.
-5. Agent execution scope cannot exceed this Work Packet or its governing authority.
-6. Generated state must be rebuildable or explicitly treated as external evidence.
+Exact language commands become binding with ADR-0005. Minimum evidence MUST include targeted unit tests, root/config golden fixtures, malformed-input tests, and `python3 scripts/sync-machine-docs.py --check` for canonical-document changes.
 
-## Validation
+## Authorization gate
 
-Refinement MUST identify exact commands/tests before authorization. Expected evidence includes focused unit tests, conformance/golden/property tests where semantics are canonical, integration tests across the affected boundary, machine-document synchronization, and end-to-end evidence when the packet changes a user-visible journey.
-
-## Risks
-
-Primary risks are semantic ambiguity, accidental coupling to future architecture, nondeterminism, insufficient provenance, and over-broad MVP scope. Any discovered risk that changes the governing contract triggers refinement or escalation rather than being hidden in implementation.
-
-## Completion evidence
-
-Populate with branch/commit, PR, test commands/results, semantic/architecture review, generated artifacts, and closure disposition. Merge alone is not completion.
-
-## Refinement state
-
-This forecast packet is intentionally not Ready merely because it has been generated. Remove `<!-- mvp-work-packet-forecast:v1 -->` when the packet has been manually refined and authorized; the generator will then stop owning its contents.
+Do not run `./scripts/eos authorize WP-MVP-0001` until ADR-0005 is Accepted and this packet's implementation boundary is updated from conditional to authoritative.

@@ -1,84 +1,42 @@
-<!-- mvp-work-packet-forecast:v1 -->
 # WP-MVP-0004 — Markdown engineering artifact parser
 
-**Status:** Planned  
+**Status:** Refined — blocked from Ready by WP-MVP-0003 and ADR-0005  
 **Epic:** EPIC-003  
-**Work Cycle / Sprint:** WC-MVP-0002  
-**Product Goal:** PG-001  
-**Target:** MVP Release 1
+**Feature:** F-003-02  
+**Program Increment:** PI-MVP-001  
+**Work Cycle:** WC-MVP-0002  
+**Product Goal:** PG-001
 
 ## Objective
 
-Deliver **markdown engineering artifact parser** as one independently reviewable vertical engineering outcome that advances PG-001 without expanding beyond the MVP boundary.
+Parse canonical Markdown artifacts into deterministic provenance-rich structural records and reference candidates without LLM inference or executable semantics.
 
-## Context
+## Governing authority
 
-This packet is forecast in `product/backlog/MVP-BACKLOG.md`. It becomes **Ready** only after its required governing ADRs/specifications are accepted or explicitly identified as not required, upstream packet dependencies have passing evidence, and task-level implementation scope can be bounded without guessing.
-
-## Scope
-
-### In scope
-
-- behavior necessary to satisfy the linked stories/enablers;
-- deterministic positive, negative, boundary, and failure behavior;
-- diagnostics, provenance, documentation, and tests required by the Definition of Done;
-- compatibility/security implications introduced by this packet.
-
-### Out of scope
-
-- unrelated refactoring;
-- post-MVP generalization not required by PG-001;
-- silent changes to accepted architecture/specification authority;
-- introducing hosted, remote, or agent autonomy dependencies unless explicitly authorized.
-
-## Governing artifacts
-
-Before activation, replace unresolved entries with concrete links:
-
-- Product Goal: `product/PRODUCT-GOAL.md`
-- MVP contract: `product/MVP-RELEASE-1.md`
-- Product requirements: `product/product-requirements.md`
-- Architecture: `architecture/overview.md`
-- Required ADR(s): **TBD during refinement**
-- Required specification(s): **TBD during refinement**
+- FR-002; QR-001, QR-003
+- ADR-0003, ADR-0004
+- DATA-SOURCE-0001
+- TECH-INGEST-0001
+- proposed ADR-0005
 
 ## Dependencies
 
-Dependencies are the accepted outputs of earlier packets on the critical path plus any explicit native-tool/schema contracts discovered during refinement. A packet MUST NOT become Ready while a dependency capable of changing its public semantic contract remains unresolved.
+WP-MVP-0003 provides stable source/document identity. ADR-0005 establishes implementation topology.
 
 ## Acceptance criteria
 
-- [ ] US-011 parse sections and metadata.
-- [ ] US-012 extract stable identifiers.
-- [ ] US-013 extract links and references.
-- [ ] US-014 diagnose malformed Markdown.
-- [ ] Required negative and boundary behavior is verified.
-- [ ] Deterministic output/order/identity requirements relevant to this packet pass.
-- [ ] Diagnostics and provenance are sufficient to explain failure and derived state.
-- [ ] No new unaccepted critical/high security or correctness risk remains.
-- [ ] Canonical documentation and machine projection are synchronized.
+- [ ] US-011 section/heading/metadata structure and source ranges are extracted deterministically.
+- [ ] US-012 governed identifiers/status metadata are extracted according to artifact contracts.
+- [ ] US-013 links and identifier references are emitted as unresolved candidates with provenance.
+- [ ] US-014 malformed/ambiguous governed constructs produce source-located diagnostics; partial recovery is not silently valid semantic state.
+- [ ] code fences containing fake IDs/links are not treated as ordinary governed references.
+- [ ] HTML/scripts/macros are never executed.
+- [ ] repeat-run normalized output is equivalent/byte-stable where declared canonical.
 
-## Implementation constraints
+## Out of scope
 
-1. Core semantic truth must not depend on LLM output.
-2. Canonical repository inspection must not execute untrusted project code implicitly.
-3. Stable public identifiers/schemas require explicit compatibility treatment.
-4. Native tool results remain authoritative for native semantics.
-5. Agent execution scope cannot exceed this Work Packet or its governing authority.
-6. Generated state must be rebuildable or explicitly treated as external evidence.
+semantic graph construction, reference resolution, natural-language inference, arbitrary MDX execution, remote includes.
 
 ## Validation
 
-Refinement MUST identify exact commands/tests before authorization. Expected evidence includes focused unit tests, conformance/golden/property tests where semantics are canonical, integration tests across the affected boundary, machine-document synchronization, and end-to-end evidence when the packet changes a user-visible journey.
-
-## Risks
-
-Primary risks are semantic ambiguity, accidental coupling to future architecture, nondeterminism, insufficient provenance, and over-broad MVP scope. Any discovered risk that changes the governing contract triggers refinement or escalation rather than being hidden in implementation.
-
-## Completion evidence
-
-Populate with branch/commit, PR, test commands/results, semantic/architecture review, generated artifacts, and closure disposition. Merge alone is not completion.
-
-## Refinement state
-
-This forecast packet is intentionally not Ready merely because it has been generated. Remove `<!-- mvp-work-packet-forecast:v1 -->` when the packet has been manually refined and authorized; the generator will then stop owning its contents.
+Parser golden corpus covering headings, metadata, links, code fences, comments, Unicode, malformed constructs, empty documents, and security fixtures; machine-document freshness check.
