@@ -1,5 +1,5 @@
 {
-  "content": "# Product Vision\n\n## Vision statement\n\nFor people and teams who need to complete a consequential workflow reliably,\nMonadV2 is a focused product that turns intent into a clear,\nverifiable, and repeatable outcome. Unlike fragmented tools and undocumented\nworkarounds, it makes state, evidence, constraints, and recovery visible so\nusers can act with confidence without surrendering control.\n\n## Desired future\n\nIn the desired future, a new user can understand the product's promise, complete\nthe primary journey, verify the result, and recover from a foreseeable failure\nwithout private knowledge or maintainer intervention. Accountable stakeholders\ncan see whether the product creates value, protects users, and remains within\nagreed cost and risk limits. Maintainers can change the system without guessing\nwhich promises will break.\n\n## Strategic outcomes\n\n1. **Useful:** users reach the intended outcome more reliably than with their\n   current alternative.\n2. **Understandable:** users know what the system did, what it did not do, and\n   what action remains theirs.\n3. **Trustworthy:** sensitive operations are authorized, auditable, reversible\n   where possible, and fail safely.\n4. **Operable:** service health, cost, capacity, and dependency risk are visible\n   and controlled.\n5. **Evolvable:** boundaries and contracts allow change without widespread\n   coordination or accidental compatibility breaks.\n\n## Product promise\n\nThe product promises a dependable path from an explicit user intent to a\nverifiable result. It does not promise perfect prediction, elimination of human\njudgment, or success under unstated constraints. Confidence must be earned with\nevidence and communicated in language appropriate to the consequence.\n\n## Experience principles\n\n- Start from the user's desired outcome, not the system's internal model.\n- Show progress, decisions, dependencies, and next actions.\n- Request the minimum authority and data needed for the current operation.\n- Prevent high-impact mistakes before optimizing frequent low-impact actions.\n- Preserve work through interruption and make recovery a first-class path.\n- Keep expert depth available without forcing it into the default workflow.\n\n## Strategic boundaries\n\nThe first product is not a general-purpose platform, an unbounded automation\nengine, a replacement for accountable professionals, or a collection of\nfeatures without one coherent journey. Expansion follows demonstrated demand\nand operational maturity, not speculative completeness.\n\n## Three-horizon evolution\n\n- **Horizon 1 — Prove:** deliver one narrow, observable, end-to-end outcome for\n  the primary persona.\n- **Horizon 2 — Strengthen:** improve reliability, integration, administration,\n  and repeatability for the proven workflow.\n- **Horizon 3 — Extend:** support adjacent personas and workflows through stable\n  capabilities and contracts.\n\nThe vision succeeds when users choose the product repeatedly for the intended\njob and the project can explain that adoption through measured outcomes rather\nthan activity or feature count.\n",
+  "content": "# Product Vision\n\n**Status:** Proposed foundation baseline\n\n## Vision statement\n\nMonad is a **local-first Engineering Knowledge Compilation Platform** that understands a software system as structured engineering knowledge and uses that knowledge to coordinate humans, AI agents, source code, native tools, workflows, and infrastructure.\n\nThe long-term product is not merely a monorepo CLI, build wrapper, documentation site, or AI assistant. Monad is the control system that makes software engineering intent, constraints, relationships, work authorization, execution, and evidence explicit enough to be queried, validated, reproduced, and safely automated.\n\n## Desired future\n\nA maintainer can enter an unfamiliar repository and ask Monad:\n\n- what the system is and why its parts exist;\n- which requirements, specifications, decisions, owners, tests, and risks govern a component;\n- what changed and what is semantically affected;\n- which validation must run and why;\n- whether implementation and documentation disagree;\n- which promises lack tests or evidence;\n- what context an AI agent needs for an authorized task;\n- which native-tool actions form the smallest correct execution plan;\n- how a delivered artifact was produced and which evidence proves it.\n\nThe answers are derived from a deterministic engineering model rather than improvised independently by each tool or model.\n\n## Product principles\n\n### Knowledge is primary\n\nSource code is one projection of the software system. Requirements, ADRs, specifications, dependency relationships, work authorization, tests, releases, diagnostics, operational evidence, and rationale are also engineering knowledge and must participate in the model.\n\n### Local-first\n\nThe canonical engineering loop runs from Git, the local filesystem, the Monad engine, and installed native toolchains. Cloud services may add collaboration, remote execution, registry, indexing, analytics, or fleet governance later; they may not be required for the semantic kernel to function.\n\n### Deterministic core, probabilistic assistants\n\nWorkspace discovery, parsing, normalization, identity, graph construction, KIR, diagnostics, affected-set computation, planning, hashing, and conformance belong to deterministic software. AI may help author, explain, propose, and navigate, but does not define canonical semantics.\n\n### AI-native, not model-dependent\n\nMonad is intentionally designed for AI-assisted engineering. It exposes bounded context, capabilities, work contracts, provenance, and machine-readable evidence. Provider-specific features remain behind replaceable interfaces.\n\n### Native tools remain authoritative for their mechanics\n\nMonad coordinates ecosystem tools rather than reimplementing Cargo, Go, Bun, Python, compilers, linters, test runners, Terraform, Docker, Git, and similar systems. Monad owns *what should run, why, in what order, under which constraints, and what the result means*.\n\n### Explainability is a product feature\n\nImportant results should expose provenance and reasoning structure: why an entity exists, why a relationship was inferred, why a check is required, why a change affects another artifact, and why a cache or plan is valid.\n\n### Human authority is explicit\n\nAutomation does not acquire decision rights because it is fast or confident. High-consequence changes remain subject to the authority and review model in `governance/`.\n\n### Semantic incrementality\n\nA change should lead to the smallest safe recomputation and execution plan derivable from the semantic dependency graph. Conservative uncertainty expands the plan; it never silently omits required work.\n\n### Generated views are disposable\n\nMachine companions, indexes, publication views, dashboards, and agent packages are regenerated from canonical sources. A generated artifact cannot silently become a second editable source of truth.\n\n### Modularize architecture early; split repositories late\n\nInternal boundaries should be clean from the start. Independent repositories are introduced only when lifecycle, distribution, security, ownership, or community evidence justifies them.\n\n## Strategic horizons\n\n### Horizon 1 — Semantic kernel\n\nCompile canonical repository knowledge into a stable graph and KIR; validate, query, explain, calculate impact, and produce structured diagnostics.\n\n### Horizon 2 — Executable engineering model\n\nTurn semantic impact into explainable execution plans, verified caches, native-tool orchestration, artifact production, and reproducible evidence.\n\n### Horizon 3 — Human/AI engineering operating system\n\nGenerate bounded agent context, govern capabilities, support work packets and reviews, project engineering state into GitHub and documentation, and let Monad increasingly operate the engineering system used to build Monad.\n\n### Horizon 4 — Distributed ecosystem\n\nAdd registry, plugins, SDKs, remote execution/cache, collaboration, hosted services, enterprise governance, and multi-repository knowledge where validated demand justifies them.\n\n## MVP promise\n\nRelease 1 succeeds when a user can point Monad at a representative repository and complete a deterministic loop from workspace discovery to semantic graph, explanation, change impact, bounded AI context, execution plan, native validation, and reproducible evidence through a coherent CLI.\n\n## Strategic boundary\n\nMonad is not trying to replace Git, an IDE, a package manager, a programming language, every build tool, GitHub, or human engineering judgment. Features belong when they strengthen the semantic engineering model, deterministic execution, governed automation, or the reliable projection of engineering knowledge.\n",
   "document_id": "doc:vision%2Fproduct-vision.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "vision",
     "normative": true,
-    "summary": "For people and teams who need to complete a consequential workflow reliably, MonadV2 is a focused product that turns intent into a clear, verifiable, and repeatable outcome. Unlike fragmented tools and undocumented workarounds, it makes state, evidence, constraints, and recovery visible so users can act with confidence without surrendering control.",
+    "summary": "Status: Proposed foundation baseline",
     "title": "Product Vision"
   },
   "relations": [],
@@ -21,83 +21,200 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 2,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "product-vision",
-      "text": "# Product Vision",
+      "text": "# Product Vision\n\n**Status:** Proposed foundation baseline",
       "title": "Product Vision"
     },
     {
       "identifiers": [],
       "level": 2,
       "line_end": 10,
-      "line_start": 3,
+      "line_start": 5,
       "section_id": "vision-statement",
-      "text": "## Vision statement\n\nFor people and teams who need to complete a consequential workflow reliably,\nMonadV2 is a focused product that turns intent into a clear,\nverifiable, and repeatable outcome. Unlike fragmented tools and undocumented\nworkarounds, it makes state, evidence, constraints, and recovery visible so\nusers can act with confidence without surrendering control.",
+      "text": "## Vision statement\n\nMonad is a **local-first Engineering Knowledge Compilation Platform** that understands a software system as structured engineering knowledge and uses that knowledge to coordinate humans, AI agents, source code, native tools, workflows, and infrastructure.\n\nThe long-term product is not merely a monorepo CLI, build wrapper, documentation site, or AI assistant. Monad is the control system that makes software engineering intent, constraints, relationships, work authorization, execution, and evidence explicit enough to be queried, validated, reproduced, and safely automated.",
       "title": "Vision statement"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 19,
+      "line_end": 26,
       "line_start": 11,
       "section_id": "desired-future",
-      "text": "## Desired future\n\nIn the desired future, a new user can understand the product's promise, complete\nthe primary journey, verify the result, and recover from a foreseeable failure\nwithout private knowledge or maintainer intervention. Accountable stakeholders\ncan see whether the product creates value, protects users, and remains within\nagreed cost and risk limits. Maintainers can change the system without guessing\nwhich promises will break.",
+      "text": "## Desired future\n\nA maintainer can enter an unfamiliar repository and ask Monad:\n\n- what the system is and why its parts exist;\n- which requirements, specifications, decisions, owners, tests, and risks govern a component;\n- what changed and what is semantically affected;\n- which validation must run and why;\n- whether implementation and documentation disagree;\n- which promises lack tests or evidence;\n- what context an AI agent needs for an authorized task;\n- which native-tool actions form the smallest correct execution plan;\n- how a delivered artifact was produced and which evidence proves it.\n\nThe answers are derived from a deterministic engineering model rather than improvised independently by each tool or model.",
       "title": "Desired future"
     },
     {
       "identifiers": [],
       "level": 2,
+      "line_end": 28,
+      "line_start": 27,
+      "section_id": "product-principles",
+      "text": "## Product principles",
+      "title": "Product principles"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
       "line_end": 32,
-      "line_start": 20,
-      "section_id": "strategic-outcomes",
-      "text": "## Strategic outcomes\n\n1. **Useful:** users reach the intended outcome more reliably than with their\n   current alternative.\n2. **Understandable:** users know what the system did, what it did not do, and\n   what action remains theirs.\n3. **Trustworthy:** sensitive operations are authorized, auditable, reversible\n   where possible, and fail safely.\n4. **Operable:** service health, cost, capacity, and dependency risk are visible\n   and controlled.\n5. **Evolvable:** boundaries and contracts allow change without widespread\n   coordination or accidental compatibility breaks.",
-      "title": "Strategic outcomes"
+      "line_start": 29,
+      "section_id": "knowledge-is-primary",
+      "text": "### Knowledge is primary\n\nSource code is one projection of the software system. Requirements, ADRs, specifications, dependency relationships, work authorization, tests, releases, diagnostics, operational evidence, and rationale are also engineering knowledge and must participate in the model.",
+      "title": "Knowledge is primary"
     },
     {
       "identifiers": [],
-      "level": 2,
-      "line_end": 39,
+      "level": 3,
+      "line_end": 36,
       "line_start": 33,
-      "section_id": "product-promise",
-      "text": "## Product promise\n\nThe product promises a dependable path from an explicit user intent to a\nverifiable result. It does not promise perfect prediction, elimination of human\njudgment, or success under unstated constraints. Confidence must be earned with\nevidence and communicated in language appropriate to the consequence.",
-      "title": "Product promise"
+      "section_id": "local-first",
+      "text": "### Local-first\n\nThe canonical engineering loop runs from Git, the local filesystem, the Monad engine, and installed native toolchains. Cloud services may add collaboration, remote execution, registry, indexing, analytics, or fleet governance later; they may not be required for the semantic kernel to function.",
+      "title": "Local-first"
     },
     {
       "identifiers": [],
-      "level": 2,
+      "level": 3,
+      "line_end": 40,
+      "line_start": 37,
+      "section_id": "deterministic-core-probabilistic-assistants",
+      "text": "### Deterministic core, probabilistic assistants\n\nWorkspace discovery, parsing, normalization, identity, graph construction, KIR, diagnostics, affected-set computation, planning, hashing, and conformance belong to deterministic software. AI may help author, explain, propose, and navigate, but does not define canonical semantics.",
+      "title": "Deterministic core, probabilistic assistants"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 44,
+      "line_start": 41,
+      "section_id": "ai-native-not-model-dependent",
+      "text": "### AI-native, not model-dependent\n\nMonad is intentionally designed for AI-assisted engineering. It exposes bounded context, capabilities, work contracts, provenance, and machine-readable evidence. Provider-specific features remain behind replaceable interfaces.",
+      "title": "AI-native, not model-dependent"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
       "line_end": 48,
-      "line_start": 40,
-      "section_id": "experience-principles",
-      "text": "## Experience principles\n\n- Start from the user's desired outcome, not the system's internal model.\n- Show progress, decisions, dependencies, and next actions.\n- Request the minimum authority and data needed for the current operation.\n- Prevent high-impact mistakes before optimizing frequent low-impact actions.\n- Preserve work through interruption and make recovery a first-class path.\n- Keep expert depth available without forcing it into the default workflow.",
-      "title": "Experience principles"
+      "line_start": 45,
+      "section_id": "native-tools-remain-authoritative-for-their-mechanics",
+      "text": "### Native tools remain authoritative for their mechanics\n\nMonad coordinates ecosystem tools rather than reimplementing Cargo, Go, Bun, Python, compilers, linters, test runners, Terraform, Docker, Git, and similar systems. Monad owns *what should run, why, in what order, under which constraints, and what the result means*.",
+      "title": "Native tools remain authoritative for their mechanics"
     },
     {
       "identifiers": [],
-      "level": 2,
-      "line_end": 55,
+      "level": 3,
+      "line_end": 52,
       "line_start": 49,
-      "section_id": "strategic-boundaries",
-      "text": "## Strategic boundaries\n\nThe first product is not a general-purpose platform, an unbounded automation\nengine, a replacement for accountable professionals, or a collection of\nfeatures without one coherent journey. Expansion follows demonstrated demand\nand operational maturity, not speculative completeness.",
-      "title": "Strategic boundaries"
+      "section_id": "explainability-is-a-product-feature",
+      "text": "### Explainability is a product feature\n\nImportant results should expose provenance and reasoning structure: why an entity exists, why a relationship was inferred, why a check is required, why a change affects another artifact, and why a cache or plan is valid.",
+      "title": "Explainability is a product feature"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 56,
+      "line_start": 53,
+      "section_id": "human-authority-is-explicit",
+      "text": "### Human authority is explicit\n\nAutomation does not acquire decision rights because it is fast or confident. High-consequence changes remain subject to the authority and review model in `governance/`.",
+      "title": "Human authority is explicit"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 60,
+      "line_start": 57,
+      "section_id": "semantic-incrementality",
+      "text": "### Semantic incrementality\n\nA change should lead to the smallest safe recomputation and execution plan derivable from the semantic dependency graph. Conservative uncertainty expands the plan; it never silently omits required work.",
+      "title": "Semantic incrementality"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 64,
+      "line_start": 61,
+      "section_id": "generated-views-are-disposable",
+      "text": "### Generated views are disposable\n\nMachine companions, indexes, publication views, dashboards, and agent packages are regenerated from canonical sources. A generated artifact cannot silently become a second editable source of truth.",
+      "title": "Generated views are disposable"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 68,
+      "line_start": 65,
+      "section_id": "modularize-architecture-early-split-repositories-late",
+      "text": "### Modularize architecture early; split repositories late\n\nInternal boundaries should be clean from the start. Independent repositories are introduced only when lifecycle, distribution, security, ownership, or community evidence justifies them.",
+      "title": "Modularize architecture early; split repositories late"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 67,
-      "line_start": 56,
-      "section_id": "three-horizon-evolution",
-      "text": "## Three-horizon evolution\n\n- **Horizon 1 — Prove:** deliver one narrow, observable, end-to-end outcome for\n  the primary persona.\n- **Horizon 2 — Strengthen:** improve reliability, integration, administration,\n  and repeatability for the proven workflow.\n- **Horizon 3 — Extend:** support adjacent personas and workflows through stable\n  capabilities and contracts.\n\nThe vision succeeds when users choose the product repeatedly for the intended\njob and the project can explain that adoption through measured outcomes rather\nthan activity or feature count.",
-      "title": "Three-horizon evolution"
+      "line_end": 70,
+      "line_start": 69,
+      "section_id": "strategic-horizons",
+      "text": "## Strategic horizons",
+      "title": "Strategic horizons"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 74,
+      "line_start": 71,
+      "section_id": "horizon-1-semantic-kernel",
+      "text": "### Horizon 1 — Semantic kernel\n\nCompile canonical repository knowledge into a stable graph and KIR; validate, query, explain, calculate impact, and produce structured diagnostics.",
+      "title": "Horizon 1 — Semantic kernel"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 78,
+      "line_start": 75,
+      "section_id": "horizon-2-executable-engineering-model",
+      "text": "### Horizon 2 — Executable engineering model\n\nTurn semantic impact into explainable execution plans, verified caches, native-tool orchestration, artifact production, and reproducible evidence.",
+      "title": "Horizon 2 — Executable engineering model"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 82,
+      "line_start": 79,
+      "section_id": "horizon-3-human-ai-engineering-operating-system",
+      "text": "### Horizon 3 — Human/AI engineering operating system\n\nGenerate bounded agent context, govern capabilities, support work packets and reviews, project engineering state into GitHub and documentation, and let Monad increasingly operate the engineering system used to build Monad.",
+      "title": "Horizon 3 — Human/AI engineering operating system"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 86,
+      "line_start": 83,
+      "section_id": "horizon-4-distributed-ecosystem",
+      "text": "### Horizon 4 — Distributed ecosystem\n\nAdd registry, plugins, SDKs, remote execution/cache, collaboration, hosted services, enterprise governance, and multi-repository knowledge where validated demand justifies them.",
+      "title": "Horizon 4 — Distributed ecosystem"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 90,
+      "line_start": 87,
+      "section_id": "mvp-promise",
+      "text": "## MVP promise\n\nRelease 1 succeeds when a user can point Monad at a representative repository and complete a deterministic loop from workspace discovery to semantic graph, explanation, change impact, bounded AI context, execution plan, native validation, and reproducible evidence through a coherent CLI.",
+      "title": "MVP promise"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 93,
+      "line_start": 91,
+      "section_id": "strategic-boundary",
+      "text": "## Strategic boundary\n\nMonad is not trying to replace Git, an IDE, a package manager, a programming language, every build tool, GitHub, or human engineering judgment. Features belong when they strengthen the semantic engineering model, deterministic execution, governed automation, or the reliable projection of engineering knowledge.",
+      "title": "Strategic boundary"
     }
   ],
   "source": {
-    "bytes": 3073,
+    "bytes": 5664,
     "canonical": true,
     "language": "markdown",
-    "lines": 67,
+    "lines": 93,
     "media_type": "text/markdown",
     "path": "vision/product-vision.md",
-    "sha256": "92bc5cc712a8ac313d34a549593d2f33530fe421fc312f3c272af4dab85da859"
+    "sha256": "1b1153e0fe3b1c51ea37904dc9ba1e4e10d35203d87faa075eca6ea8e9adbe90"
   }
 }

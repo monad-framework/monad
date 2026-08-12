@@ -1,5 +1,5 @@
 {
-  "content": "# Problem Statement\n\n## Context\n\nThe target workflow currently spans disconnected information, tools, approvals,\nand tacit knowledge. Users must reconstruct state, determine what is trustworthy,\ncoordinate handoffs, and verify completion manually. The burden grows when the\nwork is interrupted, repeated, audited, or performed by someone without the\noriginal operator's context.\n\n## Core problem\n\nPrimary users cannot consistently convert an intended outcome into a verified\nresult with acceptable effort and risk because the current process does not\nprovide a single clear model of state, rules, evidence, ownership, and recovery.\nThey compensate with memory, duplicate records, private checklists, repeated\nquestions, and manual inspection.\n\n## Who is affected\n\n- Practitioners lose time assembling context and checking routine work.\n- Accountable owners lack dependable evidence that outcomes and controls were\n  achieved.\n- Operators diagnose failures without sufficient state or correlation.\n- New participants depend on informal coaching and are more likely to miss\n  hidden constraints.\n- People represented in the data may bear privacy or fairness risks without a\n  direct voice in product operation.\n\n## Observable consequences\n\nThe problem appears as longer cycle time, rework, inconsistent outcomes,\nunclear ownership, avoidable incidents, audit difficulty, poor onboarding, and\ndecisions made with unjustified confidence. These symptoms must be baselined\nbefore product impact can be claimed.\n\n## Jobs to be done\n\nWhen a user has a defined outcome to achieve, they need to understand the\nrequired inputs and constraints, execute the workflow, see its current state,\nhandle exceptions, and produce evidence of completion so they can proceed\nwithout reconstructing the process or depending on a particular expert.\n\n## Existing alternatives\n\nCurrent alternatives include manual documents, spreadsheets, chat threads,\ngeneral-purpose project tools, point solutions, and bespoke scripts. Research\nmust compare these options fairly. Familiarity, local flexibility, low cost,\nand human judgment are advantages the proposed product must not accidentally\ndiscard.\n\n## Evidence plan\n\nEvidence will come from recent-event interviews, direct workflow observation,\nartifact inspection, support or incident records, and a quantified baseline.\nParticipants should describe the last occurrence rather than predict future\nbehavior. Findings must record sample limits and plausible competing\nexplanations.\n\n## Problem acceptance test\n\nThe problem is considered validated when representative users independently\nreport the same high-cost failure pattern, observed behavior confirms it,\nexisting alternatives do not resolve it acceptably, and at least one reachable\nstakeholder commits time, data, or budget to test a better workflow.\n\n## Falsification conditions\n\nThe project must reconsider or stop if the problem is rare, inexpensive, or\nalready solved well; if adoption requires authority users cannot grant; if the\nproposed intervention transfers unacceptable harm; or if a simpler process\nchange produces the same outcome with lower total cost and risk.\n",
+  "content": "# Problem Statement\n\n**Status:** Proposed foundation baseline\n\n## Context\n\nModern software systems are governed by a web of engineering knowledge distributed across source code, requirements, architecture decisions, specifications, configuration, dependency metadata, tests, issues, pull requests, build definitions, security controls, releases, runbooks, incident history, and human reasoning.\n\nThe tools that store those artifacts generally understand only their local representation. Git tracks file history but not why a file exists. Issue trackers represent work but not the full architecture they affect. Build systems know dependency mechanics but rarely the product or governance reason a check matters. Documentation describes intent but often drifts from implementation. AI assistants can read large amounts of text but are frequently given context without a reliable model of authority, provenance, relationships, or current validity.\n\n## Core problem\n\nSoftware engineers, maintainers, reviewers, and AI agents cannot reliably answer consequential questions about a project without manually reconstructing context from fragmented sources.\n\nThey must infer:\n\n- which artifacts are authoritative;\n- how concepts and components relate;\n- why a decision or file exists;\n- what a proposed change affects;\n- which tests and validation are required;\n- which assumptions are current;\n- what an AI agent is authorized to change;\n- whether generated documentation or cached results are still valid;\n- how a release result can be reproduced.\n\nThis reconstruction is repetitive, expensive, inconsistent, and increasingly difficult as repositories become polyglot, multi-tool, AI-assisted, and organizationally distributed.\n\n## Who is affected\n\n### Individual engineers\n\nSpend time locating context, tracing dependencies, determining commands, rereading architectural history, and manually checking whether a change is safe.\n\n### Maintainers and architects\n\nMust detect drift between architecture, specifications, code, tests, and documentation while reviewing changes under limited time and incomplete context.\n\n### AI-assisted development workflows\n\nAgents can make fast repository changes but may lack the minimum authoritative context needed to understand intent, prohibited changes, blast radius, or acceptance evidence. More context is not automatically better context.\n\n### CI and release systems\n\nOften execute broad predefined pipelines rather than semantically minimal, explainable validation tied to the actual affected engineering graph.\n\n### Tool and ecosystem authors\n\nLack a common semantic substrate for interoperating over project meaning, provenance, policy, and engineering relationships.\n\n## Observable consequences\n\nThe problem appears as:\n\n- repeated repository archaeology before meaningful work begins;\n- architecture and documentation drift;\n- overbroad or incomplete CI execution;\n- duplicated or contradictory engineering records;\n- difficult impact analysis;\n- fragile AI-agent prompting and oversized context windows;\n- tests that exist without clear requirement coverage;\n- requirements or decisions with no observable implementation evidence;\n- build and release results that are hard to reproduce or explain;\n- maintainers becoming irreplaceable stores of project context.\n\n## Jobs to be done\n\nWhen changing or evaluating a software system, an engineer needs to understand the relevant project knowledge, determine the semantic impact of the proposed work, identify the governing constraints and required verification, execute the correct native tools, and retain evidence of the result without reconstructing the project from scratch.\n\nWhen delegating work to an AI agent, a human needs to provide the smallest sufficient authoritative context, bounded permissions, acceptance criteria, and validation plan so the resulting change is reviewable and does not gain authority from model confidence alone.\n\n## Existing alternatives\n\nCurrent alternatives include repository search, README files, architecture docs, ADRs, code ownership, monorepo/build systems, dependency graphs, IDE indexes, static analysis, knowledge bases, issue trackers, CI configuration, RAG systems, agent instruction files, and experienced maintainers.\n\nMonad should integrate with and learn from these tools rather than dismiss them. Its differentiation must come from compiling the relationships among engineering artifacts into one deterministic semantic model that can drive both understanding and execution.\n\n## Problem acceptance tests\n\nThe problem is sufficiently validated for MVP implementation when representative engineering tasks demonstrate that:\n\n1. meaningful context is distributed across several artifact classes rather than available from source code alone;\n2. maintainers spend nontrivial effort reconstructing that context or validating change impact;\n3. a deterministic semantic model can answer at least some high-value questions more reliably than ad hoc search;\n4. bounded semantic context improves at least one controlled human/AI engineering workflow;\n5. native-tool execution can be planned from semantic impact without sacrificing correctness.\n\n## Falsification conditions\n\nMonad should narrow, pivot, or stop if repository studies show that the semantic graph cannot be kept accurate enough for consequential use; if the explicit knowledge needed to feed the system imposes more cost than it saves; if affected-set computation cannot be made conservative and explainable; if bounded semantic context does not improve AI-assisted work; or if existing tools already provide the combined value with materially lower complexity.\n",
   "document_id": "doc:vision%2Fproblem-statement.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "vision",
     "normative": true,
-    "summary": "The target workflow currently spans disconnected information, tools, approvals, and tacit knowledge. Users must reconstruct state, determine what is trustworthy, coordinate handoffs, and verify completion manually. The burden grows when the work is interrupted, repeated, audited, or performed by someone without the original operator's context.",
+    "summary": "Status: Proposed foundation baseline",
     "title": "Problem Statement"
   },
   "relations": [],
@@ -21,101 +21,137 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 2,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "problem-statement",
-      "text": "# Problem Statement",
+      "text": "# Problem Statement\n\n**Status:** Proposed foundation baseline",
       "title": "Problem Statement"
     },
     {
       "identifiers": [],
       "level": 2,
       "line_end": 10,
-      "line_start": 3,
+      "line_start": 5,
       "section_id": "context",
-      "text": "## Context\n\nThe target workflow currently spans disconnected information, tools, approvals,\nand tacit knowledge. Users must reconstruct state, determine what is trustworthy,\ncoordinate handoffs, and verify completion manually. The burden grows when the\nwork is interrupted, repeated, audited, or performed by someone without the\noriginal operator's context.",
+      "text": "## Context\n\nModern software systems are governed by a web of engineering knowledge distributed across source code, requirements, architecture decisions, specifications, configuration, dependency metadata, tests, issues, pull requests, build definitions, security controls, releases, runbooks, incident history, and human reasoning.\n\nThe tools that store those artifacts generally understand only their local representation. Git tracks file history but not why a file exists. Issue trackers represent work but not the full architecture they affect. Build systems know dependency mechanics but rarely the product or governance reason a check matters. Documentation describes intent but often drifts from implementation. AI assistants can read large amounts of text but are frequently given context without a reliable model of authority, provenance, relationships, or current validity.",
       "title": "Context"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 18,
+      "line_end": 28,
       "line_start": 11,
       "section_id": "core-problem",
-      "text": "## Core problem\n\nPrimary users cannot consistently convert an intended outcome into a verified\nresult with acceptable effort and risk because the current process does not\nprovide a single clear model of state, rules, evidence, ownership, and recovery.\nThey compensate with memory, duplicate records, private checklists, repeated\nquestions, and manual inspection.",
+      "text": "## Core problem\n\nSoftware engineers, maintainers, reviewers, and AI agents cannot reliably answer consequential questions about a project without manually reconstructing context from fragmented sources.\n\nThey must infer:\n\n- which artifacts are authoritative;\n- how concepts and components relate;\n- why a decision or file exists;\n- what a proposed change affects;\n- which tests and validation are required;\n- which assumptions are current;\n- what an AI agent is authorized to change;\n- whether generated documentation or cached results are still valid;\n- how a release result can be reproduced.\n\nThis reconstruction is repetitive, expensive, inconsistent, and increasingly difficult as repositories become polyglot, multi-tool, AI-assisted, and organizationally distributed.",
       "title": "Core problem"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 29,
-      "line_start": 19,
+      "line_end": 30,
+      "line_start": 29,
       "section_id": "who-is-affected",
-      "text": "## Who is affected\n\n- Practitioners lose time assembling context and checking routine work.\n- Accountable owners lack dependable evidence that outcomes and controls were\n  achieved.\n- Operators diagnose failures without sufficient state or correlation.\n- New participants depend on informal coaching and are more likely to miss\n  hidden constraints.\n- People represented in the data may bear privacy or fairness risks without a\n  direct voice in product operation.",
+      "text": "## Who is affected",
       "title": "Who is affected"
     },
     {
       "identifiers": [],
+      "level": 3,
+      "line_end": 34,
+      "line_start": 31,
+      "section_id": "individual-engineers",
+      "text": "### Individual engineers\n\nSpend time locating context, tracing dependencies, determining commands, rereading architectural history, and manually checking whether a change is safe.",
+      "title": "Individual engineers"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 38,
+      "line_start": 35,
+      "section_id": "maintainers-and-architects",
+      "text": "### Maintainers and architects\n\nMust detect drift between architecture, specifications, code, tests, and documentation while reviewing changes under limited time and incomplete context.",
+      "title": "Maintainers and architects"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 42,
+      "line_start": 39,
+      "section_id": "ai-assisted-development-workflows",
+      "text": "### AI-assisted development workflows\n\nAgents can make fast repository changes but may lack the minimum authoritative context needed to understand intent, prohibited changes, blast radius, or acceptance evidence. More context is not automatically better context.",
+      "title": "AI-assisted development workflows"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 46,
+      "line_start": 43,
+      "section_id": "ci-and-release-systems",
+      "text": "### CI and release systems\n\nOften execute broad predefined pipelines rather than semantically minimal, explainable validation tied to the actual affected engineering graph.",
+      "title": "CI and release systems"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 50,
+      "line_start": 47,
+      "section_id": "tool-and-ecosystem-authors",
+      "text": "### Tool and ecosystem authors\n\nLack a common semantic substrate for interoperating over project meaning, provenance, policy, and engineering relationships.",
+      "title": "Tool and ecosystem authors"
+    },
+    {
+      "identifiers": [],
       "level": 2,
-      "line_end": 36,
-      "line_start": 30,
+      "line_end": 65,
+      "line_start": 51,
       "section_id": "observable-consequences",
-      "text": "## Observable consequences\n\nThe problem appears as longer cycle time, rework, inconsistent outcomes,\nunclear ownership, avoidable incidents, audit difficulty, poor onboarding, and\ndecisions made with unjustified confidence. These symptoms must be baselined\nbefore product impact can be claimed.",
+      "text": "## Observable consequences\n\nThe problem appears as:\n\n- repeated repository archaeology before meaningful work begins;\n- architecture and documentation drift;\n- overbroad or incomplete CI execution;\n- duplicated or contradictory engineering records;\n- difficult impact analysis;\n- fragile AI-agent prompting and oversized context windows;\n- tests that exist without clear requirement coverage;\n- requirements or decisions with no observable implementation evidence;\n- build and release results that are hard to reproduce or explain;\n- maintainers becoming irreplaceable stores of project context.",
       "title": "Observable consequences"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 43,
-      "line_start": 37,
+      "line_end": 71,
+      "line_start": 66,
       "section_id": "jobs-to-be-done",
-      "text": "## Jobs to be done\n\nWhen a user has a defined outcome to achieve, they need to understand the\nrequired inputs and constraints, execute the workflow, see its current state,\nhandle exceptions, and produce evidence of completion so they can proceed\nwithout reconstructing the process or depending on a particular expert.",
+      "text": "## Jobs to be done\n\nWhen changing or evaluating a software system, an engineer needs to understand the relevant project knowledge, determine the semantic impact of the proposed work, identify the governing constraints and required verification, execute the correct native tools, and retain evidence of the result without reconstructing the project from scratch.\n\nWhen delegating work to an AI agent, a human needs to provide the smallest sufficient authoritative context, bounded permissions, acceptance criteria, and validation plan so the resulting change is reviewable and does not gain authority from model confidence alone.",
       "title": "Jobs to be done"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 51,
-      "line_start": 44,
+      "line_end": 77,
+      "line_start": 72,
       "section_id": "existing-alternatives",
-      "text": "## Existing alternatives\n\nCurrent alternatives include manual documents, spreadsheets, chat threads,\ngeneral-purpose project tools, point solutions, and bespoke scripts. Research\nmust compare these options fairly. Familiarity, local flexibility, low cost,\nand human judgment are advantages the proposed product must not accidentally\ndiscard.",
+      "text": "## Existing alternatives\n\nCurrent alternatives include repository search, README files, architecture docs, ADRs, code ownership, monorepo/build systems, dependency graphs, IDE indexes, static analysis, knowledge bases, issue trackers, CI configuration, RAG systems, agent instruction files, and experienced maintainers.\n\nMonad should integrate with and learn from these tools rather than dismiss them. Its differentiation must come from compiling the relationships among engineering artifacts into one deterministic semantic model that can drive both understanding and execution.",
       "title": "Existing alternatives"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 59,
-      "line_start": 52,
-      "section_id": "evidence-plan",
-      "text": "## Evidence plan\n\nEvidence will come from recent-event interviews, direct workflow observation,\nartifact inspection, support or incident records, and a quantified baseline.\nParticipants should describe the last occurrence rather than predict future\nbehavior. Findings must record sample limits and plausible competing\nexplanations.",
-      "title": "Evidence plan"
+      "line_end": 87,
+      "line_start": 78,
+      "section_id": "problem-acceptance-tests",
+      "text": "## Problem acceptance tests\n\nThe problem is sufficiently validated for MVP implementation when representative engineering tasks demonstrate that:\n\n1. meaningful context is distributed across several artifact classes rather than available from source code alone;\n2. maintainers spend nontrivial effort reconstructing that context or validating change impact;\n3. a deterministic semantic model can answer at least some high-value questions more reliably than ad hoc search;\n4. bounded semantic context improves at least one controlled human/AI engineering workflow;\n5. native-tool execution can be planned from semantic impact without sacrificing correctness.",
+      "title": "Problem acceptance tests"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 66,
-      "line_start": 60,
-      "section_id": "problem-acceptance-test",
-      "text": "## Problem acceptance test\n\nThe problem is considered validated when representative users independently\nreport the same high-cost failure pattern, observed behavior confirms it,\nexisting alternatives do not resolve it acceptably, and at least one reachable\nstakeholder commits time, data, or budget to test a better workflow.",
-      "title": "Problem acceptance test"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 72,
-      "line_start": 67,
+      "line_end": 90,
+      "line_start": 88,
       "section_id": "falsification-conditions",
-      "text": "## Falsification conditions\n\nThe project must reconsider or stop if the problem is rare, inexpensive, or\nalready solved well; if adoption requires authority users cannot grant; if the\nproposed intervention transfers unacceptable harm; or if a simpler process\nchange produces the same outcome with lower total cost and risk.",
+      "text": "## Falsification conditions\n\nMonad should narrow, pivot, or stop if repository studies show that the semantic graph cannot be kept accurate enough for consequential use; if the explicit knowledge needed to feed the system imposes more cost than it saves; if affected-set computation cannot be made conservative and explainable; if bounded semantic context does not improve AI-assisted work; or if existing tools already provide the combined value with materially lower complexity.",
       "title": "Falsification conditions"
     }
   ],
   "source": {
-    "bytes": 3152,
+    "bytes": 5655,
     "canonical": true,
     "language": "markdown",
-    "lines": 72,
+    "lines": 90,
     "media_type": "text/markdown",
     "path": "vision/problem-statement.md",
-    "sha256": "1036f60c90dc812b9b2fe1fd017dd41dbc861708ddae89bc1d75c127c785ed5d"
+    "sha256": "5633456d64e1dc98d895d071bfc635333a90972c6b3b97ed031ec42c0a6ca1da"
   }
 }

@@ -7,22 +7,12 @@
     },
     {
       "source": "doc:README.md",
-      "target": "doc:CODE_OF_CONDUCT.md",
-      "type": "references"
-    },
-    {
-      "source": "doc:README.md",
-      "target": "doc:CONTRIBUTING.md",
-      "type": "references"
-    },
-    {
-      "source": "doc:README.md",
       "target": "doc:LICENSE",
       "type": "references"
     },
     {
       "source": "doc:README.md",
-      "target": "doc:SECURITY.md",
+      "target": "doc:architecture%2Fdecisions%2FREADME.md",
       "type": "references"
     },
     {
@@ -32,7 +22,17 @@
     },
     {
       "source": "doc:README.md",
-      "target": "doc:engineering%2Fwork-packets%2Factive.md",
+      "target": "doc:artifact-system%2FREADME.md",
+      "type": "references"
+    },
+    {
+      "source": "doc:README.md",
+      "target": "doc:engineering%2Fengineering-plan.md",
+      "type": "references"
+    },
+    {
+      "source": "doc:README.md",
+      "target": "doc:engineering%2Fproject-status.md",
       "type": "references"
     },
     {
@@ -48,6 +48,11 @@
     {
       "source": "doc:README.md",
       "target": "doc:vision%2Fproblem-statement.md",
+      "type": "references"
+    },
+    {
+      "source": "doc:README.md",
+      "target": "doc:vision%2Fproduct-vision.md",
       "type": "references"
     },
     {
@@ -207,7 +212,7 @@
     },
     {
       "source": "doc:engineering%2Fproject-status.md",
-      "target": "identifier:WP-0001",
+      "target": "identifier:ADR-0001",
       "type": "declares"
     },
     {
@@ -301,6 +306,11 @@
       "type": "declares"
     },
     {
+      "source": "doc:idea.md",
+      "target": "identifier:A-06",
+      "type": "declares"
+    },
+    {
       "source": "doc:journal%2F0001-project-inception.md",
       "target": "identifier:WP-0001",
       "type": "declares"
@@ -346,6 +356,56 @@
       "type": "declares"
     },
     {
+      "source": "doc:product%2Fcapabilities.md",
+      "target": "identifier:C-09",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fcapabilities.md",
+      "target": "identifier:C-10",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fcapabilities.md",
+      "target": "identifier:C-11",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fcapabilities.md",
+      "target": "identifier:C-12",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fcapabilities.md",
+      "target": "identifier:C-13",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fcapabilities.md",
+      "target": "identifier:C-14",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fcapabilities.md",
+      "target": "identifier:C-15",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fcapabilities.md",
+      "target": "identifier:C-16",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fcapabilities.md",
+      "target": "identifier:C-17",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fcapabilities.md",
+      "target": "identifier:C-18",
+      "type": "declares"
+    },
+    {
       "source": "doc:product%2Fproduct-requirements.md",
       "target": "identifier:FR-001",
       "type": "declares"
@@ -387,6 +447,56 @@
     },
     {
       "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-009",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-010",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-011",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-012",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-013",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-014",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-015",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-016",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-017",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-018",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
       "target": "identifier:QR-001",
       "type": "declares"
     },
@@ -413,6 +523,26 @@
     {
       "source": "doc:product%2Fproduct-requirements.md",
       "target": "identifier:QR-006",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:QR-007",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:QR-008",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:QR-009",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:QR-010",
       "type": "declares"
     },
     {
@@ -641,6 +771,21 @@
       "type": "declares"
     },
     {
+      "source": "doc:vision%2Fgoals.md",
+      "target": "identifier:G-08",
+      "type": "declares"
+    },
+    {
+      "source": "doc:vision%2Fgoals.md",
+      "target": "identifier:G-09",
+      "type": "declares"
+    },
+    {
+      "source": "doc:vision%2Fgoals.md",
+      "target": "identifier:G-10",
+      "type": "declares"
+    },
+    {
       "source": "doc:vision%2Fnon-goals.md",
       "target": "identifier:NG-01",
       "type": "declares"
@@ -673,6 +818,41 @@
     {
       "source": "doc:vision%2Fnon-goals.md",
       "target": "identifier:NG-07",
+      "type": "declares"
+    },
+    {
+      "source": "doc:vision%2Fnon-goals.md",
+      "target": "identifier:NG-08",
+      "type": "declares"
+    },
+    {
+      "source": "doc:vision%2Fnon-goals.md",
+      "target": "identifier:NG-09",
+      "type": "declares"
+    },
+    {
+      "source": "doc:vision%2Fnon-goals.md",
+      "target": "identifier:NG-10",
+      "type": "declares"
+    },
+    {
+      "source": "doc:vision%2Fnon-goals.md",
+      "target": "identifier:NG-11",
+      "type": "declares"
+    },
+    {
+      "source": "doc:vision%2Fnon-goals.md",
+      "target": "identifier:NG-12",
+      "type": "declares"
+    },
+    {
+      "source": "doc:vision%2Fnon-goals.md",
+      "target": "identifier:NG-13",
+      "type": "declares"
+    },
+    {
+      "source": "doc:vision%2Fnon-goals.md",
+      "target": "identifier:NG-14",
       "type": "declares"
     },
     {
@@ -862,7 +1042,7 @@
       "id": "doc:README.md",
       "normative": false,
       "source_path": "README.md",
-      "title": "MonadV2",
+      "title": "Monad",
       "type": "document"
     },
     {
@@ -1071,6 +1251,14 @@
       "normative": false,
       "source_path": "artifact-system/KIR/versioning.md",
       "title": "Versioning",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:artifact-system%2FREADME.md",
+      "normative": false,
+      "source_path": "artifact-system/README.md",
+      "title": "Monad Artifact System",
       "type": "document"
     },
     {
@@ -6923,6 +7111,14 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Fstabilization%2FSTABILIZATION-PROGRAM.md",
+      "normative": true,
+      "source_path": "engineering/stabilization/STABILIZATION-PROGRAM.md",
+      "title": "STAB-0001 — Foundation Stabilization Program",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Fwork-cycles%2FREADME.md",
       "normative": true,
       "source_path": "engineering/work-cycles/README.md",
@@ -7014,7 +7210,7 @@
       "id": "doc:idea.md",
       "normative": false,
       "source_path": "idea.md",
-      "title": "Project Idea: MonadV2",
+      "title": "Project Idea: Monad",
       "type": "document"
     },
     {
@@ -7126,7 +7322,7 @@
       "id": "doc:product%2Fproduct-requirements.md",
       "normative": true,
       "source_path": "product/product-requirements.md",
-      "title": "Product Requirements",
+      "title": "Product Requirements — MVP Release 1",
       "type": "document"
     },
     {
@@ -7134,7 +7330,7 @@
       "id": "doc:product%2Froadmap.md",
       "normative": true,
       "source_path": "product/roadmap.md",
-      "title": "Outcome Roadmap",
+      "title": "Product Roadmap",
       "type": "document"
     },
     {
@@ -7379,6 +7575,11 @@
       "value": "A-05"
     },
     {
+      "id": "identifier:A-06",
+      "type": "identifier",
+      "value": "A-06"
+    },
+    {
       "id": "identifier:AC-001",
       "type": "identifier",
       "value": "AC-001"
@@ -7539,6 +7740,56 @@
       "value": "C-08"
     },
     {
+      "id": "identifier:C-09",
+      "type": "identifier",
+      "value": "C-09"
+    },
+    {
+      "id": "identifier:C-10",
+      "type": "identifier",
+      "value": "C-10"
+    },
+    {
+      "id": "identifier:C-11",
+      "type": "identifier",
+      "value": "C-11"
+    },
+    {
+      "id": "identifier:C-12",
+      "type": "identifier",
+      "value": "C-12"
+    },
+    {
+      "id": "identifier:C-13",
+      "type": "identifier",
+      "value": "C-13"
+    },
+    {
+      "id": "identifier:C-14",
+      "type": "identifier",
+      "value": "C-14"
+    },
+    {
+      "id": "identifier:C-15",
+      "type": "identifier",
+      "value": "C-15"
+    },
+    {
+      "id": "identifier:C-16",
+      "type": "identifier",
+      "value": "C-16"
+    },
+    {
+      "id": "identifier:C-17",
+      "type": "identifier",
+      "value": "C-17"
+    },
+    {
+      "id": "identifier:C-18",
+      "type": "identifier",
+      "value": "C-18"
+    },
+    {
       "id": "identifier:FR-001",
       "type": "identifier",
       "value": "FR-001"
@@ -7579,6 +7830,56 @@
       "value": "FR-008"
     },
     {
+      "id": "identifier:FR-009",
+      "type": "identifier",
+      "value": "FR-009"
+    },
+    {
+      "id": "identifier:FR-010",
+      "type": "identifier",
+      "value": "FR-010"
+    },
+    {
+      "id": "identifier:FR-011",
+      "type": "identifier",
+      "value": "FR-011"
+    },
+    {
+      "id": "identifier:FR-012",
+      "type": "identifier",
+      "value": "FR-012"
+    },
+    {
+      "id": "identifier:FR-013",
+      "type": "identifier",
+      "value": "FR-013"
+    },
+    {
+      "id": "identifier:FR-014",
+      "type": "identifier",
+      "value": "FR-014"
+    },
+    {
+      "id": "identifier:FR-015",
+      "type": "identifier",
+      "value": "FR-015"
+    },
+    {
+      "id": "identifier:FR-016",
+      "type": "identifier",
+      "value": "FR-016"
+    },
+    {
+      "id": "identifier:FR-017",
+      "type": "identifier",
+      "value": "FR-017"
+    },
+    {
+      "id": "identifier:FR-018",
+      "type": "identifier",
+      "value": "FR-018"
+    },
+    {
       "id": "identifier:G-01",
       "type": "identifier",
       "value": "G-01"
@@ -7614,6 +7915,21 @@
       "value": "G-07"
     },
     {
+      "id": "identifier:G-08",
+      "type": "identifier",
+      "value": "G-08"
+    },
+    {
+      "id": "identifier:G-09",
+      "type": "identifier",
+      "value": "G-09"
+    },
+    {
+      "id": "identifier:G-10",
+      "type": "identifier",
+      "value": "G-10"
+    },
+    {
       "id": "identifier:NG-01",
       "type": "identifier",
       "value": "NG-01"
@@ -7647,6 +7963,41 @@
       "id": "identifier:NG-07",
       "type": "identifier",
       "value": "NG-07"
+    },
+    {
+      "id": "identifier:NG-08",
+      "type": "identifier",
+      "value": "NG-08"
+    },
+    {
+      "id": "identifier:NG-09",
+      "type": "identifier",
+      "value": "NG-09"
+    },
+    {
+      "id": "identifier:NG-10",
+      "type": "identifier",
+      "value": "NG-10"
+    },
+    {
+      "id": "identifier:NG-11",
+      "type": "identifier",
+      "value": "NG-11"
+    },
+    {
+      "id": "identifier:NG-12",
+      "type": "identifier",
+      "value": "NG-12"
+    },
+    {
+      "id": "identifier:NG-13",
+      "type": "identifier",
+      "value": "NG-13"
+    },
+    {
+      "id": "identifier:NG-14",
+      "type": "identifier",
+      "value": "NG-14"
     },
     {
       "id": "identifier:P-01",
@@ -7787,6 +8138,26 @@
       "id": "identifier:QR-006",
       "type": "identifier",
       "value": "QR-006"
+    },
+    {
+      "id": "identifier:QR-007",
+      "type": "identifier",
+      "value": "QR-007"
+    },
+    {
+      "id": "identifier:QR-008",
+      "type": "identifier",
+      "value": "QR-008"
+    },
+    {
+      "id": "identifier:QR-009",
+      "type": "identifier",
+      "value": "QR-009"
+    },
+    {
+      "id": "identifier:QR-010",
+      "type": "identifier",
+      "value": "QR-010"
     },
     {
       "id": "identifier:R-001",
@@ -7950,5 +8321,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "367a258f7570dbe615fe636f806dbfc838daaee2b7cba3b612f9994098dab7f9"
+  "source_tree_sha256": "b92ff9a3142fb4dea3a073790d3b4e77f551b887d997aef246c5821d20503580"
 }

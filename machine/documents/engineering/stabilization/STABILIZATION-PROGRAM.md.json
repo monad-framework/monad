@@ -1,0 +1,184 @@
+{
+  "content": "# STAB-0001 — Foundation Stabilization Program\n\n**Status:** Active  \n**Start:** 2026-08-12  \n**Target closure:** 2026-08-23  \n**Accountable authority:** Project Steward / Product Owner  \n**Delivery owner:** Engineering Owner\n\n## Objective\n\nConvert Monad's transitional repository into one coherent, synchronized, governed baseline from which MVP implementation can begin without forcing implementers to resolve product identity, artifact authority, or planning contradictions on their own.\n\n## Context\n\nThe repository has intentionally entered a fluid re-foundation period. It contains a strong new project operating system, a broad artifact taxonomy, a deterministic machine-document mechanism, and surviving Monad-specific knowledge-engine concepts, but portions of the initial product corpus were generated around a generic workflow-product hypothesis. The repository also underwent ADR-path consolidation and initially contained hundreds of empty artifact-system files plus an out-of-sync machine projection.\n\nStabilization does not freeze every future design. It establishes a coherent **current truth**, makes unresolved decisions explicit, and produces a Ready backlog whose first implementation work can proceed safely.\n\n## Target state\n\nAt stabilization closure:\n\n1. Monad has one canonical product thesis: Engineering Knowledge Compilation Platform.\n2. `architecture/decisions/` is the single ADR home and its index reflects accepted decisions.\n3. Product Goal, MVP requirements, capabilities, architecture, principles, and non-goals are mutually consistent enough to govern Release 1 planning.\n4. Every `artifact-system/*.md` file contains substantive Draft content or an explicitly justified non-document representation; zero-byte placeholders are eliminated.\n5. `machine/` is a complete deterministic projection of the current canonical source tree and CI detects drift.\n6. All foreseeable MVP Epics and Features are enumerated; MVP Stories/Enablers are progressively refined; current/next execution tasks are actionable.\n7. Milestones/Product Increments/Sprints/Work Packets are sequenced through Release 1 with dependencies and decision gates visible.\n8. GitHub Issues and the intended organization Project/Wiki projection are defined and, where tool permissions allow, populated.\n9. Repository governance, Issue/PR templates, CI, dependency/security controls, branch strategy, and release workflow have explicit target settings.\n10. At least the first semantic-kernel Work Packet satisfies the Definition of Ready.\n\n## Workstreams\n\n### WS-01 — Product identity reconciliation\n\nReplace generic MonadV2/consequential-workflow artifacts with a coherent engineering-knowledge product thesis. Reconcile README, idea, vision, product requirements, capabilities, roadmap, architecture context, and success criteria.\n\n**Exit:** no authoritative or proposed C0 document presents a materially different product as Monad's primary target.\n\n### WS-02 — Authority and ADR reconciliation\n\nConsolidate architectural decisions under `architecture/decisions/`, update `.monad` and indexes, identify conflicting or legacy authority, and define supersession rather than silent rewriting.\n\n**Exit:** one discoverable ADR authority model with current statuses and no competing live ADR root.\n\n### WS-03 — Artifact-system materialization\n\nPopulate every artifact-system Markdown placeholder with a substantive Draft baseline and define criticality/approval semantics so a complete taxonomy is not mistaken for a fully approved design.\n\n**Exit:** `python3 scripts/populate-artifact-system.py --check` passes with zero empty Markdown artifacts.\n\n### WS-04 — Machine-layer synchronization\n\nRegenerate per-document companions, manifest, graph, and corpus after canonical changes. Enforce deterministic drift checks in CI.\n\n**Exit:** `python3 scripts/sync-machine-docs.py --check` passes on the stabilization head and after final reconciliation.\n\n### WS-05 — MVP C1 architecture/specification readiness\n\nReview the semantic kernel's workspace, artifact, identity, provenance, graph, KIR, diagnostics, query, impact, planning, execution, and agent-context contracts. Promote only what implementation actually requires.\n\n**Exit:** first-slice ADRs/specifications are accepted or explicitly not required; implementers do not need to invent architectural authority.\n\n### WS-06 — Scrum/backlog and delivery sequencing\n\nCreate complete Epic/Feature roadmap, MVP Story/Enabler backlog, Sprint forecast, Work Packet map, estimates/priorities/dependencies, Definition of Ready/Done linkage, and release plan.\n\n**Exit:** Current Sprint and next two Sprints are refinement-ready; first implementation packet is Ready; longer-range work is visible without false task-level precision.\n\n### WS-07 — GitHub operating baseline\n\nConfigure or specify repository settings, labels, milestones, Issue Forms, PR template, CODEOWNERS, Project fields/views/iterations, Wiki projections, dependency automation, Actions security, branch/ruleset target, and release conventions.\n\n**Exit:** every GitHub surface is either configured and evidenced or has a deterministic setup artifact identifying the remaining permission/UI action. No setup is claimed merely because source files exist.\n\n### WS-08 — MVP readiness review\n\nRun cross-artifact consistency, machine sync, repository quality, security, backlog readiness, architecture/specification readiness, and release-plan feasibility reviews.\n\n**Exit:** formal decision is Proceed, Proceed with named conditions, or Do Not Proceed to implementation.\n\n## Sequencing\n\n```text\nWS-01 Product thesis ───────┐\nWS-02 Authority/ADR ────────┼──→ WS-05 C1 readiness ───→ first implementation WP\nWS-03 Artifact system ──────┤\nWS-04 Machine sync ─────────┤\nWS-06 Backlog ──────────────┼──→ WS-08 readiness review\nWS-07 GitHub baseline ──────┘\n```\n\nWS-03/04 may proceed broadly while C0/C1 meaning remains Draft because generated documents are explicitly non-authoritative. Promotion to Approved follows the normal lifecycle.\n\n## Known transition constraints\n\n- The product and architecture are intentionally fluid during stabilization.\n- Large numbers of Draft artifacts are expected; approval is selective and criticality-driven.\n- GitHub Project v2 and Wiki mutation may require capabilities/permissions not available to every automation identity. Repository-controlled setup specifications are required even when live mutation must be performed through GitHub UI or a separately authorized token.\n- The aggressive Release 1 forecast assumes focused scope and high automation; it does not authorize bypassing conformance, security, or reproducibility gates.\n\n## Exit criteria\n\n- [ ] C0 product identity is coherent and reviewed.\n- [ ] ADR path/status reconciliation is complete.\n- [ ] Artifact-system population check is green.\n- [ ] Machine synchronization check is green.\n- [ ] MVP requirements/capabilities/architecture are coherent.\n- [ ] All MVP Epics/Features are cataloged and ordered.\n- [ ] MVP Stories/Enablers are mapped; current execution tasks are decomposed.\n- [ ] Milestone/PI/Sprint/WP plan through Release 1 exists.\n- [ ] GitHub Issue/backlog projection exists and Project/Wiki target configuration is documented or live.\n- [ ] Repository quality/security settings target is explicit.\n- [ ] First implementation Work Packet passes Definition of Ready.\n- [ ] Stabilization readiness review records decision and residual risks.\n\n## Closure rule\n\nCompleting generators, documents, or GitHub tickets does not close STAB-0001. Closure requires evidence that the repository tells one coherent story, the executable quality gates pass, and the first implementation work is governed by sufficient accepted authority.\n",
+  "document_id": "doc:engineering%2Fstabilization%2FSTABILIZATION-PROGRAM.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Active Start: 2026-08-12 Target closure: 2026-08-23 Accountable authority: Project Steward / Product Owner Delivery owner: Engineering Owner",
+    "title": "STAB-0001 — Foundation Stabilization Program"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "stab-0001-foundation-stabilization-program",
+      "text": "# STAB-0001 — Foundation Stabilization Program\n\n**Status:** Active  \n**Start:** 2026-08-12  \n**Target closure:** 2026-08-23  \n**Accountable authority:** Project Steward / Product Owner  \n**Delivery owner:** Engineering Owner",
+      "title": "STAB-0001 — Foundation Stabilization Program"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 9,
+      "section_id": "objective",
+      "text": "## Objective\n\nConvert Monad's transitional repository into one coherent, synchronized, governed baseline from which MVP implementation can begin without forcing implementers to resolve product identity, artifact authority, or planning contradictions on their own.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 13,
+      "section_id": "context",
+      "text": "## Context\n\nThe repository has intentionally entered a fluid re-foundation period. It contains a strong new project operating system, a broad artifact taxonomy, a deterministic machine-document mechanism, and surviving Monad-specific knowledge-engine concepts, but portions of the initial product corpus were generated around a generic workflow-product hypothesis. The repository also underwent ADR-path consolidation and initially contained hundreds of empty artifact-system files plus an out-of-sync machine projection.\n\nStabilization does not freeze every future design. It establishes a coherent **current truth**, makes unresolved decisions explicit, and produces a Ready backlog whose first implementation work can proceed safely.",
+      "title": "Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 19,
+      "section_id": "target-state",
+      "text": "## Target state\n\nAt stabilization closure:\n\n1. Monad has one canonical product thesis: Engineering Knowledge Compilation Platform.\n2. `architecture/decisions/` is the single ADR home and its index reflects accepted decisions.\n3. Product Goal, MVP requirements, capabilities, architecture, principles, and non-goals are mutually consistent enough to govern Release 1 planning.\n4. Every `artifact-system/*.md` file contains substantive Draft content or an explicitly justified non-document representation; zero-byte placeholders are eliminated.\n5. `machine/` is a complete deterministic projection of the current canonical source tree and CI detects drift.\n6. All foreseeable MVP Epics and Features are enumerated; MVP Stories/Enablers are progressively refined; current/next execution tasks are actionable.\n7. Milestones/Product Increments/Sprints/Work Packets are sequenced through Release 1 with dependencies and decision gates visible.\n8. GitHub Issues and the intended organization Project/Wiki projection are defined and, where tool permissions allow, populated.\n9. Repository governance, Issue/PR templates, CI, dependency/security controls, branch strategy, and release workflow have explicit target settings.\n10. At least the first semantic-kernel Work Packet satisfies the Definition of Ready.",
+      "title": "Target state"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 34,
+      "section_id": "workstreams",
+      "text": "## Workstreams",
+      "title": "Workstreams"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 41,
+      "line_start": 36,
+      "section_id": "ws-01-product-identity-reconciliation",
+      "text": "### WS-01 — Product identity reconciliation\n\nReplace generic MonadV2/consequential-workflow artifacts with a coherent engineering-knowledge product thesis. Reconcile README, idea, vision, product requirements, capabilities, roadmap, architecture context, and success criteria.\n\n**Exit:** no authoritative or proposed C0 document presents a materially different product as Monad's primary target.",
+      "title": "WS-01 — Product identity reconciliation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 47,
+      "line_start": 42,
+      "section_id": "ws-02-authority-and-adr-reconciliation",
+      "text": "### WS-02 — Authority and ADR reconciliation\n\nConsolidate architectural decisions under `architecture/decisions/`, update `.monad` and indexes, identify conflicting or legacy authority, and define supersession rather than silent rewriting.\n\n**Exit:** one discoverable ADR authority model with current statuses and no competing live ADR root.",
+      "title": "WS-02 — Authority and ADR reconciliation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 53,
+      "line_start": 48,
+      "section_id": "ws-03-artifact-system-materialization",
+      "text": "### WS-03 — Artifact-system materialization\n\nPopulate every artifact-system Markdown placeholder with a substantive Draft baseline and define criticality/approval semantics so a complete taxonomy is not mistaken for a fully approved design.\n\n**Exit:** `python3 scripts/populate-artifact-system.py --check` passes with zero empty Markdown artifacts.",
+      "title": "WS-03 — Artifact-system materialization"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 59,
+      "line_start": 54,
+      "section_id": "ws-04-machine-layer-synchronization",
+      "text": "### WS-04 — Machine-layer synchronization\n\nRegenerate per-document companions, manifest, graph, and corpus after canonical changes. Enforce deterministic drift checks in CI.\n\n**Exit:** `python3 scripts/sync-machine-docs.py --check` passes on the stabilization head and after final reconciliation.",
+      "title": "WS-04 — Machine-layer synchronization"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 65,
+      "line_start": 60,
+      "section_id": "ws-05-mvp-c1-architecture-specification-readiness",
+      "text": "### WS-05 — MVP C1 architecture/specification readiness\n\nReview the semantic kernel's workspace, artifact, identity, provenance, graph, KIR, diagnostics, query, impact, planning, execution, and agent-context contracts. Promote only what implementation actually requires.\n\n**Exit:** first-slice ADRs/specifications are accepted or explicitly not required; implementers do not need to invent architectural authority.",
+      "title": "WS-05 — MVP C1 architecture/specification readiness"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 71,
+      "line_start": 66,
+      "section_id": "ws-06-scrum-backlog-and-delivery-sequencing",
+      "text": "### WS-06 — Scrum/backlog and delivery sequencing\n\nCreate complete Epic/Feature roadmap, MVP Story/Enabler backlog, Sprint forecast, Work Packet map, estimates/priorities/dependencies, Definition of Ready/Done linkage, and release plan.\n\n**Exit:** Current Sprint and next two Sprints are refinement-ready; first implementation packet is Ready; longer-range work is visible without false task-level precision.",
+      "title": "WS-06 — Scrum/backlog and delivery sequencing"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 77,
+      "line_start": 72,
+      "section_id": "ws-07-github-operating-baseline",
+      "text": "### WS-07 — GitHub operating baseline\n\nConfigure or specify repository settings, labels, milestones, Issue Forms, PR template, CODEOWNERS, Project fields/views/iterations, Wiki projections, dependency automation, Actions security, branch/ruleset target, and release conventions.\n\n**Exit:** every GitHub surface is either configured and evidenced or has a deterministic setup artifact identifying the remaining permission/UI action. No setup is claimed merely because source files exist.",
+      "title": "WS-07 — GitHub operating baseline"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 83,
+      "line_start": 78,
+      "section_id": "ws-08-mvp-readiness-review",
+      "text": "### WS-08 — MVP readiness review\n\nRun cross-artifact consistency, machine sync, repository quality, security, backlog readiness, architecture/specification readiness, and release-plan feasibility reviews.\n\n**Exit:** formal decision is Proceed, Proceed with named conditions, or Do Not Proceed to implementation.",
+      "title": "WS-08 — MVP readiness review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 96,
+      "line_start": 84,
+      "section_id": "sequencing",
+      "text": "## Sequencing\n\n```text\nWS-01 Product thesis ───────┐\nWS-02 Authority/ADR ────────┼──→ WS-05 C1 readiness ───→ first implementation WP\nWS-03 Artifact system ──────┤\nWS-04 Machine sync ─────────┤\nWS-06 Backlog ──────────────┼──→ WS-08 readiness review\nWS-07 GitHub baseline ──────┘\n```\n\nWS-03/04 may proceed broadly while C0/C1 meaning remains Draft because generated documents are explicitly non-authoritative. Promotion to Approved follows the normal lifecycle.",
+      "title": "Sequencing"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 103,
+      "line_start": 97,
+      "section_id": "known-transition-constraints",
+      "text": "## Known transition constraints\n\n- The product and architecture are intentionally fluid during stabilization.\n- Large numbers of Draft artifacts are expected; approval is selective and criticality-driven.\n- GitHub Project v2 and Wiki mutation may require capabilities/permissions not available to every automation identity. Repository-controlled setup specifications are required even when live mutation must be performed through GitHub UI or a separately authorized token.\n- The aggressive Release 1 forecast assumes focused scope and high automation; it does not authorize bypassing conformance, security, or reproducibility gates.",
+      "title": "Known transition constraints"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 118,
+      "line_start": 104,
+      "section_id": "exit-criteria",
+      "text": "## Exit criteria\n\n- [ ] C0 product identity is coherent and reviewed.\n- [ ] ADR path/status reconciliation is complete.\n- [ ] Artifact-system population check is green.\n- [ ] Machine synchronization check is green.\n- [ ] MVP requirements/capabilities/architecture are coherent.\n- [ ] All MVP Epics/Features are cataloged and ordered.\n- [ ] MVP Stories/Enablers are mapped; current execution tasks are decomposed.\n- [ ] Milestone/PI/Sprint/WP plan through Release 1 exists.\n- [ ] GitHub Issue/backlog projection exists and Project/Wiki target configuration is documented or live.\n- [ ] Repository quality/security settings target is explicit.\n- [ ] First implementation Work Packet passes Definition of Ready.\n- [ ] Stabilization readiness review records decision and residual risks.",
+      "title": "Exit criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 121,
+      "line_start": 119,
+      "section_id": "closure-rule",
+      "text": "## Closure rule\n\nCompleting generators, documents, or GitHub tickets does not close STAB-0001. Closure requires evidence that the repository tells one coherent story, the executable quality gates pass, and the first implementation work is governed by sufficient accepted authority.",
+      "title": "Closure rule"
+    }
+  ],
+  "source": {
+    "bytes": 7877,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 121,
+    "media_type": "text/markdown",
+    "path": "engineering/stabilization/STABILIZATION-PROGRAM.md",
+    "sha256": "0b8372968c2f94427a48ae1f44454df66e26756bc27f1cc8f5183d4d371df9b9"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "content": "# Product Capabilities\n\nCapabilities describe durable abilities independent of a particular interface\nor component. They are the bridge between user outcomes and architecture.\n\n## Capability map\n\n### C-01 — Identity and access\n\nAuthenticate actors, establish session context, authorize actions and evidence,\nand apply least privilege. Initial maturity: one supported identity authority\nwith explicit roles and resource checks.\n\n### C-02 — Intent and input management\n\nCapture the desired outcome and required inputs, preserve drafts, classify\ndata, and explain validation. Initial maturity: the primary workflow's bounded\ninput model and safe import path.\n\n### C-03 — Policy and validation\n\nEvaluate structural, semantic, authorization, and safety rules before effects\nare committed. Rules must be versioned, explainable, and testable.\n\n### C-04 — Workflow coordination\n\nCreate one traceable instance, enforce allowed transitions, coordinate work,\nhandle idempotency, and manage retry, compensation, and cancellation.\n\n### C-05 — Result verification\n\nEvaluate postconditions, distinguish complete and partial outcomes, associate\nevidence, and communicate justified status.\n\n### C-06 — Evidence and audit\n\nRecord minimum necessary actor, action, policy, state, and result facts; enforce\naccess and retention; support authorized reconstruction.\n\n### C-07 — Experience delivery\n\nPresent accessible, responsive, and consistent user interactions across the\nsupported journey, including progress and recovery.\n\n### C-08 — Operations and assurance\n\nMeasure health and cost, manage configuration and releases, detect threats and\nfailures, restore service, and produce quality-gate evidence.\n\n## Capability dependencies\n\nThe primary journey composes all eight capabilities. Workflow coordination may\ndepend on identity, validation, and evidence contracts but should not embed\ntheir policies. Experience delivery consumes stable contracts and does not own\nauthoritative workflow state. Operations observes every critical capability\nwithout becoming a runtime dependency for ordinary success.\n\n## Maturity scale\n\n- **M0 Unproven:** intent exists without tested behavior.\n- **M1 Bounded:** one supported path with manual exceptions.\n- **M2 Reliable:** objectives, recovery, and ownership are demonstrated.\n- **M3 Scalable:** capacity and repeatability are proven across expected load.\n- **M4 Extensible:** controlled variation is supported through stable contracts.\n\nThe first release targets M2 for the primary path and at least M1 for supporting\nadministrative paths. A capability cannot claim maturity when its security,\noperability, or recovery evidence is missing.\n",
+  "content": "# Product Capabilities\n\n**Status:** Proposed foundation baseline\n\nCapabilities describe durable product abilities independent of one implementation language or interface. MVP Release 1 composes the first fourteen capabilities into one end-to-end semantic engineering loop.\n\n## C-01 — Workspace intelligence\n\nDiscover repository roots, components, packages, configuration sources, artifact roots, toolchains, and supported project topology.\n\n**MVP maturity:** deterministic discovery and inspection for the reference repositories, with clear diagnostics for ambiguity and unsupported structure.\n\n## C-02 — Engineering artifact ingestion\n\nDiscover and read canonical engineering artifacts through explicit adapters and conventions without requiring all repositories to adopt a Monad-native format.\n\n**MVP maturity:** source/configuration metadata plus core documentation/governance/specification/test artifact classes needed by acceptance scenarios.\n\n## C-03 — Semantic identity and normalization\n\nAssign stable identities, canonicalize supported representations, resolve aliases, preserve source coordinates, and detect collisions.\n\n**MVP maturity:** deterministic identity for documents and core semantic entities across clean recompilation.\n\n## C-04 — Monad Semantic Graph\n\nRepresent engineering entities and relationships with typed ontology, provenance, invariants, deterministic construction, and traversal.\n\n**MVP maturity:** one versioned graph schema sufficient for requirements/decisions/specifications/components/dependencies/tests/work/evidence in the reference scenarios.\n\n## C-05 — Kernel Intermediate Representation\n\nExpose a canonical machine-oriented representation that downstream systems can validate, serialize, migrate, and consume without reparsing arbitrary source artifacts.\n\n**MVP maturity:** charter, schema, canonical serialization, graph-to-KIR lowering, versioning, compatibility contract, and conformance fixtures.\n\n## C-06 — Diagnostics and validation\n\nDetect invalid configuration, unresolved or contradictory knowledge, graph invariant failures, stale generated projections, and tool/execution failures through structured diagnostics.\n\n**MVP maturity:** stable diagnostic registry and deterministic negative/boundary acceptance coverage.\n\n## C-07 — Query and explanation\n\nInspect semantic entities, traverse relationships, explain provenance and why relationships exist, and expose structured query output.\n\n**MVP maturity:** entity lookup, relationship traversal, provenance explanation, selected coverage/gap queries, and machine-readable results.\n\n## C-08 — Change impact and incrementality\n\nIngest Git/repository changes, calculate conservative affected sets, explain impact paths, and minimize recomputation without losing correctness.\n\n**MVP maturity:** affected-set calculation and first incremental graph/validation path proven against a change corpus.\n\n## C-09 — Execution planning\n\nTurn authorized goals and affected knowledge into explicit dependency-ordered tasks with declared inputs, outputs, environment, cacheability, and verification expectations.\n\n**MVP maturity:** serializable local execution-plan schema and deterministic plan construction for supported native-tool adapters.\n\n## C-10 — Native tool orchestration\n\nInvoke existing ecosystem tools in controlled subprocesses, preserve their evidence, and propagate failure/cancellation/retry semantics without reimplementing their mechanics.\n\n**MVP maturity:** real tool adapters for the reference polyglot scenario, including plan inspection and evidence capture.\n\n## C-11 — AI and agent context engineering\n\nSelect minimal task-relevant semantic context, package governing artifacts and acceptance criteria, enforce explicit capability/exclusion boundaries, and retain provenance.\n\n**MVP maturity:** deterministic context packages suitable for bounded Codex tasks and review by a human maintainer.\n\n## C-12 — Policy and authority\n\nRepresent and evaluate selected repository, governance, security, and work-authorization rules that affect whether a plan or agent action is permitted.\n\n**MVP maturity:** enough authority awareness to distinguish canonical/generated sources and require explicit work/approval boundaries for the MVP engineering workflow.\n\n## C-13 — Publication and project projection\n\nProject canonical engineering knowledge into generated documentation, indexes, GitHub issues/project views, wiki pages, and other disposable human-facing views without creating a competing source of truth.\n\n**MVP maturity:** synchronized machine documentation plus repository-controlled projection contracts for GitHub and docs.\n\n## C-14 — Release and provenance\n\nPackage Monad, version public contracts, produce release evidence, retain source/toolchain/validation provenance, and support installation/upgrade/rollback.\n\n**MVP maturity:** reproducible Release 1 package and release-readiness evidence.\n\n## Post-MVP capabilities\n\n### C-15 — Plugin and adapter ecosystem\n\nThird-party extension manifests, capabilities, permissions, lifecycle, SDKs, compatibility, signing, and registry publication.\n\n### C-16 — Remote cache and execution\n\nContent-addressed remote cache, remote task execution, trust boundaries, scheduling, and result verification.\n\n### C-17 — Team and hosted collaboration\n\nShared knowledge indexes, identity, authorization, synchronized team state, hosted control-plane services, and collaboration workflows.\n\n### C-18 — Enterprise and commercial operations\n\nOrganization-wide governance, fleet insights, support/SLA controls, commercial packaging, and sustainable hosted services.\n\n## Capability dependency model\n\n```text\nC-01 Workspace\n      ↓\nC-02 Artifact ingestion\n      ↓\nC-03 Identity/normalization\n      ↓\nC-04 Semantic Graph ───────────────┐\n      ↓                            │\nC-05 KIR                          │\n      ↓                            │\nC-06 Validation                   │\n      ├──→ C-07 Query/explain     │\n      ├──→ C-08 Impact/incrementality\n      │          ↓                 │\n      │       C-09 Planning        │\n      │          ↓                 │\n      │       C-10 Native execution\n      │                            │\n      └──→ C-11 Agent context ←────┘\n                 ↑\n          C-12 Policy/authority\n\nC-13 Publication/project projection consumes the semantic model.\nC-14 Release/provenance consumes execution and verification evidence.\n```\n\n## Maturity model\n\n- **M0 — Named:** capability intent exists but behavior is unproven.\n- **M1 — Bounded:** one supported end-to-end path with explicit limitations.\n- **M2 — Reliable:** correctness, failure handling, recovery, and ownership are demonstrated against representative evidence.\n- **M3 — Scalable:** performance, capacity, ecosystem variation, and operational repeatability are demonstrated.\n- **M4 — Extensible:** controlled third-party or organizational variation is supported by stable contracts.\n\nRelease 1 targets M2 for the semantic kernel and primary local workflow, with M1 acceptable for secondary adapters and project/publication projections that are not on the critical correctness path.\n",
   "document_id": "doc:product%2Fcapabilities.md",
   "generation": {
     "deterministic": true,
@@ -14,13 +14,23 @@
     "C-05",
     "C-06",
     "C-07",
-    "C-08"
+    "C-08",
+    "C-09",
+    "C-10",
+    "C-11",
+    "C-12",
+    "C-13",
+    "C-14",
+    "C-15",
+    "C-16",
+    "C-17",
+    "C-18"
   ],
   "links": [],
   "metadata": {
     "document_type": "product",
     "normative": true,
-    "summary": "Capabilities describe durable abilities independent of a particular interface or component. They are the bridge between user outcomes and architecture.",
+    "summary": "Status: Proposed foundation baseline",
     "title": "Product Capabilities"
   },
   "relations": [],
@@ -30,135 +40,260 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 5,
+      "line_end": 6,
       "line_start": 1,
       "section_id": "product-capabilities",
-      "text": "# Product Capabilities\n\nCapabilities describe durable abilities independent of a particular interface\nor component. They are the bridge between user outcomes and architecture.",
+      "text": "# Product Capabilities\n\n**Status:** Proposed foundation baseline\n\nCapabilities describe durable product abilities independent of one implementation language or interface. MVP Release 1 composes the first fourteen capabilities into one end-to-end semantic engineering loop.",
       "title": "Product Capabilities"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 7,
-      "line_start": 6,
-      "section_id": "capability-map",
-      "text": "## Capability map",
-      "title": "Capability map"
     },
     {
       "identifiers": [
         "C-01"
       ],
-      "level": 3,
-      "line_end": 13,
-      "line_start": 8,
-      "section_id": "c-01-identity-and-access",
-      "text": "### C-01 — Identity and access\n\nAuthenticate actors, establish session context, authorize actions and evidence,\nand apply least privilege. Initial maturity: one supported identity authority\nwith explicit roles and resource checks.",
-      "title": "C-01 — Identity and access"
+      "level": 2,
+      "line_end": 12,
+      "line_start": 7,
+      "section_id": "c-01-workspace-intelligence",
+      "text": "## C-01 — Workspace intelligence\n\nDiscover repository roots, components, packages, configuration sources, artifact roots, toolchains, and supported project topology.\n\n**MVP maturity:** deterministic discovery and inspection for the reference repositories, with clear diagnostics for ambiguity and unsupported structure.",
+      "title": "C-01 — Workspace intelligence"
     },
     {
       "identifiers": [
         "C-02"
       ],
-      "level": 3,
-      "line_end": 19,
-      "line_start": 14,
-      "section_id": "c-02-intent-and-input-management",
-      "text": "### C-02 — Intent and input management\n\nCapture the desired outcome and required inputs, preserve drafts, classify\ndata, and explain validation. Initial maturity: the primary workflow's bounded\ninput model and safe import path.",
-      "title": "C-02 — Intent and input management"
+      "level": 2,
+      "line_end": 18,
+      "line_start": 13,
+      "section_id": "c-02-engineering-artifact-ingestion",
+      "text": "## C-02 — Engineering artifact ingestion\n\nDiscover and read canonical engineering artifacts through explicit adapters and conventions without requiring all repositories to adopt a Monad-native format.\n\n**MVP maturity:** source/configuration metadata plus core documentation/governance/specification/test artifact classes needed by acceptance scenarios.",
+      "title": "C-02 — Engineering artifact ingestion"
     },
     {
       "identifiers": [
         "C-03"
       ],
-      "level": 3,
+      "level": 2,
       "line_end": 24,
-      "line_start": 20,
-      "section_id": "c-03-policy-and-validation",
-      "text": "### C-03 — Policy and validation\n\nEvaluate structural, semantic, authorization, and safety rules before effects\nare committed. Rules must be versioned, explainable, and testable.",
-      "title": "C-03 — Policy and validation"
+      "line_start": 19,
+      "section_id": "c-03-semantic-identity-and-normalization",
+      "text": "## C-03 — Semantic identity and normalization\n\nAssign stable identities, canonicalize supported representations, resolve aliases, preserve source coordinates, and detect collisions.\n\n**MVP maturity:** deterministic identity for documents and core semantic entities across clean recompilation.",
+      "title": "C-03 — Semantic identity and normalization"
     },
     {
       "identifiers": [
         "C-04"
       ],
-      "level": 3,
-      "line_end": 29,
+      "level": 2,
+      "line_end": 30,
       "line_start": 25,
-      "section_id": "c-04-workflow-coordination",
-      "text": "### C-04 — Workflow coordination\n\nCreate one traceable instance, enforce allowed transitions, coordinate work,\nhandle idempotency, and manage retry, compensation, and cancellation.",
-      "title": "C-04 — Workflow coordination"
+      "section_id": "c-04-monad-semantic-graph",
+      "text": "## C-04 — Monad Semantic Graph\n\nRepresent engineering entities and relationships with typed ontology, provenance, invariants, deterministic construction, and traversal.\n\n**MVP maturity:** one versioned graph schema sufficient for requirements/decisions/specifications/components/dependencies/tests/work/evidence in the reference scenarios.",
+      "title": "C-04 — Monad Semantic Graph"
     },
     {
       "identifiers": [
         "C-05"
       ],
-      "level": 3,
-      "line_end": 34,
-      "line_start": 30,
-      "section_id": "c-05-result-verification",
-      "text": "### C-05 — Result verification\n\nEvaluate postconditions, distinguish complete and partial outcomes, associate\nevidence, and communicate justified status.",
-      "title": "C-05 — Result verification"
+      "level": 2,
+      "line_end": 36,
+      "line_start": 31,
+      "section_id": "c-05-kernel-intermediate-representation",
+      "text": "## C-05 — Kernel Intermediate Representation\n\nExpose a canonical machine-oriented representation that downstream systems can validate, serialize, migrate, and consume without reparsing arbitrary source artifacts.\n\n**MVP maturity:** charter, schema, canonical serialization, graph-to-KIR lowering, versioning, compatibility contract, and conformance fixtures.",
+      "title": "C-05 — Kernel Intermediate Representation"
     },
     {
       "identifiers": [
         "C-06"
       ],
-      "level": 3,
-      "line_end": 39,
-      "line_start": 35,
-      "section_id": "c-06-evidence-and-audit",
-      "text": "### C-06 — Evidence and audit\n\nRecord minimum necessary actor, action, policy, state, and result facts; enforce\naccess and retention; support authorized reconstruction.",
-      "title": "C-06 — Evidence and audit"
+      "level": 2,
+      "line_end": 42,
+      "line_start": 37,
+      "section_id": "c-06-diagnostics-and-validation",
+      "text": "## C-06 — Diagnostics and validation\n\nDetect invalid configuration, unresolved or contradictory knowledge, graph invariant failures, stale generated projections, and tool/execution failures through structured diagnostics.\n\n**MVP maturity:** stable diagnostic registry and deterministic negative/boundary acceptance coverage.",
+      "title": "C-06 — Diagnostics and validation"
     },
     {
       "identifiers": [
         "C-07"
       ],
-      "level": 3,
-      "line_end": 44,
-      "line_start": 40,
-      "section_id": "c-07-experience-delivery",
-      "text": "### C-07 — Experience delivery\n\nPresent accessible, responsive, and consistent user interactions across the\nsupported journey, including progress and recovery.",
-      "title": "C-07 — Experience delivery"
+      "level": 2,
+      "line_end": 48,
+      "line_start": 43,
+      "section_id": "c-07-query-and-explanation",
+      "text": "## C-07 — Query and explanation\n\nInspect semantic entities, traverse relationships, explain provenance and why relationships exist, and expose structured query output.\n\n**MVP maturity:** entity lookup, relationship traversal, provenance explanation, selected coverage/gap queries, and machine-readable results.",
+      "title": "C-07 — Query and explanation"
     },
     {
       "identifiers": [
         "C-08"
       ],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 49,
+      "section_id": "c-08-change-impact-and-incrementality",
+      "text": "## C-08 — Change impact and incrementality\n\nIngest Git/repository changes, calculate conservative affected sets, explain impact paths, and minimize recomputation without losing correctness.\n\n**MVP maturity:** affected-set calculation and first incremental graph/validation path proven against a change corpus.",
+      "title": "C-08 — Change impact and incrementality"
+    },
+    {
+      "identifiers": [
+        "C-09"
+      ],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 55,
+      "section_id": "c-09-execution-planning",
+      "text": "## C-09 — Execution planning\n\nTurn authorized goals and affected knowledge into explicit dependency-ordered tasks with declared inputs, outputs, environment, cacheability, and verification expectations.\n\n**MVP maturity:** serializable local execution-plan schema and deterministic plan construction for supported native-tool adapters.",
+      "title": "C-09 — Execution planning"
+    },
+    {
+      "identifiers": [
+        "C-10"
+      ],
+      "level": 2,
+      "line_end": 66,
+      "line_start": 61,
+      "section_id": "c-10-native-tool-orchestration",
+      "text": "## C-10 — Native tool orchestration\n\nInvoke existing ecosystem tools in controlled subprocesses, preserve their evidence, and propagate failure/cancellation/retry semantics without reimplementing their mechanics.\n\n**MVP maturity:** real tool adapters for the reference polyglot scenario, including plan inspection and evidence capture.",
+      "title": "C-10 — Native tool orchestration"
+    },
+    {
+      "identifiers": [
+        "C-11"
+      ],
+      "level": 2,
+      "line_end": 72,
+      "line_start": 67,
+      "section_id": "c-11-ai-and-agent-context-engineering",
+      "text": "## C-11 — AI and agent context engineering\n\nSelect minimal task-relevant semantic context, package governing artifacts and acceptance criteria, enforce explicit capability/exclusion boundaries, and retain provenance.\n\n**MVP maturity:** deterministic context packages suitable for bounded Codex tasks and review by a human maintainer.",
+      "title": "C-11 — AI and agent context engineering"
+    },
+    {
+      "identifiers": [
+        "C-12"
+      ],
+      "level": 2,
+      "line_end": 78,
+      "line_start": 73,
+      "section_id": "c-12-policy-and-authority",
+      "text": "## C-12 — Policy and authority\n\nRepresent and evaluate selected repository, governance, security, and work-authorization rules that affect whether a plan or agent action is permitted.\n\n**MVP maturity:** enough authority awareness to distinguish canonical/generated sources and require explicit work/approval boundaries for the MVP engineering workflow.",
+      "title": "C-12 — Policy and authority"
+    },
+    {
+      "identifiers": [
+        "C-13"
+      ],
+      "level": 2,
+      "line_end": 84,
+      "line_start": 79,
+      "section_id": "c-13-publication-and-project-projection",
+      "text": "## C-13 — Publication and project projection\n\nProject canonical engineering knowledge into generated documentation, indexes, GitHub issues/project views, wiki pages, and other disposable human-facing views without creating a competing source of truth.\n\n**MVP maturity:** synchronized machine documentation plus repository-controlled projection contracts for GitHub and docs.",
+      "title": "C-13 — Publication and project projection"
+    },
+    {
+      "identifiers": [
+        "C-14"
+      ],
+      "level": 2,
+      "line_end": 90,
+      "line_start": 85,
+      "section_id": "c-14-release-and-provenance",
+      "text": "## C-14 — Release and provenance\n\nPackage Monad, version public contracts, produce release evidence, retain source/toolchain/validation provenance, and support installation/upgrade/rollback.\n\n**MVP maturity:** reproducible Release 1 package and release-readiness evidence.",
+      "title": "C-14 — Release and provenance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 92,
+      "line_start": 91,
+      "section_id": "post-mvp-capabilities",
+      "text": "## Post-MVP capabilities",
+      "title": "Post-MVP capabilities"
+    },
+    {
+      "identifiers": [
+        "C-15"
+      ],
       "level": 3,
-      "line_end": 49,
-      "line_start": 45,
-      "section_id": "c-08-operations-and-assurance",
-      "text": "### C-08 — Operations and assurance\n\nMeasure health and cost, manage configuration and releases, detect threats and\nfailures, restore service, and produce quality-gate evidence.",
-      "title": "C-08 — Operations and assurance"
+      "line_end": 96,
+      "line_start": 93,
+      "section_id": "c-15-plugin-and-adapter-ecosystem",
+      "text": "### C-15 — Plugin and adapter ecosystem\n\nThird-party extension manifests, capabilities, permissions, lifecycle, SDKs, compatibility, signing, and registry publication.",
+      "title": "C-15 — Plugin and adapter ecosystem"
+    },
+    {
+      "identifiers": [
+        "C-16"
+      ],
+      "level": 3,
+      "line_end": 100,
+      "line_start": 97,
+      "section_id": "c-16-remote-cache-and-execution",
+      "text": "### C-16 — Remote cache and execution\n\nContent-addressed remote cache, remote task execution, trust boundaries, scheduling, and result verification.",
+      "title": "C-16 — Remote cache and execution"
+    },
+    {
+      "identifiers": [
+        "C-17"
+      ],
+      "level": 3,
+      "line_end": 104,
+      "line_start": 101,
+      "section_id": "c-17-team-and-hosted-collaboration",
+      "text": "### C-17 — Team and hosted collaboration\n\nShared knowledge indexes, identity, authorization, synchronized team state, hosted control-plane services, and collaboration workflows.",
+      "title": "C-17 — Team and hosted collaboration"
+    },
+    {
+      "identifiers": [
+        "C-18"
+      ],
+      "level": 3,
+      "line_end": 108,
+      "line_start": 105,
+      "section_id": "c-18-enterprise-and-commercial-operations",
+      "text": "### C-18 — Enterprise and commercial operations\n\nOrganization-wide governance, fleet insights, support/SLA controls, commercial packaging, and sustainable hosted services.",
+      "title": "C-18 — Enterprise and commercial operations"
+    },
+    {
+      "identifiers": [
+        "C-01",
+        "C-02",
+        "C-03",
+        "C-04",
+        "C-05",
+        "C-06",
+        "C-07",
+        "C-08",
+        "C-09",
+        "C-10",
+        "C-11",
+        "C-12",
+        "C-13",
+        "C-14"
+      ],
+      "level": 2,
+      "line_end": 137,
+      "line_start": 109,
+      "section_id": "capability-dependency-model",
+      "text": "## Capability dependency model\n\n```text\nC-01 Workspace\n      ↓\nC-02 Artifact ingestion\n      ↓\nC-03 Identity/normalization\n      ↓\nC-04 Semantic Graph ───────────────┐\n      ↓                            │\nC-05 KIR                          │\n      ↓                            │\nC-06 Validation                   │\n      ├──→ C-07 Query/explain     │\n      ├──→ C-08 Impact/incrementality\n      │          ↓                 │\n      │       C-09 Planning        │\n      │          ↓                 │\n      │       C-10 Native execution\n      │                            │\n      └──→ C-11 Agent context ←────┘\n                 ↑\n          C-12 Policy/authority\n\nC-13 Publication/project projection consumes the semantic model.\nC-14 Release/provenance consumes execution and verification evidence.\n```",
+      "title": "Capability dependency model"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 57,
-      "line_start": 50,
-      "section_id": "capability-dependencies",
-      "text": "## Capability dependencies\n\nThe primary journey composes all eight capabilities. Workflow coordination may\ndepend on identity, validation, and evidence contracts but should not embed\ntheir policies. Experience delivery consumes stable contracts and does not own\nauthoritative workflow state. Operations observes every critical capability\nwithout becoming a runtime dependency for ordinary success.",
-      "title": "Capability dependencies"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 68,
-      "line_start": 58,
-      "section_id": "maturity-scale",
-      "text": "## Maturity scale\n\n- **M0 Unproven:** intent exists without tested behavior.\n- **M1 Bounded:** one supported path with manual exceptions.\n- **M2 Reliable:** objectives, recovery, and ownership are demonstrated.\n- **M3 Scalable:** capacity and repeatability are proven across expected load.\n- **M4 Extensible:** controlled variation is supported through stable contracts.\n\nThe first release targets M2 for the primary path and at least M1 for supporting\nadministrative paths. A capability cannot claim maturity when its security,\noperability, or recovery evidence is missing.",
-      "title": "Maturity scale"
+      "line_end": 146,
+      "line_start": 138,
+      "section_id": "maturity-model",
+      "text": "## Maturity model\n\n- **M0 — Named:** capability intent exists but behavior is unproven.\n- **M1 — Bounded:** one supported end-to-end path with explicit limitations.\n- **M2 — Reliable:** correctness, failure handling, recovery, and ownership are demonstrated against representative evidence.\n- **M3 — Scalable:** performance, capacity, ecosystem variation, and operational repeatability are demonstrated.\n- **M4 — Extensible:** controlled third-party or organizational variation is supported by stable contracts.\n\nRelease 1 targets M2 for the semantic kernel and primary local workflow, with M1 acceptable for secondary adapters and project/publication projections that are not on the critical correctness path.",
+      "title": "Maturity model"
     }
   ],
   "source": {
-    "bytes": 2674,
+    "bytes": 7272,
     "canonical": true,
     "language": "markdown",
-    "lines": 68,
+    "lines": 146,
     "media_type": "text/markdown",
     "path": "product/capabilities.md",
-    "sha256": "2e876ae65d134dfdb0e116180bb1d485d8fec3697afa7b73340a315e3dca6e74"
+    "sha256": "813416dd2fdb365638d22b48094b1cb6dac88d8f294e659d5aad8443f5c58081"
   }
 }

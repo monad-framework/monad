@@ -1,5 +1,5 @@
 {
-  "content": "# Non-Goals\n\nNon-goals protect the first product from accidental expansion. They are not\nclaims that these ideas lack value; they state what the current strategy will\nnot optimize or promise.\n\n## NG-01 — Universal workflow coverage\n\nThe initial product will not model every adjacent process or edge case. It\nsupports one primary journey and escalates unsupported cases clearly.\n\n**Reconsider when:** the primary journey meets success and reliability targets\nand evidence identifies a repeated adjacent need.\n\n## NG-02 — Unbounded customization\n\nThe product will not expose configuration for every internal choice. Supported\nvariation must have a clear user need, validation, documentation, and test\nstrategy.\n\n**Reconsider when:** multiple validated segments need the same controlled\nextension point.\n\n## NG-03 — Autonomous consequential decisions\n\nThe system will not silently make high-impact legal, financial, employment,\nmedical, safety, or access decisions on a person's behalf.\n\n**Reconsider when:** never without domain governance, explainability, review,\nappeal, and demonstrated legal and ethical fitness.\n\n## NG-04 — Premature platform construction\n\nThe first increments will not build a general platform, marketplace, plugin\necosystem, or multi-product control plane before one product workflow is proven.\n\n**Reconsider when:** repeated product needs demonstrate stable shared\ncapabilities and platform ownership is funded.\n\n## NG-05 — Every integration\n\nOnly integrations required by the validated primary journey are in scope.\nManual import or export is acceptable during validation when safe.\n\n**Reconsider when:** integration absence is a measured adoption or outcome\nbarrier.\n\n## NG-06 — Global deployment and compliance coverage\n\nThe initial release supports one declared operating region and a bounded set of\nregulatory obligations. It will not claim compliance by implication.\n\n**Reconsider when:** expansion has an accountable owner, legal analysis, data\nmap, control plan, and operational capacity.\n\n## NG-07 — Optimization before correctness\n\nThe project will not trade correctness, accessibility, recovery, or essential\ntelemetry for superficial speed. Performance work follows budgets and measured\nbottlenecks.\n\n## Scope test\n\nA proposal is out of scope when the primary journey can meet its committed\noutcome without it and delaying the proposal does not create unacceptable\nsafety, legal, security, or architectural risk. Deferred proposals belong in\nthe roadmap or backlog with their reconsideration trigger.\n",
+  "content": "# Non-Goals\n\n**Status:** Proposed foundation baseline\n\nNon-goals protect Monad from becoming a collection of adjacent engineering features before its semantic core proves value. They may be reconsidered only through explicit product and architecture review.\n\n## NG-01 — Replace Git\n\nGit remains the source/history transport for repository content. Monad may model Git state and changes but does not invent a competing version-control system.\n\n## NG-02 — Replace native language and ecosystem tools\n\nMonad does not reimplement Cargo, Go tooling, Bun/npm, TypeScript, Python tooling, JVM build systems, Terraform, Docker, or similar mature tools merely to own their mechanics. It coordinates them through explicit adapters and execution plans.\n\n## NG-03 — Become a universal package manager\n\nDependency knowledge and policy are in scope; replacing every ecosystem's package distribution semantics is not.\n\n## NG-04 — Require a hosted Monad service\n\nCore workspace discovery, semantic compilation, validation, query, impact analysis, context generation, planning, and local execution must remain useful offline.\n\n## NG-05 — Make an LLM the source of semantic truth\n\nModels may assist authorship and explanation, but canonical identity, graph semantics, KIR, diagnostics, planning, and conformance cannot depend on nondeterministic model output.\n\n## NG-06 — Define a universal programming language\n\nMonad may define specification/configuration languages and machine representations when justified, but it does not seek to replace general-purpose programming languages.\n\n## NG-07 — Replace the IDE\n\nIDE integrations may expose Monad knowledge, but the product is not an editor or an attempt to own the entire coding interface.\n\n## NG-08 — Become a general ticketing or project-management application\n\nMonad models authorized engineering work and projects state into systems such as GitHub. It does not replace mature issue trackers with an unrelated proprietary planning system.\n\n## NG-09 — Split the ecosystem into many repositories during architectural instability\n\nRelease 1 remains centered on the canonical `monad` repository. New repositories require independent lifecycle, distribution, security, ownership, or community evidence.\n\n## NG-10 — Remote execution in MVP Release 1\n\nThe architecture should leave room for remote cache and execution, but Release 1 only needs deterministic local execution and serializable plans.\n\n## NG-11 — Enterprise fleet administration in MVP Release 1\n\nSSO administration, organization policy fleets, centralized analytics, and multi-tenant enterprise control planes are later horizons.\n\n## NG-12 — Autonomous high-consequence engineering authority\n\nAn AI agent cannot approve its own architecture changes, security exceptions, releases, destructive operations, or other decisions reserved for human authority.\n\n## NG-13 — Perfect semantic understanding of arbitrary repositories\n\nMonad should expose confidence boundaries, unknowns, unsupported artifact classes, and adapter limits. Conservative partial knowledge is preferable to fabricated completeness.\n\n## NG-14 — Optimize every workflow before proving the semantic kernel\n\nRemote collaboration, rich TUI, marketplace, hosted services, broad SDK coverage, and advanced commercial features do not outrank proving the deterministic repository → graph → impact → plan → evidence loop.\n\n## Reconsideration rule\n\nA non-goal may move into scope when user evidence demonstrates material value, the semantic kernel is stable enough to support it, its dependencies and risks are understood, and the Product Owner explicitly authorizes the scope change. Architectural consequences receive an ADR when required.\n",
   "document_id": "doc:vision%2Fnon-goals.md",
   "generation": {
     "deterministic": true,
@@ -13,13 +13,20 @@
     "NG-04",
     "NG-05",
     "NG-06",
-    "NG-07"
+    "NG-07",
+    "NG-08",
+    "NG-09",
+    "NG-10",
+    "NG-11",
+    "NG-12",
+    "NG-13",
+    "NG-14"
   ],
   "links": [],
   "metadata": {
     "document_type": "vision",
     "normative": true,
-    "summary": "Non-goals protect the first product from accidental expansion. They are not claims that these ideas lack value; they state what the current strategy will not optimize or promise.",
+    "summary": "Status: Proposed foundation baseline",
     "title": "Non-Goals"
   },
   "relations": [],
@@ -32,7 +39,7 @@
       "line_end": 6,
       "line_start": 1,
       "section_id": "non-goals",
-      "text": "# Non-Goals\n\nNon-goals protect the first product from accidental expansion. They are not\nclaims that these ideas lack value; they state what the current strategy will\nnot optimize or promise.",
+      "text": "# Non-Goals\n\n**Status:** Proposed foundation baseline\n\nNon-goals protect Monad from becoming a collection of adjacent engineering features before its semantic core proves value. They may be reconsidered only through explicit product and architecture review.",
       "title": "Non-Goals"
     },
     {
@@ -40,95 +47,172 @@
         "NG-01"
       ],
       "level": 2,
-      "line_end": 14,
+      "line_end": 10,
       "line_start": 7,
-      "section_id": "ng-01-universal-workflow-coverage",
-      "text": "## NG-01 — Universal workflow coverage\n\nThe initial product will not model every adjacent process or edge case. It\nsupports one primary journey and escalates unsupported cases clearly.\n\n**Reconsider when:** the primary journey meets success and reliability targets\nand evidence identifies a repeated adjacent need.",
-      "title": "NG-01 — Universal workflow coverage"
+      "section_id": "ng-01-replace-git",
+      "text": "## NG-01 — Replace Git\n\nGit remains the source/history transport for repository content. Monad may model Git state and changes but does not invent a competing version-control system.",
+      "title": "NG-01 — Replace Git"
     },
     {
       "identifiers": [
         "NG-02"
       ],
       "level": 2,
-      "line_end": 23,
-      "line_start": 15,
-      "section_id": "ng-02-unbounded-customization",
-      "text": "## NG-02 — Unbounded customization\n\nThe product will not expose configuration for every internal choice. Supported\nvariation must have a clear user need, validation, documentation, and test\nstrategy.\n\n**Reconsider when:** multiple validated segments need the same controlled\nextension point.",
-      "title": "NG-02 — Unbounded customization"
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "ng-02-replace-native-language-and-ecosystem-tools",
+      "text": "## NG-02 — Replace native language and ecosystem tools\n\nMonad does not reimplement Cargo, Go tooling, Bun/npm, TypeScript, Python tooling, JVM build systems, Terraform, Docker, or similar mature tools merely to own their mechanics. It coordinates them through explicit adapters and execution plans.",
+      "title": "NG-02 — Replace native language and ecosystem tools"
     },
     {
       "identifiers": [
         "NG-03"
       ],
       "level": 2,
-      "line_end": 31,
-      "line_start": 24,
-      "section_id": "ng-03-autonomous-consequential-decisions",
-      "text": "## NG-03 — Autonomous consequential decisions\n\nThe system will not silently make high-impact legal, financial, employment,\nmedical, safety, or access decisions on a person's behalf.\n\n**Reconsider when:** never without domain governance, explainability, review,\nappeal, and demonstrated legal and ethical fitness.",
-      "title": "NG-03 — Autonomous consequential decisions"
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "ng-03-become-a-universal-package-manager",
+      "text": "## NG-03 — Become a universal package manager\n\nDependency knowledge and policy are in scope; replacing every ecosystem's package distribution semantics is not.",
+      "title": "NG-03 — Become a universal package manager"
     },
     {
       "identifiers": [
         "NG-04"
       ],
       "level": 2,
-      "line_end": 39,
-      "line_start": 32,
-      "section_id": "ng-04-premature-platform-construction",
-      "text": "## NG-04 — Premature platform construction\n\nThe first increments will not build a general platform, marketplace, plugin\necosystem, or multi-product control plane before one product workflow is proven.\n\n**Reconsider when:** repeated product needs demonstrate stable shared\ncapabilities and platform ownership is funded.",
-      "title": "NG-04 — Premature platform construction"
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "ng-04-require-a-hosted-monad-service",
+      "text": "## NG-04 — Require a hosted Monad service\n\nCore workspace discovery, semantic compilation, validation, query, impact analysis, context generation, planning, and local execution must remain useful offline.",
+      "title": "NG-04 — Require a hosted Monad service"
     },
     {
       "identifiers": [
         "NG-05"
       ],
       "level": 2,
-      "line_end": 47,
-      "line_start": 40,
-      "section_id": "ng-05-every-integration",
-      "text": "## NG-05 — Every integration\n\nOnly integrations required by the validated primary journey are in scope.\nManual import or export is acceptable during validation when safe.\n\n**Reconsider when:** integration absence is a measured adoption or outcome\nbarrier.",
-      "title": "NG-05 — Every integration"
+      "line_end": 26,
+      "line_start": 23,
+      "section_id": "ng-05-make-an-llm-the-source-of-semantic-truth",
+      "text": "## NG-05 — Make an LLM the source of semantic truth\n\nModels may assist authorship and explanation, but canonical identity, graph semantics, KIR, diagnostics, planning, and conformance cannot depend on nondeterministic model output.",
+      "title": "NG-05 — Make an LLM the source of semantic truth"
     },
     {
       "identifiers": [
         "NG-06"
       ],
       "level": 2,
-      "line_end": 55,
-      "line_start": 48,
-      "section_id": "ng-06-global-deployment-and-compliance-coverage",
-      "text": "## NG-06 — Global deployment and compliance coverage\n\nThe initial release supports one declared operating region and a bounded set of\nregulatory obligations. It will not claim compliance by implication.\n\n**Reconsider when:** expansion has an accountable owner, legal analysis, data\nmap, control plan, and operational capacity.",
-      "title": "NG-06 — Global deployment and compliance coverage"
+      "line_end": 30,
+      "line_start": 27,
+      "section_id": "ng-06-define-a-universal-programming-language",
+      "text": "## NG-06 — Define a universal programming language\n\nMonad may define specification/configuration languages and machine representations when justified, but it does not seek to replace general-purpose programming languages.",
+      "title": "NG-06 — Define a universal programming language"
     },
     {
       "identifiers": [
         "NG-07"
       ],
       "level": 2,
-      "line_end": 61,
-      "line_start": 56,
-      "section_id": "ng-07-optimization-before-correctness",
-      "text": "## NG-07 — Optimization before correctness\n\nThe project will not trade correctness, accessibility, recovery, or essential\ntelemetry for superficial speed. Performance work follows budgets and measured\nbottlenecks.",
-      "title": "NG-07 — Optimization before correctness"
+      "line_end": 34,
+      "line_start": 31,
+      "section_id": "ng-07-replace-the-ide",
+      "text": "## NG-07 — Replace the IDE\n\nIDE integrations may expose Monad knowledge, but the product is not an editor or an attempt to own the entire coding interface.",
+      "title": "NG-07 — Replace the IDE"
+    },
+    {
+      "identifiers": [
+        "NG-08"
+      ],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 35,
+      "section_id": "ng-08-become-a-general-ticketing-or-project-management-application",
+      "text": "## NG-08 — Become a general ticketing or project-management application\n\nMonad models authorized engineering work and projects state into systems such as GitHub. It does not replace mature issue trackers with an unrelated proprietary planning system.",
+      "title": "NG-08 — Become a general ticketing or project-management application"
+    },
+    {
+      "identifiers": [
+        "NG-09"
+      ],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 39,
+      "section_id": "ng-09-split-the-ecosystem-into-many-repositories-during-architectural-instability",
+      "text": "## NG-09 — Split the ecosystem into many repositories during architectural instability\n\nRelease 1 remains centered on the canonical `monad` repository. New repositories require independent lifecycle, distribution, security, ownership, or community evidence.",
+      "title": "NG-09 — Split the ecosystem into many repositories during architectural instability"
+    },
+    {
+      "identifiers": [
+        "NG-10"
+      ],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 43,
+      "section_id": "ng-10-remote-execution-in-mvp-release-1",
+      "text": "## NG-10 — Remote execution in MVP Release 1\n\nThe architecture should leave room for remote cache and execution, but Release 1 only needs deterministic local execution and serializable plans.",
+      "title": "NG-10 — Remote execution in MVP Release 1"
+    },
+    {
+      "identifiers": [
+        "NG-11"
+      ],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 47,
+      "section_id": "ng-11-enterprise-fleet-administration-in-mvp-release-1",
+      "text": "## NG-11 — Enterprise fleet administration in MVP Release 1\n\nSSO administration, organization policy fleets, centralized analytics, and multi-tenant enterprise control planes are later horizons.",
+      "title": "NG-11 — Enterprise fleet administration in MVP Release 1"
+    },
+    {
+      "identifiers": [
+        "NG-12"
+      ],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 51,
+      "section_id": "ng-12-autonomous-high-consequence-engineering-authority",
+      "text": "## NG-12 — Autonomous high-consequence engineering authority\n\nAn AI agent cannot approve its own architecture changes, security exceptions, releases, destructive operations, or other decisions reserved for human authority.",
+      "title": "NG-12 — Autonomous high-consequence engineering authority"
+    },
+    {
+      "identifiers": [
+        "NG-13"
+      ],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 55,
+      "section_id": "ng-13-perfect-semantic-understanding-of-arbitrary-repositories",
+      "text": "## NG-13 — Perfect semantic understanding of arbitrary repositories\n\nMonad should expose confidence boundaries, unknowns, unsupported artifact classes, and adapter limits. Conservative partial knowledge is preferable to fabricated completeness.",
+      "title": "NG-13 — Perfect semantic understanding of arbitrary repositories"
+    },
+    {
+      "identifiers": [
+        "NG-14"
+      ],
+      "level": 2,
+      "line_end": 62,
+      "line_start": 59,
+      "section_id": "ng-14-optimize-every-workflow-before-proving-the-semantic-kernel",
+      "text": "## NG-14 — Optimize every workflow before proving the semantic kernel\n\nRemote collaboration, rich TUI, marketplace, hosted services, broad SDK coverage, and advanced commercial features do not outrank proving the deterministic repository → graph → impact → plan → evidence loop.",
+      "title": "NG-14 — Optimize every workflow before proving the semantic kernel"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 67,
-      "line_start": 62,
-      "section_id": "scope-test",
-      "text": "## Scope test\n\nA proposal is out of scope when the primary journey can meet its committed\noutcome without it and delaying the proposal does not create unacceptable\nsafety, legal, security, or architectural risk. Deferred proposals belong in\nthe roadmap or backlog with their reconsideration trigger.",
-      "title": "Scope test"
+      "line_end": 65,
+      "line_start": 63,
+      "section_id": "reconsideration-rule",
+      "text": "## Reconsideration rule\n\nA non-goal may move into scope when user evidence demonstrates material value, the semantic kernel is stable enough to support it, its dependencies and risks are understood, and the Product Owner explicitly authorizes the scope change. Architectural consequences receive an ADR when required.",
+      "title": "Reconsideration rule"
     }
   ],
   "source": {
-    "bytes": 2550,
+    "bytes": 3727,
     "canonical": true,
     "language": "markdown",
-    "lines": 67,
+    "lines": 65,
     "media_type": "text/markdown",
     "path": "vision/non-goals.md",
-    "sha256": "641b92712bf8aa14fecde37de3ca9ee867858da120e68bef5462f1fcc271799f"
+    "sha256": "4cd33fdd98763e23b18463d0bc1ec1133acb4c5ca409b143b7903e354b63345b"
   }
 }

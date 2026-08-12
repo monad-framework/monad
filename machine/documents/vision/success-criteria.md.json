@@ -1,5 +1,5 @@
 {
-  "content": "# Success Criteria\n\nSuccess is a decision supported by a balanced set of outcome, adoption,\nquality, safety, and operational evidence. Activity metrics may explain a\nresult but cannot substitute for one.\n\n## Decision scorecard\n\n| Dimension | Primary measure | Initial success threshold | Guardrail |\n| --- | --- | --- | --- |\n| Outcome | Successful completion of the primary job | Material improvement over measured baseline | No decline in result quality |\n| Effort | Active user time and avoidable handoffs | Lower median and tail effort | No hidden transfer to operators |\n| Adoption | Eligible users completing repeat use | Sustained use across the target cohort | No coercive or accidental use |\n| Usability | Unassisted task completion | Representative users finish the core path | Accessibility conformance maintained |\n| Reliability | Successful valid requests and journey completion | Meets published service objectives | Recovery paths pass exercises |\n| Security | Open high-severity findings and control evidence | No unaccepted critical or high risk | Data use stays within declared purpose |\n| Operability | Detection, diagnosis, deployment, and restoration | Meets operational budgets | Alert load remains actionable |\n| Economics | Cost per successful outcome | Within the approved unit-cost budget | No unsafe quality reduction |\n\nExact numeric targets are baselined from discovery data and approved in the\nfirst increment record. Any later target change requires a rationale and must\npreserve the original value for comparison.\n\n## Evidence sources\n\n- instrumented journey events with documented semantics;\n- representative usability and accessibility studies;\n- acceptance, performance, security, and recovery test results;\n- incident, support, and operator-workload records;\n- cohort-based retention and repeat-use analysis;\n- direct qualitative research linked to participant and sampling notes;\n- cost allocation tied to successful outcomes rather than raw requests.\n\n## Measurement rules\n\n1. Define the denominator before collecting results.\n2. Separate eligible attempts, user cancellations, invalid requests, product\n   failures, and dependency failures.\n3. Report median and tail distributions where averages can hide harm.\n4. Segment by supported persona, environment, accessibility mode, and other\n   relevant factors without collecting unnecessary sensitive data.\n5. Record instrumentation gaps and confidence limits.\n6. Do not remove inconvenient observations from the reporting window.\n\n## Decision cadence\n\nReview leading indicators each work cycle, operational health continuously,\nproduct outcomes monthly during pilots, and strategic success quarterly. Each\nreview ends with one explicit decision: continue, correct, narrow, expand,\npause, pivot, or stop.\n\n## Stop conditions\n\nPause expansion when a critical safety or security risk is uncontained, the\nprimary outcome cannot be verified, users cannot provide informed control, the\noperating cost exceeds its approved bound without a credible correction, or\nevidence shows that the product is not solving the validated problem.\n",
+  "content": "# Success Criteria\n\n**Status:** Proposed foundation baseline\n\nThe criteria below define evidence required to claim that Monad's foundation and MVP Release 1 are working. Activity, document count, issue closure, and generated code are not success measures by themselves.\n\n## SC-01 — Deterministic semantic compilation\n\nFor a fixed supported repository state, Monad version, configuration, and declared toolchain, repeated compilation produces semantically equivalent graph and KIR output with stable identities and canonical ordering.\n\n**MVP evidence:** deterministic fixture suite and repeated clean-machine runs produce identical canonical hashes.\n\n## SC-02 — Explainable engineering graph\n\nRepresentative graph nodes and edges expose provenance sufficient to answer why they exist and which canonical artifact or extraction rule produced them.\n\n**MVP evidence:** sampled entities and relationships can be traced back to source locations and governing identifiers without manual inference.\n\n## SC-03 — Useful change-impact analysis\n\nFor a representative change corpus, the affected-set engine identifies required dependent artifacts and validation conservatively and explains the path that caused inclusion.\n\n**MVP evidence:** no known required validation is omitted in the acceptance corpus; over-inclusion is measured and bounded rather than hidden.\n\n## SC-04 — Bounded AI-agent context\n\nMonad can generate a task-specific context package containing governing artifacts, dependencies, constraints, acceptance criteria, and provenance without indiscriminately including the repository.\n\n**MVP evidence:** controlled Codex tasks can be completed using generated context packages, and packages are independently reviewable and reproducible.\n\n## SC-05 — Native execution orchestration\n\nMonad derives an explicit execution plan and invokes real native tools rather than replacing their mechanics.\n\n**MVP evidence:** at least one representative polyglot repository scenario executes a dependency-ordered validation plan with captured commands, inputs, outputs, exit status, and evidence.\n\n## SC-06 — Actionable diagnostics\n\nInvalid configuration, unresolved semantic references, graph invariant violations, unsupported states, and native-tool failures produce structured diagnostics with stable identity, severity, provenance, and remediation guidance.\n\n**MVP evidence:** negative and boundary acceptance suites verify machine-readable and human-readable diagnostics.\n\n## SC-07 — Human/machine synchronization\n\nGenerated companions, manifest, graph, and corpus cannot silently diverge from canonical human-readable source.\n\n**MVP evidence:** CI fails on stale, missing, or orphaned generated outputs and passes after deterministic regeneration.\n\n## SC-08 — Local-first operation\n\nCore inspection, compilation, validation, query, context generation, plan generation, and local execution do not require a Monad-hosted service.\n\n**MVP evidence:** release acceptance runs in an environment with Monad cloud access unavailable.\n\n## SC-09 — CI reproducibility\n\nThe same declared validation used locally can be reproduced in GitHub Actions, with meaningful differences in environment captured rather than hidden.\n\n**MVP evidence:** release-candidate validation passes from a clean checkout and records tool versions, inputs, and produced evidence.\n\n## SC-10 — Coherent CLI experience\n\nA new technical user can discover and use the MVP commands without private maintainer knowledge.\n\n**MVP evidence:** documented scenarios successfully exercise `inspect`, `validate`, `graph`, `query`, `explain`, `affected`, `context`, `plan`, `run`, `doctor`, and `version` or an explicitly approved smaller Release 1 subset.\n\n## Release guardrails\n\nRelease 1 is not accepted when any of the following is true:\n\n- a known graph or KIR nondeterminism remains unexplained;\n- a supported change scenario can omit required validation without a blocking uncertainty diagnostic;\n- generated machine state can drift silently from canonical source;\n- secrets or unnecessary sensitive data are included in agent context or diagnostics;\n- execution can perform undeclared consequential commands outside the approved plan;\n- release artifacts cannot be traced to source, toolchain, tests, and acceptance evidence;\n- critical or high security/reliability risks remain neither mitigated nor explicitly accepted by the accountable authority.\n\n## Post-MVP success\n\nAfter Release 1, product success must be evaluated against real engineering outcomes: reduced context-reconstruction time, faster safe change review, lower unnecessary validation cost without missed impact, improved agent-task success and reviewability, lower architecture/documentation drift, and repeat use by developers who can choose alternatives.\n",
   "document_id": "doc:vision%2Fsuccess-criteria.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "vision",
     "normative": true,
-    "summary": "Success is a decision supported by a balanced set of outcome, adoption, quality, safety, and operational evidence. Activity metrics may explain a result but cannot substitute for one.",
+    "summary": "Status: Proposed foundation baseline",
     "title": "Success Criteria"
   },
   "relations": [],
@@ -24,62 +24,125 @@
       "line_end": 6,
       "line_start": 1,
       "section_id": "success-criteria",
-      "text": "# Success Criteria\n\nSuccess is a decision supported by a balanced set of outcome, adoption,\nquality, safety, and operational evidence. Activity metrics may explain a\nresult but cannot substitute for one.",
+      "text": "# Success Criteria\n\n**Status:** Proposed foundation baseline\n\nThe criteria below define evidence required to claim that Monad's foundation and MVP Release 1 are working. Activity, document count, issue closure, and generated code are not success measures by themselves.",
       "title": "Success Criteria"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 23,
+      "line_end": 12,
       "line_start": 7,
-      "section_id": "decision-scorecard",
-      "text": "## Decision scorecard\n\n| Dimension | Primary measure | Initial success threshold | Guardrail |\n| --- | --- | --- | --- |\n| Outcome | Successful completion of the primary job | Material improvement over measured baseline | No decline in result quality |\n| Effort | Active user time and avoidable handoffs | Lower median and tail effort | No hidden transfer to operators |\n| Adoption | Eligible users completing repeat use | Sustained use across the target cohort | No coercive or accidental use |\n| Usability | Unassisted task completion | Representative users finish the core path | Accessibility conformance maintained |\n| Reliability | Successful valid requests and journey completion | Meets published service objectives | Recovery paths pass exercises |\n| Security | Open high-severity findings and control evidence | No unaccepted critical or high risk | Data use stays within declared purpose |\n| Operability | Detection, diagnosis, deployment, and restoration | Meets operational budgets | Alert load remains actionable |\n| Economics | Cost per successful outcome | Within the approved unit-cost budget | No unsafe quality reduction |\n\nExact numeric targets are baselined from discovery data and approved in the\nfirst increment record. Any later target change requires a rationale and must\npreserve the original value for comparison.",
-      "title": "Decision scorecard"
+      "section_id": "sc-01-deterministic-semantic-compilation",
+      "text": "## SC-01 — Deterministic semantic compilation\n\nFor a fixed supported repository state, Monad version, configuration, and declared toolchain, repeated compilation produces semantically equivalent graph and KIR output with stable identities and canonical ordering.\n\n**MVP evidence:** deterministic fixture suite and repeated clean-machine runs produce identical canonical hashes.",
+      "title": "SC-01 — Deterministic semantic compilation"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 33,
-      "line_start": 24,
-      "section_id": "evidence-sources",
-      "text": "## Evidence sources\n\n- instrumented journey events with documented semantics;\n- representative usability and accessibility studies;\n- acceptance, performance, security, and recovery test results;\n- incident, support, and operator-workload records;\n- cohort-based retention and repeat-use analysis;\n- direct qualitative research linked to participant and sampling notes;\n- cost allocation tied to successful outcomes rather than raw requests.",
-      "title": "Evidence sources"
+      "line_end": 18,
+      "line_start": 13,
+      "section_id": "sc-02-explainable-engineering-graph",
+      "text": "## SC-02 — Explainable engineering graph\n\nRepresentative graph nodes and edges expose provenance sufficient to answer why they exist and which canonical artifact or extraction rule produced them.\n\n**MVP evidence:** sampled entities and relationships can be traced back to source locations and governing identifiers without manual inference.",
+      "title": "SC-02 — Explainable engineering graph"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 44,
-      "line_start": 34,
-      "section_id": "measurement-rules",
-      "text": "## Measurement rules\n\n1. Define the denominator before collecting results.\n2. Separate eligible attempts, user cancellations, invalid requests, product\n   failures, and dependency failures.\n3. Report median and tail distributions where averages can hide harm.\n4. Segment by supported persona, environment, accessibility mode, and other\n   relevant factors without collecting unnecessary sensitive data.\n5. Record instrumentation gaps and confidence limits.\n6. Do not remove inconvenient observations from the reporting window.",
-      "title": "Measurement rules"
+      "line_end": 24,
+      "line_start": 19,
+      "section_id": "sc-03-useful-change-impact-analysis",
+      "text": "## SC-03 — Useful change-impact analysis\n\nFor a representative change corpus, the affected-set engine identifies required dependent artifacts and validation conservatively and explains the path that caused inclusion.\n\n**MVP evidence:** no known required validation is omitted in the acceptance corpus; over-inclusion is measured and bounded rather than hidden.",
+      "title": "SC-03 — Useful change-impact analysis"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 51,
-      "line_start": 45,
-      "section_id": "decision-cadence",
-      "text": "## Decision cadence\n\nReview leading indicators each work cycle, operational health continuously,\nproduct outcomes monthly during pilots, and strategic success quarterly. Each\nreview ends with one explicit decision: continue, correct, narrow, expand,\npause, pivot, or stop.",
-      "title": "Decision cadence"
+      "line_end": 30,
+      "line_start": 25,
+      "section_id": "sc-04-bounded-ai-agent-context",
+      "text": "## SC-04 — Bounded AI-agent context\n\nMonad can generate a task-specific context package containing governing artifacts, dependencies, constraints, acceptance criteria, and provenance without indiscriminately including the repository.\n\n**MVP evidence:** controlled Codex tasks can be completed using generated context packages, and packages are independently reviewable and reproducible.",
+      "title": "SC-04 — Bounded AI-agent context"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 57,
-      "line_start": 52,
-      "section_id": "stop-conditions",
-      "text": "## Stop conditions\n\nPause expansion when a critical safety or security risk is uncontained, the\nprimary outcome cannot be verified, users cannot provide informed control, the\noperating cost exceeds its approved bound without a credible correction, or\nevidence shows that the product is not solving the validated problem.",
-      "title": "Stop conditions"
+      "line_end": 36,
+      "line_start": 31,
+      "section_id": "sc-05-native-execution-orchestration",
+      "text": "## SC-05 — Native execution orchestration\n\nMonad derives an explicit execution plan and invokes real native tools rather than replacing their mechanics.\n\n**MVP evidence:** at least one representative polyglot repository scenario executes a dependency-ordered validation plan with captured commands, inputs, outputs, exit status, and evidence.",
+      "title": "SC-05 — Native execution orchestration"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 37,
+      "section_id": "sc-06-actionable-diagnostics",
+      "text": "## SC-06 — Actionable diagnostics\n\nInvalid configuration, unresolved semantic references, graph invariant violations, unsupported states, and native-tool failures produce structured diagnostics with stable identity, severity, provenance, and remediation guidance.\n\n**MVP evidence:** negative and boundary acceptance suites verify machine-readable and human-readable diagnostics.",
+      "title": "SC-06 — Actionable diagnostics"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 43,
+      "section_id": "sc-07-human-machine-synchronization",
+      "text": "## SC-07 — Human/machine synchronization\n\nGenerated companions, manifest, graph, and corpus cannot silently diverge from canonical human-readable source.\n\n**MVP evidence:** CI fails on stale, missing, or orphaned generated outputs and passes after deterministic regeneration.",
+      "title": "SC-07 — Human/machine synchronization"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 49,
+      "section_id": "sc-08-local-first-operation",
+      "text": "## SC-08 — Local-first operation\n\nCore inspection, compilation, validation, query, context generation, plan generation, and local execution do not require a Monad-hosted service.\n\n**MVP evidence:** release acceptance runs in an environment with Monad cloud access unavailable.",
+      "title": "SC-08 — Local-first operation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 55,
+      "section_id": "sc-09-ci-reproducibility",
+      "text": "## SC-09 — CI reproducibility\n\nThe same declared validation used locally can be reproduced in GitHub Actions, with meaningful differences in environment captured rather than hidden.\n\n**MVP evidence:** release-candidate validation passes from a clean checkout and records tool versions, inputs, and produced evidence.",
+      "title": "SC-09 — CI reproducibility"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 66,
+      "line_start": 61,
+      "section_id": "sc-10-coherent-cli-experience",
+      "text": "## SC-10 — Coherent CLI experience\n\nA new technical user can discover and use the MVP commands without private maintainer knowledge.\n\n**MVP evidence:** documented scenarios successfully exercise `inspect`, `validate`, `graph`, `query`, `explain`, `affected`, `context`, `plan`, `run`, `doctor`, and `version` or an explicitly approved smaller Release 1 subset.",
+      "title": "SC-10 — Coherent CLI experience"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 78,
+      "line_start": 67,
+      "section_id": "release-guardrails",
+      "text": "## Release guardrails\n\nRelease 1 is not accepted when any of the following is true:\n\n- a known graph or KIR nondeterminism remains unexplained;\n- a supported change scenario can omit required validation without a blocking uncertainty diagnostic;\n- generated machine state can drift silently from canonical source;\n- secrets or unnecessary sensitive data are included in agent context or diagnostics;\n- execution can perform undeclared consequential commands outside the approved plan;\n- release artifacts cannot be traced to source, toolchain, tests, and acceptance evidence;\n- critical or high security/reliability risks remain neither mitigated nor explicitly accepted by the accountable authority.",
+      "title": "Release guardrails"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 81,
+      "line_start": 79,
+      "section_id": "post-mvp-success",
+      "text": "## Post-MVP success\n\nAfter Release 1, product success must be evaluated against real engineering outcomes: reduced context-reconstruction time, faster safe change review, lower unnecessary validation cost without missed impact, improved agent-task success and reviewability, lower architecture/documentation drift, and repeat use by developers who can choose alternatives.",
+      "title": "Post-MVP success"
     }
   ],
   "source": {
-    "bytes": 3113,
+    "bytes": 4796,
     "canonical": true,
     "language": "markdown",
-    "lines": 57,
+    "lines": 81,
     "media_type": "text/markdown",
     "path": "vision/success-criteria.md",
-    "sha256": "b422a6b26af7ab771240ad341ba491e35bfca3681c2b397642b22da63e19b7f5"
+    "sha256": "67592e0a36637502efb4984bbf56e28893e26be8d7c41ed5bed0237ab8e7dc8e"
   }
 }

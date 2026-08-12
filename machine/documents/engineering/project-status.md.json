@@ -1,5 +1,5 @@
 {
-  "content": "# Project Status\n\n**Overall state:** Inception — establishing the evidence and baseline required\nto authorize the first implementation increment.\n\n## Executive summary\n\nThe repository operating system is established. Product and architecture\ndocuments define a coherent initial target, but their assumptions still require\nrepresentative user research and accountable review. No production readiness or\nmarket validation is implied by document completion.\n\n## Outcome dashboard\n\n| Area | Status | Evidence now | Next decision |\n| --- | --- | --- | --- |\n| Problem validation | In progress | Hypotheses and evidence plan defined | Accept, revise, or reject the core problem |\n| Product baseline | Proposed | Primary journey and requirements drafted | Baseline after research synthesis |\n| Architecture | Proposed | Boundaries and quality scenarios drafted | Accept first-slice decisions |\n| Engineering | Ready to plan | Delivery hierarchy and gates defined | Authorize Increment 0001 |\n| Security and privacy | Initial analysis | Security model and threat baseline drafted | Confirm data and authority scope |\n| Operations | Initial design | Service, deployment, and incident expectations drafted | Approve pilot operating model |\n\n## Active work\n\n- WP-0001: validate the problem and quantify the current-state baseline.\n- Review product assumptions with representative primary and accountable users.\n- Convert validated behavior into the first approved functional specifications.\n- Identify ADRs required before the walking skeleton begins.\n\n## Blockers and decisions needed\n\n1. Confirm the exact primary workflow and participating user segment.\n2. Approve data classification, retention, and supported operating region.\n3. Choose the initial identity authority and deployment environment.\n4. Establish numeric outcome, reliability, performance, recovery, and cost\n   baselines from evidence.\n\n## Top risks\n\n- Building from assumptions before problem validation.\n- Expanding scope before one end-to-end journey is proven.\n- Treating generic quality targets as evidence without reference testing.\n- Underestimating operational and security ownership for external use.\n\nSee `risks/risk-register.md` for ownership and responses.\n\n## Next checkpoint\n\nThe inception review occurs when WP-0001 evidence is complete. The decision is\none of: proceed to a walking-skeleton increment, narrow or change the product\nhypothesis, perform a bounded additional experiment, or stop. The review record\nupdates this status document and the active work list.\n\n## Status-reporting rule\n\nUpdate this file when a decision, outcome, blocker, forecast, or top risk\nchanges—not merely on a calendar. Use `On track`, `At risk`, or `Blocked` only\nagainst an explicit outcome and date, with the evidence that supports the state.\n",
+  "content": "# Project Status\n\n**Overall state:** Foundation stabilization — pre-implementation  \n**Active program:** STAB-0001  \n**Target:** MVP Release 1 semantic engineering loop\n\n## Executive summary\n\nMonad is being re-founded around a single product identity: a local-first Engineering Knowledge Compilation Platform. The repository is intentionally fluid while the new C0/C1 foundation is reconciled, but the target direction is now explicit enough to plan the MVP.\n\nThe broad `artifact-system/` taxonomy has been materialized as substantive Draft content rather than empty placeholders. The machine-readable documentation layer is being regenerated deterministically from canonical source and must remain synchronized before it is used as trusted agent/retrieval context.\n\nNo production implementation of the semantic kernel is yet authorized. The current priority is to finish stabilization, review the minimum architecture/specification authority needed for the first vertical slice, and enter SPRINT-001 with a Ready implementation backlog.\n\n## Outcome dashboard\n\n| Area | Current state | Evidence / meaning | Next decision |\n| --- | --- | --- | --- |\n| Product identity | Stabilizing | Monad-specific thesis, MVP requirements, capabilities and success criteria proposed | C0 foundation review |\n| ADR authority | Reconciled structurally | `architecture/decisions/` is canonical; ADR-0001 survives as Accepted | Review additional first-slice ADR needs |\n| Artifact taxonomy | Materialized | Empty Markdown placeholders replaced with Draft baselines | Criticality-driven review/promotion |\n| Machine knowledge | Synchronizing/verified on stabilization branch | Deterministic companions, manifest, graph, corpus regenerated and checked | Keep green after every canonical change |\n| Architecture | Proposed | Five-plane semantic-kernel architecture and MVP pipeline defined | C1 readiness review |\n| Specifications | Early | Specification system exists; concrete Release 1 contracts remain to be derived/reconciled | Approve first-slice specifications |\n| Engineering backlog | Being established | MVP roadmap and Sprint forecast defined; detailed backlog projection in progress | Backlog readiness review |\n| Implementation | Not started | No semantic-kernel implementation is currently authoritative | Authorize first Ready Work Packet |\n| GitHub operating surface | Transitional | Issues/Projects/Wiki enabled; canonical setup/projection being built | Complete live setup and reconcile limitations |\n| CI / repository health | Transitional | Machine drift gate exists; stabilization materialization validates artifact/machine generation | Establish full protected quality baseline |\n\n## Active work\n\n### STAB-0001 — Foundation Stabilization Program\n\nThe active program reconciles product identity, ADR authority, artifact-system content, machine synchronization, MVP architecture/specifications, Scrum backlog, GitHub configuration, and implementation readiness.\n\n### Immediate critical path\n\n1. Finish C0 product/authority reconciliation.\n2. Finish the MVP Epic/Feature/Story/Work Packet backlog and GitHub projection.\n3. Review minimum C1 contracts for workspace discovery, identity/provenance, semantic graph, KIR, diagnostics, configuration, and security boundaries.\n4. Make the first implementation Work Packet Ready.\n5. Run stabilization readiness review.\n6. Begin SPRINT-001 / PI-001 and authorize semantic-kernel implementation only as its prerequisites are accepted.\n\n## Current architectural anchor\n\n`architecture/decisions/ADR-0001-knowledge-engine-core.md` is Accepted and establishes the Knowledge Engine as a foundational Monad subsystem. The broader proposed architecture treats engineering knowledge as the input to five planes: Knowledge, Control, Execution, Observation, and Interaction.\n\nFurther architecture files may be Draft. File existence or generated content does not grant accepted status.\n\n## Top risks\n\n### RISK-STAB-001 — Over-documentation becomes false authority\n\n**Response:** all bulk-materialized artifact documents remain Draft; approval is selective, criticality-driven, and tied to executable work.\n\n### RISK-STAB-002 — Product thesis drifts during transition\n\n**Response:** C0 reconciliation makes repository description, README, idea, vision, requirements, capabilities, architecture context, and backlog descend from one Engineering Knowledge Compilation thesis.\n\n### RISK-STAB-003 — Machine projection becomes stale during large canonical changes\n\n**Response:** deterministic regeneration plus CI `--check`; machine context is considered trusted only on a synchronized head.\n\n### RISK-STAB-004 — Aggressive MVP schedule creates horizontal subsystem work without integrated value\n\n**Response:** one-week Sprints and PI exit gates prioritize vertical acceptance scenarios, integration, and dogfooding.\n\n### RISK-STAB-005 — GitHub planning duplicates canonical repository authority\n\n**Response:** GitHub Issues/Projects/Wiki are projections. Canonical requirements, ADRs, specifications, Work Packets, and reviews remain in Git.\n\n### RISK-STAB-006 — Premature architecture freeze\n\n**Response:** stabilize boundaries and contracts required by the next slice; leave lower-criticality artifact content Draft until evidence requires promotion.\n\n## Forecast\n\nThe aggressive MVP Release 1 forecast is **November 23, 2026**. This date assumes sustained focus, strong ChatGPT/Codex automation, small vertical slices, and no discovery that invalidates the semantic-kernel thesis. It is a planning forecast, not permission to release without required evidence.\n\n## Status-reporting rule\n\nUpdate this file when the Product Goal, phase, critical path, active program/work, material risk, blocker, readiness state, or release forecast changes. Do not report activity counts as progress without the outcome/evidence they represent.\n",
   "document_id": "doc:engineering%2Fproject-status.md",
   "generation": {
     "deterministic": true,
@@ -7,13 +7,13 @@
     "version": "1.0.0"
   },
   "identifiers": [
-    "WP-0001"
+    "ADR-0001"
   ],
   "links": [],
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "Overall state: Inception — establishing the evidence and baseline required to authorize the first implementation increment.",
+    "summary": "Overall state: Foundation stabilization — pre-implementation Active program: STAB-0001 Target: MVP Release 1 semantic engineering loop",
     "title": "Project Status"
   },
   "relations": [],
@@ -23,87 +23,159 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 5,
+      "line_end": 6,
       "line_start": 1,
       "section_id": "project-status",
-      "text": "# Project Status\n\n**Overall state:** Inception — establishing the evidence and baseline required\nto authorize the first implementation increment.",
+      "text": "# Project Status\n\n**Overall state:** Foundation stabilization — pre-implementation  \n**Active program:** STAB-0001  \n**Target:** MVP Release 1 semantic engineering loop",
       "title": "Project Status"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 12,
-      "line_start": 6,
+      "line_end": 14,
+      "line_start": 7,
       "section_id": "executive-summary",
-      "text": "## Executive summary\n\nThe repository operating system is established. Product and architecture\ndocuments define a coherent initial target, but their assumptions still require\nrepresentative user research and accountable review. No production readiness or\nmarket validation is implied by document completion.",
+      "text": "## Executive summary\n\nMonad is being re-founded around a single product identity: a local-first Engineering Knowledge Compilation Platform. The repository is intentionally fluid while the new C0/C1 foundation is reconciled, but the target direction is now explicit enough to plan the MVP.\n\nThe broad `artifact-system/` taxonomy has been materialized as substantive Draft content rather than empty placeholders. The machine-readable documentation layer is being regenerated deterministically from canonical source and must remain synchronized before it is used as trusted agent/retrieval context.\n\nNo production implementation of the semantic kernel is yet authorized. The current priority is to finish stabilization, review the minimum architecture/specification authority needed for the first vertical slice, and enter SPRINT-001 with a Ready implementation backlog.",
       "title": "Executive summary"
+    },
+    {
+      "identifiers": [
+        "ADR-0001"
+      ],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 15,
+      "section_id": "outcome-dashboard",
+      "text": "## Outcome dashboard\n\n| Area | Current state | Evidence / meaning | Next decision |\n| --- | --- | --- | --- |\n| Product identity | Stabilizing | Monad-specific thesis, MVP requirements, capabilities and success criteria proposed | C0 foundation review |\n| ADR authority | Reconciled structurally | `architecture/decisions/` is canonical; ADR-0001 survives as Accepted | Review additional first-slice ADR needs |\n| Artifact taxonomy | Materialized | Empty Markdown placeholders replaced with Draft baselines | Criticality-driven review/promotion |\n| Machine knowledge | Synchronizing/verified on stabilization branch | Deterministic companions, manifest, graph, corpus regenerated and checked | Keep green after every canonical change |\n| Architecture | Proposed | Five-plane semantic-kernel architecture and MVP pipeline defined | C1 readiness review |\n| Specifications | Early | Specification system exists; concrete Release 1 contracts remain to be derived/reconciled | Approve first-slice specifications |\n| Engineering backlog | Being established | MVP roadmap and Sprint forecast defined; detailed backlog projection in progress | Backlog readiness review |\n| Implementation | Not started | No semantic-kernel implementation is currently authoritative | Authorize first Ready Work Packet |\n| GitHub operating surface | Transitional | Issues/Projects/Wiki enabled; canonical setup/projection being built | Complete live setup and reconcile limitations |\n| CI / repository health | Transitional | Machine drift gate exists; stabilization materialization validates artifact/machine generation | Establish full protected quality baseline |",
+      "title": "Outcome dashboard"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 23,
-      "line_start": 13,
-      "section_id": "outcome-dashboard",
-      "text": "## Outcome dashboard\n\n| Area | Status | Evidence now | Next decision |\n| --- | --- | --- | --- |\n| Problem validation | In progress | Hypotheses and evidence plan defined | Accept, revise, or reject the core problem |\n| Product baseline | Proposed | Primary journey and requirements drafted | Baseline after research synthesis |\n| Architecture | Proposed | Boundaries and quality scenarios drafted | Accept first-slice decisions |\n| Engineering | Ready to plan | Delivery hierarchy and gates defined | Authorize Increment 0001 |\n| Security and privacy | Initial analysis | Security model and threat baseline drafted | Confirm data and authority scope |\n| Operations | Initial design | Service, deployment, and incident expectations drafted | Approve pilot operating model |",
-      "title": "Outcome dashboard"
-    },
-    {
-      "identifiers": [
-        "WP-0001"
-      ],
-      "level": 2,
-      "line_end": 30,
-      "line_start": 24,
+      "line_end": 31,
+      "line_start": 30,
       "section_id": "active-work",
-      "text": "## Active work\n\n- WP-0001: validate the problem and quantify the current-state baseline.\n- Review product assumptions with representative primary and accountable users.\n- Convert validated behavior into the first approved functional specifications.\n- Identify ADRs required before the walking skeleton begins.",
+      "text": "## Active work",
       "title": "Active work"
     },
     {
       "identifiers": [],
-      "level": 2,
-      "line_end": 38,
-      "line_start": 31,
-      "section_id": "blockers-and-decisions-needed",
-      "text": "## Blockers and decisions needed\n\n1. Confirm the exact primary workflow and participating user segment.\n2. Approve data classification, retention, and supported operating region.\n3. Choose the initial identity authority and deployment environment.\n4. Establish numeric outcome, reliability, performance, recovery, and cost\n   baselines from evidence.",
-      "title": "Blockers and decisions needed"
+      "level": 3,
+      "line_end": 35,
+      "line_start": 32,
+      "section_id": "stab-0001-foundation-stabilization-program",
+      "text": "### STAB-0001 — Foundation Stabilization Program\n\nThe active program reconciles product identity, ADR authority, artifact-system content, machine synchronization, MVP architecture/specifications, Scrum backlog, GitHub configuration, and implementation readiness.",
+      "title": "STAB-0001 — Foundation Stabilization Program"
     },
     {
       "identifiers": [],
-      "level": 2,
-      "line_end": 47,
-      "line_start": 39,
-      "section_id": "top-risks",
-      "text": "## Top risks\n\n- Building from assumptions before problem validation.\n- Expanding scope before one end-to-end journey is proven.\n- Treating generic quality targets as evidence without reference testing.\n- Underestimating operational and security ownership for external use.\n\nSee `risks/risk-register.md` for ownership and responses.",
-      "title": "Top risks"
+      "level": 3,
+      "line_end": 44,
+      "line_start": 36,
+      "section_id": "immediate-critical-path",
+      "text": "### Immediate critical path\n\n1. Finish C0 product/authority reconciliation.\n2. Finish the MVP Epic/Feature/Story/Work Packet backlog and GitHub projection.\n3. Review minimum C1 contracts for workspace discovery, identity/provenance, semantic graph, KIR, diagnostics, configuration, and security boundaries.\n4. Make the first implementation Work Packet Ready.\n5. Run stabilization readiness review.\n6. Begin SPRINT-001 / PI-001 and authorize semantic-kernel implementation only as its prerequisites are accepted.",
+      "title": "Immediate critical path"
     },
     {
       "identifiers": [
-        "WP-0001"
+        "ADR-0001"
       ],
       "level": 2,
-      "line_end": 54,
-      "line_start": 48,
-      "section_id": "next-checkpoint",
-      "text": "## Next checkpoint\n\nThe inception review occurs when WP-0001 evidence is complete. The decision is\none of: proceed to a walking-skeleton increment, narrow or change the product\nhypothesis, perform a bounded additional experiment, or stop. The review record\nupdates this status document and the active work list.",
-      "title": "Next checkpoint"
+      "line_end": 50,
+      "line_start": 45,
+      "section_id": "current-architectural-anchor",
+      "text": "## Current architectural anchor\n\n`architecture/decisions/ADR-0001-knowledge-engine-core.md` is Accepted and establishes the Knowledge Engine as a foundational Monad subsystem. The broader proposed architecture treats engineering knowledge as the input to five planes: Knowledge, Control, Execution, Observation, and Interaction.\n\nFurther architecture files may be Draft. File existence or generated content does not grant accepted status.",
+      "title": "Current architectural anchor"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 59,
-      "line_start": 55,
+      "line_end": 52,
+      "line_start": 51,
+      "section_id": "top-risks",
+      "text": "## Top risks",
+      "title": "Top risks"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 56,
+      "line_start": 53,
+      "section_id": "risk-stab-001-over-documentation-becomes-false-authority",
+      "text": "### RISK-STAB-001 — Over-documentation becomes false authority\n\n**Response:** all bulk-materialized artifact documents remain Draft; approval is selective, criticality-driven, and tied to executable work.",
+      "title": "RISK-STAB-001 — Over-documentation becomes false authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 60,
+      "line_start": 57,
+      "section_id": "risk-stab-002-product-thesis-drifts-during-transition",
+      "text": "### RISK-STAB-002 — Product thesis drifts during transition\n\n**Response:** C0 reconciliation makes repository description, README, idea, vision, requirements, capabilities, architecture context, and backlog descend from one Engineering Knowledge Compilation thesis.",
+      "title": "RISK-STAB-002 — Product thesis drifts during transition"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 64,
+      "line_start": 61,
+      "section_id": "risk-stab-003-machine-projection-becomes-stale-during-large-canonical-changes",
+      "text": "### RISK-STAB-003 — Machine projection becomes stale during large canonical changes\n\n**Response:** deterministic regeneration plus CI `--check`; machine context is considered trusted only on a synchronized head.",
+      "title": "RISK-STAB-003 — Machine projection becomes stale during large canonical changes"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 68,
+      "line_start": 65,
+      "section_id": "risk-stab-004-aggressive-mvp-schedule-creates-horizontal-subsystem-work-without-integrated-value",
+      "text": "### RISK-STAB-004 — Aggressive MVP schedule creates horizontal subsystem work without integrated value\n\n**Response:** one-week Sprints and PI exit gates prioritize vertical acceptance scenarios, integration, and dogfooding.",
+      "title": "RISK-STAB-004 — Aggressive MVP schedule creates horizontal subsystem work without integrated value"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 72,
+      "line_start": 69,
+      "section_id": "risk-stab-005-github-planning-duplicates-canonical-repository-authority",
+      "text": "### RISK-STAB-005 — GitHub planning duplicates canonical repository authority\n\n**Response:** GitHub Issues/Projects/Wiki are projections. Canonical requirements, ADRs, specifications, Work Packets, and reviews remain in Git.",
+      "title": "RISK-STAB-005 — GitHub planning duplicates canonical repository authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 76,
+      "line_start": 73,
+      "section_id": "risk-stab-006-premature-architecture-freeze",
+      "text": "### RISK-STAB-006 — Premature architecture freeze\n\n**Response:** stabilize boundaries and contracts required by the next slice; leave lower-criticality artifact content Draft until evidence requires promotion.",
+      "title": "RISK-STAB-006 — Premature architecture freeze"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 80,
+      "line_start": 77,
+      "section_id": "forecast",
+      "text": "## Forecast\n\nThe aggressive MVP Release 1 forecast is **November 23, 2026**. This date assumes sustained focus, strong ChatGPT/Codex automation, small vertical slices, and no discovery that invalidates the semantic-kernel thesis. It is a planning forecast, not permission to release without required evidence.",
+      "title": "Forecast"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 83,
+      "line_start": 81,
       "section_id": "status-reporting-rule",
-      "text": "## Status-reporting rule\n\nUpdate this file when a decision, outcome, blocker, forecast, or top risk\nchanges—not merely on a calendar. Use `On track`, `At risk`, or `Blocked` only\nagainst an explicit outcome and date, with the evidence that supports the state.",
+      "text": "## Status-reporting rule\n\nUpdate this file when the Product Goal, phase, critical path, active program/work, material risk, blocker, readiness state, or release forecast changes. Do not report activity counts as progress without the outcome/evidence they represent.",
       "title": "Status-reporting rule"
     }
   ],
   "source": {
-    "bytes": 2804,
+    "bytes": 5869,
     "canonical": true,
     "language": "markdown",
-    "lines": 59,
+    "lines": 83,
     "media_type": "text/markdown",
     "path": "engineering/project-status.md",
-    "sha256": "7ada013a1d54e872fd018bc3ee33529e18366f4497cb99fff26361ec0166c721"
+    "sha256": "c6b3573171c9a19e00e50d7ab4182464fc229627ad7b51aa705d98b2fbb104b2"
   }
 }

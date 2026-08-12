@@ -1,5 +1,5 @@
 {
-  "content": "# Architecture Overview\n\n## Drivers\n\nThe architecture supports one traceable journey from authenticated intent to a\nverified result. The strongest drivers are correctness, explicit workflow\nstate, least privilege, interruption recovery, diagnosability, accessibility,\nand the ability to evolve internals without silently breaking user promises.\n\n## Logical view\n\n```mermaid\nflowchart TD\n    UI[\"Experience\"] --> API[\"Application boundary\"]\n    API --> WF[\"Workflow coordination\"]\n    WF --> POL[\"Policy and validation\"]\n    WF --> CORE[\"Domain capabilities\"]\n    WF --> EVID[\"Evidence and audit\"]\n    CORE --> ADAPT[\"External adapters\"]\n```\n\n### Experience\n\nDelivers the supported user and operator interactions. It owns presentation,\nlocal interaction state, and accessibility behavior, but not authoritative\nworkflow state or security policy.\n\n### Application boundary\n\nAuthenticates request context, applies coarse transport protections, validates\ncontract shape, coordinates application use cases, and maps domain outcomes to\nversioned interface responses. It is not the source of domain truth.\n\n### Workflow coordination\n\nOwns workflow identity, allowed state transitions, idempotency, durable\nprogress, timeouts, retries, compensation, and escalation. It invokes domain\ncapabilities through ports and records outcome-relevant transitions.\n\n### Policy and validation\n\nEvaluates versioned structural, semantic, authorization, and safety rules. A\ndecision includes the rule version, outcome, explanation safe for its audience,\nand evidence reference.\n\n### Domain capabilities\n\nOwn business invariants and authoritative domain state. Domain behavior is\nisolated from transport, storage, vendor SDKs, and user-interface concerns.\n\n### Evidence and audit\n\nStores minimum necessary, append-oriented records for security, outcome, and\ncontrol reconstruction. Evidence access is separately authorized and retention\nis enforced by classification.\n\n### External adapters\n\nTranslate explicit ports to identity, persistence, messaging, notification, or\nother external dependencies. Adapters contain vendor-specific behavior and\nfailure translation so dependencies remain replaceable.\n\n## Primary flow\n\n1. The experience submits an authenticated request with an idempotency key and\n   correlation context.\n2. The application boundary validates the interface contract and authorization\n   context.\n3. Workflow coordination creates or returns the existing workflow instance.\n4. Policy and domain capabilities validate the proposed action.\n5. After required confirmation, the workflow commits work through owned domain\n   capabilities and external ports.\n6. Evidence records state transitions and relevant policy context.\n7. Verification evaluates postconditions before the result is declared\n   successful.\n\n## Failure model\n\nFailures are classified as invalid request, unauthorized action, policy denial,\ndomain conflict, transient dependency failure, permanent dependency failure,\ntimeout, or internal defect. Each class has an allowed retry and disclosure\npolicy. Unknown commit status is never represented as a clean failure; it enters\nreconciliation or escalation.\n\n## Data and consistency\n\nEach domain capability owns its authoritative data. A transaction does not span\nindependent ownership boundaries. Cross-boundary workflows use durable state,\nidempotent commands, explicit events, and compensation where reversal is\npossible. Read views may be eventually consistent and must expose freshness\nwhen a user decision depends on it.\n\n## Deployment view\n\nThe initial deployment favors the smallest operable shape: independently\ntestable modules may run in one deployable unit until scaling, isolation, or\nownership evidence justifies separation. Runtime configuration is externalized,\nsecrets come from an approved secret store, schema changes are forward-compatible,\nand every release supports automated health verification and rollback.\n\n## Cross-cutting controls\n\nAuthentication, fine-grained authorization, correlation, structured errors,\ntelemetry, data classification, configuration validation, rate protection, and\nrelease provenance apply at their owning boundaries. Shared libraries may\nstandardize mechanics but may not become a hidden source of domain policy.\n",
+  "content": "# Architecture Overview\n\n**Status:** Proposed foundation baseline\n\n## Architectural thesis\n\nMonad is a local-first engineering knowledge compiler and orchestration runtime. Its deterministic core converts canonical repository artifacts into an explicit semantic model; downstream capabilities query, validate, explain, plan, publish, and execute from that model instead of independently reparsing unrelated files and reconstructing meaning.\n\n## Primary pipeline\n\n```text\nCanonical repository knowledge\n        ↓\nWorkspace discovery + artifact adapters\n        ↓\nSemantic extraction + normalization\n        ↓\nStable identity + provenance resolution\n        ↓\nMonad Semantic Graph (MSG)\n        ↓\nKernel Intermediate Representation (KIR)\n        ↓\n┌─────────────┬───────────────┬──────────────┬──────────────┐\n│ Validation  │ Query/explain │ Change impact│ Agent context │\n└─────────────┴───────────────┴──────────────┴──────────────┘\n                         ↓\n                  Execution planner\n                         ↓\n                 Native tool adapters\n                         ↓\n                Local execution runtime\n                         ↓\n        diagnostics + evidence + artifacts\n                         ↓\n               canonical knowledge update\n```\n\nThe pipeline may execute incrementally, but incremental results must be semantically equivalent to a correct full rebuild under the same declared inputs.\n\n## Five architectural planes\n\n### 1. Knowledge Plane\n\nOwns the model of what the engineering system *means*.\n\nResponsibilities include workspace/artifact discovery, semantic extraction, identity, provenance, ontology, graph construction, KIR, indexes, query semantics, and machine-readable knowledge representations.\n\nIt does not execute consequential development commands or grant authority to agents.\n\n### 2. Control Plane\n\nOwns what work *should happen* and whether it is allowed.\n\nResponsibilities include configuration resolution, policy/authority evaluation, affected-set calculation, execution-plan construction, capability boundaries, work authorization, cache-validity decisions, and compatibility gates.\n\nIt consumes the Knowledge Plane and produces explicit decisions/plans rather than side effects.\n\n### 3. Execution Plane\n\nOwns controlled side effects.\n\nResponsibilities include native-tool adapters, subprocess isolation, dependency-ordered execution, concurrency, cancellation, retry, output capture, cache interaction, and artifact materialization.\n\nThe Execution Plane executes only explicit approved plans/capabilities; it does not invent semantic intent.\n\n### 4. Observation Plane\n\nOwns evidence about what happened.\n\nResponsibilities include structured diagnostics, logs, traces, metrics, execution records, provenance, performance evidence, debug bundles, conformance results, and release evidence.\n\nObservation must not become an uncontrolled secondary store for repository secrets or sensitive payloads.\n\n### 5. Interaction Plane\n\nOwns how humans, automation, and AI systems access Monad.\n\nResponsibilities include CLI, future TUI/IDE integration, machine output, agent context packages, GitHub projection, documentation/publication, and APIs.\n\nThe Interaction Plane presents or invokes underlying semantics; it is not itself the source of truth.\n\n## Core domain boundaries\n\n### Workspace\n\nRepresents the repository or repository set being inspected, including configuration, component/package discovery, toolchains, canonical artifact roots, Git state, and local Monad state.\n\n### Artifact\n\nRepresents a canonical or generated engineering record with identity, classification, source location, hash, ownership/authority metadata where known, and adapter provenance.\n\n### Semantic Entity and Relationship\n\nRepresent meaning extracted or declared from artifacts. Every derived object carries provenance sufficient for explanation and invalidation.\n\n### Semantic Graph\n\nThe canonical relational model used for dependency, governance, traceability, impact, coverage, and context queries.\n\n### KIR\n\nA versioned canonical machine representation suitable for deterministic downstream consumption without reparsing arbitrary human formats.\n\n### Diagnostic\n\nA structured finding with stable identity, severity, affected location/entity, cause context, remediation, and provenance.\n\n### Execution Plan\n\nA serializable DAG of authorized tasks with declared dependencies, inputs, outputs, environment, cacheability, and verification expectations.\n\n### Evidence\n\nA durable, attributable record proving or contradicting an engineering claim, execution outcome, validation condition, or release gate.\n\n## Local-first deployment shape\n\nMVP Release 1 favors one cohesive local executable/process boundary with clean internal modules rather than prematurely distributed services. The filesystem, Git repository, configuration, and installed native toolchains are the primary local dependencies.\n\nPotential internal modules include:\n\n```text\nworkspace\nartifacts/adapters\nidentity\nprovenance\nsemantic-graph\nkir\ndiagnostics\nquery\nimpact\npolicy\nplanner\nexecution\ncache\ncontext\ncli\nobservability\n```\n\nThe language/runtime for the mature core requires an accepted ADR. Architectural modules should not be conflated with repositories or services before evidence justifies separation.\n\n## Deterministic boundary\n\nThe following belong inside the deterministic boundary for Release 1:\n\n- workspace and artifact discovery;\n- parsing of supported deterministic formats;\n- normalization and canonicalization;\n- stable identity and hashing;\n- graph construction and invariants;\n- KIR lowering/serialization;\n- deterministic diagnostics;\n- query semantics;\n- affected-set calculation;\n- execution-plan derivation from explicit rules;\n- cache-validity decisions;\n- conformance and reproducibility checks.\n\nLLM inference is outside this boundary. AI-generated suggestions may become canonical only after normal review/authority processes.\n\n## Security model at the architecture level\n\nRepository content is untrusted input. Paths, symlinks, configuration, templates, code blocks, plugins, command declarations, and external tool output may attempt to influence execution or context generation.\n\nThe architecture therefore separates **knowledge acquisition** from **execution authority**. Reading a file that says “run this command” does not authorize execution. A command reaches the Execution Plane only through supported adapters, explicit planning rules, policy checks, and user/work authorization appropriate to consequence.\n\nAgent context similarly follows explicit inclusion and exclusion rules. The fact that a secret or unrelated file is graph-reachable does not authorize disclosure.\n\n## Consistency and incrementality\n\nA full semantic compilation defines correctness. Incremental computation maintains indexes from observed changes and invalidates dependent semantic nodes, queries, plans, and cache entries according to explicit dependency rules.\n\nWhen Monad cannot prove that an incremental result is complete, it expands invalidation or falls back to a broader recomputation. Performance uncertainty must not become silent correctness risk.\n\n## Failure model\n\nFailures are classified rather than flattened:\n\n- invalid repository/configuration;\n- unsupported artifact/format;\n- parse/extraction failure;\n- identity collision;\n- unresolved required relationship;\n- graph invariant violation;\n- policy/authority denial;\n- plan construction uncertainty;\n- unavailable native tool;\n- native-tool failure;\n- cancellation/timeout;\n- cache corruption/invalidity;\n- internal defect.\n\nUnknown semantic or execution state is represented explicitly and enters reconciliation or conservative fallback.\n\n## Architecture evolution\n\n### Phase A — Semantic kernel\n\nWorkspace → artifacts → identity/provenance → graph → KIR → validation/query.\n\n### Phase B — Executable knowledge\n\nChange impact → incrementality → planning → cache → native execution → evidence.\n\n### Phase C — Human/AI operating system\n\nAgent context/capabilities, work-packet integration, policy, GitHub/project projections, documentation/publication, self-hosting workflows.\n\n### Phase D — Distributed ecosystem\n\nPlugins, registry, remote cache/execution, team indexes, hosted control plane, enterprise governance.\n\n## Architecture quality test\n\nA proposed component, service, repository, protocol, or dependency is justified only when its responsibility is clear, its authority/data boundaries are explicit, its failure modes are understood, and it strengthens the knowledge → control → execution → evidence loop. Complexity without a user/engineering outcome is rejected or deferred.\n",
   "document_id": "doc:architecture%2Foverview.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "architecture",
     "normative": true,
-    "summary": "The architecture supports one traceable journey from authenticated intent to a verified result. The strongest drivers are correctness, explicit workflow state, least privilege, interruption recovery, diagnosability, accessibility, and the ability to evolve internals without silently breaking user promises.",
+    "summary": "Status: Proposed foundation baseline",
     "title": "Architecture Overview"
   },
   "relations": [],
@@ -21,146 +21,272 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 2,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "architecture-overview",
-      "text": "# Architecture Overview",
+      "text": "# Architecture Overview\n\n**Status:** Proposed foundation baseline",
       "title": "Architecture Overview"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 9,
-      "line_start": 3,
-      "section_id": "drivers",
-      "text": "## Drivers\n\nThe architecture supports one traceable journey from authenticated intent to a\nverified result. The strongest drivers are correctness, explicit workflow\nstate, least privilege, interruption recovery, diagnosability, accessibility,\nand the ability to evolve internals without silently breaking user promises.",
-      "title": "Drivers"
+      "line_end": 8,
+      "line_start": 5,
+      "section_id": "architectural-thesis",
+      "text": "## Architectural thesis\n\nMonad is a local-first engineering knowledge compiler and orchestration runtime. Its deterministic core converts canonical repository artifacts into an explicit semantic model; downstream capabilities query, validate, explain, plan, publish, and execute from that model instead of independently reparsing unrelated files and reconstructing meaning.",
+      "title": "Architectural thesis"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 21,
-      "line_start": 10,
-      "section_id": "logical-view",
-      "text": "## Logical view\n\n```mermaid\nflowchart TD\n    UI[\"Experience\"] --> API[\"Application boundary\"]\n    API --> WF[\"Workflow coordination\"]\n    WF --> POL[\"Policy and validation\"]\n    WF --> CORE[\"Domain capabilities\"]\n    WF --> EVID[\"Evidence and audit\"]\n    CORE --> ADAPT[\"External adapters\"]\n```",
-      "title": "Logical view"
+      "line_end": 40,
+      "line_start": 9,
+      "section_id": "primary-pipeline",
+      "text": "## Primary pipeline\n\n```text\nCanonical repository knowledge\n        ↓\nWorkspace discovery + artifact adapters\n        ↓\nSemantic extraction + normalization\n        ↓\nStable identity + provenance resolution\n        ↓\nMonad Semantic Graph (MSG)\n        ↓\nKernel Intermediate Representation (KIR)\n        ↓\n┌─────────────┬───────────────┬──────────────┬──────────────┐\n│ Validation  │ Query/explain │ Change impact│ Agent context │\n└─────────────┴───────────────┴──────────────┴──────────────┘\n                         ↓\n                  Execution planner\n                         ↓\n                 Native tool adapters\n                         ↓\n                Local execution runtime\n                         ↓\n        diagnostics + evidence + artifacts\n                         ↓\n               canonical knowledge update\n```\n\nThe pipeline may execute incrementally, but incremental results must be semantically equivalent to a correct full rebuild under the same declared inputs.",
+      "title": "Primary pipeline"
     },
     {
       "identifiers": [],
-      "level": 3,
-      "line_end": 27,
-      "line_start": 22,
-      "section_id": "experience",
-      "text": "### Experience\n\nDelivers the supported user and operator interactions. It owns presentation,\nlocal interaction state, and accessibility behavior, but not authoritative\nworkflow state or security policy.",
-      "title": "Experience"
-    },
-    {
-      "identifiers": [],
-      "level": 3,
-      "line_end": 33,
-      "line_start": 28,
-      "section_id": "application-boundary",
-      "text": "### Application boundary\n\nAuthenticates request context, applies coarse transport protections, validates\ncontract shape, coordinates application use cases, and maps domain outcomes to\nversioned interface responses. It is not the source of domain truth.",
-      "title": "Application boundary"
-    },
-    {
-      "identifiers": [],
-      "level": 3,
-      "line_end": 39,
-      "line_start": 34,
-      "section_id": "workflow-coordination",
-      "text": "### Workflow coordination\n\nOwns workflow identity, allowed state transitions, idempotency, durable\nprogress, timeouts, retries, compensation, and escalation. It invokes domain\ncapabilities through ports and records outcome-relevant transitions.",
-      "title": "Workflow coordination"
-    },
-    {
-      "identifiers": [],
-      "level": 3,
-      "line_end": 45,
-      "line_start": 40,
-      "section_id": "policy-and-validation",
-      "text": "### Policy and validation\n\nEvaluates versioned structural, semantic, authorization, and safety rules. A\ndecision includes the rule version, outcome, explanation safe for its audience,\nand evidence reference.",
-      "title": "Policy and validation"
+      "level": 2,
+      "line_end": 42,
+      "line_start": 41,
+      "section_id": "five-architectural-planes",
+      "text": "## Five architectural planes",
+      "title": "Five architectural planes"
     },
     {
       "identifiers": [],
       "level": 3,
       "line_end": 50,
-      "line_start": 46,
-      "section_id": "domain-capabilities",
-      "text": "### Domain capabilities\n\nOwn business invariants and authoritative domain state. Domain behavior is\nisolated from transport, storage, vendor SDKs, and user-interface concerns.",
-      "title": "Domain capabilities"
+      "line_start": 43,
+      "section_id": "1-knowledge-plane",
+      "text": "### 1. Knowledge Plane\n\nOwns the model of what the engineering system *means*.\n\nResponsibilities include workspace/artifact discovery, semantic extraction, identity, provenance, ontology, graph construction, KIR, indexes, query semantics, and machine-readable knowledge representations.\n\nIt does not execute consequential development commands or grant authority to agents.",
+      "title": "1. Knowledge Plane"
     },
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 56,
+      "line_end": 58,
       "line_start": 51,
-      "section_id": "evidence-and-audit",
-      "text": "### Evidence and audit\n\nStores minimum necessary, append-oriented records for security, outcome, and\ncontrol reconstruction. Evidence access is separately authorized and retention\nis enforced by classification.",
-      "title": "Evidence and audit"
+      "section_id": "2-control-plane",
+      "text": "### 2. Control Plane\n\nOwns what work *should happen* and whether it is allowed.\n\nResponsibilities include configuration resolution, policy/authority evaluation, affected-set calculation, execution-plan construction, capability boundaries, work authorization, cache-validity decisions, and compatibility gates.\n\nIt consumes the Knowledge Plane and produces explicit decisions/plans rather than side effects.",
+      "title": "2. Control Plane"
     },
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 62,
-      "line_start": 57,
-      "section_id": "external-adapters",
-      "text": "### External adapters\n\nTranslate explicit ports to identity, persistence, messaging, notification, or\nother external dependencies. Adapters contain vendor-specific behavior and\nfailure translation so dependencies remain replaceable.",
-      "title": "External adapters"
+      "line_end": 66,
+      "line_start": 59,
+      "section_id": "3-execution-plane",
+      "text": "### 3. Execution Plane\n\nOwns controlled side effects.\n\nResponsibilities include native-tool adapters, subprocess isolation, dependency-ordered execution, concurrency, cancellation, retry, output capture, cache interaction, and artifact materialization.\n\nThe Execution Plane executes only explicit approved plans/capabilities; it does not invent semantic intent.",
+      "title": "3. Execution Plane"
     },
     {
       "identifiers": [],
-      "level": 2,
-      "line_end": 76,
-      "line_start": 63,
-      "section_id": "primary-flow",
-      "text": "## Primary flow\n\n1. The experience submits an authenticated request with an idempotency key and\n   correlation context.\n2. The application boundary validates the interface contract and authorization\n   context.\n3. Workflow coordination creates or returns the existing workflow instance.\n4. Policy and domain capabilities validate the proposed action.\n5. After required confirmation, the workflow commits work through owned domain\n   capabilities and external ports.\n6. Evidence records state transitions and relevant policy context.\n7. Verification evaluates postconditions before the result is declared\n   successful.",
-      "title": "Primary flow"
+      "level": 3,
+      "line_end": 74,
+      "line_start": 67,
+      "section_id": "4-observation-plane",
+      "text": "### 4. Observation Plane\n\nOwns evidence about what happened.\n\nResponsibilities include structured diagnostics, logs, traces, metrics, execution records, provenance, performance evidence, debug bundles, conformance results, and release evidence.\n\nObservation must not become an uncontrolled secondary store for repository secrets or sensitive payloads.",
+      "title": "4. Observation Plane"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 82,
+      "line_start": 75,
+      "section_id": "5-interaction-plane",
+      "text": "### 5. Interaction Plane\n\nOwns how humans, automation, and AI systems access Monad.\n\nResponsibilities include CLI, future TUI/IDE integration, machine output, agent context packages, GitHub projection, documentation/publication, and APIs.\n\nThe Interaction Plane presents or invokes underlying semantics; it is not itself the source of truth.",
+      "title": "5. Interaction Plane"
     },
     {
       "identifiers": [],
       "level": 2,
       "line_end": 84,
-      "line_start": 77,
+      "line_start": 83,
+      "section_id": "core-domain-boundaries",
+      "text": "## Core domain boundaries",
+      "title": "Core domain boundaries"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 88,
+      "line_start": 85,
+      "section_id": "workspace",
+      "text": "### Workspace\n\nRepresents the repository or repository set being inspected, including configuration, component/package discovery, toolchains, canonical artifact roots, Git state, and local Monad state.",
+      "title": "Workspace"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 92,
+      "line_start": 89,
+      "section_id": "artifact",
+      "text": "### Artifact\n\nRepresents a canonical or generated engineering record with identity, classification, source location, hash, ownership/authority metadata where known, and adapter provenance.",
+      "title": "Artifact"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 96,
+      "line_start": 93,
+      "section_id": "semantic-entity-and-relationship",
+      "text": "### Semantic Entity and Relationship\n\nRepresent meaning extracted or declared from artifacts. Every derived object carries provenance sufficient for explanation and invalidation.",
+      "title": "Semantic Entity and Relationship"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 100,
+      "line_start": 97,
+      "section_id": "semantic-graph",
+      "text": "### Semantic Graph\n\nThe canonical relational model used for dependency, governance, traceability, impact, coverage, and context queries.",
+      "title": "Semantic Graph"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 104,
+      "line_start": 101,
+      "section_id": "kir",
+      "text": "### KIR\n\nA versioned canonical machine representation suitable for deterministic downstream consumption without reparsing arbitrary human formats.",
+      "title": "KIR"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 108,
+      "line_start": 105,
+      "section_id": "diagnostic",
+      "text": "### Diagnostic\n\nA structured finding with stable identity, severity, affected location/entity, cause context, remediation, and provenance.",
+      "title": "Diagnostic"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 112,
+      "line_start": 109,
+      "section_id": "execution-plan",
+      "text": "### Execution Plan\n\nA serializable DAG of authorized tasks with declared dependencies, inputs, outputs, environment, cacheability, and verification expectations.",
+      "title": "Execution Plan"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 116,
+      "line_start": 113,
+      "section_id": "evidence",
+      "text": "### Evidence\n\nA durable, attributable record proving or contradicting an engineering claim, execution outcome, validation condition, or release gate.",
+      "title": "Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 143,
+      "line_start": 117,
+      "section_id": "local-first-deployment-shape",
+      "text": "## Local-first deployment shape\n\nMVP Release 1 favors one cohesive local executable/process boundary with clean internal modules rather than prematurely distributed services. The filesystem, Git repository, configuration, and installed native toolchains are the primary local dependencies.\n\nPotential internal modules include:\n\n```text\nworkspace\nartifacts/adapters\nidentity\nprovenance\nsemantic-graph\nkir\ndiagnostics\nquery\nimpact\npolicy\nplanner\nexecution\ncache\ncontext\ncli\nobservability\n```\n\nThe language/runtime for the mature core requires an accepted ADR. Architectural modules should not be conflated with repositories or services before evidence justifies separation.",
+      "title": "Local-first deployment shape"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 162,
+      "line_start": 144,
+      "section_id": "deterministic-boundary",
+      "text": "## Deterministic boundary\n\nThe following belong inside the deterministic boundary for Release 1:\n\n- workspace and artifact discovery;\n- parsing of supported deterministic formats;\n- normalization and canonicalization;\n- stable identity and hashing;\n- graph construction and invariants;\n- KIR lowering/serialization;\n- deterministic diagnostics;\n- query semantics;\n- affected-set calculation;\n- execution-plan derivation from explicit rules;\n- cache-validity decisions;\n- conformance and reproducibility checks.\n\nLLM inference is outside this boundary. AI-generated suggestions may become canonical only after normal review/authority processes.",
+      "title": "Deterministic boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 170,
+      "line_start": 163,
+      "section_id": "security-model-at-the-architecture-level",
+      "text": "## Security model at the architecture level\n\nRepository content is untrusted input. Paths, symlinks, configuration, templates, code blocks, plugins, command declarations, and external tool output may attempt to influence execution or context generation.\n\nThe architecture therefore separates **knowledge acquisition** from **execution authority**. Reading a file that says “run this command” does not authorize execution. A command reaches the Execution Plane only through supported adapters, explicit planning rules, policy checks, and user/work authorization appropriate to consequence.\n\nAgent context similarly follows explicit inclusion and exclusion rules. The fact that a secret or unrelated file is graph-reachable does not authorize disclosure.",
+      "title": "Security model at the architecture level"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 176,
+      "line_start": 171,
+      "section_id": "consistency-and-incrementality",
+      "text": "## Consistency and incrementality\n\nA full semantic compilation defines correctness. Incremental computation maintains indexes from observed changes and invalidates dependent semantic nodes, queries, plans, and cache entries according to explicit dependency rules.\n\nWhen Monad cannot prove that an incremental result is complete, it expands invalidation or falls back to a broader recomputation. Performance uncertainty must not become silent correctness risk.",
+      "title": "Consistency and incrementality"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 196,
+      "line_start": 177,
       "section_id": "failure-model",
-      "text": "## Failure model\n\nFailures are classified as invalid request, unauthorized action, policy denial,\ndomain conflict, transient dependency failure, permanent dependency failure,\ntimeout, or internal defect. Each class has an allowed retry and disclosure\npolicy. Unknown commit status is never represented as a clean failure; it enters\nreconciliation or escalation.",
+      "text": "## Failure model\n\nFailures are classified rather than flattened:\n\n- invalid repository/configuration;\n- unsupported artifact/format;\n- parse/extraction failure;\n- identity collision;\n- unresolved required relationship;\n- graph invariant violation;\n- policy/authority denial;\n- plan construction uncertainty;\n- unavailable native tool;\n- native-tool failure;\n- cancellation/timeout;\n- cache corruption/invalidity;\n- internal defect.\n\nUnknown semantic or execution state is represented explicitly and enters reconciliation or conservative fallback.",
       "title": "Failure model"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 92,
-      "line_start": 85,
-      "section_id": "data-and-consistency",
-      "text": "## Data and consistency\n\nEach domain capability owns its authoritative data. A transaction does not span\nindependent ownership boundaries. Cross-boundary workflows use durable state,\nidempotent commands, explicit events, and compensation where reversal is\npossible. Read views may be eventually consistent and must expose freshness\nwhen a user decision depends on it.",
-      "title": "Data and consistency"
+      "line_end": 198,
+      "line_start": 197,
+      "section_id": "architecture-evolution",
+      "text": "## Architecture evolution",
+      "title": "Architecture evolution"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 202,
+      "line_start": 199,
+      "section_id": "phase-a-semantic-kernel",
+      "text": "### Phase A — Semantic kernel\n\nWorkspace → artifacts → identity/provenance → graph → KIR → validation/query.",
+      "title": "Phase A — Semantic kernel"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 206,
+      "line_start": 203,
+      "section_id": "phase-b-executable-knowledge",
+      "text": "### Phase B — Executable knowledge\n\nChange impact → incrementality → planning → cache → native execution → evidence.",
+      "title": "Phase B — Executable knowledge"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 210,
+      "line_start": 207,
+      "section_id": "phase-c-human-ai-operating-system",
+      "text": "### Phase C — Human/AI operating system\n\nAgent context/capabilities, work-packet integration, policy, GitHub/project projections, documentation/publication, self-hosting workflows.",
+      "title": "Phase C — Human/AI operating system"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 214,
+      "line_start": 211,
+      "section_id": "phase-d-distributed-ecosystem",
+      "text": "### Phase D — Distributed ecosystem\n\nPlugins, registry, remote cache/execution, team indexes, hosted control plane, enterprise governance.",
+      "title": "Phase D — Distributed ecosystem"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 100,
-      "line_start": 93,
-      "section_id": "deployment-view",
-      "text": "## Deployment view\n\nThe initial deployment favors the smallest operable shape: independently\ntestable modules may run in one deployable unit until scaling, isolation, or\nownership evidence justifies separation. Runtime configuration is externalized,\nsecrets come from an approved secret store, schema changes are forward-compatible,\nand every release supports automated health verification and rollback.",
-      "title": "Deployment view"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 106,
-      "line_start": 101,
-      "section_id": "cross-cutting-controls",
-      "text": "## Cross-cutting controls\n\nAuthentication, fine-grained authorization, correlation, structured errors,\ntelemetry, data classification, configuration validation, rate protection, and\nrelease provenance apply at their owning boundaries. Shared libraries may\nstandardize mechanics but may not become a hidden source of domain policy.",
-      "title": "Cross-cutting controls"
+      "line_end": 217,
+      "line_start": 215,
+      "section_id": "architecture-quality-test",
+      "text": "## Architecture quality test\n\nA proposed component, service, repository, protocol, or dependency is justified only when its responsibility is clear, its authority/data boundaries are explicit, its failure modes are understood, and it strengthens the knowledge → control → execution → evidence loop. Complexity without a user/engineering outcome is rejected or deferred.",
+      "title": "Architecture quality test"
     }
   ],
   "source": {
-    "bytes": 4266,
+    "bytes": 8980,
     "canonical": true,
     "language": "markdown",
-    "lines": 106,
+    "lines": 217,
     "media_type": "text/markdown",
     "path": "architecture/overview.md",
-    "sha256": "200539959fa6281e8a14b0d24f208dc9902610d79bbb737a9be8b321fabb0e64"
+    "sha256": "5ee9ab6a91b68a48b26f114c82009981de078dd10a7b12d5d2639ad6f81fec3a"
   }
 }

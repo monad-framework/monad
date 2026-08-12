@@ -1,0 +1,166 @@
+{
+  "content": "# Monad Artifact System\n\n**Status:** Proposed taxonomy baseline\n\nThe `artifact-system/` tree is the complete planning and governance taxonomy for the engineering artifacts Monad may need as it evolves. Its purpose is to give every consequential concern a known canonical home before implementation pressure causes decisions to disappear into chats, issue comments, source code, or maintainer memory.\n\nThe presence of a file does **not** mean its contents are approved, implemented, required for MVP, or equally important.\n\n## Canonicality\n\nHuman-readable Markdown in `artifact-system/` is canonical for the artifact it represents **only after that artifact reaches an approved status under `governance/document-lifecycle.md`**.\n\nEvery materialized baseline begins as:\n\n```text\nStatus: Draft\nAuthority: Proposed baseline; not authoritative until approved\n```\n\nGenerated representations under `machine/` are deterministic derivatives and never become an independently editable authority.\n\n## Why the complete taxonomy exists now\n\nMonad is intended to become an engineering knowledge compiler and operating system. A mature product may eventually need formal artifacts for KIR, semantic graph, compiler/language, execution, APIs, plugins, registry, AI agents, security, testing, releases, operations, program management, community, legal, commercial, and historical concerns.\n\nCreating the taxonomy early provides:\n\n- stable destinations for later knowledge;\n- discoverability for humans and agents;\n- a way to expose missing decisions intentionally;\n- predictable machine projection and search;\n- consistent ownership/lifecycle metadata;\n- protection against ad hoc document naming and duplicated authority.\n\nIt does **not** justify trying to approve or implement the entire taxonomy before MVP.\n\n## Materialization policy\n\n`scripts/populate-artifact-system.py` deterministically fills empty Markdown files with substantive Draft baselines. It never overwrites an already-authored non-empty artifact unless explicitly invoked with `--force`.\n\n```bash\npython3 scripts/populate-artifact-system.py\npython3 scripts/populate-artifact-system.py --check\n```\n\nA generated Draft contains purpose, scope, governing principles, inputs, domain-specific contract sections, traceability, failure/exception handling, lifecycle, verification, acceptance criteria, review triggers, and canonicality. These are reviewable starting points, not synthetic approval.\n\nAfter materialization, normal authorship edits the Markdown directly. The generator is not the ongoing source of meaning.\n\n## Criticality model\n\nArtifact *criticality* describes when a concern must become sufficiently authoritative relative to delivery—not how important it is in the abstract.\n\n### C0 — Constitutional / product authority\n\nMust be coherent before consequential implementation can be authorized.\n\nExamples:\n\n- product thesis, vision, problem statement, scope/non-goals;\n- principles and terminology;\n- authority, decision, artifact, and human/agent governance;\n- Product Goal and success criteria.\n\n### C1 — Architecture / semantic-kernel authority\n\nMust be accepted before or alongside the first implementation that depends on it.\n\nExamples:\n\n- system context/boundaries;\n- domain and semantic graph model;\n- identity/provenance;\n- KIR;\n- diagnostics;\n- configuration/workspace;\n- execution model;\n- trust/security boundaries;\n- public compatibility direction.\n\n### C2 — MVP delivery authority\n\nMust mature as Release 1 capabilities become executable.\n\nExamples:\n\n- command specifications;\n- native-tool adapter contracts;\n- testing/conformance;\n- incrementality/cache;\n- agent context contract;\n- CI/release engineering;\n- packaging/install/upgrade;\n- observability and performance.\n\n### C3 — Post-MVP ecosystem authority\n\nMay remain Draft through Release 1 unless implementation or user evidence pulls it forward.\n\nExamples:\n\n- plugin marketplace/registry;\n- remote execution/cache;\n- broad SDK strategy;\n- distributed repository coordination;\n- community certification.\n\n### C4 — Future/conditional authority\n\nExists to preserve a known concern but does not belong on the current critical path.\n\nExamples:\n\n- hosted enterprise control plane;\n- commercial packaging/pricing;\n- fleet analytics;\n- mature federation;\n- specialized legal/compliance programs not currently applicable.\n\n## Approval policy\n\nArtifacts move from Draft only when their information is needed and sufficiently supported by evidence.\n\nA review should ask:\n\n1. Is this artifact needed to govern current or near-term work?\n2. Does it conflict with higher authority?\n3. Are its normative statements precise and testable?\n4. Are assumptions labeled rather than converted into facts?\n5. Does it duplicate another artifact's authority?\n6. Are affected downstream artifacts and consumers known?\n7. Is the cost of maintaining this artifact justified by decisions or automation that consume it?\n\nApproval is not a bulk operation. The goal is a **complete taxonomy with selectively authoritative content**, not hundreds of ceremonial approvals.\n\n## Relation to specifications and ADRs\n\n`artifact-system/` describes the classes and contracts the overall engineering system may need. Concrete normative product behavior should live in the canonical specification hierarchy under `specifications/`. Consequential architectural choices live in `architecture/decisions/`.\n\nAn artifact-system document may therefore:\n\n- define how a class of specifications works;\n- define an architecture concern that later produces an ADR;\n- provide a template or policy used by Work Packets/reviews;\n- become a canonical architecture or operating document itself when approved;\n- remain an informative Draft until needed.\n\nIt must not silently override an accepted ADR or approved specification.\n\n## Relation to the backlog\n\nThe artifact taxonomy is not the product backlog. A Markdown file does not automatically become a task.\n\nBacklog items are created when producing, reviewing, implementing, or validating an artifact advances the Product Goal. This distinction prevents “complete every document” from displacing the actual MVP semantic loop.\n\n## Machine-readable projection\n\nAfter any canonical source change:\n\n```bash\npython3 scripts/sync-machine-docs.py --write\npython3 scripts/sync-machine-docs.py --check\n```\n\nThe machine layer gives agents and automation structured access to the artifact corpus while retaining source hashes and provenance.\n\n## Long-term direction\n\nToday the artifact taxonomy is primarily path- and document-oriented. Monad should progressively make these relationships graph-native: requirement → specification → decision → work packet → issue/branch/PR → implementation → test → release → evidence. The filesystem remains readable, while the semantic graph becomes the executable relationship layer.\n",
+  "document_id": "doc:artifact-system%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Status: Proposed taxonomy baseline",
+    "title": "Monad Artifact System"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "monad-artifact-system",
+      "text": "# Monad Artifact System\n\n**Status:** Proposed taxonomy baseline\n\nThe `artifact-system/` tree is the complete planning and governance taxonomy for the engineering artifacts Monad may need as it evolves. Its purpose is to give every consequential concern a known canonical home before implementation pressure causes decisions to disappear into chats, issue comments, source code, or maintainer memory.\n\nThe presence of a file does **not** mean its contents are approved, implemented, required for MVP, or equally important.",
+      "title": "Monad Artifact System"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 9,
+      "section_id": "canonicality",
+      "text": "## Canonicality\n\nHuman-readable Markdown in `artifact-system/` is canonical for the artifact it represents **only after that artifact reaches an approved status under `governance/document-lifecycle.md`**.\n\nEvery materialized baseline begins as:\n\n```text\nStatus: Draft\nAuthority: Proposed baseline; not authoritative until approved\n```\n\nGenerated representations under `machine/` are deterministic derivatives and never become an independently editable authority.",
+      "title": "Canonicality"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 22,
+      "section_id": "why-the-complete-taxonomy-exists-now",
+      "text": "## Why the complete taxonomy exists now\n\nMonad is intended to become an engineering knowledge compiler and operating system. A mature product may eventually need formal artifacts for KIR, semantic graph, compiler/language, execution, APIs, plugins, registry, AI agents, security, testing, releases, operations, program management, community, legal, commercial, and historical concerns.\n\nCreating the taxonomy early provides:\n\n- stable destinations for later knowledge;\n- discoverability for humans and agents;\n- a way to expose missing decisions intentionally;\n- predictable machine projection and search;\n- consistent ownership/lifecycle metadata;\n- protection against ad hoc document naming and duplicated authority.\n\nIt does **not** justify trying to approve or implement the entire taxonomy before MVP.",
+      "title": "Why the complete taxonomy exists now"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 37,
+      "section_id": "materialization-policy",
+      "text": "## Materialization policy\n\n`scripts/populate-artifact-system.py` deterministically fills empty Markdown files with substantive Draft baselines. It never overwrites an already-authored non-empty artifact unless explicitly invoked with `--force`.\n\n```bash\npython3 scripts/populate-artifact-system.py\npython3 scripts/populate-artifact-system.py --check\n```\n\nA generated Draft contains purpose, scope, governing principles, inputs, domain-specific contract sections, traceability, failure/exception handling, lifecycle, verification, acceptance criteria, review triggers, and canonicality. These are reviewable starting points, not synthetic approval.\n\nAfter materialization, normal authorship edits the Markdown directly. The generator is not the ongoing source of meaning.",
+      "title": "Materialization policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 50,
+      "section_id": "criticality-model",
+      "text": "## Criticality model\n\nArtifact *criticality* describes when a concern must become sufficiently authoritative relative to delivery—not how important it is in the abstract.",
+      "title": "Criticality model"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 64,
+      "line_start": 54,
+      "section_id": "c0-constitutional-product-authority",
+      "text": "### C0 — Constitutional / product authority\n\nMust be coherent before consequential implementation can be authorized.\n\nExamples:\n\n- product thesis, vision, problem statement, scope/non-goals;\n- principles and terminology;\n- authority, decision, artifact, and human/agent governance;\n- Product Goal and success criteria.",
+      "title": "C0 — Constitutional / product authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 80,
+      "line_start": 65,
+      "section_id": "c1-architecture-semantic-kernel-authority",
+      "text": "### C1 — Architecture / semantic-kernel authority\n\nMust be accepted before or alongside the first implementation that depends on it.\n\nExamples:\n\n- system context/boundaries;\n- domain and semantic graph model;\n- identity/provenance;\n- KIR;\n- diagnostics;\n- configuration/workspace;\n- execution model;\n- trust/security boundaries;\n- public compatibility direction.",
+      "title": "C1 — Architecture / semantic-kernel authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 95,
+      "line_start": 81,
+      "section_id": "c2-mvp-delivery-authority",
+      "text": "### C2 — MVP delivery authority\n\nMust mature as Release 1 capabilities become executable.\n\nExamples:\n\n- command specifications;\n- native-tool adapter contracts;\n- testing/conformance;\n- incrementality/cache;\n- agent context contract;\n- CI/release engineering;\n- packaging/install/upgrade;\n- observability and performance.",
+      "title": "C2 — MVP delivery authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 107,
+      "line_start": 96,
+      "section_id": "c3-post-mvp-ecosystem-authority",
+      "text": "### C3 — Post-MVP ecosystem authority\n\nMay remain Draft through Release 1 unless implementation or user evidence pulls it forward.\n\nExamples:\n\n- plugin marketplace/registry;\n- remote execution/cache;\n- broad SDK strategy;\n- distributed repository coordination;\n- community certification.",
+      "title": "C3 — Post-MVP ecosystem authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 119,
+      "line_start": 108,
+      "section_id": "c4-future-conditional-authority",
+      "text": "### C4 — Future/conditional authority\n\nExists to preserve a known concern but does not belong on the current critical path.\n\nExamples:\n\n- hosted enterprise control plane;\n- commercial packaging/pricing;\n- fleet analytics;\n- mature federation;\n- specialized legal/compliance programs not currently applicable.",
+      "title": "C4 — Future/conditional authority"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 135,
+      "line_start": 120,
+      "section_id": "approval-policy",
+      "text": "## Approval policy\n\nArtifacts move from Draft only when their information is needed and sufficiently supported by evidence.\n\nA review should ask:\n\n1. Is this artifact needed to govern current or near-term work?\n2. Does it conflict with higher authority?\n3. Are its normative statements precise and testable?\n4. Are assumptions labeled rather than converted into facts?\n5. Does it duplicate another artifact's authority?\n6. Are affected downstream artifacts and consumers known?\n7. Is the cost of maintaining this artifact justified by decisions or automation that consume it?\n\nApproval is not a bulk operation. The goal is a **complete taxonomy with selectively authoritative content**, not hundreds of ceremonial approvals.",
+      "title": "Approval policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 149,
+      "line_start": 136,
+      "section_id": "relation-to-specifications-and-adrs",
+      "text": "## Relation to specifications and ADRs\n\n`artifact-system/` describes the classes and contracts the overall engineering system may need. Concrete normative product behavior should live in the canonical specification hierarchy under `specifications/`. Consequential architectural choices live in `architecture/decisions/`.\n\nAn artifact-system document may therefore:\n\n- define how a class of specifications works;\n- define an architecture concern that later produces an ADR;\n- provide a template or policy used by Work Packets/reviews;\n- become a canonical architecture or operating document itself when approved;\n- remain an informative Draft until needed.\n\nIt must not silently override an accepted ADR or approved specification.",
+      "title": "Relation to specifications and ADRs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 155,
+      "line_start": 150,
+      "section_id": "relation-to-the-backlog",
+      "text": "## Relation to the backlog\n\nThe artifact taxonomy is not the product backlog. A Markdown file does not automatically become a task.\n\nBacklog items are created when producing, reviewing, implementing, or validating an artifact advances the Product Goal. This distinction prevents “complete every document” from displacing the actual MVP semantic loop.",
+      "title": "Relation to the backlog"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 166,
+      "line_start": 156,
+      "section_id": "machine-readable-projection",
+      "text": "## Machine-readable projection\n\nAfter any canonical source change:\n\n```bash\npython3 scripts/sync-machine-docs.py --write\npython3 scripts/sync-machine-docs.py --check\n```\n\nThe machine layer gives agents and automation structured access to the artifact corpus while retaining source hashes and provenance.",
+      "title": "Machine-readable projection"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 169,
+      "line_start": 167,
+      "section_id": "long-term-direction",
+      "text": "## Long-term direction\n\nToday the artifact taxonomy is primarily path- and document-oriented. Monad should progressively make these relationships graph-native: requirement → specification → decision → work packet → issue/branch/PR → implementation → test → release → evidence. The filesystem remains readable, while the semantic graph becomes the executable relationship layer.",
+      "title": "Long-term direction"
+    }
+  ],
+  "source": {
+    "bytes": 6869,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 169,
+    "media_type": "text/markdown",
+    "path": "artifact-system/README.md",
+    "sha256": "b23ba74a32236f9963006c2f67365159945cb1f2ed1c5ea1c68244901142ea70"
+  }
+}

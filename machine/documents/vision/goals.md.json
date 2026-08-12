@@ -1,5 +1,5 @@
 {
-  "content": "# Goals\n\nThese goals define the initial twelve-month outcome horizon. Specific numeric\nbaselines are established during discovery; targets are then frozen before the\nfirst production pilot so they cannot be adjusted to manufacture success.\n\n## G-01 — Validate a valuable problem\n\nDemonstrate through interviews, observation, and baseline data that the primary\npersona experiences a recurring problem with material cost and is willing to\nadopt a new workflow. Complete before authorizing broad implementation.\n\n## G-02 — Deliver the primary journey\n\nEnable the primary persona to complete one end-to-end use case from authorized\ninput to verifiable outcome, including validation, progress, exception handling,\nand recovery. The journey must pass documented acceptance tests.\n\n## G-03 — Improve the target outcome\n\nAgainst the baseline, reduce median completion effort and preventable rework\nwithout worsening outcome quality, accessibility, privacy, or user control.\nMeasure with representative tasks rather than demonstration scenarios.\n\n## G-04 — Earn repeated use\n\nShow that pilot users return for the intended job and complete it successfully\nwithout sustained founder or maintainer assistance. Segment adoption by persona\nand workflow so aggregate activity cannot hide failure in the target group.\n\n## G-05 — Establish operational confidence\n\nMeet the initial service objectives, cost budget, recovery target, deployment\nsuccess rate, and incident-response readiness defined in operations documents.\nAll critical failure modes require telemetry and a tested response.\n\n## G-06 — Establish a safe delivery system\n\nRequire review, automated quality gates, dependency and secret checks,\ntraceable releases, rollback evidence, and an owned risk register before the\nfirst external production use.\n\n## G-07 — Preserve an evolvable architecture\n\nKeep public contracts explicit, dependencies directional, and strategic choices\nrecorded. Track architectural exceptions and remove or approve them before they\nbecome undocumented constraints.\n\n## Goal review\n\nEach goal has one accountable owner, a baseline, target, evidence source,\nreview date, and status of `proposed`, `committed`, `at risk`, `achieved`, or\n`retired`. A goal is not achieved when its primary metric passes while a\nguardrail fails. Quarterly reviews record both the result and the decision to\ncontinue, change, pause, or retire the goal.\n",
+  "content": "# Goals\n\n**Status:** Proposed foundation baseline\n\nMonad's goals describe durable outcomes. They do not authorize specific implementation technologies or imply that every long-term capability belongs in MVP Release 1.\n\n## G-01 — Build a trustworthy semantic model of engineering knowledge\n\nMonad must represent meaningful engineering entities, relationships, authority, identity, and provenance in a deterministic graph derived from canonical project artifacts.\n\n**Evidence:** equivalent inputs produce equivalent graph semantics; representative relationships are correct and explainable; invalid or ambiguous input produces diagnostics rather than fabricated certainty.\n\n## G-02 — Make impact inspectable before execution\n\nA user must be able to ask what a change affects and understand why those artifacts, tests, tasks, or policies are included.\n\n**Evidence:** affected-set results are conservative, explainable, and validated against representative repository changes.\n\n## G-03 — Coordinate native tools deterministically\n\nMonad should decide what work should run, why, and in which dependency order while leaving language- and ecosystem-specific mechanics to native tools.\n\n**Evidence:** one polyglot vertical slice produces a serializable execution plan, invokes real native tools, captures outcomes, and is reproducible from declared inputs.\n\n## G-04 — Give humans and AI agents bounded engineering context\n\nMonad should calculate task-relevant context from semantic relationships, governing artifacts, authorization, and acceptance criteria instead of relying on arbitrary repository dumps.\n\n**Evidence:** context packages are minimal enough to review, sufficient for representative tasks, attributable to canonical sources, and reproducible.\n\n## G-05 — Preserve engineering history and provenance\n\nA reviewer should be able to trace meaningful behavior from intent and decisions through implementation, tests, releases, and evidence.\n\n**Evidence:** stable identifiers and machine-readable relationships connect requirements, specifications, ADRs, work, implementation, verification, and produced artifacts where those links exist.\n\n## G-06 — Remain local-first and provider-agnostic\n\nThe semantic kernel, validation, query, planning, and local execution loop must work without a Monad-hosted service and without a particular AI provider.\n\n**Evidence:** Release 1 acceptance can run locally with network access disabled except where a deliberately external native dependency is part of the tested scenario.\n\n## G-07 — Support progressive adoption\n\nA repository should receive useful inspection and validation before it has been rewritten around Monad-specific formats. Explicit Monad metadata should deepen the model rather than be required for basic value.\n\n**Evidence:** a representative existing repository can be inspected and modeled through adapters and conventions, then gains stronger semantics when explicit specifications or configuration are added.\n\n## G-08 — Dogfood Monad on Monad\n\nMonad should increasingly operate the engineering system used to build itself.\n\n**Evidence:** by Release 1, Monad can inspect significant portions of its own repository, validate its semantic artifacts, generate useful agent context, and execute at least part of its own verification plan.\n\n## G-09 — Deliver through vertical slices\n\nPlanning should prefer end-to-end usable capabilities over large horizontal subsystems with no integrated user outcome.\n\n**Evidence:** every implementation increment produces demonstrable behavior that crosses the minimum required layers and includes tests, diagnostics, and documentation.\n\n## G-10 — Make governance useful rather than ceremonial\n\nAuthority, ADRs, specifications, work packets, reviews, and machine projections must reduce ambiguity and improve decisions, not become paperwork detached from delivery.\n\n**Evidence:** controlled artifacts are referenced by executable work, validation, or decisions; unused controls are simplified or retired.\n",
   "document_id": "doc:vision%2Fgoals.md",
   "generation": {
     "deterministic": true,
@@ -13,13 +13,16 @@
     "G-04",
     "G-05",
     "G-06",
-    "G-07"
+    "G-07",
+    "G-08",
+    "G-09",
+    "G-10"
   ],
   "links": [],
   "metadata": {
     "document_type": "vision",
     "normative": true,
-    "summary": "These goals define the initial twelve-month outcome horizon. Specific numeric baselines are established during discovery; targets are then frozen before the first production pilot so they cannot be adjusted to manufacture success.",
+    "summary": "Status: Proposed foundation baseline",
     "title": "Goals"
   },
   "relations": [],
@@ -32,7 +35,7 @@
       "line_end": 6,
       "line_start": 1,
       "section_id": "goals",
-      "text": "# Goals\n\nThese goals define the initial twelve-month outcome horizon. Specific numeric\nbaselines are established during discovery; targets are then frozen before the\nfirst production pilot so they cannot be adjusted to manufacture success.",
+      "text": "# Goals\n\n**Status:** Proposed foundation baseline\n\nMonad's goals describe durable outcomes. They do not authorize specific implementation technologies or imply that every long-term capability belongs in MVP Release 1.",
       "title": "Goals"
     },
     {
@@ -42,9 +45,9 @@
       "level": 2,
       "line_end": 12,
       "line_start": 7,
-      "section_id": "g-01-validate-a-valuable-problem",
-      "text": "## G-01 — Validate a valuable problem\n\nDemonstrate through interviews, observation, and baseline data that the primary\npersona experiences a recurring problem with material cost and is willing to\nadopt a new workflow. Complete before authorizing broad implementation.",
-      "title": "G-01 — Validate a valuable problem"
+      "section_id": "g-01-build-a-trustworthy-semantic-model-of-engineering-knowledge",
+      "text": "## G-01 — Build a trustworthy semantic model of engineering knowledge\n\nMonad must represent meaningful engineering entities, relationships, authority, identity, and provenance in a deterministic graph derived from canonical project artifacts.\n\n**Evidence:** equivalent inputs produce equivalent graph semantics; representative relationships are correct and explainable; invalid or ambiguous input produces diagnostics rather than fabricated certainty.",
+      "title": "G-01 — Build a trustworthy semantic model of engineering knowledge"
     },
     {
       "identifiers": [
@@ -53,9 +56,9 @@
       "level": 2,
       "line_end": 18,
       "line_start": 13,
-      "section_id": "g-02-deliver-the-primary-journey",
-      "text": "## G-02 — Deliver the primary journey\n\nEnable the primary persona to complete one end-to-end use case from authorized\ninput to verifiable outcome, including validation, progress, exception handling,\nand recovery. The journey must pass documented acceptance tests.",
-      "title": "G-02 — Deliver the primary journey"
+      "section_id": "g-02-make-impact-inspectable-before-execution",
+      "text": "## G-02 — Make impact inspectable before execution\n\nA user must be able to ask what a change affects and understand why those artifacts, tests, tasks, or policies are included.\n\n**Evidence:** affected-set results are conservative, explainable, and validated against representative repository changes.",
+      "title": "G-02 — Make impact inspectable before execution"
     },
     {
       "identifiers": [
@@ -64,9 +67,9 @@
       "level": 2,
       "line_end": 24,
       "line_start": 19,
-      "section_id": "g-03-improve-the-target-outcome",
-      "text": "## G-03 — Improve the target outcome\n\nAgainst the baseline, reduce median completion effort and preventable rework\nwithout worsening outcome quality, accessibility, privacy, or user control.\nMeasure with representative tasks rather than demonstration scenarios.",
-      "title": "G-03 — Improve the target outcome"
+      "section_id": "g-03-coordinate-native-tools-deterministically",
+      "text": "## G-03 — Coordinate native tools deterministically\n\nMonad should decide what work should run, why, and in which dependency order while leaving language- and ecosystem-specific mechanics to native tools.\n\n**Evidence:** one polyglot vertical slice produces a serializable execution plan, invokes real native tools, captures outcomes, and is reproducible from declared inputs.",
+      "title": "G-03 — Coordinate native tools deterministically"
     },
     {
       "identifiers": [
@@ -75,9 +78,9 @@
       "level": 2,
       "line_end": 30,
       "line_start": 25,
-      "section_id": "g-04-earn-repeated-use",
-      "text": "## G-04 — Earn repeated use\n\nShow that pilot users return for the intended job and complete it successfully\nwithout sustained founder or maintainer assistance. Segment adoption by persona\nand workflow so aggregate activity cannot hide failure in the target group.",
-      "title": "G-04 — Earn repeated use"
+      "section_id": "g-04-give-humans-and-ai-agents-bounded-engineering-context",
+      "text": "## G-04 — Give humans and AI agents bounded engineering context\n\nMonad should calculate task-relevant context from semantic relationships, governing artifacts, authorization, and acceptance criteria instead of relying on arbitrary repository dumps.\n\n**Evidence:** context packages are minimal enough to review, sufficient for representative tasks, attributable to canonical sources, and reproducible.",
+      "title": "G-04 — Give humans and AI agents bounded engineering context"
     },
     {
       "identifiers": [
@@ -86,9 +89,9 @@
       "level": 2,
       "line_end": 36,
       "line_start": 31,
-      "section_id": "g-05-establish-operational-confidence",
-      "text": "## G-05 — Establish operational confidence\n\nMeet the initial service objectives, cost budget, recovery target, deployment\nsuccess rate, and incident-response readiness defined in operations documents.\nAll critical failure modes require telemetry and a tested response.",
-      "title": "G-05 — Establish operational confidence"
+      "section_id": "g-05-preserve-engineering-history-and-provenance",
+      "text": "## G-05 — Preserve engineering history and provenance\n\nA reviewer should be able to trace meaningful behavior from intent and decisions through implementation, tests, releases, and evidence.\n\n**Evidence:** stable identifiers and machine-readable relationships connect requirements, specifications, ADRs, work, implementation, verification, and produced artifacts where those links exist.",
+      "title": "G-05 — Preserve engineering history and provenance"
     },
     {
       "identifiers": [
@@ -97,9 +100,9 @@
       "level": 2,
       "line_end": 42,
       "line_start": 37,
-      "section_id": "g-06-establish-a-safe-delivery-system",
-      "text": "## G-06 — Establish a safe delivery system\n\nRequire review, automated quality gates, dependency and secret checks,\ntraceable releases, rollback evidence, and an owned risk register before the\nfirst external production use.",
-      "title": "G-06 — Establish a safe delivery system"
+      "section_id": "g-06-remain-local-first-and-provider-agnostic",
+      "text": "## G-06 — Remain local-first and provider-agnostic\n\nThe semantic kernel, validation, query, planning, and local execution loop must work without a Monad-hosted service and without a particular AI provider.\n\n**Evidence:** Release 1 acceptance can run locally with network access disabled except where a deliberately external native dependency is part of the tested scenario.",
+      "title": "G-06 — Remain local-first and provider-agnostic"
     },
     {
       "identifiers": [
@@ -108,27 +111,51 @@
       "level": 2,
       "line_end": 48,
       "line_start": 43,
-      "section_id": "g-07-preserve-an-evolvable-architecture",
-      "text": "## G-07 — Preserve an evolvable architecture\n\nKeep public contracts explicit, dependencies directional, and strategic choices\nrecorded. Track architectural exceptions and remove or approve them before they\nbecome undocumented constraints.",
-      "title": "G-07 — Preserve an evolvable architecture"
+      "section_id": "g-07-support-progressive-adoption",
+      "text": "## G-07 — Support progressive adoption\n\nA repository should receive useful inspection and validation before it has been rewritten around Monad-specific formats. Explicit Monad metadata should deepen the model rather than be required for basic value.\n\n**Evidence:** a representative existing repository can be inspected and modeled through adapters and conventions, then gains stronger semantics when explicit specifications or configuration are added.",
+      "title": "G-07 — Support progressive adoption"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "G-08"
+      ],
       "level": 2,
-      "line_end": 55,
+      "line_end": 54,
       "line_start": 49,
-      "section_id": "goal-review",
-      "text": "## Goal review\n\nEach goal has one accountable owner, a baseline, target, evidence source,\nreview date, and status of `proposed`, `committed`, `at risk`, `achieved`, or\n`retired`. A goal is not achieved when its primary metric passes while a\nguardrail fails. Quarterly reviews record both the result and the decision to\ncontinue, change, pause, or retire the goal.",
-      "title": "Goal review"
+      "section_id": "g-08-dogfood-monad-on-monad",
+      "text": "## G-08 — Dogfood Monad on Monad\n\nMonad should increasingly operate the engineering system used to build itself.\n\n**Evidence:** by Release 1, Monad can inspect significant portions of its own repository, validate its semantic artifacts, generate useful agent context, and execute at least part of its own verification plan.",
+      "title": "G-08 — Dogfood Monad on Monad"
+    },
+    {
+      "identifiers": [
+        "G-09"
+      ],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 55,
+      "section_id": "g-09-deliver-through-vertical-slices",
+      "text": "## G-09 — Deliver through vertical slices\n\nPlanning should prefer end-to-end usable capabilities over large horizontal subsystems with no integrated user outcome.\n\n**Evidence:** every implementation increment produces demonstrable behavior that crosses the minimum required layers and includes tests, diagnostics, and documentation.",
+      "title": "G-09 — Deliver through vertical slices"
+    },
+    {
+      "identifiers": [
+        "G-10"
+      ],
+      "level": 2,
+      "line_end": 65,
+      "line_start": 61,
+      "section_id": "g-10-make-governance-useful-rather-than-ceremonial",
+      "text": "## G-10 — Make governance useful rather than ceremonial\n\nAuthority, ADRs, specifications, work packets, reviews, and machine projections must reduce ambiguity and improve decisions, not become paperwork detached from delivery.\n\n**Evidence:** controlled artifacts are referenced by executable work, validation, or decisions; unused controls are simplified or retired.",
+      "title": "G-10 — Make governance useful rather than ceremonial"
     }
   ],
   "source": {
-    "bytes": 2415,
+    "bytes": 4015,
     "canonical": true,
     "language": "markdown",
-    "lines": 55,
+    "lines": 65,
     "media_type": "text/markdown",
     "path": "vision/goals.md",
-    "sha256": "ba9da410ea06d7ed8e43aed86988afb76182f3c68f56c7c0fa93319025caa810"
+    "sha256": "eadb6cb09754719a0c6068f78332513dc40916b5cebf2122c1c54a88d3e467cf"
   }
 }

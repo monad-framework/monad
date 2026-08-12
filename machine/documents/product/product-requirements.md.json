@@ -1,5 +1,5 @@
 {
-  "content": "# Product Requirements\n\n## Document control\n\n- **Status:** Proposed baseline\n- **Product:** MonadV2\n- **Release focus:** First validated end-to-end journey\n- **Decision owner:** Product owner\n- **Reviewers:** Engineering, design, security, operations, and affected domain\n  stakeholders\n\n## Objective\n\nDeliver a narrow product that lets the primary user initiate, complete, verify,\nand recover the core workflow without undocumented expert intervention. The\nrelease proves the product hypothesis while establishing minimum safety and\noperability needed for real use.\n\n## Users and outcome\n\nThe primary practitioner needs to transform a valid intent and required inputs\ninto a dependable result. The accountable owner needs evidence that the result\nand controls are valid. The operator needs enough state and telemetry to detect,\ndiagnose, and recover failures.\n\n## Functional requirements\n\n### FR-001 — Start an authorized workflow\n\nThe system shall allow an authenticated, authorized user to start the primary\nworkflow with a clear statement of purpose, required inputs, expected result,\nand applicable constraints.\n\n**Acceptance:** valid input creates one traceable workflow instance; missing,\ninvalid, or unauthorized input produces an actionable response and no partial\nside effect.\n\n### FR-002 — Validate before commitment\n\nThe system shall validate required data, permissions, compatibility, and known\nsafety constraints before committing consequential changes.\n\n**Acceptance:** validation findings identify the affected field or rule,\nexplain the corrective action, and distinguish warnings from blocking errors.\n\n### FR-003 — Expose state and progress\n\nThe system shall expose the current workflow state, completed steps, responsible\nactor, blocked dependency, and next permitted action.\n\n**Acceptance:** refresh, reconnect, and concurrent observation do not create\ncontradictory user-visible state.\n\n### FR-004 — Produce a verifiable result\n\nThe system shall produce a result linked to its workflow instance, relevant\ninputs, applied version or policy, completion time, and verification status.\n\n**Acceptance:** the user can distinguish successful, partial, failed, and\ncancelled outcomes and can retrieve the result during the retention window.\n\n### FR-005 — Handle interruption and retry\n\nThe system shall preserve safe progress across supported interruptions and\nprovide idempotent retry, compensation, or escalation according to the failure\nclass.\n\n**Acceptance:** repeated requests do not duplicate consequential effects and\ntested recovery paths restore a defined state.\n\n### FR-006 — Provide user control\n\nThe system shall allow a user to review consequential actions before commitment\nand cancel or reverse them when the underlying operation supports reversal.\n\n**Acceptance:** confirmation identifies the effect and scope; cancellation has\na documented terminal state; irreversible actions are labeled before approval.\n\n### FR-007 — Record accountable evidence\n\nThe system shall record security-relevant and outcome-relevant events with a\nstable correlation identifier, actor, action, time, result, and policy context.\n\n**Acceptance:** authorized reviewers can reconstruct the workflow without logs\ncontaining secrets or unnecessary sensitive payloads.\n\n### FR-008 — Support accessible operation\n\nThe primary journey shall support keyboard operation, meaningful focus order,\nprogrammatic labels, non-color status cues, readable errors, and supported\nscreen-reader workflows.\n\n**Acceptance:** automated checks and manual assistive-technology testing pass\nthe documented accessibility acceptance suite.\n\n## Quality requirements\n\n- **QR-001 Reliability:** valid workflow attempts meet the committed success\n  objective and fail safely outside it.\n- **QR-002 Performance:** interactive responses and end-to-end completion stay\n  within approved budgets under the reference load.\n- **QR-003 Security:** authentication, authorization, input validation,\n  encryption, audit, and dependency controls satisfy the security model.\n- **QR-004 Privacy:** collection, purpose, retention, access, export, and\n  deletion rules are explicit and enforced.\n- **QR-005 Operability:** all critical paths emit health, demand, error,\n  saturation, and trace signals with owned response procedures.\n- **QR-006 Maintainability:** public contracts are versioned and component\n  responsibilities remain within approved boundaries.\n\n## Release acceptance\n\nThe release may proceed when all must-have requirements trace to passing tests,\nthe primary journey succeeds in representative use, no unaccepted critical or\nhigh risk remains, recovery and rollback are demonstrated, operations accepts\nthe runbook, and the product owner accepts measured outcome evidence.\n\n## Dependencies and assumptions\n\nThe baseline assumes one supported operating region, one identity authority,\none primary persona, a bounded data classification, and availability of the\ncritical dependencies named by architecture. Changes to these assumptions\nrequire impact review.\n\n## Explicit exclusions\n\nUniversal workflows, autonomous high-impact decisions, extensive customization,\nunvalidated integrations, and multi-region active-active operation are outside\nthe first release. See `vision/non-goals.md` for reconsideration triggers.\n",
+  "content": "# Product Requirements — MVP Release 1\n\n**Status:** Proposed baseline  \n**Product:** Monad  \n**Release focus:** deterministic semantic engineering loop  \n**Decision owner:** Product Owner  \n**Required reviewers:** Architecture, Engineering, Security, Operations\n\n## Objective\n\nRelease 1 must prove that Monad can turn a real repository's canonical engineering knowledge into a deterministic semantic model that improves understanding and safely drives bounded engineering work. The release is intentionally local-first and repository-centric.\n\n## Primary user outcome\n\nA software engineer can enter a representative repository, inspect what Monad understands, validate its consistency, query and explain engineering relationships, determine the impact of a bounded change, prepare a task-specific AI-agent context package, derive an execution plan, run native validation tools, and retain reproducible evidence without reconstructing the project manually.\n\n## Functional requirements\n\n### FR-001 — Discover the workspace\n\nMonad MUST locate the workspace root and enumerate supported repositories, components, packages, configuration sources, toolchains, and canonical artifact roots without requiring every project to adopt a Monad-specific layout.\n\n**Acceptance:** discovery is deterministic for the same filesystem/Git state; ambiguous roots or unsupported layouts produce structured diagnostics; symlink and traversal behavior is explicitly controlled.\n\n### FR-002 — Inventory canonical engineering artifacts\n\nMonad MUST inventory supported canonical artifacts such as source/configuration metadata, requirements, specifications, ADRs, work records, tests, ownership data, dependency declarations, and repository documentation through explicit adapters or conventions.\n\n**Acceptance:** each discovered artifact has a stable path/adapter identity, media type, classification, source hash, and provenance; unsupported artifacts remain visible as unsupported rather than disappearing silently.\n\n### FR-003 — Assign stable semantic identity\n\nMonad MUST assign stable identities to modeled documents and semantic entities under documented namespace and canonicalization rules.\n\n**Acceptance:** traversal or serialization order does not alter identity; aliases/renames preserve lineage where supported; collisions are detected rather than silently merged.\n\n### FR-004 — Preserve provenance\n\nEvery derived semantic entity and relationship MUST retain enough provenance to identify the canonical source, extraction rule or adapter, relevant source location, and transformation version.\n\n**Acceptance:** a user can ask why a sampled node or edge exists and reach its originating artifact or declared inference rule.\n\n### FR-005 — Build a deterministic semantic graph\n\nMonad MUST compile supported project knowledge into a versioned engineering semantic graph containing typed entities, typed relationships, stable identity, and graph invariants.\n\n**Acceptance:** repeated clean compilation of equivalent declared inputs produces semantically equivalent graph output and canonical hashes; invalid relationships and unresolved required references produce diagnostics.\n\n### FR-006 — Produce a versioned machine representation\n\nMonad MUST expose deterministic machine-readable representations suitable for downstream validation, query, publication, interoperability, and AI context. Release 1 includes a versioned graph representation and KIR boundary.\n\n**Acceptance:** supported representations have schemas, canonical serialization rules, version identifiers, compatibility expectations, and conformance fixtures; round-trip or canonical equivalence is tested where applicable.\n\n### FR-007 — Validate consistency and drift\n\nMonad MUST validate repository configuration, artifact synchronization, semantic references, graph invariants, authority constraints that are in scope, and machine-projection freshness.\n\n**Acceptance:** stale/missing/orphaned generated artifacts, broken required references, duplicate stable identities, invalid graph edges, and configuration conflicts produce stable structured diagnostics and non-zero command outcomes appropriate to severity.\n\n### FR-008 — Query and explain engineering knowledge\n\nMonad MUST allow users and automation to inspect entities and ask relationship/provenance questions over the semantic model.\n\n**Acceptance:** Release 1 supports entity lookup, relationship traversal, provenance/why explanation, and structured output; queries distinguish unknown identifiers, empty results, unsupported semantics, and denied information where relevant.\n\n### FR-009 — Calculate change impact\n\nMonad MUST ingest a bounded repository change and compute a conservative semantic affected set from known dependencies and authority relationships.\n\n**Acceptance:** every included result exposes at least one explainable dependency/provenance path; uncertainty expands the affected set or blocks optimization rather than silently omitting work; a representative corpus checks for false-negative required validation.\n\n### FR-010 — Generate bounded AI-agent context\n\nMonad MUST generate a task-specific context package from explicit task/work authorization plus semantic relationships.\n\n**Acceptance:** the package contains task objective, governing artifacts, relevant dependencies, constraints, acceptance criteria, provenance, and explicit exclusions/capabilities where known; package generation is deterministic for the same inputs; secrets and excluded files are not copied merely because they are reachable.\n\n### FR-011 — Derive an execution plan\n\nMonad MUST turn an authorized goal or affected set into an explicit serializable plan of native-tool tasks, dependencies, declared inputs/outputs, environment requirements, and verification expectations.\n\n**Acceptance:** users can inspect the plan before execution; the plan explains why tasks are present; unsupported or uncertain task derivation does not silently execute a guess.\n\n### FR-012 — Execute native tools\n\nMonad MUST execute approved local plan steps by delegating to native ecosystem tools through adapters while retaining command, environment, result, and evidence metadata.\n\n**Acceptance:** execution honors dependency order and cancellation/failure rules; exit status and diagnostics preserve native evidence; commands outside the approved plan are not executed implicitly.\n\n### FR-013 — Emit structured diagnostics\n\nMonad MUST represent errors, warnings, informational findings, and internal defects through a stable diagnostic model.\n\n**Acceptance:** diagnostics include stable code/identity, severity, safe message, affected source/entity, provenance/context, and remediation where actionable; equivalent deterministic failures produce equivalent machine-readable diagnostics.\n\n### FR-014 — Provide the Release 1 CLI surface\n\nThe CLI MUST expose a coherent Release 1 workflow. The target command set is:\n\n```text\nmonad inspect\nmonad validate\nmonad graph\nmonad query\nmonad explain\nmonad affected\nmonad context\nmonad plan\nmonad run\nmonad doctor\nmonad version\n```\n\n`monad init` MAY be included when repository bootstrap/configuration reaches sufficient stability; its absence does not block Release 1 if documented setup remains straightforward.\n\n**Acceptance:** commands have stable help, exit codes, text output, and structured output where automation needs it; noninteractive use never depends on a TUI.\n\n### FR-015 — Operate local-first\n\nCore Release 1 behavior MUST work without a Monad-hosted control plane or mandatory external AI provider.\n\n**Acceptance:** workspace inspection, graph compilation, validation, query, affected-set computation, context packaging, planning, and local execution run with hosted Monad services unavailable.\n\n### FR-016 — Synchronize canonical and generated knowledge\n\nWhen generated machine/documentation projections are committed or used as trusted inputs, Monad or the repository bootstrap tooling MUST detect divergence from canonical sources.\n\n**Acceptance:** stale, missing, or orphaned projections fail verification; regeneration is deterministic; generated derivatives are clearly identified as non-canonical.\n\n### FR-017 — Preserve human authority\n\nMonad MUST not treat an AI output, generated file, successful command, merge permission, or model confidence as approval of a material engineering decision.\n\n**Acceptance:** authority-sensitive operations identify the governing approval/work record when one is required; unapproved or ambiguous authority produces a diagnostic or requires explicit user action rather than inferred consent.\n\n### FR-018 — Preserve release-grade traceability\n\nRelease 1 artifacts and validation evidence MUST be traceable to source revision, Monad version, configuration, declared toolchain, executed plan, and verification results.\n\n**Acceptance:** a release review can reconstruct what semantic state was compiled, what ran, and which evidence supported the release decision.\n\n## Quality requirements\n\n### QR-001 — Determinism\n\nCanonical graph/KIR semantics, stable identities, machine output ordering, and deterministic diagnostics MUST not depend on filesystem traversal order, thread scheduling, map iteration, wall-clock timestamps, or AI output.\n\n### QR-002 — Reproducibility\n\nA clean environment with the same declared repository state, Monad version, configuration, and toolchain MUST be able to reproduce accepted semantic and validation evidence within documented environment tolerances.\n\n### QR-003 — Performance\n\nRelease 1 MUST establish representative startup, discovery, semantic-compilation, query, affected-set, and incremental-validation baselines. Performance targets become normative only after reference repositories are measured; optimization may not weaken correctness.\n\n### QR-004 — Security\n\nRepository content is untrusted input. Path handling, subprocess execution, configuration, plugin/adapter loading, secrets, and generated context MUST follow least privilege and explicit trust boundaries. Release artifacts use dependency and provenance controls defined by security policy.\n\n### QR-005 — Privacy\n\nMonad MUST avoid collecting or transmitting repository content by default beyond the local operation being performed. Optional AI/provider integration MUST make the data boundary explicit and minimize context to the authorized task.\n\n### QR-006 — Compatibility\n\nPublic CLI behavior, graph/KIR schemas, configuration, and adapter/plugin contracts MUST state compatibility and migration expectations before Release 1 is declared stable.\n\n### QR-007 — Operability\n\nFailures MUST be diagnosable from structured logs/diagnostics without requiring debug builds or leaking secrets. `monad doctor` exposes relevant environment/toolchain health for supported scenarios.\n\n### QR-008 — Extensibility\n\nInternal architecture MUST support additional artifact adapters, native tools, graph entity/edge types, and future plugins without requiring core semantics to depend on vendor-specific behavior.\n\n### QR-009 — Maintainability\n\nSubsystem responsibilities and public contracts MUST be explicit; tests, specifications, ADRs, and documentation change with the behavior they govern.\n\n### QR-010 — Usability\n\nThe default CLI workflow MUST favor clear progressive disclosure. Text is readable, structured output is stable for automation, errors are actionable, and users can inspect plans before consequential execution.\n\n## Reference acceptance scenarios\n\nRelease 1 validation MUST include at least:\n\n1. **Fresh inspection:** inspect a representative repository with no prebuilt cache and emit workspace/artifact summary.\n2. **Determinism:** compile the same clean state repeatedly and compare canonical graph/KIR hashes.\n3. **Broken knowledge:** introduce invalid references, duplicate identity, stale generated data, and invalid configuration; verify diagnostics.\n4. **Relationship explanation:** identify a component/spec/test relationship and trace why it exists.\n5. **Change impact:** change a bounded artifact and verify affected entities and required validation.\n6. **Agent context:** generate a bounded context package for a work packet and demonstrate that excluded/sensitive content is not indiscriminately copied.\n7. **Execution:** inspect and run an execution plan using real native validation tools.\n8. **Failure/retry:** provoke native-tool failure and verify propagation, evidence, and safe retry semantics.\n9. **Clean-machine reproduction:** repeat the integrated scenario from a clean checkout with documented tool versions.\n10. **Dogfood:** run meaningful portions of the workflow against the Monad repository itself.\n\n## Release acceptance\n\nMVP Release 1 may ship only when all must-have requirements map to passing automated or documented manual evidence, deterministic and reproducibility gates pass, critical/high risks are resolved or explicitly accepted by accountable authority, installation and rollback are documented, supply-chain/release provenance is generated, and the Product Owner accepts the integrated reference scenarios.\n\n## Explicit exclusions\n\nRemote execution, remote cache, hosted collaboration, enterprise fleet governance, broad registry/marketplace features, autonomous high-consequence agent authority, and multi-region hosted operation are outside Release 1 unless an accepted change request demonstrates they are essential to proving the MVP thesis.\n",
   "document_id": "doc:product%2Fproduct-requirements.md",
   "generation": {
     "deterministic": true,
@@ -15,19 +15,33 @@
     "FR-006",
     "FR-007",
     "FR-008",
+    "FR-009",
+    "FR-010",
+    "FR-011",
+    "FR-012",
+    "FR-013",
+    "FR-014",
+    "FR-015",
+    "FR-016",
+    "FR-017",
+    "FR-018",
     "QR-001",
     "QR-002",
     "QR-003",
     "QR-004",
     "QR-005",
-    "QR-006"
+    "QR-006",
+    "QR-007",
+    "QR-008",
+    "QR-009",
+    "QR-010"
   ],
   "links": [],
   "metadata": {
     "document_type": "product",
     "normative": true,
-    "summary": "stakeholders",
-    "title": "Product Requirements"
+    "summary": "Status: Proposed baseline Product: Monad Release focus: deterministic semantic engineering loop Decision owner: Product Owner Required reviewers: Architecture, Engineering, Security, Operations",
+    "title": "Product Requirements — MVP Release 1"
   },
   "relations": [],
   "schema": "machine/schemas/document.schema.json",
@@ -36,44 +50,35 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 2,
+      "line_end": 8,
       "line_start": 1,
-      "section_id": "product-requirements",
-      "text": "# Product Requirements",
-      "title": "Product Requirements"
+      "section_id": "product-requirements-mvp-release-1",
+      "text": "# Product Requirements — MVP Release 1\n\n**Status:** Proposed baseline  \n**Product:** Monad  \n**Release focus:** deterministic semantic engineering loop  \n**Decision owner:** Product Owner  \n**Required reviewers:** Architecture, Engineering, Security, Operations",
+      "title": "Product Requirements — MVP Release 1"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 11,
-      "line_start": 3,
-      "section_id": "document-control",
-      "text": "## Document control\n\n- **Status:** Proposed baseline\n- **Product:** MonadV2\n- **Release focus:** First validated end-to-end journey\n- **Decision owner:** Product owner\n- **Reviewers:** Engineering, design, security, operations, and affected domain\n  stakeholders",
-      "title": "Document control"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 18,
-      "line_start": 12,
+      "line_end": 12,
+      "line_start": 9,
       "section_id": "objective",
-      "text": "## Objective\n\nDeliver a narrow product that lets the primary user initiate, complete, verify,\nand recover the core workflow without undocumented expert intervention. The\nrelease proves the product hypothesis while establishing minimum safety and\noperability needed for real use.",
+      "text": "## Objective\n\nRelease 1 must prove that Monad can turn a real repository's canonical engineering knowledge into a deterministic semantic model that improves understanding and safely drives bounded engineering work. The release is intentionally local-first and repository-centric.",
       "title": "Objective"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 25,
-      "line_start": 19,
-      "section_id": "users-and-outcome",
-      "text": "## Users and outcome\n\nThe primary practitioner needs to transform a valid intent and required inputs\ninto a dependable result. The accountable owner needs evidence that the result\nand controls are valid. The operator needs enough state and telemetry to detect,\ndiagnose, and recover failures.",
-      "title": "Users and outcome"
+      "line_end": 16,
+      "line_start": 13,
+      "section_id": "primary-user-outcome",
+      "text": "## Primary user outcome\n\nA software engineer can enter a representative repository, inspect what Monad understands, validate its consistency, query and explain engineering relationships, determine the impact of a bounded change, prepare a task-specific AI-agent context package, derive an execution plan, run native validation tools, and retain reproducible evidence without reconstructing the project manually.",
+      "title": "Primary user outcome"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 27,
-      "line_start": 26,
+      "line_end": 18,
+      "line_start": 17,
       "section_id": "functional-requirements",
       "text": "## Functional requirements",
       "title": "Functional requirements"
@@ -83,140 +88,353 @@
         "FR-001"
       ],
       "level": 3,
-      "line_end": 37,
-      "line_start": 28,
-      "section_id": "fr-001-start-an-authorized-workflow",
-      "text": "### FR-001 — Start an authorized workflow\n\nThe system shall allow an authenticated, authorized user to start the primary\nworkflow with a clear statement of purpose, required inputs, expected result,\nand applicable constraints.\n\n**Acceptance:** valid input creates one traceable workflow instance; missing,\ninvalid, or unauthorized input produces an actionable response and no partial\nside effect.",
-      "title": "FR-001 — Start an authorized workflow"
+      "line_end": 24,
+      "line_start": 19,
+      "section_id": "fr-001-discover-the-workspace",
+      "text": "### FR-001 — Discover the workspace\n\nMonad MUST locate the workspace root and enumerate supported repositories, components, packages, configuration sources, toolchains, and canonical artifact roots without requiring every project to adopt a Monad-specific layout.\n\n**Acceptance:** discovery is deterministic for the same filesystem/Git state; ambiguous roots or unsupported layouts produce structured diagnostics; symlink and traversal behavior is explicitly controlled.",
+      "title": "FR-001 — Discover the workspace"
     },
     {
       "identifiers": [
         "FR-002"
       ],
       "level": 3,
-      "line_end": 45,
-      "line_start": 38,
-      "section_id": "fr-002-validate-before-commitment",
-      "text": "### FR-002 — Validate before commitment\n\nThe system shall validate required data, permissions, compatibility, and known\nsafety constraints before committing consequential changes.\n\n**Acceptance:** validation findings identify the affected field or rule,\nexplain the corrective action, and distinguish warnings from blocking errors.",
-      "title": "FR-002 — Validate before commitment"
+      "line_end": 30,
+      "line_start": 25,
+      "section_id": "fr-002-inventory-canonical-engineering-artifacts",
+      "text": "### FR-002 — Inventory canonical engineering artifacts\n\nMonad MUST inventory supported canonical artifacts such as source/configuration metadata, requirements, specifications, ADRs, work records, tests, ownership data, dependency declarations, and repository documentation through explicit adapters or conventions.\n\n**Acceptance:** each discovered artifact has a stable path/adapter identity, media type, classification, source hash, and provenance; unsupported artifacts remain visible as unsupported rather than disappearing silently.",
+      "title": "FR-002 — Inventory canonical engineering artifacts"
     },
     {
       "identifiers": [
         "FR-003"
       ],
       "level": 3,
-      "line_end": 53,
-      "line_start": 46,
-      "section_id": "fr-003-expose-state-and-progress",
-      "text": "### FR-003 — Expose state and progress\n\nThe system shall expose the current workflow state, completed steps, responsible\nactor, blocked dependency, and next permitted action.\n\n**Acceptance:** refresh, reconnect, and concurrent observation do not create\ncontradictory user-visible state.",
-      "title": "FR-003 — Expose state and progress"
+      "line_end": 36,
+      "line_start": 31,
+      "section_id": "fr-003-assign-stable-semantic-identity",
+      "text": "### FR-003 — Assign stable semantic identity\n\nMonad MUST assign stable identities to modeled documents and semantic entities under documented namespace and canonicalization rules.\n\n**Acceptance:** traversal or serialization order does not alter identity; aliases/renames preserve lineage where supported; collisions are detected rather than silently merged.",
+      "title": "FR-003 — Assign stable semantic identity"
     },
     {
       "identifiers": [
         "FR-004"
       ],
       "level": 3,
-      "line_end": 61,
-      "line_start": 54,
-      "section_id": "fr-004-produce-a-verifiable-result",
-      "text": "### FR-004 — Produce a verifiable result\n\nThe system shall produce a result linked to its workflow instance, relevant\ninputs, applied version or policy, completion time, and verification status.\n\n**Acceptance:** the user can distinguish successful, partial, failed, and\ncancelled outcomes and can retrieve the result during the retention window.",
-      "title": "FR-004 — Produce a verifiable result"
+      "line_end": 42,
+      "line_start": 37,
+      "section_id": "fr-004-preserve-provenance",
+      "text": "### FR-004 — Preserve provenance\n\nEvery derived semantic entity and relationship MUST retain enough provenance to identify the canonical source, extraction rule or adapter, relevant source location, and transformation version.\n\n**Acceptance:** a user can ask why a sampled node or edge exists and reach its originating artifact or declared inference rule.",
+      "title": "FR-004 — Preserve provenance"
     },
     {
       "identifiers": [
         "FR-005"
       ],
       "level": 3,
-      "line_end": 70,
-      "line_start": 62,
-      "section_id": "fr-005-handle-interruption-and-retry",
-      "text": "### FR-005 — Handle interruption and retry\n\nThe system shall preserve safe progress across supported interruptions and\nprovide idempotent retry, compensation, or escalation according to the failure\nclass.\n\n**Acceptance:** repeated requests do not duplicate consequential effects and\ntested recovery paths restore a defined state.",
-      "title": "FR-005 — Handle interruption and retry"
+      "line_end": 48,
+      "line_start": 43,
+      "section_id": "fr-005-build-a-deterministic-semantic-graph",
+      "text": "### FR-005 — Build a deterministic semantic graph\n\nMonad MUST compile supported project knowledge into a versioned engineering semantic graph containing typed entities, typed relationships, stable identity, and graph invariants.\n\n**Acceptance:** repeated clean compilation of equivalent declared inputs produces semantically equivalent graph output and canonical hashes; invalid relationships and unresolved required references produce diagnostics.",
+      "title": "FR-005 — Build a deterministic semantic graph"
     },
     {
       "identifiers": [
         "FR-006"
       ],
       "level": 3,
-      "line_end": 78,
-      "line_start": 71,
-      "section_id": "fr-006-provide-user-control",
-      "text": "### FR-006 — Provide user control\n\nThe system shall allow a user to review consequential actions before commitment\nand cancel or reverse them when the underlying operation supports reversal.\n\n**Acceptance:** confirmation identifies the effect and scope; cancellation has\na documented terminal state; irreversible actions are labeled before approval.",
-      "title": "FR-006 — Provide user control"
+      "line_end": 54,
+      "line_start": 49,
+      "section_id": "fr-006-produce-a-versioned-machine-representation",
+      "text": "### FR-006 — Produce a versioned machine representation\n\nMonad MUST expose deterministic machine-readable representations suitable for downstream validation, query, publication, interoperability, and AI context. Release 1 includes a versioned graph representation and KIR boundary.\n\n**Acceptance:** supported representations have schemas, canonical serialization rules, version identifiers, compatibility expectations, and conformance fixtures; round-trip or canonical equivalence is tested where applicable.",
+      "title": "FR-006 — Produce a versioned machine representation"
     },
     {
       "identifiers": [
         "FR-007"
       ],
       "level": 3,
-      "line_end": 86,
-      "line_start": 79,
-      "section_id": "fr-007-record-accountable-evidence",
-      "text": "### FR-007 — Record accountable evidence\n\nThe system shall record security-relevant and outcome-relevant events with a\nstable correlation identifier, actor, action, time, result, and policy context.\n\n**Acceptance:** authorized reviewers can reconstruct the workflow without logs\ncontaining secrets or unnecessary sensitive payloads.",
-      "title": "FR-007 — Record accountable evidence"
+      "line_end": 60,
+      "line_start": 55,
+      "section_id": "fr-007-validate-consistency-and-drift",
+      "text": "### FR-007 — Validate consistency and drift\n\nMonad MUST validate repository configuration, artifact synchronization, semantic references, graph invariants, authority constraints that are in scope, and machine-projection freshness.\n\n**Acceptance:** stale/missing/orphaned generated artifacts, broken required references, duplicate stable identities, invalid graph edges, and configuration conflicts produce stable structured diagnostics and non-zero command outcomes appropriate to severity.",
+      "title": "FR-007 — Validate consistency and drift"
     },
     {
       "identifiers": [
         "FR-008"
       ],
       "level": 3,
-      "line_end": 95,
-      "line_start": 87,
-      "section_id": "fr-008-support-accessible-operation",
-      "text": "### FR-008 — Support accessible operation\n\nThe primary journey shall support keyboard operation, meaningful focus order,\nprogrammatic labels, non-color status cues, readable errors, and supported\nscreen-reader workflows.\n\n**Acceptance:** automated checks and manual assistive-technology testing pass\nthe documented accessibility acceptance suite.",
-      "title": "FR-008 — Support accessible operation"
+      "line_end": 66,
+      "line_start": 61,
+      "section_id": "fr-008-query-and-explain-engineering-knowledge",
+      "text": "### FR-008 — Query and explain engineering knowledge\n\nMonad MUST allow users and automation to inspect entities and ask relationship/provenance questions over the semantic model.\n\n**Acceptance:** Release 1 supports entity lookup, relationship traversal, provenance/why explanation, and structured output; queries distinguish unknown identifiers, empty results, unsupported semantics, and denied information where relevant.",
+      "title": "FR-008 — Query and explain engineering knowledge"
     },
     {
       "identifiers": [
-        "QR-001",
-        "QR-002",
-        "QR-003",
-        "QR-004",
-        "QR-005",
-        "QR-006"
+        "FR-009"
       ],
-      "level": 2,
-      "line_end": 110,
-      "line_start": 96,
-      "section_id": "quality-requirements",
-      "text": "## Quality requirements\n\n- **QR-001 Reliability:** valid workflow attempts meet the committed success\n  objective and fail safely outside it.\n- **QR-002 Performance:** interactive responses and end-to-end completion stay\n  within approved budgets under the reference load.\n- **QR-003 Security:** authentication, authorization, input validation,\n  encryption, audit, and dependency controls satisfy the security model.\n- **QR-004 Privacy:** collection, purpose, retention, access, export, and\n  deletion rules are explicit and enforced.\n- **QR-005 Operability:** all critical paths emit health, demand, error,\n  saturation, and trace signals with owned response procedures.\n- **QR-006 Maintainability:** public contracts are versioned and component\n  responsibilities remain within approved boundaries.",
-      "title": "Quality requirements"
+      "level": 3,
+      "line_end": 72,
+      "line_start": 67,
+      "section_id": "fr-009-calculate-change-impact",
+      "text": "### FR-009 — Calculate change impact\n\nMonad MUST ingest a bounded repository change and compute a conservative semantic affected set from known dependencies and authority relationships.\n\n**Acceptance:** every included result exposes at least one explainable dependency/provenance path; uncertainty expands the affected set or blocks optimization rather than silently omitting work; a representative corpus checks for false-negative required validation.",
+      "title": "FR-009 — Calculate change impact"
+    },
+    {
+      "identifiers": [
+        "FR-010"
+      ],
+      "level": 3,
+      "line_end": 78,
+      "line_start": 73,
+      "section_id": "fr-010-generate-bounded-ai-agent-context",
+      "text": "### FR-010 — Generate bounded AI-agent context\n\nMonad MUST generate a task-specific context package from explicit task/work authorization plus semantic relationships.\n\n**Acceptance:** the package contains task objective, governing artifacts, relevant dependencies, constraints, acceptance criteria, provenance, and explicit exclusions/capabilities where known; package generation is deterministic for the same inputs; secrets and excluded files are not copied merely because they are reachable.",
+      "title": "FR-010 — Generate bounded AI-agent context"
+    },
+    {
+      "identifiers": [
+        "FR-011"
+      ],
+      "level": 3,
+      "line_end": 84,
+      "line_start": 79,
+      "section_id": "fr-011-derive-an-execution-plan",
+      "text": "### FR-011 — Derive an execution plan\n\nMonad MUST turn an authorized goal or affected set into an explicit serializable plan of native-tool tasks, dependencies, declared inputs/outputs, environment requirements, and verification expectations.\n\n**Acceptance:** users can inspect the plan before execution; the plan explains why tasks are present; unsupported or uncertain task derivation does not silently execute a guess.",
+      "title": "FR-011 — Derive an execution plan"
+    },
+    {
+      "identifiers": [
+        "FR-012"
+      ],
+      "level": 3,
+      "line_end": 90,
+      "line_start": 85,
+      "section_id": "fr-012-execute-native-tools",
+      "text": "### FR-012 — Execute native tools\n\nMonad MUST execute approved local plan steps by delegating to native ecosystem tools through adapters while retaining command, environment, result, and evidence metadata.\n\n**Acceptance:** execution honors dependency order and cancellation/failure rules; exit status and diagnostics preserve native evidence; commands outside the approved plan are not executed implicitly.",
+      "title": "FR-012 — Execute native tools"
+    },
+    {
+      "identifiers": [
+        "FR-013"
+      ],
+      "level": 3,
+      "line_end": 96,
+      "line_start": 91,
+      "section_id": "fr-013-emit-structured-diagnostics",
+      "text": "### FR-013 — Emit structured diagnostics\n\nMonad MUST represent errors, warnings, informational findings, and internal defects through a stable diagnostic model.\n\n**Acceptance:** diagnostics include stable code/identity, severity, safe message, affected source/entity, provenance/context, and remediation where actionable; equivalent deterministic failures produce equivalent machine-readable diagnostics.",
+      "title": "FR-013 — Emit structured diagnostics"
+    },
+    {
+      "identifiers": [
+        "FR-014"
+      ],
+      "level": 3,
+      "line_end": 118,
+      "line_start": 97,
+      "section_id": "fr-014-provide-the-release-1-cli-surface",
+      "text": "### FR-014 — Provide the Release 1 CLI surface\n\nThe CLI MUST expose a coherent Release 1 workflow. The target command set is:\n\n```text\nmonad inspect\nmonad validate\nmonad graph\nmonad query\nmonad explain\nmonad affected\nmonad context\nmonad plan\nmonad run\nmonad doctor\nmonad version\n```\n\n`monad init` MAY be included when repository bootstrap/configuration reaches sufficient stability; its absence does not block Release 1 if documented setup remains straightforward.\n\n**Acceptance:** commands have stable help, exit codes, text output, and structured output where automation needs it; noninteractive use never depends on a TUI.",
+      "title": "FR-014 — Provide the Release 1 CLI surface"
+    },
+    {
+      "identifiers": [
+        "FR-015"
+      ],
+      "level": 3,
+      "line_end": 124,
+      "line_start": 119,
+      "section_id": "fr-015-operate-local-first",
+      "text": "### FR-015 — Operate local-first\n\nCore Release 1 behavior MUST work without a Monad-hosted control plane or mandatory external AI provider.\n\n**Acceptance:** workspace inspection, graph compilation, validation, query, affected-set computation, context packaging, planning, and local execution run with hosted Monad services unavailable.",
+      "title": "FR-015 — Operate local-first"
+    },
+    {
+      "identifiers": [
+        "FR-016"
+      ],
+      "level": 3,
+      "line_end": 130,
+      "line_start": 125,
+      "section_id": "fr-016-synchronize-canonical-and-generated-knowledge",
+      "text": "### FR-016 — Synchronize canonical and generated knowledge\n\nWhen generated machine/documentation projections are committed or used as trusted inputs, Monad or the repository bootstrap tooling MUST detect divergence from canonical sources.\n\n**Acceptance:** stale, missing, or orphaned projections fail verification; regeneration is deterministic; generated derivatives are clearly identified as non-canonical.",
+      "title": "FR-016 — Synchronize canonical and generated knowledge"
+    },
+    {
+      "identifiers": [
+        "FR-017"
+      ],
+      "level": 3,
+      "line_end": 136,
+      "line_start": 131,
+      "section_id": "fr-017-preserve-human-authority",
+      "text": "### FR-017 — Preserve human authority\n\nMonad MUST not treat an AI output, generated file, successful command, merge permission, or model confidence as approval of a material engineering decision.\n\n**Acceptance:** authority-sensitive operations identify the governing approval/work record when one is required; unapproved or ambiguous authority produces a diagnostic or requires explicit user action rather than inferred consent.",
+      "title": "FR-017 — Preserve human authority"
+    },
+    {
+      "identifiers": [
+        "FR-018"
+      ],
+      "level": 3,
+      "line_end": 142,
+      "line_start": 137,
+      "section_id": "fr-018-preserve-release-grade-traceability",
+      "text": "### FR-018 — Preserve release-grade traceability\n\nRelease 1 artifacts and validation evidence MUST be traceable to source revision, Monad version, configuration, declared toolchain, executed plan, and verification results.\n\n**Acceptance:** a release review can reconstruct what semantic state was compiled, what ran, and which evidence supported the release decision.",
+      "title": "FR-018 — Preserve release-grade traceability"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 117,
-      "line_start": 111,
+      "line_end": 144,
+      "line_start": 143,
+      "section_id": "quality-requirements",
+      "text": "## Quality requirements",
+      "title": "Quality requirements"
+    },
+    {
+      "identifiers": [
+        "QR-001"
+      ],
+      "level": 3,
+      "line_end": 148,
+      "line_start": 145,
+      "section_id": "qr-001-determinism",
+      "text": "### QR-001 — Determinism\n\nCanonical graph/KIR semantics, stable identities, machine output ordering, and deterministic diagnostics MUST not depend on filesystem traversal order, thread scheduling, map iteration, wall-clock timestamps, or AI output.",
+      "title": "QR-001 — Determinism"
+    },
+    {
+      "identifiers": [
+        "QR-002"
+      ],
+      "level": 3,
+      "line_end": 152,
+      "line_start": 149,
+      "section_id": "qr-002-reproducibility",
+      "text": "### QR-002 — Reproducibility\n\nA clean environment with the same declared repository state, Monad version, configuration, and toolchain MUST be able to reproduce accepted semantic and validation evidence within documented environment tolerances.",
+      "title": "QR-002 — Reproducibility"
+    },
+    {
+      "identifiers": [
+        "QR-003"
+      ],
+      "level": 3,
+      "line_end": 156,
+      "line_start": 153,
+      "section_id": "qr-003-performance",
+      "text": "### QR-003 — Performance\n\nRelease 1 MUST establish representative startup, discovery, semantic-compilation, query, affected-set, and incremental-validation baselines. Performance targets become normative only after reference repositories are measured; optimization may not weaken correctness.",
+      "title": "QR-003 — Performance"
+    },
+    {
+      "identifiers": [
+        "QR-004"
+      ],
+      "level": 3,
+      "line_end": 160,
+      "line_start": 157,
+      "section_id": "qr-004-security",
+      "text": "### QR-004 — Security\n\nRepository content is untrusted input. Path handling, subprocess execution, configuration, plugin/adapter loading, secrets, and generated context MUST follow least privilege and explicit trust boundaries. Release artifacts use dependency and provenance controls defined by security policy.",
+      "title": "QR-004 — Security"
+    },
+    {
+      "identifiers": [
+        "QR-005"
+      ],
+      "level": 3,
+      "line_end": 164,
+      "line_start": 161,
+      "section_id": "qr-005-privacy",
+      "text": "### QR-005 — Privacy\n\nMonad MUST avoid collecting or transmitting repository content by default beyond the local operation being performed. Optional AI/provider integration MUST make the data boundary explicit and minimize context to the authorized task.",
+      "title": "QR-005 — Privacy"
+    },
+    {
+      "identifiers": [
+        "QR-006"
+      ],
+      "level": 3,
+      "line_end": 168,
+      "line_start": 165,
+      "section_id": "qr-006-compatibility",
+      "text": "### QR-006 — Compatibility\n\nPublic CLI behavior, graph/KIR schemas, configuration, and adapter/plugin contracts MUST state compatibility and migration expectations before Release 1 is declared stable.",
+      "title": "QR-006 — Compatibility"
+    },
+    {
+      "identifiers": [
+        "QR-007"
+      ],
+      "level": 3,
+      "line_end": 172,
+      "line_start": 169,
+      "section_id": "qr-007-operability",
+      "text": "### QR-007 — Operability\n\nFailures MUST be diagnosable from structured logs/diagnostics without requiring debug builds or leaking secrets. `monad doctor` exposes relevant environment/toolchain health for supported scenarios.",
+      "title": "QR-007 — Operability"
+    },
+    {
+      "identifiers": [
+        "QR-008"
+      ],
+      "level": 3,
+      "line_end": 176,
+      "line_start": 173,
+      "section_id": "qr-008-extensibility",
+      "text": "### QR-008 — Extensibility\n\nInternal architecture MUST support additional artifact adapters, native tools, graph entity/edge types, and future plugins without requiring core semantics to depend on vendor-specific behavior.",
+      "title": "QR-008 — Extensibility"
+    },
+    {
+      "identifiers": [
+        "QR-009"
+      ],
+      "level": 3,
+      "line_end": 180,
+      "line_start": 177,
+      "section_id": "qr-009-maintainability",
+      "text": "### QR-009 — Maintainability\n\nSubsystem responsibilities and public contracts MUST be explicit; tests, specifications, ADRs, and documentation change with the behavior they govern.",
+      "title": "QR-009 — Maintainability"
+    },
+    {
+      "identifiers": [
+        "QR-010"
+      ],
+      "level": 3,
+      "line_end": 184,
+      "line_start": 181,
+      "section_id": "qr-010-usability",
+      "text": "### QR-010 — Usability\n\nThe default CLI workflow MUST favor clear progressive disclosure. Text is readable, structured output is stable for automation, errors are actionable, and users can inspect plans before consequential execution.",
+      "title": "QR-010 — Usability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 199,
+      "line_start": 185,
+      "section_id": "reference-acceptance-scenarios",
+      "text": "## Reference acceptance scenarios\n\nRelease 1 validation MUST include at least:\n\n1. **Fresh inspection:** inspect a representative repository with no prebuilt cache and emit workspace/artifact summary.\n2. **Determinism:** compile the same clean state repeatedly and compare canonical graph/KIR hashes.\n3. **Broken knowledge:** introduce invalid references, duplicate identity, stale generated data, and invalid configuration; verify diagnostics.\n4. **Relationship explanation:** identify a component/spec/test relationship and trace why it exists.\n5. **Change impact:** change a bounded artifact and verify affected entities and required validation.\n6. **Agent context:** generate a bounded context package for a work packet and demonstrate that excluded/sensitive content is not indiscriminately copied.\n7. **Execution:** inspect and run an execution plan using real native validation tools.\n8. **Failure/retry:** provoke native-tool failure and verify propagation, evidence, and safe retry semantics.\n9. **Clean-machine reproduction:** repeat the integrated scenario from a clean checkout with documented tool versions.\n10. **Dogfood:** run meaningful portions of the workflow against the Monad repository itself.",
+      "title": "Reference acceptance scenarios"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 203,
+      "line_start": 200,
       "section_id": "release-acceptance",
-      "text": "## Release acceptance\n\nThe release may proceed when all must-have requirements trace to passing tests,\nthe primary journey succeeds in representative use, no unaccepted critical or\nhigh risk remains, recovery and rollback are demonstrated, operations accepts\nthe runbook, and the product owner accepts measured outcome evidence.",
+      "text": "## Release acceptance\n\nMVP Release 1 may ship only when all must-have requirements map to passing automated or documented manual evidence, deterministic and reproducibility gates pass, critical/high risks are resolved or explicitly accepted by accountable authority, installation and rollback are documented, supply-chain/release provenance is generated, and the Product Owner accepts the integrated reference scenarios.",
       "title": "Release acceptance"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 124,
-      "line_start": 118,
-      "section_id": "dependencies-and-assumptions",
-      "text": "## Dependencies and assumptions\n\nThe baseline assumes one supported operating region, one identity authority,\none primary persona, a bounded data classification, and availability of the\ncritical dependencies named by architecture. Changes to these assumptions\nrequire impact review.",
-      "title": "Dependencies and assumptions"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 129,
-      "line_start": 125,
+      "line_end": 206,
+      "line_start": 204,
       "section_id": "explicit-exclusions",
-      "text": "## Explicit exclusions\n\nUniversal workflows, autonomous high-impact decisions, extensive customization,\nunvalidated integrations, and multi-region active-active operation are outside\nthe first release. See `vision/non-goals.md` for reconsideration triggers.",
+      "text": "## Explicit exclusions\n\nRemote execution, remote cache, hosted collaboration, enterprise fleet governance, broad registry/marketplace features, autonomous high-consequence agent authority, and multi-region hosted operation are outside Release 1 unless an accepted change request demonstrates they are essential to proving the MVP thesis.",
       "title": "Explicit exclusions"
     }
   ],
   "source": {
-    "bytes": 5311,
+    "bytes": 13436,
     "canonical": true,
     "language": "markdown",
-    "lines": 129,
+    "lines": 206,
     "media_type": "text/markdown",
     "path": "product/product-requirements.md",
-    "sha256": "ae7b3338f409f1c4f6530139cf5e5609e6e0460069b9c0b970905b2ed78c6ea0"
+    "sha256": "cfa9be461cbe9add30445a66906c038662b605fd992aeeb7d9065a5e5f55712a"
   }
 }

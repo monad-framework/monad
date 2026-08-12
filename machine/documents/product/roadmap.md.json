@@ -1,5 +1,5 @@
 {
-  "content": "# Outcome Roadmap\n\nThe roadmap orders learning and outcomes, not a fixed inventory of features.\nDates become commitments only within an authorized increment. Movement between\nhorizons depends on evidence and capacity.\n\n## Now — Validate and prove\n\n**Outcome:** prove that the primary persona can achieve the core result more\nreliably under realistic constraints.\n\n- Complete problem research and baseline measurement.\n- Freeze the primary journey, requirements, data classification, and quality\n  scenarios.\n- Build one vertical slice from authenticated intent to verified result.\n- Demonstrate validation, idempotency, interruption recovery, evidence, and\n  operator diagnosis.\n- Pilot with representative users and compare results with the baseline.\n\n**Exit gate:** product success thresholds are credible, the primary acceptance\nsuite passes, and no unaccepted critical or high risk remains.\n\n## Next — Strengthen and repeat\n\n**Outcome:** make the proven workflow dependable for repeated use without\nmaintainer-assisted operation.\n\n- Address pilot friction and the highest-value failure modes.\n- Establish service objectives, capacity evidence, backup and restore, and\n  cost controls.\n- Improve administration, onboarding, accessibility, and evidence review.\n- Add only the integration that removes the largest measured barrier.\n- Automate release evidence and operational readiness checks.\n\n**Entry condition:** repeat use shows the workflow solves the validated problem.\n\n## Later — Extend deliberately\n\n**Outcome:** expand value through adjacent workflows or segments while\npreserving trust and operational control.\n\n- Evaluate controlled extension points from repeated product needs.\n- Support an adjacent persona or journey with independent validation.\n- Consider additional regions, identity providers, or deployment shapes.\n- Extract platform capabilities only when ownership and economics are clear.\n\n## Roadmap decision rules\n\nAn item enters `Now` only when it advances a committed goal, has an accountable\nowner, satisfies the Definition of Ready, fits available capacity, and has a\nmeasurable outcome. Security, legal, or reliability work may preempt feature\nwork when it protects the product's ability to operate safely.\n\n## Review cadence\n\nReview the `Now` horizon each work cycle, horizon transitions at increment\nreviews, and strategic order quarterly. Record decisions and displaced work;\ndo not silently roll unfinished commitments forward.\n",
+  "content": "# Product Roadmap\n\n**Status:** Proposed roadmap baseline  \n**Primary target:** MVP Release 1 — 2026-11-23 aggressive forecast\n\nThe roadmap orders product outcomes rather than committing every future feature to a date. Release 1 proves the local semantic engineering loop. Later horizons expand execution, ecosystem, collaboration, and enterprise capability only after the core demonstrates value.\n\n## Horizon 0 — Stabilize the foundation\n\n**Now through 2026-08-23**\n\nOutcomes:\n\n- one coherent Engineering Knowledge Compilation product thesis;\n- canonical ADR/authority structure;\n- complete Draft artifact taxonomy and synchronized machine projection;\n- accepted minimum C0/C1 foundation;\n- GitHub operating/project baseline;\n- Ready implementation backlog.\n\n## Horizon 1 — MVP semantic kernel\n\n**2026-08-24 through 2026-09-27**\n\nOutcomes:\n\n- workspace/repository discovery;\n- canonical artifact inventory/adapters;\n- stable identity, normalization, hashing, and provenance;\n- deterministic Monad Semantic Graph;\n- versioned KIR;\n- structured diagnostics and consistency validation;\n- entity/relationship query and explanation;\n- first conservative change-impact analysis.\n\n## Horizon 2 — Executable engineering loop\n\n**2026-09-28 through 2026-10-25**\n\nOutcomes:\n\n- hardened diagnostics and affected-set reasoning;\n- semantic incrementality and fingerprints;\n- execution-plan schema and planner;\n- native-tool adapters and local runtime;\n- verified cache first slice;\n- coherent CLI;\n- bounded AI-agent context and Codex work-packet export;\n- execution/evidence traceability.\n\n## Horizon 3 — MVP hardening and Release 1\n\n**2026-10-26 through 2026-11-23**\n\nOutcomes:\n\n- integrated conformance/reference scenarios;\n- deterministic/reproducibility suite;\n- performance baselines;\n- security and supply-chain verification;\n- compatibility/versioning policy;\n- packaging/install/upgrade/rollback;\n- dogfooding against Monad;\n- user/maintainer documentation and publication;\n- release automation, provenance, release-readiness review;\n- MVP Release 1.\n\n## Horizon 4 — Extensible ecosystem\n\n**Post-MVP, evidence-ordered**\n\nCandidate outcomes:\n\n- stable plugin/adapter SDK;\n- plugin manifest, capability and permission model;\n- registry protocol and trusted distribution;\n- richer IDE/TUI integrations;\n- cross-repository semantic knowledge;\n- remote cache and remote execution;\n- organization policy packs;\n- expanded language/tool adapters.\n\n## Horizon 5 — Team, hosted, and enterprise capabilities\n\n**Future; not scheduled until validated**\n\nCandidate outcomes:\n\n- shared/team semantic indexes;\n- hosted control-plane services;\n- collaborative policy/governance;\n- fleet analytics and engineering intelligence;\n- enterprise identity/administration;\n- managed remote execution/cache;\n- commercial support/SLA and sustainable hosted offerings.\n\n## Product sequencing rule\n\nA feature moves earlier when it materially improves the shortest path to a verified semantic engineering outcome, retires an existential correctness/security risk, or is required by a validated user scenario. It moves later when it adds platform breadth without strengthening Release 1 evidence.\n\n## Scope discipline\n\nMVP Release 1 is complete when the product requirements and reference acceptance scenarios are satisfied—not when every artifact-system document or long-term capability is implemented. The backlog may contain future Epics for visibility; their existence is not a delivery commitment.\n",
   "document_id": "doc:product%2Froadmap.md",
   "generation": {
     "deterministic": true,
@@ -11,8 +11,8 @@
   "metadata": {
     "document_type": "product",
     "normative": true,
-    "summary": "The roadmap orders learning and outcomes, not a fixed inventory of features. Dates become commitments only within an authorized increment. Movement between horizons depends on evidence and capacity.",
-    "title": "Outcome Roadmap"
+    "summary": "Status: Proposed roadmap baseline Primary target: MVP Release 1 — 2026-11-23 aggressive forecast",
+    "title": "Product Roadmap"
   },
   "relations": [],
   "schema": "machine/schemas/document.schema.json",
@@ -21,65 +21,92 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 6,
+      "line_end": 7,
       "line_start": 1,
-      "section_id": "outcome-roadmap",
-      "text": "# Outcome Roadmap\n\nThe roadmap orders learning and outcomes, not a fixed inventory of features.\nDates become commitments only within an authorized increment. Movement between\nhorizons depends on evidence and capacity.",
-      "title": "Outcome Roadmap"
+      "section_id": "product-roadmap",
+      "text": "# Product Roadmap\n\n**Status:** Proposed roadmap baseline  \n**Primary target:** MVP Release 1 — 2026-11-23 aggressive forecast\n\nThe roadmap orders product outcomes rather than committing every future feature to a date. Release 1 proves the local semantic engineering loop. Later horizons expand execution, ecosystem, collaboration, and enterprise capability only after the core demonstrates value.",
+      "title": "Product Roadmap"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 22,
-      "line_start": 7,
-      "section_id": "now-validate-and-prove",
-      "text": "## Now — Validate and prove\n\n**Outcome:** prove that the primary persona can achieve the core result more\nreliably under realistic constraints.\n\n- Complete problem research and baseline measurement.\n- Freeze the primary journey, requirements, data classification, and quality\n  scenarios.\n- Build one vertical slice from authenticated intent to verified result.\n- Demonstrate validation, idempotency, interruption recovery, evidence, and\n  operator diagnosis.\n- Pilot with representative users and compare results with the baseline.\n\n**Exit gate:** product success thresholds are credible, the primary acceptance\nsuite passes, and no unaccepted critical or high risk remains.",
-      "title": "Now — Validate and prove"
+      "line_end": 20,
+      "line_start": 8,
+      "section_id": "horizon-0-stabilize-the-foundation",
+      "text": "## Horizon 0 — Stabilize the foundation\n\n**Now through 2026-08-23**\n\nOutcomes:\n\n- one coherent Engineering Knowledge Compilation product thesis;\n- canonical ADR/authority structure;\n- complete Draft artifact taxonomy and synchronized machine projection;\n- accepted minimum C0/C1 foundation;\n- GitHub operating/project baseline;\n- Ready implementation backlog.",
+      "title": "Horizon 0 — Stabilize the foundation"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 36,
-      "line_start": 23,
-      "section_id": "next-strengthen-and-repeat",
-      "text": "## Next — Strengthen and repeat\n\n**Outcome:** make the proven workflow dependable for repeated use without\nmaintainer-assisted operation.\n\n- Address pilot friction and the highest-value failure modes.\n- Establish service objectives, capacity evidence, backup and restore, and\n  cost controls.\n- Improve administration, onboarding, accessibility, and evidence review.\n- Add only the integration that removes the largest measured barrier.\n- Automate release evidence and operational readiness checks.\n\n**Entry condition:** repeat use shows the workflow solves the validated problem.",
-      "title": "Next — Strengthen and repeat"
+      "line_end": 35,
+      "line_start": 21,
+      "section_id": "horizon-1-mvp-semantic-kernel",
+      "text": "## Horizon 1 — MVP semantic kernel\n\n**2026-08-24 through 2026-09-27**\n\nOutcomes:\n\n- workspace/repository discovery;\n- canonical artifact inventory/adapters;\n- stable identity, normalization, hashing, and provenance;\n- deterministic Monad Semantic Graph;\n- versioned KIR;\n- structured diagnostics and consistency validation;\n- entity/relationship query and explanation;\n- first conservative change-impact analysis.",
+      "title": "Horizon 1 — MVP semantic kernel"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 46,
-      "line_start": 37,
-      "section_id": "later-extend-deliberately",
-      "text": "## Later — Extend deliberately\n\n**Outcome:** expand value through adjacent workflows or segments while\npreserving trust and operational control.\n\n- Evaluate controlled extension points from repeated product needs.\n- Support an adjacent persona or journey with independent validation.\n- Consider additional regions, identity providers, or deployment shapes.\n- Extract platform capabilities only when ownership and economics are clear.",
-      "title": "Later — Extend deliberately"
+      "line_end": 50,
+      "line_start": 36,
+      "section_id": "horizon-2-executable-engineering-loop",
+      "text": "## Horizon 2 — Executable engineering loop\n\n**2026-09-28 through 2026-10-25**\n\nOutcomes:\n\n- hardened diagnostics and affected-set reasoning;\n- semantic incrementality and fingerprints;\n- execution-plan schema and planner;\n- native-tool adapters and local runtime;\n- verified cache first slice;\n- coherent CLI;\n- bounded AI-agent context and Codex work-packet export;\n- execution/evidence traceability.",
+      "title": "Horizon 2 — Executable engineering loop"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 53,
-      "line_start": 47,
-      "section_id": "roadmap-decision-rules",
-      "text": "## Roadmap decision rules\n\nAn item enters `Now` only when it advances a committed goal, has an accountable\nowner, satisfies the Definition of Ready, fits available capacity, and has a\nmeasurable outcome. Security, legal, or reliability work may preempt feature\nwork when it protects the product's ability to operate safely.",
-      "title": "Roadmap decision rules"
+      "line_end": 67,
+      "line_start": 51,
+      "section_id": "horizon-3-mvp-hardening-and-release-1",
+      "text": "## Horizon 3 — MVP hardening and Release 1\n\n**2026-10-26 through 2026-11-23**\n\nOutcomes:\n\n- integrated conformance/reference scenarios;\n- deterministic/reproducibility suite;\n- performance baselines;\n- security and supply-chain verification;\n- compatibility/versioning policy;\n- packaging/install/upgrade/rollback;\n- dogfooding against Monad;\n- user/maintainer documentation and publication;\n- release automation, provenance, release-readiness review;\n- MVP Release 1.",
+      "title": "Horizon 3 — MVP hardening and Release 1"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 58,
-      "line_start": 54,
-      "section_id": "review-cadence",
-      "text": "## Review cadence\n\nReview the `Now` horizon each work cycle, horizon transitions at increment\nreviews, and strategic order quarterly. Record decisions and displaced work;\ndo not silently roll unfinished commitments forward.",
-      "title": "Review cadence"
+      "line_end": 82,
+      "line_start": 68,
+      "section_id": "horizon-4-extensible-ecosystem",
+      "text": "## Horizon 4 — Extensible ecosystem\n\n**Post-MVP, evidence-ordered**\n\nCandidate outcomes:\n\n- stable plugin/adapter SDK;\n- plugin manifest, capability and permission model;\n- registry protocol and trusted distribution;\n- richer IDE/TUI integrations;\n- cross-repository semantic knowledge;\n- remote cache and remote execution;\n- organization policy packs;\n- expanded language/tool adapters.",
+      "title": "Horizon 4 — Extensible ecosystem"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 96,
+      "line_start": 83,
+      "section_id": "horizon-5-team-hosted-and-enterprise-capabilities",
+      "text": "## Horizon 5 — Team, hosted, and enterprise capabilities\n\n**Future; not scheduled until validated**\n\nCandidate outcomes:\n\n- shared/team semantic indexes;\n- hosted control-plane services;\n- collaborative policy/governance;\n- fleet analytics and engineering intelligence;\n- enterprise identity/administration;\n- managed remote execution/cache;\n- commercial support/SLA and sustainable hosted offerings.",
+      "title": "Horizon 5 — Team, hosted, and enterprise capabilities"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 100,
+      "line_start": 97,
+      "section_id": "product-sequencing-rule",
+      "text": "## Product sequencing rule\n\nA feature moves earlier when it materially improves the shortest path to a verified semantic engineering outcome, retires an existential correctness/security risk, or is required by a validated user scenario. It moves later when it adds platform breadth without strengthening Release 1 evidence.",
+      "title": "Product sequencing rule"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 103,
+      "line_start": 101,
+      "section_id": "scope-discipline",
+      "text": "## Scope discipline\n\nMVP Release 1 is complete when the product requirements and reference acceptance scenarios are satisfied—not when every artifact-system document or long-term capability is implemented. The backlog may contain future Epics for visibility; their existence is not a delivery commitment.",
+      "title": "Scope discipline"
     }
   ],
   "source": {
-    "bytes": 2468,
+    "bytes": 3484,
     "canonical": true,
     "language": "markdown",
-    "lines": 58,
+    "lines": 103,
     "media_type": "text/markdown",
     "path": "product/roadmap.md",
-    "sha256": "b237ee972760552ab746e02f9412f3c8ea6eed5e1ff6b20887236fd1de31771e"
+    "sha256": "0990519fa54149c54db9d5629d2d1502a2648562e3dcdaddddfc63b0107e1035"
   }
 }

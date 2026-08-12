@@ -1,5 +1,5 @@
 {
-  "content": "# Engineering Plan\n\n## Objective\n\nDeliver the first validated MonadV2 journey through small, integrated\nincrements that retire the highest product and architecture risks before broad\nfeature investment.\n\n## Delivery strategy\n\nThe project uses vertical slices. Each increment includes user interaction,\napplication behavior, domain rules, persistence, security, telemetry, tests,\ndocumentation, and deployment evidence required to demonstrate one coherent\noutcome. Infrastructure work is attached to the capability it enables unless\nit independently retires a critical risk.\n\n## Phase 0 — Inception and evidence\n\n**Purpose:** establish a credible problem, product baseline, architectural\ndrivers, and controlled delivery system.\n\n**Key outputs:** completed research findings, baseline measures, approved\nprimary journey, data classification, initial ADRs, risk register, repository\nquality gates, and first ready work packets.\n\n**Exit gate:** problem evidence meets the validation test; product and\narchitecture reviewers approve the first vertical slice; no unknown critical\ndata or authority issue blocks safe prototyping.\n\n## Phase 1 — Walking skeleton\n\n**Purpose:** prove the complete technical and operational path with the smallest\nreal behavior.\n\n**Key outputs:** authenticated request, durable workflow identity, one domain\ntransition, evidence record, minimal accessible interface, deployment,\ncorrelated telemetry, and rollback.\n\n**Exit gate:** the slice runs in the reference environment, contract and\nacceptance tests pass, a duplicate request is safe, a failure is diagnosable,\nand the release can be rolled back.\n\n## Phase 2 — Primary journey\n\n**Purpose:** complete all must-have behavior, validation, progress, verification,\nand user recovery for the primary use case.\n\n**Key outputs:** implemented functional requirements, representative data,\nnegative and boundary tests, performance evidence, threat mitigations,\noperator runbooks, and user documentation.\n\n**Exit gate:** release acceptance in the product requirements is satisfied in a\nproduction-like environment.\n\n## Phase 3 — Pilot and hardening\n\n**Purpose:** validate value and operation with representative users while\ncontaining exposure.\n\n**Key outputs:** pilot cohort, support path, service indicators, cost baseline,\naccessibility study, recovery exercise, incident drill, feedback findings, and\nprioritized corrections.\n\n**Exit gate:** success criteria justify repeated use; operational load is\nsupportable; critical and high risks are resolved or explicitly accepted.\n\n## Phase 4 — Controlled release\n\n**Purpose:** broaden access within the proven scope and establish a sustainable\nrelease cadence.\n\n**Key outputs:** stable contracts, compatibility policy, service objectives,\ncapacity margin, release notes, support ownership, and post-release review.\n\n## Technical workstreams\n\n- product experience and accessibility;\n- workflow and domain correctness;\n- data ownership and lifecycle;\n- identity, authorization, and security assurance;\n- interfaces and dependency adapters;\n- test architecture and release quality gates;\n- observability, reliability, deployment, and recovery;\n- research, documentation, and decision governance.\n\n## Planning assumptions\n\nCapacity is planned at no more than 80% for committed packets, reserving room\nfor review, discovery, support, and unplanned correction. Forecasts use\ncompleted comparable work and known dependencies rather than optimistic point\nconversion. Scope is the primary lever when time or capacity changes; quality\nand safety gates are not silently reduced.\n",
+  "content": "# Engineering Plan\n\n**Status:** Proposed delivery baseline  \n**Delivery target:** MVP Release 1  \n**Aggressive forecast:** 2026-11-23, subject to evidence and quality gates\n\n## Objective\n\nMove Monad from the current transitional documentation-heavy foundation to a stable, executable MVP as quickly as possible without trading away the properties that define the product: semantic correctness, determinism, reproducibility, explicit authority, explainability, and local-first operation.\n\n## Delivery model\n\nMonad uses a Scrum-aligned product backlog together with a stricter engineering-authority layer.\n\n```text\nProduct Goal\n  ↓\nMilestone / Product Increment\n  ↓\nEpic\n  ↓\nFeature\n  ↓\nUser Story / Enabler / Bug / Spike\n  ↓\nSprint selection\n  ↓\nWork Packet (engineering authorization)\n  ↓\nTasks / Codex execution units\n  ↓\nPull Request\n  ↓\nTests + review + evidence\n  ↓\nAccepted Increment\n```\n\nEpics, Features, Stories, and backlog ordering describe product value and delivery. ADRs, specifications, Work Packets, tests, and reviews define engineering authority and evidence. GitHub Issues and Projects are operational projections, not a replacement for canonical repository artifacts.\n\n## Cadence\n\n- **Sprint length:** one week, Monday through Sunday.\n- **Planning:** select an outcome-oriented Sprint Goal and only Ready work that fits the capacity/risk envelope.\n- **Daily inspection:** completed, active, blocked, decisions needed, next action.\n- **Review:** demonstrate integrated behavior and acceptance evidence.\n- **Retrospective:** identify process/system changes and update the backlog when evidence changes sequencing.\n- **Refinement horizon:** all foreseeable Epics and Features; detailed Stories/Enablers through the next several Sprints; full task decomposition only for the current Sprint and immediate execution horizon.\n\nPlanning reserves capacity for review, discovery, integration, and correction. Scope is the primary lever when capacity changes; correctness and safety gates are not silently reduced.\n\n## Stabilization transition — August 12–16, 2026\n\n**Goal:** establish one coherent, synchronized source of truth from which implementation can be planned safely.\n\nOutcomes:\n\n- one Monad product thesis rather than competing generic and engineering-knowledge definitions;\n- single canonical ADR location at `architecture/decisions/`;\n- all `artifact-system/*.md` files populated with substantive Draft baselines;\n- deterministic `machine/` projection synchronized to the current canonical tree;\n- MVP Release 1 requirements/capabilities/architecture agreed enough for planning;\n- GitHub backlog/project/wiki configuration prepared and live projections started;\n- stabilization risks, inconsistencies, and transition debt visible.\n\nThis transition is not an implementation Sprint and does not count generated Draft files as accepted architecture.\n\n## PI-001 — Stabilized Foundation\n\n**Dates:** 2026-08-17 through 2026-08-23  \n**Sprint:** SPRINT-001  \n**Goal:** convert the transition baseline into an accepted C0/C1 foundation and a Ready implementation backlog.\n\nKey outcomes:\n\n- approve/revise product thesis, MVP scope, principles, authority hierarchy, terminology, and success criteria;\n- disposition the minimum architecture decisions required for semantic-kernel implementation;\n- finalize the initial domain/semantic ontology and configuration direction sufficiently for the first vertical slice;\n- complete GitHub repository/project/wiki/issue operating baseline;\n- make the first implementation Work Packets Ready.\n\n**Exit:** no unresolved foundational contradiction blocks semantic-kernel implementation; required first-slice ADRs/specs are accepted; CI baseline is green.\n\n## PI-002 — Semantic Kernel\n\n**Dates:** 2026-08-24 through 2026-09-27  \n**Sprints:** SPRINT-002 through SPRINT-006  \n**Goal:** compile repository engineering knowledge into a deterministic, queryable graph and KIR.\n\n### SPRINT-002 — Workspace and artifact inventory — Aug 24–30\n\nDeliver deterministic workspace root/repository identity, configuration bootstrap, artifact discovery/adapters, and inspectable inventory.\n\n### SPRINT-003 — Semantic identity and provenance — Aug 31–Sep 6\n\nDeliver stable document/entity identity, normalization, canonical hashing, source coordinates, aliases/collision diagnostics, and provenance.\n\n### SPRINT-004 — Semantic graph and invariants — Sep 7–13\n\nDeliver the core ontology, graph construction, typed relationships, deterministic ordering, graph invariants, snapshot/serialization, and representative fixtures.\n\n### SPRINT-005 — KIR and semantic validation — Sep 14–20\n\nDeliver KIR charter/schema, canonical serialization, MSG→KIR lowering, versioning/compatibility baseline, and conformance validation.\n\n### SPRINT-006 — Query, explanation, and first impact slice — Sep 21–27\n\nDeliver entity lookup, relationship traversal, provenance/why explanation, structured query output, Git change ingestion, and first conservative affected-set calculation.\n\n**PI exit:** clean repeated compilation is deterministic; representative semantic relationships are explainable; KIR is versioned/conformant; first useful affected-set scenario passes.\n\n## PI-003 — Executable Engineering Loop\n\n**Dates:** 2026-09-28 through 2026-10-25  \n**Sprints:** SPRINT-007 through SPRINT-010  \n**Goal:** turn semantic knowledge into bounded context and deterministic native-tool execution.\n\n### SPRINT-007 — Diagnostics and affected-set hardening — Sep 28–Oct 4\n\nDeliver diagnostic registry/format, semantic drift diagnostics, conservative impact explanation, negative/boundary corpus, and uncertainty behavior.\n\n### SPRINT-008 — Incrementality, fingerprints, and execution plans — Oct 5–11\n\nDeliver change invalidation, first incremental graph update, content/semantic fingerprints, cache-validity contract, execution-plan schema, and deterministic plan construction.\n\n### SPRINT-009 — Native tool orchestration and evidence — Oct 12–18\n\nDeliver local execution runtime, native-tool adapter contract, representative real adapters, dependency ordering, failure/cancellation semantics, command/environment evidence, and verified-cache first slice.\n\n### SPRINT-010 — CLI and AI-agent context vertical slice — Oct 19–25\n\nDeliver coherent Release 1 CLI workflow plus deterministic task/work-packet context packaging suitable for bounded Codex execution, explicit capabilities/exclusions, and provenance.\n\n**PI exit:** a user can go from repository change/task to affected semantic knowledge, inspectable plan, native validation, evidence, and bounded agent context.\n\n## PI-004 — MVP Hardening and Release\n\n**Dates:** 2026-10-26 through 2026-11-22  \n**Sprints:** SPRINT-011 through SPRINT-014  \n**Goal:** make the integrated loop safe, reproducible, installable, documented, dogfooded, and release-ready.\n\n### SPRINT-011 — Integrated conformance scenarios — Oct 26–Nov 1\n\nComplete reference repositories, end-to-end acceptance suite, determinism/property/golden tests, configuration/graph/KIR compatibility fixtures, failure/recovery paths, and CI/local parity.\n\n### SPRINT-012 — Performance, security, compatibility, packaging — Nov 2–8\n\nEstablish performance baselines, threat/control verification, secret/context safety, supply-chain gates, public compatibility policy, installable artifacts, and upgrade/rollback behavior.\n\n### SPRINT-013 — Dogfood, documentation, beta, release automation — Nov 9–15\n\nRun Monad against Monad, close high-value self-hosting gaps, complete user/maintainer docs, generated publication/search, beta feedback, changelog/release notes, provenance/SBOM/signing automation as applicable.\n\n### SPRINT-014 — Release candidate and readiness — Nov 16–22\n\nFreeze Release 1 scope, run clean-machine reproducibility, resolve release blockers, conduct security/operability/performance/release-readiness reviews, tag/sign the accepted candidate, and prepare rollback/support path.\n\n## MVP Release 1 — November 23, 2026\n\nThe date is an aggressive forecast, not authority to ship red or unverified software. Release occurs only when the acceptance criteria in `product/product-requirements.md` and the Definition of Done are satisfied.\n\n## Parallel workstreams\n\n1. **Foundation/governance:** product thesis, ADRs, specifications, authority, terminology.\n2. **Knowledge plane:** workspace, artifacts, identity, provenance, graph, KIR.\n3. **Control/execution:** impact, incrementality, planning, cache, native tools.\n4. **Interaction/AI:** CLI, diagnostics, query/explain, agent context.\n5. **Quality/security:** tests, conformance, threat controls, supply chain, performance.\n6. **Publication/project:** machine docs, human docs, GitHub issues/project/wiki, releases.\n\nParallelism is allowed only when work does not depend on unresolved semantics from another stream. Integration and vertical-slice evidence outrank maximizing work-in-progress.\n\n## Human / ChatGPT / Codex workflow\n\n### Product Owner / Project Steward\n\nOwns priorities, scope acceptance, strategic decisions, risk acceptance, and release authorization.\n\n### ChatGPT\n\nMaintains architectural/product consistency, prepares and refines canonical artifacts, decomposes work, creates Work Packets, projects planning into GitHub, reviews evidence, and identifies decisions/risks requiring human authority.\n\n### Codex\n\nReceives bounded implementation packets with authorized files/scope, governing specs/ADRs, prohibited changes, acceptance criteria, tests, and validation commands. It inspects and implements locally, returns evidence, and does not silently expand scope.\n\n### GitHub\n\nStores source/history, Issues/Project status, Pull Requests, CI evidence, Wiki projection, and releases. A GitHub status is not stronger authority than its canonical governing artifact.\n\n## Backlog policy\n\nAll foreseeable Epics and Features are enumerated early to expose scope and dependencies. MVP Stories and Enablers are refined progressively. Tasks are decomposed close to execution. Estimates are comparative planning aids, not hour promises. Anything too large to verify independently is split before Sprint commitment.\n\nBacklog ordering uses:\n\n1. existential correctness/security risk;\n2. assumptions that could invalidate the architecture/product;\n3. dependency critical path to an end-to-end MVP outcome;\n4. user value and learning value;\n5. enablement of later work;\n6. effort and reversibility.\n\n## Definition of implementation readiness\n\nA Work Packet may enter implementation when its objective and scope are bounded, governing requirements/specifications/ADRs are identified and sufficiently stable, dependencies and prohibited changes are explicit, acceptance criteria are executable or objectively reviewable, validation commands are known, and unresolved questions do not require the implementer to invent product/architecture authority.\n\n## Definition of release readiness\n\nRelease requires integrated acceptance, deterministic/reproducible evidence, security and supply-chain gates, compatibility/versioning review, install/upgrade/rollback evidence, documented known limitations, user/maintainer documentation, no unaccepted critical/high risk, and explicit Product Owner acceptance.\n",
   "document_id": "doc:engineering%2Fengineering-plan.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "Deliver the first validated MonadV2 journey through small, integrated increments that retire the highest product and architecture risks before broad feature investment.",
+    "summary": "Status: Proposed delivery baseline Delivery target: MVP Release 1 Aggressive forecast: 2026-11-23, subject to evidence and quality gates",
     "title": "Engineering Plan"
   },
   "relations": [],
@@ -21,101 +21,299 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 2,
+      "line_end": 6,
       "line_start": 1,
       "section_id": "engineering-plan",
-      "text": "# Engineering Plan",
+      "text": "# Engineering Plan\n\n**Status:** Proposed delivery baseline  \n**Delivery target:** MVP Release 1  \n**Aggressive forecast:** 2026-11-23, subject to evidence and quality gates",
       "title": "Engineering Plan"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 8,
-      "line_start": 3,
+      "line_end": 10,
+      "line_start": 7,
       "section_id": "objective",
-      "text": "## Objective\n\nDeliver the first validated MonadV2 journey through small, integrated\nincrements that retire the highest product and architecture risks before broad\nfeature investment.",
+      "text": "## Objective\n\nMove Monad from the current transitional documentation-heavy foundation to a stable, executable MVP as quickly as possible without trading away the properties that define the product: semantic correctness, determinism, reproducibility, explicit authority, explainability, and local-first operation.",
       "title": "Objective"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 16,
-      "line_start": 9,
-      "section_id": "delivery-strategy",
-      "text": "## Delivery strategy\n\nThe project uses vertical slices. Each increment includes user interaction,\napplication behavior, domain rules, persistence, security, telemetry, tests,\ndocumentation, and deployment evidence required to demonstrate one coherent\noutcome. Infrastructure work is attached to the capability it enables unless\nit independently retires a critical risk.",
-      "title": "Delivery strategy"
+      "line_end": 40,
+      "line_start": 11,
+      "section_id": "delivery-model",
+      "text": "## Delivery model\n\nMonad uses a Scrum-aligned product backlog together with a stricter engineering-authority layer.\n\n```text\nProduct Goal\n  ↓\nMilestone / Product Increment\n  ↓\nEpic\n  ↓\nFeature\n  ↓\nUser Story / Enabler / Bug / Spike\n  ↓\nSprint selection\n  ↓\nWork Packet (engineering authorization)\n  ↓\nTasks / Codex execution units\n  ↓\nPull Request\n  ↓\nTests + review + evidence\n  ↓\nAccepted Increment\n```\n\nEpics, Features, Stories, and backlog ordering describe product value and delivery. ADRs, specifications, Work Packets, tests, and reviews define engineering authority and evidence. GitHub Issues and Projects are operational projections, not a replacement for canonical repository artifacts.",
+      "title": "Delivery model"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 29,
-      "line_start": 17,
-      "section_id": "phase-0-inception-and-evidence",
-      "text": "## Phase 0 — Inception and evidence\n\n**Purpose:** establish a credible problem, product baseline, architectural\ndrivers, and controlled delivery system.\n\n**Key outputs:** completed research findings, baseline measures, approved\nprimary journey, data classification, initial ADRs, risk register, repository\nquality gates, and first ready work packets.\n\n**Exit gate:** problem evidence meets the validation test; product and\narchitecture reviewers approve the first vertical slice; no unknown critical\ndata or authority issue blocks safe prototyping.",
-      "title": "Phase 0 — Inception and evidence"
+      "line_end": 51,
+      "line_start": 41,
+      "section_id": "cadence",
+      "text": "## Cadence\n\n- **Sprint length:** one week, Monday through Sunday.\n- **Planning:** select an outcome-oriented Sprint Goal and only Ready work that fits the capacity/risk envelope.\n- **Daily inspection:** completed, active, blocked, decisions needed, next action.\n- **Review:** demonstrate integrated behavior and acceptance evidence.\n- **Retrospective:** identify process/system changes and update the backlog when evidence changes sequencing.\n- **Refinement horizon:** all foreseeable Epics and Features; detailed Stories/Enablers through the next several Sprints; full task decomposition only for the current Sprint and immediate execution horizon.\n\nPlanning reserves capacity for review, discovery, integration, and correction. Scope is the primary lever when capacity changes; correctness and safety gates are not silently reduced.",
+      "title": "Cadence"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 42,
-      "line_start": 30,
-      "section_id": "phase-1-walking-skeleton",
-      "text": "## Phase 1 — Walking skeleton\n\n**Purpose:** prove the complete technical and operational path with the smallest\nreal behavior.\n\n**Key outputs:** authenticated request, durable workflow identity, one domain\ntransition, evidence record, minimal accessible interface, deployment,\ncorrelated telemetry, and rollback.\n\n**Exit gate:** the slice runs in the reference environment, contract and\nacceptance tests pass, a duplicate request is safe, a failure is diagnosable,\nand the release can be rolled back.",
-      "title": "Phase 1 — Walking skeleton"
+      "line_end": 67,
+      "line_start": 52,
+      "section_id": "stabilization-transition-august-12-16-2026",
+      "text": "## Stabilization transition — August 12–16, 2026\n\n**Goal:** establish one coherent, synchronized source of truth from which implementation can be planned safely.\n\nOutcomes:\n\n- one Monad product thesis rather than competing generic and engineering-knowledge definitions;\n- single canonical ADR location at `architecture/decisions/`;\n- all `artifact-system/*.md` files populated with substantive Draft baselines;\n- deterministic `machine/` projection synchronized to the current canonical tree;\n- MVP Release 1 requirements/capabilities/architecture agreed enough for planning;\n- GitHub backlog/project/wiki configuration prepared and live projections started;\n- stabilization risks, inconsistencies, and transition debt visible.\n\nThis transition is not an implementation Sprint and does not count generated Draft files as accepted architecture.",
+      "title": "Stabilization transition — August 12–16, 2026"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 54,
-      "line_start": 43,
-      "section_id": "phase-2-primary-journey",
-      "text": "## Phase 2 — Primary journey\n\n**Purpose:** complete all must-have behavior, validation, progress, verification,\nand user recovery for the primary use case.\n\n**Key outputs:** implemented functional requirements, representative data,\nnegative and boundary tests, performance evidence, threat mitigations,\noperator runbooks, and user documentation.\n\n**Exit gate:** release acceptance in the product requirements is satisfied in a\nproduction-like environment.",
-      "title": "Phase 2 — Primary journey"
+      "line_end": 83,
+      "line_start": 68,
+      "section_id": "pi-001-stabilized-foundation",
+      "text": "## PI-001 — Stabilized Foundation\n\n**Dates:** 2026-08-17 through 2026-08-23  \n**Sprint:** SPRINT-001  \n**Goal:** convert the transition baseline into an accepted C0/C1 foundation and a Ready implementation backlog.\n\nKey outcomes:\n\n- approve/revise product thesis, MVP scope, principles, authority hierarchy, terminology, and success criteria;\n- disposition the minimum architecture decisions required for semantic-kernel implementation;\n- finalize the initial domain/semantic ontology and configuration direction sufficiently for the first vertical slice;\n- complete GitHub repository/project/wiki/issue operating baseline;\n- make the first implementation Work Packets Ready.\n\n**Exit:** no unresolved foundational contradiction blocks semantic-kernel implementation; required first-slice ADRs/specs are accepted; CI baseline is green.",
+      "title": "PI-001 — Stabilized Foundation"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 66,
-      "line_start": 55,
-      "section_id": "phase-3-pilot-and-hardening",
-      "text": "## Phase 3 — Pilot and hardening\n\n**Purpose:** validate value and operation with representative users while\ncontaining exposure.\n\n**Key outputs:** pilot cohort, support path, service indicators, cost baseline,\naccessibility study, recovery exercise, incident drill, feedback findings, and\nprioritized corrections.\n\n**Exit gate:** success criteria justify repeated use; operational load is\nsupportable; critical and high risks are resolved or explicitly accepted.",
-      "title": "Phase 3 — Pilot and hardening"
+      "line_end": 89,
+      "line_start": 84,
+      "section_id": "pi-002-semantic-kernel",
+      "text": "## PI-002 — Semantic Kernel\n\n**Dates:** 2026-08-24 through 2026-09-27  \n**Sprints:** SPRINT-002 through SPRINT-006  \n**Goal:** compile repository engineering knowledge into a deterministic, queryable graph and KIR.",
+      "title": "PI-002 — Semantic Kernel"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 93,
+      "line_start": 90,
+      "section_id": "sprint-002-workspace-and-artifact-inventory-aug-24-30",
+      "text": "### SPRINT-002 — Workspace and artifact inventory — Aug 24–30\n\nDeliver deterministic workspace root/repository identity, configuration bootstrap, artifact discovery/adapters, and inspectable inventory.",
+      "title": "SPRINT-002 — Workspace and artifact inventory — Aug 24–30"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 97,
+      "line_start": 94,
+      "section_id": "sprint-003-semantic-identity-and-provenance-aug-31-sep-6",
+      "text": "### SPRINT-003 — Semantic identity and provenance — Aug 31–Sep 6\n\nDeliver stable document/entity identity, normalization, canonical hashing, source coordinates, aliases/collision diagnostics, and provenance.",
+      "title": "SPRINT-003 — Semantic identity and provenance — Aug 31–Sep 6"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 101,
+      "line_start": 98,
+      "section_id": "sprint-004-semantic-graph-and-invariants-sep-7-13",
+      "text": "### SPRINT-004 — Semantic graph and invariants — Sep 7–13\n\nDeliver the core ontology, graph construction, typed relationships, deterministic ordering, graph invariants, snapshot/serialization, and representative fixtures.",
+      "title": "SPRINT-004 — Semantic graph and invariants — Sep 7–13"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 105,
+      "line_start": 102,
+      "section_id": "sprint-005-kir-and-semantic-validation-sep-14-20",
+      "text": "### SPRINT-005 — KIR and semantic validation — Sep 14–20\n\nDeliver KIR charter/schema, canonical serialization, MSG→KIR lowering, versioning/compatibility baseline, and conformance validation.",
+      "title": "SPRINT-005 — KIR and semantic validation — Sep 14–20"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 111,
+      "line_start": 106,
+      "section_id": "sprint-006-query-explanation-and-first-impact-slice-sep-21-27",
+      "text": "### SPRINT-006 — Query, explanation, and first impact slice — Sep 21–27\n\nDeliver entity lookup, relationship traversal, provenance/why explanation, structured query output, Git change ingestion, and first conservative affected-set calculation.\n\n**PI exit:** clean repeated compilation is deterministic; representative semantic relationships are explainable; KIR is versioned/conformant; first useful affected-set scenario passes.",
+      "title": "SPRINT-006 — Query, explanation, and first impact slice — Sep 21–27"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 74,
-      "line_start": 67,
-      "section_id": "phase-4-controlled-release",
-      "text": "## Phase 4 — Controlled release\n\n**Purpose:** broaden access within the proven scope and establish a sustainable\nrelease cadence.\n\n**Key outputs:** stable contracts, compatibility policy, service objectives,\ncapacity margin, release notes, support ownership, and post-release review.",
-      "title": "Phase 4 — Controlled release"
+      "line_end": 117,
+      "line_start": 112,
+      "section_id": "pi-003-executable-engineering-loop",
+      "text": "## PI-003 — Executable Engineering Loop\n\n**Dates:** 2026-09-28 through 2026-10-25  \n**Sprints:** SPRINT-007 through SPRINT-010  \n**Goal:** turn semantic knowledge into bounded context and deterministic native-tool execution.",
+      "title": "PI-003 — Executable Engineering Loop"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 121,
+      "line_start": 118,
+      "section_id": "sprint-007-diagnostics-and-affected-set-hardening-sep-28-oct-4",
+      "text": "### SPRINT-007 — Diagnostics and affected-set hardening — Sep 28–Oct 4\n\nDeliver diagnostic registry/format, semantic drift diagnostics, conservative impact explanation, negative/boundary corpus, and uncertainty behavior.",
+      "title": "SPRINT-007 — Diagnostics and affected-set hardening — Sep 28–Oct 4"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 125,
+      "line_start": 122,
+      "section_id": "sprint-008-incrementality-fingerprints-and-execution-plans-oct-5-11",
+      "text": "### SPRINT-008 — Incrementality, fingerprints, and execution plans — Oct 5–11\n\nDeliver change invalidation, first incremental graph update, content/semantic fingerprints, cache-validity contract, execution-plan schema, and deterministic plan construction.",
+      "title": "SPRINT-008 — Incrementality, fingerprints, and execution plans — Oct 5–11"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 129,
+      "line_start": 126,
+      "section_id": "sprint-009-native-tool-orchestration-and-evidence-oct-12-18",
+      "text": "### SPRINT-009 — Native tool orchestration and evidence — Oct 12–18\n\nDeliver local execution runtime, native-tool adapter contract, representative real adapters, dependency ordering, failure/cancellation semantics, command/environment evidence, and verified-cache first slice.",
+      "title": "SPRINT-009 — Native tool orchestration and evidence — Oct 12–18"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 135,
+      "line_start": 130,
+      "section_id": "sprint-010-cli-and-ai-agent-context-vertical-slice-oct-19-25",
+      "text": "### SPRINT-010 — CLI and AI-agent context vertical slice — Oct 19–25\n\nDeliver coherent Release 1 CLI workflow plus deterministic task/work-packet context packaging suitable for bounded Codex execution, explicit capabilities/exclusions, and provenance.\n\n**PI exit:** a user can go from repository change/task to affected semantic knowledge, inspectable plan, native validation, evidence, and bounded agent context.",
+      "title": "SPRINT-010 — CLI and AI-agent context vertical slice — Oct 19–25"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 85,
-      "line_start": 75,
-      "section_id": "technical-workstreams",
-      "text": "## Technical workstreams\n\n- product experience and accessibility;\n- workflow and domain correctness;\n- data ownership and lifecycle;\n- identity, authorization, and security assurance;\n- interfaces and dependency adapters;\n- test architecture and release quality gates;\n- observability, reliability, deployment, and recovery;\n- research, documentation, and decision governance.",
-      "title": "Technical workstreams"
+      "line_end": 141,
+      "line_start": 136,
+      "section_id": "pi-004-mvp-hardening-and-release",
+      "text": "## PI-004 — MVP Hardening and Release\n\n**Dates:** 2026-10-26 through 2026-11-22  \n**Sprints:** SPRINT-011 through SPRINT-014  \n**Goal:** make the integrated loop safe, reproducible, installable, documented, dogfooded, and release-ready.",
+      "title": "PI-004 — MVP Hardening and Release"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 145,
+      "line_start": 142,
+      "section_id": "sprint-011-integrated-conformance-scenarios-oct-26-nov-1",
+      "text": "### SPRINT-011 — Integrated conformance scenarios — Oct 26–Nov 1\n\nComplete reference repositories, end-to-end acceptance suite, determinism/property/golden tests, configuration/graph/KIR compatibility fixtures, failure/recovery paths, and CI/local parity.",
+      "title": "SPRINT-011 — Integrated conformance scenarios — Oct 26–Nov 1"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 149,
+      "line_start": 146,
+      "section_id": "sprint-012-performance-security-compatibility-packaging-nov-2-8",
+      "text": "### SPRINT-012 — Performance, security, compatibility, packaging — Nov 2–8\n\nEstablish performance baselines, threat/control verification, secret/context safety, supply-chain gates, public compatibility policy, installable artifacts, and upgrade/rollback behavior.",
+      "title": "SPRINT-012 — Performance, security, compatibility, packaging — Nov 2–8"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 153,
+      "line_start": 150,
+      "section_id": "sprint-013-dogfood-documentation-beta-release-automation-nov-9-15",
+      "text": "### SPRINT-013 — Dogfood, documentation, beta, release automation — Nov 9–15\n\nRun Monad against Monad, close high-value self-hosting gaps, complete user/maintainer docs, generated publication/search, beta feedback, changelog/release notes, provenance/SBOM/signing automation as applicable.",
+      "title": "SPRINT-013 — Dogfood, documentation, beta, release automation — Nov 9–15"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 157,
+      "line_start": 154,
+      "section_id": "sprint-014-release-candidate-and-readiness-nov-16-22",
+      "text": "### SPRINT-014 — Release candidate and readiness — Nov 16–22\n\nFreeze Release 1 scope, run clean-machine reproducibility, resolve release blockers, conduct security/operability/performance/release-readiness reviews, tag/sign the accepted candidate, and prepare rollback/support path.",
+      "title": "SPRINT-014 — Release candidate and readiness — Nov 16–22"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 92,
-      "line_start": 86,
-      "section_id": "planning-assumptions",
-      "text": "## Planning assumptions\n\nCapacity is planned at no more than 80% for committed packets, reserving room\nfor review, discovery, support, and unplanned correction. Forecasts use\ncompleted comparable work and known dependencies rather than optimistic point\nconversion. Scope is the primary lever when time or capacity changes; quality\nand safety gates are not silently reduced.",
-      "title": "Planning assumptions"
+      "line_end": 161,
+      "line_start": 158,
+      "section_id": "mvp-release-1-november-23-2026",
+      "text": "## MVP Release 1 — November 23, 2026\n\nThe date is an aggressive forecast, not authority to ship red or unverified software. Release occurs only when the acceptance criteria in `product/product-requirements.md` and the Definition of Done are satisfied.",
+      "title": "MVP Release 1 — November 23, 2026"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 172,
+      "line_start": 162,
+      "section_id": "parallel-workstreams",
+      "text": "## Parallel workstreams\n\n1. **Foundation/governance:** product thesis, ADRs, specifications, authority, terminology.\n2. **Knowledge plane:** workspace, artifacts, identity, provenance, graph, KIR.\n3. **Control/execution:** impact, incrementality, planning, cache, native tools.\n4. **Interaction/AI:** CLI, diagnostics, query/explain, agent context.\n5. **Quality/security:** tests, conformance, threat controls, supply chain, performance.\n6. **Publication/project:** machine docs, human docs, GitHub issues/project/wiki, releases.\n\nParallelism is allowed only when work does not depend on unresolved semantics from another stream. Integration and vertical-slice evidence outrank maximizing work-in-progress.",
+      "title": "Parallel workstreams"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 174,
+      "line_start": 173,
+      "section_id": "human-chatgpt-codex-workflow",
+      "text": "## Human / ChatGPT / Codex workflow",
+      "title": "Human / ChatGPT / Codex workflow"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 178,
+      "line_start": 175,
+      "section_id": "product-owner-project-steward",
+      "text": "### Product Owner / Project Steward\n\nOwns priorities, scope acceptance, strategic decisions, risk acceptance, and release authorization.",
+      "title": "Product Owner / Project Steward"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 182,
+      "line_start": 179,
+      "section_id": "chatgpt",
+      "text": "### ChatGPT\n\nMaintains architectural/product consistency, prepares and refines canonical artifacts, decomposes work, creates Work Packets, projects planning into GitHub, reviews evidence, and identifies decisions/risks requiring human authority.",
+      "title": "ChatGPT"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 186,
+      "line_start": 183,
+      "section_id": "codex",
+      "text": "### Codex\n\nReceives bounded implementation packets with authorized files/scope, governing specs/ADRs, prohibited changes, acceptance criteria, tests, and validation commands. It inspects and implements locally, returns evidence, and does not silently expand scope.",
+      "title": "Codex"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 190,
+      "line_start": 187,
+      "section_id": "github",
+      "text": "### GitHub\n\nStores source/history, Issues/Project status, Pull Requests, CI evidence, Wiki projection, and releases. A GitHub status is not stronger authority than its canonical governing artifact.",
+      "title": "GitHub"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 203,
+      "line_start": 191,
+      "section_id": "backlog-policy",
+      "text": "## Backlog policy\n\nAll foreseeable Epics and Features are enumerated early to expose scope and dependencies. MVP Stories and Enablers are refined progressively. Tasks are decomposed close to execution. Estimates are comparative planning aids, not hour promises. Anything too large to verify independently is split before Sprint commitment.\n\nBacklog ordering uses:\n\n1. existential correctness/security risk;\n2. assumptions that could invalidate the architecture/product;\n3. dependency critical path to an end-to-end MVP outcome;\n4. user value and learning value;\n5. enablement of later work;\n6. effort and reversibility.",
+      "title": "Backlog policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 207,
+      "line_start": 204,
+      "section_id": "definition-of-implementation-readiness",
+      "text": "## Definition of implementation readiness\n\nA Work Packet may enter implementation when its objective and scope are bounded, governing requirements/specifications/ADRs are identified and sufficiently stable, dependencies and prohibited changes are explicit, acceptance criteria are executable or objectively reviewable, validation commands are known, and unresolved questions do not require the implementer to invent product/architecture authority.",
+      "title": "Definition of implementation readiness"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 210,
+      "line_start": 208,
+      "section_id": "definition-of-release-readiness",
+      "text": "## Definition of release readiness\n\nRelease requires integrated acceptance, deterministic/reproducible evidence, security and supply-chain gates, compatibility/versioning review, install/upgrade/rollback evidence, documented known limitations, user/maintainer documentation, no unaccepted critical/high risk, and explicit Product Owner acceptance.",
+      "title": "Definition of release readiness"
     }
   ],
   "source": {
-    "bytes": 3595,
+    "bytes": 11292,
     "canonical": true,
     "language": "markdown",
-    "lines": 92,
+    "lines": 210,
     "media_type": "text/markdown",
     "path": "engineering/engineering-plan.md",
-    "sha256": "5fdb93f28f53b13824bf63f96dffc27a2afcd75d98203235065b49c641c6ece6"
+    "sha256": "775dbb33787664afc50aac9e0c703ff8ce035e6b6f4f3eef23c69f389158423c"
   }
 }
