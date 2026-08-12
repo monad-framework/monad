@@ -51,7 +51,7 @@
       "type": "references"
     },
     {
-      "source": "doc:adrs%2FADR-0001-knowledge-engine-core.md",
+      "source": "doc:architecture%2Fdecisions%2FADR-0001-knowledge-engine-core.md",
       "target": "identifier:ADR-0001",
       "type": "declares"
     },
@@ -59,6 +59,16 @@
       "source": "doc:architecture%2Fdecisions%2FREADME.md",
       "target": "identifier:ADR-0000",
       "type": "declares"
+    },
+    {
+      "source": "doc:architecture%2Fdecisions%2FREADME.md",
+      "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:architecture%2Fdecisions%2FREADME.md",
+      "target": "doc:architecture%2Fdecisions%2FADR-0001-knowledge-engine-core.md",
+      "type": "references"
     },
     {
       "source": "doc:architecture%2Fprinciples.md",
@@ -864,14 +874,6 @@
       "type": "document"
     },
     {
-      "document_type": "project-source",
-      "id": "doc:adrs%2FADR-0001-knowledge-engine-core.md",
-      "normative": false,
-      "source_path": "adrs/ADR-0001-knowledge-engine-core.md",
-      "title": "ADR-0001 — The Knowledge Engine Is the Core of Monad",
-      "type": "document"
-    },
-    {
       "document_type": "architecture",
       "id": "doc:architecture%2FREADME.md",
       "normative": true,
@@ -893,6 +895,14 @@
       "normative": true,
       "source_path": "architecture/decisions/ADR-0000-template.md",
       "title": "ADR-NNNN: Concise decision title",
+      "type": "document"
+    },
+    {
+      "document_type": "architecture",
+      "id": "doc:architecture%2Fdecisions%2FADR-0001-knowledge-engine-core.md",
+      "normative": true,
+      "source_path": "architecture/decisions/ADR-0001-knowledge-engine-core.md",
+      "title": "ADR-0001 — The Knowledge Engine Is the Core of Monad",
       "type": "document"
     },
     {
@@ -7940,5 +7950,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "ab4cb11f15743fcb3639238445c9414240b71bbab3ce014eef1af71171f1470a"
+  "source_tree_sha256": "367a258f7570dbe615fe636f806dbfc838daaee2b7cba3b612f9994098dab7f9"
 }
