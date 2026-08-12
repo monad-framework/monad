@@ -24,7 +24,19 @@ jobs:
           python-version: '3.12'
 
       - name: Apply reviewed controller corrections
-        run: python3 scripts/apply-eos-0.8-review-fixes.py
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('scripts/apply-eos-0.8-review-fixes.py')
+          text = path.read_text(encoding='utf-8')
+          old = r'raise EosError("Adoption entity schema validation failed:\n- " + "\n- ".join(errors))'
+          new = r'raise EosError("Adoption entity schema validation failed:\\n- " + "\\n- ".join(errors))'
+          if old not in text:
+              raise SystemExit('review patcher escape target not found')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+          python3 scripts/apply-eos-0.8-review-fixes.py
+          python3 -m py_compile tools/eos/eos.py
 
       - name: Verify adoption safety review findings
         run: python3 scripts/test-eos-0.8-adoption-safety.py
