@@ -1,67 +1,64 @@
 # Product Vision
 
-## Vision statement
+**Status:** Proposed stabilization baseline
 
-For people and teams who need to complete a consequential workflow reliably,
-MonadV2 is a focused product that turns intent into a clear,
-verifiable, and repeatable outcome. Unlike fragmented tools and undocumented
-workarounds, it makes state, evidence, constraints, and recovery visible so
-users can act with confidence without surrendering control.
+## Vision
+
+Monad makes software engineering knowledge compilable.
+
+A mature Monad understands a software system not merely as files and commands, but as a connected body of intent, constraints, decisions, implementation, evidence, ownership, history, and operational state. It gives humans and bounded AI agents a common semantic substrate for understanding what exists, why it exists, what governs it, what a proposed change affects, what should execute, and what evidence is required before a change is accepted.
 
 ## Desired future
 
-In the desired future, a new user can understand the product's promise, complete
-the primary journey, verify the result, and recover from a foreseeable failure
-without private knowledge or maintainer intervention. Accountable stakeholders
-can see whether the product creates value, protects users, and remains within
-agreed cost and risk limits. Maintainers can change the system without guessing
-which promises will break.
+An engineer can enter an unfamiliar repository and ask Monad questions such as:
+
+- What is this system and how is it structured?
+- Why does this component exist?
+- Which requirement and ADR govern this behavior?
+- What depends on this interface?
+- What tests prove this specification?
+- What changed semantically between these revisions?
+- Which parts of the workspace are affected?
+- What is missing or contradictory?
+- What context should Codex receive for this Work Packet?
+- What must pass before this PI/release can close?
+
+The answers are derived from canonical, versioned engineering knowledge with provenance rather than improvised from unbounded repository text.
+
+## Product identity
+
+Monad is best understood simultaneously as:
+
+- an **engineering knowledge compiler** — it turns canonical artifacts into a normalized semantic representation;
+- an **engineering intelligence layer** — it supports graph query, explanation, traceability, diagnostics, and impact analysis;
+- an **orchestration runtime** — it can derive what native tools/work should run from semantic state;
+- an **AI context and governance layer** — it supplies minimal authorized context and evidence boundaries to agents; and
+- an **engineering operating system** — not an OS kernel, but a control layer coordinating knowledge, work, tools, and lifecycle state.
 
 ## Strategic outcomes
 
-1. **Useful:** users reach the intended outcome more reliably than with their
-   current alternative.
-2. **Understandable:** users know what the system did, what it did not do, and
-   what action remains theirs.
-3. **Trustworthy:** sensitive operations are authorized, auditable, reversible
-   where possible, and fail safely.
-4. **Operable:** service health, cost, capacity, and dependency risk are visible
-   and controlled.
-5. **Evolvable:** boundaries and contracts allow change without widespread
-   coordination or accidental compatibility breaks.
+1. **Understandable systems:** repository meaning is queryable without reconstructing it manually.
+2. **Governed change:** implementation traces to explicit authority and validation.
+3. **Minimal context:** humans and agents receive the relevant semantic neighborhood, not indiscriminate repository dumps.
+4. **Deterministic operation:** the same inputs yield equivalent semantic outputs and execution decisions.
+5. **Incremental work:** changes drive minimal affected analysis and native tool execution.
+6. **Living knowledge:** docs, plans, issues, and AI context can be projected from current engineering reality without becoming competing truths.
+7. **Tool independence:** Monad coordinates existing ecosystems through stable adapters rather than replacing every compiler, test runner, package manager, or VCS.
 
-## Product promise
+## Three horizons
 
-The product promises a dependable path from an explicit user intent to a
-verifiable result. It does not promise perfect prediction, elimination of human
-judgment, or success under unstated constraints. Confidence must be earned with
-evidence and communicated in language appropriate to the consequence.
+### Horizon 1 — Compile and understand
 
-## Experience principles
+Prove repository discovery, semantic graph, KIR foundations, diagnostics, query/explain, agent context, and deterministic local CLI behavior.
 
-- Start from the user's desired outcome, not the system's internal model.
-- Show progress, decisions, dependencies, and next actions.
-- Request the minimum authority and data needed for the current operation.
-- Prevent high-impact mistakes before optimizing frequent low-impact actions.
-- Preserve work through interruption and make recovery a first-class path.
-- Keep expert depth available without forcing it into the default workflow.
+### Horizon 2 — Coordinate and enforce
 
-## Strategic boundaries
+Add semantic diff, incrementality, policy enforcement, execution planning, broader adapters, release evidence, richer publication, and controlled extension mechanisms.
 
-The first product is not a general-purpose platform, an unbounded automation
-engine, a replacement for accountable professionals, or a collection of
-features without one coherent journey. Expansion follows demonstrated demand
-and operational maturity, not speculative completeness.
+### Horizon 3 — Scale the engineering knowledge system
 
-## Three-horizon evolution
+Add multi-repository intelligence, registries, remote/hosted collaboration where justified, organization knowledge, ecosystem extensions, advanced AI coordination, and enterprise governance.
 
-- **Horizon 1 — Prove:** deliver one narrow, observable, end-to-end outcome for
-  the primary persona.
-- **Horizon 2 — Strengthen:** improve reliability, integration, administration,
-  and repeatability for the proven workflow.
-- **Horizon 3 — Extend:** support adjacent personas and workflows through stable
-  capabilities and contracts.
+## Vision test
 
-The vision succeeds when users choose the product repeatedly for the intended
-job and the project can explain that adoption through measured outcomes rather
-than activity or feature count.
+A capability belongs in Monad when it materially strengthens one or more of: structured engineering knowledge, semantic relationships, deterministic/incremental execution, explainable governance, provenance, or bounded human/AI coordination. Features that do not reinforce those properties should live in another tool.

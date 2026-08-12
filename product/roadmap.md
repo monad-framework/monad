@@ -1,58 +1,58 @@
-# Outcome Roadmap
+# Product Roadmap
 
-The roadmap orders learning and outcomes, not a fixed inventory of features.
-Dates become commitments only within an authorized increment. Movement between
-horizons depends on evidence and capacity.
+**Status:** Proposed rolling roadmap
 
-## Now — Validate and prove
+## Now — Foundation stabilization
 
-**Outcome:** prove that the primary persona can achieve the core result more
-reliably under realistic constraints.
+- reconcile product identity and authority;
+- consolidate ADRs under `architecture/decisions/`;
+- populate artifact-system contracts;
+- synchronize machine knowledge;
+- establish GitHub operating surface;
+- define MVP Product Goal, architecture gates, specifications, epics/features, Work Packets, and ready sprint horizon.
 
-- Complete problem research and baseline measurement.
-- Freeze the primary journey, requirements, data classification, and quality
-  scenarios.
-- Build one vertical slice from authenticated intent to verified result.
-- Demonstrate validation, idempotency, interruption recovery, evidence, and
-  operator diagnosis.
-- Pilot with representative users and compare results with the baseline.
+**Exit:** Foundation Stabilization Review authorizes routine MVP execution.
 
-**Exit gate:** product success thresholds are credible, the primary acceptance
-suite passes, and no unaccepted critical or high risk remains.
+## MVP Release 1 — Compile and understand
 
-## Next — Strengthen and repeat
+1. repository/workspace discovery;
+2. canonical artifact ingestion and identity;
+3. semantic graph ontology/construction;
+4. structural/semantic diagnostics;
+5. query and explanation;
+6. Work Packet agent context package;
+7. CLI vertical slice;
+8. deterministic/reproducibility conformance;
+9. installation/reference docs and release provenance.
 
-**Outcome:** make the proven workflow dependable for repeated use without
-maintainer-assisted operation.
+## Post-MVP 1 — Change intelligence and execution planning
 
-- Address pilot friction and the highest-value failure modes.
-- Establish service objectives, capacity evidence, backup and restore, and
-  cost controls.
-- Improve administration, onboarding, accessibility, and evidence review.
-- Add only the integration that removes the largest measured barrier.
-- Automate release evidence and operational readiness checks.
+- semantic diff and impact analysis;
+- dependency/invalidation graph;
+- incremental execution planning;
+- verified caches;
+- native-tool adapter contracts;
+- architecture/policy enforcement;
+- richer PR impact reports.
 
-**Entry condition:** repeat use shows the workflow solves the validated problem.
+## Post-MVP 2 — Extensibility and knowledge lifecycle
 
-## Later — Extend deliberately
+- stable KIR/schema versioning;
+- plugin/adapter SDK and conformance;
+- registry foundations;
+- publication/document projections;
+- richer specification compilation;
+- broader polyglot workspace support.
 
-**Outcome:** expand value through adjacent workflows or segments while
-preserving trust and operational control.
+## Post-MVP 3 — Team and ecosystem scale
 
-- Evaluate controlled extension points from repeated product needs.
-- Support an adjacent persona or journey with independent validation.
-- Consider additional regions, identity providers, or deployment shapes.
-- Extract platform capabilities only when ownership and economics are clear.
+- cross-repository semantic knowledge;
+- organization ownership/policy models;
+- remote cache/execution only if justified;
+- hosted collaboration/control-plane features only when local-first boundaries are preserved;
+- advanced agent delegation/evaluation;
+- enterprise governance and compliance where market evidence exists.
 
-## Roadmap decision rules
+## Roadmap rule
 
-An item enters `Now` only when it advances a committed goal, has an accountable
-owner, satisfies the Definition of Ready, fits available capacity, and has a
-measurable outcome. Security, legal, or reliability work may preempt feature
-work when it protects the product's ability to operate safely.
-
-## Review cadence
-
-Review the `Now` horizon each work cycle, horizon transitions at increment
-reviews, and strategic order quarterly. Record decisions and displaced work;
-do not silently roll unfinished commitments forward.
+Only the current horizon is decomposed into detailed tasks. Later horizons remain outcome/capability forecasts until evidence and dependencies make detailed decomposition useful.

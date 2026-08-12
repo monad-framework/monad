@@ -1,59 +1,50 @@
 # Project Status
 
-**Overall state:** Inception — establishing the evidence and baseline required
-to authorize the first implementation increment.
+**Overall state:** Foundation stabilization — pre-implementation
 
 ## Executive summary
 
-The repository operating system is established. Product and architecture
-documents define a coherent initial target, but their assumptions still require
-representative user research and accountable review. No production readiness or
-market validation is implied by document completion.
+Monad has been reset into a new repository generation and is reconciling a transitional documentation/artifact scaffold into one coherent Engineering Knowledge Compilation Platform. Broad product implementation has not started.
 
-## Outcome dashboard
+The current controlling program is [`engineering/stabilization/STABILIZATION-CHARTER.md`](stabilization/STABILIZATION-CHARTER.md). MVP scope is [`product/MVP-RELEASE-1.md`](../product/MVP-RELEASE-1.md).
 
-| Area | Status | Evidence now | Next decision |
+## Current outcomes
+
+| Area | Status | Evidence | Next gate |
 | --- | --- | --- | --- |
-| Problem validation | In progress | Hypotheses and evidence plan defined | Accept, revise, or reject the core problem |
-| Product baseline | Proposed | Primary journey and requirements drafted | Baseline after research synthesis |
-| Architecture | Proposed | Boundaries and quality scenarios drafted | Accept first-slice decisions |
-| Engineering | Ready to plan | Delivery hierarchy and gates defined | Authorize Increment 0001 |
-| Security and privacy | Initial analysis | Security model and threat baseline drafted | Confirm data and authority scope |
-| Operations | Initial design | Service, deployment, and incident expectations drafted | Approve pilot operating model |
+| Product identity | In reconciliation | Monad-specific vision/MVP baseline on stabilization branch | Foundation review |
+| ADR consolidation | Concurrent user transition | `architecture/decisions/` intended sole root | Reconcile next `main` push |
+| Artifact system | Baseline populated | All catalog Markdown receives substantive Draft contracts | Critical-artifact specialization review |
+| Machine layer | Synchronized on stabilization branch | Deterministic generation expanded from stale baseline to full canonical tree | PR CI clean-check |
+| Architecture | Proposed | Semantic-kernel/five-plane MVP baseline | Required ADR/spec decisions |
+| MVP planning | Active | Product Goal and MVP capability boundary defined | Epic/feature/WP/sprint readiness |
+| GitHub operating surface | Not complete | Repo has Issues/Projects/Wiki enabled | Configure/project/repository review |
+| Implementation | Not started | No accepted MVP implementation increment yet | Stabilization Review |
 
-## Active work
+## Active Work Packets
 
-- WP-0001: validate the problem and quantify the current-state baseline.
-- Review product assumptions with representative primary and accountable users.
-- Convert validated behavior into the first approved functional specifications.
-- Identify ADRs required before the walking skeleton begins.
+- **WP-STAB-0001:** Stabilize Monad Foundation and MVP Operating Surface.
+- **WP-0001:** Existing problem-validation packet remains transitional and must be reconciled against the specialized Monad product hypothesis rather than executed blindly.
 
-## Blockers and decisions needed
+## Immediate critical path
 
-1. Confirm the exact primary workflow and participating user segment.
-2. Approve data classification, retention, and supported operating region.
-3. Choose the initial identity authority and deployment environment.
-4. Establish numeric outcome, reliability, performance, recovery, and cost
-   baselines from evidence.
+1. reconcile incoming ADR relocation and remove duplicate authority;
+2. specialize C0/C1/MVP-critical artifact contracts;
+3. establish specification/decision gates for semantic graph, KIR, configuration, diagnostics, CLI, and agent context;
+4. instantiate MVP roadmap hierarchy and ready backlog;
+5. configure GitHub Issues/Project/Wiki/repository controls;
+6. verify generated machine state and CI from the integrated branch;
+7. conduct Foundation Stabilization Review;
+8. authorize the first MVP implementation increment/work cycle.
 
-## Top risks
+## Risks
 
-- Building from assumptions before problem validation.
-- Expanding scope before one end-to-end journey is proven.
-- Treating generic quality targets as evidence without reference testing.
-- Underestimating operational and security ownership for external use.
+- transitional documents can be mistaken for current authority;
+- a huge artifact taxonomy can become bureaucracy if activation is not just-in-time;
+- speculative backlog detail can create false certainty;
+- parallel local/remote work can resurrect retired ADR paths if not reconciled;
+- speed pressure can encourage implementation before semantic contracts are stable enough to test.
 
-See `risks/risk-register.md` for ownership and responses.
+## Rule
 
-## Next checkpoint
-
-The inception review occurs when WP-0001 evidence is complete. The decision is
-one of: proceed to a walking-skeleton increment, narrow or change the product
-hypothesis, perform a bounded additional experiment, or stop. The review record
-updates this status document and the active work list.
-
-## Status-reporting rule
-
-Update this file when a decision, outcome, blocker, forecast, or top risk
-changes—not merely on a calendar. Use `On track`, `At risk`, or `Blocked` only
-against an explicit outcome and date, with the evidence that supports the state.
+No status is considered complete because a file exists. Completion requires the applicable acceptance evidence and authority transition.

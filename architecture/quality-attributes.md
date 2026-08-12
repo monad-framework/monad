@@ -1,78 +1,47 @@
 # Quality Attributes
 
-Quality attributes are evaluated as scenarios: source, stimulus, environment,
-artifact, response, and measurable response. Initial budgets are provisional
-until representative load and risk analysis approve the production baseline.
+**Status:** Proposed stabilization baseline
 
-## QA-01 — Functional correctness
+## Determinism
 
-Given a valid, authorized request under normal operation, the system reaches one
-allowed terminal state, applies each consequential effect at most once, and
-returns evidence matching authoritative state. Property, example, and contract
-tests cover invariants and boundary conditions.
+Equivalent supported inputs, configuration, tool/Monad versions, and declared environment dimensions produce equivalent semantic identities, graph/KIR serialization, diagnostics, and context membership.
 
-## QA-02 — Availability and reliability
+## Correctness
 
-During the supported service window, the primary journey targets 99.9% monthly
-availability and at least 99.5% valid-attempt completion excluding declared
-maintenance. Measurement is end-to-end and cannot be inferred solely from
-process uptime.
+The semantic model must reject or visibly represent unsupported/ambiguous states rather than silently normalize them into misleading truth. Conformance fixtures exercise positive, negative, boundary, and contradiction cases.
 
-## QA-03 — Performance
+## Explainability
 
-At reference load, synchronous user interactions target p95 below 400 ms and
-p99 below 1 s, excluding explicitly asynchronous work. Progress acknowledgment
-occurs within 2 seconds. End-to-end workflow budgets are specified per use case
-and include dependency time.
+Every consequential derived relationship, diagnostic, query/explanation path, context selection, or execution decision can identify its canonical inputs and governing rule.
 
-## QA-04 — Recoverability
+## Performance
 
-For authoritative production data, the provisional recovery point objective is
-15 minutes and recovery time objective is 60 minutes. Workflow recovery must
-distinguish known uncommitted, committed, and unknown external effects. Restore
-and reconciliation are exercised before production readiness and quarterly.
+MVP establishes measured budgets for cold startup, repository discovery, full graph compilation on reference repositories, common query latency, context generation, and peak memory. Budgets are ratcheted from evidence rather than guessed into false SLOs.
 
-## QA-05 — Security
+## Scalability
 
-An unauthenticated or unauthorized actor cannot read or change protected
-resources. Authentication, authorization, input, secret, cryptographic, and
-audit controls fail closed for consequential operations. Critical findings
-block release; high findings require remediation or explicit time-bounded risk
-acceptance.
+Design targets repository sizes materially beyond toy fixtures without assuming distributed infrastructure. Indexing/incrementality should allow later scaling before remote execution is considered necessary.
 
-## QA-06 — Privacy
+## Reliability and recovery
 
-For a data-subject or administrator request, the system can identify purpose,
-location, access, retention, export, and deletion behavior for in-scope data.
-Telemetry and lower environments do not retain undeclared copies.
+Derived state corruption or interruption is recoverable through validation/rebuild. Atomic writes protect canonical generated artifacts. Unknown/partial execution state is never represented as clean success.
 
-## QA-07 — Usability and accessibility
+## Security
 
-A representative new user can complete the primary journey without private
-coaching. The supported interface targets WCAG 2.2 AA, full keyboard operation,
-predictable focus, programmatic names and errors, and non-color communication.
+Inspection is non-executing by default, path/symlink handling is defensive, external commands/plugins are explicit capabilities, secrets/context are minimized, dependency provenance is controlled, and AI/remote boundaries are opt-in and auditable.
 
-## QA-08 — Observability
+## Portability
 
-When journey success declines or latency exceeds budget, owned signals identify
-the affected cohort, workflow state, dependency, and recent change without
-requiring sensitive payload inspection. Critical alerts map to a runbook and
-actionable owner.
+The local core should support major developer platforms through a deliberately bounded compatibility matrix. Platform-specific variance cannot contaminate canonical semantic identity without being declared.
 
-## QA-09 — Modifiability
+## Evolvability
 
-A compatible change inside one boundary should require changes only in that
-boundary and its tests. Contract changes identify consumers through automated
-compatibility evidence and follow a documented deprecation window.
+Core semantic concepts, adapters, storage/indexes, CLI, and AI integrations have boundaries enabling replacement. Public contracts gain versioning before external reliance.
 
-## QA-10 — Cost efficiency
+## Usability / developer experience
 
-The system measures infrastructure and external-service cost per successful
-primary outcome. Capacity protections prevent an individual tenant, actor, or
-failure loop from exhausting the approved budget or degrading all users.
+First-run behavior, diagnostics, command naming, structured output, shell completion, and explanations reduce cognitive load rather than expose internal compiler architecture unnecessarily.
 
-## Review and evidence
+## Testability
 
-Each release maps these scenarios to tests, telemetry, exercises, or accepted
-risk. A target may be tightened through normal baselining; weakening a target
-requires product, architecture, and operational approval with user impact.
+Pure semantic transformations are preferred where practical; golden/conformance/property tests cover canonicalization and graph invariants; end-to-end fixtures prove clean-clone behavior.

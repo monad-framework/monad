@@ -1,61 +1,41 @@
 # System Boundaries
 
-## Boundary model
+**Status:** Proposed stabilization baseline
 
-Boundaries isolate reasons to change, authority, data ownership, and failure.
-They are logical before they are physical: two modules in one process can have
-a stronger boundary than two services sharing a database.
+## Monad owns
 
-## Owned boundaries
+- repository/workspace knowledge discovery rules;
+- Monad configuration/manifest resolution;
+- supported engineering-artifact parsing/normalization;
+- semantic identity and graph relationship rules;
+- KIR contracts when activated;
+- Monad diagnostics/conformance semantics;
+- query/explain behavior over the semantic model;
+- context-package selection/explanation;
+- execution-plan semantics and adapter protocol where implemented;
+- provenance of Monad-derived results.
 
-| Boundary | Owns | Does not own |
-| --- | --- | --- |
-| Experience | Presentation, interaction state, accessibility | Domain truth, authorization policy |
-| Application | Use-case orchestration and contract mapping | Business invariants, vendor behavior |
-| Workflow | Durable workflow state and transition policy | Domain data, presentation |
-| Policy | Versioned rule evaluation and explanations | Workflow progression, identity proofing |
-| Domain | Business invariants and authoritative domain state | Transport, deployment, external SDKs |
-| Evidence | Append-oriented evidence, access, retention | Primary business state |
-| Adapters | Translation to external systems | Core policy or cross-provider abstractions |
-| Operations | Deployment, telemetry, continuity, response | Product behavior decisions |
+## Monad does not own
 
-## Allowed dependency direction
+- Git object/history semantics;
+- language compiler correctness;
+- package-manager dependency resolution outside explicit captured interfaces;
+- native test-framework semantics;
+- IDE editing state;
+- GitHub's canonical PR/permission mechanics;
+- cloud/provider correctness;
+- an LLM provider's output semantics.
 
-- Experience depends on published application contracts.
-- Application depends on domain, workflow, policy, and evidence ports.
-- Domain code depends only on domain-owned abstractions and stable shared
-  primitives with no infrastructure behavior.
-- Adapters implement inward-facing ports and translate external failure models.
-- Operations configures and observes deployables without importing product
-  policy into delivery automation.
+## Boundary invariants
 
-Reverse dependencies use interfaces, events, or explicit composition. Direct
-imports, shared mutable storage, and hidden callbacks across ownership
-boundaries are prohibited.
+1. Canonical repository reading MUST NOT execute repository code merely to discover meaning unless the user explicitly invokes an execution capability.
+2. Adapter failures MUST remain distinguishable from Monad semantic failures.
+3. Native tool failure MUST NOT be translated into semantic success.
+4. Generated state MUST be rebuildable from canonical inputs or explicitly identified external evidence.
+5. Agent context membership MUST NOT grant authority absent from the governing Work Packet/policy.
+6. Remote/AI transmission MUST be an explicit boundary with context/data minimization.
+7. Public stable boundaries MUST have versioning/compatibility rules before external consumers are promised stability.
 
-## Data ownership
+## MVP boundary
 
-A boundary may read another owner's data only through an approved contract or
-owned replica. Cross-owner writes are not permitted. Derived views identify
-their source, freshness, rebuild procedure, and behavior when lagged or
-unavailable.
-
-## Transaction boundaries
-
-Atomic transactions remain within one data owner. Multi-owner outcomes use a
-durable coordinator and explicit steps. Each step states whether it is
-idempotent, retryable, compensatable, or irreversible. Unknown outcomes enter
-reconciliation rather than blind retry.
-
-## Trust and privilege boundaries
-
-User, operator, service, build, and deployment identities are distinct. Service
-identity does not grant unrestricted domain access. Administrative actions use
-separate authorization, stronger authentication when warranted, auditable
-purpose, and a bounded session.
-
-## Boundary change test
-
-A change to ownership, dependency direction, data authority, public contract,
-or trust relationship requires an ADR and migration plan. Deployment separation
-alone does not create ownership; merging deployables does not remove it.
+MVP stops at local compilation/intelligence/context and bounded invocation needed for validation. Hosted collaboration, marketplace/registry scale, remote scheduling, organization-wide data planes, and autonomous deployment are external future concerns.
