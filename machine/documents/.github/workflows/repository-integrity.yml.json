@@ -1,5 +1,5 @@
 {
-  "content": "name: Repository integrity\n\non:\n  pull_request:\n  push:\n    branches: [main]\n\npermissions:\n  contents: read\n\njobs:\n  integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - name: Enforce canonical ADR root\n        run: |\n          test ! -e adrs\n          test -d architecture/decisions\n          test -f architecture/decisions/ADR-0001-knowledge-engine-core.md\n      - name: Validate planning generators\n        run: |\n          python3 scripts/migrate-mvp-identifiers.py\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n      - name: Validate machine projection freshness\n        run: python3 scripts/sync-machine-docs.py --check\n      - name: Validate EOS\n        run: ./scripts/eos verify --strict\n",
+  "content": "name: Repository integrity\n\non:\n  pull_request:\n  push:\n    branches: [main]\n\npermissions:\n  contents: read\n\njobs:\n  integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - name: Reject unresolved merge-conflict markers\n        run: |\n          if git grep -nE '^(<<<<<<<|>>>>>>>) ' -- .; then\n            echo 'Unresolved merge-conflict markers detected.' >&2\n            exit 1\n          fi\n      - name: Enforce canonical ADR root\n        run: |\n          test ! -e adrs\n          test -d architecture/decisions\n          test -f architecture/decisions/ADR-0001-knowledge-engine-core.md\n      - name: Validate planning generators\n        run: |\n          python3 scripts/migrate-mvp-identifiers.py\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n      - name: Validate machine projection freshness\n        run: python3 scripts/sync-machine-docs.py --check\n      - name: Validate EOS\n        run: ./scripts/eos verify --strict\n      - name: Validate EOS verification cleanliness\n        run: git diff --exit-code\n",
   "document_id": "doc:.github%2Fworkflows%2Frepository-integrity.yml",
   "generation": {
     "deterministic": true,
@@ -25,20 +25,20 @@
         "ADR-0001"
       ],
       "level": 1,
-      "line_end": 32,
+      "line_end": 40,
       "line_start": 1,
       "section_id": "content",
-      "text": "name: Repository integrity\n\non:\n  pull_request:\n  push:\n    branches: [main]\n\npermissions:\n  contents: read\n\njobs:\n  integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - name: Enforce canonical ADR root\n        run: |\n          test ! -e adrs\n          test -d architecture/decisions\n          test -f architecture/decisions/ADR-0001-knowledge-engine-core.md\n      - name: Validate planning generators\n        run: |\n          python3 scripts/migrate-mvp-identifiers.py\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n      - name: Validate machine projection freshness\n        run: python3 scripts/sync-machine-docs.py --check\n      - name: Validate EOS\n        run: ./scripts/eos verify --strict",
+      "text": "name: Repository integrity\n\non:\n  pull_request:\n  push:\n    branches: [main]\n\npermissions:\n  contents: read\n\njobs:\n  integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - name: Reject unresolved merge-conflict markers\n        run: |\n          if git grep -nE '^(<<<<<<<|>>>>>>>) ' -- .; then\n            echo 'Unresolved merge-conflict markers detected.' >&2\n            exit 1\n          fi\n      - name: Enforce canonical ADR root\n        run: |\n          test ! -e adrs\n          test -d architecture/decisions\n          test -f architecture/decisions/ADR-0001-knowledge-engine-core.md\n      - name: Validate planning generators\n        run: |\n          python3 scripts/migrate-mvp-identifiers.py\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n      - name: Validate machine projection freshness\n        run: python3 scripts/sync-machine-docs.py --check\n      - name: Validate EOS\n        run: ./scripts/eos verify --strict\n      - name: Validate EOS verification cleanliness\n        run: git diff --exit-code",
       "title": "Repository Integrity"
     }
   ],
   "source": {
-    "bytes": 898,
+    "bytes": 1212,
     "canonical": true,
     "language": "yaml",
-    "lines": 32,
+    "lines": 40,
     "media_type": "application/yaml",
     "path": ".github/workflows/repository-integrity.yml",
-    "sha256": "f88211302f65cde2e7a29a29005995fe897d6578c4fa4d341ba379617b44a689"
+    "sha256": "91d4b5a154e3b562d70c139e7f13a73457617aa63716607aa8f9f5ae6bb20227"
   }
 }
