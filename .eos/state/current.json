@@ -37,27 +37,26 @@
         "entity_type": "PI",
         "id": "PI-MVP-001",
         "kind": "PI",
-        "lifecycle_state": "AUTHORIZED",
+        "lifecycle_state": "ACTIVE",
         "operational_metadata": {
           "github_url": "",
           "path": "engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md",
           "title": "Semantic Foundation"
         },
         "provenance": {
-          "created_by": "EOS evidence-consensus reconciler",
-          "generation_method": "explicit evidence-consensus reconciliation from accepted TSV, Markdown, and append-only EOS event history",
-          "origin": "MIGRATION",
+          "created_by": "EOS canonical-state adapter",
+          "generation_method": "EOS canonical-state capture",
+          "origin": "AUTOMATION",
           "source_refs": [
             ".eos/program-increments.tsv",
             "engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md",
-            ".eos/events.jsonl",
-            "engineering/reviews/EOS-0.8-CANONICAL-STATE-RECONCILIATION.md"
+            ".eos/events.jsonl"
           ]
         },
         "relationships": [],
         "schema_version": "2.0.0",
-        "updated_at": "2026-08-12T00:00:00Z",
-        "version": "1.0.0"
+        "updated_at": "2026-08-12T23:54:47Z",
+        "version": "1.0.1"
       }
     },
     "REL": {},
@@ -221,7 +220,7 @@
     }
   },
   "model": "EOS-SINGLE-CANONICAL-STATE-1",
-  "revision": 2,
+  "revision": 3,
   "schema_version": "1.0.0",
-  "updated_at": "2026-08-12T12:49:23Z"
+  "updated_at": "2026-08-12T23:54:47Z"
 }
