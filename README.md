@@ -73,3 +73,37 @@ and must not be filed publicly. Project conduct is governed by
 
 Copyright © 2026 Thomas Carter. Released under the MIT License; see
 [`LICENSE`](LICENSE).
+
+## Permanent EOS Operating Layers
+
+EOSB is only project bootstrap. The Engineering Operating System remains active
+throughout the project lifecycle:
+
+- **EOSB — Bootstrap**
+- **EOSP — Planning**
+- **EOSE — Execution**
+- **EOSV — Verification**
+- **EOSR — Review**
+- **EOSC — Change Control**
+- **EOSL — Release Lifecycle**
+- **EOSM — Maintenance**
+
+Common permanent-lifecycle commands:
+
+```bash
+./scripts/eos plan PI-002
+./scripts/eos create-wc --pi PI-002
+./scripts/eos create-wp --wc WC-0002 --domain CORE
+./scripts/eos authorize WP-CORE-0001
+./scripts/eos start WP-CORE-0001
+./scripts/eos codex WP-CORE-0001
+./scripts/eos validate WP-CORE-0001
+./scripts/eos review WP-CORE-0001
+./scripts/eos close WP-CORE-0001
+./scripts/eos close-cycle WC-0002
+./scripts/eos close-pi PI-002
+./scripts/eos trace REQ-0042
+./scripts/eos impact ADR-0014
+./scripts/eos github-sync
+./scripts/eos release 0.1.0
+```

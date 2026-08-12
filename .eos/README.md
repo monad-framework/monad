@@ -10,3 +10,18 @@ Internal Engineering Operating System state.
 - `prompts/` — generated prompt material
 
 This directory is intentionally committed to Git except for ephemeral files.
+
+## Permanent Lifecycle State
+
+- `layers.tsv` — EOSB/EOSP/EOSE/EOSV/EOSR/EOSC/EOSL/EOSM;
+- `program-increments.tsv` — PI state;
+- `work-cycles.tsv` — WC state;
+- `work-packets.tsv` — WP state;
+- `change-requests.tsv` — EOSC state;
+- `maintenance.tsv` — EOSM state;
+- `releases.tsv` — EOSL state;
+- `decisions.tsv` — gate/closure decision log;
+- `trace-edges.tsv` — generated traceability graph;
+- `contracts/` — Codex and ChatGPT review contracts;
+- `evidence/` — verification/review evidence;
+- `sync/` — GitHub sync records.

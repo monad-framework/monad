@@ -1,0 +1,63 @@
+{
+  "policy_version": "1.0.0",
+  "description": "Core named EOS lifecycle gates. Checks are declarative references to deterministic built-in predicates.",
+  "gates": {
+    "PI_READY": [
+      {"check": "state_is", "value": "DRAFT"},
+      {"check": "artifact_complete"}
+    ],
+    "WC_READY": [
+      {"check": "state_is", "value": "DRAFT"},
+      {"check": "artifact_complete"}
+    ],
+    "WP_READY": [
+      {"check": "state_is", "value": "DRAFT"},
+      {"check": "artifact_complete"}
+    ],
+    "PI_AUTHORIZE": [
+      {"check": "state_is", "value": "IN_REVIEW"},
+      {"check": "artifact_complete"},
+      {"check": "pi_readiness_review_accepted"}
+    ],
+    "WC_AUTHORIZE": [
+      {"check": "state_is", "value": "READY"},
+      {"check": "artifact_complete"},
+      {"check": "parent_state", "values": ["AUTHORIZED", "ACTIVE"]}
+    ],
+    "WP_AUTHORIZE": [
+      {"check": "state_is", "value": "READY"},
+      {"check": "artifact_complete"},
+      {"check": "parent_state", "values": ["AUTHORIZED", "ACTIVE"]}
+    ],
+    "WP_CLOSE": [
+      {"check": "state_is", "value": "IN_REVIEW"},
+      {"check": "artifact_complete"},
+      {"check": "no_unchecked_items"},
+      {"check": "review_accepted"}
+    ],
+    "WC_CLOSE": [
+      {"check": "state_is", "value": "IN_REVIEW"},
+      {"check": "artifact_complete"},
+      {"check": "has_children"},
+      {"check": "children_closed"},
+      {"check": "review_accepted"}
+    ],
+    "PI_CLOSE": [
+      {"check": "state_is", "value": "IN_REVIEW"},
+      {"check": "artifact_complete"},
+      {"check": "has_children"},
+      {"check": "children_closed"},
+      {"check": "pi_closeout_review_accepted"}
+    ],
+    "CR_APPROVE": [
+      {"check": "state_is", "value": "PROPOSED"},
+      {"check": "artifact_complete"},
+      {"check": "change_decision_approved"}
+    ],
+    "MNT_CLOSE": [
+      {"check": "state_is", "value": "VERIFYING"},
+      {"check": "artifact_complete"},
+      {"check": "no_unchecked_items"}
+    ]
+  }
+}

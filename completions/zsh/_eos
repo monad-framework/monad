@@ -1,0 +1,10 @@
+#compdef eos
+# Zsh completion for repository-local EOS.
+_eos() {
+  local cmd="${words[1]}"
+  local -a candidates argv_words
+  argv_words=("${words[@]:1}")
+  candidates=("${(@f)$("$cmd" completion candidates -- "${argv_words[@]}" 2>/dev/null)}")
+  compadd -Q -- "${candidates[@]}"
+}
+compdef _eos eos

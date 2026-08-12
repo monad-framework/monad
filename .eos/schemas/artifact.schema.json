@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eos://schemas/artifact/1.0.0",
+  "type": "object",
+  "required": ["artifact_id", "title", "type", "version", "status", "authority", "created", "updated"],
+  "properties": {
+    "artifact_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "type": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"type": "string", "minLength": 1},
+    "authority": {"type": "string", "minLength": 1},
+    "created": {"type": "string", "minLength": 1},
+    "updated": {"type": "string", "minLength": 1}
+  }
+}

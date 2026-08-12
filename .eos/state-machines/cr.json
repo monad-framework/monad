@@ -1,0 +1,15 @@
+{
+  "kind": "CR",
+  "version": "1.0.0",
+  "initial_state": "PROPOSED",
+  "terminal_states": ["CLOSED", "REJECTED"],
+  "states": ["DRAFT", "PROPOSED", "APPROVED", "APPLIED", "CLOSED", "REJECTED"],
+  "transitions": {
+    "DRAFT": ["PROPOSED", "REJECTED"],
+    "PROPOSED": ["APPROVED", "REJECTED"],
+    "APPROVED": ["APPLIED", "REJECTED"],
+    "APPLIED": ["CLOSED"],
+    "CLOSED": [],
+    "REJECTED": []
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "kind": "PI",
+  "version": "1.0.0",
+  "initial_state": "DRAFT",
+  "terminal_states": ["CLOSED"],
+  "states": ["DRAFT", "PLANNED", "IN_REVIEW", "AUTHORIZED", "ACTIVE", "BLOCKED", "CLOSED"],
+  "transitions": {
+    "DRAFT": ["PLANNED", "BLOCKED"],
+    "PLANNED": ["IN_REVIEW", "BLOCKED"],
+    "IN_REVIEW": ["AUTHORIZED", "CLOSED", "BLOCKED"],
+    "AUTHORIZED": ["ACTIVE", "BLOCKED"],
+    "ACTIVE": ["IN_REVIEW", "BLOCKED"],
+    "BLOCKED": ["PLANNED", "IN_REVIEW", "AUTHORIZED", "ACTIVE"],
+    "CLOSED": []
+  }
+}
