@@ -1,0 +1,49 @@
+{
+  "content": "---\nartifact_id: \"GOV-OVERRIDE-0001\"\ntitle: \"EOS Human Override Policy\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOS Human Override Policy\n\nHuman authority may accept a failed **gate**, but may not create an illegal\nlifecycle transition.\n\nOverrides are durable, explicit, scoped, and auditable.\n\nEach override records:\n\n- stable `OVR-*` ID;\n- target;\n- named gate;\n- human actor;\n- reason;\n- creation time;\n- optional expiration;\n- consumption time.\n\nUse:\n\n```bash\n./scripts/eos override create WP-CORE-0007 WP_AUTHORIZE \\\n  --by \"Thomas Carter\" \\\n  --reason \"Explicitly accept the documented residual risk\"\n\n./scripts/eos override list\n```\n\nLegacy command `--force` remains available for convenience, but it creates and\nconsumes a durable override record and therefore requires an explicit reason.\nIt never bypasses the declarative state machine.\n",
+  "document_id": "doc:.eos%2Fhistory%2Fgovernance%2Foverride-policy%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"GOV-OVERRIDE-0001\" title: \"EOS Human Override Policy\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOS Human Override Policy"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"GOV-OVERRIDE-0001\"\ntitle: \"EOS Human Override Policy\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 42,
+      "line_start": 12,
+      "section_id": "eos-human-override-policy",
+      "text": "# EOS Human Override Policy\n\nHuman authority may accept a failed **gate**, but may not create an illegal\nlifecycle transition.\n\nOverrides are durable, explicit, scoped, and auditable.\n\nEach override records:\n\n- stable `OVR-*` ID;\n- target;\n- named gate;\n- human actor;\n- reason;\n- creation time;\n- optional expiration;\n- consumption time.\n\nUse:\n\n```bash\n./scripts/eos override create WP-CORE-0007 WP_AUTHORIZE \\\n  --by \"Thomas Carter\" \\\n  --reason \"Explicitly accept the documented residual risk\"\n\n./scripts/eos override list\n```\n\nLegacy command `--force` remains available for convenience, but it creates and\nconsumes a durable override record and therefore requires an explicit reason.\nIt never bypasses the declarative state machine.",
+      "title": "EOS Human Override Policy"
+    }
+  ],
+  "source": {
+    "bytes": 948,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 42,
+    "media_type": "text/markdown",
+    "path": ".eos/history/governance/override-policy/v0.1.0.md",
+    "sha256": "21ca2890600527b44f5b3b4507eb371f31e45a6955085e9c11c13ccc9a2d7bbc"
+  }
+}

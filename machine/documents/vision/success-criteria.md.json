@@ -1,5 +1,5 @@
 {
-  "content": "# Success Criteria\n\nSuccess is a decision supported by a balanced set of outcome, adoption,\nquality, safety, and operational evidence. Activity metrics may explain a\nresult but cannot substitute for one.\n\n## Decision scorecard\n\n| Dimension | Primary measure | Initial success threshold | Guardrail |\n| --- | --- | --- | --- |\n| Outcome | Successful completion of the primary job | Material improvement over measured baseline | No decline in result quality |\n| Effort | Active user time and avoidable handoffs | Lower median and tail effort | No hidden transfer to operators |\n| Adoption | Eligible users completing repeat use | Sustained use across the target cohort | No coercive or accidental use |\n| Usability | Unassisted task completion | Representative users finish the core path | Accessibility conformance maintained |\n| Reliability | Successful valid requests and journey completion | Meets published service objectives | Recovery paths pass exercises |\n| Security | Open high-severity findings and control evidence | No unaccepted critical or high risk | Data use stays within declared purpose |\n| Operability | Detection, diagnosis, deployment, and restoration | Meets operational budgets | Alert load remains actionable |\n| Economics | Cost per successful outcome | Within the approved unit-cost budget | No unsafe quality reduction |\n\nExact numeric targets are baselined from discovery data and approved in the\nfirst increment record. Any later target change requires a rationale and must\npreserve the original value for comparison.\n\n## Evidence sources\n\n- instrumented journey events with documented semantics;\n- representative usability and accessibility studies;\n- acceptance, performance, security, and recovery test results;\n- incident, support, and operator-workload records;\n- cohort-based retention and repeat-use analysis;\n- direct qualitative research linked to participant and sampling notes;\n- cost allocation tied to successful outcomes rather than raw requests.\n\n## Measurement rules\n\n1. Define the denominator before collecting results.\n2. Separate eligible attempts, user cancellations, invalid requests, product\n   failures, and dependency failures.\n3. Report median and tail distributions where averages can hide harm.\n4. Segment by supported persona, environment, accessibility mode, and other\n   relevant factors without collecting unnecessary sensitive data.\n5. Record instrumentation gaps and confidence limits.\n6. Do not remove inconvenient observations from the reporting window.\n\n## Decision cadence\n\nReview leading indicators each work cycle, operational health continuously,\nproduct outcomes monthly during pilots, and strategic success quarterly. Each\nreview ends with one explicit decision: continue, correct, narrow, expand,\npause, pivot, or stop.\n\n## Stop conditions\n\nPause expansion when a critical safety or security risk is uncontained, the\nprimary outcome cannot be verified, users cannot provide informed control, the\noperating cost exceeds its approved bound without a credible correction, or\nevidence shows that the product is not solving the validated problem.\n",
+  "content": "# Success Criteria\n\n**Status:** Proposed stabilization baseline\n\n## MVP success\n\nMVP Release 1 succeeds when a new user can install Monad, inspect a representative repository, obtain a deterministic semantic graph, receive actionable validation, query/explain meaningful relationships, and generate a bounded agent context package without a hosted dependency.\n\nRequired evidence includes:\n\n- identical supported inputs yield equivalent canonical semantic output;\n- graph entities/relationships cite canonical source locations/hashes;\n- invalid or contradictory engineering knowledge yields stable diagnostics;\n- query/explain answers can show their provenance;\n- context packages materially reduce irrelevant repository content while retaining governing constraints;\n- a clean-clone test reproduces the demonstrated workflow;\n- security tests show secrets/ignored sensitive data are not included by default;\n- first-run documentation can be followed by someone outside the implementation session.\n\n## Product utility indicators\n\nTrack, once representative trials exist:\n\n- time to answer common repository-understanding questions;\n- percentage of graph/query answers with complete provenance;\n- useful contradictions/traceability gaps found before PR review;\n- context-package size compared with naïve repository context;\n- false-positive/false-negative rates for semantic validation;\n- incremental execution avoided compared with broad baseline execution;\n- reproducibility failures across supported environments;\n- user repeat usage for supported engineering tasks.\n\n## Guardrails\n\nMonad must not achieve apparent utility by:\n\n- uploading canonical repositories by default;\n- hiding unsupported syntax or uncertain inference;\n- allowing agents to exceed Work Packet authority;\n- weakening native compiler/test results;\n- making generated machine state an editable competing truth;\n- requiring excessive metadata maintenance for trivial value; or\n- producing nondeterministic graph identity for equivalent input.\n\n## Post-MVP success\n\nLater releases should demonstrate scalable repository size, richer semantic diff/incrementality, broader toolchain adapters, policy enforcement, plugin conformance, cross-repository knowledge, and safe hosted collaboration. Each requires its own measurable target rather than inheriting MVP claims.",
   "document_id": "doc:vision%2Fsuccess-criteria.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "vision",
     "normative": true,
-    "summary": "Success is a decision supported by a balanced set of outcome, adoption, quality, safety, and operational evidence. Activity metrics may explain a result but cannot substitute for one.",
+    "summary": "Status: Proposed stabilization baseline",
     "title": "Success Criteria"
   },
   "relations": [],
@@ -21,65 +21,56 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 6,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "success-criteria",
-      "text": "# Success Criteria\n\nSuccess is a decision supported by a balanced set of outcome, adoption,\nquality, safety, and operational evidence. Activity metrics may explain a\nresult but cannot substitute for one.",
+      "text": "# Success Criteria\n\n**Status:** Proposed stabilization baseline",
       "title": "Success Criteria"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 23,
-      "line_start": 7,
-      "section_id": "decision-scorecard",
-      "text": "## Decision scorecard\n\n| Dimension | Primary measure | Initial success threshold | Guardrail |\n| --- | --- | --- | --- |\n| Outcome | Successful completion of the primary job | Material improvement over measured baseline | No decline in result quality |\n| Effort | Active user time and avoidable handoffs | Lower median and tail effort | No hidden transfer to operators |\n| Adoption | Eligible users completing repeat use | Sustained use across the target cohort | No coercive or accidental use |\n| Usability | Unassisted task completion | Representative users finish the core path | Accessibility conformance maintained |\n| Reliability | Successful valid requests and journey completion | Meets published service objectives | Recovery paths pass exercises |\n| Security | Open high-severity findings and control evidence | No unaccepted critical or high risk | Data use stays within declared purpose |\n| Operability | Detection, diagnosis, deployment, and restoration | Meets operational budgets | Alert load remains actionable |\n| Economics | Cost per successful outcome | Within the approved unit-cost budget | No unsafe quality reduction |\n\nExact numeric targets are baselined from discovery data and approved in the\nfirst increment record. Any later target change requires a rationale and must\npreserve the original value for comparison.",
-      "title": "Decision scorecard"
+      "line_end": 19,
+      "line_start": 5,
+      "section_id": "mvp-success",
+      "text": "## MVP success\n\nMVP Release 1 succeeds when a new user can install Monad, inspect a representative repository, obtain a deterministic semantic graph, receive actionable validation, query/explain meaningful relationships, and generate a bounded agent context package without a hosted dependency.\n\nRequired evidence includes:\n\n- identical supported inputs yield equivalent canonical semantic output;\n- graph entities/relationships cite canonical source locations/hashes;\n- invalid or contradictory engineering knowledge yields stable diagnostics;\n- query/explain answers can show their provenance;\n- context packages materially reduce irrelevant repository content while retaining governing constraints;\n- a clean-clone test reproduces the demonstrated workflow;\n- security tests show secrets/ignored sensitive data are not included by default;\n- first-run documentation can be followed by someone outside the implementation session.",
+      "title": "MVP success"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 33,
-      "line_start": 24,
-      "section_id": "evidence-sources",
-      "text": "## Evidence sources\n\n- instrumented journey events with documented semantics;\n- representative usability and accessibility studies;\n- acceptance, performance, security, and recovery test results;\n- incident, support, and operator-workload records;\n- cohort-based retention and repeat-use analysis;\n- direct qualitative research linked to participant and sampling notes;\n- cost allocation tied to successful outcomes rather than raw requests.",
-      "title": "Evidence sources"
+      "line_end": 32,
+      "line_start": 20,
+      "section_id": "product-utility-indicators",
+      "text": "## Product utility indicators\n\nTrack, once representative trials exist:\n\n- time to answer common repository-understanding questions;\n- percentage of graph/query answers with complete provenance;\n- useful contradictions/traceability gaps found before PR review;\n- context-package size compared with naïve repository context;\n- false-positive/false-negative rates for semantic validation;\n- incremental execution avoided compared with broad baseline execution;\n- reproducibility failures across supported environments;\n- user repeat usage for supported engineering tasks.",
+      "title": "Product utility indicators"
     },
     {
       "identifiers": [],
       "level": 2,
       "line_end": 44,
-      "line_start": 34,
-      "section_id": "measurement-rules",
-      "text": "## Measurement rules\n\n1. Define the denominator before collecting results.\n2. Separate eligible attempts, user cancellations, invalid requests, product\n   failures, and dependency failures.\n3. Report median and tail distributions where averages can hide harm.\n4. Segment by supported persona, environment, accessibility mode, and other\n   relevant factors without collecting unnecessary sensitive data.\n5. Record instrumentation gaps and confidence limits.\n6. Do not remove inconvenient observations from the reporting window.",
-      "title": "Measurement rules"
+      "line_start": 33,
+      "section_id": "guardrails",
+      "text": "## Guardrails\n\nMonad must not achieve apparent utility by:\n\n- uploading canonical repositories by default;\n- hiding unsupported syntax or uncertain inference;\n- allowing agents to exceed Work Packet authority;\n- weakening native compiler/test results;\n- making generated machine state an editable competing truth;\n- requiring excessive metadata maintenance for trivial value; or\n- producing nondeterministic graph identity for equivalent input.",
+      "title": "Guardrails"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 51,
+      "line_end": 47,
       "line_start": 45,
-      "section_id": "decision-cadence",
-      "text": "## Decision cadence\n\nReview leading indicators each work cycle, operational health continuously,\nproduct outcomes monthly during pilots, and strategic success quarterly. Each\nreview ends with one explicit decision: continue, correct, narrow, expand,\npause, pivot, or stop.",
-      "title": "Decision cadence"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 57,
-      "line_start": 52,
-      "section_id": "stop-conditions",
-      "text": "## Stop conditions\n\nPause expansion when a critical safety or security risk is uncontained, the\nprimary outcome cannot be verified, users cannot provide informed control, the\noperating cost exceeds its approved bound without a credible correction, or\nevidence shows that the product is not solving the validated problem.",
-      "title": "Stop conditions"
+      "section_id": "post-mvp-success",
+      "text": "## Post-MVP success\n\nLater releases should demonstrate scalable repository size, richer semantic diff/incrementality, broader toolchain adapters, policy enforcement, plugin conformance, cross-repository knowledge, and safe hosted collaboration. Each requires its own measurable target rather than inheriting MVP claims.",
+      "title": "Post-MVP success"
     }
   ],
   "source": {
-    "bytes": 3113,
+    "bytes": 2335,
     "canonical": true,
     "language": "markdown",
-    "lines": 57,
+    "lines": 47,
     "media_type": "text/markdown",
     "path": "vision/success-criteria.md",
-    "sha256": "b422a6b26af7ab771240ad341ba491e35bfca3681c2b397642b22da63e19b7f5"
+    "sha256": "fe77241d23ea10c164bd0ca141f642e91d6d7f8a1755b279373eac3db3dc9059"
   }
 }

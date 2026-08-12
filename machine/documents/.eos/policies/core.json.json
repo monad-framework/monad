@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"policy_version\": \"1.0.0\",\n  \"description\": \"Core named EOS lifecycle gates. Checks are declarative references to deterministic built-in predicates.\",\n  \"gates\": {\n    \"PI_READY\": [\n      {\"check\": \"state_is\", \"value\": \"DRAFT\"},\n      {\"check\": \"artifact_complete\"}\n    ],\n    \"WC_READY\": [\n      {\"check\": \"state_is\", \"value\": \"DRAFT\"},\n      {\"check\": \"artifact_complete\"}\n    ],\n    \"WP_READY\": [\n      {\"check\": \"state_is\", \"value\": \"DRAFT\"},\n      {\"check\": \"artifact_complete\"}\n    ],\n    \"PI_AUTHORIZE\": [\n      {\"check\": \"state_is\", \"value\": \"IN_REVIEW\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"pi_readiness_review_accepted\"}\n    ],\n    \"WC_AUTHORIZE\": [\n      {\"check\": \"state_is\", \"value\": \"READY\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"parent_state\", \"values\": [\"AUTHORIZED\", \"ACTIVE\"]}\n    ],\n    \"WP_AUTHORIZE\": [\n      {\"check\": \"state_is\", \"value\": \"READY\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"parent_state\", \"values\": [\"AUTHORIZED\", \"ACTIVE\"]}\n    ],\n    \"WP_CLOSE\": [\n      {\"check\": \"state_is\", \"value\": \"IN_REVIEW\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"no_unchecked_items\"},\n      {\"check\": \"review_accepted\"}\n    ],\n    \"WC_CLOSE\": [\n      {\"check\": \"state_is\", \"value\": \"IN_REVIEW\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"has_children\"},\n      {\"check\": \"children_closed\"},\n      {\"check\": \"review_accepted\"}\n    ],\n    \"PI_CLOSE\": [\n      {\"check\": \"state_is\", \"value\": \"IN_REVIEW\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"has_children\"},\n      {\"check\": \"children_closed\"},\n      {\"check\": \"pi_closeout_review_accepted\"}\n    ],\n    \"CR_APPROVE\": [\n      {\"check\": \"state_is\", \"value\": \"PROPOSED\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"change_decision_approved\"}\n    ],\n    \"MNT_CLOSE\": [\n      {\"check\": \"state_is\", \"value\": \"VERIFYING\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"no_unchecked_items\"}\n    ]\n  }\n}\n",
+  "document_id": "doc:.eos%2Fpolicies%2Fcore.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/policies/core.json.",
+    "title": "Core"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 63,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"policy_version\": \"1.0.0\",\n  \"description\": \"Core named EOS lifecycle gates. Checks are declarative references to deterministic built-in predicates.\",\n  \"gates\": {\n    \"PI_READY\": [\n      {\"check\": \"state_is\", \"value\": \"DRAFT\"},\n      {\"check\": \"artifact_complete\"}\n    ],\n    \"WC_READY\": [\n      {\"check\": \"state_is\", \"value\": \"DRAFT\"},\n      {\"check\": \"artifact_complete\"}\n    ],\n    \"WP_READY\": [\n      {\"check\": \"state_is\", \"value\": \"DRAFT\"},\n      {\"check\": \"artifact_complete\"}\n    ],\n    \"PI_AUTHORIZE\": [\n      {\"check\": \"state_is\", \"value\": \"IN_REVIEW\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"pi_readiness_review_accepted\"}\n    ],\n    \"WC_AUTHORIZE\": [\n      {\"check\": \"state_is\", \"value\": \"READY\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"parent_state\", \"values\": [\"AUTHORIZED\", \"ACTIVE\"]}\n    ],\n    \"WP_AUTHORIZE\": [\n      {\"check\": \"state_is\", \"value\": \"READY\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"parent_state\", \"values\": [\"AUTHORIZED\", \"ACTIVE\"]}\n    ],\n    \"WP_CLOSE\": [\n      {\"check\": \"state_is\", \"value\": \"IN_REVIEW\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"no_unchecked_items\"},\n      {\"check\": \"review_accepted\"}\n    ],\n    \"WC_CLOSE\": [\n      {\"check\": \"state_is\", \"value\": \"IN_REVIEW\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"has_children\"},\n      {\"check\": \"children_closed\"},\n      {\"check\": \"review_accepted\"}\n    ],\n    \"PI_CLOSE\": [\n      {\"check\": \"state_is\", \"value\": \"IN_REVIEW\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"has_children\"},\n      {\"check\": \"children_closed\"},\n      {\"check\": \"pi_closeout_review_accepted\"}\n    ],\n    \"CR_APPROVE\": [\n      {\"check\": \"state_is\", \"value\": \"PROPOSED\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"change_decision_approved\"}\n    ],\n    \"MNT_CLOSE\": [\n      {\"check\": \"state_is\", \"value\": \"VERIFYING\"},\n      {\"check\": \"artifact_complete\"},\n      {\"check\": \"no_unchecked_items\"}\n    ]\n  }\n}",
+      "title": "Core"
+    }
+  ],
+  "source": {
+    "bytes": 1978,
+    "canonical": true,
+    "language": "json",
+    "lines": 63,
+    "media_type": "application/json",
+    "path": ".eos/policies/core.json",
+    "sha256": "e2c1cc2341657e8389de558e5abf49996c4170db69a69b64dfe0c6ed589a5db0"
+  }
+}

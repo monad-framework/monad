@@ -1,0 +1,90 @@
+{
+  "content": "# ADR-0004: Safe Deterministic Canonical Ingestion Boundary\n\n**Status:** Accepted  \n**Date:** 2026-08-12  \n**Decision scope:** MVP repository inspection and canonical artifact ingestion  \n**Related:** FR-002, FR-009, QR-001, QR-003, QR-004\n\n## Context\n\nMonad consumes repositories that may contain arbitrary code, scripts, links, generated files, malformed text, symlinks, and potentially hostile content. Its semantic kernel must be trustworthy before any optional native-tool execution or agent execution occurs. Implicitly executing repository code or fetching remote references during discovery would make semantic state unsafe and non-reproducible.\n\n## Decision\n\n1. MVP canonical ingestion is a read-only local compilation phase. It MUST NOT execute repository scripts, build hooks, package managers, plugins, macros, shell substitutions, or arbitrary code.\n2. Canonical ingestion performs no network access. Remote URLs may be recorded as unresolved/external references but are not dereferenced to establish semantic truth.\n3. Files are eligible only through explicitly configured artifact roots and supported source kinds. Generated projections such as `machine/`, caches, VCS internals, and EOS machine/control state are excluded from canonical semantic input by default unless a later specification explicitly models them as evidence/projection sources.\n4. Symlinks are resolved for containment. A candidate resolving outside the selected Monad root is rejected for canonical ingestion. Symlink cycles and ambiguous aliases produce diagnostics.\n5. MVP text sources are UTF-8. Invalid encoding is a diagnostic; replacement-character decoding is not silently accepted as canonical content.\n6. Parsing is deterministic and side-effect free. Parser output depends only on source bytes, declared schema/parser version, canonical configuration, and stable implementation version.\n7. Malformed or unsupported input remains explicit. Parsers may recover enough structure to produce diagnostics, but recovered data MUST NOT be promoted to valid semantic state without a rule allowing it.\n8. Markdown links/references and structured identifiers are extracted as candidates first; semantic resolution is a separate phase governed by specification.\n9. Native tool execution, when later authorized, is a downstream execution/verification concern and must preserve the native result and invocation evidence; it is not part of ingestion.\n\n## Consequences\n\n- repository inspection is safe enough to run before trust is established;\n- semantic compilation remains reproducible offline;\n- remote or executable semantics require explicit later capabilities;\n- some ecosystems whose metadata is discoverable only by running tools need adapters after MVP rather than implicit execution.\n\n## Verification\n\nFixtures must include executable files, package hooks, command-looking text, external and cyclic symlinks, invalid UTF-8, network URLs, generated directories, malformed documents, and repeat-run equivalence. Tests must prove no repository command or network request is required for canonical ingestion.\n",
+  "document_id": "doc:architecture%2Fdecisions%2FADR-0004-safe-deterministic-ingestion-boundary.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0004",
+    "FR-002",
+    "FR-009",
+    "QR-001",
+    "QR-003",
+    "QR-004"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "Status: Accepted Date: 2026-08-12 Decision scope: MVP repository inspection and canonical artifact ingestion Related: FR-002, FR-009, QR-001, QR-003, QR-004",
+    "title": "ADR-0004: Safe Deterministic Canonical Ingestion Boundary"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0004",
+        "FR-002",
+        "FR-009",
+        "QR-001",
+        "QR-003",
+        "QR-004"
+      ],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "adr-0004-safe-deterministic-canonical-ingestion-boundary",
+      "text": "# ADR-0004: Safe Deterministic Canonical Ingestion Boundary\n\n**Status:** Accepted  \n**Date:** 2026-08-12  \n**Decision scope:** MVP repository inspection and canonical artifact ingestion  \n**Related:** FR-002, FR-009, QR-001, QR-003, QR-004",
+      "title": "ADR-0004: Safe Deterministic Canonical Ingestion Boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 8,
+      "section_id": "context",
+      "text": "## Context\n\nMonad consumes repositories that may contain arbitrary code, scripts, links, generated files, malformed text, symlinks, and potentially hostile content. Its semantic kernel must be trustworthy before any optional native-tool execution or agent execution occurs. Implicitly executing repository code or fetching remote references during discovery would make semantic state unsafe and non-reproducible.",
+      "title": "Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 12,
+      "section_id": "decision",
+      "text": "## Decision\n\n1. MVP canonical ingestion is a read-only local compilation phase. It MUST NOT execute repository scripts, build hooks, package managers, plugins, macros, shell substitutions, or arbitrary code.\n2. Canonical ingestion performs no network access. Remote URLs may be recorded as unresolved/external references but are not dereferenced to establish semantic truth.\n3. Files are eligible only through explicitly configured artifact roots and supported source kinds. Generated projections such as `machine/`, caches, VCS internals, and EOS machine/control state are excluded from canonical semantic input by default unless a later specification explicitly models them as evidence/projection sources.\n4. Symlinks are resolved for containment. A candidate resolving outside the selected Monad root is rejected for canonical ingestion. Symlink cycles and ambiguous aliases produce diagnostics.\n5. MVP text sources are UTF-8. Invalid encoding is a diagnostic; replacement-character decoding is not silently accepted as canonical content.\n6. Parsing is deterministic and side-effect free. Parser output depends only on source bytes, declared schema/parser version, canonical configuration, and stable implementation version.\n7. Malformed or unsupported input remains explicit. Parsers may recover enough structure to produce diagnostics, but recovered data MUST NOT be promoted to valid semantic state without a rule allowing it.\n8. Markdown links/references and structured identifiers are extracted as candidates first; semantic resolution is a separate phase governed by specification.\n9. Native tool execution, when later authorized, is a downstream execution/verification concern and must preserve the native result and invocation evidence; it is not part of ingestion.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 24,
+      "section_id": "consequences",
+      "text": "## Consequences\n\n- repository inspection is safe enough to run before trust is established;\n- semantic compilation remains reproducible offline;\n- remote or executable semantics require explicit later capabilities;\n- some ecosystems whose metadata is discoverable only by running tools need adapters after MVP rather than implicit execution.",
+      "title": "Consequences"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 31,
+      "section_id": "verification",
+      "text": "## Verification\n\nFixtures must include executable files, package hooks, command-looking text, external and cyclic symlinks, invalid UTF-8, network URLs, generated directories, malformed documents, and repeat-run equivalence. Tests must prove no repository command or network request is required for canonical ingestion.",
+      "title": "Verification"
+    }
+  ],
+  "source": {
+    "bytes": 3096,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 33,
+    "media_type": "text/markdown",
+    "path": "architecture/decisions/ADR-0004-safe-deterministic-ingestion-boundary.md",
+    "sha256": "29e3740d303b34a30dcd757a327c308685a3b51fb0114e27976af3ec495e2cd4"
+  }
+}

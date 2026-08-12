@@ -1,0 +1,124 @@
+{
+  "content": "# ADR-0002: Canonical Repository Root and Configuration\n\n**Status:** Accepted  \n**Date:** 2026-08-12  \n**Decision scope:** MVP repository discovery and semantic configuration  \n**Related:** FR-001, QR-001, QR-003, QR-006\n\n## Context\n\nMonad must be able to start from an arbitrary path inside a repository and determine, without executing project code or consulting remote state, which Monad repository it is operating on and which semantic configuration governs the run. The repository currently contains transitional `.monad/manifest.yaml` metadata, while the target architecture has long treated a root `monad.toml` as the intended human-authored configuration surface.\n\nIf root identity can be inferred from Git alone, environment-dependent state, or multiple competing configuration files, the same working tree can compile differently across machines. That violates the local-first and reproducibility principles.\n\n## Decision\n\n1. `monad.toml` at the repository root is the canonical human-authored Monad repository configuration and the primary Monad-root marker.\n2. Root discovery starts at the explicitly supplied path, or the current working directory when none is supplied, resolves it to an absolute lexical starting point, and walks ancestors toward the filesystem root. The nearest ancestor containing a valid `monad.toml` is the selected Monad root.\n3. A Git repository without `monad.toml` is not automatically a Monad repository.\n4. Nested Monad repositories are valid boundaries: nearest-root selection prevents an invocation inside a nested repository from silently binding to an outer repository.\n5. MVP semantic configuration precedence is: built-in documented defaults < root `monad.toml` < explicit command-line overrides. Environment variables may provide operational inputs or secrets but MUST NOT silently alter semantic configuration.\n6. Unknown keys, duplicate keys, unsupported schema versions, invalid types, and values that violate the configuration schema produce diagnostics. Monad does not silently repair or ignore semantically meaningful invalid configuration.\n7. The effective configuration is explainable: structured output must identify each effective value and whether it came from a default, `monad.toml`, or explicit CLI override.\n8. `.monad/` is reserved for compatibility, generated, cached, or local operating state unless a future accepted decision says otherwise. `.monad/manifest.yaml` is a legacy bootstrap record and is not a competing canonical configuration source.\n9. A future `monad.lock` may record resolved deterministic state, but lock semantics are outside this ADR and require their own specification before use as authority.\n\n## Initial canonical configuration\n\nThe stabilization branch introduces a minimal `monad.toml` describing repository identity and canonical artifact roots. It is intentionally small; new semantic keys require specification rather than ad-hoc growth.\n\n## Consequences\n\n### Positive\n\n- one obvious root marker and configuration source;\n- deterministic root selection in nested directory scenarios;\n- reproducible configuration that does not depend on ambient shell state;\n- direct dogfooding by this repository;\n- `.monad/` remains available for rebuildable/internal state without creating two editable truths.\n\n### Negative\n\n- existing bootstrap-only repositories using `.monad/manifest.yaml` need migration;\n- configuration additions require schema/version discipline;\n- environment-driven convenience is intentionally constrained for semantic settings.\n\n## Compatibility and migration\n\nFor stabilization tooling only, `.monad/manifest.yaml` may remain readable as legacy metadata. MVP runtime behavior MUST NOT treat it as equivalent to `monad.toml`. A missing `monad.toml` should produce a repository-not-found or migration diagnostic rather than silently promoting the legacy manifest.\n\n## Verification\n\nConformance fixtures must cover: invocation at root and descendants, nested Monad repositories, no marker, malformed TOML, unknown schema version, duplicate/unknown keys, CLI override provenance, and repeated runs producing equivalent effective configuration.\n",
+  "document_id": "doc:architecture%2Fdecisions%2FADR-0002-repository-root-and-configuration.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0002",
+    "FR-001",
+    "QR-001",
+    "QR-003",
+    "QR-006"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "Status: Accepted Date: 2026-08-12 Decision scope: MVP repository discovery and semantic configuration Related: FR-001, QR-001, QR-003, QR-006",
+    "title": "ADR-0002: Canonical Repository Root and Configuration"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0002",
+        "FR-001",
+        "QR-001",
+        "QR-003",
+        "QR-006"
+      ],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "adr-0002-canonical-repository-root-and-configuration",
+      "text": "# ADR-0002: Canonical Repository Root and Configuration\n\n**Status:** Accepted  \n**Date:** 2026-08-12  \n**Decision scope:** MVP repository discovery and semantic configuration  \n**Related:** FR-001, QR-001, QR-003, QR-006",
+      "title": "ADR-0002: Canonical Repository Root and Configuration"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 8,
+      "section_id": "context",
+      "text": "## Context\n\nMonad must be able to start from an arbitrary path inside a repository and determine, without executing project code or consulting remote state, which Monad repository it is operating on and which semantic configuration governs the run. The repository currently contains transitional `.monad/manifest.yaml` metadata, while the target architecture has long treated a root `monad.toml` as the intended human-authored configuration surface.\n\nIf root identity can be inferred from Git alone, environment-dependent state, or multiple competing configuration files, the same working tree can compile differently across machines. That violates the local-first and reproducibility principles.",
+      "title": "Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 14,
+      "section_id": "decision",
+      "text": "## Decision\n\n1. `monad.toml` at the repository root is the canonical human-authored Monad repository configuration and the primary Monad-root marker.\n2. Root discovery starts at the explicitly supplied path, or the current working directory when none is supplied, resolves it to an absolute lexical starting point, and walks ancestors toward the filesystem root. The nearest ancestor containing a valid `monad.toml` is the selected Monad root.\n3. A Git repository without `monad.toml` is not automatically a Monad repository.\n4. Nested Monad repositories are valid boundaries: nearest-root selection prevents an invocation inside a nested repository from silently binding to an outer repository.\n5. MVP semantic configuration precedence is: built-in documented defaults < root `monad.toml` < explicit command-line overrides. Environment variables may provide operational inputs or secrets but MUST NOT silently alter semantic configuration.\n6. Unknown keys, duplicate keys, unsupported schema versions, invalid types, and values that violate the configuration schema produce diagnostics. Monad does not silently repair or ignore semantically meaningful invalid configuration.\n7. The effective configuration is explainable: structured output must identify each effective value and whether it came from a default, `monad.toml`, or explicit CLI override.\n8. `.monad/` is reserved for compatibility, generated, cached, or local operating state unless a future accepted decision says otherwise. `.monad/manifest.yaml` is a legacy bootstrap record and is not a competing canonical configuration source.\n9. A future `monad.lock` may record resolved deterministic state, but lock semantics are outside this ADR and require their own specification before use as authority.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 26,
+      "section_id": "initial-canonical-configuration",
+      "text": "## Initial canonical configuration\n\nThe stabilization branch introduces a minimal `monad.toml` describing repository identity and canonical artifact roots. It is intentionally small; new semantic keys require specification rather than ad-hoc growth.",
+      "title": "Initial canonical configuration"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 30,
+      "section_id": "consequences",
+      "text": "## Consequences",
+      "title": "Consequences"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 39,
+      "line_start": 32,
+      "section_id": "positive",
+      "text": "### Positive\n\n- one obvious root marker and configuration source;\n- deterministic root selection in nested directory scenarios;\n- reproducible configuration that does not depend on ambient shell state;\n- direct dogfooding by this repository;\n- `.monad/` remains available for rebuildable/internal state without creating two editable truths.",
+      "title": "Positive"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 45,
+      "line_start": 40,
+      "section_id": "negative",
+      "text": "### Negative\n\n- existing bootstrap-only repositories using `.monad/manifest.yaml` need migration;\n- configuration additions require schema/version discipline;\n- environment-driven convenience is intentionally constrained for semantic settings.",
+      "title": "Negative"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 46,
+      "section_id": "compatibility-and-migration",
+      "text": "## Compatibility and migration\n\nFor stabilization tooling only, `.monad/manifest.yaml` may remain readable as legacy metadata. MVP runtime behavior MUST NOT treat it as equivalent to `monad.toml`. A missing `monad.toml` should produce a repository-not-found or migration diagnostic rather than silently promoting the legacy manifest.",
+      "title": "Compatibility and migration"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 50,
+      "section_id": "verification",
+      "text": "## Verification\n\nConformance fixtures must cover: invocation at root and descendants, nested Monad repositories, no marker, malformed TOML, unknown schema version, duplicate/unknown keys, CLI override provenance, and repeated runs producing equivalent effective configuration.",
+      "title": "Verification"
+    }
+  ],
+  "source": {
+    "bytes": 4152,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 52,
+    "media_type": "text/markdown",
+    "path": "architecture/decisions/ADR-0002-repository-root-and-configuration.md",
+    "sha256": "39d598ed4758cb04985ef55bb7defb7ecce6a18131d374b7b2380b5f2eca4126"
+  }
+}

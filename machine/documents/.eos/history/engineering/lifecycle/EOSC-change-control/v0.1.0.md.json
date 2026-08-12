@@ -1,0 +1,80 @@
+{
+  "content": "---\nartifact_id: \"EOSC\"\ntitle: \"EOSC Change Control\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSC — Change Control\n\n## Purpose\n\nAllow requirements, architecture, specifications, plans, and scope to evolve\nwithout silently rewriting history or invalidating downstream work.\n\n## Flow\n\n`discovery -> impact analysis -> change request -> review -> approval ->\nversioned artifact updates -> dependent replanning/reverification -> closure`\n\n## Primary Commands\n\n```bash\n./scripts/eos impact ADR-0014\n./scripts/eos change create ADR-0014 \"Revise persistence boundary\"\n./scripts/eos change approve CR-0001\n./scripts/eos change close CR-0001\n```\n",
+  "document_id": "doc:.eos%2Fhistory%2Fengineering%2Flifecycle%2FEOSC-change-control%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0014"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"EOSC\" title: \"EOSC Change Control\" type: \"lifecycle-layer\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOSC — Change Control"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"EOSC\"\ntitle: \"EOSC Change Control\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "eosc-change-control",
+      "text": "# EOSC — Change Control",
+      "title": "EOSC — Change Control"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 14,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nAllow requirements, architecture, specifications, plans, and scope to evolve\nwithout silently rewriting history or invalidating downstream work.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 19,
+      "section_id": "flow",
+      "text": "## Flow\n\n`discovery -> impact analysis -> change request -> review -> approval ->\nversioned artifact updates -> dependent replanning/reverification -> closure`",
+      "title": "Flow"
+    },
+    {
+      "identifiers": [
+        "ADR-0014"
+      ],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 24,
+      "section_id": "primary-commands",
+      "text": "## Primary Commands\n\n```bash\n./scripts/eos impact ADR-0014\n./scripts/eos change create ADR-0014 \"Revise persistence boundary\"\n./scripts/eos change approve CR-0001\n./scripts/eos change close CR-0001\n```",
+      "title": "Primary Commands"
+    }
+  ],
+  "source": {
+    "bytes": 745,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 31,
+    "media_type": "text/markdown",
+    "path": ".eos/history/engineering/lifecycle/EOSC-change-control/v0.1.0.md",
+    "sha256": "bc208af92e18c8e693d57fa014bdaef325f4d3f2239ffd69407a29be2ebcb8be"
+  }
+}

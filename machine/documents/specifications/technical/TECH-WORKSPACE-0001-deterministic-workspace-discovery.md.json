@@ -1,0 +1,97 @@
+{
+  "content": "# TECH-WORKSPACE-0001: Deterministic Workspace Discovery\n\n**Status:** approved  \n**Version:** 1.0.0  \n**Owner:** Monad Core  \n**Related requirements:** FR-001, QR-001, QR-003  \n**Governing ADRs:** ADR-0002, ADR-0004\n\n## Purpose and scope\n\nDefines discovery of canonical candidate files from the effective MVP configuration. It covers configured artifact roots, exclusions, ordering, containment, and discovery diagnostics; it does not parse artifact semantics.\n\n## Preconditions\n\nA valid Monad root and effective configuration satisfying IFC-WORKSPACE-0001 exist.\n\n## Normative behavior\n\n1. Discovery MUST enumerate only paths selected by configured artifact include patterns after configured exclusions.\n2. `.git/`, `machine/`, `.eos/`, build outputs such as `target/`, and other configured exclusions MUST NOT become canonical source candidates by default.\n3. Enumeration MUST NOT execute repository code, package-manager commands, plugins, or network requests.\n4. A candidate path MUST be canonicalized lexically to a repository-relative `/`-separated path before ordering/identity processing.\n5. Paths containing parent traversal or resolving outside root MUST be rejected.\n6. Symlink candidates MUST be checked for root containment; external targets and cycles produce diagnostics and are not ingested.\n7. Duplicate discovery of the same canonical repository path through overlapping patterns MUST yield one candidate with merged discovery provenance, not duplicate semantic sources.\n8. Final candidate ordering MUST be ascending by canonical repository-relative path encoded as UTF-8 bytes, with source-kind tie-breaker where required.\n9. Unsupported file/source kinds matched by a broad include MUST produce a deterministic unsupported-source diagnostic unless the configuration explicitly classifies them as ignored.\n10. Discovery output MUST identify canonical path, matched artifact class/root, source-kind candidate, and enough pattern provenance to explain why the file was selected.\n\n## Failure and recovery\n\nUnreadable files, invalid symlinks, invalid UTF-8 path representations on a supported platform, and root-escape attempts are diagnostics. One invalid candidate MUST NOT reorder valid candidates. Fatal configuration/root errors prevent discovery entirely.\n\n## Verification\n\nGolden fixtures cover overlapping patterns, stable order under randomized filesystem enumeration, exclusions, nested directories, external/cyclic symlinks, duplicate matches, unsupported source kinds, and equivalent clean clones.\n",
+  "document_id": "doc:specifications%2Ftechnical%2FTECH-WORKSPACE-0001-deterministic-workspace-discovery.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0002",
+    "ADR-0004",
+    "FR-001",
+    "QR-001",
+    "QR-003"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "specification",
+    "normative": true,
+    "summary": "Status: approved Version: 1.0.0 Owner: Monad Core Related requirements: FR-001, QR-001, QR-003 Governing ADRs: ADR-0002, ADR-0004",
+    "title": "TECH-WORKSPACE-0001: Deterministic Workspace Discovery"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0002",
+        "ADR-0004",
+        "FR-001",
+        "QR-001",
+        "QR-003"
+      ],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "tech-workspace-0001-deterministic-workspace-discovery",
+      "text": "# TECH-WORKSPACE-0001: Deterministic Workspace Discovery\n\n**Status:** approved  \n**Version:** 1.0.0  \n**Owner:** Monad Core  \n**Related requirements:** FR-001, QR-001, QR-003  \n**Governing ADRs:** ADR-0002, ADR-0004",
+      "title": "TECH-WORKSPACE-0001: Deterministic Workspace Discovery"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 9,
+      "section_id": "purpose-and-scope",
+      "text": "## Purpose and scope\n\nDefines discovery of canonical candidate files from the effective MVP configuration. It covers configured artifact roots, exclusions, ordering, containment, and discovery diagnostics; it does not parse artifact semantics.",
+      "title": "Purpose and scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 16,
+      "line_start": 13,
+      "section_id": "preconditions",
+      "text": "## Preconditions\n\nA valid Monad root and effective configuration satisfying IFC-WORKSPACE-0001 exist.",
+      "title": "Preconditions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 17,
+      "section_id": "normative-behavior",
+      "text": "## Normative behavior\n\n1. Discovery MUST enumerate only paths selected by configured artifact include patterns after configured exclusions.\n2. `.git/`, `machine/`, `.eos/`, build outputs such as `target/`, and other configured exclusions MUST NOT become canonical source candidates by default.\n3. Enumeration MUST NOT execute repository code, package-manager commands, plugins, or network requests.\n4. A candidate path MUST be canonicalized lexically to a repository-relative `/`-separated path before ordering/identity processing.\n5. Paths containing parent traversal or resolving outside root MUST be rejected.\n6. Symlink candidates MUST be checked for root containment; external targets and cycles produce diagnostics and are not ingested.\n7. Duplicate discovery of the same canonical repository path through overlapping patterns MUST yield one candidate with merged discovery provenance, not duplicate semantic sources.\n8. Final candidate ordering MUST be ascending by canonical repository-relative path encoded as UTF-8 bytes, with source-kind tie-breaker where required.\n9. Unsupported file/source kinds matched by a broad include MUST produce a deterministic unsupported-source diagnostic unless the configuration explicitly classifies them as ignored.\n10. Discovery output MUST identify canonical path, matched artifact class/root, source-kind candidate, and enough pattern provenance to explain why the file was selected.",
+      "title": "Normative behavior"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 30,
+      "section_id": "failure-and-recovery",
+      "text": "## Failure and recovery\n\nUnreadable files, invalid symlinks, invalid UTF-8 path representations on a supported platform, and root-escape attempts are diagnostics. One invalid candidate MUST NOT reorder valid candidates. Fatal configuration/root errors prevent discovery entirely.",
+      "title": "Failure and recovery"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 34,
+      "section_id": "verification",
+      "text": "## Verification\n\nGolden fixtures cover overlapping patterns, stable order under randomized filesystem enumeration, exclusions, nested directories, external/cyclic symlinks, duplicate matches, unsupported source kinds, and equivalent clean clones.",
+      "title": "Verification"
+    }
+  ],
+  "source": {
+    "bytes": 2525,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 36,
+    "media_type": "text/markdown",
+    "path": "specifications/technical/TECH-WORKSPACE-0001-deterministic-workspace-discovery.md",
+    "sha256": "74b1bf9fd4c1119ba0738a5df70a88cb432e0b1321229dc3a0f91221b79d53eb"
+  }
+}

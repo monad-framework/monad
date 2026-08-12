@@ -1,72 +1,81 @@
-# Project Idea: MonadV2
+# Project Idea — Monad
+
+**Status:** Inception source, reconciled during stabilization
 
 ## One-sentence hypothesis
 
-If the project gives its target users a dependable way to complete the primary
-job described in the product requirements, then they will adopt it repeatedly
-because it reduces avoidable effort, uncertainty, and operational risk while
-leaving users in control of consequential decisions.
+If software engineering knowledge can be expressed as canonical, connected, machine-readable intent rather than scattered documents and tool state, then Monad can compile that knowledge into a semantic system that lets humans and AI agents understand, change, validate, and operate complex software with substantially less ambiguity and risk.
 
-## Opportunity
+## Problem
 
-Teams often begin implementation before they share a testable problem, explicit
-boundaries, or measurable outcome. The result is feature activity without
-reliable evidence of value. MonadV2 begins by converting an idea into
-a governed chain of intent: problem → outcome → requirement → decision → work →
-evidence → release.
+Modern software projects distribute their actual engineering truth across source code, configuration, requirements, ADRs, issue trackers, PRs, chat, test suites, CI systems, build tools, documentation, ownership rules, deployment systems, and individual memory. Each tool sees only a fragment.
 
-## Intended users
+As repositories and AI-assisted development scale, several problems compound:
 
-- **Primary user:** the person who performs the core workflow and needs a
-  reliable result with minimal unnecessary coordination.
-- **Economic or accountable buyer:** the person responsible for value, risk,
-  cost, and adoption.
-- **Operator or maintainer:** the person responsible for continuity, diagnosis,
-  change, and recovery.
-- **Affected stakeholder:** a person whose data, work, or decisions may be
-  influenced by the system even when they are not a direct user.
+- engineers repeatedly reconstruct context before making changes;
+- agents receive too much irrelevant context or too little governing context;
+- specifications, code, tests, docs, and project status drift;
+- blast radius and architectural constraints are discovered late;
+- implementation can silently outrun accepted intent;
+- build/test work is repeated because semantic impact is poorly understood;
+- provenance from requirement to decision to change to evidence is incomplete;
+- project-management systems duplicate rather than derive engineering state; and
+- generated documentation and AI summaries can become untrustworthy secondary truths.
+
+## Proposed intervention
+
+Monad treats software engineering as a knowledge-compilation problem.
+
+Canonical engineering artifacts are discovered and parsed into stable identities and relationships. Semantic analysis produces a graph describing requirements, decisions, specifications, components, dependencies, work, tests, releases, risks, and provenance. Downstream capabilities consume that model instead of independently reparsing disconnected sources.
+
+The intended lifecycle is:
+
+```text
+Intent
+ → canonical engineering knowledge
+ → semantic analysis
+ → Monad Semantic Graph
+ → KIR / diagnostics / query / explanation
+ → execution plans and bounded agent context
+ → implementation and verification evidence
+ → new canonical knowledge
+```
+
+## Primary users
+
+- **Software engineer:** needs trustworthy context and impact understanding before changing a system.
+- **Technical/architecture lead:** needs traceable constraints, decisions, dependencies, and conformance evidence.
+- **AI-assisted developer:** needs ChatGPT/Codex to operate inside explicit authority, scope, and verification boundaries.
+- **Maintainer/operator:** needs reproducible state, diagnostics, provenance, and recovery information.
+- **Engineering organization:** eventually needs cross-repository knowledge and governance without replacing every native tool.
 
 ## Proposed value
 
-The product should make the desired outcome faster to reach, easier to verify,
-and safer to repeat. It should expose assumptions and failure states rather
-than creating false confidence. The smallest viable product is the narrowest
-end-to-end workflow that proves this value under realistic conditions.
+Monad should make engineering intent **computable** without making engineering judgment opaque. It should reduce context reconstruction, stale knowledge, unnecessary execution, accidental architectural drift, and unsafe agent autonomy while increasing explainability, reproducibility, traceability, and confidence in change.
 
-## Critical assumptions
+## MVP hypothesis
 
-| ID | Assumption | Risk if false | Cheapest useful test |
-| --- | --- | --- | --- |
-| A-01 | The problem is frequent and costly enough to motivate change. | No sustained demand. | Five problem interviews using recent examples. |
-| A-02 | Existing alternatives fail in a consistent, addressable way. | Weak differentiation. | Comparative task observation and artifact review. |
-| A-03 | Users can trust the proposed workflow and understand its limits. | Rejection or unsafe use. | Usability test with visible confidence and recovery paths. |
-| A-04 | A narrow end-to-end slice can deliver measurable value. | Scope cannot be contained. | Time-boxed concierge or prototype experiment. |
-| A-05 | The system can meet security, reliability, and cost constraints. | Product is not operable. | Architecture spike with explicit budgets. |
+The smallest credible proof is not a hosted platform or universal build system. It is a local vertical slice that can:
 
-## Validation plan
+1. discover canonical engineering artifacts in a repository;
+2. parse and normalize them deterministically;
+3. construct a stable semantic graph with provenance;
+4. validate important structural/semantic invariants;
+5. answer useful query/explain questions;
+6. produce a minimal bounded context package for an authorized Work Packet; and
+7. reproduce equivalent output from equivalent inputs.
 
-1. Recruit at least five representative primary users and three accountable
-   stakeholders.
-2. Collect recent, concrete examples of the problem and quantify frequency,
-   duration, error cost, delay, and workarounds.
-3. Rank current alternatives by outcome quality, effort, risk, and switching
-   friction.
-4. Test a low-fidelity workflow before automating it.
-5. Define a baseline and compare it with the prototype using the success
-   criteria in `vision/success-criteria.md`.
-6. Record findings in `research/findings/` and update or reject assumptions.
+If that loop is not useful and trustworthy on real repositories, broader execution, registry, plugin, collaboration, and hosted capabilities should not be built merely because they are architecturally interesting.
 
-## Evidence required to proceed
+## Constraints
 
-Proceed to the first build increment only when evidence shows a recurring
-problem, a reachable user population, a credible advantage, acceptable ethical
-and operational constraints, and a measurable end-to-end outcome. Pause or
-pivot when evidence contradicts the core problem or shows that a safer,
-simpler non-software intervention is preferable.
+- Local-first operation is mandatory for the core loop.
+- Human-readable source is canonical unless a future accepted decision explicitly changes a bounded representation.
+- AI may assist with authoring/reasoning but must not become the deterministic semantic compiler.
+- Native language/build/test tools remain authoritative for their domains.
+- The system must explain semantic results and retain source provenance.
+- MVP scope is one coherent end-to-end engineering outcome, not platform completeness.
 
-## Initial scope decision
+## Evidence to proceed
 
-The first release will support one primary persona, one high-value journey, one
-operational environment, and one clearly bounded data path. Integrations,
-automation, and customization expand only after the core path is observable,
-recoverable, secure, and repeatedly useful.
+MVP implementation is justified when the stabilization review establishes a coherent product/architecture baseline and the first vertical slice has testable specifications, accepted required ADRs, ready Work Packets, representative repository fixtures, and measurable utility/determinism criteria.

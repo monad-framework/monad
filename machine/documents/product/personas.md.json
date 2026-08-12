@@ -1,17 +1,23 @@
 {
-  "content": "# Personas\n\nPersonas are behavioral models grounded in research, not demographic\nstereotypes. Names are labels for recurring goals and constraints. Research\nnotes must record where evidence supports or contradicts these models.\n\n## Primary: The Responsible Practitioner\n\n**Context:** performs the core workflow repeatedly and is accountable for the\nquality of each result.\n\n**Goals:** finish correctly, understand current state, avoid rework, handle\nexceptions, and retain evidence sufficient for review.\n\n**Behaviors:** begins with incomplete or uneven inputs, switches between tasks,\nuses personal checks to compensate for unreliable systems, and consults an\nexpert when system state is ambiguous.\n\n**Pain points:** duplicated entry, unclear prerequisites, hidden failures,\nfragile handoffs, lost progress, and errors that describe the system rather\nthan the remedy.\n\n**Success:** completes the primary journey without private knowledge, verifies\nthe result, and knows exactly what to do when completion is impossible.\n\n## Secondary: The Accountable Owner\n\n**Context:** owns outcomes, risk, budget, policy, or adoption but may not perform\nthe daily workflow.\n\n**Goals:** know whether the process works, ensure controls are applied, identify\nsystemic failure, and make evidence-based investment decisions.\n\n**Behaviors:** reviews summaries and exceptions, asks for trend and root cause,\nsets risk thresholds, and needs evidence that can survive audit or leadership\nreview.\n\n**Pain points:** activity presented as value, inconsistent definitions,\nunexplained exceptions, poor cost attribution, and controls asserted without\nevidence.\n\n**Success:** sees trusted outcome, risk, adoption, and cost signals with a path\nfrom aggregate measures to authorized supporting evidence.\n\n## Supporting: The Service Operator\n\n**Context:** deploys, monitors, supports, and restores the product across its\nsupported environments.\n\n**Goals:** detect user impact early, identify the responsible component, limit\nblast radius, restore service, and prevent recurrence.\n\n**Behaviors:** works from alerts, dashboards, traces, changes, and runbooks;\ncoordinates incidents under time pressure; prefers predictable components and\nautomated evidence.\n\n**Pain points:** missing correlation, noisy alerts, undocumented dependencies,\nunsafe manual repair, environment drift, and releases without rollback proof.\n\n**Success:** moves from symptom to owned action quickly and can restore a safe\nservice state using tested procedures.\n\n## Affected stakeholder\n\nSome people may be represented in stored or processed data without operating\nthe product. Their needs include lawful and limited use, accuracy, security,\naccess or correction where applicable, and protection from opaque high-impact\ndecisions. Product reviews must include this perspective even when it does not\ndrive adoption metrics.\n\n## Research maintenance\n\nReview personas after each research round. Record evidence strength, segment\nvariation, accessibility needs, environmental constraints, and behaviors that\ndo not fit. Split a persona only when differences materially change the\nworkflow or product decision; merge when distinctions do not affect design.\n",
+  "content": "# Personas\n\n**Status:** Proposed stabilization baseline\n\nPersonas are hypotheses until validated with representative users.\n\n## P-01 — Software Engineer\n\nNeeds to understand an unfamiliar or complex repository, make a bounded change, know what the change affects, and prove correctness without manually locating every relevant decision/spec/test.\n\nKey jobs: inspect, query, explain, validate, impact analysis, run minimal checks.\n\n## P-02 — AI-Assisted Engineer\n\nUses ChatGPT and Codex as collaborators but remains accountable for intent and acceptance. Needs agents to receive only relevant authority/context and return implementation evidence rather than unbounded changes.\n\nKey jobs: plan work, produce Work Packets, generate context packages, constrain agent scope, verify resulting changes.\n\n## P-03 — Technical/Architecture Lead\n\nNeeds to preserve system boundaries and decisions while enabling teams to change quickly. Wants traceability from architectural intent to implementation/tests and early warning of drift.\n\nKey jobs: architecture query, policy/conformance review, semantic diff, decision impact, release review.\n\n## P-04 — Maintainer / Repository Steward\n\nNeeds onboarding, dependency/toolchain state, reliable CI, reproducibility, diagnostics, and clear provenance for why repository artifacts exist.\n\nKey jobs: doctor/inspect, dependency understanding, troubleshooting, release evidence, migration.\n\n## P-05 — Engineering Organization (later horizon)\n\nNeeds cross-repository knowledge, ownership, policy, registries, reusable contexts, and organizational engineering intelligence without centralizing every development action in proprietary SaaS.\n\n## Persona priority\n\nMVP prioritizes P-01 and P-02, with enough P-03/P-04 behavior to make the result trustworthy. P-05 shapes extensibility but does not drive MVP scope.",
   "document_id": "doc:product%2Fpersonas.md",
   "generation": {
     "deterministic": true,
     "tool": "sync-machine-docs",
     "version": "1.0.0"
   },
-  "identifiers": [],
+  "identifiers": [
+    "P-01",
+    "P-02",
+    "P-03",
+    "P-04",
+    "P-05"
+  ],
   "links": [],
   "metadata": {
     "document_type": "product",
     "normative": true,
-    "summary": "Personas are behavioral models grounded in research, not demographic stereotypes. Names are labels for recurring goals and constraints. Research notes must record where evidence supports or contradicts these models.",
+    "summary": "Status: Proposed stabilization baseline",
     "title": "Personas"
   },
   "relations": [],
@@ -24,62 +30,87 @@
       "line_end": 6,
       "line_start": 1,
       "section_id": "personas",
-      "text": "# Personas\n\nPersonas are behavioral models grounded in research, not demographic\nstereotypes. Names are labels for recurring goals and constraints. Research\nnotes must record where evidence supports or contradicts these models.",
+      "text": "# Personas\n\n**Status:** Proposed stabilization baseline\n\nPersonas are hypotheses until validated with representative users.",
       "title": "Personas"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "P-01"
+      ],
       "level": 2,
-      "line_end": 25,
+      "line_end": 12,
       "line_start": 7,
-      "section_id": "primary-the-responsible-practitioner",
-      "text": "## Primary: The Responsible Practitioner\n\n**Context:** performs the core workflow repeatedly and is accountable for the\nquality of each result.\n\n**Goals:** finish correctly, understand current state, avoid rework, handle\nexceptions, and retain evidence sufficient for review.\n\n**Behaviors:** begins with incomplete or uneven inputs, switches between tasks,\nuses personal checks to compensate for unreliable systems, and consults an\nexpert when system state is ambiguous.\n\n**Pain points:** duplicated entry, unclear prerequisites, hidden failures,\nfragile handoffs, lost progress, and errors that describe the system rather\nthan the remedy.\n\n**Success:** completes the primary journey without private knowledge, verifies\nthe result, and knows exactly what to do when completion is impossible.",
-      "title": "Primary: The Responsible Practitioner"
+      "section_id": "p-01-software-engineer",
+      "text": "## P-01 — Software Engineer\n\nNeeds to understand an unfamiliar or complex repository, make a bounded change, know what the change affects, and prove correctness without manually locating every relevant decision/spec/test.\n\nKey jobs: inspect, query, explain, validate, impact analysis, run minimal checks.",
+      "title": "P-01 — Software Engineer"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "P-02"
+      ],
       "level": 2,
-      "line_end": 44,
-      "line_start": 26,
-      "section_id": "secondary-the-accountable-owner",
-      "text": "## Secondary: The Accountable Owner\n\n**Context:** owns outcomes, risk, budget, policy, or adoption but may not perform\nthe daily workflow.\n\n**Goals:** know whether the process works, ensure controls are applied, identify\nsystemic failure, and make evidence-based investment decisions.\n\n**Behaviors:** reviews summaries and exceptions, asks for trend and root cause,\nsets risk thresholds, and needs evidence that can survive audit or leadership\nreview.\n\n**Pain points:** activity presented as value, inconsistent definitions,\nunexplained exceptions, poor cost attribution, and controls asserted without\nevidence.\n\n**Success:** sees trusted outcome, risk, adoption, and cost signals with a path\nfrom aggregate measures to authorized supporting evidence.",
-      "title": "Secondary: The Accountable Owner"
+      "line_end": 18,
+      "line_start": 13,
+      "section_id": "p-02-ai-assisted-engineer",
+      "text": "## P-02 — AI-Assisted Engineer\n\nUses ChatGPT and Codex as collaborators but remains accountable for intent and acceptance. Needs agents to receive only relevant authority/context and return implementation evidence rather than unbounded changes.\n\nKey jobs: plan work, produce Work Packets, generate context packages, constrain agent scope, verify resulting changes.",
+      "title": "P-02 — AI-Assisted Engineer"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "P-03"
+      ],
       "level": 2,
-      "line_end": 62,
-      "line_start": 45,
-      "section_id": "supporting-the-service-operator",
-      "text": "## Supporting: The Service Operator\n\n**Context:** deploys, monitors, supports, and restores the product across its\nsupported environments.\n\n**Goals:** detect user impact early, identify the responsible component, limit\nblast radius, restore service, and prevent recurrence.\n\n**Behaviors:** works from alerts, dashboards, traces, changes, and runbooks;\ncoordinates incidents under time pressure; prefers predictable components and\nautomated evidence.\n\n**Pain points:** missing correlation, noisy alerts, undocumented dependencies,\nunsafe manual repair, environment drift, and releases without rollback proof.\n\n**Success:** moves from symptom to owned action quickly and can restore a safe\nservice state using tested procedures.",
-      "title": "Supporting: The Service Operator"
+      "line_end": 24,
+      "line_start": 19,
+      "section_id": "p-03-technical-architecture-lead",
+      "text": "## P-03 — Technical/Architecture Lead\n\nNeeds to preserve system boundaries and decisions while enabling teams to change quickly. Wants traceability from architectural intent to implementation/tests and early warning of drift.\n\nKey jobs: architecture query, policy/conformance review, semantic diff, decision impact, release review.",
+      "title": "P-03 — Technical/Architecture Lead"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "P-04"
+      ],
       "level": 2,
-      "line_end": 70,
-      "line_start": 63,
-      "section_id": "affected-stakeholder",
-      "text": "## Affected stakeholder\n\nSome people may be represented in stored or processed data without operating\nthe product. Their needs include lawful and limited use, accuracy, security,\naccess or correction where applicable, and protection from opaque high-impact\ndecisions. Product reviews must include this perspective even when it does not\ndrive adoption metrics.",
-      "title": "Affected stakeholder"
+      "line_end": 30,
+      "line_start": 25,
+      "section_id": "p-04-maintainer-repository-steward",
+      "text": "## P-04 — Maintainer / Repository Steward\n\nNeeds onboarding, dependency/toolchain state, reliable CI, reproducibility, diagnostics, and clear provenance for why repository artifacts exist.\n\nKey jobs: doctor/inspect, dependency understanding, troubleshooting, release evidence, migration.",
+      "title": "P-04 — Maintainer / Repository Steward"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "P-05"
+      ],
       "level": 2,
-      "line_end": 76,
-      "line_start": 71,
-      "section_id": "research-maintenance",
-      "text": "## Research maintenance\n\nReview personas after each research round. Record evidence strength, segment\nvariation, accessibility needs, environmental constraints, and behaviors that\ndo not fit. Split a persona only when differences materially change the\nworkflow or product decision; merge when distinctions do not affect design.",
-      "title": "Research maintenance"
+      "line_end": 34,
+      "line_start": 31,
+      "section_id": "p-05-engineering-organization-later-horizon",
+      "text": "## P-05 — Engineering Organization (later horizon)\n\nNeeds cross-repository knowledge, ownership, policy, registries, reusable contexts, and organizational engineering intelligence without centralizing every development action in proprietary SaaS.",
+      "title": "P-05 — Engineering Organization (later horizon)"
+    },
+    {
+      "identifiers": [
+        "P-01",
+        "P-02",
+        "P-03",
+        "P-04",
+        "P-05"
+      ],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 35,
+      "section_id": "persona-priority",
+      "text": "## Persona priority\n\nMVP prioritizes P-01 and P-02, with enough P-03/P-04 behavior to make the result trustworthy. P-05 shapes extensibility but does not drive MVP scope.",
+      "title": "Persona priority"
     }
   ],
   "source": {
-    "bytes": 3192,
+    "bytes": 1847,
     "canonical": true,
     "language": "markdown",
-    "lines": 76,
+    "lines": 37,
     "media_type": "text/markdown",
     "path": "product/personas.md",
-    "sha256": "3262789baafe65e3db24bf770eaf4fa179632748802dfc4df4f24b4daf17bd43"
+    "sha256": "5972a73bf4942100fbb5cbe6080595835eb0443da1dc40ef4d921a137157fc2b"
   }
 }

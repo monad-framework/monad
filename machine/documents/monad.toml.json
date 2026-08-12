@@ -1,0 +1,40 @@
+{
+  "content": "schema_version = 1\n\n[project]\nid = \"monad\"\nname = \"Monad\"\ntype = \"engineering-knowledge-compilation-platform\"\n\n[artifacts]\nvision = [\"vision/**/*.md\"]\nproduct = [\"product/**/*.md\"]\narchitecture = [\"architecture/**/*.md\"]\ndecisions = [\"architecture/decisions/ADR-*.md\"]\nspecifications = [\"specifications/**/*.md\"]\nengineering = [\"engineering/**/*.md\"]\ngovernance = [\"governance/**/*.md\"]\nresearch = [\"research/**/*.md\"]\nsecurity = [\"security/**/*.md\"]\ntesting = [\"testing/**/*.md\"]\noperations = [\"operations/**/*.md\"]\njournal = [\"journal/**/*.md\"]\n\n[ingestion]\nencoding = \"utf-8\"\nfollow_symlinks = false\nnetwork = false\nexecute_repository_code = false\n\n[exclude]\npaths = [\".git/**\", \".eos/**\", \"machine/**\", \"target/**\"]\n",
+  "document_id": "doc:monad.toml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-record",
+    "normative": false,
+    "summary": "Canonical toml source for monad.toml.",
+    "title": "Monad"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 29,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "schema_version = 1\n\n[project]\nid = \"monad\"\nname = \"Monad\"\ntype = \"engineering-knowledge-compilation-platform\"\n\n[artifacts]\nvision = [\"vision/**/*.md\"]\nproduct = [\"product/**/*.md\"]\narchitecture = [\"architecture/**/*.md\"]\ndecisions = [\"architecture/decisions/ADR-*.md\"]\nspecifications = [\"specifications/**/*.md\"]\nengineering = [\"engineering/**/*.md\"]\ngovernance = [\"governance/**/*.md\"]\nresearch = [\"research/**/*.md\"]\nsecurity = [\"security/**/*.md\"]\ntesting = [\"testing/**/*.md\"]\noperations = [\"operations/**/*.md\"]\njournal = [\"journal/**/*.md\"]\n\n[ingestion]\nencoding = \"utf-8\"\nfollow_symlinks = false\nnetwork = false\nexecute_repository_code = false\n\n[exclude]\npaths = [\".git/**\", \".eos/**\", \"machine/**\", \"target/**\"]",
+      "title": "Monad"
+    }
+  ],
+  "source": {
+    "bytes": 720,
+    "canonical": true,
+    "language": "toml",
+    "lines": 29,
+    "media_type": "application/toml",
+    "path": "monad.toml",
+    "sha256": "8612113be25291b9acb7085c8a7cf5c81d4a1a779bd8182402ed913570074add"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"name\": \"main-protection\",\n  \"target\": \"branch\",\n  \"enforcement\": \"active\",\n  \"conditions\": {\n    \"ref_name\": {\n      \"include\": [\"~DEFAULT_BRANCH\"],\n      \"exclude\": []\n    }\n  },\n  \"rules\": [\n    {\"type\": \"deletion\"},\n    {\"type\": \"non_fast_forward\"},\n    {\n      \"type\": \"pull_request\",\n      \"parameters\": {\n        \"allowed_merge_methods\": [\"merge\", \"squash\", \"rebase\"],\n        \"dismiss_stale_reviews_on_push\": false,\n        \"require_code_owner_review\": false,\n        \"require_last_push_approval\": false,\n        \"required_approving_review_count\": 0,\n        \"required_review_thread_resolution\": true\n      }\n    }\n  ],\n  \"bypass_actors\": []\n}\n",
+  "document_id": "doc:engineering%2Fgithub%2Frulesets%2Fmain.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Canonical json source for engineering/github/rulesets/main.json.",
+    "title": "Main"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 27,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"name\": \"main-protection\",\n  \"target\": \"branch\",\n  \"enforcement\": \"active\",\n  \"conditions\": {\n    \"ref_name\": {\n      \"include\": [\"~DEFAULT_BRANCH\"],\n      \"exclude\": []\n    }\n  },\n  \"rules\": [\n    {\"type\": \"deletion\"},\n    {\"type\": \"non_fast_forward\"},\n    {\n      \"type\": \"pull_request\",\n      \"parameters\": {\n        \"allowed_merge_methods\": [\"merge\", \"squash\", \"rebase\"],\n        \"dismiss_stale_reviews_on_push\": false,\n        \"require_code_owner_review\": false,\n        \"require_last_push_approval\": false,\n        \"required_approving_review_count\": 0,\n        \"required_review_thread_resolution\": true\n      }\n    }\n  ],\n  \"bypass_actors\": []\n}",
+      "title": "Main"
+    }
+  ],
+  "source": {
+    "bytes": 656,
+    "canonical": true,
+    "language": "json",
+    "lines": 27,
+    "media_type": "application/json",
+    "path": "engineering/github/rulesets/main.json",
+    "sha256": "cc682e8649b274970b84494366e0e93304a3aef2c27d929c3963ffb8d55c0b14"
+  }
+}

@@ -1,0 +1,35 @@
+name: Epic
+about: Define a multi-feature product or engineering outcome.
+title: "[Epic] "
+body:
+  - type: markdown
+    attributes:
+      value: "GitHub is a coordination projection. Link the canonical product/program artifact."
+  - type: input
+    id: identifier
+    attributes:
+      label: Epic identifier
+      placeholder: EPIC-XXX
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome
+      description: State the measurable outcome, not a task list.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Canonical source
+      placeholder: product/backlog/...
+    validations:
+      required: true
+  - type: textarea
+    id: exit
+    attributes:
+      label: Exit evidence
+      description: What evidence will prove the Epic outcome is achieved?
+    validations:
+      required: true

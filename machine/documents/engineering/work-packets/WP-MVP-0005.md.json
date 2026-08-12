@@ -1,0 +1,116 @@
+{
+  "content": "# WP-MVP-0005 — Structured Monad configuration parser\n\n**Status:** Refined — blocked from Ready by WP-MVP-0001/WP-MVP-0003 and ADR-0005  \n**Epic:** EPIC-003  \n**Feature:** F-003-03  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001\n\n## Objective\n\nRepresent canonical `monad.toml` as a provenance-rich semantic input after bootstrap validation, without creating a competing configuration authority.\n\n## Governing authority\n\n- FR-001, FR-002; QR-001, QR-003\n- ADR-0002, ADR-0003, ADR-0004\n- IFC-WORKSPACE-0001\n- DATA-SOURCE-0001\n- TECH-INGEST-0002\n- proposed ADR-0005\n\n## Dependencies\n\nWP-MVP-0001 supplies valid effective configuration; WP-MVP-0003 supplies identity/provenance. This packet does not reimplement configuration precedence.\n\n## Acceptance criteria\n\n- [ ] US-015 valid `monad.toml` becomes a deterministic semantic document record.\n- [ ] US-016 schema/parse errors remain diagnostics and block a valid semantic config document.\n- [ ] US-017 normalized semantic representation is deterministic and retains source/effective-value provenance distinctions.\n- [ ] `.monad/manifest.yaml` cannot override or become a competing semantic config source.\n- [ ] no environment interpolation, command substitution, network lookup, or include execution occurs.\n\n## Implementation boundary\n\nUnder ADR-0005, semantic config adaptation belongs in the ingestion/config modules of `monad-core`; bootstrap loader semantics from WP-MVP-0001 are reused rather than duplicated.\n\n## Validation\n\nGolden config corpus for canonical repository config, malformed/unknown/unsupported keys, override provenance, deterministic representation, and legacy-manifest non-authority.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2FWP-MVP-0005.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0002",
+    "ADR-0003",
+    "ADR-0004",
+    "ADR-0005",
+    "FR-001",
+    "FR-002",
+    "QR-001",
+    "QR-003"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Refined — blocked from Ready by WP-MVP-0001/WP-MVP-0003 and ADR-0005 Epic: EPIC-003 Feature: F-003-03 Program Increment: PI-MVP-001 Work Cycle: WC-MVP-0002 Product Goal: PG-001",
+    "title": "WP-MVP-0005 — Structured Monad configuration parser"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "wp-mvp-0005-structured-monad-configuration-parser",
+      "text": "# WP-MVP-0005 — Structured Monad configuration parser\n\n**Status:** Refined — blocked from Ready by WP-MVP-0001/WP-MVP-0003 and ADR-0005  \n**Epic:** EPIC-003  \n**Feature:** F-003-03  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001",
+      "title": "WP-MVP-0005 — Structured Monad configuration parser"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 10,
+      "section_id": "objective",
+      "text": "## Objective\n\nRepresent canonical `monad.toml` as a provenance-rich semantic input after bootstrap validation, without creating a competing configuration authority.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [
+        "ADR-0002",
+        "ADR-0003",
+        "ADR-0004",
+        "ADR-0005",
+        "FR-001",
+        "FR-002",
+        "QR-001",
+        "QR-003"
+      ],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 14,
+      "section_id": "governing-authority",
+      "text": "## Governing authority\n\n- FR-001, FR-002; QR-001, QR-003\n- ADR-0002, ADR-0003, ADR-0004\n- IFC-WORKSPACE-0001\n- DATA-SOURCE-0001\n- TECH-INGEST-0002\n- proposed ADR-0005",
+      "title": "Governing authority"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 23,
+      "section_id": "dependencies",
+      "text": "## Dependencies\n\nWP-MVP-0001 supplies valid effective configuration; WP-MVP-0003 supplies identity/provenance. This packet does not reimplement configuration precedence.",
+      "title": "Dependencies"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 27,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] US-015 valid `monad.toml` becomes a deterministic semantic document record.\n- [ ] US-016 schema/parse errors remain diagnostics and block a valid semantic config document.\n- [ ] US-017 normalized semantic representation is deterministic and retains source/effective-value provenance distinctions.\n- [ ] `.monad/manifest.yaml` cannot override or become a competing semantic config source.\n- [ ] no environment interpolation, command substitution, network lookup, or include execution occurs.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 35,
+      "section_id": "implementation-boundary",
+      "text": "## Implementation boundary\n\nUnder ADR-0005, semantic config adaptation belongs in the ingestion/config modules of `monad-core`; bootstrap loader semantics from WP-MVP-0001 are reused rather than duplicated.",
+      "title": "Implementation boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 41,
+      "line_start": 39,
+      "section_id": "validation",
+      "text": "## Validation\n\nGolden config corpus for canonical repository config, malformed/unknown/unsupported keys, override provenance, deterministic representation, and legacy-manifest non-authority.",
+      "title": "Validation"
+    }
+  ],
+  "source": {
+    "bytes": 1705,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 41,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/WP-MVP-0005.md",
+    "sha256": "c91c1ffeed845f53c20a81249b2057d825606dbfcd437cf6d262c0006b1314a4"
+  }
+}

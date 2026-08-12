@@ -1,0 +1,94 @@
+{
+  "content": "---\nartifact_id: \"GOV-VERSION-0001\"\ntitle: \"Repository and Artifact Versioning Policy\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# Repository and Artifact Versioning Policy\n\n## Repository Files\n\nEvery tracked file is versioned by Git. Git history is the authoritative record\nof repository state.\n\n## Governed Artifacts\n\nGoverned Markdown artifacts additionally carry an explicit semantic `version`\nin YAML front matter.\n\nBefore an artifact version is changed, the current version is copied to:\n\n`.eos/history/<artifact-path>/v<version>.md`\n\nThe change is also recorded in:\n\n`.eos/artifact-changelog.tsv`\n\n## Rollback\n\nRollback does not erase history. The requested historical content is restored\nand assigned a new version derived from the current version.\n\n## Repository Checkpoints\n\nUse:\n\n`./scripts/eos checkpoint \"message\"`\n\nThis creates a Git commit and an annotated `eos/checkpoint-*` tag.\n\n## Releases\n\nProject release tags and artifact versions are separate concerns. Project\nrelease policy should be established before the first external release.\n",
+  "document_id": "doc:governance%2Fversioning-policy.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "governance",
+    "normative": true,
+    "summary": "--- artifactid: \"GOV-VERSION-0001\" title: \"Repository and Artifact Versioning Policy\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "Repository and Artifact Versioning Policy"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"GOV-VERSION-0001\"\ntitle: \"Repository and Artifact Versioning Policy\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "repository-and-artifact-versioning-policy",
+      "text": "# Repository and Artifact Versioning Policy",
+      "title": "Repository and Artifact Versioning Policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 14,
+      "section_id": "repository-files",
+      "text": "## Repository Files\n\nEvery tracked file is versioned by Git. Git history is the authoritative record\nof repository state.",
+      "title": "Repository Files"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 19,
+      "section_id": "governed-artifacts",
+      "text": "## Governed Artifacts\n\nGoverned Markdown artifacts additionally carry an explicit semantic `version`\nin YAML front matter.\n\nBefore an artifact version is changed, the current version is copied to:\n\n`.eos/history/<artifact-path>/v<version>.md`\n\nThe change is also recorded in:\n\n`.eos/artifact-changelog.tsv`",
+      "title": "Governed Artifacts"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 32,
+      "section_id": "rollback",
+      "text": "## Rollback\n\nRollback does not erase history. The requested historical content is restored\nand assigned a new version derived from the current version.",
+      "title": "Rollback"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 37,
+      "section_id": "repository-checkpoints",
+      "text": "## Repository Checkpoints\n\nUse:\n\n`./scripts/eos checkpoint \"message\"`\n\nThis creates a Git commit and an annotated `eos/checkpoint-*` tag.",
+      "title": "Repository Checkpoints"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 45,
+      "section_id": "releases",
+      "text": "## Releases\n\nProject release tags and artifact versions are separate concerns. Project\nrelease policy should be established before the first external release.",
+      "title": "Releases"
+    }
+  ],
+  "source": {
+    "bytes": 1153,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 48,
+    "media_type": "text/markdown",
+    "path": "governance/versioning-policy.md",
+    "sha256": "a18921d52acc60dfb3509578b7d1a273f75cf7bd91ce763c0f7d2e16adc4f2a5"
+  }
+}

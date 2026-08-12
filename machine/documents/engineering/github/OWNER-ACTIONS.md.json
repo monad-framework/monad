@@ -1,0 +1,85 @@
+{
+  "content": "# GitHub Owner Actions\n\nThese are the remaining actions that require organization/repository owner authority outside the connected repository-write surface.\n\n## Preconditions\n\nFrom a clone containing the accepted stabilization changes:\n\n```bash\ngit fetch origin\ngit switch stabilization/mvp-foundation\ngit pull --ff-only\n```\n\nInstall/authenticate GitHub CLI and ensure the token has repository administration plus Projects access. Then run:\n\n```bash\n./scripts/setup-github-owner.sh check\n./scripts/setup-github-owner.sh project\n./scripts/setup-github-owner.sh wiki\n```\n\nDo **not** apply the main ruleset until the stabilization PR is merged and stable CI check names are confirmed.\n\n## Project UI finishing step\n\nAfter `project` completes, open the organization Project **Monad Engineering Program** and create the views defined in `engineering/github/PROJECT-V2-CONFIGURATION.md`. View presentation is intentionally not treated as canonical engineering state.\n\n## Wiki verification\n\nVerify the Wiki contains the staged page set and that architecture/decision links point back to `architecture/decisions/` rather than the retired `adrs/` root.\n\n## Ruleset application\n\nAfter the stabilization PR is accepted and merged:\n\n```bash\n./scripts/setup-github-owner.sh ruleset\n```\n\nThen verify a normal direct push to `main` is rejected and a PR can still be created/merged through the intended workflow.\n\n## Completion criteria\n\nOwner setup is complete when:\n\n- the organization Project exists exactly once and is linked to this repository;\n- all current projected Issues are present in the Project;\n- required custom fields exist;\n- the prescribed Project views are created;\n- Wiki pages are synchronized and informational-only;\n- the main ruleset is active after PR/CI verification; and\n- no owner/admin action introduced an alternative source of engineering truth.\n",
+  "document_id": "doc:engineering%2Fgithub%2FOWNER-ACTIONS.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "These are the remaining actions that require organization/repository owner authority outside the connected repository-write surface.",
+    "title": "GitHub Owner Actions"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 4,
+      "line_start": 1,
+      "section_id": "github-owner-actions",
+      "text": "# GitHub Owner Actions\n\nThese are the remaining actions that require organization/repository owner authority outside the connected repository-write surface.",
+      "title": "GitHub Owner Actions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 5,
+      "section_id": "preconditions",
+      "text": "## Preconditions\n\nFrom a clone containing the accepted stabilization changes:\n\n```bash\ngit fetch origin\ngit switch stabilization/mvp-foundation\ngit pull --ff-only\n```\n\nInstall/authenticate GitHub CLI and ensure the token has repository administration plus Projects access. Then run:\n\n```bash\n./scripts/setup-github-owner.sh check\n./scripts/setup-github-owner.sh project\n./scripts/setup-github-owner.sh wiki\n```\n\nDo **not** apply the main ruleset until the stabilization PR is merged and stable CI check names are confirmed.",
+      "title": "Preconditions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 28,
+      "line_start": 25,
+      "section_id": "project-ui-finishing-step",
+      "text": "## Project UI finishing step\n\nAfter `project` completes, open the organization Project **Monad Engineering Program** and create the views defined in `engineering/github/PROJECT-V2-CONFIGURATION.md`. View presentation is intentionally not treated as canonical engineering state.",
+      "title": "Project UI finishing step"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 29,
+      "section_id": "wiki-verification",
+      "text": "## Wiki verification\n\nVerify the Wiki contains the staged page set and that architecture/decision links point back to `architecture/decisions/` rather than the retired `adrs/` root.",
+      "title": "Wiki verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 33,
+      "section_id": "ruleset-application",
+      "text": "## Ruleset application\n\nAfter the stabilization PR is accepted and merged:\n\n```bash\n./scripts/setup-github-owner.sh ruleset\n```\n\nThen verify a normal direct push to `main` is rejected and a PR can still be created/merged through the intended workflow.",
+      "title": "Ruleset application"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 43,
+      "section_id": "completion-criteria",
+      "text": "## Completion criteria\n\nOwner setup is complete when:\n\n- the organization Project exists exactly once and is linked to this repository;\n- all current projected Issues are present in the Project;\n- required custom fields exist;\n- the prescribed Project views are created;\n- Wiki pages are synchronized and informational-only;\n- the main ruleset is active after PR/CI verification; and\n- no owner/admin action introduced an alternative source of engineering truth.",
+      "title": "Completion criteria"
+    }
+  ],
+  "source": {
+    "bytes": 1861,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 53,
+    "media_type": "text/markdown",
+    "path": "engineering/github/OWNER-ACTIONS.md",
+    "sha256": "8191f37926ac7ca547713e083057c6c6ba76c0b961e3214859c4dd02b706b1a5"
+  }
+}

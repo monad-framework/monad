@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/pi/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"path\", \"title\", \"status\", \"created\", \"updated\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^PI-[0-9]{3}$\"},\n    \"path\": {\"type\": \"string\", \"minLength\": 1},\n    \"title\": {\"type\": \"string\", \"minLength\": 1},\n    \"status\": {\"type\": \"string\"},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1},\n    \"github_url\": {\"type\": \"string\"}\n  },\n  \"additionalProperties\": false\n}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fpi.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/pi.schema.json.",
+    "title": "Pi.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 16,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/pi/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"path\", \"title\", \"status\", \"created\", \"updated\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^PI-[0-9]{3}$\"},\n    \"path\": {\"type\": \"string\", \"minLength\": 1},\n    \"title\": {\"type\": \"string\", \"minLength\": 1},\n    \"status\": {\"type\": \"string\"},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1},\n    \"github_url\": {\"type\": \"string\"}\n  },\n  \"additionalProperties\": false\n}",
+      "title": "Pi.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 574,
+    "canonical": true,
+    "language": "json",
+    "lines": 16,
+    "media_type": "application/json",
+    "path": ".eos/schemas/pi.schema.json",
+    "sha256": "eb8cab95113f5a4b20ae4c2cd638f3791bdef8f2c4e98238f1ce9e23ca1d543a"
+  }
+}

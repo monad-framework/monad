@@ -1,0 +1,40 @@
+{
+  "content": "name: Story or Enabler\nabout: Refine a feature into an observable story or engineering enabler.\ntitle: \"[Story] \"\nbody:\n  - type: input\n    id: identifier\n    attributes:\n      label: Story / enabler identifier\n      placeholder: US-XXX or EN-XXX\n    validations:\n      required: true\n  - type: input\n    id: parent\n    attributes:\n      label: Parent Feature\n      placeholder: F-XXX-XX\n    validations:\n      required: true\n  - type: input\n    id: wp\n    attributes:\n      label: Governing Work Packet\n      placeholder: WP-MVP-XXXX\n    validations:\n      required: true\n  - type: textarea\n    id: acceptance\n    attributes:\n      label: Observable acceptance\n    validations:\n      required: true\n  - type: textarea\n    id: boundaries\n    attributes:\n      label: Boundary / negative behavior\n  - type: textarea\n    id: verification\n    attributes:\n      label: Verification method\n    validations:\n      required: true\n",
+  "document_id": "doc:.github%2FISSUE_TEMPLATE%2Fstory.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-governance",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/ISSUE_TEMPLATE/story.yml.",
+    "title": "Story"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 41,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Story or Enabler\nabout: Refine a feature into an observable story or engineering enabler.\ntitle: \"[Story] \"\nbody:\n  - type: input\n    id: identifier\n    attributes:\n      label: Story / enabler identifier\n      placeholder: US-XXX or EN-XXX\n    validations:\n      required: true\n  - type: input\n    id: parent\n    attributes:\n      label: Parent Feature\n      placeholder: F-XXX-XX\n    validations:\n      required: true\n  - type: input\n    id: wp\n    attributes:\n      label: Governing Work Packet\n      placeholder: WP-MVP-XXXX\n    validations:\n      required: true\n  - type: textarea\n    id: acceptance\n    attributes:\n      label: Observable acceptance\n    validations:\n      required: true\n  - type: textarea\n    id: boundaries\n    attributes:\n      label: Boundary / negative behavior\n  - type: textarea\n    id: verification\n    attributes:\n      label: Verification method\n    validations:\n      required: true",
+      "title": "Story"
+    }
+  ],
+  "source": {
+    "bytes": 923,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 41,
+    "media_type": "application/yaml",
+    "path": ".github/ISSUE_TEMPLATE/story.yml",
+    "sha256": "a112525197acce4a80a1d187d14e8e4321009798099c1d3ac013c3263d9ae3f0"
+  }
+}

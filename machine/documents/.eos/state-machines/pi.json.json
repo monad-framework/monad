@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"kind\": \"PI\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\"CLOSED\"],\n  \"states\": [\"DRAFT\", \"PLANNED\", \"IN_REVIEW\", \"AUTHORIZED\", \"ACTIVE\", \"BLOCKED\", \"CLOSED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"PLANNED\", \"BLOCKED\"],\n    \"PLANNED\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"IN_REVIEW\": [\"AUTHORIZED\", \"CLOSED\", \"BLOCKED\"],\n    \"AUTHORIZED\": [\"ACTIVE\", \"BLOCKED\"],\n    \"ACTIVE\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"BLOCKED\": [\"PLANNED\", \"IN_REVIEW\", \"AUTHORIZED\", \"ACTIVE\"],\n    \"CLOSED\": []\n  }\n}\n",
+  "document_id": "doc:.eos%2Fstate-machines%2Fpi.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/state-machines/pi.json.",
+    "title": "Pi"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 16,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"kind\": \"PI\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\"CLOSED\"],\n  \"states\": [\"DRAFT\", \"PLANNED\", \"IN_REVIEW\", \"AUTHORIZED\", \"ACTIVE\", \"BLOCKED\", \"CLOSED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"PLANNED\", \"BLOCKED\"],\n    \"PLANNED\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"IN_REVIEW\": [\"AUTHORIZED\", \"CLOSED\", \"BLOCKED\"],\n    \"AUTHORIZED\": [\"ACTIVE\", \"BLOCKED\"],\n    \"ACTIVE\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"BLOCKED\": [\"PLANNED\", \"IN_REVIEW\", \"AUTHORIZED\", \"ACTIVE\"],\n    \"CLOSED\": []\n  }\n}",
+      "title": "Pi"
+    }
+  ],
+  "source": {
+    "bytes": 513,
+    "canonical": true,
+    "language": "json",
+    "lines": 16,
+    "media_type": "application/json",
+    "path": ".eos/state-machines/pi.json",
+    "sha256": "f4d49d73da505ff9bfd862baf5311a842f1c67de111c03972bb24a4daa97a222"
+  }
+}

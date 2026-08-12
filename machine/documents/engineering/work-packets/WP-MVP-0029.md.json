@@ -1,0 +1,166 @@
+{
+  "content": "<!-- mvp-work-packet-forecast:v1 -->\n# WP-MVP-0029 — User and reference documentation\n\n**Status:** Planned  \n**Epic:** EPIC-013  \n**Work Cycle / Sprint:** WC-MVP-0011  \n**Product Goal:** PG-001  \n**Target:** MVP Release 1\n\n## Objective\n\nDeliver **user and reference documentation** as one independently reviewable vertical engineering outcome that advances PG-001 without expanding beyond the MVP boundary.\n\n## Context\n\nThis packet is forecast in `product/backlog/MVP-BACKLOG.md`. It becomes **Ready** only after its required governing ADRs/specifications are accepted or explicitly identified as not required, upstream packet dependencies have passing evidence, and task-level implementation scope can be bounded without guessing.\n\n## Scope\n\n### In scope\n\n- behavior necessary to satisfy the linked stories/enablers;\n- deterministic positive, negative, boundary, and failure behavior;\n- diagnostics, provenance, documentation, and tests required by the Definition of Done;\n- compatibility/security implications introduced by this packet.\n\n### Out of scope\n\n- unrelated refactoring;\n- post-MVP generalization not required by PG-001;\n- silent changes to accepted architecture/specification authority;\n- introducing hosted, remote, or agent autonomy dependencies unless explicitly authorized.\n\n## Governing artifacts\n\nBefore activation, replace unresolved entries with concrete links:\n\n- Product Goal: `product/PRODUCT-GOAL.md`\n- MVP contract: `product/MVP-RELEASE-1.md`\n- Product requirements: `product/product-requirements.md`\n- Architecture: `architecture/overview.md`\n- Required ADR(s): **TBD during refinement**\n- Required specification(s): **TBD during refinement**\n\n## Dependencies\n\nDependencies are the accepted outputs of earlier packets on the critical path plus any explicit native-tool/schema contracts discovered during refinement. A packet MUST NOT become Ready while a dependency capable of changing its public semantic contract remains unresolved.\n\n## Acceptance criteria\n\n- [ ] US-091 publish quickstart.\n- [ ] US-092 publish CLI reference.\n- [ ] US-093 publish concepts and troubleshooting.\n- [ ] Required negative and boundary behavior is verified.\n- [ ] Deterministic output/order/identity requirements relevant to this packet pass.\n- [ ] Diagnostics and provenance are sufficient to explain failure and derived state.\n- [ ] No new unaccepted critical/high security or correctness risk remains.\n- [ ] Canonical documentation and machine projection are synchronized.\n\n## Implementation constraints\n\n1. Core semantic truth must not depend on LLM output.\n2. Canonical repository inspection must not execute untrusted project code implicitly.\n3. Stable public identifiers/schemas require explicit compatibility treatment.\n4. Native tool results remain authoritative for native semantics.\n5. Agent execution scope cannot exceed this Work Packet or its governing authority.\n6. Generated state must be rebuildable or explicitly treated as external evidence.\n\n## Validation\n\nRefinement MUST identify exact commands/tests before authorization. Expected evidence includes focused unit tests, conformance/golden/property tests where semantics are canonical, integration tests across the affected boundary, machine-document synchronization, and end-to-end evidence when the packet changes a user-visible journey.\n\n## Risks\n\nPrimary risks are semantic ambiguity, accidental coupling to future architecture, nondeterminism, insufficient provenance, and over-broad MVP scope. Any discovered risk that changes the governing contract triggers refinement or escalation rather than being hidden in implementation.\n\n## Completion evidence\n\nPopulate with branch/commit, PR, test commands/results, semantic/architecture review, generated artifacts, and closure disposition. Merge alone is not completion.\n\n## Refinement state\n\nThis forecast packet is intentionally not Ready merely because it has been generated. Remove `<!-- mvp-work-packet-forecast:v1 -->` when the packet has been manually refined and authorized; the generator will then stop owning its contents.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2FWP-MVP-0029.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Planned Epic: EPIC-013 Work Cycle / Sprint: WC-MVP-0011 Product Goal: PG-001 Target: MVP Release 1",
+    "title": "WP-MVP-0029 — User and reference documentation"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "<!-- mvp-work-packet-forecast:v1 -->",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 2,
+      "section_id": "wp-mvp-0029-user-and-reference-documentation",
+      "text": "# WP-MVP-0029 — User and reference documentation\n\n**Status:** Planned  \n**Epic:** EPIC-013  \n**Work Cycle / Sprint:** WC-MVP-0011  \n**Product Goal:** PG-001  \n**Target:** MVP Release 1",
+      "title": "WP-MVP-0029 — User and reference documentation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 10,
+      "section_id": "objective",
+      "text": "## Objective\n\nDeliver **user and reference documentation** as one independently reviewable vertical engineering outcome that advances PG-001 without expanding beyond the MVP boundary.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 14,
+      "section_id": "context",
+      "text": "## Context\n\nThis packet is forecast in `product/backlog/MVP-BACKLOG.md`. It becomes **Ready** only after its required governing ADRs/specifications are accepted or explicitly identified as not required, upstream packet dependencies have passing evidence, and task-level implementation scope can be bounded without guessing.",
+      "title": "Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 18,
+      "section_id": "scope",
+      "text": "## Scope",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 26,
+      "line_start": 20,
+      "section_id": "in-scope",
+      "text": "### In scope\n\n- behavior necessary to satisfy the linked stories/enablers;\n- deterministic positive, negative, boundary, and failure behavior;\n- diagnostics, provenance, documentation, and tests required by the Definition of Done;\n- compatibility/security implications introduced by this packet.",
+      "title": "In scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 33,
+      "line_start": 27,
+      "section_id": "out-of-scope",
+      "text": "### Out of scope\n\n- unrelated refactoring;\n- post-MVP generalization not required by PG-001;\n- silent changes to accepted architecture/specification authority;\n- introducing hosted, remote, or agent autonomy dependencies unless explicitly authorized.",
+      "title": "Out of scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 34,
+      "section_id": "governing-artifacts",
+      "text": "## Governing artifacts\n\nBefore activation, replace unresolved entries with concrete links:\n\n- Product Goal: `product/PRODUCT-GOAL.md`\n- MVP contract: `product/MVP-RELEASE-1.md`\n- Product requirements: `product/product-requirements.md`\n- Architecture: `architecture/overview.md`\n- Required ADR(s): **TBD during refinement**\n- Required specification(s): **TBD during refinement**",
+      "title": "Governing artifacts"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 45,
+      "section_id": "dependencies",
+      "text": "## Dependencies\n\nDependencies are the accepted outputs of earlier packets on the critical path plus any explicit native-tool/schema contracts discovered during refinement. A packet MUST NOT become Ready while a dependency capable of changing its public semantic contract remains unresolved.",
+      "title": "Dependencies"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 59,
+      "line_start": 49,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] US-091 publish quickstart.\n- [ ] US-092 publish CLI reference.\n- [ ] US-093 publish concepts and troubleshooting.\n- [ ] Required negative and boundary behavior is verified.\n- [ ] Deterministic output/order/identity requirements relevant to this packet pass.\n- [ ] Diagnostics and provenance are sufficient to explain failure and derived state.\n- [ ] No new unaccepted critical/high security or correctness risk remains.\n- [ ] Canonical documentation and machine projection are synchronized.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 60,
+      "section_id": "implementation-constraints",
+      "text": "## Implementation constraints\n\n1. Core semantic truth must not depend on LLM output.\n2. Canonical repository inspection must not execute untrusted project code implicitly.\n3. Stable public identifiers/schemas require explicit compatibility treatment.\n4. Native tool results remain authoritative for native semantics.\n5. Agent execution scope cannot exceed this Work Packet or its governing authority.\n6. Generated state must be rebuildable or explicitly treated as external evidence.",
+      "title": "Implementation constraints"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 72,
+      "line_start": 69,
+      "section_id": "validation",
+      "text": "## Validation\n\nRefinement MUST identify exact commands/tests before authorization. Expected evidence includes focused unit tests, conformance/golden/property tests where semantics are canonical, integration tests across the affected boundary, machine-document synchronization, and end-to-end evidence when the packet changes a user-visible journey.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 76,
+      "line_start": 73,
+      "section_id": "risks",
+      "text": "## Risks\n\nPrimary risks are semantic ambiguity, accidental coupling to future architecture, nondeterminism, insufficient provenance, and over-broad MVP scope. Any discovered risk that changes the governing contract triggers refinement or escalation rather than being hidden in implementation.",
+      "title": "Risks"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 80,
+      "line_start": 77,
+      "section_id": "completion-evidence",
+      "text": "## Completion evidence\n\nPopulate with branch/commit, PR, test commands/results, semantic/architecture review, generated artifacts, and closure disposition. Merge alone is not completion.",
+      "title": "Completion evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 83,
+      "line_start": 81,
+      "section_id": "refinement-state",
+      "text": "## Refinement state\n\nThis forecast packet is intentionally not Ready merely because it has been generated. Remove `<!-- mvp-work-packet-forecast:v1 -->` when the packet has been manually refined and authorized; the generator will then stop owning its contents.",
+      "title": "Refinement state"
+    }
+  ],
+  "source": {
+    "bytes": 4065,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 83,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/WP-MVP-0029.md",
+    "sha256": "56324a704d31b3479e256f306cd59ff404e535c5e58b02fcd74e14c6d336540a"
+  }
+}

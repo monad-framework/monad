@@ -1,0 +1,49 @@
+{
+  "content": "---\nartifact_id: \"GOV-EVENTS-0001\"\ntitle: \"EOS Event Ledger Policy\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOS Event Ledger Policy\n\n`.eos/events.jsonl` is an append-only audit stream for lifecycle mutations.\n\nEach event records:\n\n- immutable event ID;\n- schema version;\n- timestamp;\n- event type;\n- actor;\n- target;\n- entity kind;\n- action;\n- prior state;\n- resulting state;\n- reason;\n- Git commit when available;\n- structured metadata.\n\nExisting lines must never be rewritten as a normal lifecycle operation.\nCorrections are represented by later events.\n\nThe event ledger complements Git rather than replacing Git.\n",
+  "document_id": "doc:governance%2Fevent-ledger.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "governance",
+    "normative": true,
+    "summary": "--- artifactid: \"GOV-EVENTS-0001\" title: \"EOS Event Ledger Policy\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOS Event Ledger Policy"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"GOV-EVENTS-0001\"\ntitle: \"EOS Event Ledger Policy\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 35,
+      "line_start": 12,
+      "section_id": "eos-event-ledger-policy",
+      "text": "# EOS Event Ledger Policy\n\n`.eos/events.jsonl` is an append-only audit stream for lifecycle mutations.\n\nEach event records:\n\n- immutable event ID;\n- schema version;\n- timestamp;\n- event type;\n- actor;\n- target;\n- entity kind;\n- action;\n- prior state;\n- resulting state;\n- reason;\n- Git commit when available;\n- structured metadata.\n\nExisting lines must never be rewritten as a normal lifecycle operation.\nCorrections are represented by later events.\n\nThe event ledger complements Git rather than replacing Git.",
+      "title": "EOS Event Ledger Policy"
+    }
+  ],
+  "source": {
+    "bytes": 718,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 35,
+    "media_type": "text/markdown",
+    "path": "governance/event-ledger.md",
+    "sha256": "2589941a282f2e734120ca367735c91ddc5d5fe218296a1fd1ca05990954c02c"
+  }
+}

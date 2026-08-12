@@ -1,68 +1,59 @@
 # Product Capabilities
 
-Capabilities describe durable abilities independent of a particular interface
-or component. They are the bridge between user outcomes and architecture.
+**Status:** Proposed stabilization baseline
 
-## Capability map
+## C-01 — Repository and workspace discovery
 
-### C-01 — Identity and access
+Identify repository/workspace roots, configuration, packages/modules, canonical artifact locations, toolchains, and supported inputs deterministically.
 
-Authenticate actors, establish session context, authorize actions and evidence,
-and apply least privilege. Initial maturity: one supported identity authority
-with explicit roles and resource checks.
+## C-02 — Canonical knowledge ingestion
 
-### C-02 — Intent and input management
+Read supported human-authored artifacts, preserve source provenance, normalize metadata/identifiers/references, and reject or diagnose malformed input.
 
-Capture the desired outcome and required inputs, preserve drafts, classify
-data, and explain validation. Initial maturity: the primary workflow's bounded
-input model and safe import path.
+## C-03 — Semantic graph compilation
 
-### C-03 — Policy and validation
+Construct stable engineering entities and typed relationships spanning requirements, decisions, specifications, components, dependencies, work, tests, evidence, releases, and provenance.
 
-Evaluate structural, semantic, authorization, and safety rules before effects
-are committed. Rules must be versioned, explainable, and testable.
+## C-04 — KIR and canonical interchange
 
-### C-04 — Workflow coordination
+Lower validated semantic knowledge into canonical machine representations suitable for deterministic downstream consumption, caching, diff, and compatibility.
 
-Create one traceable instance, enforce allowed transitions, coordinate work,
-handle idempotency, and manage retry, compensation, and cancellation.
+## C-05 — Diagnostics and conformance
 
-### C-05 — Result verification
+Evaluate structural/semantic invariants, policies, and specification conformance and return stable actionable diagnostics.
 
-Evaluate postconditions, distinguish complete and partial outcomes, associate
-evidence, and communicate justified status.
+## C-06 — Query, traversal, and explanation
 
-### C-06 — Evidence and audit
+Query graph state, traverse relationships, explain why/what-governs/what-depends, and retain the evidence path supporting the answer.
 
-Record minimum necessary actor, action, policy, state, and result facts; enforce
-access and retention; support authorized reconstruction.
+## C-07 — Change impact and incrementality
 
-### C-07 — Experience delivery
+Relate repository changes to semantic entities and eventually derive minimal invalidation/execution scope.
 
-Present accessible, responsive, and consistent user interactions across the
-supported journey, including progress and recovery.
+## C-08 — Native tool orchestration
 
-### C-08 — Operations and assurance
+Plan and invoke native compilers, formatters, linters, tests, build tools, infrastructure tools, and other adapters through explicit capability contracts.
 
-Measure health and cost, manage configuration and releases, detect threats and
-failures, restore service, and produce quality-gate evidence.
+## C-09 — AI/agent context and governance
 
-## Capability dependencies
+Select minimal authorized context, express scope/prohibitions/acceptance, record provenance, and support ChatGPT/Codex collaboration without granting unbounded authority.
 
-The primary journey composes all eight capabilities. Workflow coordination may
-depend on identity, validation, and evidence contracts but should not embed
-their policies. Experience delivery consumes stable contracts and does not own
-authoritative workflow state. Operations observes every critical capability
-without becoming a runtime dependency for ordinary success.
+## C-10 — Policy and governance
 
-## Maturity scale
+Represent/evaluate engineering rules, ownership, architectural constraints, exceptions, and acceptance gates against semantic state.
 
-- **M0 Unproven:** intent exists without tested behavior.
-- **M1 Bounded:** one supported path with manual exceptions.
-- **M2 Reliable:** objectives, recovery, and ownership are demonstrated.
-- **M3 Scalable:** capacity and repeatability are proven across expected load.
-- **M4 Extensible:** controlled variation is supported through stable contracts.
+## C-11 — Documentation and projection
 
-The first release targets M2 for the primary path and at least M1 for supporting
-administrative paths. A capability cannot claim maturity when its security,
-operability, or recovery evidence is missing.
+Generate or validate machine companions, publication views, status, GitHub projections, and later other derived artifacts from canonical knowledge.
+
+## C-12 — Extensibility and ecosystem
+
+Support adapters, plugins, registries, SDKs, and multi-repository evolution through stable contracts when scale requires them.
+
+## C-13 — Release and provenance
+
+Create traceable release evidence linking source, resolved inputs, semantic state, tests, artifacts, compatibility, and signatures/attestations where applicable.
+
+## MVP capability boundary
+
+MVP directly requires C-01, C-02, C-03, foundations of C-04, C-05, C-06, bounded C-09, and enough C-11/C-13 to prove deterministic provenance. C-07/C-08 begin only to the extent needed to demonstrate impact/validation; C-10/C-12 are architected but not broadly implemented.

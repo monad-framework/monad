@@ -1,0 +1,190 @@
+{
+  "content": "# Foundation Stabilization Review\n\n**Review date:** 2026-08-12  \n**Program:** Stabilization and MVP Launch  \n**Work Packet:** WP-STAB-0001  \n**Milestone:** M-000 Foundation Stabilized  \n**Pull Request:** #158  \n**Disposition:** **CONDITIONAL PASS — M-000 NOT YET CLOSED**\n\n## Executive assessment\n\nMonad now has a coherent product identity, singular architectural-decision root, reconciled EOS v0.5 operating model, populated artifact contract catalog, deterministic human↔machine synchronization, explicit MVP vertical slice, namespaced MVP delivery model, live GitHub execution hierarchy, and a refined first implementation horizon.\n\nThe foundation is no longer blocked by broad conceptual ambiguity. Remaining blockers are bounded and observable rather than architectural sprawl. It would nevertheless be incorrect to close M-000 or authorize implementation yet because the latest PR-head checks are awaiting GitHub Actions approval/execution, owner-only GitHub Project/Wiki setup has not been verified, and the proposed product-runtime implementation topology in ADR-0005 has not been accepted.\n\n## Review basis\n\nThis review inspected the integrated `stabilization/mvp-foundation` branch, PR #158, live repository Issues/milestones, canonical product/architecture/specification/work artifacts, EOS reconciliation history, generation workflows, and machine synchronization behavior.\n\n## Gate results\n\n| Gate | Result | Evidence / disposition |\n| --- | --- | --- |\n| Product identity coherent | PASS | Governing vision/product/README consistently define Monad as an Engineering Knowledge Compilation Platform. |\n| ADR root singular | PASS | `architecture/decisions/` is canonical; root `adrs/` is absent and explicitly retired. |\n| ADR history preserved | PASS | ADR-0001 remains Accepted; ADR-0002/0003/0004 establish MVP root/config, identity, and safe-ingestion semantics. |\n| EOS v0.5 reconciled | PASS | Two-parent reconciliation merge preserves EOS history and stabilization history; unqualified EOS IDs coexist with namespaced MVP IDs. |\n| Identifier namespace collision removed | PASS | EOS uses `PI/WC/WP-*`; MVP uses `PI-MVP-*`, `WC-MVP-*`, and `WP-MVP-*`. |\n| Artifact-system completeness baseline | PASS | Catalog population gives every previously empty/tiny Markdown contract substantive Draft content without bulk approval. |\n| Machine layer synchronization | PASS WITH PR EXECUTION GATE | Stabilization generation has repeatedly regenerated/verified `machine/`; latest PR check is withheld as `action_required`, not failed. |\n| Canonical repository config | PASS | Root `monad.toml` is defined under ADR-0002; `.monad/manifest.yaml` is explicitly legacy and points to `architecture/decisions/`. |\n| MVP scope / Product Goal | PASS | PG-001 and MVP Release 1 vertical slice are explicit and bounded. |\n| MVP program decomposition | PASS | 14 Epics; 34 Feature/Work-Packet outcomes; 105 user stories; 3 engineering enablers; 3 MVP increments; 13 MVP work cycles including stabilization. |\n| Milestones projected to GitHub | PASS | Four live milestones exist: M-000, M-MVP-001, M-MVP-002, M-MVP-003. |\n| GitHub Issue projection | PASS | 156 canonical tracking Issues exist: 14 Epic + 34 Feature/WP + 108 child items (105 stories + 3 enablers). |\n| Native Issue hierarchy | PASS | Epic → Feature/WP → Story/Enabler sub-issue links are live; sample F-001-01 reports four native children and parent EPIC-001. |\n| GitHub Issues preserve authority boundary | PASS | Projected Issue bodies identify canonical Git source and state that Git remains authoritative. |\n| Issue forms / synchronization | PASS | Repository contains typed Issue Forms and idempotent tracking synchronization workflow/script. |\n| Project v2 configuration | PENDING OWNER ACTION | Canonical field/view model and idempotent owner setup script are staged; organization Project mutation requires owner credential/CLI context. |\n| Wiki projection | PENDING OWNER ACTION | Informational Wiki page source and synchronization procedure are staged; Wiki repo initialization/push requires owner context. |\n| Main ruleset | CORRECTLY DEFERRED | Ruleset payload is staged but must not be applied until PR checks prove stable context names and stabilization is accepted. |\n| Repository/EOS integrity checks | PENDING ACTIONS EXECUTION | Obsolete `eos ci` invocation was repaired to `eos verify --strict`; latest PR runs are `action_required` with no jobs, requiring GitHub approval/retrigger. |\n| Ready-horizon semantic contracts | PASS | WP-MVP-0001..0006 have concrete ADR/spec dependencies, acceptance boundaries, negative/security behavior, and validation expectations. |\n| First implementation packet Ready | NO — INTENTIONAL | ADR-0005 implementation topology remains Proposed; refined packets correctly refuse to claim implementation readiness before it is accepted/replaced. |\n\n## Corrected planning inventory\n\nThe authoritative backlog contains **105 user stories plus 3 engineering enablers**, not “105 stories/enablers” combined. This is 108 child backlog items. Together with 14 Epics and 34 Feature/WP projections, the canonical GitHub tracking projection contains 156 Issues.\n\nThe repository also contains unrelated/parallel pull requests in the shared Issue/PR number namespace; those are not backlog items and are not counted as such.\n\n## Accepted semantic foundation for the first two MVP work cycles\n\nThe following decisions are Accepted:\n\n- ADR-0002 — canonical root `monad.toml`, deterministic root/config resolution, `.monad/` noncanonical operating/compatibility role;\n- ADR-0003 — clone-independent source/document identity with content hash as provenance rather than identity;\n- ADR-0004 — read-only, offline, non-executing canonical ingestion boundary.\n\nThe following MVP specifications are Approved:\n\n- IFC-WORKSPACE-0001 — repository root and effective configuration;\n- TECH-WORKSPACE-0001 — deterministic workspace discovery;\n- DATA-SOURCE-0001 — stable source/document identity;\n- TECH-INGEST-0001 — Markdown engineering artifact parsing;\n- TECH-INGEST-0002 — structured Monad configuration parsing;\n- TECH-INGEST-0003 — local reference resolution.\n\nThese contracts resolve the semantic meaning of WP-MVP-0001..0006 independently of implementation language.\n\n## Proposed implementation topology\n\nADR-0005 proposes Rust for the MVP product runtime, beginning with only:\n\n- `crates/monad-core` for semantic behavior; and\n- `crates/monad-cli` for the `monad` executable/presentation boundary.\n\nThis recommendation is intentionally isolated as Proposed. Accepting it would make exact source/test boundaries possible without pretending the user already approved a new language decision. EOS remains separate Python engineering-control tooling.\n\n## Blocking actions before M-000 closure\n\n1. Approve/retrigger the PR #158 Actions runs currently marked `action_required` and require the latest head to pass Machine Documents, EOS Integrity, and Repository Integrity.\n2. Run the safe owner setup from an authenticated environment with GitHub CLI/project scope:\n   - `./scripts/setup-github-owner.sh check`\n   - `./scripts/setup-github-owner.sh project`\n   - `./scripts/setup-github-owner.sh wiki`\n3. Verify the organization Project exists exactly once, is linked to the repository, contains the projected backlog, has the specified custom fields, and has the prescribed views.\n4. Verify Wiki pages are synchronized and remain informational projections.\n5. Accept ADR-0005 or replace it with another Accepted implementation-topology ADR.\n6. Update WP-MVP-0001 from Refined to Ready only after the accepted topology gives it an exact implementation boundary and validation commands.\n\n## Actions after stabilization PR acceptance/merge\n\n1. Confirm stable status-check context names from the successful PR runs.\n2. Add those contexts to the staged `main` ruleset if required by policy.\n3. Apply the ruleset with `./scripts/setup-github-owner.sh ruleset`.\n4. Close/accept WP-STAB-0001 and M-000 with the final evidence supplement.\n5. Begin WC-MVP-0001 by authorizing only the first Ready Work Packet; do not activate all scheduled packets simultaneously.\n\n## Residual risks\n\n### R-STAB-001 — automation-authored PR head requires Actions approval\n\n**State:** bounded operational blocker.  \n**Response:** do not bypass checks; approve/retrigger at GitHub and capture passing evidence. A future workflow refinement should avoid making an automation-authored generated commit the final PR head when repository Actions policy treats that actor as requiring approval.\n\n### R-STAB-002 — Project/Wiki owner surface cannot be mutated by current connector\n\n**State:** bounded owner action.  \n**Response:** configuration-as-code and exact commands are staged; verify after execution rather than claiming completion.\n\n### R-STAB-003 — implementation language/topology not yet accepted\n\n**State:** deliberate architecture gate.  \n**Response:** review ADR-0005. Do not let implementation choose the language implicitly.\n\n### R-STAB-004 — aggressive MVP forecast\n\n**State:** accepted planning risk.  \n**Response:** protect the MVP vertical slice, refine in rolling waves, and move forecast dates rather than relabeling incomplete work as released.\n\n## Recommendation\n\n**Conditionally accept the stabilization design and planning baseline, but do not close M-000 and do not authorize MVP product implementation yet.**\n\nOnce the bounded actions above are evidenced, a short stabilization evidence supplement can convert this review to PASS without reopening the foundation design. The next engineering decision on the critical path is ADR-0005.\n",
+  "document_id": "doc:engineering%2Freviews%2FFOUNDATION-STABILIZATION-REVIEW.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0001",
+    "ADR-0002",
+    "ADR-0003",
+    "ADR-0004",
+    "ADR-0005"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Review date: 2026-08-12 Program: Stabilization and MVP Launch Work Packet: WP-STAB-0001 Milestone: M-000 Foundation Stabilized Pull Request: #158 Disposition: CONDITIONAL PASS — M-000 NOT YET CLOSED",
+    "title": "Foundation Stabilization Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "foundation-stabilization-review",
+      "text": "# Foundation Stabilization Review\n\n**Review date:** 2026-08-12  \n**Program:** Stabilization and MVP Launch  \n**Work Packet:** WP-STAB-0001  \n**Milestone:** M-000 Foundation Stabilized  \n**Pull Request:** #158  \n**Disposition:** **CONDITIONAL PASS — M-000 NOT YET CLOSED**",
+      "title": "Foundation Stabilization Review"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 10,
+      "section_id": "executive-assessment",
+      "text": "## Executive assessment\n\nMonad now has a coherent product identity, singular architectural-decision root, reconciled EOS v0.5 operating model, populated artifact contract catalog, deterministic human↔machine synchronization, explicit MVP vertical slice, namespaced MVP delivery model, live GitHub execution hierarchy, and a refined first implementation horizon.\n\nThe foundation is no longer blocked by broad conceptual ambiguity. Remaining blockers are bounded and observable rather than architectural sprawl. It would nevertheless be incorrect to close M-000 or authorize implementation yet because the latest PR-head checks are awaiting GitHub Actions approval/execution, owner-only GitHub Project/Wiki setup has not been verified, and the proposed product-runtime implementation topology in ADR-0005 has not been accepted.",
+      "title": "Executive assessment"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 16,
+      "section_id": "review-basis",
+      "text": "## Review basis\n\nThis review inspected the integrated `stabilization/mvp-foundation` branch, PR #158, live repository Issues/milestones, canonical product/architecture/specification/work artifacts, EOS reconciliation history, generation workflows, and machine synchronization behavior.",
+      "title": "Review basis"
+    },
+    {
+      "identifiers": [
+        "ADR-0001",
+        "ADR-0002",
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 45,
+      "line_start": 20,
+      "section_id": "gate-results",
+      "text": "## Gate results\n\n| Gate | Result | Evidence / disposition |\n| --- | --- | --- |\n| Product identity coherent | PASS | Governing vision/product/README consistently define Monad as an Engineering Knowledge Compilation Platform. |\n| ADR root singular | PASS | `architecture/decisions/` is canonical; root `adrs/` is absent and explicitly retired. |\n| ADR history preserved | PASS | ADR-0001 remains Accepted; ADR-0002/0003/0004 establish MVP root/config, identity, and safe-ingestion semantics. |\n| EOS v0.5 reconciled | PASS | Two-parent reconciliation merge preserves EOS history and stabilization history; unqualified EOS IDs coexist with namespaced MVP IDs. |\n| Identifier namespace collision removed | PASS | EOS uses `PI/WC/WP-*`; MVP uses `PI-MVP-*`, `WC-MVP-*`, and `WP-MVP-*`. |\n| Artifact-system completeness baseline | PASS | Catalog population gives every previously empty/tiny Markdown contract substantive Draft content without bulk approval. |\n| Machine layer synchronization | PASS WITH PR EXECUTION GATE | Stabilization generation has repeatedly regenerated/verified `machine/`; latest PR check is withheld as `action_required`, not failed. |\n| Canonical repository config | PASS | Root `monad.toml` is defined under ADR-0002; `.monad/manifest.yaml` is explicitly legacy and points to `architecture/decisions/`. |\n| MVP scope / Product Goal | PASS | PG-001 and MVP Release 1 vertical slice are explicit and bounded. |\n| MVP program decomposition | PASS | 14 Epics; 34 Feature/Work-Packet outcomes; 105 user stories; 3 engineering enablers; 3 MVP increments; 13 MVP work cycles including stabilization. |\n| Milestones projected to GitHub | PASS | Four live milestones exist: M-000, M-MVP-001, M-MVP-002, M-MVP-003. |\n| GitHub Issue projection | PASS | 156 canonical tracking Issues exist: 14 Epic + 34 Feature/WP + 108 child items (105 stories + 3 enablers). |\n| Native Issue hierarchy | PASS | Epic → Feature/WP → Story/Enabler sub-issue links are live; sample F-001-01 reports four native children and parent EPIC-001. |\n| GitHub Issues preserve authority boundary | PASS | Projected Issue bodies identify canonical Git source and state that Git remains authoritative. |\n| Issue forms / synchronization | PASS | Repository contains typed Issue Forms and idempotent tracking synchronization workflow/script. |\n| Project v2 configuration | PENDING OWNER ACTION | Canonical field/view model and idempotent owner setup script are staged; organization Project mutation requires owner credential/CLI context. |\n| Wiki projection | PENDING OWNER ACTION | Informational Wiki page source and synchronization procedure are staged; Wiki repo initialization/push requires owner context. |\n| Main ruleset | CORRECTLY DEFERRED | Ruleset payload is staged but must not be applied until PR checks prove stable context names and stabilization is accepted. |\n| Repository/EOS integrity checks | PENDING ACTIONS EXECUTION | Obsolete `eos ci` invocation was repaired to `eos verify --strict`; latest PR runs are `action_required` with no jobs, requiring GitHub approval/retrigger. |\n| Ready-horizon semantic contracts | PASS | WP-MVP-0001..0006 have concrete ADR/spec dependencies, acceptance boundaries, negative/security behavior, and validation expectations. |\n| First implementation packet Ready | NO — INTENTIONAL | ADR-0005 implementation topology remains Proposed; refined packets correctly refuse to claim implementation readiness before it is accepted/replaced. |",
+      "title": "Gate results"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 51,
+      "line_start": 46,
+      "section_id": "corrected-planning-inventory",
+      "text": "## Corrected planning inventory\n\nThe authoritative backlog contains **105 user stories plus 3 engineering enablers**, not “105 stories/enablers” combined. This is 108 child backlog items. Together with 14 Epics and 34 Feature/WP projections, the canonical GitHub tracking projection contains 156 Issues.\n\nThe repository also contains unrelated/parallel pull requests in the shared Issue/PR number namespace; those are not backlog items and are not counted as such.",
+      "title": "Corrected planning inventory"
+    },
+    {
+      "identifiers": [
+        "ADR-0002",
+        "ADR-0003",
+        "ADR-0004"
+      ],
+      "level": 2,
+      "line_end": 70,
+      "line_start": 52,
+      "section_id": "accepted-semantic-foundation-for-the-first-two-mvp-work-cycles",
+      "text": "## Accepted semantic foundation for the first two MVP work cycles\n\nThe following decisions are Accepted:\n\n- ADR-0002 — canonical root `monad.toml`, deterministic root/config resolution, `.monad/` noncanonical operating/compatibility role;\n- ADR-0003 — clone-independent source/document identity with content hash as provenance rather than identity;\n- ADR-0004 — read-only, offline, non-executing canonical ingestion boundary.\n\nThe following MVP specifications are Approved:\n\n- IFC-WORKSPACE-0001 — repository root and effective configuration;\n- TECH-WORKSPACE-0001 — deterministic workspace discovery;\n- DATA-SOURCE-0001 — stable source/document identity;\n- TECH-INGEST-0001 — Markdown engineering artifact parsing;\n- TECH-INGEST-0002 — structured Monad configuration parsing;\n- TECH-INGEST-0003 — local reference resolution.\n\nThese contracts resolve the semantic meaning of WP-MVP-0001..0006 independently of implementation language.",
+      "title": "Accepted semantic foundation for the first two MVP work cycles"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 79,
+      "line_start": 71,
+      "section_id": "proposed-implementation-topology",
+      "text": "## Proposed implementation topology\n\nADR-0005 proposes Rust for the MVP product runtime, beginning with only:\n\n- `crates/monad-core` for semantic behavior; and\n- `crates/monad-cli` for the `monad` executable/presentation boundary.\n\nThis recommendation is intentionally isolated as Proposed. Accepting it would make exact source/test boundaries possible without pretending the user already approved a new language decision. EOS remains separate Python engineering-control tooling.",
+      "title": "Proposed implementation topology"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 91,
+      "line_start": 80,
+      "section_id": "blocking-actions-before-m-000-closure",
+      "text": "## Blocking actions before M-000 closure\n\n1. Approve/retrigger the PR #158 Actions runs currently marked `action_required` and require the latest head to pass Machine Documents, EOS Integrity, and Repository Integrity.\n2. Run the safe owner setup from an authenticated environment with GitHub CLI/project scope:\n   - `./scripts/setup-github-owner.sh check`\n   - `./scripts/setup-github-owner.sh project`\n   - `./scripts/setup-github-owner.sh wiki`\n3. Verify the organization Project exists exactly once, is linked to the repository, contains the projected backlog, has the specified custom fields, and has the prescribed views.\n4. Verify Wiki pages are synchronized and remain informational projections.\n5. Accept ADR-0005 or replace it with another Accepted implementation-topology ADR.\n6. Update WP-MVP-0001 from Refined to Ready only after the accepted topology gives it an exact implementation boundary and validation commands.",
+      "title": "Blocking actions before M-000 closure"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 99,
+      "line_start": 92,
+      "section_id": "actions-after-stabilization-pr-acceptance-merge",
+      "text": "## Actions after stabilization PR acceptance/merge\n\n1. Confirm stable status-check context names from the successful PR runs.\n2. Add those contexts to the staged `main` ruleset if required by policy.\n3. Apply the ruleset with `./scripts/setup-github-owner.sh ruleset`.\n4. Close/accept WP-STAB-0001 and M-000 with the final evidence supplement.\n5. Begin WC-MVP-0001 by authorizing only the first Ready Work Packet; do not activate all scheduled packets simultaneously.",
+      "title": "Actions after stabilization PR acceptance/merge"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 101,
+      "line_start": 100,
+      "section_id": "residual-risks",
+      "text": "## Residual risks",
+      "title": "Residual risks"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 106,
+      "line_start": 102,
+      "section_id": "r-stab-001-automation-authored-pr-head-requires-actions-approval",
+      "text": "### R-STAB-001 — automation-authored PR head requires Actions approval\n\n**State:** bounded operational blocker.  \n**Response:** do not bypass checks; approve/retrigger at GitHub and capture passing evidence. A future workflow refinement should avoid making an automation-authored generated commit the final PR head when repository Actions policy treats that actor as requiring approval.",
+      "title": "R-STAB-001 — automation-authored PR head requires Actions approval"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 111,
+      "line_start": 107,
+      "section_id": "r-stab-002-project-wiki-owner-surface-cannot-be-mutated-by-current-connector",
+      "text": "### R-STAB-002 — Project/Wiki owner surface cannot be mutated by current connector\n\n**State:** bounded owner action.  \n**Response:** configuration-as-code and exact commands are staged; verify after execution rather than claiming completion.",
+      "title": "R-STAB-002 — Project/Wiki owner surface cannot be mutated by current connector"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 3,
+      "line_end": 116,
+      "line_start": 112,
+      "section_id": "r-stab-003-implementation-language-topology-not-yet-accepted",
+      "text": "### R-STAB-003 — implementation language/topology not yet accepted\n\n**State:** deliberate architecture gate.  \n**Response:** review ADR-0005. Do not let implementation choose the language implicitly.",
+      "title": "R-STAB-003 — implementation language/topology not yet accepted"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 121,
+      "line_start": 117,
+      "section_id": "r-stab-004-aggressive-mvp-forecast",
+      "text": "### R-STAB-004 — aggressive MVP forecast\n\n**State:** accepted planning risk.  \n**Response:** protect the MVP vertical slice, refine in rolling waves, and move forecast dates rather than relabeling incomplete work as released.",
+      "title": "R-STAB-004 — aggressive MVP forecast"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 126,
+      "line_start": 122,
+      "section_id": "recommendation",
+      "text": "## Recommendation\n\n**Conditionally accept the stabilization design and planning baseline, but do not close M-000 and do not authorize MVP product implementation yet.**\n\nOnce the bounded actions above are evidenced, a short stabilization evidence supplement can convert this review to PASS without reopening the foundation design. The next engineering decision on the critical path is ADR-0005.",
+      "title": "Recommendation"
+    }
+  ],
+  "source": {
+    "bytes": 9652,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 126,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/FOUNDATION-STABILIZATION-REVIEW.md",
+    "sha256": "c7ffa763fda333717186a99ff772e04eda0796a3e68ad9a547a2974a44778473"
+  }
+}

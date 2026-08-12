@@ -1,0 +1,49 @@
+{
+  "content": "# Monad Product Backlog\n\n**Status:** Active rolling-wave plan\n\nThe Product Backlog is the ordered product/value view of work. It complements—not replaces—engineering authority.\n\n```text\nProduct Goal\n  → Epic\n    → Feature\n      → Story / Enabler / Bug / Spike\n        → Task\n\nEngineering authority\n  → ADR / Specification\n    → Increment\n      → Work Cycle (Sprint)\n        → Work Packet\n          → Implementation / tests / evidence / PR\n```\n\nFor MVP, **Work Cycle and Sprint are the same one-week execution window**. This avoids running two competing cadences.\n\n## Refinement horizon\n\n- All MVP Epics: defined and sequenced.\n- All MVP Features: defined and assigned to a forecast Sprint/Increment.\n- Stories/Enablers: defined across the MVP with acceptance intent.\n- Next three Sprints: decomposed into ready-candidate Work Packets/tasks.\n- Later tasks: refined when dependencies/evidence make them meaningful.\n\nGitHub Issues/Projects project this backlog for collaboration. Git files remain canonical for governing specifications, ADRs, Work Packets, and release evidence.",
+  "document_id": "doc:product%2Fbacklog%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "product",
+    "normative": true,
+    "summary": "Status: Active rolling-wave plan",
+    "title": "Monad Product Backlog"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 23,
+      "line_start": 1,
+      "section_id": "monad-product-backlog",
+      "text": "# Monad Product Backlog\n\n**Status:** Active rolling-wave plan\n\nThe Product Backlog is the ordered product/value view of work. It complements—not replaces—engineering authority.\n\n```text\nProduct Goal\n  → Epic\n    → Feature\n      → Story / Enabler / Bug / Spike\n        → Task\n\nEngineering authority\n  → ADR / Specification\n    → Increment\n      → Work Cycle (Sprint)\n        → Work Packet\n          → Implementation / tests / evidence / PR\n```\n\nFor MVP, **Work Cycle and Sprint are the same one-week execution window**. This avoids running two competing cadences.",
+      "title": "Monad Product Backlog"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 24,
+      "section_id": "refinement-horizon",
+      "text": "## Refinement horizon\n\n- All MVP Epics: defined and sequenced.\n- All MVP Features: defined and assigned to a forecast Sprint/Increment.\n- Stories/Enablers: defined across the MVP with acceptance intent.\n- Next three Sprints: decomposed into ready-candidate Work Packets/tasks.\n- Later tasks: refined when dependencies/evidence make them meaningful.\n\nGitHub Issues/Projects project this backlog for collaboration. Git files remain canonical for governing specifications, ADRs, Work Packets, and release evidence.",
+      "title": "Refinement horizon"
+    }
+  ],
+  "source": {
+    "bytes": 1097,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 32,
+    "media_type": "text/markdown",
+    "path": "product/backlog/README.md",
+    "sha256": "dbbf3006d799a00f088587e919ff030b994abe3b4113470152014bc65c0c367c"
+  }
+}

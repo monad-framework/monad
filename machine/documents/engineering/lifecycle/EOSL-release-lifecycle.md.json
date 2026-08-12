@@ -1,0 +1,76 @@
+{
+  "content": "---\nartifact_id: \"EOSL\"\ntitle: \"EOSL Release Lifecycle\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSL — Release Lifecycle\n\n## Purpose\n\nTurn accepted engineering output into a reproducible, reviewable, traceable\nrelease.\n\n## Flow\n\n`candidate -> readiness evidence -> readiness review -> version -> commit ->\nannotated tag -> optional GitHub Release -> post-release evidence`\n\n## Primary Command\n\n```bash\n./scripts/eos release 0.1.0\n```\n\nThe first invocation prepares release/readiness artifacts when necessary. Final\ntagging remains gated on readiness approval unless a human records an explicit\noverride. `--publish` performs the external GitHub publication step.\n",
+  "document_id": "doc:engineering%2Flifecycle%2FEOSL-release-lifecycle.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"EOSL\" title: \"EOSL Release Lifecycle\" type: \"lifecycle-layer\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOSL — Release Lifecycle"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"EOSL\"\ntitle: \"EOSL Release Lifecycle\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "eosl-release-lifecycle",
+      "text": "# EOSL — Release Lifecycle",
+      "title": "EOSL — Release Lifecycle"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 14,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nTurn accepted engineering output into a reproducible, reviewable, traceable\nrelease.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 19,
+      "section_id": "flow",
+      "text": "## Flow\n\n`candidate -> readiness evidence -> readiness review -> version -> commit ->\nannotated tag -> optional GitHub Release -> post-release evidence`",
+      "title": "Flow"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 24,
+      "section_id": "primary-command",
+      "text": "## Primary Command\n\n```bash\n./scripts/eos release 0.1.0\n```\n\nThe first invocation prepares release/readiness artifacts when necessary. Final\ntagging remains gated on readiness approval unless a human records an explicit\noverride. `--publish` performs the external GitHub publication step.",
+      "title": "Primary Command"
+    }
+  ],
+  "source": {
+    "bytes": 771,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 32,
+    "media_type": "text/markdown",
+    "path": "engineering/lifecycle/EOSL-release-lifecycle.md",
+    "sha256": "37c17eedae525eeba762ce31f8e3a541fea5efc9071e8e5c91172eadfe45e64d"
+  }
+}

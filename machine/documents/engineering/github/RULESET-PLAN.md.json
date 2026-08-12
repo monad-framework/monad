@@ -1,0 +1,76 @@
+{
+  "content": "# Main Branch Ruleset Plan\n\n**Status:** Staged; apply only after the Foundation Stabilization PR passes and is merged.  \n**Target:** default branch `main`\n\n## Objectives\n\n- prevent accidental deletion of `main`;\n- prevent non-fast-forward/force-push history rewriting;\n- require changes to enter through pull requests;\n- require conversation/review-thread resolution before merge;\n- preserve solo-founder usability while still using PR/CI evidence.\n\n## Initial rule posture\n\nThe staged payload in `engineering/github/rulesets/main.json` requires pull requests but sets required approving reviews to zero. This is intentional for the current solo-founder phase: the PR is still the acceptance container, CI still runs, and human acceptance remains explicit without inventing a second approver.\n\nThe initial payload does **not** hard-code required status-check context names. Required checks should be added only after the stabilization PR confirms the stable check names produced by GitHub Actions. This avoids locking `main` behind a misspelled or renamed context.\n\n## Post-stabilization hardening\n\nAfter the stabilization PR:\n\n1. confirm the stable check contexts for Repository Integrity and EOS Integrity;\n2. add them to required status checks;\n3. retain deletion/non-fast-forward protection;\n4. keep bypass narrowly scoped to true repository recovery/admin needs;\n5. revisit required approvals when another maintainer can genuinely review changes.\n\n## Change control\n\nRuleset relaxation is a governance change. Do not temporarily disable protections simply to merge a failing change; fix the change, update the governing policy with rationale, or use an explicit emergency/recovery procedure.\n",
+  "document_id": "doc:engineering%2Fgithub%2FRULESET-PLAN.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Staged; apply only after the Foundation Stabilization PR passes and is merged. Target: default branch main",
+    "title": "Main Branch Ruleset Plan"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 5,
+      "line_start": 1,
+      "section_id": "main-branch-ruleset-plan",
+      "text": "# Main Branch Ruleset Plan\n\n**Status:** Staged; apply only after the Foundation Stabilization PR passes and is merged.  \n**Target:** default branch `main`",
+      "title": "Main Branch Ruleset Plan"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 6,
+      "section_id": "objectives",
+      "text": "## Objectives\n\n- prevent accidental deletion of `main`;\n- prevent non-fast-forward/force-push history rewriting;\n- require changes to enter through pull requests;\n- require conversation/review-thread resolution before merge;\n- preserve solo-founder usability while still using PR/CI evidence.",
+      "title": "Objectives"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 14,
+      "section_id": "initial-rule-posture",
+      "text": "## Initial rule posture\n\nThe staged payload in `engineering/github/rulesets/main.json` requires pull requests but sets required approving reviews to zero. This is intentional for the current solo-founder phase: the PR is still the acceptance container, CI still runs, and human acceptance remains explicit without inventing a second approver.\n\nThe initial payload does **not** hard-code required status-check context names. Required checks should be added only after the stabilization PR confirms the stable check names produced by GitHub Actions. This avoids locking `main` behind a misspelled or renamed context.",
+      "title": "Initial rule posture"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 20,
+      "section_id": "post-stabilization-hardening",
+      "text": "## Post-stabilization hardening\n\nAfter the stabilization PR:\n\n1. confirm the stable check contexts for Repository Integrity and EOS Integrity;\n2. add them to required status checks;\n3. retain deletion/non-fast-forward protection;\n4. keep bypass narrowly scoped to true repository recovery/admin needs;\n5. revisit required approvals when another maintainer can genuinely review changes.",
+      "title": "Post-stabilization hardening"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 30,
+      "section_id": "change-control",
+      "text": "## Change control\n\nRuleset relaxation is a governance change. Do not temporarily disable protections simply to merge a failing change; fix the change, update the governing policy with rationale, or use an explicit emergency/recovery procedure.",
+      "title": "Change control"
+    }
+  ],
+  "source": {
+    "bytes": 1697,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 32,
+    "media_type": "text/markdown",
+    "path": "engineering/github/RULESET-PLAN.md",
+    "sha256": "3584aa85eca387a8d8f68d94ca36a67ecaa27f877c726ac9f1e755a844f75865"
+  }
+}

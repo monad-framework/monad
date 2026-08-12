@@ -1,0 +1,40 @@
+{
+  "content": "name: Work Packet execution issue\nabout: Project an existing canonical Work Packet into GitHub for execution tracking.\ntitle: \"[WP] \"\nbody:\n  - type: input\n    id: identifier\n    attributes:\n      label: Work Packet identifier\n      placeholder: WP-MVP-XXXX\n    validations:\n      required: true\n  - type: input\n    id: path\n    attributes:\n      label: Canonical Work Packet path\n      placeholder: engineering/work-packets/WP-MVP-XXXX.md\n    validations:\n      required: true\n  - type: input\n    id: branch\n    attributes:\n      label: Authorized branch\n      placeholder: wp/...\n  - type: textarea\n    id: acceptance\n    attributes:\n      label: Acceptance / validation summary\n      description: Do not duplicate the canonical packet; summarize and link it.\n    validations:\n      required: true\n  - type: checkboxes\n    id: gates\n    attributes:\n      label: Authorization gates\n      options:\n        - label: Canonical Work Packet is Ready\n          required: true\n        - label: Required ADR/specification dependencies are resolved\n          required: true\n        - label: Scope and prohibited changes are explicit\n          required: true\n",
+  "document_id": "doc:.github%2FISSUE_TEMPLATE%2Fwork-packet.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-governance",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/ISSUE_TEMPLATE/work-packet.yml.",
+    "title": "Work Packet"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 41,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Work Packet execution issue\nabout: Project an existing canonical Work Packet into GitHub for execution tracking.\ntitle: \"[WP] \"\nbody:\n  - type: input\n    id: identifier\n    attributes:\n      label: Work Packet identifier\n      placeholder: WP-MVP-XXXX\n    validations:\n      required: true\n  - type: input\n    id: path\n    attributes:\n      label: Canonical Work Packet path\n      placeholder: engineering/work-packets/WP-MVP-XXXX.md\n    validations:\n      required: true\n  - type: input\n    id: branch\n    attributes:\n      label: Authorized branch\n      placeholder: wp/...\n  - type: textarea\n    id: acceptance\n    attributes:\n      label: Acceptance / validation summary\n      description: Do not duplicate the canonical packet; summarize and link it.\n    validations:\n      required: true\n  - type: checkboxes\n    id: gates\n    attributes:\n      label: Authorization gates\n      options:\n        - label: Canonical Work Packet is Ready\n          required: true\n        - label: Required ADR/specification dependencies are resolved\n          required: true\n        - label: Scope and prohibited changes are explicit\n          required: true",
+      "title": "Work Packet"
+    }
+  ],
+  "source": {
+    "bytes": 1151,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 41,
+    "media_type": "application/yaml",
+    "path": ".github/ISSUE_TEMPLATE/work-packet.yml",
+    "sha256": "8f24d8b0ca17f2c31beb67a2221553425dd4e51591e8be108b1cf6641c034b84"
+  }
+}

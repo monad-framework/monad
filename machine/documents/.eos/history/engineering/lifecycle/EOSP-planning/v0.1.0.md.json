@@ -1,0 +1,80 @@
+{
+  "content": "---\nartifact_id: \"EOSP\"\ntitle: \"EOSP Planning\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSP — Planning\n\n## Purpose\n\nConvert accepted product, architecture, and specification intent into bounded,\ntraceable execution units.\n\n## Managed Objects\n\n- milestones;\n- program increments;\n- work cycles;\n- work packets;\n- dependencies;\n- risks;\n- sequencing;\n- readiness gates.\n\n## Primary Commands\n\n```bash\n./scripts/eos plan PI-002\n./scripts/eos create-wc --pi PI-002\n./scripts/eos create-wp --wc WC-0002 --domain CORE\n./scripts/eos authorize PI-002\n./scripts/eos authorize WC-0002\n./scripts/eos authorize WP-CORE-0001\n```\n",
+  "document_id": "doc:.eos%2Fhistory%2Fengineering%2Flifecycle%2FEOSP-planning%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WC-0002"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"EOSP\" title: \"EOSP Planning\" type: \"lifecycle-layer\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOSP — Planning"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"EOSP\"\ntitle: \"EOSP Planning\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "eosp-planning",
+      "text": "# EOSP — Planning",
+      "title": "EOSP — Planning"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 14,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nConvert accepted product, architecture, and specification intent into bounded,\ntraceable execution units.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 19,
+      "section_id": "managed-objects",
+      "text": "## Managed Objects\n\n- milestones;\n- program increments;\n- work cycles;\n- work packets;\n- dependencies;\n- risks;\n- sequencing;\n- readiness gates.",
+      "title": "Managed Objects"
+    },
+    {
+      "identifiers": [
+        "WC-0002"
+      ],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 30,
+      "section_id": "primary-commands",
+      "text": "## Primary Commands\n\n```bash\n./scripts/eos plan PI-002\n./scripts/eos create-wc --pi PI-002\n./scripts/eos create-wp --wc WC-0002 --domain CORE\n./scripts/eos authorize PI-002\n./scripts/eos authorize WC-0002\n./scripts/eos authorize WP-CORE-0001\n```",
+      "title": "Primary Commands"
+    }
+  ],
+  "source": {
+    "bytes": 723,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 39,
+    "media_type": "text/markdown",
+    "path": ".eos/history/engineering/lifecycle/EOSP-planning/v0.1.0.md",
+    "sha256": "3b2e4caf60a4b6d4f50a92b1c7f8d6a072c430ce772c2e253c3b60896b3eaf24"
+  }
+}
