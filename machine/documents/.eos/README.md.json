@@ -1,5 +1,5 @@
 {
-  "content": "# .eos\n\nInternal Engineering Operating System control state.\n\nCanonical human-authored engineering artifacts remain authoritative. `.eos/` records lifecycle/control projections, durable events, policy state, verification evidence, and execution metadata; it MUST NOT silently supersede accepted canonical requirements, decisions, specifications, or Work Packet contracts.\n\n## Bootstrap and adoption\n\n- `workflow.tsv` — ordered EOSB bootstrap workflow and its reconciled completion state;\n- `adoptions/` — reviewed manifests used to adopt already-approved canonical program horizons into EOS without replaying obsolete bootstrap/planning work;\n- `events.jsonl` — append-only lifecycle/event ledger, including adoption and supersession evidence.\n\nAn adoption is an explicit control-state transition, not a new source of product authority. It requires canonical evidence, validates parent relationships and lifecycle states, preserves existing matching objects, and is designed to be idempotent.\n\nEOS 0.8 supports namespaced lifecycle identifiers such as `PI-MVP-001`, `WC-MVP-0001`, and `WP-MVP-0001` while preserving historical unqualified identifiers. Historical planning objects displaced by a stronger accepted baseline are retained as `SUPERSEDED`, never silently deleted or reused.\n\n## Permanent lifecycle state\n\n- `layers.tsv` — EOSB/EOSP/EOSE/EOSV/EOSR/EOSC/EOSL/EOSM;\n- `program-increments.tsv` — PI state;\n- `work-cycles.tsv` — WC state;\n- `work-packets.tsv` — WP state;\n- `change-requests.tsv` — EOSC state;\n- `maintenance.tsv` — EOSM state;\n- `releases.tsv` — EOSL state;\n- `decisions.tsv` — gate/closure decision log;\n- `trace-edges.tsv` — generated traceability graph;\n- `contracts/` — bounded execution/review contracts;\n- `evidence/` and `evidence.tsv` — verification/review evidence;\n- `sync/` — external projection synchronization records;\n- `state-machines/` — declarative lifecycle states and transitions;\n- `schemas/` — lifecycle/control-state validation schemas;\n- `policies/` — named policy-as-code gates.\n\n## Rolling-wave rule\n\nThe full MVP roadmap remains canonical planning in human-authored product/engineering artifacts. EOS lifecycle registries SHOULD adopt only the execution horizon that is sufficiently refined to govern current work. A forecast date or backlog entry does not itself create lifecycle readiness or authorization.\n\n## Read-only commands\n\nCommands such as `status`, `next`, and gate inspection are observational. Some verification/trace operations may rebuild deterministic generated projections; when canonical inputs are unchanged, the resulting bytes must remain stable.\n\n## History\n\n- `artifact-changelog.tsv` — semantic artifact version changes;\n- `history/` — retained prior governed artifact bodies;\n- `checkpoints/` — checkpoint metadata;\n- `prompts/` — generated prompt material.\n\nThis directory is intentionally committed to Git except for explicitly ephemeral files so control-state history remains reviewable and reproducible.\n",
+  "content": "# .eos\n\nInternal Engineering Operating System state.\n\n- `workflow.tsv` — ordered bootstrap workflow\n- `artifacts.tsv` — governed artifact registry\n- `artifact-changelog.tsv` — semantic artifact version changes\n- `history/` — retained prior governed artifact bodies\n- `checkpoints/` — checkpoint metadata\n- `prompts/` — generated prompt material\n\nThis directory is intentionally committed to Git except for ephemeral files.\n\n## Permanent Lifecycle State\n\n- `layers.tsv` — EOSB/EOSP/EOSE/EOSV/EOSR/EOSC/EOSL/EOSM;\n- `program-increments.tsv` — PI state;\n- `work-cycles.tsv` — WC state;\n- `work-packets.tsv` — WP state;\n- `change-requests.tsv` — EOSC state;\n- `maintenance.tsv` — EOSM state;\n- `releases.tsv` — EOSL state;\n- `decisions.tsv` — gate/closure decision log;\n- `trace-edges.tsv` — generated traceability graph;\n- `contracts/` — Codex and ChatGPT review contracts;\n- `evidence/` — verification/review evidence;\n- `sync/` — GitHub sync records.\n",
   "document_id": "doc:.eos%2FREADME.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "project-source",
     "normative": false,
-    "summary": "Internal Engineering Operating System control state.",
+    "summary": "Internal Engineering Operating System state.",
     "title": ".eos"
   },
   "relations": [],
@@ -21,65 +21,29 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 6,
+      "line_end": 13,
       "line_start": 1,
       "section_id": "eos",
-      "text": "# .eos\n\nInternal Engineering Operating System control state.\n\nCanonical human-authored engineering artifacts remain authoritative. `.eos/` records lifecycle/control projections, durable events, policy state, verification evidence, and execution metadata; it MUST NOT silently supersede accepted canonical requirements, decisions, specifications, or Work Packet contracts.",
+      "text": "# .eos\n\nInternal Engineering Operating System state.\n\n- `workflow.tsv` — ordered bootstrap workflow\n- `artifacts.tsv` — governed artifact registry\n- `artifact-changelog.tsv` — semantic artifact version changes\n- `history/` — retained prior governed artifact bodies\n- `checkpoints/` — checkpoint metadata\n- `prompts/` — generated prompt material\n\nThis directory is intentionally committed to Git except for ephemeral files.",
       "title": ".eos"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 16,
-      "line_start": 7,
-      "section_id": "bootstrap-and-adoption",
-      "text": "## Bootstrap and adoption\n\n- `workflow.tsv` — ordered EOSB bootstrap workflow and its reconciled completion state;\n- `adoptions/` — reviewed manifests used to adopt already-approved canonical program horizons into EOS without replaying obsolete bootstrap/planning work;\n- `events.jsonl` — append-only lifecycle/event ledger, including adoption and supersession evidence.\n\nAn adoption is an explicit control-state transition, not a new source of product authority. It requires canonical evidence, validates parent relationships and lifecycle states, preserves existing matching objects, and is designed to be idempotent.\n\nEOS 0.8 supports namespaced lifecycle identifiers such as `PI-MVP-001`, `WC-MVP-0001`, and `WP-MVP-0001` while preserving historical unqualified identifiers. Historical planning objects displaced by a stronger accepted baseline are retained as `SUPERSEDED`, never silently deleted or reused.",
-      "title": "Bootstrap and adoption"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 34,
-      "line_start": 17,
+      "line_end": 27,
+      "line_start": 14,
       "section_id": "permanent-lifecycle-state",
-      "text": "## Permanent lifecycle state\n\n- `layers.tsv` — EOSB/EOSP/EOSE/EOSV/EOSR/EOSC/EOSL/EOSM;\n- `program-increments.tsv` — PI state;\n- `work-cycles.tsv` — WC state;\n- `work-packets.tsv` — WP state;\n- `change-requests.tsv` — EOSC state;\n- `maintenance.tsv` — EOSM state;\n- `releases.tsv` — EOSL state;\n- `decisions.tsv` — gate/closure decision log;\n- `trace-edges.tsv` — generated traceability graph;\n- `contracts/` — bounded execution/review contracts;\n- `evidence/` and `evidence.tsv` — verification/review evidence;\n- `sync/` — external projection synchronization records;\n- `state-machines/` — declarative lifecycle states and transitions;\n- `schemas/` — lifecycle/control-state validation schemas;\n- `policies/` — named policy-as-code gates.",
-      "title": "Permanent lifecycle state"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 38,
-      "line_start": 35,
-      "section_id": "rolling-wave-rule",
-      "text": "## Rolling-wave rule\n\nThe full MVP roadmap remains canonical planning in human-authored product/engineering artifacts. EOS lifecycle registries SHOULD adopt only the execution horizon that is sufficiently refined to govern current work. A forecast date or backlog entry does not itself create lifecycle readiness or authorization.",
-      "title": "Rolling-wave rule"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 42,
-      "line_start": 39,
-      "section_id": "read-only-commands",
-      "text": "## Read-only commands\n\nCommands such as `status`, `next`, and gate inspection are observational. Some verification/trace operations may rebuild deterministic generated projections; when canonical inputs are unchanged, the resulting bytes must remain stable.",
-      "title": "Read-only commands"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 50,
-      "line_start": 43,
-      "section_id": "history",
-      "text": "## History\n\n- `artifact-changelog.tsv` — semantic artifact version changes;\n- `history/` — retained prior governed artifact bodies;\n- `checkpoints/` — checkpoint metadata;\n- `prompts/` — generated prompt material.\n\nThis directory is intentionally committed to Git except for explicitly ephemeral files so control-state history remains reviewable and reproducible.",
-      "title": "History"
+      "text": "## Permanent Lifecycle State\n\n- `layers.tsv` — EOSB/EOSP/EOSE/EOSV/EOSR/EOSC/EOSL/EOSM;\n- `program-increments.tsv` — PI state;\n- `work-cycles.tsv` — WC state;\n- `work-packets.tsv` — WP state;\n- `change-requests.tsv` — EOSC state;\n- `maintenance.tsv` — EOSM state;\n- `releases.tsv` — EOSL state;\n- `decisions.tsv` — gate/closure decision log;\n- `trace-edges.tsv` — generated traceability graph;\n- `contracts/` — Codex and ChatGPT review contracts;\n- `evidence/` — verification/review evidence;\n- `sync/` — GitHub sync records.",
+      "title": "Permanent Lifecycle State"
     }
   ],
   "source": {
-    "bytes": 3027,
+    "bytes": 986,
     "canonical": true,
     "language": "markdown",
-    "lines": 50,
+    "lines": 27,
     "media_type": "text/markdown",
     "path": ".eos/README.md",
-    "sha256": "9b470fed4ec60594078e00bd5069ce0e048207c5773817360c33e8e6d9697776"
+    "sha256": "9172db4f9ef815c1f5db0b991d659eb8d4bd2f7876e01bf08b0282bca3182b94"
   }
 }

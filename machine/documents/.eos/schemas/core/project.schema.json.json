@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/project.schema.json\",\"title\":\"EOS Project\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^PROJ-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"Project\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"DRAFT\",\"ACTIVE\",\"SUSPENDED\",\"ARCHIVED\",\"CLOSED\"]},\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":\"string\"},\"repository\":{\"type\":\"string\"},\"owners\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"uniqueItems\":true}},\"unevaluatedProperties\":false}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Fproject.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/project.schema.json.",
+    "title": "Project.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/project.schema.json\",\"title\":\"EOS Project\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^PROJ-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"Project\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"DRAFT\",\"ACTIVE\",\"SUSPENDED\",\"ARCHIVED\",\"CLOSED\"]},\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":\"string\"},\"repository\":{\"type\":\"string\"},\"owners\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"uniqueItems\":true}},\"unevaluatedProperties\":false}",
+      "title": "Project.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 647,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/project.schema.json",
+    "sha256": "482db9154c28964c7cd6040994548b8b619b1b1dfea9835550a5a406c9a9812e"
+  }
+}

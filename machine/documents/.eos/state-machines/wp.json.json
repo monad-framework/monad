@@ -1,5 +1,5 @@
 {
-  "content": "{\n  \"kind\": \"WP\",\n  \"version\": \"1.2.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\n    \"CLOSED\",\n    \"SUPERSEDED\"\n  ],\n  \"states\": [\n    \"DRAFT\",\n    \"READY\",\n    \"AUTHORIZED\",\n    \"IN_PROGRESS\",\n    \"VERIFYING\",\n    \"IN_REVIEW\",\n    \"BLOCKED\",\n    \"CLOSED\",\n    \"SUPERSEDED\"\n  ],\n  \"transitions\": {\n    \"DRAFT\": [\n      \"READY\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"READY\": [\n      \"AUTHORIZED\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"AUTHORIZED\": [\n      \"IN_PROGRESS\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"IN_PROGRESS\": [\n      \"VERIFYING\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"VERIFYING\": [\n      \"IN_REVIEW\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"IN_REVIEW\": [\n      \"CLOSED\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"BLOCKED\": [\n      \"READY\",\n      \"AUTHORIZED\",\n      \"IN_PROGRESS\",\n      \"VERIFYING\",\n      \"IN_REVIEW\",\n      \"SUPERSEDED\"\n    ],\n    \"CLOSED\": [],\n    \"SUPERSEDED\": []\n  }\n}\n",
+  "content": "{\n  \"kind\": \"WP\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\"CLOSED\"],\n  \"states\": [\"DRAFT\", \"READY\", \"AUTHORIZED\", \"IN_PROGRESS\", \"VERIFYING\", \"IN_REVIEW\", \"BLOCKED\", \"CLOSED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"READY\", \"BLOCKED\"],\n    \"READY\": [\"AUTHORIZED\", \"BLOCKED\"],\n    \"AUTHORIZED\": [\"IN_PROGRESS\", \"BLOCKED\"],\n    \"IN_PROGRESS\": [\"VERIFYING\", \"BLOCKED\"],\n    \"VERIFYING\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"IN_REVIEW\": [\"CLOSED\", \"BLOCKED\"],\n    \"BLOCKED\": [\"READY\", \"AUTHORIZED\", \"IN_PROGRESS\", \"VERIFYING\", \"IN_REVIEW\"],\n    \"CLOSED\": []\n  }\n}\n",
   "document_id": "doc:.eos%2Fstate-machines%2Fwp.json",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 62,
+      "line_end": 17,
       "line_start": 1,
       "section_id": "content",
-      "text": "{\n  \"kind\": \"WP\",\n  \"version\": \"1.2.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\n    \"CLOSED\",\n    \"SUPERSEDED\"\n  ],\n  \"states\": [\n    \"DRAFT\",\n    \"READY\",\n    \"AUTHORIZED\",\n    \"IN_PROGRESS\",\n    \"VERIFYING\",\n    \"IN_REVIEW\",\n    \"BLOCKED\",\n    \"CLOSED\",\n    \"SUPERSEDED\"\n  ],\n  \"transitions\": {\n    \"DRAFT\": [\n      \"READY\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"READY\": [\n      \"AUTHORIZED\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"AUTHORIZED\": [\n      \"IN_PROGRESS\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"IN_PROGRESS\": [\n      \"VERIFYING\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"VERIFYING\": [\n      \"IN_REVIEW\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"IN_REVIEW\": [\n      \"CLOSED\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"BLOCKED\": [\n      \"READY\",\n      \"AUTHORIZED\",\n      \"IN_PROGRESS\",\n      \"VERIFYING\",\n      \"IN_REVIEW\",\n      \"SUPERSEDED\"\n    ],\n    \"CLOSED\": [],\n    \"SUPERSEDED\": []\n  }\n}",
+      "text": "{\n  \"kind\": \"WP\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\"CLOSED\"],\n  \"states\": [\"DRAFT\", \"READY\", \"AUTHORIZED\", \"IN_PROGRESS\", \"VERIFYING\", \"IN_REVIEW\", \"BLOCKED\", \"CLOSED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"READY\", \"BLOCKED\"],\n    \"READY\": [\"AUTHORIZED\", \"BLOCKED\"],\n    \"AUTHORIZED\": [\"IN_PROGRESS\", \"BLOCKED\"],\n    \"IN_PROGRESS\": [\"VERIFYING\", \"BLOCKED\"],\n    \"VERIFYING\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"IN_REVIEW\": [\"CLOSED\", \"BLOCKED\"],\n    \"BLOCKED\": [\"READY\", \"AUTHORIZED\", \"IN_PROGRESS\", \"VERIFYING\", \"IN_REVIEW\"],\n    \"CLOSED\": []\n  }\n}",
       "title": "Wp"
     }
   ],
   "source": {
-    "bytes": 967,
+    "bytes": 581,
     "canonical": true,
     "language": "json",
-    "lines": 62,
+    "lines": 17,
     "media_type": "application/json",
     "path": ".eos/state-machines/wp.json",
-    "sha256": "ce593209fb66c4664f10860a9d5a7d95d4c3579dec851315ba1261157973350e"
+    "sha256": "c3fd5dfe831b8327c81efe59ae77f4fd3b62c818ec5a65586c2c8d358f93346b"
   }
 }

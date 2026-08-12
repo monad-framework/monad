@@ -1,0 +1,103 @@
+{
+  "content": "# EOS Core Schema and Canonical Domain Model\n\n**Status:** Implemented  \n**Schema version:** 2.0.0  \n**Domain-model version:** 1.0.0\n\n## Purpose\n\nEstablish a stable, machine-readable semantic foundation for the Engineering Operating System. Every first-class EOS entity now shares one canonical contract for identity, lifecycle, versioning, timestamps, relationships, authority, and provenance.\n\n## Canonical entities\n\nProject, Artifact, Requirement, Capability, ADR, Specification, Risk, PI, WC, WP, Review, ChangeRequest, Release, MaintenanceItem, Evidence, Decision, Approval, Dependency, and TraceEdge.\n\n## Common invariant\n\nEvery canonical entity MUST carry: `id`, `entity_type`, `schema_version`, `version`, `lifecycle_state`, `created_at`, `updated_at`, `relationships`, `authority_level`, and `provenance`. IDs are immutable and MUST NOT be reused. Entity version and schema version are independent.\n\n## Authority levels\n\n- `L0_INFORMATIVE` — descriptive or derived only.\n- `L1_ADVISORY` — analysis/recommendation; non-binding.\n- `L2_NORMATIVE` — approved rule or contract.\n- `L3_BINDING` — active approval/authorization/control effect.\n- `L4_HUMAN_SOVEREIGN` — human-only authority for mission, material risk, irreversible actions, and governance override.\n\n## Provenance\n\nEvery entity records origin, creator, source references, and generation method. Optional commit and SHA-256 fields provide cryptographic linkage. Derived projections MUST preserve source references and cannot silently elevate authority.\n\n## Compatibility boundary\n\nThe existing EOS CLI validates current TSV registries with a small operational schema engine. Those legacy operational schemas remain in place. The new canonical schemas live under `.eos/schemas/core/` and are normative for the domain model, preventing this tranche from breaking current PI/WC/WP/CR/REL/MNT operations. Future migration may project canonical entities into richer registries without changing their IDs.\n\n## Canonical source\n\n`.eos/domain-model.json` is the registry of entity kinds, ID patterns, lifecycle states, schema locations, and compatibility metadata. `.eos/schemas/core/base-entity.schema.json` defines the common contract. Each first-class entity has its own Draft 2020-12 JSON Schema.\n",
+  "document_id": "doc:engineering%2Feos%2FEOS-CORE-SCHEMA-AND-DOMAIN-MODEL.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Implemented Schema version: 2.0.0 Domain-model version: 1.0.0",
+    "title": "EOS Core Schema and Canonical Domain Model"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "eos-core-schema-and-canonical-domain-model",
+      "text": "# EOS Core Schema and Canonical Domain Model\n\n**Status:** Implemented  \n**Schema version:** 2.0.0  \n**Domain-model version:** 1.0.0",
+      "title": "EOS Core Schema and Canonical Domain Model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nEstablish a stable, machine-readable semantic foundation for the Engineering Operating System. Every first-class EOS entity now shares one canonical contract for identity, lifecycle, versioning, timestamps, relationships, authority, and provenance.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "canonical-entities",
+      "text": "## Canonical entities\n\nProject, Artifact, Requirement, Capability, ADR, Specification, Risk, PI, WC, WP, Review, ChangeRequest, Release, MaintenanceItem, Evidence, Decision, Approval, Dependency, and TraceEdge.",
+      "title": "Canonical entities"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "common-invariant",
+      "text": "## Common invariant\n\nEvery canonical entity MUST carry: `id`, `entity_type`, `schema_version`, `version`, `lifecycle_state`, `created_at`, `updated_at`, `relationships`, `authority_level`, and `provenance`. IDs are immutable and MUST NOT be reused. Entity version and schema version are independent.",
+      "title": "Common invariant"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 19,
+      "section_id": "authority-levels",
+      "text": "## Authority levels\n\n- `L0_INFORMATIVE` — descriptive or derived only.\n- `L1_ADVISORY` — analysis/recommendation; non-binding.\n- `L2_NORMATIVE` — approved rule or contract.\n- `L3_BINDING` — active approval/authorization/control effect.\n- `L4_HUMAN_SOVEREIGN` — human-only authority for mission, material risk, irreversible actions, and governance override.",
+      "title": "Authority levels"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 27,
+      "section_id": "provenance",
+      "text": "## Provenance\n\nEvery entity records origin, creator, source references, and generation method. Optional commit and SHA-256 fields provide cryptographic linkage. Derived projections MUST preserve source references and cannot silently elevate authority.",
+      "title": "Provenance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 31,
+      "section_id": "compatibility-boundary",
+      "text": "## Compatibility boundary\n\nThe existing EOS CLI validates current TSV registries with a small operational schema engine. Those legacy operational schemas remain in place. The new canonical schemas live under `.eos/schemas/core/` and are normative for the domain model, preventing this tranche from breaking current PI/WC/WP/CR/REL/MNT operations. Future migration may project canonical entities into richer registries without changing their IDs.",
+      "title": "Compatibility boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 35,
+      "section_id": "canonical-source",
+      "text": "## Canonical source\n\n`.eos/domain-model.json` is the registry of entity kinds, ID patterns, lifecycle states, schema locations, and compatibility metadata. `.eos/schemas/core/base-entity.schema.json` defines the common contract. Each first-class entity has its own Draft 2020-12 JSON Schema.",
+      "title": "Canonical source"
+    }
+  ],
+  "source": {
+    "bytes": 2268,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 37,
+    "media_type": "text/markdown",
+    "path": "engineering/eos/EOS-CORE-SCHEMA-AND-DOMAIN-MODEL.md",
+    "sha256": "e8ed719fd46f73cf4cf3c6647d77b976c96ec4ae179622e99551533e5a49b98a"
+  }
+}
