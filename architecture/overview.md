@@ -1,106 +1,80 @@
 # Architecture Overview
 
-## Drivers
+**Status:** Proposed stabilization baseline
 
-The architecture supports one traceable journey from authenticated intent to a
-verified result. The strongest drivers are correctness, explicit workflow
-state, least privilege, interruption recovery, diagnosability, accessibility,
-and the ability to evolve internals without silently breaking user promises.
+## Architectural thesis
 
-## Logical view
+Monad has a deterministic semantic kernel surrounded by adapters and interaction surfaces. AI reasoning is a consumer and producer of proposals/context, not part of the trusted compilation core.
+
+## Responsibility planes
+
+### Knowledge Plane
+
+Discovers, parses, normalizes, identifies, links, validates, and stores/query-compiles engineering knowledge. Owns semantic graph and KIR contracts.
+
+### Control Plane
+
+Interprets configuration, policy, authorization, Work Packet scope, lifecycle state, and planning/acceptance constraints. Decides what is permitted/required but delegates native mechanics.
+
+### Execution Plane
+
+Builds execution plans and invokes native tools/adapters with controlled environment, cancellation, caching, and evidence capture.
+
+### Observation Plane
+
+Provides diagnostics, provenance, logs/traces/metrics where relevant, semantic diff, execution evidence, and explainability.
+
+### Interaction Plane
+
+CLI first; later TUI/IDE/API/web/projections. Interaction surfaces do not redefine semantic truth.
+
+## MVP logical components
 
 ```mermaid
-flowchart TD
-    UI["Experience"] --> API["Application boundary"]
-    API --> WF["Workflow coordination"]
-    WF --> POL["Policy and validation"]
-    WF --> CORE["Domain capabilities"]
-    WF --> EVID["Evidence and audit"]
-    CORE --> ADAPT["External adapters"]
+flowchart LR
+  SRC[Canonical Repository] --> DISC[Discovery + Config]
+  DISC --> PARSE[Artifact Parsers]
+  PARSE --> SEM[Semantic Analysis + Identity]
+  SEM --> MSG[Monad Semantic Graph]
+  MSG --> VAL[Validation + Diagnostics]
+  MSG --> Q[Query / Explain]
+  MSG --> KIR[KIR Lowering]
+  MSG --> CTX[Agent Context Builder]
+  VAL --> CLI[CLI]
+  Q --> CLI
+  CTX --> CLI
+  KIR --> CLI
+  CLI --> TOOLS[Native Tools / Humans / Agents]
 ```
 
-### Experience
+## Key boundaries
 
-Delivers the supported user and operator interactions. It owns presentation,
-local interaction state, and accessibility behavior, but not authoritative
-workflow state or security policy.
+- **Canonical input boundary:** filesystem/Git content is untrusted input; reading does not imply execution.
+- **Semantic boundary:** parsed syntax becomes typed engineering meaning only through explicit deterministic rules.
+- **KIR boundary:** canonical downstream interchange has versioned schema/compatibility rules before stability is promised.
+- **Agent boundary:** context is selected from semantic authority and cannot expand implementation permission.
+- **Execution boundary:** native commands are explicit, observable, cancellable where possible, and preserve exit/evidence.
 
-### Application boundary
+## State
 
-Authenticates request context, applies coarse transport protections, validates
-contract shape, coordinates application use cases, and maps domain outcomes to
-versioned interface responses. It is not the source of domain truth.
+Canonical repository content is durable source. Derived graph/KIR/cache state is rebuildable. Local state under `.monad/` must distinguish canonical configuration, lock/resolution state, and disposable caches. Corrupt derived state must never require reconstructing intent manually.
 
-### Workflow coordination
+## Incrementality
 
-Owns workflow identity, allowed state transitions, idempotency, durable
-progress, timeouts, retries, compensation, and escalation. It invokes domain
-capabilities through ports and records outcome-relevant transitions.
+MVP may rebuild modest repositories, but architecture records source/content identity and dependency relationships so semantic diff and minimal invalidation can be added without changing the knowledge model.
 
-### Policy and validation
+## Deployment
 
-Evaluates versioned structural, semantic, authorization, and safety rules. A
-decision includes the rule version, outcome, explanation safe for its audience,
-and evidence reference.
+MVP favors a single local distributable CLI/runtime with internally modular components. Remote services are optional later. Repository splitting and distributed runtime boundaries require evidence rather than anticipation.
 
-### Domain capabilities
+## AI architecture
 
-Own business invariants and authoritative domain state. Domain behavior is
-isolated from transport, storage, vendor SDKs, and user-interface concerns.
+ChatGPT is strongest at architecture/planning/review; Codex at bounded implementation. Monad should eventually produce their context contracts itself. No LLM response becomes accepted engineering authority without an explicit canonical artifact/approval transition.
 
-### Evidence and audit
+## Security architecture
 
-Stores minimum necessary, append-oriented records for security, outcome, and
-control reconstruction. Evidence access is separately authorized and retention
-is enforced by classification.
+Default behaviors minimize context and execution authority. Parsing untrusted repositories must avoid arbitrary code execution. Paths, symlinks, plugins, external commands, generated artifacts, caches, and model-provider boundaries are explicit threat surfaces.
 
-### External adapters
+## Evolution
 
-Translate explicit ports to identity, persistence, messaging, notification, or
-other external dependencies. Adapters contain vendor-specific behavior and
-failure translation so dependencies remain replaceable.
-
-## Primary flow
-
-1. The experience submits an authenticated request with an idempotency key and
-   correlation context.
-2. The application boundary validates the interface contract and authorization
-   context.
-3. Workflow coordination creates or returns the existing workflow instance.
-4. Policy and domain capabilities validate the proposed action.
-5. After required confirmation, the workflow commits work through owned domain
-   capabilities and external ports.
-6. Evidence records state transitions and relevant policy context.
-7. Verification evaluates postconditions before the result is declared
-   successful.
-
-## Failure model
-
-Failures are classified as invalid request, unauthorized action, policy denial,
-domain conflict, transient dependency failure, permanent dependency failure,
-timeout, or internal defect. Each class has an allowed retry and disclosure
-policy. Unknown commit status is never represented as a clean failure; it enters
-reconciliation or escalation.
-
-## Data and consistency
-
-Each domain capability owns its authoritative data. A transaction does not span
-independent ownership boundaries. Cross-boundary workflows use durable state,
-idempotent commands, explicit events, and compensation where reversal is
-possible. Read views may be eventually consistent and must expose freshness
-when a user decision depends on it.
-
-## Deployment view
-
-The initial deployment favors the smallest operable shape: independently
-testable modules may run in one deployable unit until scaling, isolation, or
-ownership evidence justifies separation. Runtime configuration is externalized,
-secrets come from an approved secret store, schema changes are forward-compatible,
-and every release supports automated health verification and rollback.
-
-## Cross-cutting controls
-
-Authentication, fine-grained authorization, correlation, structured errors,
-telemetry, data classification, configuration validation, rate protection, and
-release provenance apply at their owning boundaries. Shared libraries may
-standardize mechanics but may not become a hidden source of domain policy.
+The MVP semantic kernel establishes stable concepts first. Plugins, registries, remote execution, cross-repository knowledge, and hosted controls layer on through versioned contracts rather than being embedded into the initial core.

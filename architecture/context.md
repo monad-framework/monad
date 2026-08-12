@@ -1,74 +1,67 @@
 # System Context
 
+**Status:** Proposed stabilization baseline
+
 ## System of interest
 
-MonadV2 is the system of interest. It accepts authorized user intent,
-coordinates the primary workflow, integrates with bounded external services,
-and returns a verifiable outcome with appropriate evidence.
+Monad is a local-first Engineering Knowledge Compilation Platform operating against one or more software repositories/workspaces. Its deterministic core discovers canonical engineering artifacts, compiles them into semantic representations, validates them, and serves derived intelligence/execution decisions to humans, AI agents, and native engineering tools.
 
-## Actors
+## Primary actors
 
-| Actor | Uses the system to | Trust and access considerations |
+| Actor | Goal | Authority boundary |
 | --- | --- | --- |
-| Responsible Practitioner | Complete and recover the primary workflow | Access limited to authorized resources and actions |
-| Accountable Owner | Review outcomes, risk, adoption, and evidence | Aggregate access does not imply unrestricted payload access |
-| Service Operator | Deploy, diagnose, mitigate, and restore | Privileged access is time-bounded, audited, and separated |
-| Maintainer | Change code, configuration, and documentation | Changes require review and protected release paths |
-| Affected Stakeholder | Exercise applicable data or decision rights | May not hold an ordinary product account |
+| Software Engineer | Understand, validate, and change a repository | May act within repository/project permissions |
+| Project/Product Steward | Define intent, priorities, and acceptance | Human product/governance authority |
+| Architecture/Engineering Owner | Define technical contracts and authorize implementation | Accepted ADR/spec/WP boundaries |
+| ChatGPT | Architecture, planning, specification, decomposition, review assistance | Advisory/generative; no implicit approval |
+| Codex | Repository inspection and bounded implementation | Work Packet/file/tool scope; evidence required |
+| CI/Automation | Deterministic validation and projection | Mechanical enforcement only |
+| Native Tool | Compile/test/build/format/deploy its domain | Native result remains authoritative |
 
 ## External systems
 
-### Identity authority
+### Git and repository hosting
 
-Authenticates users and supplies stable subject and authentication context. The
-product remains responsible for resource authorization. Unavailability blocks
-new privileged sessions but does not erase established audit context.
+Git stores canonical history; GitHub provides collaboration, Issues/Projects projections, PR review, Actions, releases, and organization governance.
 
-### Data store
+### Native language/build ecosystems
 
-Persists authoritative domain and workflow state. Encryption, backup, restore,
-schema compatibility, and access isolation are owned operational concerns, not
-assumed provider properties.
+Compilers, package managers, task/build systems, test frameworks, formatters/linters, infrastructure tools, containers, and other integrations are invoked through explicit adapters/capabilities.
 
-### Communication or integration services
+### AI model/provider services
 
-Deliver optional notifications or exchange bounded data with the surrounding
-workflow. Their failures cannot be mistaken for completed domain outcomes.
-Outbound data is minimized and classified before transmission.
+Optional AI providers may assist with reasoning/authoring. Core semantic truth and validation cannot depend on a provider being reachable or deterministic.
 
-### Observability system
+### Registries and artifact stores
 
-Receives metrics, logs, and traces needed to operate the service. It must not
-become an uncontrolled secondary store for secrets or business payloads.
-
-### Source and artifact services
-
-Host reviewed source, dependencies, build evidence, and release artifacts.
-Protected branches, immutable provenance, least-privilege automation, and
-artifact verification establish the software supply-chain boundary.
+Package/plugin/Monad registries and caches may distribute trusted artifacts later. Their metadata, signatures, and compatibility become explicit boundaries when activated.
 
 ## Trust boundaries
 
-1. Public or user-controlled clients to the application boundary.
-2. Application runtime to privileged data and secret stores.
-3. Product-controlled runtime to third-party services.
-4. Build and release automation to production deployment authority.
-5. Ordinary support access to restricted evidence and administrative actions.
+1. repository-controlled data → Monad parser/semantic core;
+2. Monad core → executable native tools/processes;
+3. canonical repository → generated machine/cache state;
+4. Monad → AI provider context boundary;
+5. local engine → optional remote/hosted services;
+6. work authorization → agent implementation authority;
+7. build/release automation → distributable artifacts.
 
-Every crossing authenticates its peer where feasible, validates input, limits
-authority, protects data in transit, and produces sufficient security evidence.
+## Core data flow
 
-## Data flows
+```text
+Canonical repository
+    ↓
+Discovery + configuration resolution
+    ↓
+Parsing / normalization / identity
+    ↓
+Semantic graph + diagnostics
+    ↓
+KIR / query / explain / context / execution plan
+    ↓
+Human + agent + native tools
+    ↓
+Evidence and canonical change
+```
 
-User input enters through a versioned contract, is classified and validated,
-and is stored only by the owning capability. Derived results retain provenance
-needed for verification. Evidence records identifiers and decisions rather than
-unnecessary payloads. Exports and deletion follow the data lifecycle rather
-than bypassing it through ad hoc operator access.
-
-## Dependency policy
-
-An external dependency receives an owner, purpose, data classification,
-availability and latency expectation, failure behavior, cost budget, exit
-strategy, and review date. The project does not treat a vendor service level as
-an end-to-end guarantee.
+Every derived stage retains provenance sufficient to identify the canonical inputs and rules that produced it.

@@ -1,109 +1,138 @@
-# MonadV2
+# Monad
 
-MonadV2 is organized as a documentation-first project: the problem,
-product intent, architecture, specifications, delivery plan, controls, and
-operating practices are versioned beside the implementation they govern. This
-repository begins with an executable system of record rather than a loose set
-of notes.
+Monad is an **Engineering Knowledge Compilation Platform**: a local-first, AI-native software-engineering knowledge compiler and orchestration runtime that turns canonical engineering knowledge into a deterministic semantic model from which humans, agents, tools, validation, planning, execution decisions, and documentation can operate.
 
 ## Current state
 
-The project is in **inception**. The initial objective is to validate the
-problem and freeze enough of the product and architecture baseline to begin the
-first implementation increment without hiding unresolved risk.
+Monad is in **foundation stabilization / pre-implementation**. The repository is intentionally establishing one coherent product thesis, authoritative artifact model, machine-readable knowledge layer, Engineering Operating System, GitHub operating surface, and MVP execution backlog before broad implementation begins.
 
-| Area | Source of truth | Initial decision gate |
-| --- | --- | --- |
-| Why the project exists | `vision/` | Vision review |
-| What must be delivered | `product/` and `specifications/` | Product baseline |
-| How the system is shaped | `architecture/` | Architecture review |
-| How work is controlled | `engineering/` | Increment authorization |
-| How change is governed | `governance/` | Change approval |
-| How quality and safety are proven | `testing/` and `security/` | Release readiness |
-| How the service is run | `operations/` | Operational readiness |
+The current MVP goal is defined in [`product/MVP-RELEASE-1.md`](product/MVP-RELEASE-1.md).
 
-## Start here
+## Core thesis
 
-1. Read [`idea.md`](idea.md) for the original hypothesis and validation plan.
-2. Confirm the problem in [`vision/problem-statement.md`](vision/problem-statement.md).
-3. Review the product baseline in [`product/product-requirements.md`](product/product-requirements.md).
-4. Review the system shape in [`architecture/overview.md`](architecture/overview.md).
-5. Select authorized work from [`engineering/work-packets/active.md`](engineering/work-packets/active.md).
-6. Use [`CONTRIBUTING.md`](CONTRIBUTING.md) before proposing a change.
+Software systems are governed by far more than source code. Requirements, decisions, specifications, ownership, risks, work authorization, tests, provenance, releases, and operational evidence all affect what a change means and whether it is safe.
+
+Monad treats that body of engineering knowledge as a compilable system.
+
+```text
+Human engineering knowledge
+        ↓
+Canonical artifacts
+        ↓
+Discovery + parsing + semantic analysis
+        ↓
+Monad Semantic Graph
+        ↓
+KIR / query / diagnostics / context packages
+        ↓
+Humans + ChatGPT + Codex + native tools
+        ↓
+Validated engineering change and evidence
+```
+
+The mature product should answer not only **what exists**, but also **why it exists, what governs it, what depends on it, what a change affects, what evidence proves it, and what an authorized agent needs to act safely**.
+
+## Architectural commitments already carried forward
+
+- Knowledge is a first-class engineering artifact.
+- Human-readable canonical source remains the project source of truth.
+- Machine representations are deterministic derivatives with provenance.
+- Local operation must remain useful without a hosted control plane.
+- AI is a bounded consumer/producer of engineering context, not an authority above accepted human decisions.
+- Monad coordinates native tools instead of replacing every language/build ecosystem.
+- Determinism, explainability, traceability, and reproducibility are product properties.
+- Architecture should be modular before repositories are split prematurely.
+
+## Engineering Operating System
+
+Monad is being built under a repository-native **Engineering Operating System (EOS)**. EOS is the control discipline used to move engineering intent through planning, authorization, execution, verification, review, change control, release, and maintenance without losing traceability.
+
+The permanent operating layers are:
+
+| Layer | Responsibility |
+| --- | --- |
+| `EOSB` | Bootstrap — establish the engineering system and its constitutional baseline |
+| `EOSP` | Planning — turn approved intent into ordered, dependency-aware work |
+| `EOSE` | Execution — perform explicitly authorized engineering work |
+| `EOSV` | Verification — collect deterministic evidence that work satisfies its contracts |
+| `EOSR` | Review — evaluate readiness, acceptance, closure, and residual risk |
+| `EOSC` | Change Control — govern changes to accepted baselines and authorized work |
+| `EOSL` | Release Lifecycle — govern release readiness, publication, and release evidence |
+| `EOSM` | Maintenance — govern post-release correction, support, debt, and lifecycle work |
+
+The primary local operator is [`scripts/eos`](scripts/eos). The `.eos/` directory contains machine-oriented EOS state, schemas, ledgers, policy/configuration, and supporting control data.
+
+**Authority rule:** `.eos/`, GitHub Issues/Projects, generated machine data, and automation are projections or control-state representations. They do not silently supersede accepted canonical requirements, architectural decisions, specifications, or explicitly approved engineering plans. When representations disagree, the contradiction must be surfaced and reconciled through the applicable authority and change-control process.
+
+EOS bootstrap identifiers and MVP delivery identifiers intentionally use separate namespaces. Bootstrap/history may use identifiers such as `PI-001`, `WC-0001`, and `WP-0001`; MVP Release 1 delivery uses `PI-MVP-*`, `WC-MVP-*`, and `WP-MVP-*`. Stable identifiers are never reused for different meanings.
 
 ## Repository map
 
-- `vision/` — enduring intent, principles, goals, exclusions, and outcomes.
-- `product/` — users, journeys, capabilities, requirements, and roadmap.
-- `architecture/` — system context, boundaries, quality attributes, and ADRs.
-- `specifications/` — testable functional and technical contracts.
-- `engineering/` — milestones, increments, work cycles, packets, reviews, and risks.
-- `research/` — questions, evidence, experiments, and references.
-- `governance/` — authority, decisions, change control, lifecycle, and language.
-- `operations/` — environments, delivery, telemetry, reliability, and incidents.
-- `security/` — security objectives, threats, controls, and supply-chain policy.
-- `testing/` — verification strategy, acceptance, performance, and quality gates.
-- `docs/` — user and maintainer documentation intended for publication.
-- `journal/` — chronological project narrative and rationale.
-- `machine/` — generated JSON companions, manifest, graph, and section corpus
-  for AI agents, search, validation, and automation.
+| Path | Purpose |
+| --- | --- |
+| `vision/` | Why Monad exists and the durable principles constraining it |
+| `product/` | Users, outcomes, capabilities, MVP, requirements, and roadmap |
+| `architecture/` | System context, boundaries, architecture, and decisions |
+| `architecture/decisions/` | Canonical Architecture Decision Record root |
+| `specifications/` | Normative testable contracts |
+| `engineering/` | Milestones, increments, work cycles, Work Packets, status, reviews, and risks |
+| `artifact-system/` | Comprehensive catalog of engineering artifact contracts |
+| `governance/` | Authority, change control, terminology, decisions, and document lifecycle |
+| `research/` | Questions, experiments, evidence, findings, and trade studies |
+| `security/` | Threats, controls, supply chain, and security model |
+| `testing/` | Test strategy, quality gates, performance, and acceptance |
+| `operations/` | Deployment, observability, reliability, incidents, and environments |
+| `journal/` | Historical design narrative; informative unless promoted |
+| `machine/` | Deterministic semantic projections for AI, search, validation, and graph use |
+| `.monad/` | Monad repository identity/configuration bootstrap state |
+| `.eos/` | EOS machine/control state and event/policy projections |
+| `tools/eos/` | EOS implementation modules |
 
-## Working agreements
+## Canonical vs machine representation
 
-- Every material claim links to evidence or is labeled as an assumption.
-- Every requirement has a stable identifier and verifiable acceptance criteria.
-- Every irreversible or cross-cutting architecture choice receives an ADR.
-- Work begins only when the Definition of Ready is met and closes only when the
-  Definition of Done is satisfied.
-- Security, operability, accessibility, and documentation are product work,
-  not post-release cleanup.
-- Decisions are changed by superseding records, never by silently rewriting
-  history.
-- Human-readable source files are canonical. Generated machine companions must
-  pass `python3 scripts/sync-machine-docs.py --check` before merge.
+Canonical human-readable source is edited directly. `machine/` is generated with:
 
-## Contribution and support
+```bash
+python3 scripts/sync-machine-docs.py --write
+python3 scripts/sync-machine-docs.py --check
+```
 
-Use issues for observable problems and bounded proposals. Use pull requests for
-reviewable changes. Security reports must follow [`SECURITY.md`](SECURITY.md)
-and must not be filed publicly. Project conduct is governed by
-[`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
+AI tools may use machine companions for retrieval and graph navigation, but must read the canonical source before making meaning-changing edits. A stale machine companion has no authority.
+
+## Engineering workflow
+
+```text
+Product intent
+  → accepted decisions/specifications
+  → EOS planning
+  → ordered backlog
+  → ready Work Packet
+  → explicit authorization
+  → bounded ChatGPT/Codex context
+  → implementation
+  → deterministic verification
+  → review / PR
+  → acceptance / merge
+  → release and maintenance evidence
+```
+
+GitHub is the durable collaboration and review surface. Canonical requirements, decisions, specifications, and Work Packets remain versioned in Git; GitHub Issues/Projects project and coordinate that work rather than silently replacing its authority.
+
+## Transitional note
+
+The repository is undergoing a controlled re-foundation. Draft and Proposed documents may change substantially until the Foundation Stabilization Review. Accepted decisions are migrated or superseded explicitly rather than erased. [`architecture/decisions/`](architecture/decisions/) is the canonical ADR root; the former root-level `adrs/` directory is retired and must not be recreated.
+
+## Start here
+
+1. [`engineering/stabilization/STABILIZATION-CHARTER.md`](engineering/stabilization/STABILIZATION-CHARTER.md)
+2. [`vision/product-vision.md`](vision/product-vision.md)
+3. [`vision/problem-statement.md`](vision/problem-statement.md)
+4. [`product/MVP-RELEASE-1.md`](product/MVP-RELEASE-1.md)
+5. [`architecture/overview.md`](architecture/overview.md)
+6. [`architecture/decisions/README.md`](architecture/decisions/README.md)
+7. [`engineering/project-status.md`](engineering/project-status.md)
+8. [`engineering/work-packets/active.md`](engineering/work-packets/active.md)
 
 ## License
 
-Copyright © 2026 Thomas Carter. Released under the MIT License; see
-[`LICENSE`](LICENSE).
-
-## Permanent EOS Operating Layers
-
-EOSB is only project bootstrap. The Engineering Operating System remains active
-throughout the project lifecycle:
-
-- **EOSB — Bootstrap**
-- **EOSP — Planning**
-- **EOSE — Execution**
-- **EOSV — Verification**
-- **EOSR — Review**
-- **EOSC — Change Control**
-- **EOSL — Release Lifecycle**
-- **EOSM — Maintenance**
-
-Common permanent-lifecycle commands:
-
-```bash
-./scripts/eos plan PI-002
-./scripts/eos create-wc --pi PI-002
-./scripts/eos create-wp --wc WC-0002 --domain CORE
-./scripts/eos authorize WP-CORE-0001
-./scripts/eos start WP-CORE-0001
-./scripts/eos codex WP-CORE-0001
-./scripts/eos validate WP-CORE-0001
-./scripts/eos review WP-CORE-0001
-./scripts/eos close WP-CORE-0001
-./scripts/eos close-cycle WC-0002
-./scripts/eos close-pi PI-002
-./scripts/eos trace REQ-0042
-./scripts/eos impact ADR-0014
-./scripts/eos github-sync
-./scripts/eos release 0.1.0
-```
+Copyright © 2026 Thomas Carter. Released under the MIT License; see [`LICENSE`](LICENSE).

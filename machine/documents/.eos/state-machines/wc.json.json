@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"kind\": \"WC\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\"CLOSED\"],\n  \"states\": [\"DRAFT\", \"READY\", \"AUTHORIZED\", \"ACTIVE\", \"IN_REVIEW\", \"BLOCKED\", \"CLOSED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"READY\", \"BLOCKED\"],\n    \"READY\": [\"AUTHORIZED\", \"BLOCKED\"],\n    \"AUTHORIZED\": [\"ACTIVE\", \"BLOCKED\"],\n    \"ACTIVE\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"IN_REVIEW\": [\"CLOSED\", \"BLOCKED\"],\n    \"BLOCKED\": [\"READY\", \"AUTHORIZED\", \"ACTIVE\", \"IN_REVIEW\"],\n    \"CLOSED\": []\n  }\n}\n",
+  "document_id": "doc:.eos%2Fstate-machines%2Fwc.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/state-machines/wc.json.",
+    "title": "Wc"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 16,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"kind\": \"WC\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\"CLOSED\"],\n  \"states\": [\"DRAFT\", \"READY\", \"AUTHORIZED\", \"ACTIVE\", \"IN_REVIEW\", \"BLOCKED\", \"CLOSED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"READY\", \"BLOCKED\"],\n    \"READY\": [\"AUTHORIZED\", \"BLOCKED\"],\n    \"AUTHORIZED\": [\"ACTIVE\", \"BLOCKED\"],\n    \"ACTIVE\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"IN_REVIEW\": [\"CLOSED\", \"BLOCKED\"],\n    \"BLOCKED\": [\"READY\", \"AUTHORIZED\", \"ACTIVE\", \"IN_REVIEW\"],\n    \"CLOSED\": []\n  }\n}",
+      "title": "Wc"
+    }
+  ],
+  "source": {
+    "bytes": 492,
+    "canonical": true,
+    "language": "json",
+    "lines": 16,
+    "media_type": "application/json",
+    "path": ".eos/state-machines/wc.json",
+    "sha256": "7a61ad02099771ceb4f53d6a6cacdbdb0ab05f8fa4849ee227503a08c0bb5146"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "content": "# User Journeys\n\n## Primary journey: intent to verified outcome\n\n| Stage | User goal | Product responsibility | Evidence | Failure recovery |\n| --- | --- | --- | --- | --- |\n| Discover | Decide whether this product fits the job | State promise, supported scope, prerequisites, and limits | Eligibility decision | Direct unsupported users to a safe alternative |\n| Prepare | Gather valid inputs and authority | Explain requirements and validate progressively | Validation result | Preserve valid work and identify corrections |\n| Review | Understand the intended effect | Summarize inputs, rules, consequences, and reversibility | Confirmation record | Allow edit or cancellation before commitment |\n| Execute | Complete without losing control | Expose durable progress and prevent duplicate effects | Correlated state transitions | Retry, compensate, pause, or escalate safely |\n| Verify | Know whether the outcome is complete | Check postconditions and distinguish partial results | Verification status and result | Explain unresolved work and responsible owner |\n| Retain | Retrieve evidence when needed | Apply retention, access, and export rules | Authorized evidence record | Provide recovery or support route |\n\n## Emotional and cognitive requirements\n\nAt entry, the user may be uncertain whether they have everything required. The\nexperience should reduce uncertainty through progressive validation rather than\nfront-loading unexplained fields. During execution, status must prevent the\nuser from guessing whether retry is safe. At completion, the product should\ncommunicate justified confidence, not celebration that hides caveats.\n\n## Interruption journey\n\n1. Detect disconnect, timeout, dependency failure, or user departure.\n2. Persist the last valid state and correlation identifier.\n3. On return, show what completed, what did not, and whether any external effect\n   may have occurred.\n4. Offer only transitions valid for that state.\n5. Verify the result after retry or compensation.\n6. Escalate with evidence when automated recovery is unsafe.\n\n## First-use journey\n\nFirst use adds concise orientation, safe sample data where appropriate, and\nexplanations of permissions and data use. It must not create a separate\nworkflow that masks the real product. A representative new user should reach\nthe same verified result without private coaching.\n\n## Operator journey\n\nThe operator moves from user-impact signal to scoped diagnosis, mitigation,\nverification, communication, and follow-up. Dashboards and runbooks use the\nsame journey, state, and error vocabulary that users see so support does not\ntranslate between incompatible models.\n\n## Journey measurement\n\nMeasure eligibility, start, validation failure, confirmation, durable progress,\nsuccessful verification, partial result, abandonment, recovery, and repeat use.\nEvent definitions belong in the data specifications and must avoid sensitive\npayload capture. Funnel loss is investigated qualitatively before being treated\nas a user-motivation problem.\n",
+  "content": "# User Journeys\n\n**Status:** Proposed stabilization baseline\n\n## Journey J-01 — Understand before changing\n\n1. Engineer clones or opens a repository.\n2. `monad inspect` discovers repository/workspace identity and canonical artifacts.\n3. Monad compiles/loads the semantic graph and reports unsupported or invalid knowledge.\n4. Engineer queries the target capability/component/specification.\n5. `monad explain` returns governing intent, dependencies, provenance, and relevant evidence.\n6. Engineer decides whether the change is sufficiently understood to plan.\n\n**Outcome:** the engineer reaches a trustworthy change context without manual repository archaeology.\n\n## Journey J-02 — Plan and delegate bounded work\n\n1. Product/engineering intent is decomposed into an authorized Work Packet.\n2. Monad validates that required authority/specifications/acceptance fields are present.\n3. ChatGPT assists with planning/review but does not silently expand scope.\n4. `monad context <WP> --agent codex` selects the minimal graph neighborhood and canonical source needed for implementation.\n5. Codex implements within the packet and returns commands/evidence.\n6. Monad validates semantic integrity and required checks before PR review.\n\n**Outcome:** AI acceleration occurs inside explicit engineering authority and traceability.\n\n## Journey J-03 — Diagnose a semantic failure\n\n1. Validation emits a stable diagnostic ID, severity, source, entity, rule, and remediation context.\n2. Engineer requests explanation.\n3. Monad shows the canonical artifacts and graph relationship causing the finding.\n4. Engineer corrects source or explicitly changes the governing authority.\n5. Re-validation proves resolution.\n\n**Outcome:** failures are actionable and explainable rather than opaque tool errors.\n\n## Journey J-04 — Review a proposed change\n\n1. Monad compares base/head semantic state.\n2. Review surfaces affected requirements/specifications/interfaces/tests and stale projections.\n3. Native quality/security checks run for required scope.\n4. Reviewer sees both implementation diff and engineering-knowledge impact.\n5. Acceptance evidence is attached to PR/Work Packet.\n\n**Outcome:** review evaluates changed meaning, not only changed text.\n\n## Journey J-05 — Reproduce state\n\n1. A second environment checks out the same revision and resolved toolchain/config.\n2. Monad compiles canonical knowledge.\n3. Semantic graph IDs, canonical serialization, and diagnostics match expected outputs.\n4. Any permitted environmental variance is explicit and excluded from semantic identity.\n\n**Outcome:** engineering knowledge is portable and auditable.",
   "document_id": "doc:product%2Fuser-journeys.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "product",
     "normative": true,
-    "summary": "At entry, the user may be uncertain whether they have everything required. The experience should reduce uncertainty through progressive validation rather than front-loading unexplained fields. During execution, status must prevent the user from guessing whether retry is safe. At completion, the product should communicate justified confidence, not celebration that hides caveats.",
+    "summary": "Status: Proposed stabilization baseline",
     "title": "User Journeys"
   },
   "relations": [],
@@ -21,74 +21,65 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 2,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "user-journeys",
-      "text": "# User Journeys",
+      "text": "# User Journeys\n\n**Status:** Proposed stabilization baseline",
       "title": "User Journeys"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 13,
-      "line_start": 3,
-      "section_id": "primary-journey-intent-to-verified-outcome",
-      "text": "## Primary journey: intent to verified outcome\n\n| Stage | User goal | Product responsibility | Evidence | Failure recovery |\n| --- | --- | --- | --- | --- |\n| Discover | Decide whether this product fits the job | State promise, supported scope, prerequisites, and limits | Eligibility decision | Direct unsupported users to a safe alternative |\n| Prepare | Gather valid inputs and authority | Explain requirements and validate progressively | Validation result | Preserve valid work and identify corrections |\n| Review | Understand the intended effect | Summarize inputs, rules, consequences, and reversibility | Confirmation record | Allow edit or cancellation before commitment |\n| Execute | Complete without losing control | Expose durable progress and prevent duplicate effects | Correlated state transitions | Retry, compensate, pause, or escalate safely |\n| Verify | Know whether the outcome is complete | Check postconditions and distinguish partial results | Verification status and result | Explain unresolved work and responsible owner |\n| Retain | Retrieve evidence when needed | Apply retention, access, and export rules | Authorized evidence record | Provide recovery or support route |",
-      "title": "Primary journey: intent to verified outcome"
+      "line_end": 15,
+      "line_start": 5,
+      "section_id": "journey-j-01-understand-before-changing",
+      "text": "## Journey J-01 — Understand before changing\n\n1. Engineer clones or opens a repository.\n2. `monad inspect` discovers repository/workspace identity and canonical artifacts.\n3. Monad compiles/loads the semantic graph and reports unsupported or invalid knowledge.\n4. Engineer queries the target capability/component/specification.\n5. `monad explain` returns governing intent, dependencies, provenance, and relevant evidence.\n6. Engineer decides whether the change is sufficiently understood to plan.\n\n**Outcome:** the engineer reaches a trustworthy change context without manual repository archaeology.",
+      "title": "Journey J-01 — Understand before changing"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 21,
-      "line_start": 14,
-      "section_id": "emotional-and-cognitive-requirements",
-      "text": "## Emotional and cognitive requirements\n\nAt entry, the user may be uncertain whether they have everything required. The\nexperience should reduce uncertainty through progressive validation rather than\nfront-loading unexplained fields. During execution, status must prevent the\nuser from guessing whether retry is safe. At completion, the product should\ncommunicate justified confidence, not celebration that hides caveats.",
-      "title": "Emotional and cognitive requirements"
+      "line_end": 26,
+      "line_start": 16,
+      "section_id": "journey-j-02-plan-and-delegate-bounded-work",
+      "text": "## Journey J-02 — Plan and delegate bounded work\n\n1. Product/engineering intent is decomposed into an authorized Work Packet.\n2. Monad validates that required authority/specifications/acceptance fields are present.\n3. ChatGPT assists with planning/review but does not silently expand scope.\n4. `monad context <WP> --agent codex` selects the minimal graph neighborhood and canonical source needed for implementation.\n5. Codex implements within the packet and returns commands/evidence.\n6. Monad validates semantic integrity and required checks before PR review.\n\n**Outcome:** AI acceleration occurs inside explicit engineering authority and traceability.",
+      "title": "Journey J-02 — Plan and delegate bounded work"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 31,
-      "line_start": 22,
-      "section_id": "interruption-journey",
-      "text": "## Interruption journey\n\n1. Detect disconnect, timeout, dependency failure, or user departure.\n2. Persist the last valid state and correlation identifier.\n3. On return, show what completed, what did not, and whether any external effect\n   may have occurred.\n4. Offer only transitions valid for that state.\n5. Verify the result after retry or compensation.\n6. Escalate with evidence when automated recovery is unsafe.",
-      "title": "Interruption journey"
+      "line_end": 36,
+      "line_start": 27,
+      "section_id": "journey-j-03-diagnose-a-semantic-failure",
+      "text": "## Journey J-03 — Diagnose a semantic failure\n\n1. Validation emits a stable diagnostic ID, severity, source, entity, rule, and remediation context.\n2. Engineer requests explanation.\n3. Monad shows the canonical artifacts and graph relationship causing the finding.\n4. Engineer corrects source or explicitly changes the governing authority.\n5. Re-validation proves resolution.\n\n**Outcome:** failures are actionable and explainable rather than opaque tool errors.",
+      "title": "Journey J-03 — Diagnose a semantic failure"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 38,
-      "line_start": 32,
-      "section_id": "first-use-journey",
-      "text": "## First-use journey\n\nFirst use adds concise orientation, safe sample data where appropriate, and\nexplanations of permissions and data use. It must not create a separate\nworkflow that masks the real product. A representative new user should reach\nthe same verified result without private coaching.",
-      "title": "First-use journey"
+      "line_end": 46,
+      "line_start": 37,
+      "section_id": "journey-j-04-review-a-proposed-change",
+      "text": "## Journey J-04 — Review a proposed change\n\n1. Monad compares base/head semantic state.\n2. Review surfaces affected requirements/specifications/interfaces/tests and stale projections.\n3. Native quality/security checks run for required scope.\n4. Reviewer sees both implementation diff and engineering-knowledge impact.\n5. Acceptance evidence is attached to PR/Work Packet.\n\n**Outcome:** review evaluates changed meaning, not only changed text.",
+      "title": "Journey J-04 — Review a proposed change"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 45,
-      "line_start": 39,
-      "section_id": "operator-journey",
-      "text": "## Operator journey\n\nThe operator moves from user-impact signal to scoped diagnosis, mitigation,\nverification, communication, and follow-up. Dashboards and runbooks use the\nsame journey, state, and error vocabulary that users see so support does not\ntranslate between incompatible models.",
-      "title": "Operator journey"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 52,
-      "line_start": 46,
-      "section_id": "journey-measurement",
-      "text": "## Journey measurement\n\nMeasure eligibility, start, validation failure, confirmation, durable progress,\nsuccessful verification, partial result, abandonment, recovery, and repeat use.\nEvent definitions belong in the data specifications and must avoid sensitive\npayload capture. Funnel loss is investigated qualitatively before being treated\nas a user-motivation problem.",
-      "title": "Journey measurement"
+      "line_end": 54,
+      "line_start": 47,
+      "section_id": "journey-j-05-reproduce-state",
+      "text": "## Journey J-05 — Reproduce state\n\n1. A second environment checks out the same revision and resolved toolchain/config.\n2. Monad compiles canonical knowledge.\n3. Semantic graph IDs, canonical serialization, and diagnostics match expected outputs.\n4. Any permitted environmental variance is explicit and excluded from semantic identity.\n\n**Outcome:** engineering knowledge is portable and auditable.",
+      "title": "Journey J-05 — Reproduce state"
     }
   ],
   "source": {
-    "bytes": 3019,
+    "bytes": 2632,
     "canonical": true,
     "language": "markdown",
-    "lines": 52,
+    "lines": 54,
     "media_type": "text/markdown",
     "path": "product/user-journeys.md",
-    "sha256": "1172fc8c7c7b4d232249c47c5a014c634a13b5b4db9595d01e8898af9ccda39a"
+    "sha256": "f8e7325dfb164c4879dfdf89c1123dc2cd01ab5162c7bb82b9ecd7d8d1742b88"
   }
 }

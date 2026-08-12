@@ -1,0 +1,166 @@
+{
+  "content": "# Monad Stabilization and MVP Launch Charter\n\n**ID:** STAB-CHARTER-0001  \n**Status:** Approved for execution  \n**Date:** 2026-08-12  \n**Owner:** Project Steward  \n**Execution agents:** Human maintainers, ChatGPT, Codex  \n**Target:** MVP Release 1\n\n## Purpose\n\nThis charter governs the transitional program that converts the current inception repository into a coherent, execution-ready Monad baseline and then drives the thinnest credible path to MVP Release 1.\n\nThe program is intentionally allowed to change Draft and Proposed artifacts while evidence is still being reconciled. Accepted decisions and approved specifications are changed only through their governing lifecycle.\n\n## Target product identity\n\nMonad is an **Engineering Knowledge Compilation Platform**: a local-first, AI-native software-engineering knowledge compiler and orchestration runtime that transforms canonical human engineering knowledge into a deterministic semantic model from which validation, explanation, planning, agent context, execution decisions, publication, and other engineering projections can be derived.\n\nThe product is not a generic workflow application. Generic workflow, authorization, evidence, recovery, observability, and governance patterns are retained only where they serve software-engineering knowledge compilation and controlled execution.\n\n## Stabilization outcomes\n\nThe stabilization program is complete when:\n\n1. one coherent product thesis governs vision, product, architecture, specifications, and roadmap;\n2. `architecture/decisions/` is the sole ADR root and all ADR indexes agree;\n3. artifact authority, lifecycle, identifiers, and repository locations are unambiguous;\n4. every Markdown file under `artifact-system/` contains substantive controlled content rather than an empty placeholder;\n5. human-readable canonical sources and the generated `machine/` projection are synchronized and CI-enforced;\n6. GitHub repository governance, issue forms, labels, Projects model, Wiki source, workflows, dependency/security controls, and release controls have an explicit configured or reproducibly-configurable state;\n7. Product Goal, MVP scope, milestones, increments, epics, features, backlog items, work cycles/sprints, and Work Packets are traceably defined;\n8. the near-term backlog satisfies the Definition of Ready;\n9. CI is green on the integration branch; and\n10. an explicit Foundation Stabilization Review authorizes transition from stabilization to routine MVP execution.\n\n## Workstreams\n\n### STAB-A — Foundation reconciliation\n\nReconcile product identity, terminology, authority, ADR location, architecture, specifications, and status.\n\n### STAB-B — Artifact system completion\n\nPopulate and cross-link the complete artifact taxonomy. Artifact templates and planning records remain Draft until separately approved; file existence does not imply authority.\n\n### STAB-C — Machine knowledge synchronization\n\nRegenerate deterministic companions, graph, manifest, and corpus from the stabilized canonical sources; require `--check` in CI.\n\n### STAB-D — GitHub operating surface\n\nConfigure or codify repository rules, Issues, Project fields/views/iterations, Wiki projection, labels, dependency automation, security workflows, and release controls.\n\n### STAB-E — MVP product planning\n\nDefine MVP Release 1 and decompose it into outcomes, epics, features, PBIs, Work Packets, and rolling-wave sprint plans.\n\n### STAB-F — Validation and lock\n\nRun structural, semantic, traceability, security, machine-sync, and planning-readiness reviews. Stabilized does not mean immutable; it means changes thereafter follow normal change control.\n\n## Non-goals\n\nThis program does not:\n\n- implement the full long-term Monad platform;\n- accept every generated artifact merely because it exists;\n- pre-plan every future task at false precision;\n- create a second editable machine source of truth;\n- restore the retired `adrs/` directory;\n- optimize for documentation volume over decision quality; or\n- merge around failing validation gates.\n\n## Authority during transition\n\nUntil the stabilization review closes:\n\n1. legal/ethical obligations and governance remain highest;\n2. accepted ADRs remain binding within their stated scope;\n3. Approved specifications govern their scope;\n4. this charter governs the stabilization program;\n5. Draft/Proposed vision, product, architecture, artifact-system, and planning documents may be reconciled for consistency;\n6. generated machine material is non-authoritative and must match canonical source.\n\nWhen two purportedly authoritative sources conflict, work stops at the affected boundary until the conflict is explicitly resolved.\n\n## MVP acceleration principle\n\nSpeed is achieved by reducing uncertainty, WIP, and scope—not by weakening verification. The MVP path uses the smallest vertical slice that proves the core thesis:\n\n`canonical engineering knowledge -> semantic compilation -> graph/query/explain -> bounded agent context -> deterministic validation`\n\nCapabilities not required to prove that loop remain post-MVP unless they retire a release-blocking risk.\n\n## Completion gate\n\nA Foundation Stabilization Review records PASS, CONDITIONAL PASS, or FAIL. Only PASS or explicitly bounded CONDITIONAL PASS may authorize routine MVP sprint execution.",
+  "document_id": "doc:engineering%2Fstabilization%2FSTABILIZATION-CHARTER.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "ID: STAB-CHARTER-0001 Status: Approved for execution Date: 2026-08-12 Owner: Project Steward Execution agents: Human maintainers, ChatGPT, Codex Target: MVP Release 1",
+    "title": "Monad Stabilization and MVP Launch Charter"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "monad-stabilization-and-mvp-launch-charter",
+      "text": "# Monad Stabilization and MVP Launch Charter\n\n**ID:** STAB-CHARTER-0001  \n**Status:** Approved for execution  \n**Date:** 2026-08-12  \n**Owner:** Project Steward  \n**Execution agents:** Human maintainers, ChatGPT, Codex  \n**Target:** MVP Release 1",
+      "title": "Monad Stabilization and MVP Launch Charter"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 10,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nThis charter governs the transitional program that converts the current inception repository into a coherent, execution-ready Monad baseline and then drives the thinnest credible path to MVP Release 1.\n\nThe program is intentionally allowed to change Draft and Proposed artifacts while evidence is still being reconciled. Accepted decisions and approved specifications are changed only through their governing lifecycle.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 16,
+      "section_id": "target-product-identity",
+      "text": "## Target product identity\n\nMonad is an **Engineering Knowledge Compilation Platform**: a local-first, AI-native software-engineering knowledge compiler and orchestration runtime that transforms canonical human engineering knowledge into a deterministic semantic model from which validation, explanation, planning, agent context, execution decisions, publication, and other engineering projections can be derived.\n\nThe product is not a generic workflow application. Generic workflow, authorization, evidence, recovery, observability, and governance patterns are retained only where they serve software-engineering knowledge compilation and controlled execution.",
+      "title": "Target product identity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 22,
+      "section_id": "stabilization-outcomes",
+      "text": "## Stabilization outcomes\n\nThe stabilization program is complete when:\n\n1. one coherent product thesis governs vision, product, architecture, specifications, and roadmap;\n2. `architecture/decisions/` is the sole ADR root and all ADR indexes agree;\n3. artifact authority, lifecycle, identifiers, and repository locations are unambiguous;\n4. every Markdown file under `artifact-system/` contains substantive controlled content rather than an empty placeholder;\n5. human-readable canonical sources and the generated `machine/` projection are synchronized and CI-enforced;\n6. GitHub repository governance, issue forms, labels, Projects model, Wiki source, workflows, dependency/security controls, and release controls have an explicit configured or reproducibly-configurable state;\n7. Product Goal, MVP scope, milestones, increments, epics, features, backlog items, work cycles/sprints, and Work Packets are traceably defined;\n8. the near-term backlog satisfies the Definition of Ready;\n9. CI is green on the integration branch; and\n10. an explicit Foundation Stabilization Review authorizes transition from stabilization to routine MVP execution.",
+      "title": "Stabilization outcomes"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 37,
+      "section_id": "workstreams",
+      "text": "## Workstreams",
+      "title": "Workstreams"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 42,
+      "line_start": 39,
+      "section_id": "stab-a-foundation-reconciliation",
+      "text": "### STAB-A — Foundation reconciliation\n\nReconcile product identity, terminology, authority, ADR location, architecture, specifications, and status.",
+      "title": "STAB-A — Foundation reconciliation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 46,
+      "line_start": 43,
+      "section_id": "stab-b-artifact-system-completion",
+      "text": "### STAB-B — Artifact system completion\n\nPopulate and cross-link the complete artifact taxonomy. Artifact templates and planning records remain Draft until separately approved; file existence does not imply authority.",
+      "title": "STAB-B — Artifact system completion"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 50,
+      "line_start": 47,
+      "section_id": "stab-c-machine-knowledge-synchronization",
+      "text": "### STAB-C — Machine knowledge synchronization\n\nRegenerate deterministic companions, graph, manifest, and corpus from the stabilized canonical sources; require `--check` in CI.",
+      "title": "STAB-C — Machine knowledge synchronization"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 54,
+      "line_start": 51,
+      "section_id": "stab-d-github-operating-surface",
+      "text": "### STAB-D — GitHub operating surface\n\nConfigure or codify repository rules, Issues, Project fields/views/iterations, Wiki projection, labels, dependency automation, security workflows, and release controls.",
+      "title": "STAB-D — GitHub operating surface"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 58,
+      "line_start": 55,
+      "section_id": "stab-e-mvp-product-planning",
+      "text": "### STAB-E — MVP product planning\n\nDefine MVP Release 1 and decompose it into outcomes, epics, features, PBIs, Work Packets, and rolling-wave sprint plans.",
+      "title": "STAB-E — MVP product planning"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 62,
+      "line_start": 59,
+      "section_id": "stab-f-validation-and-lock",
+      "text": "### STAB-F — Validation and lock\n\nRun structural, semantic, traceability, security, machine-sync, and planning-readiness reviews. Stabilized does not mean immutable; it means changes thereafter follow normal change control.",
+      "title": "STAB-F — Validation and lock"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 74,
+      "line_start": 63,
+      "section_id": "non-goals",
+      "text": "## Non-goals\n\nThis program does not:\n\n- implement the full long-term Monad platform;\n- accept every generated artifact merely because it exists;\n- pre-plan every future task at false precision;\n- create a second editable machine source of truth;\n- restore the retired `adrs/` directory;\n- optimize for documentation volume over decision quality; or\n- merge around failing validation gates.",
+      "title": "Non-goals"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 87,
+      "line_start": 75,
+      "section_id": "authority-during-transition",
+      "text": "## Authority during transition\n\nUntil the stabilization review closes:\n\n1. legal/ethical obligations and governance remain highest;\n2. accepted ADRs remain binding within their stated scope;\n3. Approved specifications govern their scope;\n4. this charter governs the stabilization program;\n5. Draft/Proposed vision, product, architecture, artifact-system, and planning documents may be reconciled for consistency;\n6. generated machine material is non-authoritative and must match canonical source.\n\nWhen two purportedly authoritative sources conflict, work stops at the affected boundary until the conflict is explicitly resolved.",
+      "title": "Authority during transition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 95,
+      "line_start": 88,
+      "section_id": "mvp-acceleration-principle",
+      "text": "## MVP acceleration principle\n\nSpeed is achieved by reducing uncertainty, WIP, and scope—not by weakening verification. The MVP path uses the smallest vertical slice that proves the core thesis:\n\n`canonical engineering knowledge -> semantic compilation -> graph/query/explain -> bounded agent context -> deterministic validation`\n\nCapabilities not required to prove that loop remain post-MVP unless they retire a release-blocking risk.",
+      "title": "MVP acceleration principle"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 98,
+      "line_start": 96,
+      "section_id": "completion-gate",
+      "text": "## Completion gate\n\nA Foundation Stabilization Review records PASS, CONDITIONAL PASS, or FAIL. Only PASS or explicitly bounded CONDITIONAL PASS may authorize routine MVP sprint execution.",
+      "title": "Completion gate"
+    }
+  ],
+  "source": {
+    "bytes": 5302,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 98,
+    "media_type": "text/markdown",
+    "path": "engineering/stabilization/STABILIZATION-CHARTER.md",
+    "sha256": "13b69cc3f23e321b8d3addc356ca3c4066be2812f6474e781f0d19c6455665f8"
+  }
+}

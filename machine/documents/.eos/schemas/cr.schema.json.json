@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/cr/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"path\", \"target\", \"summary\", \"status\", \"created\", \"updated\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^CR-[0-9]{4}$\"},\n    \"path\": {\"type\": \"string\", \"minLength\": 1},\n    \"target\": {\"type\": \"string\", \"minLength\": 1},\n    \"summary\": {\"type\": \"string\", \"minLength\": 1},\n    \"status\": {\"type\": \"string\"},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1},\n    \"github_url\": {\"type\": \"string\"}\n  },\n  \"additionalProperties\": false\n}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcr.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/cr.schema.json.",
+    "title": "Cr.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 17,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/cr/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"path\", \"target\", \"summary\", \"status\", \"created\", \"updated\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^CR-[0-9]{4}$\"},\n    \"path\": {\"type\": \"string\", \"minLength\": 1},\n    \"target\": {\"type\": \"string\", \"minLength\": 1},\n    \"summary\": {\"type\": \"string\", \"minLength\": 1},\n    \"status\": {\"type\": \"string\"},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1},\n    \"github_url\": {\"type\": \"string\"}\n  },\n  \"additionalProperties\": false\n}",
+      "title": "Cr.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 638,
+    "canonical": true,
+    "language": "json",
+    "lines": 17,
+    "media_type": "application/json",
+    "path": ".eos/schemas/cr.schema.json",
+    "sha256": "588b7737597e8e4a53684e3f31a7a4475e8fcd5099490c9861f15e008251a736"
+  }
+}

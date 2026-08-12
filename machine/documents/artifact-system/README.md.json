@@ -1,0 +1,103 @@
+{
+  "content": "# Monad Artifact System\n\n**Status:** Draft catalog baseline  \n**Owner:** Engineering Owner\n\n## Purpose\n\n`artifact-system/` is the comprehensive catalog and design space for artifact types that a mature Monad engineering system may create, govern, compile, validate, project, or consume.\n\nIt is **not** a declaration that every file is currently authoritative, required for MVP, or accepted. The directory intentionally contains forward-looking artifact contracts so the project can reason about the complete engineering lifecycle without prematurely activating every mechanism.\n\n## Canonicality\n\nHuman-readable source is canonical. Machine representations under `machine/` are deterministic projections and never outrank their canonical source.\n\nWithin this directory:\n\n- **Draft** documents describe a proposed artifact contract or policy;\n- **Approved** documents govern their stated scope;\n- **Implemented** means the approved contract is enforced or produced by Monad;\n- **Deprecated/Superseded/Retired** follow `governance/document-lifecycle.md`.\n\nA path or filename alone confers no authority.\n\n## Required content standard\n\nEvery Markdown file in `artifact-system/` must contain enough information for a human or agent to understand:\n\n1. purpose and problem addressed;\n2. scope and explicit exclusions;\n3. relationship to higher-authority artifacts;\n4. required structure/data where the artifact is instantiated;\n5. lifecycle and ownership;\n6. invariants or normative rules where applicable;\n7. traceability/provenance expectations;\n8. security, privacy, reliability, or compatibility implications where relevant;\n9. verification/acceptance method; and\n10. known open questions or activation criteria.\n\nEmpty placeholders are prohibited after stabilization.\n\n## Activation model\n\nArtifact types are activated just in time. An artifact family becomes operational when one or more of the following is true:\n\n- an accepted decision requires it;\n- an approved specification relies on it;\n- MVP/release evidence requires it;\n- recurring engineering work needs a stable contract;\n- risk or scale makes an informal representation unsafe.\n\nActivation creates or identifies the canonical repository location, identifier scheme, schema/template, owner, validation rule, and GitHub projection if applicable.\n\n## MVP criticality\n\nThe full catalog is larger than MVP. Stabilization populates every catalog document, but MVP implementation prioritizes:\n\n- foundational authority and terminology;\n- specifications and decisions;\n- semantic graph and KIR contracts;\n- repository/configuration model;\n- CLI and diagnostics;\n- AI/agent context boundaries;\n- testing, CI, security, traceability, Work Packets, and release evidence.\n\nCommercial, enterprise, registry, remote-execution, and ecosystem-scale artifacts remain Draft unless activated by an explicit decision.\n\n## Relationship to the machine layer\n\nEvery non-excluded canonical artifact may be represented in the deterministic machine layer. The machine projection records source identity, hash, sections, identifiers, references, metadata, and graph relations. It must not infer approval status that is absent from canonical source.\n\n## Change rule\n\nMeaning-changing updates to an Approved artifact contract follow change control. Draft catalog refinement may proceed normally but must preserve identifiers and document any incompatibility with already-instantiated artifacts.",
+  "document_id": "doc:artifact-system%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Status: Draft catalog baseline Owner: Engineering Owner",
+    "title": "Monad Artifact System"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 5,
+      "line_start": 1,
+      "section_id": "monad-artifact-system",
+      "text": "# Monad Artifact System\n\n**Status:** Draft catalog baseline  \n**Owner:** Engineering Owner",
+      "title": "Monad Artifact System"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 6,
+      "section_id": "purpose",
+      "text": "## Purpose\n\n`artifact-system/` is the comprehensive catalog and design space for artifact types that a mature Monad engineering system may create, govern, compile, validate, project, or consume.\n\nIt is **not** a declaration that every file is currently authoritative, required for MVP, or accepted. The directory intentionally contains forward-looking artifact contracts so the project can reason about the complete engineering lifecycle without prematurely activating every mechanism.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 12,
+      "section_id": "canonicality",
+      "text": "## Canonicality\n\nHuman-readable source is canonical. Machine representations under `machine/` are deterministic projections and never outrank their canonical source.\n\nWithin this directory:\n\n- **Draft** documents describe a proposed artifact contract or policy;\n- **Approved** documents govern their stated scope;\n- **Implemented** means the approved contract is enforced or produced by Monad;\n- **Deprecated/Superseded/Retired** follow `governance/document-lifecycle.md`.\n\nA path or filename alone confers no authority.",
+      "title": "Canonicality"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 41,
+      "line_start": 25,
+      "section_id": "required-content-standard",
+      "text": "## Required content standard\n\nEvery Markdown file in `artifact-system/` must contain enough information for a human or agent to understand:\n\n1. purpose and problem addressed;\n2. scope and explicit exclusions;\n3. relationship to higher-authority artifacts;\n4. required structure/data where the artifact is instantiated;\n5. lifecycle and ownership;\n6. invariants or normative rules where applicable;\n7. traceability/provenance expectations;\n8. security, privacy, reliability, or compatibility implications where relevant;\n9. verification/acceptance method; and\n10. known open questions or activation criteria.\n\nEmpty placeholders are prohibited after stabilization.",
+      "title": "Required content standard"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 42,
+      "section_id": "activation-model",
+      "text": "## Activation model\n\nArtifact types are activated just in time. An artifact family becomes operational when one or more of the following is true:\n\n- an accepted decision requires it;\n- an approved specification relies on it;\n- MVP/release evidence requires it;\n- recurring engineering work needs a stable contract;\n- risk or scale makes an informal representation unsafe.\n\nActivation creates or identifies the canonical repository location, identifier scheme, schema/template, owner, validation rule, and GitHub projection if applicable.",
+      "title": "Activation model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 54,
+      "section_id": "mvp-criticality",
+      "text": "## MVP criticality\n\nThe full catalog is larger than MVP. Stabilization populates every catalog document, but MVP implementation prioritizes:\n\n- foundational authority and terminology;\n- specifications and decisions;\n- semantic graph and KIR contracts;\n- repository/configuration model;\n- CLI and diagnostics;\n- AI/agent context boundaries;\n- testing, CI, security, traceability, Work Packets, and release evidence.\n\nCommercial, enterprise, registry, remote-execution, and ecosystem-scale artifacts remain Draft unless activated by an explicit decision.",
+      "title": "MVP criticality"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 71,
+      "line_start": 68,
+      "section_id": "relationship-to-the-machine-layer",
+      "text": "## Relationship to the machine layer\n\nEvery non-excluded canonical artifact may be represented in the deterministic machine layer. The machine projection records source identity, hash, sections, identifiers, references, metadata, and graph relations. It must not infer approval status that is absent from canonical source.",
+      "title": "Relationship to the machine layer"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 74,
+      "line_start": 72,
+      "section_id": "change-rule",
+      "text": "## Change rule\n\nMeaning-changing updates to an Approved artifact contract follow change control. Draft catalog refinement may proceed normally but must preserve identifiers and document any incompatibility with already-instantiated artifacts.",
+      "title": "Change rule"
+    }
+  ],
+  "source": {
+    "bytes": 3425,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 74,
+    "media_type": "text/markdown",
+    "path": "artifact-system/README.md",
+    "sha256": "e13ae1f0d174b87a3c2bf4b3dade535b2b50693ebe69c9574c34e0a8bb1b660e"
+  }
+}

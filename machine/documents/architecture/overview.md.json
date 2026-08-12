@@ -1,5 +1,5 @@
 {
-  "content": "# Architecture Overview\n\n## Drivers\n\nThe architecture supports one traceable journey from authenticated intent to a\nverified result. The strongest drivers are correctness, explicit workflow\nstate, least privilege, interruption recovery, diagnosability, accessibility,\nand the ability to evolve internals without silently breaking user promises.\n\n## Logical view\n\n```mermaid\nflowchart TD\n    UI[\"Experience\"] --> API[\"Application boundary\"]\n    API --> WF[\"Workflow coordination\"]\n    WF --> POL[\"Policy and validation\"]\n    WF --> CORE[\"Domain capabilities\"]\n    WF --> EVID[\"Evidence and audit\"]\n    CORE --> ADAPT[\"External adapters\"]\n```\n\n### Experience\n\nDelivers the supported user and operator interactions. It owns presentation,\nlocal interaction state, and accessibility behavior, but not authoritative\nworkflow state or security policy.\n\n### Application boundary\n\nAuthenticates request context, applies coarse transport protections, validates\ncontract shape, coordinates application use cases, and maps domain outcomes to\nversioned interface responses. It is not the source of domain truth.\n\n### Workflow coordination\n\nOwns workflow identity, allowed state transitions, idempotency, durable\nprogress, timeouts, retries, compensation, and escalation. It invokes domain\ncapabilities through ports and records outcome-relevant transitions.\n\n### Policy and validation\n\nEvaluates versioned structural, semantic, authorization, and safety rules. A\ndecision includes the rule version, outcome, explanation safe for its audience,\nand evidence reference.\n\n### Domain capabilities\n\nOwn business invariants and authoritative domain state. Domain behavior is\nisolated from transport, storage, vendor SDKs, and user-interface concerns.\n\n### Evidence and audit\n\nStores minimum necessary, append-oriented records for security, outcome, and\ncontrol reconstruction. Evidence access is separately authorized and retention\nis enforced by classification.\n\n### External adapters\n\nTranslate explicit ports to identity, persistence, messaging, notification, or\nother external dependencies. Adapters contain vendor-specific behavior and\nfailure translation so dependencies remain replaceable.\n\n## Primary flow\n\n1. The experience submits an authenticated request with an idempotency key and\n   correlation context.\n2. The application boundary validates the interface contract and authorization\n   context.\n3. Workflow coordination creates or returns the existing workflow instance.\n4. Policy and domain capabilities validate the proposed action.\n5. After required confirmation, the workflow commits work through owned domain\n   capabilities and external ports.\n6. Evidence records state transitions and relevant policy context.\n7. Verification evaluates postconditions before the result is declared\n   successful.\n\n## Failure model\n\nFailures are classified as invalid request, unauthorized action, policy denial,\ndomain conflict, transient dependency failure, permanent dependency failure,\ntimeout, or internal defect. Each class has an allowed retry and disclosure\npolicy. Unknown commit status is never represented as a clean failure; it enters\nreconciliation or escalation.\n\n## Data and consistency\n\nEach domain capability owns its authoritative data. A transaction does not span\nindependent ownership boundaries. Cross-boundary workflows use durable state,\nidempotent commands, explicit events, and compensation where reversal is\npossible. Read views may be eventually consistent and must expose freshness\nwhen a user decision depends on it.\n\n## Deployment view\n\nThe initial deployment favors the smallest operable shape: independently\ntestable modules may run in one deployable unit until scaling, isolation, or\nownership evidence justifies separation. Runtime configuration is externalized,\nsecrets come from an approved secret store, schema changes are forward-compatible,\nand every release supports automated health verification and rollback.\n\n## Cross-cutting controls\n\nAuthentication, fine-grained authorization, correlation, structured errors,\ntelemetry, data classification, configuration validation, rate protection, and\nrelease provenance apply at their owning boundaries. Shared libraries may\nstandardize mechanics but may not become a hidden source of domain policy.\n",
+  "content": "# Architecture Overview\n\n**Status:** Proposed stabilization baseline\n\n## Architectural thesis\n\nMonad has a deterministic semantic kernel surrounded by adapters and interaction surfaces. AI reasoning is a consumer and producer of proposals/context, not part of the trusted compilation core.\n\n## Responsibility planes\n\n### Knowledge Plane\n\nDiscovers, parses, normalizes, identifies, links, validates, and stores/query-compiles engineering knowledge. Owns semantic graph and KIR contracts.\n\n### Control Plane\n\nInterprets configuration, policy, authorization, Work Packet scope, lifecycle state, and planning/acceptance constraints. Decides what is permitted/required but delegates native mechanics.\n\n### Execution Plane\n\nBuilds execution plans and invokes native tools/adapters with controlled environment, cancellation, caching, and evidence capture.\n\n### Observation Plane\n\nProvides diagnostics, provenance, logs/traces/metrics where relevant, semantic diff, execution evidence, and explainability.\n\n### Interaction Plane\n\nCLI first; later TUI/IDE/API/web/projections. Interaction surfaces do not redefine semantic truth.\n\n## MVP logical components\n\n```mermaid\nflowchart LR\n  SRC[Canonical Repository] --> DISC[Discovery + Config]\n  DISC --> PARSE[Artifact Parsers]\n  PARSE --> SEM[Semantic Analysis + Identity]\n  SEM --> MSG[Monad Semantic Graph]\n  MSG --> VAL[Validation + Diagnostics]\n  MSG --> Q[Query / Explain]\n  MSG --> KIR[KIR Lowering]\n  MSG --> CTX[Agent Context Builder]\n  VAL --> CLI[CLI]\n  Q --> CLI\n  CTX --> CLI\n  KIR --> CLI\n  CLI --> TOOLS[Native Tools / Humans / Agents]\n```\n\n## Key boundaries\n\n- **Canonical input boundary:** filesystem/Git content is untrusted input; reading does not imply execution.\n- **Semantic boundary:** parsed syntax becomes typed engineering meaning only through explicit deterministic rules.\n- **KIR boundary:** canonical downstream interchange has versioned schema/compatibility rules before stability is promised.\n- **Agent boundary:** context is selected from semantic authority and cannot expand implementation permission.\n- **Execution boundary:** native commands are explicit, observable, cancellable where possible, and preserve exit/evidence.\n\n## State\n\nCanonical repository content is durable source. Derived graph/KIR/cache state is rebuildable. Local state under `.monad/` must distinguish canonical configuration, lock/resolution state, and disposable caches. Corrupt derived state must never require reconstructing intent manually.\n\n## Incrementality\n\nMVP may rebuild modest repositories, but architecture records source/content identity and dependency relationships so semantic diff and minimal invalidation can be added without changing the knowledge model.\n\n## Deployment\n\nMVP favors a single local distributable CLI/runtime with internally modular components. Remote services are optional later. Repository splitting and distributed runtime boundaries require evidence rather than anticipation.\n\n## AI architecture\n\nChatGPT is strongest at architecture/planning/review; Codex at bounded implementation. Monad should eventually produce their context contracts itself. No LLM response becomes accepted engineering authority without an explicit canonical artifact/approval transition.\n\n## Security architecture\n\nDefault behaviors minimize context and execution authority. Parsing untrusted repositories must avoid arbitrary code execution. Paths, symlinks, plugins, external commands, generated artifacts, caches, and model-provider boundaries are explicit threat surfaces.\n\n## Evolution\n\nThe MVP semantic kernel establishes stable concepts first. Plugins, registries, remote execution, cross-repository knowledge, and hosted controls layer on through versioned contracts rather than being embedded into the initial core.",
   "document_id": "doc:architecture%2Foverview.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "architecture",
     "normative": true,
-    "summary": "The architecture supports one traceable journey from authenticated intent to a verified result. The strongest drivers are correctness, explicit workflow state, least privilege, interruption recovery, diagnosability, accessibility, and the ability to evolve internals without silently breaking user promises.",
+    "summary": "Status: Proposed stabilization baseline",
     "title": "Architecture Overview"
   },
   "relations": [],
@@ -21,146 +21,155 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 2,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "architecture-overview",
-      "text": "# Architecture Overview",
+      "text": "# Architecture Overview\n\n**Status:** Proposed stabilization baseline",
       "title": "Architecture Overview"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 9,
-      "line_start": 3,
-      "section_id": "drivers",
-      "text": "## Drivers\n\nThe architecture supports one traceable journey from authenticated intent to a\nverified result. The strongest drivers are correctness, explicit workflow\nstate, least privilege, interruption recovery, diagnosability, accessibility,\nand the ability to evolve internals without silently breaking user promises.",
-      "title": "Drivers"
+      "line_end": 8,
+      "line_start": 5,
+      "section_id": "architectural-thesis",
+      "text": "## Architectural thesis\n\nMonad has a deterministic semantic kernel surrounded by adapters and interaction surfaces. AI reasoning is a consumer and producer of proposals/context, not part of the trusted compilation core.",
+      "title": "Architectural thesis"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 21,
-      "line_start": 10,
-      "section_id": "logical-view",
-      "text": "## Logical view\n\n```mermaid\nflowchart TD\n    UI[\"Experience\"] --> API[\"Application boundary\"]\n    API --> WF[\"Workflow coordination\"]\n    WF --> POL[\"Policy and validation\"]\n    WF --> CORE[\"Domain capabilities\"]\n    WF --> EVID[\"Evidence and audit\"]\n    CORE --> ADAPT[\"External adapters\"]\n```",
-      "title": "Logical view"
+      "line_end": 10,
+      "line_start": 9,
+      "section_id": "responsibility-planes",
+      "text": "## Responsibility planes",
+      "title": "Responsibility planes"
     },
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 27,
-      "line_start": 22,
-      "section_id": "experience",
-      "text": "### Experience\n\nDelivers the supported user and operator interactions. It owns presentation,\nlocal interaction state, and accessibility behavior, but not authoritative\nworkflow state or security policy.",
-      "title": "Experience"
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "knowledge-plane",
+      "text": "### Knowledge Plane\n\nDiscovers, parses, normalizes, identifies, links, validates, and stores/query-compiles engineering knowledge. Owns semantic graph and KIR contracts.",
+      "title": "Knowledge Plane"
     },
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 33,
-      "line_start": 28,
-      "section_id": "application-boundary",
-      "text": "### Application boundary\n\nAuthenticates request context, applies coarse transport protections, validates\ncontract shape, coordinates application use cases, and maps domain outcomes to\nversioned interface responses. It is not the source of domain truth.",
-      "title": "Application boundary"
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "control-plane",
+      "text": "### Control Plane\n\nInterprets configuration, policy, authorization, Work Packet scope, lifecycle state, and planning/acceptance constraints. Decides what is permitted/required but delegates native mechanics.",
+      "title": "Control Plane"
     },
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 39,
-      "line_start": 34,
-      "section_id": "workflow-coordination",
-      "text": "### Workflow coordination\n\nOwns workflow identity, allowed state transitions, idempotency, durable\nprogress, timeouts, retries, compensation, and escalation. It invokes domain\ncapabilities through ports and records outcome-relevant transitions.",
-      "title": "Workflow coordination"
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "execution-plane",
+      "text": "### Execution Plane\n\nBuilds execution plans and invokes native tools/adapters with controlled environment, cancellation, caching, and evidence capture.",
+      "title": "Execution Plane"
     },
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 45,
-      "line_start": 40,
-      "section_id": "policy-and-validation",
-      "text": "### Policy and validation\n\nEvaluates versioned structural, semantic, authorization, and safety rules. A\ndecision includes the rule version, outcome, explanation safe for its audience,\nand evidence reference.",
-      "title": "Policy and validation"
+      "line_end": 26,
+      "line_start": 23,
+      "section_id": "observation-plane",
+      "text": "### Observation Plane\n\nProvides diagnostics, provenance, logs/traces/metrics where relevant, semantic diff, execution evidence, and explainability.",
+      "title": "Observation Plane"
     },
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 50,
-      "line_start": 46,
-      "section_id": "domain-capabilities",
-      "text": "### Domain capabilities\n\nOwn business invariants and authoritative domain state. Domain behavior is\nisolated from transport, storage, vendor SDKs, and user-interface concerns.",
-      "title": "Domain capabilities"
-    },
-    {
-      "identifiers": [],
-      "level": 3,
-      "line_end": 56,
-      "line_start": 51,
-      "section_id": "evidence-and-audit",
-      "text": "### Evidence and audit\n\nStores minimum necessary, append-oriented records for security, outcome, and\ncontrol reconstruction. Evidence access is separately authorized and retention\nis enforced by classification.",
-      "title": "Evidence and audit"
-    },
-    {
-      "identifiers": [],
-      "level": 3,
-      "line_end": 62,
-      "line_start": 57,
-      "section_id": "external-adapters",
-      "text": "### External adapters\n\nTranslate explicit ports to identity, persistence, messaging, notification, or\nother external dependencies. Adapters contain vendor-specific behavior and\nfailure translation so dependencies remain replaceable.",
-      "title": "External adapters"
+      "line_end": 30,
+      "line_start": 27,
+      "section_id": "interaction-plane",
+      "text": "### Interaction Plane\n\nCLI first; later TUI/IDE/API/web/projections. Interaction surfaces do not redefine semantic truth.",
+      "title": "Interaction Plane"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 76,
-      "line_start": 63,
-      "section_id": "primary-flow",
-      "text": "## Primary flow\n\n1. The experience submits an authenticated request with an idempotency key and\n   correlation context.\n2. The application boundary validates the interface contract and authorization\n   context.\n3. Workflow coordination creates or returns the existing workflow instance.\n4. Policy and domain capabilities validate the proposed action.\n5. After required confirmation, the workflow commits work through owned domain\n   capabilities and external ports.\n6. Evidence records state transitions and relevant policy context.\n7. Verification evaluates postconditions before the result is declared\n   successful.",
-      "title": "Primary flow"
+      "line_end": 49,
+      "line_start": 31,
+      "section_id": "mvp-logical-components",
+      "text": "## MVP logical components\n\n```mermaid\nflowchart LR\n  SRC[Canonical Repository] --> DISC[Discovery + Config]\n  DISC --> PARSE[Artifact Parsers]\n  PARSE --> SEM[Semantic Analysis + Identity]\n  SEM --> MSG[Monad Semantic Graph]\n  MSG --> VAL[Validation + Diagnostics]\n  MSG --> Q[Query / Explain]\n  MSG --> KIR[KIR Lowering]\n  MSG --> CTX[Agent Context Builder]\n  VAL --> CLI[CLI]\n  Q --> CLI\n  CTX --> CLI\n  KIR --> CLI\n  CLI --> TOOLS[Native Tools / Humans / Agents]\n```",
+      "title": "MVP logical components"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 84,
-      "line_start": 77,
-      "section_id": "failure-model",
-      "text": "## Failure model\n\nFailures are classified as invalid request, unauthorized action, policy denial,\ndomain conflict, transient dependency failure, permanent dependency failure,\ntimeout, or internal defect. Each class has an allowed retry and disclosure\npolicy. Unknown commit status is never represented as a clean failure; it enters\nreconciliation or escalation.",
-      "title": "Failure model"
+      "line_end": 57,
+      "line_start": 50,
+      "section_id": "key-boundaries",
+      "text": "## Key boundaries\n\n- **Canonical input boundary:** filesystem/Git content is untrusted input; reading does not imply execution.\n- **Semantic boundary:** parsed syntax becomes typed engineering meaning only through explicit deterministic rules.\n- **KIR boundary:** canonical downstream interchange has versioned schema/compatibility rules before stability is promised.\n- **Agent boundary:** context is selected from semantic authority and cannot expand implementation permission.\n- **Execution boundary:** native commands are explicit, observable, cancellable where possible, and preserve exit/evidence.",
+      "title": "Key boundaries"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 92,
-      "line_start": 85,
-      "section_id": "data-and-consistency",
-      "text": "## Data and consistency\n\nEach domain capability owns its authoritative data. A transaction does not span\nindependent ownership boundaries. Cross-boundary workflows use durable state,\nidempotent commands, explicit events, and compensation where reversal is\npossible. Read views may be eventually consistent and must expose freshness\nwhen a user decision depends on it.",
-      "title": "Data and consistency"
+      "line_end": 61,
+      "line_start": 58,
+      "section_id": "state",
+      "text": "## State\n\nCanonical repository content is durable source. Derived graph/KIR/cache state is rebuildable. Local state under `.monad/` must distinguish canonical configuration, lock/resolution state, and disposable caches. Corrupt derived state must never require reconstructing intent manually.",
+      "title": "State"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 100,
-      "line_start": 93,
-      "section_id": "deployment-view",
-      "text": "## Deployment view\n\nThe initial deployment favors the smallest operable shape: independently\ntestable modules may run in one deployable unit until scaling, isolation, or\nownership evidence justifies separation. Runtime configuration is externalized,\nsecrets come from an approved secret store, schema changes are forward-compatible,\nand every release supports automated health verification and rollback.",
-      "title": "Deployment view"
+      "line_end": 65,
+      "line_start": 62,
+      "section_id": "incrementality",
+      "text": "## Incrementality\n\nMVP may rebuild modest repositories, but architecture records source/content identity and dependency relationships so semantic diff and minimal invalidation can be added without changing the knowledge model.",
+      "title": "Incrementality"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 106,
-      "line_start": 101,
-      "section_id": "cross-cutting-controls",
-      "text": "## Cross-cutting controls\n\nAuthentication, fine-grained authorization, correlation, structured errors,\ntelemetry, data classification, configuration validation, rate protection, and\nrelease provenance apply at their owning boundaries. Shared libraries may\nstandardize mechanics but may not become a hidden source of domain policy.",
-      "title": "Cross-cutting controls"
+      "line_end": 69,
+      "line_start": 66,
+      "section_id": "deployment",
+      "text": "## Deployment\n\nMVP favors a single local distributable CLI/runtime with internally modular components. Remote services are optional later. Repository splitting and distributed runtime boundaries require evidence rather than anticipation.",
+      "title": "Deployment"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 73,
+      "line_start": 70,
+      "section_id": "ai-architecture",
+      "text": "## AI architecture\n\nChatGPT is strongest at architecture/planning/review; Codex at bounded implementation. Monad should eventually produce their context contracts itself. No LLM response becomes accepted engineering authority without an explicit canonical artifact/approval transition.",
+      "title": "AI architecture"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 77,
+      "line_start": 74,
+      "section_id": "security-architecture",
+      "text": "## Security architecture\n\nDefault behaviors minimize context and execution authority. Parsing untrusted repositories must avoid arbitrary code execution. Paths, symlinks, plugins, external commands, generated artifacts, caches, and model-provider boundaries are explicit threat surfaces.",
+      "title": "Security architecture"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 80,
+      "line_start": 78,
+      "section_id": "evolution",
+      "text": "## Evolution\n\nThe MVP semantic kernel establishes stable concepts first. Plugins, registries, remote execution, cross-repository knowledge, and hosted controls layer on through versioned contracts rather than being embedded into the initial core.",
+      "title": "Evolution"
     }
   ],
   "source": {
-    "bytes": 4266,
+    "bytes": 3780,
     "canonical": true,
     "language": "markdown",
-    "lines": 106,
+    "lines": 80,
     "media_type": "text/markdown",
     "path": "architecture/overview.md",
-    "sha256": "200539959fa6281e8a14b0d24f208dc9902610d79bbb737a9be8b321fabb0e64"
+    "sha256": "bba155236f54a7b37b94a77a1899e8bd63e500fbeba3f5d6bcd1906ea803eed2"
   }
 }

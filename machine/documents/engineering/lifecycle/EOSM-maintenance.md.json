@@ -1,0 +1,76 @@
+{
+  "content": "---\nartifact_id: \"EOSM\"\ntitle: \"EOSM Maintenance\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSM — Maintenance\n\n## Purpose\n\nGovern long-lived defects, technical debt, security findings, dependencies,\noperations, performance, and documentation maintenance.\n\n## Categories\n\n- bug;\n- debt;\n- security;\n- dependency;\n- operations;\n- performance;\n- documentation.\n\n## Primary Commands\n\n```bash\n./scripts/eos maintain create debt \"Refactor graph cache ownership\"\n./scripts/eos maintain close MNT-0001\n```\n\nMaterial maintenance that changes governing behavior or architecture enters\nEOSC. Larger bodies of work can be promoted into EOSP.\n",
+  "document_id": "doc:engineering%2Flifecycle%2FEOSM-maintenance.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"EOSM\" title: \"EOSM Maintenance\" type: \"lifecycle-layer\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOSM — Maintenance"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"EOSM\"\ntitle: \"EOSM Maintenance\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "eosm-maintenance",
+      "text": "# EOSM — Maintenance",
+      "title": "EOSM — Maintenance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 14,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nGovern long-lived defects, technical debt, security findings, dependencies,\noperations, performance, and documentation maintenance.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 28,
+      "line_start": 19,
+      "section_id": "categories",
+      "text": "## Categories\n\n- bug;\n- debt;\n- security;\n- dependency;\n- operations;\n- performance;\n- documentation.",
+      "title": "Categories"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 29,
+      "section_id": "primary-commands",
+      "text": "## Primary Commands\n\n```bash\n./scripts/eos maintain create debt \"Refactor graph cache ownership\"\n./scripts/eos maintain close MNT-0001\n```\n\nMaterial maintenance that changes governing behavior or architecture enters\nEOSC. Larger bodies of work can be promoted into EOSP.",
+      "title": "Primary Commands"
+    }
+  ],
+  "source": {
+    "bytes": 737,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 37,
+    "media_type": "text/markdown",
+    "path": "engineering/lifecycle/EOSM-maintenance.md",
+    "sha256": "7482cc99d4c58ccbe5201a781afb92b47a719821c0676843f40bc965ad1f94cb"
+  }
+}

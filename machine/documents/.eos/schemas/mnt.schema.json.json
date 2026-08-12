@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/mnt/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"path\", \"type\", \"summary\", \"status\", \"created\", \"updated\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^MNT-[0-9]{4}$\"},\n    \"path\": {\"type\": \"string\", \"minLength\": 1},\n    \"type\": {\"type\": \"string\", \"minLength\": 1},\n    \"summary\": {\"type\": \"string\", \"minLength\": 1},\n    \"status\": {\"type\": \"string\"},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1},\n    \"github_url\": {\"type\": \"string\"}\n  },\n  \"additionalProperties\": false\n}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fmnt.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/mnt.schema.json.",
+    "title": "Mnt.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 17,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/mnt/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"path\", \"type\", \"summary\", \"status\", \"created\", \"updated\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^MNT-[0-9]{4}$\"},\n    \"path\": {\"type\": \"string\", \"minLength\": 1},\n    \"type\": {\"type\": \"string\", \"minLength\": 1},\n    \"summary\": {\"type\": \"string\", \"minLength\": 1},\n    \"status\": {\"type\": \"string\"},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1},\n    \"github_url\": {\"type\": \"string\"}\n  },\n  \"additionalProperties\": false\n}",
+      "title": "Mnt.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 636,
+    "canonical": true,
+    "language": "json",
+    "lines": 17,
+    "media_type": "application/json",
+    "path": ".eos/schemas/mnt.schema.json",
+    "sha256": "5d78070ec1f01013a00ca8b87b7c53f3e28c521ddca527e15f15ca200512e44d"
+  }
+}

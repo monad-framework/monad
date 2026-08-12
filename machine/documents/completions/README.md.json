@@ -1,0 +1,49 @@
+{
+  "content": "# EOS Shell Completion\n\nThe EOS provides dynamic completion for Bash, Zsh, and Fish. Candidate IDs are read from the live repository registries, so newly created PI/WC/WP, change, maintenance, release, and artifact IDs appear automatically.\n\n## Install\n\n```bash\n./scripts/eos completion install\n```\n\nThe shell is inferred from `$SHELL`, or choose it explicitly:\n\n```bash\n./scripts/eos completion install bash\n./scripts/eos completion install zsh\n./scripts/eos completion install fish\n./scripts/eos completion install all\n```\n",
+  "document_id": "doc:completions%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "The EOS provides dynamic completion for Bash, Zsh, and Fish. Candidate IDs are read from the live repository registries, so newly created PI/WC/WP, change, maintenance, release, and artifact IDs appear automatically.",
+    "title": "EOS Shell Completion"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 4,
+      "line_start": 1,
+      "section_id": "eos-shell-completion",
+      "text": "# EOS Shell Completion\n\nThe EOS provides dynamic completion for Bash, Zsh, and Fish. Candidate IDs are read from the live repository registries, so newly created PI/WC/WP, change, maintenance, release, and artifact IDs appear automatically.",
+      "title": "EOS Shell Completion"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 5,
+      "section_id": "install",
+      "text": "## Install\n\n```bash\n./scripts/eos completion install\n```\n\nThe shell is inferred from `$SHELL`, or choose it explicitly:\n\n```bash\n./scripts/eos completion install bash\n./scripts/eos completion install zsh\n./scripts/eos completion install fish\n./scripts/eos completion install all\n```",
+      "title": "Install"
+    }
+  ],
+  "source": {
+    "bytes": 525,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 18,
+    "media_type": "text/markdown",
+    "path": "completions/README.md",
+    "sha256": "8ad0d29266fe63ebf739e4459ddf4c44d5f302d1fd8ea78ddd160e374b66e872"
+  }
+}

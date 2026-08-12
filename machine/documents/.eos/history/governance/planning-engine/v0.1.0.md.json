@@ -1,0 +1,67 @@
+{
+  "content": "---\nartifact_id: \"GOV-PLAN-0001\"\ntitle: \"EOS Planning and Dependency Engine\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOS Planning and Dependency Engine\n\nEOSP treats PI/WC/WP planning as a dependency graph rather than a flat backlog.\n\nWork-packet dependencies may be declared explicitly:\n\n```markdown\n- depends-on: WP-CORE-0006\n```\n\n## Commands\n\n```bash\n./scripts/eos planning check PI-002\n./scripts/eos planning order PI-002\n./scripts/eos planning critical-path PI-002\n./scripts/eos planning graph PI-002 --format mermaid\n./scripts/eos planning size WP-CORE-0007\n```\n\n## Planning Invariants\n\n- work-packet dependency cycles are invalid;\n- referenced dependency WPs must exist;\n- dependency execution order must place prerequisites first;\n- READY or later work packets must have bounded, non-TBD definitions;\n- authorization state must be consistent with parent lifecycle state;\n- oversized work packets should be decomposed before execution where practical.\n\nSizing is heuristic advisory evidence, not a substitute for engineering\njudgment.\n",
+  "document_id": "doc:.eos%2Fhistory%2Fgovernance%2Fplanning-engine%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"GOV-PLAN-0001\" title: \"EOS Planning and Dependency Engine\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOS Planning and Dependency Engine"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"GOV-PLAN-0001\"\ntitle: \"EOS Planning and Dependency Engine\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 21,
+      "line_start": 12,
+      "section_id": "eos-planning-and-dependency-engine",
+      "text": "# EOS Planning and Dependency Engine\n\nEOSP treats PI/WC/WP planning as a dependency graph rather than a flat backlog.\n\nWork-packet dependencies may be declared explicitly:\n\n```markdown\n- depends-on: WP-CORE-0006\n```",
+      "title": "EOS Planning and Dependency Engine"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 22,
+      "section_id": "commands",
+      "text": "## Commands\n\n```bash\n./scripts/eos planning check PI-002\n./scripts/eos planning order PI-002\n./scripts/eos planning critical-path PI-002\n./scripts/eos planning graph PI-002 --format mermaid\n./scripts/eos planning size WP-CORE-0007\n```",
+      "title": "Commands"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 32,
+      "section_id": "planning-invariants",
+      "text": "## Planning Invariants\n\n- work-packet dependency cycles are invalid;\n- referenced dependency WPs must exist;\n- dependency execution order must place prerequisites first;\n- READY or later work packets must have bounded, non-TBD definitions;\n- authorization state must be consistent with parent lifecycle state;\n- oversized work packets should be decomposed before execution where practical.\n\nSizing is heuristic advisory evidence, not a substitute for engineering\njudgment.",
+      "title": "Planning Invariants"
+    }
+  ],
+  "source": {
+    "bytes": 1142,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 42,
+    "media_type": "text/markdown",
+    "path": ".eos/history/governance/planning-engine/v0.1.0.md",
+    "sha256": "6d46aefe4ffe379494f21d6867f5260e9befe167b92539aadf2f4499a9f830d2"
+  }
+}

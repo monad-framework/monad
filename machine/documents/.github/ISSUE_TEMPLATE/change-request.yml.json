@@ -1,0 +1,40 @@
+{
+  "content": "name: Change Request / RFC\nabout: Propose a controlled change to an accepted baseline or architecture.\ntitle: \"[Change] \"\nbody:\n  - type: textarea\n    id: pressure\n    attributes:\n      label: Change pressure\n      description: Why does the accepted baseline need reconsideration?\n    validations:\n      required: true\n  - type: textarea\n    id: authority\n    attributes:\n      label: Affected authority\n      description: List affected ADRs, specifications, product contracts, or EOS policies.\n    validations:\n      required: true\n  - type: textarea\n    id: proposal\n    attributes:\n      label: Proposed change\n    validations:\n      required: true\n  - type: textarea\n    id: impact\n    attributes:\n      label: Impact, migration, and risk\n    validations:\n      required: true\n",
+  "document_id": "doc:.github%2FISSUE_TEMPLATE%2Fchange-request.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-governance",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/ISSUE_TEMPLATE/change-request.yml.",
+    "title": "Change Request"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 30,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Change Request / RFC\nabout: Propose a controlled change to an accepted baseline or architecture.\ntitle: \"[Change] \"\nbody:\n  - type: textarea\n    id: pressure\n    attributes:\n      label: Change pressure\n      description: Why does the accepted baseline need reconsideration?\n    validations:\n      required: true\n  - type: textarea\n    id: authority\n    attributes:\n      label: Affected authority\n      description: List affected ADRs, specifications, product contracts, or EOS policies.\n    validations:\n      required: true\n  - type: textarea\n    id: proposal\n    attributes:\n      label: Proposed change\n    validations:\n      required: true\n  - type: textarea\n    id: impact\n    attributes:\n      label: Impact, migration, and risk\n    validations:\n      required: true",
+      "title": "Change Request"
+    }
+  ],
+  "source": {
+    "bytes": 781,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 30,
+    "media_type": "application/yaml",
+    "path": ".github/ISSUE_TEMPLATE/change-request.yml",
+    "sha256": "11a823952e301b5eb64c719e5441a722daa904dfe4467fd55a443f3af98eaff9"
+  }
+}

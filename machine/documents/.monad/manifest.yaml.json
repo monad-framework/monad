@@ -1,5 +1,5 @@
 {
-  "content": "project:\n  id: monad\n  name: Monad\n  type: software-development-operating-system\n\nversion:\n  schema: \"1.0\"\n\nknowledge:\n  enabled: true\n\nartifacts:\n\n  specifications:\n    path: specifications/\n\n  decisions:\n    path: adrs/\n\n  publications:\n    path: journal/\n\n  research:\n    path: research/\n\n  architecture:\n    path: architecture/\n\n  engineering:\n    path: engineering/\n\n",
+  "content": "# Legacy bootstrap compatibility metadata.\n# Canonical human-authored repository configuration is ../monad.toml.\n# Do not add new semantic configuration here.\nproject:\n  id: monad\n  name: Monad\n  type: engineering-knowledge-compilation-platform\n\nversion:\n  schema: \"1.0\"\n\nknowledge:\n  enabled: true\n\nartifacts:\n  specifications:\n    path: specifications/\n  decisions:\n    path: architecture/decisions/\n  publications:\n    path: journal/\n  research:\n    path: research/\n  architecture:\n    path: architecture/\n  engineering:\n    path: engineering/\n",
   "document_id": "doc:.monad%2Fmanifest.yaml",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 31,
+      "line_end": 27,
       "line_start": 1,
       "section_id": "content",
-      "text": "project:\n  id: monad\n  name: Monad\n  type: software-development-operating-system\n\nversion:\n  schema: \"1.0\"\n\nknowledge:\n  enabled: true\n\nartifacts:\n\n  specifications:\n    path: specifications/\n\n  decisions:\n    path: adrs/\n\n  publications:\n    path: journal/\n\n  research:\n    path: research/\n\n  architecture:\n    path: architecture/\n\n  engineering:\n    path: engineering/",
+      "text": "# Legacy bootstrap compatibility metadata.\n# Canonical human-authored repository configuration is ../monad.toml.\n# Do not add new semantic configuration here.\nproject:\n  id: monad\n  name: Monad\n  type: engineering-knowledge-compilation-platform\n\nversion:\n  schema: \"1.0\"\n\nknowledge:\n  enabled: true\n\nartifacts:\n  specifications:\n    path: specifications/\n  decisions:\n    path: architecture/decisions/\n  publications:\n    path: journal/\n  research:\n    path: research/\n  architecture:\n    path: architecture/\n  engineering:\n    path: engineering/",
       "title": "Manifest"
     }
   ],
   "source": {
-    "bytes": 372,
+    "bytes": 547,
     "canonical": true,
     "language": "yaml",
-    "lines": 31,
+    "lines": 27,
     "media_type": "application/yaml",
     "path": ".monad/manifest.yaml",
-    "sha256": "7a3b75874c39a5e984767bc06cad5bbb951c3a539805ab91b610c521dd3eb392"
+    "sha256": "a368119529be8871fc619cd28a4046fee976f7309795287d3a825751e6372b5c"
   }
 }

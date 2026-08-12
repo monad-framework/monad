@@ -1,18 +1,17 @@
 name: EOS Integrity
-
 on:
   push:
+    branches: [main]
   pull_request:
-
 permissions:
   contents: read
-
 jobs:
-  verify:
+  eos-integrity:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Verify Engineering Operating System
-        run: ./scripts/eos verify
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run governed EOS verification
+        run: ./scripts/eos verify --strict

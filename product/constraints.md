@@ -1,60 +1,51 @@
 # Product Constraints
 
-Constraints are facts or commitments that bound acceptable solutions. Each
-constraint should have an owner and be revisited when its underlying condition
-changes.
+**Status:** Proposed stabilization baseline
 
-## User and experience constraints
+## PC-001 — Local-first core
 
-- The primary journey must remain understandable without internal technical
-  knowledge.
-- Supported accessibility modes are part of release acceptance.
-- Consequential actions require visible effect, authority, and confirmation.
-- Interruption and low-confidence states must not be presented as success.
+Repository discovery, semantic compilation, validation, query/explain, and MVP context generation must operate without mandatory hosted services.
 
-## Scope constraints
+## PC-002 — Deterministic semantic core
 
-- The first release supports one primary persona and one end-to-end journey.
-- Unsupported workflows stop explicitly rather than being approximated.
-- New integrations require measured outcome or adoption evidence.
-- Administrative breadth follows operational need, not speculative completeness.
+Equivalent supported inputs/configuration/Monad version must produce equivalent canonical semantic identity and output. Probabilistic AI output cannot define core graph truth.
 
-## Data constraints
+## PC-003 — Human-readable canonical source
 
-- Collect only data required for a declared purpose.
-- Classify inputs and outputs before production use.
-- Define residency, retention, deletion, export, and backup behavior.
-- Never use production personal or confidential data in development or tests
-  without an approved protected process.
+MVP assumes human-readable Git artifacts are canonical. Machine companions are generated derivatives with source hashes/provenance.
 
-## Security and compliance constraints
+## PC-004 — Git-native history
 
-- All access is authenticated and authorized at the protected resource.
-- Secrets are managed outside source code and ordinary configuration files.
-- Critical dependencies and release artifacts require provenance and integrity
-  checks.
-- Compliance claims require mapped obligations and control evidence; the
-  repository does not imply certification.
+Monad does not replace Git history/branching/PR review. It may enrich and validate them.
 
-## Technical constraints
+## PC-005 — Native-tool authority
 
-- Public interfaces are explicitly versioned and compatibility-tested.
-- Components expose health and correlation signals for critical journeys.
-- State-changing operations are idempotent or have a documented compensation.
-- Deployment and rollback are automated and produce reviewable evidence.
+Language compilers, package managers, test runners, formatters, and other domain tools remain authoritative for their native semantics unless an accepted adapter contract says otherwise.
 
-## Delivery constraints
+## PC-006 — Bounded AI authority
 
-- The project favors a small team and low coordination overhead.
-- Work is sliced vertically so each increment can demonstrate user or risk
-  value.
-- A strategic dependency must have an exit, containment, or continuity plan.
-- Cost is measured per successful outcome and must remain within an approved
-  budget.
+Agents must receive explicit scope and may not silently accept architecture, specifications, risk, or releases.
 
-## Constraint review
+## PC-007 — Explainability
 
-Review constraints at product-baseline, architecture, and release-readiness
-gates. A proposed exception names the affected scope, duration, risk, controls,
-owner, and removal date. Permanent exceptions become explicit decisions rather
-than lingering waivers.
+Consequential diagnostics, graph relationships, context selections, and policy/execution decisions must retain enough provenance to explain their basis.
+
+## PC-008 — Security and secret minimization
+
+Repository ingestion and context generation must honor exclusions, data classification, and least-context principles; secrets are never considered ordinary engineering context.
+
+## PC-009 — Polyglot evolution
+
+The architecture must not hard-code one implementation language/toolchain as the product model. MVP implementation may choose a narrow stack while interfaces remain explicit.
+
+## PC-010 — Bootstrap resource discipline
+
+The project should prefer best-of-breed open-source dependencies and avoid unnecessary paid infrastructure/API requirements for the local core.
+
+## PC-011 — Backward-compatible evolution
+
+Public schemas, KIR, configuration, CLI structured output, plugin APIs, and registry protocols must establish explicit versioning before external stability is promised.
+
+## PC-012 — No false completeness
+
+Unsupported constructs, incomplete graph knowledge, and uncertain relationships must be visible rather than guessed into a complete-looking model.

@@ -1,0 +1,106 @@
+{
+  "content": "# TECH-INGEST-0001: Markdown Engineering Artifact Parsing\n\n**Status:** approved  \n**Version:** 1.0.0  \n**Owner:** Monad Core  \n**Related requirements:** FR-002, QR-001, QR-003  \n**Governing ADRs:** ADR-0003, ADR-0004\n\n## Purpose\n\nDefines the MVP parser contract for canonical Markdown engineering artifacts. The parser extracts deterministic structural facts and reference candidates; it does not infer undocumented semantics with an LLM.\n\n## Input\n\nA UTF-8 source record satisfying DATA-SOURCE-0001 and classified as Markdown.\n\n## Output\n\nThe normalized document record MUST preserve:\n\n- source/document identity and content provenance;\n- ordered heading/section structure with source ranges;\n- recognized metadata fields expressed by the artifact contract;\n- explicit governed identifiers and statuses where present;\n- Markdown links and repository/artifact identifier reference candidates;\n- diagnostics with source ranges for malformed/ambiguous governed constructs.\n\n## Normative behavior\n\n1. Parsing MUST be side-effect free, offline, and deterministic.\n2. CommonMark/GFM-compatible syntax MAY be accepted, but the exact parser dialect/version used for canonical extraction MUST be recorded as parser contract metadata.\n3. Heading hierarchy and textual source ranges MUST be preserved sufficiently for diagnostics/explanation.\n4. Code-fence contents MUST NOT be scanned as ordinary governed identifiers or links unless an artifact-specific rule explicitly opts in.\n5. HTML/comments MAY carry metadata only when an approved artifact contract defines it; arbitrary executable HTML/script semantics are ignored as text/structure.\n6. A syntactically valid Markdown document can still be semantically invalid; the parser MUST separate parse findings from later semantic validation.\n7. Recoverable malformed constructs MAY yield partial structure for diagnostics, but invalid recovered fields MUST NOT be represented as accepted semantic facts.\n8. Link/reference extraction emits candidates only. Resolution is governed by TECH-INGEST-0003.\n9. Output ordering follows source order for source-ordered constructs and canonical key order for map-like machine fields.\n\n## Security\n\nThe parser MUST NOT execute embedded HTML, scripts, code fences, include directives, shell substitutions, links, or macros.\n\n## Verification\n\nFixtures include nested headings, repeated headings, metadata, fenced code containing fake IDs, relative links, artifact IDs, HTML comments, malformed links/metadata, Unicode, empty files, and repeat-run byte-equivalent normalized output.\n",
+  "document_id": "doc:specifications%2Ftechnical%2FTECH-INGEST-0001-markdown-engineering-artifact-parsing.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0003",
+    "ADR-0004",
+    "FR-002",
+    "QR-001",
+    "QR-003"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "specification",
+    "normative": true,
+    "summary": "Status: approved Version: 1.0.0 Owner: Monad Core Related requirements: FR-002, QR-001, QR-003 Governing ADRs: ADR-0003, ADR-0004",
+    "title": "TECH-INGEST-0001: Markdown Engineering Artifact Parsing"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0003",
+        "ADR-0004",
+        "FR-002",
+        "QR-001",
+        "QR-003"
+      ],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "tech-ingest-0001-markdown-engineering-artifact-parsing",
+      "text": "# TECH-INGEST-0001: Markdown Engineering Artifact Parsing\n\n**Status:** approved  \n**Version:** 1.0.0  \n**Owner:** Monad Core  \n**Related requirements:** FR-002, QR-001, QR-003  \n**Governing ADRs:** ADR-0003, ADR-0004",
+      "title": "TECH-INGEST-0001: Markdown Engineering Artifact Parsing"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 9,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nDefines the MVP parser contract for canonical Markdown engineering artifacts. The parser extracts deterministic structural facts and reference candidates; it does not infer undocumented semantics with an LLM.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 16,
+      "line_start": 13,
+      "section_id": "input",
+      "text": "## Input\n\nA UTF-8 source record satisfying DATA-SOURCE-0001 and classified as Markdown.",
+      "title": "Input"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 17,
+      "section_id": "output",
+      "text": "## Output\n\nThe normalized document record MUST preserve:\n\n- source/document identity and content provenance;\n- ordered heading/section structure with source ranges;\n- recognized metadata fields expressed by the artifact contract;\n- explicit governed identifiers and statuses where present;\n- Markdown links and repository/artifact identifier reference candidates;\n- diagnostics with source ranges for malformed/ambiguous governed constructs.",
+      "title": "Output"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 28,
+      "section_id": "normative-behavior",
+      "text": "## Normative behavior\n\n1. Parsing MUST be side-effect free, offline, and deterministic.\n2. CommonMark/GFM-compatible syntax MAY be accepted, but the exact parser dialect/version used for canonical extraction MUST be recorded as parser contract metadata.\n3. Heading hierarchy and textual source ranges MUST be preserved sufficiently for diagnostics/explanation.\n4. Code-fence contents MUST NOT be scanned as ordinary governed identifiers or links unless an artifact-specific rule explicitly opts in.\n5. HTML/comments MAY carry metadata only when an approved artifact contract defines it; arbitrary executable HTML/script semantics are ignored as text/structure.\n6. A syntactically valid Markdown document can still be semantically invalid; the parser MUST separate parse findings from later semantic validation.\n7. Recoverable malformed constructs MAY yield partial structure for diagnostics, but invalid recovered fields MUST NOT be represented as accepted semantic facts.\n8. Link/reference extraction emits candidates only. Resolution is governed by TECH-INGEST-0003.\n9. Output ordering follows source order for source-ordered constructs and canonical key order for map-like machine fields.",
+      "title": "Normative behavior"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 40,
+      "section_id": "security",
+      "text": "## Security\n\nThe parser MUST NOT execute embedded HTML, scripts, code fences, include directives, shell substitutions, links, or macros.",
+      "title": "Security"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 44,
+      "section_id": "verification",
+      "text": "## Verification\n\nFixtures include nested headings, repeated headings, metadata, fenced code containing fake IDs, relative links, artifact IDs, HTML comments, malformed links/metadata, Unicode, empty files, and repeat-run byte-equivalent normalized output.",
+      "title": "Verification"
+    }
+  ],
+  "source": {
+    "bytes": 2559,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 46,
+    "media_type": "text/markdown",
+    "path": "specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md",
+    "sha256": "a44067dd0fa307f7e04fb9a059455df668b9d684df53887baacf5342036741bb"
+  }
+}

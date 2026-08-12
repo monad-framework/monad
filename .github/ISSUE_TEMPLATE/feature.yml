@@ -1,0 +1,35 @@
+name: Feature
+about: Track a feature-sized outcome governed by a Work Packet.
+title: "[Feature] "
+body:
+  - type: input
+    id: feature
+    attributes:
+      label: Feature identifier
+      placeholder: F-XXX-XX
+    validations:
+      required: true
+  - type: input
+    id: wp
+    attributes:
+      label: Work Packet
+      placeholder: WP-MVP-XXXX
+    validations:
+      required: true
+  - type: input
+    id: parent
+    attributes:
+      label: Parent Epic
+      placeholder: EPIC-XXX
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome and acceptance
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and blockers

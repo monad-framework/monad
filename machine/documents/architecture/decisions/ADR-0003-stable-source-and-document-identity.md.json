@@ -1,0 +1,95 @@
+{
+  "content": "# ADR-0003: Stable Source and Document Identity\n\n**Status:** Accepted  \n**Date:** 2026-08-12  \n**Decision scope:** canonical source/document identity and provenance  \n**Related:** FR-002, FR-003, FR-009, QR-001, QR-005\n\n## Context\n\nMonad's semantic graph, diagnostics, references, KIR, cache keys, and agent context all depend on stable identity. Content hashes alone are not identity because an ordinary edit would create a new semantic entity. Absolute filesystem paths are not identity because clones live at different locations. Human identifiers such as `ADR-0001` are valuable but not every source has one and they can collide if governance fails.\n\n## Decision\n\n1. Every ingested source has a **Source ID** derived from its canonical repository-relative path and source kind. Absolute clone location, filesystem enumeration order, timestamps, inode numbers, and random values are excluded.\n2. Canonical paths use `/` separators, contain no leading slash, `.` or `..` segments, and are interpreted relative to the selected Monad root.\n3. Source identity preserves path case. Discovery MUST separately diagnose path sets that are unsafe or ambiguous across supported case-insensitive filesystems rather than silently case-folding identity.\n4. A **Document ID** uses an explicit governed identifier when the artifact contract defines one (for example `ADR-0001`, `WP-MVP-0001`, or a specification ID). Otherwise it derives from Source ID plus the document kind.\n5. Stable governed identifiers are unique within their identifier namespace. Duplicate explicit IDs are fatal semantic diagnostics for the affected compilation; Monad does not pick a winner based on traversal order.\n6. Content identity is separate provenance. Each source records a SHA-256 digest of the exact bytes consumed plus canonical path, source kind, and parser/schema version sufficient to explain the semantic result.\n7. Renaming a path changes Source ID unless the document has an explicit stable governed identifier. For explicitly identified artifacts, the governed Document ID survives a location move while provenance records the changed source path.\n8. Symlink aliases do not create additional source identities. Discovery resolves containment and ingests at most the canonical configured repository path; aliases/cycles are diagnosed or de-duplicated deterministically.\n9. Identity encodings used in machine schemas must be reversible or carry the original canonical components; lossy slugification is not authoritative identity.\n\n## Consequences\n\n- ordinary content edits retain source/document identity where path/explicit ID is stable;\n- repository clones produce equivalent identities;\n- governed artifact moves retain logical identity when an explicit ID exists;\n- path-only sources intentionally receive new Source IDs when moved;\n- duplicate IDs become visible defects rather than order-dependent behavior.\n\n## Verification\n\nGolden/property tests must cover unchanged clones, content edits, renames, explicit-ID moves, duplicate identifiers, path separator normalization, case-collision diagnostics, symlink aliases/cycles, and SHA-256 provenance changes.\n",
+  "document_id": "doc:architecture%2Fdecisions%2FADR-0003-stable-source-and-document-identity.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0001",
+    "ADR-0003",
+    "FR-002",
+    "FR-003",
+    "FR-009",
+    "QR-001",
+    "QR-005"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "Status: Accepted Date: 2026-08-12 Decision scope: canonical source/document identity and provenance Related: FR-002, FR-003, FR-009, QR-001, QR-005",
+    "title": "ADR-0003: Stable Source and Document Identity"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0003",
+        "FR-002",
+        "FR-003",
+        "FR-009",
+        "QR-001",
+        "QR-005"
+      ],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "adr-0003-stable-source-and-document-identity",
+      "text": "# ADR-0003: Stable Source and Document Identity\n\n**Status:** Accepted  \n**Date:** 2026-08-12  \n**Decision scope:** canonical source/document identity and provenance  \n**Related:** FR-002, FR-003, FR-009, QR-001, QR-005",
+      "title": "ADR-0003: Stable Source and Document Identity"
+    },
+    {
+      "identifiers": [
+        "ADR-0001"
+      ],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 8,
+      "section_id": "context",
+      "text": "## Context\n\nMonad's semantic graph, diagnostics, references, KIR, cache keys, and agent context all depend on stable identity. Content hashes alone are not identity because an ordinary edit would create a new semantic entity. Absolute filesystem paths are not identity because clones live at different locations. Human identifiers such as `ADR-0001` are valuable but not every source has one and they can collide if governance fails.",
+      "title": "Context"
+    },
+    {
+      "identifiers": [
+        "ADR-0001"
+      ],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 12,
+      "section_id": "decision",
+      "text": "## Decision\n\n1. Every ingested source has a **Source ID** derived from its canonical repository-relative path and source kind. Absolute clone location, filesystem enumeration order, timestamps, inode numbers, and random values are excluded.\n2. Canonical paths use `/` separators, contain no leading slash, `.` or `..` segments, and are interpreted relative to the selected Monad root.\n3. Source identity preserves path case. Discovery MUST separately diagnose path sets that are unsafe or ambiguous across supported case-insensitive filesystems rather than silently case-folding identity.\n4. A **Document ID** uses an explicit governed identifier when the artifact contract defines one (for example `ADR-0001`, `WP-MVP-0001`, or a specification ID). Otherwise it derives from Source ID plus the document kind.\n5. Stable governed identifiers are unique within their identifier namespace. Duplicate explicit IDs are fatal semantic diagnostics for the affected compilation; Monad does not pick a winner based on traversal order.\n6. Content identity is separate provenance. Each source records a SHA-256 digest of the exact bytes consumed plus canonical path, source kind, and parser/schema version sufficient to explain the semantic result.\n7. Renaming a path changes Source ID unless the document has an explicit stable governed identifier. For explicitly identified artifacts, the governed Document ID survives a location move while provenance records the changed source path.\n8. Symlink aliases do not create additional source identities. Discovery resolves containment and ingests at most the canonical configured repository path; aliases/cycles are diagnosed or de-duplicated deterministically.\n9. Identity encodings used in machine schemas must be reversible or carry the original canonical components; lossy slugification is not authoritative identity.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 24,
+      "section_id": "consequences",
+      "text": "## Consequences\n\n- ordinary content edits retain source/document identity where path/explicit ID is stable;\n- repository clones produce equivalent identities;\n- governed artifact moves retain logical identity when an explicit ID exists;\n- path-only sources intentionally receive new Source IDs when moved;\n- duplicate IDs become visible defects rather than order-dependent behavior.",
+      "title": "Consequences"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 32,
+      "section_id": "verification",
+      "text": "## Verification\n\nGolden/property tests must cover unchanged clones, content edits, renames, explicit-ID moves, duplicate identifiers, path separator normalization, case-collision diagnostics, symlink aliases/cycles, and SHA-256 provenance changes.",
+      "title": "Verification"
+    }
+  ],
+  "source": {
+    "bytes": 3145,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 34,
+    "media_type": "text/markdown",
+    "path": "architecture/decisions/ADR-0003-stable-source-and-document-identity.md",
+    "sha256": "0496421cf7c214913342c1b9586ba0b77042b5ffa17ab80fba569ff4177324e0"
+  }
+}

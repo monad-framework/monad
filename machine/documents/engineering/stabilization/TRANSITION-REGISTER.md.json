@@ -1,0 +1,55 @@
+{
+  "content": "# Transition Register\n\n**ID:** STAB-REGISTER-0001  \n**Status:** Active  \n**Owner:** Engineering Owner\n\nThis living register tracks known transitional inconsistencies. Entries close only with evidence, not by assumption.\n\n| ID | Transition | Current state | Target state | Gate |\n| --- | --- | --- | --- | --- |\n| TR-001 | Product identity | Repository metadata says Engineering Knowledge Compilation Platform; several canonical drafts describe generic MonadV2 workflow software | One Monad engineering-knowledge thesis across product and architecture | Foundation reconciliation review |\n| TR-002 | ADR root | Remote baseline contains both `adrs/` and `architecture/decisions/` | `architecture/decisions/` is the sole ADR root | ADR consistency check |\n| TR-003 | ADR index | Accepted ADR-0001 exists while architecture decision index reports none accepted | Canonical index accurately lists all decisions | ADR consistency check |\n| TR-004 | Machine layer | Generated manifest/corpus/companions are stale and incomplete | `sync-machine-docs.py --check` passes from clean checkout | CI |\n| TR-005 | Artifact system | Large taxonomy exists as empty Markdown placeholders | Every artifact Markdown file contains substantive controlled content | Artifact audit |\n| TR-006 | WP-0001 | Active index describes WP-0001 but no individual packet exists | Every active packet has a canonical packet record | Engineering audit |\n| TR-007 | Planning | Milestone/increment/work-cycle structures exist but MVP plan is not instantiated | MVP Release 1 has traceable roadmap and rolling-wave backlog | Planning review |\n| TR-008 | GitHub Issues | No live issues in new repository | Epics and ready-horizon execution work are projected into Issues | GitHub review |\n| TR-009 | GitHub Project | Projects enabled but operational model not instantiated/verified | One canonical product-development project with fields/views/iterations | GitHub review |\n| TR-010 | Wiki | Wiki enabled but current content/state not established | Wiki is an informational projection with canonical-source links | GitHub review |\n| TR-011 | Branch governance | `main` is unprotected | Required review/check/merge controls documented and configured | Repository governance review |\n| TR-012 | CI coverage | Only machine sync workflow presently exists and is red | Layered repository, semantic, test, security, and release gates are green | CI review |\n| TR-013 | Artifact authority | Artifact taxonomy paths can be mistaken for current authority | Catalog semantics and lifecycle are explicit | Artifact audit |\n| TR-014 | Naming | `Monad`, `MonadV2`, MKE, and product terms are inconsistent | Canonical terminology uses `Monad`; versioning belongs to releases, not product identity | Terminology review |\n\n## Update rule\n\nAdd an entry whenever a material mismatch could cause an agent, reviewer, contributor, or automation to act on the wrong source. Closed entries retain their resolution evidence and date.",
+  "document_id": "doc:engineering%2Fstabilization%2FTRANSITION-REGISTER.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0001",
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "ID: STAB-REGISTER-0001 Status: Active Owner: Engineering Owner",
+    "title": "Transition Register"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0001",
+        "WP-0001"
+      ],
+      "level": 1,
+      "line_end": 25,
+      "line_start": 1,
+      "section_id": "transition-register",
+      "text": "# Transition Register\n\n**ID:** STAB-REGISTER-0001  \n**Status:** Active  \n**Owner:** Engineering Owner\n\nThis living register tracks known transitional inconsistencies. Entries close only with evidence, not by assumption.\n\n| ID | Transition | Current state | Target state | Gate |\n| --- | --- | --- | --- | --- |\n| TR-001 | Product identity | Repository metadata says Engineering Knowledge Compilation Platform; several canonical drafts describe generic MonadV2 workflow software | One Monad engineering-knowledge thesis across product and architecture | Foundation reconciliation review |\n| TR-002 | ADR root | Remote baseline contains both `adrs/` and `architecture/decisions/` | `architecture/decisions/` is the sole ADR root | ADR consistency check |\n| TR-003 | ADR index | Accepted ADR-0001 exists while architecture decision index reports none accepted | Canonical index accurately lists all decisions | ADR consistency check |\n| TR-004 | Machine layer | Generated manifest/corpus/companions are stale and incomplete | `sync-machine-docs.py --check` passes from clean checkout | CI |\n| TR-005 | Artifact system | Large taxonomy exists as empty Markdown placeholders | Every artifact Markdown file contains substantive controlled content | Artifact audit |\n| TR-006 | WP-0001 | Active index describes WP-0001 but no individual packet exists | Every active packet has a canonical packet record | Engineering audit |\n| TR-007 | Planning | Milestone/increment/work-cycle structures exist but MVP plan is not instantiated | MVP Release 1 has traceable roadmap and rolling-wave backlog | Planning review |\n| TR-008 | GitHub Issues | No live issues in new repository | Epics and ready-horizon execution work are projected into Issues | GitHub review |\n| TR-009 | GitHub Project | Projects enabled but operational model not instantiated/verified | One canonical product-development project with fields/views/iterations | GitHub review |\n| TR-010 | Wiki | Wiki enabled but current content/state not established | Wiki is an informational projection with canonical-source links | GitHub review |\n| TR-011 | Branch governance | `main` is unprotected | Required review/check/merge controls documented and configured | Repository governance review |\n| TR-012 | CI coverage | Only machine sync workflow presently exists and is red | Layered repository, semantic, test, security, and release gates are green | CI review |\n| TR-013 | Artifact authority | Artifact taxonomy paths can be mistaken for current authority | Catalog semantics and lifecycle are explicit | Artifact audit |\n| TR-014 | Naming | `Monad`, `MonadV2`, MKE, and product terms are inconsistent | Canonical terminology uses `Monad`; versioning belongs to releases, not product identity | Terminology review |",
+      "title": "Transition Register"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 28,
+      "line_start": 26,
+      "section_id": "update-rule",
+      "text": "## Update rule\n\nAdd an entry whenever a material mismatch could cause an agent, reviewer, contributor, or automation to act on the wrong source. Closed entries retain their resolution evidence and date.",
+      "title": "Update rule"
+    }
+  ],
+  "source": {
+    "bytes": 2968,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 28,
+    "media_type": "text/markdown",
+    "path": "engineering/stabilization/TRANSITION-REGISTER.md",
+    "sha256": "67d8fa80da7cfd8ae57596a941a3b3721fb303aa323aea89459a435d562d320b"
+  }
+}
