@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/override/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"target\", \"gate\", \"status\", \"actor\", \"reason\", \"created\", \"expires\", \"consumed_at\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^OVR-[0-9]{4}$\"},\n    \"target\": {\"type\": \"string\", \"minLength\": 1},\n    \"gate\": {\"type\": \"string\", \"pattern\": \"^[A-Z][A-Z0-9_]+$\"},\n    \"status\": {\"type\": \"string\"},\n    \"actor\": {\"type\": \"string\", \"minLength\": 1},\n    \"reason\": {\"type\": \"string\", \"minLength\": 1},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"expires\": {\"type\": \"string\"},\n    \"consumed_at\": {\"type\": \"string\"}\n  },\n  \"additionalProperties\": false\n}\n",
+  "document_id": "doc:.eos%2Fschemas%2Foverride.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/override.schema.json.",
+    "title": "Override.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 18,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/override/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"target\", \"gate\", \"status\", \"actor\", \"reason\", \"created\", \"expires\", \"consumed_at\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^OVR-[0-9]{4}$\"},\n    \"target\": {\"type\": \"string\", \"minLength\": 1},\n    \"gate\": {\"type\": \"string\", \"pattern\": \"^[A-Z][A-Z0-9_]+$\"},\n    \"status\": {\"type\": \"string\"},\n    \"actor\": {\"type\": \"string\", \"minLength\": 1},\n    \"reason\": {\"type\": \"string\", \"minLength\": 1},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"expires\": {\"type\": \"string\"},\n    \"consumed_at\": {\"type\": \"string\"}\n  },\n  \"additionalProperties\": false\n}",
+      "title": "Override.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 717,
+    "canonical": true,
+    "language": "json",
+    "lines": 18,
+    "media_type": "application/json",
+    "path": ".eos/schemas/override.schema.json",
+    "sha256": "6eff858c3dd52e454ff4f73a5fd42ee395d3c67eaf96f40702e8ca9a448cd758"
+  }
+}

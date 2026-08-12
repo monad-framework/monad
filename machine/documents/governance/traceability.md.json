@@ -1,0 +1,49 @@
+{
+  "content": "---\nartifact_id: \"GOV-TRACE-0001\"\ntitle: \"Traceability Model\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# Traceability Model\n\nDesired chain:\n\n`idea -> goal -> capability -> requirement -> quality attribute -> ADR /\nspecification -> PI -> WC -> WP -> commit -> PR -> test / evidence`\n\nA work packet should identify its governing artifacts. A pull request should\nidentify its work packet. Validation evidence should identify the requirement or\nacceptance criterion it proves.\n",
+  "document_id": "doc:governance%2Ftraceability.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "governance",
+    "normative": true,
+    "summary": "--- artifactid: \"GOV-TRACE-0001\" title: \"Traceability Model\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "Traceability Model"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"GOV-TRACE-0001\"\ntitle: \"Traceability Model\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 21,
+      "line_start": 12,
+      "section_id": "traceability-model",
+      "text": "# Traceability Model\n\nDesired chain:\n\n`idea -> goal -> capability -> requirement -> quality attribute -> ADR /\nspecification -> PI -> WC -> WP -> commit -> PR -> test / evidence`\n\nA work packet should identify its governing artifacts. A pull request should\nidentify its work packet. Validation evidence should identify the requirement or\nacceptance criterion it proves.",
+      "title": "Traceability Model"
+    }
+  ],
+  "source": {
+    "bytes": 571,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 21,
+    "media_type": "text/markdown",
+    "path": "governance/traceability.md",
+    "sha256": "c817e208eefcd0574a83c6fb19aa7545b0c0bc38e2e9316ccfe11360805f1d5f"
+  }
+}

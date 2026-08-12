@@ -1,0 +1,67 @@
+{
+  "content": "---\nartifact_id: \"GOV-GITHUB-0001\"\ntitle: \"GitHub Integration Model\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# GitHub Integration Model\n\nGit remains the authoritative version history. GitHub is the canonical remote\ncollaboration and integration surface when configured.\n\n## Mapping\n\n| EOS object | GitHub object |\n|---|---|\n| Program Increment | tracking issue / milestone |\n| Work Cycle | tracking issue |\n| Work Packet | issue + branch + pull request |\n| Change Request | issue / pull request |\n| Verification | GitHub Actions checks + evidence artifacts |\n| Review | pull-request review + repository review artifact |\n| Release | Git tag + GitHub Release |\n| Maintenance | issue + WP/change request when required |\n\n## Synchronization\n\n`./scripts/eos github-sync` is dry-run by default.\n\n`./scripts/eos github-sync --apply` may create/reconcile EOS labels and tracking\nissues using the authenticated GitHub CLI. External writes are explicit and are\nnever side effects of local status, trace, review, or verification commands.\n",
+  "document_id": "doc:.eos%2Fhistory%2Fgovernance%2Fgithub-integration%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"GOV-GITHUB-0001\" title: \"GitHub Integration Model\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "GitHub Integration Model"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"GOV-GITHUB-0001\"\ntitle: \"GitHub Integration Model\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 16,
+      "line_start": 12,
+      "section_id": "github-integration-model",
+      "text": "# GitHub Integration Model\n\nGit remains the authoritative version history. GitHub is the canonical remote\ncollaboration and integration surface when configured.",
+      "title": "GitHub Integration Model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 17,
+      "section_id": "mapping",
+      "text": "## Mapping\n\n| EOS object | GitHub object |\n|---|---|\n| Program Increment | tracking issue / milestone |\n| Work Cycle | tracking issue |\n| Work Packet | issue + branch + pull request |\n| Change Request | issue / pull request |\n| Verification | GitHub Actions checks + evidence artifacts |\n| Review | pull-request review + repository review artifact |\n| Release | Git tag + GitHub Release |\n| Maintenance | issue + WP/change request when required |",
+      "title": "Mapping"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 30,
+      "section_id": "synchronization",
+      "text": "## Synchronization\n\n`./scripts/eos github-sync` is dry-run by default.\n\n`./scripts/eos github-sync --apply` may create/reconcile EOS labels and tracking\nissues using the authenticated GitHub CLI. External writes are explicit and are\nnever side effects of local status, trace, review, or verification commands.",
+      "title": "Synchronization"
+    }
+  ],
+  "source": {
+    "bytes": 1128,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 36,
+    "media_type": "text/markdown",
+    "path": ".eos/history/governance/github-integration/v0.1.0.md",
+    "sha256": "55a5c626c5d9e9dc21d04f8aec0a4cb72720cf7abbe168676b45142bddebef84"
+  }
+}

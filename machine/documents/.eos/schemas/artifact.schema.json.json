@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/artifact/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"artifact_id\", \"title\", \"type\", \"version\", \"status\", \"authority\", \"created\", \"updated\"],\n  \"properties\": {\n    \"artifact_id\": {\"type\": \"string\", \"minLength\": 1},\n    \"title\": {\"type\": \"string\", \"minLength\": 1},\n    \"type\": {\"type\": \"string\", \"minLength\": 1},\n    \"version\": {\"type\": \"string\", \"pattern\": \"^[0-9]+\\\\.[0-9]+\\\\.[0-9]+$\"},\n    \"status\": {\"type\": \"string\", \"minLength\": 1},\n    \"authority\": {\"type\": \"string\", \"minLength\": 1},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1}\n  }\n}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fartifact.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/artifact.schema.json.",
+    "title": "Artifact.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 16,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/artifact/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"artifact_id\", \"title\", \"type\", \"version\", \"status\", \"authority\", \"created\", \"updated\"],\n  \"properties\": {\n    \"artifact_id\": {\"type\": \"string\", \"minLength\": 1},\n    \"title\": {\"type\": \"string\", \"minLength\": 1},\n    \"type\": {\"type\": \"string\", \"minLength\": 1},\n    \"version\": {\"type\": \"string\", \"pattern\": \"^[0-9]+\\\\.[0-9]+\\\\.[0-9]+$\"},\n    \"status\": {\"type\": \"string\", \"minLength\": 1},\n    \"authority\": {\"type\": \"string\", \"minLength\": 1},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1}\n  }\n}",
+      "title": "Artifact.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 684,
+    "canonical": true,
+    "language": "json",
+    "lines": 16,
+    "media_type": "application/json",
+    "path": ".eos/schemas/artifact.schema.json",
+    "sha256": "9a648a852ee7984cfad111fabb020ea25bc486a275dcfcd86cbbb0ae177b2424"
+  }
+}

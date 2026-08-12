@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"kind\": \"MNT\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"OPEN\",\n  \"terminal_states\": [\"CLOSED\", \"DEFERRED\"],\n  \"states\": [\"OPEN\", \"PLANNED\", \"IN_PROGRESS\", \"VERIFYING\", \"CLOSED\", \"DEFERRED\"],\n  \"transitions\": {\n    \"OPEN\": [\"PLANNED\", \"DEFERRED\"],\n    \"PLANNED\": [\"IN_PROGRESS\", \"DEFERRED\"],\n    \"IN_PROGRESS\": [\"VERIFYING\", \"DEFERRED\"],\n    \"VERIFYING\": [\"CLOSED\", \"IN_PROGRESS\"],\n    \"CLOSED\": [],\n    \"DEFERRED\": [\"PLANNED\"]\n  }\n}\n",
+  "document_id": "doc:.eos%2Fstate-machines%2Fmnt.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/state-machines/mnt.json.",
+    "title": "Mnt"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"kind\": \"MNT\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"OPEN\",\n  \"terminal_states\": [\"CLOSED\", \"DEFERRED\"],\n  \"states\": [\"OPEN\", \"PLANNED\", \"IN_PROGRESS\", \"VERIFYING\", \"CLOSED\", \"DEFERRED\"],\n  \"transitions\": {\n    \"OPEN\": [\"PLANNED\", \"DEFERRED\"],\n    \"PLANNED\": [\"IN_PROGRESS\", \"DEFERRED\"],\n    \"IN_PROGRESS\": [\"VERIFYING\", \"DEFERRED\"],\n    \"VERIFYING\": [\"CLOSED\", \"IN_PROGRESS\"],\n    \"CLOSED\": [],\n    \"DEFERRED\": [\"PLANNED\"]\n  }\n}",
+      "title": "Mnt"
+    }
+  ],
+  "source": {
+    "bytes": 438,
+    "canonical": true,
+    "language": "json",
+    "lines": 15,
+    "media_type": "application/json",
+    "path": ".eos/state-machines/mnt.json",
+    "sha256": "56027aec47a2baa5fda7684d9948c767b9d4ef3433337cd478dd651a99996141"
+  }
+}

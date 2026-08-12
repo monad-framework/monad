@@ -1,5 +1,5 @@
 {
-  "content": "#!/usr/bin/env bash\nset -euo pipefail\n\nROOT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nPYTHON_BIN=\"${PYTHON_BIN:-python3}\"\n\nexec \"$PYTHON_BIN\" \"$ROOT_DIR/tools/eos/eos.py\" \"$@\"\n",
+  "content": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\nexec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"\n",
   "document_id": "doc:scripts%2Feos",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 7,
+      "line_end": 13,
       "line_start": 1,
       "section_id": "content",
-      "text": "#!/usr/bin/env bash\nset -euo pipefail\n\nROOT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nPYTHON_BIN=\"${PYTHON_BIN:-python3}\"\n\nexec \"$PYTHON_BIN\" \"$ROOT_DIR/tools/eos/eos.py\" \"$@\"",
+      "text": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\nexec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"",
       "title": "Eos"
     }
   ],
   "source": {
-    "bytes": 189,
+    "bytes": 423,
     "canonical": true,
     "language": "plain-text",
-    "lines": 7,
+    "lines": 13,
     "media_type": "text/plain",
     "path": "scripts/eos",
-    "sha256": "80eb38ef934b0f75415657ef1c11f878d3d28167e90a31b7be214d6bc94daaf6"
+    "sha256": "6fe7c189e64a11ebb46769241f456299f8f943c059f44089fad24b39efa5a3e4"
   }
 }

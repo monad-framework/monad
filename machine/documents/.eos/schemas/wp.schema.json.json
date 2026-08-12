@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/wp/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"path\", \"title\", \"status\", \"pi\", \"wc\", \"domain\", \"created\", \"updated\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^WP(?:-[A-Z][A-Z0-9]{1,15})?-[0-9]{4}$\"},\n    \"path\": {\"type\": \"string\", \"minLength\": 1},\n    \"title\": {\"type\": \"string\", \"minLength\": 1},\n    \"status\": {\"type\": \"string\"},\n    \"pi\": {\"type\": \"string\", \"pattern\": \"^PI-[0-9]{3}$\"},\n    \"wc\": {\"type\": \"string\", \"pattern\": \"^WC-[0-9]{4}$\"},\n    \"domain\": {\"type\": \"string\"},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1},\n    \"github_url\": {\"type\": \"string\"}\n  },\n  \"additionalProperties\": false\n}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fwp.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/wp.schema.json.",
+    "title": "Wp.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 19,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/wp/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"path\", \"title\", \"status\", \"pi\", \"wc\", \"domain\", \"created\", \"updated\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^WP(?:-[A-Z][A-Z0-9]{1,15})?-[0-9]{4}$\"},\n    \"path\": {\"type\": \"string\", \"minLength\": 1},\n    \"title\": {\"type\": \"string\", \"minLength\": 1},\n    \"status\": {\"type\": \"string\"},\n    \"pi\": {\"type\": \"string\", \"pattern\": \"^PI-[0-9]{3}$\"},\n    \"wc\": {\"type\": \"string\", \"pattern\": \"^WC-[0-9]{4}$\"},\n    \"domain\": {\"type\": \"string\"},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1},\n    \"github_url\": {\"type\": \"string\"}\n  },\n  \"additionalProperties\": false\n}",
+      "title": "Wp.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 771,
+    "canonical": true,
+    "language": "json",
+    "lines": 19,
+    "media_type": "application/json",
+    "path": ".eos/schemas/wp.schema.json",
+    "sha256": "7ccad5ff4c7207028b9f00fb374329dc2d1949d785c9204814ff0c11d2d57939"
+  }
+}

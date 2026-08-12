@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"kind\": \"CR\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"PROPOSED\",\n  \"terminal_states\": [\"CLOSED\", \"REJECTED\"],\n  \"states\": [\"DRAFT\", \"PROPOSED\", \"APPROVED\", \"APPLIED\", \"CLOSED\", \"REJECTED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"PROPOSED\", \"REJECTED\"],\n    \"PROPOSED\": [\"APPROVED\", \"REJECTED\"],\n    \"APPROVED\": [\"APPLIED\", \"REJECTED\"],\n    \"APPLIED\": [\"CLOSED\"],\n    \"CLOSED\": [],\n    \"REJECTED\": []\n  }\n}\n",
+  "document_id": "doc:.eos%2Fstate-machines%2Fcr.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/state-machines/cr.json.",
+    "title": "Cr"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"kind\": \"CR\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"PROPOSED\",\n  \"terminal_states\": [\"CLOSED\", \"REJECTED\"],\n  \"states\": [\"DRAFT\", \"PROPOSED\", \"APPROVED\", \"APPLIED\", \"CLOSED\", \"REJECTED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"PROPOSED\", \"REJECTED\"],\n    \"PROPOSED\": [\"APPROVED\", \"REJECTED\"],\n    \"APPROVED\": [\"APPLIED\", \"REJECTED\"],\n    \"APPLIED\": [\"CLOSED\"],\n    \"CLOSED\": [],\n    \"REJECTED\": []\n  }\n}",
+      "title": "Cr"
+    }
+  ],
+  "source": {
+    "bytes": 407,
+    "canonical": true,
+    "language": "json",
+    "lines": 15,
+    "media_type": "application/json",
+    "path": ".eos/state-machines/cr.json",
+    "sha256": "e5f9fabd3d4f3e6788c2a72e285f82d27f13b8bac1bd593f8315eb9a6d8e84e7"
+  }
+}

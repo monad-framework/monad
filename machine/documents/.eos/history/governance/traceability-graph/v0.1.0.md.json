@@ -1,0 +1,73 @@
+{
+  "content": "---\nartifact_id: \"GOV-TRACE-GRAPH-0001\"\ntitle: \"EOS Semantic Traceability Graph\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOS Semantic Traceability Graph\n\nEOS maintains a typed, rebuildable engineering graph in\n`.eos/trace-edges.tsv`.\n\n## Core Edge Types\n\n- `contains`\n- `implements`\n- `satisfies`\n- `depends-on`\n- `conforms-to`\n- `constrained-by`\n- `affects`\n- `includes`\n- `references`\n\nExplicit Markdown relations may be declared as:\n\n```markdown\n- implements: REQ-0042\n- depends-on: WP-CORE-0006\n- conforms-to: ADR-0014\n- satisfies: SPEC-CORE-0007\n```\n\nWhere no explicit relation is present, EOS applies deterministic type inference\nfrom the source and target artifact namespaces.\n\n## Commands\n\n```bash\n./scripts/eos trace REQ-0042\n./scripts/eos trace coverage\n./scripts/eos impact ADR-0014\n./scripts/eos stale list\n```\n\nWhen a governed artifact is versioned or rolled back, EOS marks known downstream\ndependents stale for review. `verify --strict` fails while unresolved stale\nrecords remain.\n",
+  "document_id": "doc:.eos%2Fhistory%2Fgovernance%2Ftraceability-graph%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0014"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"GOV-TRACE-GRAPH-0001\" title: \"EOS Semantic Traceability Graph\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOS Semantic Traceability Graph"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"GOV-TRACE-GRAPH-0001\"\ntitle: \"EOS Semantic Traceability Graph\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 16,
+      "line_start": 12,
+      "section_id": "eos-semantic-traceability-graph",
+      "text": "# EOS Semantic Traceability Graph\n\nEOS maintains a typed, rebuildable engineering graph in\n`.eos/trace-edges.tsv`.",
+      "title": "EOS Semantic Traceability Graph"
+    },
+    {
+      "identifiers": [
+        "ADR-0014"
+      ],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 17,
+      "section_id": "core-edge-types",
+      "text": "## Core Edge Types\n\n- `contains`\n- `implements`\n- `satisfies`\n- `depends-on`\n- `conforms-to`\n- `constrained-by`\n- `affects`\n- `includes`\n- `references`\n\nExplicit Markdown relations may be declared as:\n\n```markdown\n- implements: REQ-0042\n- depends-on: WP-CORE-0006\n- conforms-to: ADR-0014\n- satisfies: SPEC-CORE-0007\n```\n\nWhere no explicit relation is present, EOS applies deterministic type inference\nfrom the source and target artifact namespaces.",
+      "title": "Core Edge Types"
+    },
+    {
+      "identifiers": [
+        "ADR-0014"
+      ],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 41,
+      "section_id": "commands",
+      "text": "## Commands\n\n```bash\n./scripts/eos trace REQ-0042\n./scripts/eos trace coverage\n./scripts/eos impact ADR-0014\n./scripts/eos stale list\n```\n\nWhen a governed artifact is versioned or rolled back, EOS marks known downstream\ndependents stale for review. `verify --strict` fails while unresolved stale\nrecords remain.",
+      "title": "Commands"
+    }
+  ],
+  "source": {
+    "bytes": 1098,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 52,
+    "media_type": "text/markdown",
+    "path": ".eos/history/governance/traceability-graph/v0.1.0.md",
+    "sha256": "23dbc01880a359632b162e2554f44ec31b36bba57e76491661284af938e37f7a"
+  }
+}

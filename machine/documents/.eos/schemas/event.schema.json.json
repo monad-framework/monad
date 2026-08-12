@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/event/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"event_id\", \"schema_version\", \"timestamp\", \"event_type\", \"actor\"],\n  \"properties\": {\n    \"event_id\": {\"type\": \"string\", \"pattern\": \"^EVT-[0-9A-F]{32}$\"},\n    \"schema_version\": {\"type\": \"string\", \"pattern\": \"^[0-9]+\\\\.[0-9]+\\\\.[0-9]+$\"},\n    \"timestamp\": {\"type\": \"string\", \"minLength\": 1},\n    \"event_type\": {\"type\": \"string\", \"minLength\": 1},\n    \"actor\": {\"type\": \"string\", \"minLength\": 1},\n    \"target\": {\"type\": \"string\"},\n    \"entity_kind\": {\"type\": \"string\"},\n    \"action\": {\"type\": \"string\"},\n    \"from_state\": {\"type\": \"string\"},\n    \"to_state\": {\"type\": \"string\"},\n    \"reason\": {\"type\": \"string\"},\n    \"commit\": {\"type\": \"string\"},\n    \"metadata\": {\"type\": \"object\"}\n  }\n}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fevent.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/event.schema.json.",
+    "title": "Event.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 21,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/event/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"event_id\", \"schema_version\", \"timestamp\", \"event_type\", \"actor\"],\n  \"properties\": {\n    \"event_id\": {\"type\": \"string\", \"pattern\": \"^EVT-[0-9A-F]{32}$\"},\n    \"schema_version\": {\"type\": \"string\", \"pattern\": \"^[0-9]+\\\\.[0-9]+\\\\.[0-9]+$\"},\n    \"timestamp\": {\"type\": \"string\", \"minLength\": 1},\n    \"event_type\": {\"type\": \"string\", \"minLength\": 1},\n    \"actor\": {\"type\": \"string\", \"minLength\": 1},\n    \"target\": {\"type\": \"string\"},\n    \"entity_kind\": {\"type\": \"string\"},\n    \"action\": {\"type\": \"string\"},\n    \"from_state\": {\"type\": \"string\"},\n    \"to_state\": {\"type\": \"string\"},\n    \"reason\": {\"type\": \"string\"},\n    \"commit\": {\"type\": \"string\"},\n    \"metadata\": {\"type\": \"object\"}\n  }\n}",
+      "title": "Event.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 819,
+    "canonical": true,
+    "language": "json",
+    "lines": 21,
+    "media_type": "application/json",
+    "path": ".eos/schemas/event.schema.json",
+    "sha256": "dd9f8690e06cfd3b82a3d2c338199b38b74c11286e5b56ddd04e111fd1b98cc4"
+  }
+}
