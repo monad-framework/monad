@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "status": "NORMATIVE",
+  "canonical_operational_state": ".eos/state/canonical.json",
+  "mutation_history": ".eos/events.jsonl",
+  "projections": {
+    "tsv": {"authority": "PROJECTION", "direction": "canonical-to-projection", "rebuildable": true},
+    "markdown": {"authority": "GOVERNED_HUMAN_ARTIFACT", "operational_fields": "PROJECTION", "direction": "canonical-to-projection"},
+    "git": {"authority": "HISTORY", "direction": "records-all-representations", "may_define_current_state": false},
+    "github": {"authority": "COLLABORATION_PROJECTION", "direction": "canonical-to-github", "inbound_state_mutation": "FORBIDDEN_WITHOUT_EOS_CHANGE_EVENT"}
+  },
+  "invariants": [
+    "Only .eos/state/canonical.json defines current EOS operational state.",
+    "Every operational mutation must first produce or update canonical machine-readable state and append a corresponding event.",
+    "TSV registries are rebuildable compatibility projections and must never be treated as an authority source.",
+    "Markdown remains governed human-readable content; lifecycle/status/relationship metadata embedded in Markdown is a projection of canonical state.",
+    "Git records history but does not resolve semantic disagreement by itself.",
+    "GitHub Issues, Projects, milestones, labels, and status fields are synchronized collaboration projections and cannot silently override canonical EOS state.",
+    "Every projection must be verifiably attributable to a canonical state revision or entity fingerprint.",
+    "Any disagreement is drift and must fail EOS state verification and CI."
+  ],
+  "drift_policy": {"severity": "ERROR", "ci_blocking": true, "silent_reconciliation": false, "repair_direction": "canonical-to-projection"}
+}

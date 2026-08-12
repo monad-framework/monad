@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eos://schemas/state/1.0.0/canonical-state.schema.json",
+  "title": "EOS Canonical Operational State",
+  "type": "object",
+  "required": ["schema_version", "revision", "updated_at", "entities"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "revision": {"type": "integer", "minimum": 1},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "entities": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["id", "entity_type", "version", "lifecycle_state", "created_at", "updated_at", "artifact_path", "relationships", "authority_level", "provenance"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "entity_type": {"type": "string", "minLength": 1},
+          "version": {"type": "string"},
+          "lifecycle_state": {"type": "string"},
+          "title": {"type": "string"},
+          "artifact_path": {"type": "string"},
+          "created_at": {"type": "string", "format": "date-time"},
+          "updated_at": {"type": "string", "format": "date-time"},
+          "relationships": {"type": "array"},
+          "authority_level": {"type": "string"},
+          "provenance": {"type": "object"},
+          "projection": {"type": "object"}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}
