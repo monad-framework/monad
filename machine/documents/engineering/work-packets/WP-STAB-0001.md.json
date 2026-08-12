@@ -1,0 +1,130 @@
+{
+  "content": "# WP-STAB-0001 — Stabilize Monad Foundation and MVP Operating Surface\n\n**Status:** Active  \n**Owner:** Engineering Owner  \n**Program:** Stabilization and MVP Launch  \n**Target:** MVP Release 1\n\n## Objective\n\nProduce a coherent, machine-synchronized, GitHub-operational, execution-ready Monad foundation from which MVP Release 1 work can proceed without unresolved authority, planning, or repository-control ambiguity.\n\n## Governing artifacts\n\n- `engineering/stabilization/STABILIZATION-CHARTER.md`\n- `product/MVP-RELEASE-1.md`\n- `governance/authority.md`\n- `governance/document-lifecycle.md`\n- accepted ADRs under the canonical `architecture/decisions/` root\n\n## Scope\n\n### In scope\n\n- product/foundation reconciliation;\n- artifact-system population;\n- machine projection synchronization;\n- repository and GitHub operating setup;\n- MVP roadmap/backlog/sprint decomposition;\n- issue/project/wiki projection;\n- CI and repository-governance baseline;\n- final stabilization review.\n\n### Out of scope\n\n- broad post-MVP implementation;\n- hosted product infrastructure;\n- irreversible architecture choices not required to stabilize or begin MVP;\n- accepting Draft artifact contracts by bulk operation.\n\n## Constraints\n\n- Do not recreate `adrs/`; `architecture/decisions/` is the intended decision root.\n- Human-readable canonical artifacts remain source of truth.\n- Machine outputs are generated, deterministic, and non-authoritative.\n- Direct `main` mutation is avoided for this program; work integrates through a review branch/PR.\n- User changes made concurrently on `main` are reconciled before merge.\n- CI gates are repaired, not bypassed.\n\n## Deliverables\n\n1. reconciled foundation and product identity;\n2. populated artifact-system catalog;\n3. green machine synchronization;\n4. MVP Release 1 plan and execution hierarchy;\n5. GitHub issue/project/wiki/repository configuration state;\n6. ready-horizon Work Packets and agent context contracts;\n7. validation evidence and Stabilization Review.\n\n## Acceptance criteria\n\n- [ ] No unresolved product-identity contradiction remains in governing documents.\n- [ ] ADR location and index are singular and internally consistent.\n- [ ] No Markdown file under `artifact-system/` is empty.\n- [ ] Artifact catalog authority/lifecycle is explicit.\n- [ ] `python3 scripts/sync-machine-docs.py --check` passes from a clean checkout.\n- [ ] Required repository checks are green.\n- [ ] MVP Release 1 has a Product Goal, epics, features, ready-horizon PBIs, Work Packets, and sprint/work-cycle forecast.\n- [ ] GitHub Issues represent the durable execution horizon without duplicating canonical authority.\n- [ ] Project/Wiki/repository settings are configured where connector support permits and otherwise have reproducible setup specifications/scripts.\n- [ ] A formal Stabilization Review records the disposition and any bounded residual risks.\n\n## Validation\n\nValidation is evidence-based. Completion requires repository state inspection, deterministic machine-sync verification, structural artifact audit, traceability review, GitHub state review, and green CI.\n\n## Completion evidence\n\nPopulate during execution with branch, commits, PR, workflow runs, issues, project state, and final review references.",
+  "document_id": "doc:engineering%2Fwork-packets%2FWP-STAB-0001.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Active Owner: Engineering Owner Program: Stabilization and MVP Launch Target: MVP Release 1",
+    "title": "WP-STAB-0001 — Stabilize Monad Foundation and MVP Operating Surface"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "wp-stab-0001-stabilize-monad-foundation-and-mvp-operating-surface",
+      "text": "# WP-STAB-0001 — Stabilize Monad Foundation and MVP Operating Surface\n\n**Status:** Active  \n**Owner:** Engineering Owner  \n**Program:** Stabilization and MVP Launch  \n**Target:** MVP Release 1",
+      "title": "WP-STAB-0001 — Stabilize Monad Foundation and MVP Operating Surface"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 8,
+      "section_id": "objective",
+      "text": "## Objective\n\nProduce a coherent, machine-synchronized, GitHub-operational, execution-ready Monad foundation from which MVP Release 1 work can proceed without unresolved authority, planning, or repository-control ambiguity.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 12,
+      "section_id": "governing-artifacts",
+      "text": "## Governing artifacts\n\n- `engineering/stabilization/STABILIZATION-CHARTER.md`\n- `product/MVP-RELEASE-1.md`\n- `governance/authority.md`\n- `governance/document-lifecycle.md`\n- accepted ADRs under the canonical `architecture/decisions/` root",
+      "title": "Governing artifacts"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 20,
+      "section_id": "scope",
+      "text": "## Scope",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 32,
+      "line_start": 22,
+      "section_id": "in-scope",
+      "text": "### In scope\n\n- product/foundation reconciliation;\n- artifact-system population;\n- machine projection synchronization;\n- repository and GitHub operating setup;\n- MVP roadmap/backlog/sprint decomposition;\n- issue/project/wiki projection;\n- CI and repository-governance baseline;\n- final stabilization review.",
+      "title": "In scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 39,
+      "line_start": 33,
+      "section_id": "out-of-scope",
+      "text": "### Out of scope\n\n- broad post-MVP implementation;\n- hosted product infrastructure;\n- irreversible architecture choices not required to stabilize or begin MVP;\n- accepting Draft artifact contracts by bulk operation.",
+      "title": "Out of scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 40,
+      "section_id": "constraints",
+      "text": "## Constraints\n\n- Do not recreate `adrs/`; `architecture/decisions/` is the intended decision root.\n- Human-readable canonical artifacts remain source of truth.\n- Machine outputs are generated, deterministic, and non-authoritative.\n- Direct `main` mutation is avoided for this program; work integrates through a review branch/PR.\n- User changes made concurrently on `main` are reconciled before merge.\n- CI gates are repaired, not bypassed.",
+      "title": "Constraints"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 49,
+      "section_id": "deliverables",
+      "text": "## Deliverables\n\n1. reconciled foundation and product identity;\n2. populated artifact-system catalog;\n3. green machine synchronization;\n4. MVP Release 1 plan and execution hierarchy;\n5. GitHub issue/project/wiki/repository configuration state;\n6. ready-horizon Work Packets and agent context contracts;\n7. validation evidence and Stabilization Review.",
+      "title": "Deliverables"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 71,
+      "line_start": 59,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] No unresolved product-identity contradiction remains in governing documents.\n- [ ] ADR location and index are singular and internally consistent.\n- [ ] No Markdown file under `artifact-system/` is empty.\n- [ ] Artifact catalog authority/lifecycle is explicit.\n- [ ] `python3 scripts/sync-machine-docs.py --check` passes from a clean checkout.\n- [ ] Required repository checks are green.\n- [ ] MVP Release 1 has a Product Goal, epics, features, ready-horizon PBIs, Work Packets, and sprint/work-cycle forecast.\n- [ ] GitHub Issues represent the durable execution horizon without duplicating canonical authority.\n- [ ] Project/Wiki/repository settings are configured where connector support permits and otherwise have reproducible setup specifications/scripts.\n- [ ] A formal Stabilization Review records the disposition and any bounded residual risks.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 75,
+      "line_start": 72,
+      "section_id": "validation",
+      "text": "## Validation\n\nValidation is evidence-based. Completion requires repository state inspection, deterministic machine-sync verification, structural artifact audit, traceability review, GitHub state review, and green CI.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 78,
+      "line_start": 76,
+      "section_id": "completion-evidence",
+      "text": "## Completion evidence\n\nPopulate during execution with branch, commits, PR, workflow runs, issues, project state, and final review references.",
+      "title": "Completion evidence"
+    }
+  ],
+  "source": {
+    "bytes": 3236,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 78,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/WP-STAB-0001.md",
+    "sha256": "e88e25062de84ba7e6924f9c41a37b8604ebeeac9d2d6a2ac7556b34dfa3eb9e"
+  }
+}
