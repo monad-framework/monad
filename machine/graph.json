@@ -216,6 +216,11 @@
       "type": "declares"
     },
     {
+      "source": "doc:.github%2Fworkflows%2Frepository-integrity.yml",
+      "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
       "source": "doc:CONTRIBUTING.md",
       "target": "doc:SECURITY.md",
       "type": "references"
@@ -1864,10 +1869,50 @@
     },
     {
       "document_type": "repository-governance",
+      "id": "doc:.github%2FISSUE_TEMPLATE%2Fbug.yml",
+      "normative": false,
+      "source_path": ".github/ISSUE_TEMPLATE/bug.yml",
+      "title": "Bug",
+      "type": "document"
+    },
+    {
+      "document_type": "repository-governance",
+      "id": "doc:.github%2FISSUE_TEMPLATE%2Fchange-request.yml",
+      "normative": false,
+      "source_path": ".github/ISSUE_TEMPLATE/change-request.yml",
+      "title": "Change Request",
+      "type": "document"
+    },
+    {
+      "document_type": "repository-governance",
       "id": "doc:.github%2FISSUE_TEMPLATE%2Fconfig.yml",
       "normative": false,
       "source_path": ".github/ISSUE_TEMPLATE/config.yml",
       "title": "Config",
+      "type": "document"
+    },
+    {
+      "document_type": "repository-governance",
+      "id": "doc:.github%2FISSUE_TEMPLATE%2Fepic.yml",
+      "normative": false,
+      "source_path": ".github/ISSUE_TEMPLATE/epic.yml",
+      "title": "Epic",
+      "type": "document"
+    },
+    {
+      "document_type": "repository-governance",
+      "id": "doc:.github%2FISSUE_TEMPLATE%2Ffeature.yml",
+      "normative": false,
+      "source_path": ".github/ISSUE_TEMPLATE/feature.yml",
+      "title": "Feature",
+      "type": "document"
+    },
+    {
+      "document_type": "repository-governance",
+      "id": "doc:.github%2FISSUE_TEMPLATE%2Fstory.yml",
+      "normative": false,
+      "source_path": ".github/ISSUE_TEMPLATE/story.yml",
+      "title": "Story",
       "type": "document"
     },
     {
@@ -1900,6 +1945,22 @@
       "normative": false,
       "source_path": ".github/workflows/eos-integrity.yml",
       "title": "Eos Integrity",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Fgithub-tracking-sync.yml",
+      "normative": false,
+      "source_path": ".github/workflows/github-tracking-sync.yml",
+      "title": "Github Tracking Sync",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Frepository-integrity.yml",
+      "normative": false,
+      "source_path": ".github/workflows/repository-integrity.yml",
+      "title": "Repository Integrity",
       "type": "document"
     },
     {
@@ -9000,6 +9061,14 @@
     },
     {
       "document_type": "automation",
+      "id": "doc:scripts%2Fsync-github-tracking.py",
+      "normative": false,
+      "source_path": "scripts/sync-github-tracking.py",
+      "title": "Sync Github Tracking",
+      "type": "document"
+    },
+    {
+      "document_type": "automation",
       "id": "doc:scripts%2Fsync-machine-docs.py",
       "normative": false,
       "source_path": "scripts/sync-machine-docs.py",
@@ -9837,5 +9906,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "ae041c232fa4d2422ccf8fb3a3e3d5713a52e0ef869cf2d983b93da323e221f3"
+  "source_tree_sha256": "461b7275e7d4b11cf385762c650a57bdbaa30ecfedfd36d7a40a6245cb956559"
 }

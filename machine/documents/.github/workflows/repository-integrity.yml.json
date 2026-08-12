@@ -1,0 +1,44 @@
+{
+  "content": "name: Repository integrity\n\non:\n  pull_request:\n  push:\n    branches: [main]\n\npermissions:\n  contents: read\n\njobs:\n  integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - name: Enforce canonical ADR root\n        run: |\n          test ! -e adrs\n          test -d architecture/decisions\n          test -f architecture/decisions/ADR-0001-knowledge-engine-core.md\n      - name: Validate planning generators\n        run: |\n          python3 scripts/migrate-mvp-identifiers.py\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n      - name: Validate machine projection freshness\n        run: python3 scripts/sync-machine-docs.py --check\n      - name: Validate EOS\n        run: ./scripts/eos ci\n",
+  "document_id": "doc:.github%2Fworkflows%2Frepository-integrity.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/repository-integrity.yml.",
+    "title": "Repository Integrity"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0001"
+      ],
+      "level": 1,
+      "line_end": 32,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Repository integrity\n\non:\n  pull_request:\n  push:\n    branches: [main]\n\npermissions:\n  contents: read\n\njobs:\n  integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - name: Enforce canonical ADR root\n        run: |\n          test ! -e adrs\n          test -d architecture/decisions\n          test -f architecture/decisions/ADR-0001-knowledge-engine-core.md\n      - name: Validate planning generators\n        run: |\n          python3 scripts/migrate-mvp-identifiers.py\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n      - name: Validate machine projection freshness\n        run: python3 scripts/sync-machine-docs.py --check\n      - name: Validate EOS\n        run: ./scripts/eos ci",
+      "title": "Repository Integrity"
+    }
+  ],
+  "source": {
+    "bytes": 885,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 32,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/repository-integrity.yml",
+    "sha256": "6eed20b1ac1e6c847eb99fa55805ef43501df0709b09ab1df336932a758b2087"
+  }
+}

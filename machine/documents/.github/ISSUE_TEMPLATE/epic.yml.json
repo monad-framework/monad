@@ -1,0 +1,40 @@
+{
+  "content": "name: Epic\nabout: Define a multi-feature product or engineering outcome.\ntitle: \"[Epic] \"\nbody:\n  - type: markdown\n    attributes:\n      value: \"GitHub is a coordination projection. Link the canonical product/program artifact.\"\n  - type: input\n    id: identifier\n    attributes:\n      label: Epic identifier\n      placeholder: EPIC-XXX\n    validations:\n      required: true\n  - type: textarea\n    id: outcome\n    attributes:\n      label: Outcome\n      description: State the measurable outcome, not a task list.\n    validations:\n      required: true\n  - type: input\n    id: source\n    attributes:\n      label: Canonical source\n      placeholder: product/backlog/...\n    validations:\n      required: true\n  - type: textarea\n    id: exit\n    attributes:\n      label: Exit evidence\n      description: What evidence will prove the Epic outcome is achieved?\n    validations:\n      required: true\n",
+  "document_id": "doc:.github%2FISSUE_TEMPLATE%2Fepic.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-governance",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/ISSUE_TEMPLATE/epic.yml.",
+    "title": "Epic"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 35,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Epic\nabout: Define a multi-feature product or engineering outcome.\ntitle: \"[Epic] \"\nbody:\n  - type: markdown\n    attributes:\n      value: \"GitHub is a coordination projection. Link the canonical product/program artifact.\"\n  - type: input\n    id: identifier\n    attributes:\n      label: Epic identifier\n      placeholder: EPIC-XXX\n    validations:\n      required: true\n  - type: textarea\n    id: outcome\n    attributes:\n      label: Outcome\n      description: State the measurable outcome, not a task list.\n    validations:\n      required: true\n  - type: input\n    id: source\n    attributes:\n      label: Canonical source\n      placeholder: product/backlog/...\n    validations:\n      required: true\n  - type: textarea\n    id: exit\n    attributes:\n      label: Exit evidence\n      description: What evidence will prove the Epic outcome is achieved?\n    validations:\n      required: true",
+      "title": "Epic"
+    }
+  ],
+  "source": {
+    "bytes": 891,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 35,
+    "media_type": "application/yaml",
+    "path": ".github/ISSUE_TEMPLATE/epic.yml",
+    "sha256": "b4168f94d4ec427ed7fa709a382c67df8f696e476d0df8b7f6c36edc1e466e0f"
+  }
+}

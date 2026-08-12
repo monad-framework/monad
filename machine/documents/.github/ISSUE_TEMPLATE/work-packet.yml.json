@@ -1,5 +1,5 @@
 {
-  "content": "name: Work Packet\ndescription: Track an engineering work packet\ntitle: \"WP: \"\nlabels:\n  - work-packet\nbody:\n  - type: textarea\n    id: objective\n    attributes:\n      label: Objective\n      description: What engineering outcome must this work produce?\n    validations:\n      required: true\n\n  - type: textarea\n    id: scope\n    attributes:\n      label: Scope\n      description: What is included and excluded?\n    validations:\n      required: true\n\n  - type: textarea\n    id: acceptance\n    attributes:\n      label: Acceptance Criteria\n      description: How will completion be demonstrated?\n    validations:\n      required: true\n",
+  "content": "name: Work Packet execution issue\nabout: Project an existing canonical Work Packet into GitHub for execution tracking.\ntitle: \"[WP] \"\nbody:\n  - type: input\n    id: identifier\n    attributes:\n      label: Work Packet identifier\n      placeholder: WP-MVP-XXXX\n    validations:\n      required: true\n  - type: input\n    id: path\n    attributes:\n      label: Canonical Work Packet path\n      placeholder: engineering/work-packets/WP-MVP-XXXX.md\n    validations:\n      required: true\n  - type: input\n    id: branch\n    attributes:\n      label: Authorized branch\n      placeholder: wp/...\n  - type: textarea\n    id: acceptance\n    attributes:\n      label: Acceptance / validation summary\n      description: Do not duplicate the canonical packet; summarize and link it.\n    validations:\n      required: true\n  - type: checkboxes\n    id: gates\n    attributes:\n      label: Authorization gates\n      options:\n        - label: Canonical Work Packet is Ready\n          required: true\n        - label: Required ADR/specification dependencies are resolved\n          required: true\n        - label: Scope and prohibited changes are explicit\n          required: true\n",
   "document_id": "doc:.github%2FISSUE_TEMPLATE%2Fwork-packet.yml",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 29,
+      "line_end": 41,
       "line_start": 1,
       "section_id": "content",
-      "text": "name: Work Packet\ndescription: Track an engineering work packet\ntitle: \"WP: \"\nlabels:\n  - work-packet\nbody:\n  - type: textarea\n    id: objective\n    attributes:\n      label: Objective\n      description: What engineering outcome must this work produce?\n    validations:\n      required: true\n\n  - type: textarea\n    id: scope\n    attributes:\n      label: Scope\n      description: What is included and excluded?\n    validations:\n      required: true\n\n  - type: textarea\n    id: acceptance\n    attributes:\n      label: Acceptance Criteria\n      description: How will completion be demonstrated?\n    validations:\n      required: true",
+      "text": "name: Work Packet execution issue\nabout: Project an existing canonical Work Packet into GitHub for execution tracking.\ntitle: \"[WP] \"\nbody:\n  - type: input\n    id: identifier\n    attributes:\n      label: Work Packet identifier\n      placeholder: WP-MVP-XXXX\n    validations:\n      required: true\n  - type: input\n    id: path\n    attributes:\n      label: Canonical Work Packet path\n      placeholder: engineering/work-packets/WP-MVP-XXXX.md\n    validations:\n      required: true\n  - type: input\n    id: branch\n    attributes:\n      label: Authorized branch\n      placeholder: wp/...\n  - type: textarea\n    id: acceptance\n    attributes:\n      label: Acceptance / validation summary\n      description: Do not duplicate the canonical packet; summarize and link it.\n    validations:\n      required: true\n  - type: checkboxes\n    id: gates\n    attributes:\n      label: Authorization gates\n      options:\n        - label: Canonical Work Packet is Ready\n          required: true\n        - label: Required ADR/specification dependencies are resolved\n          required: true\n        - label: Scope and prohibited changes are explicit\n          required: true",
       "title": "Work Packet"
     }
   ],
   "source": {
-    "bytes": 629,
+    "bytes": 1151,
     "canonical": true,
     "language": "yaml",
-    "lines": 29,
+    "lines": 41,
     "media_type": "application/yaml",
     "path": ".github/ISSUE_TEMPLATE/work-packet.yml",
-    "sha256": "3a67843a905cf43aa5266dafd51eb8dba25e57bfadc24de7569b8defa2c976ad"
+    "sha256": "8f24d8b0ca17f2c31beb67a2221553425dd4e51591e8be108b1cf6641c034b84"
   }
 }
