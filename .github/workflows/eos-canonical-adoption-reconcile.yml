@@ -1,6 +1,7 @@
 name: EOS Canonical Adoption Reconciliation
 
 # Temporary integration workflow; removed before merge.
+# Run 3 validates the restored revision-1 migration seed.
 on:
   push:
     branches: [eos/canonical-adoption-reconcile]
