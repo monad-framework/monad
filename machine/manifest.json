@@ -1575,8 +1575,34 @@
       "title": "Wp"
     },
     {
+      "companion_path": "machine/documents/.eos/state/current.json.json",
+      "companion_sha256": "5cee36d459a2053cc6deaa4a1f8a99ae6bc7c8e2da70d925d2451bd62b156a2c",
+      "document_id": "doc:.eos%2Fstate%2Fcurrent.json",
+      "document_type": "project-source",
+      "identifier_count": 2,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/state/current.json",
+      "source_sha256": "76537015544956e8fbdc22bd6ec6137c3db09e476bf97b8347e4f89a97a2d470",
+      "title": "Current"
+    },
+    {
+      "companion_path": "machine/documents/.eos/state/projections.json.json",
+      "companion_sha256": "deb88c0495c2d7345ff2241fb6b1da7b1f63b58b90684008964e95378add5ab3",
+      "document_id": "doc:.eos%2Fstate%2Fprojections.json",
+      "document_type": "project-source",
+      "identifier_count": 2,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/state/projections.json",
+      "source_sha256": "a867fb6a7bb73aa698b1fe81e3907e3229d3607c69ce664ecfae8b8ad952aade",
+      "title": "Projections"
+    },
+    {
       "companion_path": "machine/documents/.eos/trace-edges.tsv.json",
-      "companion_sha256": "2484eb99ac7dd89b74f552afa67574090edcbd194de9734cd491d75c94964c35",
+      "companion_sha256": "ab2f7f97b222cc0455d7d9e2169170cc9b3ec5e53a57481710285ecb8a702639",
       "document_id": "doc:.eos%2Ftrace-edges.tsv",
       "document_type": "project-source",
       "identifier_count": 18,
@@ -1584,7 +1610,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/trace-edges.tsv",
-      "source_sha256": "91ca1b2918cf8d7c0efd624f148a7e384e622c3f6cd087afcb6bb397eec7d42f",
+      "source_sha256": "dee0d58e611c821b4574c2d9f56793c0fd40daf02fca3a3835c807568a306304",
       "title": "Trace Edges"
     },
     {
@@ -1835,6 +1861,19 @@
       "title": "Document Sync"
     },
     {
+      "companion_path": "machine/documents/.github/workflows/eos-canonical-adoption-reconcile.yml.json",
+      "companion_sha256": "b10359fc84f0f04073ac7e0edeb95db92a488fecdc65197fb22ceaf0d238df98",
+      "document_id": "doc:.github%2Fworkflows%2Feos-canonical-adoption-reconcile.yml",
+      "document_type": "continuous-integration",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".github/workflows/eos-canonical-adoption-reconcile.yml",
+      "source_sha256": "ce1be61a6fd159c143b179a5f219f5833d05e40e556daf6955508389620b0f87",
+      "title": "Eos Canonical Adoption Reconcile"
+    },
+    {
       "companion_path": "machine/documents/.github/workflows/eos-integrity.yml.json",
       "companion_sha256": "fe2a4a6f27aaf3d90f0324473a09750726051974a208f2249b21b2a0bde6d675",
       "document_id": "doc:.github%2Fworkflows%2Feos-integrity.yml",
@@ -1859,19 +1898,6 @@
       "source_path": ".github/workflows/github-tracking-sync.yml",
       "source_sha256": "085a08a3383001ad0870b32ccce9818a5d1ba47a1ed0d5364c3c38dfee59d823",
       "title": "Github Tracking Sync"
-    },
-    {
-      "companion_path": "machine/documents/.github/workflows/machine-workflow-projection.yml.json",
-      "companion_sha256": "7ab926c6f5a6d6714f1336a8733283c24ef262f49053cc245d8dc0f00fc4e588",
-      "document_id": "doc:.github%2Fworkflows%2Fmachine-workflow-projection.yml",
-      "document_type": "continuous-integration",
-      "identifier_count": 0,
-      "normative": false,
-      "relation_count": 0,
-      "section_count": 1,
-      "source_path": ".github/workflows/machine-workflow-projection.yml",
-      "source_sha256": "b3621e884a91a05466ab64119b5c16c185c01273a999702a1c00617b94c350a5",
-      "title": "Machine Workflow Projection"
     },
     {
       "companion_path": "machine/documents/.github/workflows/repository-integrity.yml.json",
@@ -13718,7 +13744,7 @@
     },
     {
       "companion_path": "machine/documents/scripts/eos.json",
-      "companion_sha256": "51eccd3692aaeb6e483a27a1b649b87f1204b631c6096b3eab39742bf5a2b5e3",
+      "companion_sha256": "ab962630fe77370ad1bbc42e21dae57227c5ec592643dd7639e4883843fa936e",
       "document_id": "doc:scripts%2Feos",
       "document_type": "automation",
       "identifier_count": 0,
@@ -13726,7 +13752,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "scripts/eos",
-      "source_sha256": "92e59af2e1ddc0fe239320c6fdf42b36c1b73ed92e095da96aaf98bb47a81b2a",
+      "source_sha256": "e91e9b070ba07fd23071a6c28b51f7de44364ceb21769d005d6ccd9a21392acb",
       "title": "Eos"
     },
     {
@@ -13835,7 +13861,7 @@
     },
     {
       "companion_path": "machine/documents/scripts/test-eos-0.8-adoption-safety.py.json",
-      "companion_sha256": "968c72a1390d86dd6eebf7b388cee2ce8358003463c9ee9059edd910162c8b3d",
+      "companion_sha256": "b2e911d49583cd9836113b735aff2a1ef227bdd8c77426cde7d6328537f59275",
       "document_id": "doc:scripts%2Ftest-eos-0.8-adoption-safety.py",
       "document_type": "automation",
       "identifier_count": 0,
@@ -13843,7 +13869,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "scripts/test-eos-0.8-adoption-safety.py",
-      "source_sha256": "0b3943a31e90aa796ce35a7f29f3525d5a5b1fcc9a1d39d95a836841bb0efa8c",
+      "source_sha256": "98c53b09ad1b11d7b032e609e19f2ecf0d550ecc64ba795dc3085e696a73fa9d",
       "title": "Test Eos 0.8 Adoption Safety"
     },
     {
@@ -14133,6 +14159,19 @@
       "title": "EOS Control Tooling"
     },
     {
+      "companion_path": "machine/documents/tools/eos/canonical_state.py.json",
+      "companion_sha256": "2e9d6ef7dbd62b78f64fc590a8ee5fa42d7dd086279acc5f4656ffb7f9d0b3ba",
+      "document_id": "doc:tools%2Feos%2Fcanonical_state.py",
+      "document_type": "tooling",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "tools/eos/canonical_state.py",
+      "source_sha256": "a9d43d63ae3c2ab58a9f2a3c75a3242bc4ab35edc9be7146d8340928b33b53d8",
+      "title": "Canonical State"
+    },
+    {
       "companion_path": "machine/documents/tools/eos/eos.py.json",
       "companion_sha256": "2144600ef0028dcc472963272c02c694fc9a072f0393f66d01e8ee80dae8f348",
       "document_id": "doc:tools%2Feos%2Feos.py",
@@ -14170,6 +14209,19 @@
       "source_path": "tools/eos/test_canonical_reconciliation.py",
       "source_sha256": "bc2afc6f625e1a420e923f22fe574c8ddd5216a9ecd49570f40fe5ef5873846a",
       "title": "Test Canonical Reconciliation"
+    },
+    {
+      "companion_path": "machine/documents/tools/eos/test_canonical_state.py.json",
+      "companion_sha256": "4c91aea2ea3e580eebb6f092c36a559ff7fa294a86c063dce5af65e1919918f3",
+      "document_id": "doc:tools%2Feos%2Ftest_canonical_state.py",
+      "document_type": "tooling",
+      "identifier_count": 2,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "tools/eos/test_canonical_state.py",
+      "source_sha256": "a262c904bfe51471ab35562071eb58a238754ccc484d816d740d4f6180d80db4",
+      "title": "Test Canonical State"
     },
     {
       "companion_path": "machine/documents/tools/eos/verification_v2.py.json",
@@ -14283,7 +14335,7 @@
   },
   "schema": "machine/schemas/manifest.schema.json",
   "schema_version": "1.0.0",
-  "source_count": 1098,
+  "source_count": 1102,
   "source_root": ".",
-  "source_tree_sha256": "e55f2009fe0110f2c29cf68e4722660a7e095baacbc950d9dc5b0741446290bb"
+  "source_tree_sha256": "d3a6f6708ad7916f97bf435cc3380c856f6132c864ce2e4a072afbd71ef7514e"
 }
