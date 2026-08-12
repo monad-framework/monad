@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   synchronize:
-    name: Populate planning/artifact catalog and synchronize machine layer
+    name: Migrate planning, populate catalog, and synchronize machine layer
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -19,6 +19,9 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
+
+      - name: Namespace MVP planning identifiers
+        run: python3 scripts/migrate-mvp-identifiers.py
 
       - name: Populate forecast MVP Work Packets
         run: python3 scripts/generate-mvp-work-packets.py
@@ -31,6 +34,7 @@ jobs:
 
       - name: Verify generation contracts
         run: |
+          python3 scripts/migrate-mvp-identifiers.py
           python3 scripts/generate-mvp-work-packets.py --check
           python3 scripts/populate-artifact-system.py --check
           python3 scripts/sync-machine-docs.py --check
@@ -43,11 +47,11 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add engineering/work-packets artifact-system machine
-          git commit -m "chore(stabilization): synchronize planning artifact and machine layers"
+          git add scripts engineering product/backlog artifact-system machine
+          git commit -m "chore(stabilization): namespace MVP planning and synchronize derived layers"
           git push origin "HEAD:${GITHUB_REF_NAME}"
 
       - name: Report synchronized state
         run: |
-          echo "Planning, artifact catalog, and machine projection verified."
+          echo "Planning identifiers, artifact catalog, and machine projection verified."
           git status --short
