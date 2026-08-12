@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "branch_prefix": "wp/",
+  "worktree_root": "../.{repo}-worktrees",
+  "require_clean_current_tree_for_no_worktree": true,
+  "system_forbidden_paths": [".git", ".git/**", ".eos", ".eos/**"],
+  "governed_paths": [
+    "idea.md",
+    "vision/**",
+    "product/**",
+    "architecture/**",
+    "specifications/**",
+    "governance/**",
+    "engineering/increments/**",
+    "engineering/work-cycles/**",
+    "engineering/work-packets/**"
+  ]
+}

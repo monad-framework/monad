@@ -1,0 +1,5 @@
+# Tab-separated: name<TAB>unit<TAB>command
+# Command stdout must contain exactly one numeric measurement.
+# Baselines are governed through `./scripts/eos performance record`.
+# Example:
+# graph_lookup_ms\tms\t./scripts/benchmark-graph.sh

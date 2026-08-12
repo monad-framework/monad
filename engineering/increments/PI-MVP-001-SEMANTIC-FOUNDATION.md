@@ -1,6 +1,6 @@
 # PI-MVP-001 — Semantic Foundation
 
-**Status:** Planned; blocked by M-000 authorization  
+**Status:** AUTHORIZED
 **Forecast:** 2026-08-17 through 2026-09-13
 
 ## Objective

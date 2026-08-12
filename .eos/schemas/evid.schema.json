@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eos://schemas/evid/1.0.0",
+  "type": "object",
+  "required": ["id", "path", "target", "validator", "profile", "kind", "status", "result", "source_hash", "environment_hash", "artifact_hash", "created", "updated"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^EVID-[0-9]{4}$"},
+    "path": {"type": "string", "minLength": 1},
+    "target": {"type": "string", "minLength": 1},
+    "execution": {"type": "string"},
+    "validator": {"type": "string", "minLength": 1},
+    "profile": {"type": "string", "minLength": 1},
+    "kind": {"type": "string", "minLength": 1},
+    "status": {"type": "string"},
+    "result": {"type": "string"},
+    "exit_code": {"type": "string"},
+    "command": {"type": "string"},
+    "source_hash": {"type": "string", "minLength": 1},
+    "environment_hash": {"type": "string", "minLength": 1},
+    "artifact_hash": {"type": "string", "minLength": 1},
+    "covers": {"type": "string"},
+    "created": {"type": "string", "minLength": 1},
+    "updated": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

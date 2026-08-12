@@ -1,16 +1,56 @@
 {
   "kind": "PI",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "initial_state": "DRAFT",
-  "terminal_states": ["CLOSED"],
-  "states": ["DRAFT", "PLANNED", "IN_REVIEW", "AUTHORIZED", "ACTIVE", "BLOCKED", "CLOSED"],
+  "terminal_states": [
+    "CLOSED",
+    "SUPERSEDED"
+  ],
+  "states": [
+    "DRAFT",
+    "PLANNED",
+    "IN_REVIEW",
+    "AUTHORIZED",
+    "ACTIVE",
+    "BLOCKED",
+    "CLOSED",
+    "SUPERSEDED"
+  ],
   "transitions": {
-    "DRAFT": ["PLANNED", "BLOCKED"],
-    "PLANNED": ["IN_REVIEW", "BLOCKED"],
-    "IN_REVIEW": ["AUTHORIZED", "CLOSED", "BLOCKED"],
-    "AUTHORIZED": ["ACTIVE", "BLOCKED"],
-    "ACTIVE": ["IN_REVIEW", "BLOCKED"],
-    "BLOCKED": ["PLANNED", "IN_REVIEW", "AUTHORIZED", "ACTIVE"],
-    "CLOSED": []
+    "DRAFT": [
+      "PLANNED",
+      "BLOCKED",
+      "SUPERSEDED"
+    ],
+    "PLANNED": [
+      "IN_REVIEW",
+      "BLOCKED",
+      "SUPERSEDED"
+    ],
+    "IN_REVIEW": [
+      "AUTHORIZED",
+      "CLOSED",
+      "BLOCKED",
+      "SUPERSEDED"
+    ],
+    "AUTHORIZED": [
+      "ACTIVE",
+      "BLOCKED",
+      "SUPERSEDED"
+    ],
+    "ACTIVE": [
+      "IN_REVIEW",
+      "BLOCKED",
+      "SUPERSEDED"
+    ],
+    "BLOCKED": [
+      "PLANNED",
+      "IN_REVIEW",
+      "AUTHORIZED",
+      "ACTIVE",
+      "SUPERSEDED"
+    ],
+    "CLOSED": [],
+    "SUPERSEDED": []
   }
 }

@@ -1,5 +1,5 @@
 {
-  "content": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\nexec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"\n",
+  "content": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\ncase \"${1:-}\" in\n  preflight|worktree|execute|execution|contract|codex)\n    exec python3 \"$ROOT/tools/eos/execution_v2.py\" \"$@\"\n    ;;\n  validate|validators|validation|evidence|performance|security|supply-chain|verify)\n    exec python3 \"$ROOT/tools/eos/verification_v2.py\" \"$@\"\n    ;;\n  *)\n    exec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"\n    ;;\nesac\n",
   "document_id": "doc:scripts%2Feos",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 13,
+      "line_end": 23,
       "line_start": 1,
       "section_id": "content",
-      "text": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\nexec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"",
+      "text": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\ncase \"${1:-}\" in\n  preflight|worktree|execute|execution|contract|codex)\n    exec python3 \"$ROOT/tools/eos/execution_v2.py\" \"$@\"\n    ;;\n  validate|validators|validation|evidence|performance|security|supply-chain|verify)\n    exec python3 \"$ROOT/tools/eos/verification_v2.py\" \"$@\"\n    ;;\n  *)\n    exec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"\n    ;;\nesac",
       "title": "Eos"
     }
   ],
   "source": {
-    "bytes": 423,
+    "bytes": 729,
     "canonical": true,
     "language": "plain-text",
-    "lines": 13,
+    "lines": 23,
     "media_type": "text/plain",
     "path": "scripts/eos",
-    "sha256": "6fe7c189e64a11ebb46769241f456299f8f943c059f44089fad24b39efa5a3e4"
+    "sha256": "92e59af2e1ddc0fe239320c6fdf42b36c1b73ed92e095da96aaf98bb47a81b2a"
   }
 }

@@ -25,13 +25,15 @@ ID_RE = re.compile(
     r"QA-[A-Z0-9][A-Z0-9-]*|"
     r"ADR-\d{4}|"
     r"SPEC-[A-Z0-9][A-Z0-9-]*|"
-    r"PI-\d{3}|"
-    r"WC-\d{4}|"
+    r"PI(?:-[A-Z][A-Z0-9]*)?-\d{3}|"
+    r"WC(?:-[A-Z][A-Z0-9]*)?-\d{4}|"
     r"WP(?:-[A-Z][A-Z0-9]*)?-\d{4}|"
     r"CR-\d{4}|"
     r"MNT-\d{4}|"
     r"RISK-\d{3,4}|"
-    r"REL-\d+\.\d+\.\d+"
+    r"REL-\d+\.\d+\.\d+|"
+    r"EXEC-\d{4}|"
+    r"EVID-\d{4}"
     r")\b"
 )
 
@@ -53,6 +55,8 @@ VALID_STATES = {
     "CR": {"DRAFT", "PROPOSED", "APPROVED", "APPLIED", "CLOSED", "REJECTED"},
     "MNT": {"OPEN", "PLANNED", "IN_PROGRESS", "VERIFYING", "CLOSED", "DEFERRED"},
     "REL": {"PROPOSED", "READY", "RELEASED", "WITHDRAWN"},
+    "EXEC": {"PREPARED", "RUNNING", "RESULT_INGESTED", "VERIFIED", "BLOCKED", "FAILED", "INVALIDATED", "ABORTED", "CLOSED"},
+    "EVID": {"CAPTURED", "VALIDATED", "FAILED", "STALE", "SUPERSEDED"},
 }
 
 REGISTRY_FIELDS = {
@@ -73,6 +77,8 @@ REGISTRY_FIELDS = {
     "CR": ["id", "path", "target", "summary", "status", "created", "updated", "github_url"],
     "MNT": ["id", "path", "type", "summary", "status", "created", "updated", "github_url"],
     "REL": ["id", "path", "version", "status", "created", "updated", "github_url"],
+    "EXEC": ["id", "path", "target", "status", "branch", "worktree", "baseline_commit", "governing_hash", "contract_hash", "result_path", "actor", "created", "updated"],
+    "EVID": ["id", "path", "target", "execution", "validator", "profile", "kind", "status", "result", "exit_code", "command", "source_hash", "environment_hash", "artifact_hash", "covers", "created", "updated"],
 }
 
 REGISTRY_PATHS = {
@@ -82,6 +88,8 @@ REGISTRY_PATHS = {
     "CR": ".eos/change-requests.tsv",
     "MNT": ".eos/maintenance.tsv",
     "REL": ".eos/releases.tsv",
+    "EXEC": ".eos/executions.tsv",
+    "EVID": ".eos/evidence.tsv",
 }
 
 
@@ -282,7 +290,7 @@ def ensure_event_ledger_seeded() -> None:
         reason="initialize append-only EOS lifecycle event ledger",
         metadata={"root": str(ROOT)},
     )
-    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
+    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC", "EVID"):
         for row in registry(kind):
             append_event(
                 "ENTITY_IMPORTED",
@@ -355,6 +363,8 @@ def ensure_dirs() -> None:
         EOS / "policies",
         EOS / "cache",
         EOS / "sync",
+        EOS / "executions",
+        EOS / "locks",
         ROOT / "engineering" / "reviews",
         ROOT / "engineering" / "increments",
         ROOT / "engineering" / "work-cycles",
@@ -362,6 +372,7 @@ def ensure_dirs() -> None:
         ROOT / "engineering" / "changes",
         ROOT / "engineering" / "releases",
         ROOT / "engineering" / "maintenance",
+        ROOT / "engineering" / "evidence",
     ):
         d.mkdir(parents=True, exist_ok=True)
 
@@ -534,9 +545,9 @@ def append_tsv(path: Path, fields: list[str], row: dict[str, str]) -> None:
 
 
 def kind_for_id(target: str) -> str:
-    if re.fullmatch(r"PI-\d{3}", target):
+    if re.fullmatch(r"PI(?:-[A-Z][A-Z0-9]*)?-\d{3}", target):
         return "PI"
-    if re.fullmatch(r"WC-\d{4}", target):
+    if re.fullmatch(r"WC(?:-[A-Z][A-Z0-9]*)?-\d{4}", target):
         return "WC"
     if re.fullmatch(r"WP(?:-[A-Z][A-Z0-9]*)?-\d{4}", target):
         return "WP"
@@ -546,6 +557,10 @@ def kind_for_id(target: str) -> str:
         return "MNT"
     if re.fullmatch(r"REL-\d+\.\d+\.\d+", target):
         return "REL"
+    if re.fullmatch(r"EXEC-\d{4}", target):
+        return "EXEC"
+    if re.fullmatch(r"EVID-\d{4}", target):
+        return "EVID"
     raise EosError(f"Unsupported lifecycle target: {target}")
 
 
@@ -598,6 +613,8 @@ def next_number(kind: str, width: int, *, prefix: str | None = None) -> int:
         pattern = re.compile(r"^CR-(\d{4})$")
     elif kind == "MNT":
         pattern = re.compile(r"^MNT-(\d{4})$")
+    elif kind == "EXEC":
+        pattern = re.compile(r"^EXEC-(\d{4})$")
     else:
         raise EosError(f"Cannot allocate ID for kind {kind}")
     for row in rows:
@@ -611,7 +628,7 @@ def state_line(path: Path) -> str | None:
     if not path.exists():
         return None
     for line in path.read_text(encoding="utf-8").splitlines():
-        if line.startswith("**State:**"):
+        if line.startswith("**State:**") or line.startswith("**Status:**"):
             return line.split(":", 1)[1].strip()
     return None
 
@@ -620,11 +637,12 @@ def replace_state_line(path: Path, new_state: str) -> None:
     text = path.read_text(encoding="utf-8")
     lines = text.splitlines()
     for i, line in enumerate(lines):
-        if line.startswith("**State:**"):
-            lines[i] = f"**State:** {new_state}"
+        if line.startswith("**State:**") or line.startswith("**Status:**"):
+            label = "Status" if line.startswith("**Status:**") else "State"
+            lines[i] = f"**{label}:** {new_state}"
             path.write_text("\n".join(lines) + "\n", encoding="utf-8")
             return
-    # No state line: insert after first heading.
+    # No lifecycle line: insert a canonical State line after the first heading.
     for i, line in enumerate(lines):
         if line.startswith("# "):
             lines.insert(i + 1, "")
@@ -634,7 +652,7 @@ def replace_state_line(path: Path, new_state: str) -> None:
 
 
 def sync_artifact_state(path: Path, state: str) -> None:
-    if not path.exists():
+    if not path.exists() or path.suffix != ".md":
         return
     replace_state_line(path, state)
     data, _ = parse_frontmatter(path) if path.suffix == ".md" else ({}, "")
@@ -1210,9 +1228,20 @@ def commit_sha() -> str:
 
 def latest_active(kind: str) -> dict[str, str] | None:
     rows = registry(kind)
-    closed = {"CLOSED", "RELEASED", "REJECTED", "WITHDRAWN"}
+    terminal = {"CLOSED", "RELEASED", "REJECTED", "WITHDRAWN", "SUPERSEDED"}
+    priority = {
+        "PI": ("ACTIVE", "AUTHORIZED", "IN_REVIEW", "PLANNED", "BLOCKED", "DRAFT"),
+        "WC": ("ACTIVE", "AUTHORIZED", "READY", "IN_REVIEW", "BLOCKED", "DRAFT"),
+        # Finish already-started work before selecting pre-start work. This is
+        # both a WIP-control rule and the least-surprising behavior for `next`.
+        "WP": ("IN_PROGRESS", "VERIFYING", "IN_REVIEW", "AUTHORIZED", "READY", "BLOCKED", "DRAFT"),
+    }.get(kind, ())
+    for status in priority:
+        for row in reversed(rows):
+            if row.get("status") == status:
+                return row
     for row in reversed(rows):
-        if row.get("status") not in closed:
+        if row.get("status") not in terminal:
             return row
     return None
 
@@ -1268,21 +1297,338 @@ def cmd_next(_: argparse.Namespace) -> None:
         print(f"./scripts/eos prompt {row['stage']}")
         return
 
-    active_wp = latest_active("WP")
-    active_wc = latest_active("WC")
-    active_pi = latest_active("PI")
-    if active_wp and active_wp["status"] not in {"CLOSED"}:
-        print(f"Permanent lifecycle: continue {active_wp['id']} ({active_wp['status']})")
-        print(f"./scripts/eos codex {active_wp['id']}")
-    elif active_wc and active_wc["status"] not in {"CLOSED"}:
-        print(f"Permanent lifecycle: decompose {active_wc['id']} into the next work packet")
-        print(f"./scripts/eos create-wp --wc {active_wc['id']}")
-    elif active_pi and active_pi["status"] not in {"CLOSED"}:
-        print(f"Permanent lifecycle: create/continue a work cycle for {active_pi['id']}")
-        print(f"./scripts/eos create-wc --pi {active_pi['id']}")
+    pi = latest_active("PI")
+    wc = latest_active("WC")
+    wp = latest_active("WP")
+
+    if pi:
+        state = pi["status"]
+        if state == "DRAFT":
+            print(f"Permanent lifecycle: prepare {pi['id']} for planning readiness")
+            print(f"./scripts/eos ready {pi['id']}")
+            return
+        if state == "PLANNED":
+            print(f"Permanent lifecycle: review {pi['id']} for authorization")
+            print(f"./scripts/eos review {pi['id']}")
+            return
+        if state == "IN_REVIEW":
+            print(f"Permanent lifecycle: authorize {pi['id']} after accepted readiness evidence")
+            print(f"./scripts/eos authorize {pi['id']}")
+            return
+        if state == "AUTHORIZED":
+            print(f"Permanent lifecycle: start authorized program increment {pi['id']}")
+            print(f"./scripts/eos start {pi['id']}")
+            return
+        if state == "BLOCKED":
+            print(f"Permanent lifecycle: resolve blocker for {pi['id']}")
+            print(f"./scripts/eos status")
+            return
+
+    if wc:
+        state = wc["status"]
+        if state == "DRAFT":
+            print(f"Permanent lifecycle: prepare {wc['id']} for readiness")
+            print(f"./scripts/eos ready {wc['id']}")
+            return
+        if state == "READY":
+            print(f"Permanent lifecycle: authorize ready work cycle {wc['id']}")
+            print(f"./scripts/eos authorize {wc['id']}")
+            return
+        if state == "AUTHORIZED":
+            print(f"Permanent lifecycle: start authorized work cycle {wc['id']}")
+            print(f"./scripts/eos start {wc['id']}")
+            return
+        if state == "BLOCKED":
+            print(f"Permanent lifecycle: resolve blocker for {wc['id']}")
+            print(f"./scripts/eos status")
+            return
+
+    if wp:
+        state = wp["status"]
+        if state == "DRAFT":
+            print(f"Permanent lifecycle: refine/ready {wp['id']}")
+            print(f"./scripts/eos ready {wp['id']}")
+            return
+        if state == "READY":
+            print(f"Permanent lifecycle: authorize ready work packet {wp['id']}")
+            print(f"./scripts/eos authorize {wp['id']}")
+            return
+        if state == "AUTHORIZED":
+            print(f"Permanent lifecycle: start authorized work packet {wp['id']}")
+            print(f"./scripts/eos start {wp['id']}")
+            return
+        if state == "IN_PROGRESS":
+            print(f"Permanent lifecycle: execute bounded work for {wp['id']}")
+            print(f"./scripts/eos codex {wp['id']}")
+            return
+        if state == "VERIFYING":
+            print(f"Permanent lifecycle: verify {wp['id']}")
+            print(f"./scripts/eos validate {wp['id']}")
+            return
+        if state == "IN_REVIEW":
+            print(f"Permanent lifecycle: review/close {wp['id']} from accepted evidence")
+            print(f"./scripts/eos review {wp['id']}")
+            return
+        if state == "BLOCKED":
+            print(f"Permanent lifecycle: resolve blocker for {wp['id']}")
+            print(f"./scripts/eos status")
+            return
+
+    if pi and pi.get("status") == "ACTIVE" and not wc:
+        print(f"Permanent lifecycle: adopt/create the next work cycle for {pi['id']}")
+        print(f"./scripts/eos create-wc --pi {pi['id']}")
+    elif wc and wc.get("status") == "ACTIVE" and not wp:
+        print(f"Permanent lifecycle: adopt/create the next work packet for {wc['id']}")
+        print(f"./scripts/eos create-wp --wc {wc['id']}")
     else:
-        print("Permanent lifecycle: plan the next program increment")
+        print("Permanent lifecycle: plan or adopt the next program increment")
         print("./scripts/eos plan")
+
+
+def _adoption_manifest(path_text: str) -> tuple[Path, dict]:
+    path = (ROOT / path_text).resolve()
+    try:
+        path.relative_to(ROOT)
+    except ValueError as exc:
+        raise EosError("adoption manifest must be inside the repository") from exc
+    if not path.exists():
+        raise EosError(f"Adoption manifest not found: {path_text}")
+    doc = load_json(path)
+    if doc.get("schema_version") != "1.0.0":
+        raise EosError("Unsupported adoption manifest schema_version")
+    if not doc.get("adoption_id"):
+        raise EosError("Adoption manifest requires adoption_id")
+    return path, doc
+
+
+def _adoption_entities(doc: dict) -> list[tuple[str, dict[str, str]]]:
+    sections = (
+        ("PI", "program_increments"),
+        ("WC", "work_cycles"),
+        ("WP", "work_packets"),
+    )
+    entities: list[tuple[str, dict[str, str]]] = []
+    seen: set[str] = set()
+    for kind, section in sections:
+        values = doc.get(section, [])
+        if not isinstance(values, list):
+            raise EosError(f"{section} must be an array")
+        for raw in values:
+            if not isinstance(raw, dict):
+                raise EosError(f"{section} contains a non-object entry")
+            row = {key: str(value) for key, value in raw.items()}
+            target = row.get("id", "")
+            if not target:
+                raise EosError(f"{section} entry is missing id")
+            if target in seen:
+                raise EosError(f"duplicate adoption entity id: {target}")
+            seen.add(target)
+            if kind_for_id(target) != kind:
+                raise EosError(f"{target} is not a valid {kind} identifier")
+
+            path_text = row.get("path", "").strip()
+            if not path_text:
+                raise EosError(f"{target} canonical path is missing")
+            candidate = Path(path_text)
+            if candidate.is_absolute():
+                raise EosError(f"{target} canonical path must be repository-relative: {path_text}")
+            path = (ROOT / candidate).resolve()
+            try:
+                canonical_rel = path.relative_to(ROOT).as_posix()
+            except ValueError as exc:
+                raise EosError(f"{target} canonical path escapes repository: {path_text}") from exc
+            if not path.exists():
+                raise EosError(f"{target} canonical path is missing: {path_text}")
+            # Resolving above also prevents an in-repository symlink from
+            # smuggling an external path into sync_artifact_state().
+            row["path"] = canonical_rel
+
+            if row.get("status") not in valid_states(kind):
+                raise EosError(f"{target} has invalid adoption state {row.get('status')}")
+
+            normalized = {field: row.get(field, "") for field in REGISTRY_FIELDS[kind]}
+            schema = load_json(SCHEMA_DIR / f"{kind.lower()}.schema.json")
+            errors = validate_simple_schema(schema, normalized, label=f"adoption:{target}")
+            if errors:
+                raise EosError("Adoption entity schema validation failed:\n- " + "\n- ".join(errors))
+            entities.append((kind, normalized))
+    return entities
+
+
+def _validate_adoption(doc: dict, entities: list[tuple[str, dict[str, str]]]) -> None:
+    evidence = doc.get("evidence", [])
+    if not isinstance(evidence, list) or not evidence:
+        raise EosError("adoption manifest requires at least one evidence path")
+    for item in evidence:
+        path = (ROOT / str(item)).resolve()
+        try:
+            path.relative_to(ROOT)
+        except ValueError as exc:
+            raise EosError(f"adoption evidence must be inside repository: {item}") from exc
+        if not path.exists():
+            raise EosError(f"adoption evidence missing: {item}")
+
+    entity_by_id = {row["id"]: (kind, row) for kind, row in entities}
+    imported_pi = {row["id"] for kind, row in entities if kind == "PI"}
+    imported_wc = {row["id"] for kind, row in entities if kind == "WC"}
+    known_pi = {row["id"] for row in registry("PI")} | imported_pi
+    known_wc = {row["id"] for row in registry("WC")} | imported_wc
+
+    # Preflight every existing-entity conflict before any bootstrap, lifecycle,
+    # registry, artifact, or event mutation can occur.
+    for kind, row in entities:
+        target = row["id"]
+        existing = find_row(kind, target)
+        if existing:
+            immutable_fields = ["path"]
+            if kind == "WC":
+                immutable_fields.append("pi")
+            elif kind == "WP":
+                immutable_fields.extend(["pi", "wc"])
+            mismatches = [
+                field for field in immutable_fields
+                if existing.get(field, "") != row.get(field, "")
+            ]
+            if mismatches:
+                raise EosError(
+                    f"{target} already exists with conflicting adoption identity fields: "
+                    + ", ".join(mismatches)
+                )
+
+        if kind == "WC" and row.get("pi") not in known_pi:
+            raise EosError(f"{target} references unknown parent PI {row.get('pi')}")
+        if kind == "WP":
+            if row.get("pi") not in known_pi:
+                raise EosError(f"{target} references unknown parent PI {row.get('pi')}")
+            if row.get("wc") not in known_wc:
+                raise EosError(f"{target} references unknown parent WC {row.get('wc')}")
+            parent = next(
+                (candidate for k, candidate in entities if k == "WC" and candidate["id"] == row.get("wc")),
+                find_row("WC", row.get("wc", "")),
+            )
+            if parent and parent.get("pi") != row.get("pi"):
+                raise EosError(f"{target} PI/WC parent mismatch")
+
+    supersede = [str(target) for target in doc.get("supersede", [])]
+    if len(set(supersede)) != len(supersede):
+        raise EosError("adoption supersede list contains duplicate targets")
+    for target in supersede:
+        if target in entity_by_id:
+            raise EosError(f"adoption cannot both supersede and import {target}")
+        kind, existing = row_for_target(target)
+        if "SUPERSEDED" not in valid_states(kind):
+            raise EosError(f"{kind} state machine does not support SUPERSEDED")
+        current = existing.get("status", "")
+        if current != "SUPERSEDED" and not transition_allowed(kind, current, "SUPERSEDED"):
+            raise EosError(f"{target} cannot transition from {current} to SUPERSEDED")
+
+
+def cmd_adopt(args: argparse.Namespace) -> None:
+    manifest_path, doc = _adoption_manifest(args.manifest)
+    entities = _adoption_entities(doc)
+    _validate_adoption(doc, entities)
+    actor = actor_name(args.by)
+    reason = args.reason.strip() or str(doc.get("reason", "")).strip()
+    if not reason:
+        raise EosError("program adoption requires an explicit durable reason")
+
+    print(f"Adoption: {doc['adoption_id']}")
+    print(f"Manifest: {rel(manifest_path)}")
+    print(f"Mode: {'APPLY' if args.apply else 'DRY-RUN'}")
+    print(f"Entities: {len(entities)}")
+    print(f"Supersede: {len(doc.get('supersede', []))}")
+    if not args.apply:
+        print("No EOS control state was changed. Re-run with --apply after review.")
+        return
+
+    stamp = now_iso()
+    workflow = read_tsv(EOS / "workflow.tsv")
+    workflow_changed = False
+    if doc.get("bootstrap", {}).get("complete"):
+        for row in workflow:
+            if row.get("status") != "COMPLETE":
+                row["status"] = "COMPLETE"
+                row["completed_at"] = stamp
+                workflow_changed = True
+        if workflow_changed and workflow:
+            write_tsv(EOS / "workflow.tsv", list(workflow[0].keys()), workflow)
+            append_event(
+                "BOOTSTRAP_RECONCILED",
+                target=str(doc["adoption_id"]),
+                action="adopt",
+                actor=actor,
+                reason=reason,
+                metadata={
+                    "manifest": rel(manifest_path),
+                    "disposition": doc.get("bootstrap", {}).get("disposition", "complete"),
+                    "evidence": doc.get("evidence", []),
+                },
+            )
+
+    for target in doc.get("supersede", []):
+        kind, row = row_for_target(str(target))
+        if row.get("status") == "SUPERSEDED":
+            continue
+        set_lifecycle_state(
+            str(target),
+            "SUPERSEDED",
+            action="adopt-supersede",
+            actor=actor,
+            reason=f"superseded by {doc['adoption_id']}: {reason}",
+        )
+
+    imported = 0
+    for kind, row in entities:
+        target = row["id"]
+        existing = find_row(kind, target)
+        if existing:
+            immutable_fields = ["path"]
+            if kind == "WC":
+                immutable_fields.append("pi")
+            elif kind == "WP":
+                immutable_fields.extend(["pi", "wc"])
+            mismatches = [field for field in immutable_fields if existing.get(field, "") != row.get(field, "")]
+            if mismatches:
+                raise EosError(
+                    f"{target} already exists with conflicting adoption identity fields: {', '.join(mismatches)}"
+                )
+            continue
+        normalized = {field: row.get(field, "") for field in REGISTRY_FIELDS[kind]}
+        normalized["created"] = normalized.get("created") or stamp
+        normalized["updated"] = normalized.get("updated") or stamp
+        rows = registry(kind)
+        rows.append(normalized)
+        save_registry(kind, rows)
+        sync_artifact_state(ROOT / normalized["path"], normalized["status"])
+        append_event(
+            "ENTITY_IMPORTED",
+            target=target,
+            entity_kind=kind,
+            action="adopt",
+            to_state=normalized["status"],
+            actor=actor,
+            reason=reason,
+            metadata={"row": normalized, "adoption_id": doc["adoption_id"], "manifest": rel(manifest_path)},
+        )
+        imported += 1
+
+    already_recorded = any(
+        event.get("event_type") == "PROGRAM_ADOPTED"
+        and event.get("target") == doc["adoption_id"]
+        for event in read_events()
+    )
+    if not already_recorded:
+        append_event(
+            "PROGRAM_ADOPTED",
+            target=str(doc["adoption_id"]),
+            action="adopt",
+            actor=actor,
+            reason=reason,
+            metadata={"manifest": rel(manifest_path), "evidence": doc.get("evidence", []), "imported": imported},
+        )
+
+    print(f"Imported {imported} new lifecycle object(s).")
+    print("Adoption is idempotent: existing matching lifecycle objects were preserved without resetting state.")
 
 
 def cmd_prompt(args: argparse.Namespace) -> None:
@@ -1562,8 +1908,8 @@ TBD.
 
 def cmd_plan(args: argparse.Namespace) -> None:
     if args.pi:
-        if not re.fullmatch(r"PI-\d{3}", args.pi):
-            raise EosError("PI id must look like PI-002")
+        if not re.fullmatch(r"PI(?:-[A-Z][A-Z0-9]*)?-\d{3}", args.pi):
+            raise EosError("PI id must look like PI-002 or PI-MVP-002")
         pi_id = args.pi
     else:
         pi_id = f"PI-{next_number('PI', 3):03d}"
@@ -1709,6 +2055,12 @@ TBD.
 
 TBD.
 
+## Execution Scope
+
+EOSE blocks Git/EOS internals and governed-artifact changes by default. Add
+`allowed-path`, `forbidden-path`, or `allowed-governed-path` directives when this
+work packet requires a more explicit machine-enforced file boundary.
+
 ## Governing Artifacts
 
 - Requirements: TBD
@@ -1726,7 +2078,7 @@ TBD.
 
 ## Acceptance Criteria
 
-- [ ] TBD
+- [ ] AC-001: TBD
 
 ## Validation
 
@@ -2620,7 +2972,9 @@ def trace_coverage_report() -> dict:
     for row in registry("WP"):
         if row["status"] != "CLOSED":
             continue
-        if not list((EOS / "evidence").glob(f"{row['id']}-*")):
+        first_class = any(e.get("target") == row["id"] and e.get("status") == "VALIDATED" for e in registry("EVID"))
+        legacy = bool(list((EOS / "evidence").glob(f"{row['id']}-*")))
+        if not first_class and not legacy:
             closed_without_evidence.append(row["id"])
 
     total = len(requirements) + len(specifications) + len(work_packets)
@@ -3769,7 +4123,7 @@ def cmd_state_machine(args: argparse.Namespace) -> None:
     except EosError:
         kind = target
     if kind not in REGISTRY_PATHS:
-        raise EosError("State machine target must be PI, WC, WP, CR, MNT, REL, or an entity ID")
+        raise EosError("State machine target must be PI, WC, WP, CR, MNT, REL, EXEC, EVID, or an entity ID")
     machine = state_machine(kind)
     if args.json:
         print(json.dumps(machine, indent=2, sort_keys=True))
@@ -3787,10 +4141,10 @@ def cmd_schema(args: argparse.Namespace) -> None:
     name = args.name.lower()
     aliases = {
         "pi": "pi", "wc": "wc", "wp": "wp", "cr": "cr", "mnt": "mnt",
-        "rel": "rel", "artifact": "artifact", "event": "event",
+        "rel": "rel", "exec": "exec", "evid": "evid", "artifact": "artifact", "event": "event",
     }
     if name not in aliases:
-        raise EosError("Schema must be one of PI, WC, WP, CR, MNT, REL, artifact, event")
+        raise EosError("Schema must be one of PI, WC, WP, CR, MNT, REL, EXEC, EVID, artifact, event")
     schema = load_json(SCHEMA_DIR / f"{aliases[name]}.schema.json")
     print(json.dumps(schema, indent=2, sort_keys=True))
 
@@ -3798,7 +4152,7 @@ def cmd_schema(args: argparse.Namespace) -> None:
 def cmd_rebuild_state(args: argparse.Namespace) -> None:
     projected = event_projected_state()
     mismatches: list[tuple[str, str, str, str]] = []
-    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
+    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC", "EVID"):
         for row in registry(kind):
             key = (kind, row["id"])
             if key not in projected:
@@ -3906,7 +4260,7 @@ def verify_all(*, strict: bool = False) -> tuple[bool, str]:
     all_pi = {r["id"]: r for r in registry("PI")}
     all_wc = {r["id"]: r for r in registry("WC")}
     all_wp = {r["id"]: r for r in registry("WP")}
-    for kind, rows in (("PI", all_pi.values()), ("WC", all_wc.values()), ("WP", all_wp.values()), ("CR", registry("CR")), ("MNT", registry("MNT")), ("REL", registry("REL"))):
+    for kind, rows in (("PI", all_pi.values()), ("WC", all_wc.values()), ("WP", all_wp.values()), ("CR", registry("CR")), ("MNT", registry("MNT")), ("REL", registry("REL")), ("EXEC", registry("EXEC")), ("EVID", registry("EVID"))):
         ids: set[str] = set()
         for row in rows:
             rid = row["id"]
@@ -3947,7 +4301,7 @@ def verify_all(*, strict: bool = False) -> tuple[bool, str]:
                     )
 
     # Declarative state-machine integrity.
-    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
+    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC", "EVID"):
         try:
             machine = state_machine(kind)
             states = set(machine.get("states", []))
@@ -3990,7 +4344,7 @@ def verify_all(*, strict: bool = False) -> tuple[bool, str]:
                         f"illegal recorded transition in {event_id}: {kind} {frm} -> {to}"
                     )
         projected = event_projected_state()
-        for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
+        for kind in ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC"):
             for row in registry(kind):
                 expected = projected.get((kind, row["id"]))
                 if expected and expected != row["status"]:
@@ -4109,22 +4463,29 @@ def cmd_doctor(_: argparse.Namespace) -> None:
 
 
 TOP_LEVEL_COMPLETION_COMMANDS = (
-    "layers", "status", "next", "prompt", "complete", "reopen", "version",
+    "layers", "status", "next", "adopt", "prompt", "complete", "reopen", "version",
     "history", "rollback", "checkpoint", "plan", "create-wc", "create-wp",
-    "ready", "authorize", "start", "codex", "validate", "review", "close",
+    "ready", "authorize", "start", "preflight", "worktree", "execute", "execution", "contract", "codex", "validate", "review", "close",
     "close-cycle", "close-pi", "trace", "impact", "github-sync", "change",
     "maintain", "release", "planning", "policy", "gate", "override", "stale", "events",
     "state-machine", "schema", "rebuild-state", "verify", "doctor",
+    "validators", "validation", "evidence", "performance", "security", "supply-chain",
     "responsibilities", "completion",
 )
 
 COMMAND_COMPLETION_OPTIONS = {
     "plan": ("--title", "--objective"),
+    "adopt": ("--apply", "--by", "--reason"),
     "create-wc": ("--pi", "--title"),
     "create-wp": ("--wc", "--domain", "--title"),
     "ready": ("--reason", "--by"),
     "authorize": ("--force", "--reason", "--by"),
-    "codex": ("--force",),
+    "codex": ("--force", "--no-worktree", "--base", "--actor", "--json"),
+    "preflight": ("--no-worktree", "--base", "--json"),
+    "execute": ("--no-worktree", "--base", "--actor", "--json"),
+    "worktree": ("--base", "--path", "--force"),
+    "execution": ("--target", "--json", "--reason", "--by"),
+    "contract": ("--json",),
     "close": ("--force", "--reason", "--by"),
     "close-cycle": ("--force", "--reason", "--by"),
     "close-pi": ("--force", "--reason", "--by"),
@@ -4133,7 +4494,12 @@ COMMAND_COMPLETION_OPTIONS = {
     "events": ("--limit", "--json"),
     "state-machine": ("--json",),
     "rebuild-state": ("--apply",),
-    "verify": ("--strict",),
+    "verify": ("--strict", "--json"),
+    "validate": ("--profile", "--execution", "--covers", "--json"),
+    "evidence": ("--json", "--all", "--relation", "--actor"),
+    "performance": ("--target", "--unit", "--direction", "--tolerance", "--command", "--json"),
+    "security": ("--execution", "--json"),
+    "supply-chain": ("--execution", "--json"),
     "trace": ("--json",),
     "impact": ("--json",),
     "stale": ("--all", "--by", "--reason"),
@@ -4258,6 +4624,12 @@ def completion_candidates(words: list[str]) -> list[str]:
     previous = prior[-1] if prior else ""
 
     # Subcommand discovery.
+    if command == "worktree" and len(args) == 1:
+        return filter_completion(("create", "list", "remove"), current)
+    if command == "execution" and len(args) == 1:
+        return filter_completion(("list", "show", "ingest", "check", "close", "abort", "environment"), current)
+    if command == "contract" and len(args) == 1:
+        return filter_completion(("verify", "show"), current)
     if command == "change" and len(args) == 1:
         return filter_completion(("create", "approve", "apply", "close"), current)
     if command == "maintain" and len(args) == 1:
@@ -4272,6 +4644,18 @@ def completion_candidates(words: list[str]) -> list[str]:
         return filter_completion(("create", "list", "expire"), current)
     if command == "stale" and len(args) == 1:
         return filter_completion(("list", "clear"), current)
+    if command == "validators" and len(args) == 1:
+        return filter_completion(("list", "show"), current)
+    if command == "validation" and len(args) == 1:
+        return filter_completion(("profiles", "show"), current)
+    if command == "evidence" and len(args) == 1:
+        return filter_completion(("list", "show", "coverage", "audit", "link"), current)
+    if command == "performance" and len(args) == 1:
+        return filter_completion(("record", "check", "list"), current)
+    if command == "security" and len(args) == 1:
+        return filter_completion(("scan",), current)
+    if command == "supply-chain" and len(args) == 1:
+        return filter_completion(("inventory",), current)
     if command == "completion" and len(args) == 1:
         return filter_completion(("bash", "zsh", "fish", "write", "install"), current)
 
@@ -4318,6 +4702,29 @@ def completion_candidates(words: list[str]) -> list[str]:
             elif args[0] == "graph":
                 options += [o for o in ("--format",) if o not in args]
         return filter_completion(options, current)
+
+    if command == "validators" and args and args[0] == "show":
+        return filter_completion(("eos-integrity", "repository", "execution-acceptance", "secret-scan", "supply-chain", "reproducibility", "performance"), current)
+    if command == "validation" and args and args[0] == "show":
+        return filter_completion(("default", "wp", "security", "release", "reproducibility", "performance"), current)
+    if command == "validate":
+        if previous == "--profile":
+            return filter_completion(("default", "wp", "security", "release", "reproducibility", "performance"), current)
+        if previous == "--execution":
+            return filter_completion(completion_ids("EXEC"), current)
+        return filter_completion(completion_ids("WP", "EXEC"), current)
+    if command == "evidence" and args:
+        if args[0] == "show":
+            return filter_completion(completion_ids("EVID"), current)
+        if args[0] in {"list", "coverage"}:
+            return filter_completion(completion_ids("WP", "EXEC"), current)
+        if args[0] == "link":
+            positional = [a for a in args[1:] if not a.startswith("-")]
+            if len(positional) <= 1:
+                return filter_completion(completion_ids("EVID"), current)
+            return filter_completion(completion_artifact_ids(), current)
+    if command in {"security", "supply-chain"}:
+        return filter_completion(completion_ids("WP", "EXEC"), current)
 
     # Bootstrap/versioning commands.
     if command in {"prompt", "complete", "reopen"}:
@@ -4367,13 +4774,13 @@ def completion_candidates(words: list[str]) -> list[str]:
     if command in {"impact", "events"}:
         return filter_completion(completion_artifact_ids(), current)
     if command == "state-machine":
-        values = ["PI", "WC", "WP", "CR", "MNT", "REL"] + completion_ids(
-            "PI", "WC", "WP", "CR", "MNT", "REL"
+        values = ["PI", "WC", "WP", "CR", "MNT", "REL", "EXEC"] + completion_ids(
+            "PI", "WC", "WP", "CR", "MNT", "REL", "EXEC"
         )
         return filter_completion(values, current.upper())
     if command == "schema":
         return filter_completion(
-            ("PI", "WC", "WP", "CR", "MNT", "REL", "artifact", "event", "override"),
+            ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC", "artifact", "event", "override"),
             current,
         )
     if command == "release":
@@ -4439,6 +4846,34 @@ def completion_candidates(words: list[str]) -> list[str]:
         if subcmd == "clear" and len(subargs) <= 1:
             values = [r["id"] for r in stale_rows() if r.get("status") == "OPEN"]
             return filter_completion(values, subcurrent.upper())
+        return []
+
+    # EOSE Execution v2 subcommands.
+    if command in {"preflight", "execute", "codex"}:
+        return filter_completion(completion_ids("WP"), current)
+
+    if command == "worktree" and args:
+        subcmd = args[0]
+        subargs = args[1:]
+        subcurrent = subargs[-1] if subargs else ""
+        if subcmd in {"create", "remove"} and len(subargs) <= 1:
+            return filter_completion(completion_ids("WP"), subcurrent)
+        return []
+
+    if command == "execution" and args:
+        subcmd = args[0]
+        subargs = args[1:]
+        subcurrent = subargs[-1] if subargs else ""
+        if subcmd in {"show", "ingest", "check", "close", "abort", "environment"} and len(subargs) <= 1:
+            return filter_completion(completion_ids("EXEC"), subcurrent)
+        return []
+
+    if command == "contract" and args:
+        subcmd = args[0]
+        subargs = args[1:]
+        subcurrent = subargs[-1] if subargs else ""
+        if subcmd in {"verify", "show"} and len(subargs) <= 1:
+            return filter_completion(completion_ids("EXEC"), subcurrent)
         return []
 
     # Change/maintenance subcommands.
@@ -4609,6 +5044,13 @@ def add_override_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--by", default="", help="Human actor/approver identity")
 
 
+def cmd_delegate_verification(_: argparse.Namespace) -> None:
+    module = ROOT / "tools" / "eos" / "verification_v2.py"
+    proc = subprocess.run([sys.executable, str(module), *sys.argv[1:]], cwd=ROOT)
+    if proc.returncode:
+        raise EosError(f"EOSV delegated command failed with exit code {proc.returncode}")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="./scripts/eos", description="Engineering Operating System")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -4621,6 +5063,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("next", help="Show the next recommended lifecycle action")
     p.set_defaults(func=cmd_next)
+
+    p = sub.add_parser("adopt", help="Adopt an already-approved canonical program horizon into EOS control state")
+    p.add_argument("manifest")
+    p.add_argument("--apply", action="store_true", help="Apply the reviewed adoption manifest; default is dry-run")
+    p.add_argument("--by", default="", help="Human/authority actor recorded in adoption events")
+    p.add_argument("--reason", default="", help="Durable adoption reason; defaults to manifest reason")
+    p.set_defaults(func=cmd_adopt)
 
     p = sub.add_parser("prompt", help="Render an EOSB prompt with project context")
     p.add_argument("stage")
@@ -4884,6 +5333,18 @@ def build_parser() -> argparse.ArgumentParser:
     p = completion_sub.add_parser("candidates", help=argparse.SUPPRESS)
     p.add_argument("words", nargs=argparse.REMAINDER)
     p.set_defaults(func=cmd_completion)
+
+    for delegated_name, delegated_help in (
+        ("validators", "Inspect EOSV typed validator definitions"),
+        ("validation", "Inspect EOSV validation profiles"),
+        ("evidence", "Inspect/link/audit first-class EVID-* verification evidence"),
+        ("performance", "Record/check governed performance baselines"),
+        ("security", "Run EOSV security verification profiles"),
+        ("supply-chain", "Capture EOSV supply-chain inventory evidence"),
+    ):
+        p = sub.add_parser(delegated_name, help=delegated_help, add_help=False)
+        p.add_argument("delegate_args", nargs=argparse.REMAINDER)
+        p.set_defaults(func=cmd_delegate_verification)
 
     p = sub.add_parser("responsibilities", help="Show Human/ChatGPT/Codex/GitHub responsibilities")
     p.set_defaults(func=cmd_responsibilities)
