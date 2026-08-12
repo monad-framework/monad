@@ -1,6 +1,6 @@
 # WP-MVP-0001 — Repository identity and effective configuration
 
-**Status:** Refined — blocked from Ready by ADR-0005  
+**Status:** Ready — not Authorized  
 **Epic:** EPIC-002  
 **Feature:** F-002-01  
 **Program Increment:** PI-MVP-001  
@@ -17,15 +17,18 @@ Implement the deterministic bootstrap boundary that locates a Monad repository, 
 - `product/product-requirements.md` — FR-001; QR-001, QR-003, QR-006
 - `architecture/decisions/ADR-0002-repository-root-and-configuration.md`
 - `architecture/decisions/ADR-0004-safe-deterministic-ingestion-boundary.md`
+- `architecture/decisions/ADR-0005-mvp-core-implementation-topology.md`
 - `specifications/interfaces/IFC-WORKSPACE-0001-repository-root-and-effective-configuration.md`
-- Proposed implementation topology: `architecture/decisions/ADR-0005-mvp-core-implementation-topology.md`
 
 ## Dependencies
 
-Semantic dependencies are resolved. Implementation authorization is blocked only until ADR-0005 is accepted or replaced by another accepted implementation-topology decision.
+All semantic and implementation-topology dependencies required for this packet are resolved. ADR-0005 is Accepted. This packet is Ready but remains inactive until explicit EOS authorization.
 
 ## In scope
 
+- initial Cargo workspace scaffolding required by ADR-0005;
+- `crates/monad-core` workspace/config modules;
+- minimal `crates/monad-cli` bootstrap wiring required to exercise the boundary;
 - root discovery from explicit/current path;
 - nearest `monad.toml` semantics and nested root behavior;
 - schema-v1 TOML validation;
@@ -40,11 +43,19 @@ Semantic dependencies are resolved. Implementation authorization is blocked only
 - general artifact discovery (WP-MVP-0002);
 - semantic ingestion of configuration into the graph pipeline (WP-MVP-0005);
 - environment variables changing semantic configuration;
-- remote config, plugins, package-manager execution, or network access.
+- remote config, plugins, package-manager execution, or network access;
+- EOS implementation under `tools/eos`/`scripts/eos`.
 
-## Implementation boundary
+## Authorized implementation boundary after EOS authorization
 
-If ADR-0005 is accepted, authorized product changes are limited to initial Cargo workspace scaffolding plus workspace/config modules in `crates/monad-core`, minimal CLI/bootstrap wiring in `crates/monad-cli`, root `Cargo.toml`/lock/toolchain files as needed, and focused tests/fixtures. EOS implementation under `tools/eos` is not in scope.
+Product changes are limited to:
+
+- root `Cargo.toml`, `Cargo.lock`, and toolchain/config files needed for the accepted Rust workspace;
+- `crates/monad-core/**` for workspace/config semantics and focused fixtures/tests;
+- `crates/monad-cli/**` only for minimal argument/bootstrap presentation needed to invoke the core boundary;
+- narrowly related documentation/evidence required by the Definition of Done.
+
+No additional crate, service, plugin boundary, hosted dependency, or unrelated refactor is authorized by this packet.
 
 ## Acceptance criteria
 
@@ -58,10 +69,22 @@ If ADR-0005 is accepted, authorized product changes are limited to initial Cargo
 - [ ] repository code/network is never executed during bootstrap.
 - [ ] repeated structured output for identical inputs is byte-equivalent where declared canonical.
 
-## Validation commands
+## Required validation commands
 
-Exact language commands become binding with ADR-0005. Minimum evidence MUST include targeted unit tests, root/config golden fixtures, malformed-input tests, and `python3 scripts/sync-machine-docs.py --check` for canonical-document changes.
+The implementing branch MUST make the following commands pass from repository root:
 
-## Authorization gate
+```bash
+cargo fmt --all -- --check
+cargo clippy --workspace --all-targets --all-features -- -D warnings
+cargo test --workspace --all-targets --all-features
+python3 scripts/sync-machine-docs.py --check
+./scripts/eos verify --strict
+```
 
-Do not run `./scripts/eos authorize WP-MVP-0001` until ADR-0005 is Accepted and this packet's implementation boundary is updated from conditional to authoritative.
+Focused tests/fixtures MUST additionally cover root discovery, nested roots, precedence/provenance, malformed TOML, unsupported schema version, unknown semantic keys, missing root, deterministic structured output, and the no-execution/no-network boundary.
+
+## Ready disposition
+
+This packet satisfies its current Definition-of-Ready boundary: governing ADR/specification authority is explicit, implementation scope is bounded, acceptance behavior is testable, and exact validation commands are defined.
+
+**Do not begin implementation until `./scripts/eos authorize WP-MVP-0001` succeeds after PR #158 is merged and the post-merge repository ruleset has been applied/verified.**
