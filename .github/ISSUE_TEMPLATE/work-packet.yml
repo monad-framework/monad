@@ -1,29 +1,41 @@
-name: Work Packet
-description: Track an engineering work packet
-title: "WP: "
-labels:
-  - work-packet
+name: Work Packet execution issue
+about: Project an existing canonical Work Packet into GitHub for execution tracking.
+title: "[WP] "
 body:
-  - type: textarea
-    id: objective
+  - type: input
+    id: identifier
     attributes:
-      label: Objective
-      description: What engineering outcome must this work produce?
+      label: Work Packet identifier
+      placeholder: WP-MVP-XXXX
     validations:
       required: true
-
-  - type: textarea
-    id: scope
+  - type: input
+    id: path
     attributes:
-      label: Scope
-      description: What is included and excluded?
+      label: Canonical Work Packet path
+      placeholder: engineering/work-packets/WP-MVP-XXXX.md
     validations:
       required: true
-
+  - type: input
+    id: branch
+    attributes:
+      label: Authorized branch
+      placeholder: wp/...
   - type: textarea
     id: acceptance
     attributes:
-      label: Acceptance Criteria
-      description: How will completion be demonstrated?
+      label: Acceptance / validation summary
+      description: Do not duplicate the canonical packet; summarize and link it.
     validations:
       required: true
+  - type: checkboxes
+    id: gates
+    attributes:
+      label: Authorization gates
+      options:
+        - label: Canonical Work Packet is Ready
+          required: true
+        - label: Required ADR/specification dependencies are resolved
+          required: true
+        - label: Scope and prohibited changes are explicit
+          required: true

@@ -1,0 +1,32 @@
+name: Repository integrity
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Enforce canonical ADR root
+        run: |
+          test ! -e adrs
+          test -d architecture/decisions
+          test -f architecture/decisions/ADR-0001-knowledge-engine-core.md
+      - name: Validate planning generators
+        run: |
+          python3 scripts/migrate-mvp-identifiers.py
+          python3 scripts/generate-mvp-work-packets.py --check
+          python3 scripts/populate-artifact-system.py --check
+      - name: Validate machine projection freshness
+        run: python3 scripts/sync-machine-docs.py --check
+      - name: Validate EOS
+        run: ./scripts/eos ci
