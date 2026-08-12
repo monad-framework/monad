@@ -3050,18 +3050,18 @@
     },
     {
       "document_type": "continuous-integration",
-      "id": "doc:.github%2Fworkflows%2Fgithub-tracking-sync.yml",
+      "id": "doc:.github%2Fworkflows%2Feos-v08-review-fixes.yml",
       "normative": false,
-      "source_path": ".github/workflows/github-tracking-sync.yml",
-      "title": "Github Tracking Sync",
+      "source_path": ".github/workflows/eos-v08-review-fixes.yml",
+      "title": "Eos V08 Review Fixes",
       "type": "document"
     },
     {
       "document_type": "continuous-integration",
-      "id": "doc:.github%2Fworkflows%2Fmachine-workflow-projection.yml",
+      "id": "doc:.github%2Fworkflows%2Fgithub-tracking-sync.yml",
       "normative": false,
-      "source_path": ".github/workflows/machine-workflow-projection.yml",
-      "title": "Machine Workflow Projection",
+      "source_path": ".github/workflows/github-tracking-sync.yml",
+      "title": "Github Tracking Sync",
       "type": "document"
     },
     {
@@ -10346,6 +10346,14 @@
     },
     {
       "document_type": "automation",
+      "id": "doc:scripts%2Fapply-eos-0.8-review-fixes.py",
+      "normative": false,
+      "source_path": "scripts/apply-eos-0.8-review-fixes.py",
+      "title": "Apply Eos 0.8 Review Fixes",
+      "type": "document"
+    },
+    {
+      "document_type": "automation",
       "id": "doc:scripts%2Feos",
       "normative": false,
       "source_path": "scripts/eos",
@@ -10406,6 +10414,14 @@
       "normative": false,
       "source_path": "scripts/sync-machine-docs.py",
       "title": "Sync Machine Docs",
+      "type": "document"
+    },
+    {
+      "document_type": "automation",
+      "id": "doc:scripts%2Ftest-eos-0.8-adoption-safety.py",
+      "normative": false,
+      "source_path": "scripts/test-eos-0.8-adoption-safety.py",
+      "title": "Test Eos 0.8 Adoption Safety",
       "type": "document"
     },
     {
@@ -11271,5 +11287,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "a60e6f31eb07a368c749825c4019a446e48fba20c31307443a78f1898c101924"
+  "source_tree_sha256": "a48c4181a6ceb6ea02961cf605d0291afe5af99ba6f09179b4691bb20ea6bedb"
 }

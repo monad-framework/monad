@@ -1,0 +1,40 @@
+{
+  "content": "name: EOS 0.8 Review Fixes\n\non:\n  push:\n    branches: [eos/v0.8-program-adoption]\n    paths:\n      - '.github/workflows/eos-v08-review-fixes.yml'\n  workflow_dispatch:\n\npermissions:\n  contents: write\n\njobs:\n  fix-and-verify:\n    if: github.actor != 'github-actions[bot]'\n    runs-on: ubuntu-latest\n    timeout-minutes: 15\n    steps:\n      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n        with:\n          fetch-depth: 0\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n\n      - name: Apply reviewed controller corrections\n        run: |\n          python3 - <<'PY'\n          from pathlib import Path\n          path = Path('scripts/apply-eos-0.8-review-fixes.py')\n          text = path.read_text(encoding='utf-8')\n          old = r'raise EosError(\"Adoption entity schema validation failed:\\n- \" + \"\\n- \".join(errors))'\n          new = r'raise EosError(\"Adoption entity schema validation failed:\\\\n- \" + \"\\\\n- \".join(errors))'\n          if old not in text:\n              raise SystemExit('review patcher escape target not found')\n          path.write_text(text.replace(old, new, 1), encoding='utf-8')\n          PY\n          python3 scripts/apply-eos-0.8-review-fixes.py\n          python3 -m py_compile tools/eos/eos.py\n\n      - name: Verify adoption safety review findings\n        run: python3 scripts/test-eos-0.8-adoption-safety.py\n\n      - name: Verify original EOS 0.8 adoption contract\n        run: python3 scripts/test-eos-0.8-program-adoption.py\n\n      - name: Verify canonical lifecycle model consistency\n        run: python3 scripts/sync-eos-lifecycle-model.py\n\n      - name: Verify EOS strictly\n        run: ./scripts/eos verify --strict\n\n      - name: Synchronize and verify machine documents\n        run: |\n          python3 scripts/sync-machine-docs.py --write\n          python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit reviewed corrections\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add tools/eos/eos.py machine .eos/trace-edges.tsv\n          if git diff --cached --quiet --exit-code; then\n            echo \"No reviewed corrections remained to commit.\"\n            exit 0\n          fi\n          git commit -m \"fix(eos): address program-adoption review findings\"\n          git push origin \"HEAD:eos/v0.8-program-adoption\"\n",
+  "document_id": "doc:.github%2Fworkflows%2Feos-v08-review-fixes.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/eos-v08-review-fixes.yml.",
+    "title": "Eos V08 Review Fixes"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 68,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: EOS 0.8 Review Fixes\n\non:\n  push:\n    branches: [eos/v0.8-program-adoption]\n    paths:\n      - '.github/workflows/eos-v08-review-fixes.yml'\n  workflow_dispatch:\n\npermissions:\n  contents: write\n\njobs:\n  fix-and-verify:\n    if: github.actor != 'github-actions[bot]'\n    runs-on: ubuntu-latest\n    timeout-minutes: 15\n    steps:\n      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n        with:\n          fetch-depth: 0\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n\n      - name: Apply reviewed controller corrections\n        run: |\n          python3 - <<'PY'\n          from pathlib import Path\n          path = Path('scripts/apply-eos-0.8-review-fixes.py')\n          text = path.read_text(encoding='utf-8')\n          old = r'raise EosError(\"Adoption entity schema validation failed:\\n- \" + \"\\n- \".join(errors))'\n          new = r'raise EosError(\"Adoption entity schema validation failed:\\\\n- \" + \"\\\\n- \".join(errors))'\n          if old not in text:\n              raise SystemExit('review patcher escape target not found')\n          path.write_text(text.replace(old, new, 1), encoding='utf-8')\n          PY\n          python3 scripts/apply-eos-0.8-review-fixes.py\n          python3 -m py_compile tools/eos/eos.py\n\n      - name: Verify adoption safety review findings\n        run: python3 scripts/test-eos-0.8-adoption-safety.py\n\n      - name: Verify original EOS 0.8 adoption contract\n        run: python3 scripts/test-eos-0.8-program-adoption.py\n\n      - name: Verify canonical lifecycle model consistency\n        run: python3 scripts/sync-eos-lifecycle-model.py\n\n      - name: Verify EOS strictly\n        run: ./scripts/eos verify --strict\n\n      - name: Synchronize and verify machine documents\n        run: |\n          python3 scripts/sync-machine-docs.py --write\n          python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit reviewed corrections\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add tools/eos/eos.py machine .eos/trace-edges.tsv\n          if git diff --cached --quiet --exit-code; then\n            echo \"No reviewed corrections remained to commit.\"\n            exit 0\n          fi\n          git commit -m \"fix(eos): address program-adoption review findings\"\n          git push origin \"HEAD:eos/v0.8-program-adoption\"",
+      "title": "Eos V08 Review Fixes"
+    }
+  ],
+  "source": {
+    "bytes": 2445,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 68,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/eos-v08-review-fixes.yml",
+    "sha256": "5a5465213668317e1c87cdd604f4645890538ee32e220a6512e338e753e91133"
+  }
+}
