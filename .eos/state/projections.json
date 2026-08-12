@@ -1,25 +1,40 @@
 {
-  "canonical_digest": "957426240dadc646d8fb757a3eb94f1cd18baeadd659cc0fa2baf16c9e40b50d",
-  "canonical_revision": 1,
+  "canonical_digest": "fe11c778b143c9f240d477b87d00660a958ee9c4d974d2aaf3bb77cfd7791a5e",
+  "canonical_revision": 2,
   "github": {
     "network_verification": "ON_DEMAND",
     "receipts": {}
   },
   "markdown": {
     "PI-001": {
-      "canonical_revision": 1,
+      "canonical_revision": 2,
       "path": "engineering/increments/PI-001.md",
-      "state_fingerprint": "428cfba2f16693b16cb6ee2b1f367fe1e93adad9b2f9824c5d2feffd38711b9f"
+      "state_fingerprint": "7995f66d00fbb35a304f638fee50eab9ce215fc9c2d95467f159c8afd08130df"
+    },
+    "PI-MVP-001": {
+      "canonical_revision": 2,
+      "path": "engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md",
+      "state_fingerprint": "b3501415a0b35a4f1487984feb5903172bf04f6298e17bdc3588d98a075187f8"
     },
     "WC-0001": {
-      "canonical_revision": 1,
+      "canonical_revision": 2,
       "path": "engineering/work-cycles/WC-0001.md",
-      "state_fingerprint": "d3447b42b49e9d0be2c620965768f20bdc7899cc52b7684fe07f38eff9f44350"
+      "state_fingerprint": "4a0b412667e615192e9b101cbab14dd83ad239ea1efc8801338c89cfa71e5582"
+    },
+    "WC-MVP-0001": {
+      "canonical_revision": 2,
+      "path": "engineering/work-cycles/WC-MVP-0001.md",
+      "state_fingerprint": "17d657b496012c13d9f898751fdcaa2446e1b8788ff23769fc574f79d11f5d10"
     },
     "WP-0001": {
-      "canonical_revision": 1,
+      "canonical_revision": 2,
       "path": "engineering/work-packets/WP-0001.md",
-      "state_fingerprint": "ba5efa7aa20b562b7b9ee106321540d7ec86b95f4360e61c79070c2043f7af33"
+      "state_fingerprint": "57cfc886fe622fcc33432d6c231db6380c0d4c96fb114785fe2c3c9bd21b817f"
+    },
+    "WP-MVP-0001": {
+      "canonical_revision": 2,
+      "path": "engineering/work-packets/WP-MVP-0001.md",
+      "state_fingerprint": "cd434b9d5061d7575f2b30be1f6ee20a005907c9dd9dd9e7c92378d107144dbf"
     }
   },
   "policy": {
@@ -58,33 +73,33 @@
   "tsv": {
     ".eos/change-requests.tsv": {
       "actual_sha256": "0dd542ae209514721fd0a7363ee3eb44b4c827fbb498716957c8437f1e605411",
-      "canonical_revision": 1,
+      "canonical_revision": 2,
       "expected_sha256": "0dd542ae209514721fd0a7363ee3eb44b4c827fbb498716957c8437f1e605411"
     },
     ".eos/maintenance.tsv": {
       "actual_sha256": "60c57d27149a54b2859bc9f3ace3a3aa4a4f68b9acddc724ce1ad5636b3e245c",
-      "canonical_revision": 1,
+      "canonical_revision": 2,
       "expected_sha256": "60c57d27149a54b2859bc9f3ace3a3aa4a4f68b9acddc724ce1ad5636b3e245c"
     },
     ".eos/program-increments.tsv": {
-      "actual_sha256": "1255424255aa6270628dca3b5eb39b2add09fb4490ac600a438cae06eb5d7a4d",
-      "canonical_revision": 1,
-      "expected_sha256": "1255424255aa6270628dca3b5eb39b2add09fb4490ac600a438cae06eb5d7a4d"
+      "actual_sha256": "b25929c856bcc00920b7a184cc428e3f333bf2e4c6320f93c4eb0826b768bac8",
+      "canonical_revision": 2,
+      "expected_sha256": "b25929c856bcc00920b7a184cc428e3f333bf2e4c6320f93c4eb0826b768bac8"
     },
     ".eos/releases.tsv": {
       "actual_sha256": "fbd66de69e6c5882faf4d33ae64250e9921c25739a0807152433bd817ef986f9",
-      "canonical_revision": 1,
+      "canonical_revision": 2,
       "expected_sha256": "fbd66de69e6c5882faf4d33ae64250e9921c25739a0807152433bd817ef986f9"
     },
     ".eos/work-cycles.tsv": {
-      "actual_sha256": "e7f344f42620775e13fad7f486c8ee98f2c2605d4d8078190eed7051dd5ed1f8",
-      "canonical_revision": 1,
-      "expected_sha256": "e7f344f42620775e13fad7f486c8ee98f2c2605d4d8078190eed7051dd5ed1f8"
+      "actual_sha256": "3445bb2d924bbd905982d2341dc9d719e95df6d18bdd05fe5741e63f5fe6089e",
+      "canonical_revision": 2,
+      "expected_sha256": "3445bb2d924bbd905982d2341dc9d719e95df6d18bdd05fe5741e63f5fe6089e"
     },
     ".eos/work-packets.tsv": {
-      "actual_sha256": "40a01447a905d888b909f1dd72e7a14a8223e81ce526aaa86d8162bcfe65a277",
-      "canonical_revision": 1,
-      "expected_sha256": "40a01447a905d888b909f1dd72e7a14a8223e81ce526aaa86d8162bcfe65a277"
+      "actual_sha256": "a1c2550a6fcb229d6a3d6278c27a6e7ea0beecc217def6fdf09e1a183f0883f3",
+      "canonical_revision": 2,
+      "expected_sha256": "a1c2550a6fcb229d6a3d6278c27a6e7ea0beecc217def6fdf09e1a183f0883f3"
     }
   }
 }
