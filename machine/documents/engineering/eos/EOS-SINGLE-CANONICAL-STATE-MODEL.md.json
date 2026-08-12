@@ -1,0 +1,107 @@
+{
+  "content": "# EOS Single Canonical State Model — Implementation Record\n\n**Status:** Implemented  \n**Date:** 2026-08-12  \n**Canonical model:** `EOS-SINGLE-CANONICAL-STATE-1`\n\n## Scope\n\nThis tranche makes machine-readable EOS metadata the sole canonical current\noperational state and explicitly demotes TSV registries, Markdown lifecycle\nfields, Git history, GitHub collaboration objects, and runtime cache state to\ntheir correct roles.\n\n## Implementation\n\n- `.eos/state/current.json` — canonical current operational state.\n- `.eos/state/projections.json` — local projection fingerprints and GitHub sync\n  receipts.\n- `.eos/state-model.json` — normative machine-readable representation policy.\n- `.eos/schemas/canonical-state.schema.json` — canonical store schema.\n- `.eos/schemas/projection-manifest.schema.json` — projection receipt schema.\n- `tools/eos/canonical_state.py` — canonical transaction, drift detection,\n  projection, and reconciliation controller.\n- `scripts/eos` — transaction wrapper around the compatibility EOS runtime.\n- `tools/eos/test_canonical_state.py` — deterministic regression tests.\n\n## Compatibility Strategy\n\nThe existing `tools/eos/eos.py` implementation is retained as a compatibility\nruntime during this tranche. It still operates on TSV/Markdown projections, but\nit can no longer be invoked through the supported `scripts/eos` entry point\nwithout canonical preflight and post-transaction capture.\n\nThis avoids a high-risk monolithic rewrite while immediately enforcing one\noperational source of truth.\n\n## Fail-closed cases\n\nThe controller rejects:\n\n- direct TSV edits;\n- Markdown lifecycle edits inconsistent with canonical state;\n- event history whose reconstructed lifecycle differs from canonical state;\n- entity disappearance during a normal transaction;\n- a successful legacy command that leaves its projections mutually\n  inconsistent;\n- GitHub automatic overwrite when the remote issue changed since the last\n  synchronization receipt.\n\n## Explicit projection repair\n\nLocal projections can only be repaired from canonical state. GitHub reconciliation\nrequires an explicit target and `canonical-wins` strategy. There is no implicit\nprojection-to-canonical import.\n\n## Initial inconsistency resolved\n\nBefore this tranche, `.eos/program-increments.tsv` and `.eos/events.jsonl` said\nPI-001 was `DRAFT`, while the governed Markdown said `Planned`. WC-0001 had the\nsame discrepancy. The initial canonical seed follows the agreeing operational\nregistry/event history and repairs the Markdown lifecycle fields to `DRAFT`.\n\n## Tests\n\nThe regression suite covers:\n\n1. clean canonical/projection state;\n2. direct TSV drift detection;\n3. direct Markdown lifecycle drift detection;\n4. successful transaction advancement of canonical revision/state;\n5. one-way local projection repair from canonical state.\n",
+  "document_id": "doc:engineering%2Feos%2FEOS-SINGLE-CANONICAL-STATE-MODEL.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WC-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Implemented Date: 2026-08-12 Canonical model: EOS-SINGLE-CANONICAL-STATE-1",
+    "title": "EOS Single Canonical State Model — Implementation Record"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "eos-single-canonical-state-model-implementation-record",
+      "text": "# EOS Single Canonical State Model — Implementation Record\n\n**Status:** Implemented  \n**Date:** 2026-08-12  \n**Canonical model:** `EOS-SINGLE-CANONICAL-STATE-1`",
+      "title": "EOS Single Canonical State Model — Implementation Record"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 7,
+      "section_id": "scope",
+      "text": "## Scope\n\nThis tranche makes machine-readable EOS metadata the sole canonical current\noperational state and explicitly demotes TSV registries, Markdown lifecycle\nfields, Git history, GitHub collaboration objects, and runtime cache state to\ntheir correct roles.",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 14,
+      "section_id": "implementation",
+      "text": "## Implementation\n\n- `.eos/state/current.json` — canonical current operational state.\n- `.eos/state/projections.json` — local projection fingerprints and GitHub sync\n  receipts.\n- `.eos/state-model.json` — normative machine-readable representation policy.\n- `.eos/schemas/canonical-state.schema.json` — canonical store schema.\n- `.eos/schemas/projection-manifest.schema.json` — projection receipt schema.\n- `tools/eos/canonical_state.py` — canonical transaction, drift detection,\n  projection, and reconciliation controller.\n- `scripts/eos` — transaction wrapper around the compatibility EOS runtime.\n- `tools/eos/test_canonical_state.py` — deterministic regression tests.",
+      "title": "Implementation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 27,
+      "section_id": "compatibility-strategy",
+      "text": "## Compatibility Strategy\n\nThe existing `tools/eos/eos.py` implementation is retained as a compatibility\nruntime during this tranche. It still operates on TSV/Markdown projections, but\nit can no longer be invoked through the supported `scripts/eos` entry point\nwithout canonical preflight and post-transaction capture.\n\nThis avoids a high-risk monolithic rewrite while immediately enforcing one\noperational source of truth.",
+      "title": "Compatibility Strategy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 37,
+      "section_id": "fail-closed-cases",
+      "text": "## Fail-closed cases\n\nThe controller rejects:\n\n- direct TSV edits;\n- Markdown lifecycle edits inconsistent with canonical state;\n- event history whose reconstructed lifecycle differs from canonical state;\n- entity disappearance during a normal transaction;\n- a successful legacy command that leaves its projections mutually\n  inconsistent;\n- GitHub automatic overwrite when the remote issue changed since the last\n  synchronization receipt.",
+      "title": "Fail-closed cases"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 55,
+      "line_start": 50,
+      "section_id": "explicit-projection-repair",
+      "text": "## Explicit projection repair\n\nLocal projections can only be repaired from canonical state. GitHub reconciliation\nrequires an explicit target and `canonical-wins` strategy. There is no implicit\nprojection-to-canonical import.",
+      "title": "Explicit projection repair"
+    },
+    {
+      "identifiers": [
+        "WC-0001"
+      ],
+      "level": 2,
+      "line_end": 62,
+      "line_start": 56,
+      "section_id": "initial-inconsistency-resolved",
+      "text": "## Initial inconsistency resolved\n\nBefore this tranche, `.eos/program-increments.tsv` and `.eos/events.jsonl` said\nPI-001 was `DRAFT`, while the governed Markdown said `Planned`. WC-0001 had the\nsame discrepancy. The initial canonical seed follows the agreeing operational\nregistry/event history and repairs the Markdown lifecycle fields to `DRAFT`.",
+      "title": "Initial inconsistency resolved"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 71,
+      "line_start": 63,
+      "section_id": "tests",
+      "text": "## Tests\n\nThe regression suite covers:\n\n1. clean canonical/projection state;\n2. direct TSV drift detection;\n3. direct Markdown lifecycle drift detection;\n4. successful transaction advancement of canonical revision/state;\n5. one-way local projection repair from canonical state.",
+      "title": "Tests"
+    }
+  ],
+  "source": {
+    "bytes": 2839,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 71,
+    "media_type": "text/markdown",
+    "path": "engineering/eos/EOS-SINGLE-CANONICAL-STATE-MODEL.md",
+    "sha256": "9a932c31f887314f54b41e906d3b3136270c590a2c9b9a75130336d77f2bac69"
+  }
+}

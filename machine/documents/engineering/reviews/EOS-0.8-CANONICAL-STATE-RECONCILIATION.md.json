@@ -1,0 +1,121 @@
+{
+  "content": "# EOS 0.8 Canonical State Reconciliation\n\n**State:** COMPLETED  \n**Date:** 2026-08-12  \n**Scope:** EOS control integrity only  \n**Product implementation authorized by this artifact:** No\n\n## Purpose\n\nReconcile the accepted EOS 0.8 MVP program-adoption lifecycle state with the single canonical operational state model introduced concurrently during EOS hardening.\n\n## Observed defect\n\nAfter the EOS 0.8 adoption integration, the append-only event ledger, TSV lifecycle registries, and governed Markdown lifecycle metadata represented the accepted program-adoption state, while `.eos/state/current.json` remained at its earlier migration snapshot.\n\nThe stale canonical snapshot still contained only:\n\n- `PI-001` — `DRAFT`;\n- `WC-0001` — `DRAFT`;\n- `WP-0001` — `DRAFT`.\n\nAccepted lifecycle evidence instead records:\n\n- `PI-001` — `SUPERSEDED`;\n- `WC-0001` — `SUPERSEDED`;\n- `WP-0001` — `SUPERSEDED`;\n- `PI-MVP-001` — `AUTHORIZED`;\n- `WC-MVP-0001` — `READY`;\n- `WP-MVP-0001` — `READY`.\n\nConsequently the canonical controller correctly failed closed and refused normal EOS commands.\n\n## Root cause\n\nThe single-canonical-state work and the EOS 0.8 program-adoption work were developed as concurrent control-system tranches. The adoption migration updated accepted lifecycle projections and event history outside a canonical-state transaction, while the newly introduced canonical snapshot had already been seeded from the pre-adoption lifecycle state.\n\nThe merge reconciled schemas and runtime behavior but did not advance the canonical snapshot itself. Existing CI ran governed EOS verification but did not execute `./scripts/eos state status`, so this cross-model drift was not a merge gate.\n\n## Reconciliation rule\n\nCanonical state may be advanced from the accepted lifecycle records only when all of the following agree for every managed lifecycle entity:\n\n1. the TSV lifecycle registry;\n2. the governed Markdown lifecycle field;\n3. the append-only EOS event ledger.\n\nThe reconciliation MUST fail if:\n\n- any lifecycle state differs across those representations;\n- an event-history entity is absent from the accepted registries;\n- an existing canonical entity would disappear;\n- an interrupted canonical transaction is present.\n\nThis is an explicit migration/reconciliation rule, not a general projection-wins policy. After reconciliation, `.eos/state/current.json` remains the sole operational current-state authority.\n\n## GitHub projection clarification\n\nGitHub Issue #21 is the product/coordination projection for Feature `F-002-01` / Work Packet `WP-MVP-0001`; it is not an EOS-owned lifecycle synchronization target.\n\nTherefore its URL is removed from the EOS registry/adoption `github_url` field. The GitHub issue remains linked through product/backlog coordination artifacts, while EOS is prevented from treating that product issue as an object it may rewrite via `github-sync`.\n\n## Permanent controls\n\n- `scripts/reconcile-eos-canonical-state.py` performs the evidence-consensus reconciliation and is dry-run/check by default.\n- `--apply` is required to write a new canonical revision.\n- EOS Integrity must run the reconciliation check and `./scripts/eos state status` in addition to strict governed verification.\n- Reconciliation preserves all existing canonical entities and records migration provenance on changed/new canonical entities.\n\n## Expected reconciled state\n\nCanonical revision advances from `1` to `2` with six managed lifecycle entities:\n\n| Entity | State |\n|---|---|\n| PI-001 | SUPERSEDED |\n| WC-0001 | SUPERSEDED |\n| WP-0001 | SUPERSEDED |\n| PI-MVP-001 | AUTHORIZED |\n| WC-MVP-0001 | READY |\n| WP-MVP-0001 | READY |\n\n## Authority boundary\n\nThis reconciliation repairs EOS control integrity only. It does not start `PI-MVP-001`, authorize or start `WC-MVP-0001`, authorize or start `WP-MVP-0001`, or authorize product implementation.\n\nAfter this reconciliation is merged and pulled locally, normal EOS parent-first lifecycle transitions may resume.\n",
+  "document_id": "doc:engineering%2Freviews%2FEOS-0.8-CANONICAL-STATE-RECONCILIATION.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WC-0001",
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "State: COMPLETED Date: 2026-08-12 Scope: EOS control integrity only Product implementation authorized by this artifact: No",
+    "title": "EOS 0.8 Canonical State Reconciliation"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "eos-0-8-canonical-state-reconciliation",
+      "text": "# EOS 0.8 Canonical State Reconciliation\n\n**State:** COMPLETED  \n**Date:** 2026-08-12  \n**Scope:** EOS control integrity only  \n**Product implementation authorized by this artifact:** No",
+      "title": "EOS 0.8 Canonical State Reconciliation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 8,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nReconcile the accepted EOS 0.8 MVP program-adoption lifecycle state with the single canonical operational state model introduced concurrently during EOS hardening.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [
+        "WC-0001",
+        "WP-0001"
+      ],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 12,
+      "section_id": "observed-defect",
+      "text": "## Observed defect\n\nAfter the EOS 0.8 adoption integration, the append-only event ledger, TSV lifecycle registries, and governed Markdown lifecycle metadata represented the accepted program-adoption state, while `.eos/state/current.json` remained at its earlier migration snapshot.\n\nThe stale canonical snapshot still contained only:\n\n- `PI-001` — `DRAFT`;\n- `WC-0001` — `DRAFT`;\n- `WP-0001` — `DRAFT`.\n\nAccepted lifecycle evidence instead records:\n\n- `PI-001` — `SUPERSEDED`;\n- `WC-0001` — `SUPERSEDED`;\n- `WP-0001` — `SUPERSEDED`;\n- `PI-MVP-001` — `AUTHORIZED`;\n- `WC-MVP-0001` — `READY`;\n- `WP-MVP-0001` — `READY`.\n\nConsequently the canonical controller correctly failed closed and refused normal EOS commands.",
+      "title": "Observed defect"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 33,
+      "section_id": "root-cause",
+      "text": "## Root cause\n\nThe single-canonical-state work and the EOS 0.8 program-adoption work were developed as concurrent control-system tranches. The adoption migration updated accepted lifecycle projections and event history outside a canonical-state transaction, while the newly introduced canonical snapshot had already been seeded from the pre-adoption lifecycle state.\n\nThe merge reconciled schemas and runtime behavior but did not advance the canonical snapshot itself. Existing CI ran governed EOS verification but did not execute `./scripts/eos state status`, so this cross-model drift was not a merge gate.",
+      "title": "Root cause"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 55,
+      "line_start": 39,
+      "section_id": "reconciliation-rule",
+      "text": "## Reconciliation rule\n\nCanonical state may be advanced from the accepted lifecycle records only when all of the following agree for every managed lifecycle entity:\n\n1. the TSV lifecycle registry;\n2. the governed Markdown lifecycle field;\n3. the append-only EOS event ledger.\n\nThe reconciliation MUST fail if:\n\n- any lifecycle state differs across those representations;\n- an event-history entity is absent from the accepted registries;\n- an existing canonical entity would disappear;\n- an interrupted canonical transaction is present.\n\nThis is an explicit migration/reconciliation rule, not a general projection-wins policy. After reconciliation, `.eos/state/current.json` remains the sole operational current-state authority.",
+      "title": "Reconciliation rule"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 61,
+      "line_start": 56,
+      "section_id": "github-projection-clarification",
+      "text": "## GitHub projection clarification\n\nGitHub Issue #21 is the product/coordination projection for Feature `F-002-01` / Work Packet `WP-MVP-0001`; it is not an EOS-owned lifecycle synchronization target.\n\nTherefore its URL is removed from the EOS registry/adoption `github_url` field. The GitHub issue remains linked through product/backlog coordination artifacts, while EOS is prevented from treating that product issue as an object it may rewrite via `github-sync`.",
+      "title": "GitHub projection clarification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 62,
+      "section_id": "permanent-controls",
+      "text": "## Permanent controls\n\n- `scripts/reconcile-eos-canonical-state.py` performs the evidence-consensus reconciliation and is dry-run/check by default.\n- `--apply` is required to write a new canonical revision.\n- EOS Integrity must run the reconciliation check and `./scripts/eos state status` in addition to strict governed verification.\n- Reconciliation preserves all existing canonical entities and records migration provenance on changed/new canonical entities.",
+      "title": "Permanent controls"
+    },
+    {
+      "identifiers": [
+        "WC-0001",
+        "WP-0001"
+      ],
+      "level": 2,
+      "line_end": 81,
+      "line_start": 69,
+      "section_id": "expected-reconciled-state",
+      "text": "## Expected reconciled state\n\nCanonical revision advances from `1` to `2` with six managed lifecycle entities:\n\n| Entity | State |\n|---|---|\n| PI-001 | SUPERSEDED |\n| WC-0001 | SUPERSEDED |\n| WP-0001 | SUPERSEDED |\n| PI-MVP-001 | AUTHORIZED |\n| WC-MVP-0001 | READY |\n| WP-MVP-0001 | READY |",
+      "title": "Expected reconciled state"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 86,
+      "line_start": 82,
+      "section_id": "authority-boundary",
+      "text": "## Authority boundary\n\nThis reconciliation repairs EOS control integrity only. It does not start `PI-MVP-001`, authorize or start `WC-MVP-0001`, authorize or start `WP-MVP-0001`, or authorize product implementation.\n\nAfter this reconciliation is merged and pulled locally, normal EOS parent-first lifecycle transitions may resume.",
+      "title": "Authority boundary"
+    }
+  ],
+  "source": {
+    "bytes": 3989,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 86,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/EOS-0.8-CANONICAL-STATE-RECONCILIATION.md",
+    "sha256": "2e0ebbd9b1a1ac56b866565504d3e8cc14ee8175d1216cb8aa276c5b19c041f9"
+  }
+}
