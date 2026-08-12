@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Canonical EOS engineering domain model.",
+  "identity": {
+    "immutable_ids": true,
+    "reuse_forbidden": true,
+    "namespaces": {
+      "PI": "^PI-[0-9]{3}$",
+      "WC": "^WC-[0-9]{4}$",
+      "WP": "^WP(?:-[A-Z][A-Z0-9]{1,15})?-[0-9]{4}$",
+      "CR": "^CR-[0-9]{4}$",
+      "MNT": "^MNT-[0-9]{4}$",
+      "REL": "^REL-[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "REQ": "^REQ-[A-Z0-9][A-Z0-9-]*$",
+      "CAP": "^CAP-[A-Z0-9][A-Z0-9-]*$",
+      "QA": "^QA-[A-Z0-9][A-Z0-9-]*$",
+      "ADR": "^ADR-[0-9]{4}$",
+      "SPEC": "^SPEC-[A-Z0-9][A-Z0-9-]*$",
+      "RISK": "^RISK-[0-9]{3,4}$"
+    }
+  },
+  "entities": {
+    "PI": {
+      "name": "Program Increment",
+      "registry": ".eos/program-increments.tsv",
+      "schema": ".eos/schemas/pi.schema.json",
+      "state_machine": ".eos/state-machines/pi.json",
+      "parent": null
+    },
+    "WC": {
+      "name": "Work Cycle",
+      "registry": ".eos/work-cycles.tsv",
+      "schema": ".eos/schemas/wc.schema.json",
+      "state_machine": ".eos/state-machines/wc.json",
+      "parent": "PI"
+    },
+    "WP": {
+      "name": "Work Packet",
+      "registry": ".eos/work-packets.tsv",
+      "schema": ".eos/schemas/wp.schema.json",
+      "state_machine": ".eos/state-machines/wp.json",
+      "parent": "WC"
+    },
+    "CR": {
+      "name": "Change Request",
+      "registry": ".eos/change-requests.tsv",
+      "schema": ".eos/schemas/cr.schema.json",
+      "state_machine": ".eos/state-machines/cr.json",
+      "parent": null
+    },
+    "MNT": {
+      "name": "Maintenance Item",
+      "registry": ".eos/maintenance.tsv",
+      "schema": ".eos/schemas/mnt.schema.json",
+      "state_machine": ".eos/state-machines/mnt.json",
+      "parent": null
+    },
+    "REL": {
+      "name": "Release",
+      "registry": ".eos/releases.tsv",
+      "schema": ".eos/schemas/rel.schema.json",
+      "state_machine": ".eos/state-machines/rel.json",
+      "parent": null
+    }
+  },
+  "authority": {
+    "human": "Final authority for mission, material risk acceptance, authorization gates, and irreversible external actions.",
+    "chatgpt": "Reasoning, synthesis, planning, artifact drafting, conformance analysis, and review recommendation.",
+    "codex": "Bounded repository-local implementation and deterministic validation under an authorized execution contract.",
+    "github": "Canonical remote collaboration surface, Git history mirror, CI/review integration, issue/project/release projection.",
+    "git": "Authoritative version history for tracked repository files."
+  },
+  "canonical_state": {
+    "event_ledger": ".eos/events.jsonl",
+    "operational_projection": "TSV lifecycle registries",
+    "human_projection": "governed Markdown front matter and State line",
+    "rule": "Lifecycle mutations must be represented as append-only events and then projected atomically to registries and governed artifacts."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "MNT",
+  "version": "1.0.0",
+  "initial_state": "OPEN",
+  "terminal_states": ["CLOSED", "DEFERRED"],
+  "states": ["OPEN", "PLANNED", "IN_PROGRESS", "VERIFYING", "CLOSED", "DEFERRED"],
+  "transitions": {
+    "OPEN": ["PLANNED", "DEFERRED"],
+    "PLANNED": ["IN_PROGRESS", "DEFERRED"],
+    "IN_PROGRESS": ["VERIFYING", "DEFERRED"],
+    "VERIFYING": ["CLOSED", "IN_PROGRESS"],
+    "CLOSED": [],
+    "DEFERRED": ["PLANNED"]
+  }
+}

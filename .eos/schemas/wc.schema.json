@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eos://schemas/wc/1.0.0",
+  "type": "object",
+  "required": ["id", "path", "title", "status", "pi", "created", "updated"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^WC-[0-9]{4}$"},
+    "path": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "status": {"type": "string"},
+    "pi": {"type": "string", "pattern": "^PI-[0-9]{3}$"},
+    "created": {"type": "string", "minLength": 1},
+    "updated": {"type": "string", "minLength": 1},
+    "github_url": {"type": "string"}
+  },
+  "additionalProperties": false
+}

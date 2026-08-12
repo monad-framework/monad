@@ -1,0 +1,15 @@
+# Bash completion for repository-local EOS.
+_eos_complete() {
+  local cmd="${COMP_WORDS[0]}"
+  local -a args
+  local line
+  COMPREPLY=()
+  args=("${COMP_WORDS[@]:1}")
+  while IFS= read -r line; do
+    [[ -n "$line" ]] && COMPREPLY+=("$line")
+  done < <("$cmd" completion candidates -- "${args[@]}" 2>/dev/null)
+  if type compopt >/dev/null 2>&1; then
+    compopt -o nosort 2>/dev/null || true
+  fi
+}
+complete -o default -F _eos_complete eos ./scripts/eos scripts/eos

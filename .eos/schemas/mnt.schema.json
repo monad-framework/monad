@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eos://schemas/mnt/1.0.0",
+  "type": "object",
+  "required": ["id", "path", "type", "summary", "status", "created", "updated"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^MNT-[0-9]{4}$"},
+    "path": {"type": "string", "minLength": 1},
+    "type": {"type": "string", "minLength": 1},
+    "summary": {"type": "string", "minLength": 1},
+    "status": {"type": "string"},
+    "created": {"type": "string", "minLength": 1},
+    "updated": {"type": "string", "minLength": 1},
+    "github_url": {"type": "string"}
+  },
+  "additionalProperties": false
+}

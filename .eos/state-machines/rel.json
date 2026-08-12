@@ -1,0 +1,13 @@
+{
+  "kind": "REL",
+  "version": "1.0.0",
+  "initial_state": "PROPOSED",
+  "terminal_states": ["RELEASED", "WITHDRAWN"],
+  "states": ["PROPOSED", "READY", "RELEASED", "WITHDRAWN"],
+  "transitions": {
+    "PROPOSED": ["READY", "WITHDRAWN"],
+    "READY": ["RELEASED", "WITHDRAWN"],
+    "RELEASED": [],
+    "WITHDRAWN": []
+  }
+}

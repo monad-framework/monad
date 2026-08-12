@@ -1,0 +1,16 @@
+{
+  "kind": "WC",
+  "version": "1.0.0",
+  "initial_state": "DRAFT",
+  "terminal_states": ["CLOSED"],
+  "states": ["DRAFT", "READY", "AUTHORIZED", "ACTIVE", "IN_REVIEW", "BLOCKED", "CLOSED"],
+  "transitions": {
+    "DRAFT": ["READY", "BLOCKED"],
+    "READY": ["AUTHORIZED", "BLOCKED"],
+    "AUTHORIZED": ["ACTIVE", "BLOCKED"],
+    "ACTIVE": ["IN_REVIEW", "BLOCKED"],
+    "IN_REVIEW": ["CLOSED", "BLOCKED"],
+    "BLOCKED": ["READY", "AUTHORIZED", "ACTIVE", "IN_REVIEW"],
+    "CLOSED": []
+  }
+}
