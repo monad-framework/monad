@@ -151,6 +151,26 @@
       "type": "declares"
     },
     {
+      "source": "doc:.eos%2Fstate%2Fcurrent.json",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fstate%2Fcurrent.json",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fstate%2Fprojections.json",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fstate%2Fprojections.json",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
       "source": "doc:.eos%2Ftrace-edges.tsv",
       "target": "identifier:ADR-0001",
       "type": "declares"
@@ -746,6 +766,11 @@
       "type": "declares"
     },
     {
+      "source": "doc:engineering%2Feos%2FEOS-SINGLE-CANONICAL-STATE-MODEL.md",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
       "source": "doc:engineering%2Fincrements%2FPI-001.md",
       "target": "identifier:WC-0001",
       "type": "declares"
@@ -1247,6 +1272,16 @@
     },
     {
       "source": "doc:engineering%2Fwork-packets%2Fbacklog.md",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:governance%2Fcanonical-state-model.md",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:governance%2Fcanonical-state-model.md",
       "target": "identifier:WP-0001",
       "type": "declares"
     },
@@ -1808,6 +1843,16 @@
     {
       "source": "doc:tools%2Feos%2Feos.py",
       "target": "identifier:ADR-0000",
+      "type": "declares"
+    },
+    {
+      "source": "doc:tools%2Feos%2Ftest_canonical_state.py",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:tools%2Feos%2Ftest_canonical_state.py",
+      "target": "identifier:WP-0001",
       "type": "declares"
     },
     {
@@ -2570,6 +2615,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcanonical-state.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/canonical-state.schema.json",
+      "title": "Canonical State.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fschemas%2Fcore%2Fadr.schema.json",
       "normative": false,
       "source_path": ".eos/schemas/core/adr.schema.json",
@@ -2786,6 +2839,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fprojection-manifest.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/projection-manifest.schema.json",
+      "title": "Projection Manifest.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fschemas%2Frel.schema.json",
       "normative": false,
       "source_path": ".eos/schemas/rel.schema.json",
@@ -2814,6 +2875,22 @@
       "normative": false,
       "source_path": ".eos/stale.tsv",
       "title": "Stale",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fstate%2Fcurrent.json",
+      "normative": false,
+      "source_path": ".eos/state/current.json",
+      "title": "Current",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fstate%2Fprojections.json",
+      "normative": false,
+      "source_path": ".eos/state/projections.json",
+      "title": "Projections",
       "type": "document"
     },
     {
@@ -2878,6 +2955,14 @@
       "normative": false,
       "source_path": ".eos/state-machines/wp.json",
       "title": "Wp",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fstate-model.json",
+      "normative": false,
+      "source_path": ".eos/state-model.json",
+      "title": "State Model",
       "type": "document"
     },
     {
@@ -9298,6 +9383,14 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Feos%2FEOS-SINGLE-CANONICAL-STATE-MODEL.md",
+      "normative": true,
+      "source_path": "engineering/eos/EOS-SINGLE-CANONICAL-STATE-MODEL.md",
+      "title": "EOS Single Canonical State Model — Implementation Record",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Fgithub%2FOWNER-ACTIONS.md",
       "normative": true,
       "source_path": "engineering/github/OWNER-ACTIONS.md",
@@ -10594,6 +10687,14 @@
     },
     {
       "document_type": "tooling",
+      "id": "doc:tools%2Feos%2Fcanonical_state.py",
+      "normative": false,
+      "source_path": "tools/eos/canonical_state.py",
+      "title": "Canonical State",
+      "type": "document"
+    },
+    {
+      "document_type": "tooling",
       "id": "doc:tools%2Feos%2Feos.py",
       "normative": false,
       "source_path": "tools/eos/eos.py",
@@ -10606,6 +10707,14 @@
       "normative": false,
       "source_path": "tools/eos/execution_v2.py",
       "title": "Execution V2",
+      "type": "document"
+    },
+    {
+      "document_type": "tooling",
+      "id": "doc:tools%2Feos%2Ftest_canonical_state.py",
+      "normative": false,
+      "source_path": "tools/eos/test_canonical_state.py",
+      "title": "Test Canonical State",
       "type": "document"
     },
     {
@@ -11279,5 +11388,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "f011d5b269930f0d02aac35d404a7f44bf1dc4117d15cd94968d356753374a14"
+  "source_tree_sha256": "886bf900bd2b7c5b58f495e2f81e833dd97da3832a588a609609fd1be9524b3f"
 }

@@ -1,5 +1,5 @@
 {
-  "content": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\ncase \"${1:-}\" in\n  preflight|worktree|execute|execution|contract|codex)\n    exec python3 \"$ROOT/tools/eos/execution_v2.py\" \"$@\"\n    ;;\n  validate|validators|validation|evidence|performance|security|supply-chain|verify)\n    exec python3 \"$ROOT/tools/eos/verification_v2.py\" \"$@\"\n    ;;\n  *)\n    exec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"\n    ;;\nesac\n",
+  "content": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\nCANONICAL=\"$ROOT/tools/eos/canonical_state.py\"\nLEGACY=\"$ROOT/tools/eos/eos.py\"\n\n# Canonical-state administration is handled directly by the state controller.\nif [[ \"${1:-}\" == \"state\" ]]; then\n  shift\n  exec python3 \"$CANONICAL\" \"$@\"\nfi\n\n# `rebuild-state` historically treated the event ledger as the current-state\n# authority. Under the single-canonical-state model it is retained as a\n# compatibility alias for projecting the canonical snapshot.\nif [[ \"${1:-}\" == \"rebuild-state\" ]]; then\n  shift\n  printf 'NOTE: rebuild-state now projects from .eos/state/current.json (canonical).\\n' >&2\n  exec python3 \"$CANONICAL\" project \"$@\"\nfi\n\n# Every legacy EOS command runs inside a canonical transaction:\n# 1. fail closed if any projection already drifted;\n# 2. let the compatibility runtime operate on generated projections;\n# 3. capture only a successful, internally consistent mutation into canonical\n#    machine-readable state; otherwise canonical state never advances.\npython3 \"$CANONICAL\" pre -- \"$@\"\n\nset +e\npython3 \"$LEGACY\" \"$@\"\nrc=$?\nset -e\n\nif (( rc != 0 )); then\n  rm -f \"$ROOT/.eos/cache/canonical-state-transaction.json\"\n  exit \"$rc\"\nfi\n\npython3 \"$CANONICAL\" post -- \"$@\"\ncase \"${1:-}\" in\n  preflight|worktree|execute|execution|contract|codex)\n    exec python3 \"$ROOT/tools/eos/execution_v2.py\" \"$@\"\n    ;;\n  validate|validators|validation|evidence|performance|security|supply-chain|verify)\n    exec python3 \"$ROOT/tools/eos/verification_v2.py\" \"$@\"\n    ;;\n  *)\n    exec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"\n    ;;\nesac\n",
   "document_id": "doc:scripts%2Feos",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 23,
+      "line_end": 59,
       "line_start": 1,
       "section_id": "content",
-      "text": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\ncase \"${1:-}\" in\n  preflight|worktree|execute|execution|contract|codex)\n    exec python3 \"$ROOT/tools/eos/execution_v2.py\" \"$@\"\n    ;;\n  validate|validators|validation|evidence|performance|security|supply-chain|verify)\n    exec python3 \"$ROOT/tools/eos/verification_v2.py\" \"$@\"\n    ;;\n  *)\n    exec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"\n    ;;\nesac",
+      "text": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\nCANONICAL=\"$ROOT/tools/eos/canonical_state.py\"\nLEGACY=\"$ROOT/tools/eos/eos.py\"\n\n# Canonical-state administration is handled directly by the state controller.\nif [[ \"${1:-}\" == \"state\" ]]; then\n  shift\n  exec python3 \"$CANONICAL\" \"$@\"\nfi\n\n# `rebuild-state` historically treated the event ledger as the current-state\n# authority. Under the single-canonical-state model it is retained as a\n# compatibility alias for projecting the canonical snapshot.\nif [[ \"${1:-}\" == \"rebuild-state\" ]]; then\n  shift\n  printf 'NOTE: rebuild-state now projects from .eos/state/current.json (canonical).\\n' >&2\n  exec python3 \"$CANONICAL\" project \"$@\"\nfi\n\n# Every legacy EOS command runs inside a canonical transaction:\n# 1. fail closed if any projection already drifted;\n# 2. let the compatibility runtime operate on generated projections;\n# 3. capture only a successful, internally consistent mutation into canonical\n#    machine-readable state; otherwise canonical state never advances.\npython3 \"$CANONICAL\" pre -- \"$@\"\n\nset +e\npython3 \"$LEGACY\" \"$@\"\nrc=$?\nset -e\n\nif (( rc != 0 )); then\n  rm -f \"$ROOT/.eos/cache/canonical-state-transaction.json\"\n  exit \"$rc\"\nfi\n\npython3 \"$CANONICAL\" post -- \"$@\"\ncase \"${1:-}\" in\n  preflight|worktree|execute|execution|contract|codex)\n    exec python3 \"$ROOT/tools/eos/execution_v2.py\" \"$@\"\n    ;;\n  validate|validators|validation|evidence|performance|security|supply-chain|verify)\n    exec python3 \"$ROOT/tools/eos/verification_v2.py\" \"$@\"\n    ;;\n  *)\n    exec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"\n    ;;\nesac",
       "title": "Eos"
     }
   ],
   "source": {
-    "bytes": 729,
+    "bytes": 1911,
     "canonical": true,
     "language": "plain-text",
-    "lines": 23,
+    "lines": 59,
     "media_type": "text/plain",
     "path": "scripts/eos",
-    "sha256": "92e59af2e1ddc0fe239320c6fdf42b36c1b73ed92e095da96aaf98bb47a81b2a"
+    "sha256": "e91e9b070ba07fd23071a6c28b51f7de44364ceb21769d005d6ccd9a21392acb"
   }
 }
