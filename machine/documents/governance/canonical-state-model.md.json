@@ -1,17 +1,20 @@
 {
-  "content": "---\nartifact_id: \"GOV-STATE-0001\"\ntitle: \"Canonical EOS State Model\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# Canonical EOS State Model\n\n## Rule\n\nEOS lifecycle state is changed through **append-only events** and projected into\nhuman- and machine-readable representations.\n\n## Representations\n\n1. `.eos/events.jsonl` — append-only lifecycle/audit event ledger.\n2. `.eos/*.tsv` lifecycle registries — current operational projections.\n3. governed Markdown artifacts — human-readable projection with front-matter\n   status and a visible `**State:**` line where applicable.\n4. Git — authoritative repository version history.\n5. GitHub — synchronized collaboration projection, never a silent replacement\n   for EOS engineering meaning.\n\n## Mutation Invariant\n\nA lifecycle command must:\n\n1. validate the requested transition against the declarative state machine;\n2. append an event describing the mutation;\n3. update the current registry projection;\n4. update the governed artifact projection;\n5. leave the repository in a state that `./scripts/eos verify --strict` can\n   validate.\n\nDirect manual edits to operational registries are discouraged because they\nbypass the audit ledger.\n\n## Reconstruction\n\n`./scripts/eos rebuild-state` replays lifecycle events and compares the derived\nstate with current registries. `--apply` is an explicit repair operation.\n",
+  "content": "---\nartifact_id: \"GOV-STATE-0001\"\ntitle: \"Canonical EOS State Model\"\ntype: \"governance\"\nversion: \"1.0.0\"\nstatus: \"Implemented\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# Canonical EOS State Model\n\n## Normative Rule\n\nThere is exactly one canonical representation of **current EOS operational state**:\n\n`.eos/state/current.json`\n\nIt is machine-readable, versioned, schema-governed EOS metadata. No Markdown file,\nTSV registry, GitHub Issue, event replay, runtime cache, or Git view may silently\noverride it.\n\n## Representation Roles\n\n| Representation | Role | May define current operational state? |\n|---|---|---:|\n| `.eos/state/current.json` | Canonical operational state | **Yes — exclusively** |\n| `.eos/events.jsonl` | Append-only mutation/audit history | No |\n| `.eos/*.tsv` lifecycle registries | Generated compatibility projections | No |\n| Governed Markdown | Human-readable governed content; lifecycle metadata is projected | No |\n| Git | Version history, integrity, provenance, rollback evidence | No |\n| GitHub Issues/Projects | Synchronized collaboration projection | No |\n| EOS runtime cache/internal state | Ephemeral execution support | No |\n\nThe machine-readable definition of this contract is `.eos/state-model.json`.\n\n## Canonical State\n\nThe canonical store contains current first-class operational records for PI, WC,\nWP, ChangeRequest, MaintenanceItem, and Release. Each stored entity carries the\ncore EOS identity/version/lifecycle/timestamp/relationship/authority/provenance\ncontract established by the EOS Core Schema and Canonical Domain Model.\n\nCanonical state has a monotonically increasing `revision`. A canonical digest is\ncomputed over the semantic current-state payload. A revision advances only when\na successful EOS operation materially changes operational state.\n\n## Transaction Invariant\n\nAll ordinary `./scripts/eos ...` commands execute through the canonical-state\ntransaction wrapper.\n\n1. Load and validate canonical state.\n2. Compare TSV, governed Markdown lifecycle metadata, and event-derived lifecycle\n   history against canonical state.\n3. Fail closed if any local representation has drifted.\n4. For an applying GitHub synchronization, verify the current remote object\n   against the previous synchronization receipt before allowing an overwrite.\n5. Record the starting canonical revision/digest and event count in an ephemeral\n   transaction receipt.\n6. Run the existing EOS compatibility runtime against generated projections.\n7. If the command fails, discard the transaction receipt; canonical state does\n   not advance.\n8. If the command succeeds, require TSV, Markdown lifecycle metadata, and event\n   history to converge on the same resulting state.\n9. Capture that successful result into canonical machine-readable state.\n10. Regenerate exact TSV projections from canonical state.\n11. Refresh projection fingerprints/synchronization receipts.\n12. Report any GitHub projection that is now stale.\n\nA failed or inconsistent operation can therefore leave evidence of an interrupted\nprojection write, but it cannot silently change canonical operational state.\n\n## TSV Registries\n\nThe lifecycle TSV files remain for compatibility with the current EOS\nimplementation and shell tooling. They are **generated projections**.\n\nDirect manual edits are forbidden. A byte-level difference between the expected\ncanonical rendering and the checked-in TSV is drift and blocks ordinary EOS\noperations.\n\n`./scripts/eos state project --apply` repairs them from canonical state.\n\n## Governed Markdown\n\nMarkdown remains the authoritative human-readable expression of governed\nengineering content. It does **not** independently own lifecycle state.\n\nFor managed lifecycle entities:\n\n- visible `**State:**` / legacy `**Status:**` values must equal canonical state;\n- front-matter `status`, when present, must equal canonical state;\n- ordinary prose/content remains governed Markdown content and is not replaced\n  merely because canonical lifecycle state changes.\n\nLifecycle disagreement is drift and blocks ordinary EOS operations.\n\n## Event Ledger\n\n`.eos/events.jsonl` remains append-only history. Its replayed lifecycle result\nmust agree with canonical current state, but replay is no longer allowed to\nsilently replace current state.\n\nHistorical corrections must be represented by new governed events. The event\nledger must never be rewritten merely to make a projection check pass.\n\nThe former `rebuild-state` command is retained only as a compatibility alias for\nprojection **from canonical state**. It no longer treats event replay as the\ncurrent-state authority.\n\n## Git\n\nGit is authoritative history, not authoritative current operational state.\n\nGit provides:\n\n- immutable commit history;\n- provenance and review evidence;\n- change comparison;\n- recovery inputs;\n- signed/protected history where configured.\n\nChecking out an older Git revision naturally yields the canonical state that was\nvalid in that revision. Within any one checkout, `.eos/state/current.json` is the\nsole current operational authority.\n\n## GitHub\n\nGitHub Issues/Projects are collaboration projections.\n\nCanonical -> GitHub is the normal synchronization direction. Every synchronized\nissue receives a local receipt containing the canonical revision plus expected\nand observed remote fingerprints.\n\nIf a GitHub issue changes independently:\n\n- EOS detects the remote fingerprint change before automatic synchronization;\n- EOS refuses to overwrite the remote change silently;\n- the operator must explicitly reconcile;\n- GitHub content never becomes canonical merely because it was edited remotely.\n\nAn external GitHub proposal that should alter EOS meaning must enter the governed\nEOS change process rather than being implicitly imported.\n\n## Drift Semantics\n\nDrift is a first-class fault, not a warning that may be ignored silently.\n\n- **TSV drift:** hard failure.\n- **Markdown lifecycle drift:** hard failure.\n- **Event-history/current-state drift:** hard failure.\n- **GitHub unexpected remote drift:** blocks automatic overwrite.\n- **GitHub stale after a legitimate canonical mutation:** explicitly reported;\n  subsequent ordinary work is blocked until GitHub synchronization or explicit\n  reconciliation.\n\n## Reconciliation\n\nProjection reconciliation is one-way by default: **canonical wins**.\n\n```bash\n./scripts/eos state status\n./scripts/eos state project --apply\n./scripts/eos state reconcile local --strategy canonical-wins\n./scripts/eos state reconcile github --target WP-0001 --strategy canonical-wins\n./scripts/eos github-sync --apply\n```\n\nThere is intentionally no `projection-wins` shortcut. If a projection contains a\nchange worth adopting, that change must be translated into an explicit governed\nEOS mutation/change request.\n\n## Migration Decision\n\nAt migration, the accepted machine-readable lifecycle registries and append-only\nevent history agree that PI-001, WC-0001, and WP-0001 are `DRAFT`. Existing\nMarkdown said `Planned` for PI-001 and WC-0001. The migration does not guess or\nmerge these competing states: it seeds canonical state from the agreeing\nmachine-readable operational/event representations and repairs Markdown lifecycle\nmetadata to `DRAFT`.\n\n## Verification\n\n`./scripts/eos state status` is the canonical state/projection integrity check.\nThe standard `./scripts/eos verify` command now passes through canonical\npreflight before the legacy verifier runs, so detected drift cannot be bypassed\nsilently by the ordinary EOS command path.\n",
   "document_id": "doc:governance%2Fcanonical-state-model.md",
   "generation": {
     "deterministic": true,
     "tool": "sync-machine-docs",
     "version": "1.0.0"
   },
-  "identifiers": [],
+  "identifiers": [
+    "WC-0001",
+    "WP-0001"
+  ],
   "links": [],
   "metadata": {
     "document_type": "governance",
     "normative": true,
-    "summary": "--- artifactid: \"GOV-STATE-0001\" title: \"Canonical EOS State Model\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "summary": "--- artifactid: \"GOV-STATE-0001\" title: \"Canonical EOS State Model\" type: \"governance\" version: \"1.0.0\" status: \"Implemented\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
     "title": "Canonical EOS State Model"
   },
   "relations": [],
@@ -24,7 +27,7 @@
       "line_end": 11,
       "line_start": 1,
       "section_id": "preamble",
-      "text": "---\nartifact_id: \"GOV-STATE-0001\"\ntitle: \"Canonical EOS State Model\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "text": "---\nartifact_id: \"GOV-STATE-0001\"\ntitle: \"Canonical EOS State Model\"\ntype: \"governance\"\nversion: \"1.0.0\"\nstatus: \"Implemented\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
       "title": "Preamble"
     },
     {
@@ -39,47 +42,133 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 18,
+      "line_end": 23,
       "line_start": 14,
-      "section_id": "rule",
-      "text": "## Rule\n\nEOS lifecycle state is changed through **append-only events** and projected into\nhuman- and machine-readable representations.",
-      "title": "Rule"
+      "section_id": "normative-rule",
+      "text": "## Normative Rule\n\nThere is exactly one canonical representation of **current EOS operational state**:\n\n`.eos/state/current.json`\n\nIt is machine-readable, versioned, schema-governed EOS metadata. No Markdown file,\nTSV registry, GitHub Issue, event replay, runtime cache, or Git view may silently\noverride it.",
+      "title": "Normative Rule"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 28,
-      "line_start": 19,
-      "section_id": "representations",
-      "text": "## Representations\n\n1. `.eos/events.jsonl` — append-only lifecycle/audit event ledger.\n2. `.eos/*.tsv` lifecycle registries — current operational projections.\n3. governed Markdown artifacts — human-readable projection with front-matter\n   status and a visible `**State:**` line where applicable.\n4. Git — authoritative repository version history.\n5. GitHub — synchronized collaboration projection, never a silent replacement\n   for EOS engineering meaning.",
-      "title": "Representations"
+      "line_end": 37,
+      "line_start": 24,
+      "section_id": "representation-roles",
+      "text": "## Representation Roles\n\n| Representation | Role | May define current operational state? |\n|---|---|---:|\n| `.eos/state/current.json` | Canonical operational state | **Yes — exclusively** |\n| `.eos/events.jsonl` | Append-only mutation/audit history | No |\n| `.eos/*.tsv` lifecycle registries | Generated compatibility projections | No |\n| Governed Markdown | Human-readable governed content; lifecycle metadata is projected | No |\n| Git | Version history, integrity, provenance, rollback evidence | No |\n| GitHub Issues/Projects | Synchronized collaboration projection | No |\n| EOS runtime cache/internal state | Ephemeral execution support | No |\n\nThe machine-readable definition of this contract is `.eos/state-model.json`.",
+      "title": "Representation Roles"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 42,
-      "line_start": 29,
-      "section_id": "mutation-invariant",
-      "text": "## Mutation Invariant\n\nA lifecycle command must:\n\n1. validate the requested transition against the declarative state machine;\n2. append an event describing the mutation;\n3. update the current registry projection;\n4. update the governed artifact projection;\n5. leave the repository in a state that `./scripts/eos verify --strict` can\n   validate.\n\nDirect manual edits to operational registries are discouraged because they\nbypass the audit ledger.",
-      "title": "Mutation Invariant"
+      "line_end": 48,
+      "line_start": 38,
+      "section_id": "canonical-state",
+      "text": "## Canonical State\n\nThe canonical store contains current first-class operational records for PI, WC,\nWP, ChangeRequest, MaintenanceItem, and Release. Each stored entity carries the\ncore EOS identity/version/lifecycle/timestamp/relationship/authority/provenance\ncontract established by the EOS Core Schema and Canonical Domain Model.\n\nCanonical state has a monotonically increasing `revision`. A canonical digest is\ncomputed over the semantic current-state payload. A revision advances only when\na successful EOS operation materially changes operational state.",
+      "title": "Canonical State"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 46,
-      "line_start": 43,
-      "section_id": "reconstruction",
-      "text": "## Reconstruction\n\n`./scripts/eos rebuild-state` replays lifecycle events and compares the derived\nstate with current registries. `--apply` is an explicit repair operation.",
-      "title": "Reconstruction"
+      "line_end": 74,
+      "line_start": 49,
+      "section_id": "transaction-invariant",
+      "text": "## Transaction Invariant\n\nAll ordinary `./scripts/eos ...` commands execute through the canonical-state\ntransaction wrapper.\n\n1. Load and validate canonical state.\n2. Compare TSV, governed Markdown lifecycle metadata, and event-derived lifecycle\n   history against canonical state.\n3. Fail closed if any local representation has drifted.\n4. For an applying GitHub synchronization, verify the current remote object\n   against the previous synchronization receipt before allowing an overwrite.\n5. Record the starting canonical revision/digest and event count in an ephemeral\n   transaction receipt.\n6. Run the existing EOS compatibility runtime against generated projections.\n7. If the command fails, discard the transaction receipt; canonical state does\n   not advance.\n8. If the command succeeds, require TSV, Markdown lifecycle metadata, and event\n   history to converge on the same resulting state.\n9. Capture that successful result into canonical machine-readable state.\n10. Regenerate exact TSV projections from canonical state.\n11. Refresh projection fingerprints/synchronization receipts.\n12. Report any GitHub projection that is now stale.\n\nA failed or inconsistent operation can therefore leave evidence of an interrupted\nprojection write, but it cannot silently change canonical operational state.",
+      "title": "Transaction Invariant"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 85,
+      "line_start": 75,
+      "section_id": "tsv-registries",
+      "text": "## TSV Registries\n\nThe lifecycle TSV files remain for compatibility with the current EOS\nimplementation and shell tooling. They are **generated projections**.\n\nDirect manual edits are forbidden. A byte-level difference between the expected\ncanonical rendering and the checked-in TSV is drift and blocks ordinary EOS\noperations.\n\n`./scripts/eos state project --apply` repairs them from canonical state.",
+      "title": "TSV Registries"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 99,
+      "line_start": 86,
+      "section_id": "governed-markdown",
+      "text": "## Governed Markdown\n\nMarkdown remains the authoritative human-readable expression of governed\nengineering content. It does **not** independently own lifecycle state.\n\nFor managed lifecycle entities:\n\n- visible `**State:**` / legacy `**Status:**` values must equal canonical state;\n- front-matter `status`, when present, must equal canonical state;\n- ordinary prose/content remains governed Markdown content and is not replaced\n  merely because canonical lifecycle state changes.\n\nLifecycle disagreement is drift and blocks ordinary EOS operations.",
+      "title": "Governed Markdown"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 112,
+      "line_start": 100,
+      "section_id": "event-ledger",
+      "text": "## Event Ledger\n\n`.eos/events.jsonl` remains append-only history. Its replayed lifecycle result\nmust agree with canonical current state, but replay is no longer allowed to\nsilently replace current state.\n\nHistorical corrections must be represented by new governed events. The event\nledger must never be rewritten merely to make a projection check pass.\n\nThe former `rebuild-state` command is retained only as a compatibility alias for\nprojection **from canonical state**. It no longer treats event replay as the\ncurrent-state authority.",
+      "title": "Event Ledger"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 128,
+      "line_start": 113,
+      "section_id": "git",
+      "text": "## Git\n\nGit is authoritative history, not authoritative current operational state.\n\nGit provides:\n\n- immutable commit history;\n- provenance and review evidence;\n- change comparison;\n- recovery inputs;\n- signed/protected history where configured.\n\nChecking out an older Git revision naturally yields the canonical state that was\nvalid in that revision. Within any one checkout, `.eos/state/current.json` is the\nsole current operational authority.",
+      "title": "Git"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 146,
+      "line_start": 129,
+      "section_id": "github",
+      "text": "## GitHub\n\nGitHub Issues/Projects are collaboration projections.\n\nCanonical -> GitHub is the normal synchronization direction. Every synchronized\nissue receives a local receipt containing the canonical revision plus expected\nand observed remote fingerprints.\n\nIf a GitHub issue changes independently:\n\n- EOS detects the remote fingerprint change before automatic synchronization;\n- EOS refuses to overwrite the remote change silently;\n- the operator must explicitly reconcile;\n- GitHub content never becomes canonical merely because it was edited remotely.\n\nAn external GitHub proposal that should alter EOS meaning must enter the governed\nEOS change process rather than being implicitly imported.",
+      "title": "GitHub"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 158,
+      "line_start": 147,
+      "section_id": "drift-semantics",
+      "text": "## Drift Semantics\n\nDrift is a first-class fault, not a warning that may be ignored silently.\n\n- **TSV drift:** hard failure.\n- **Markdown lifecycle drift:** hard failure.\n- **Event-history/current-state drift:** hard failure.\n- **GitHub unexpected remote drift:** blocks automatic overwrite.\n- **GitHub stale after a legitimate canonical mutation:** explicitly reported;\n  subsequent ordinary work is blocked until GitHub synchronization or explicit\n  reconciliation.",
+      "title": "Drift Semantics"
+    },
+    {
+      "identifiers": [
+        "WP-0001"
+      ],
+      "level": 2,
+      "line_end": 174,
+      "line_start": 159,
+      "section_id": "reconciliation",
+      "text": "## Reconciliation\n\nProjection reconciliation is one-way by default: **canonical wins**.\n\n```bash\n./scripts/eos state status\n./scripts/eos state project --apply\n./scripts/eos state reconcile local --strategy canonical-wins\n./scripts/eos state reconcile github --target WP-0001 --strategy canonical-wins\n./scripts/eos github-sync --apply\n```\n\nThere is intentionally no `projection-wins` shortcut. If a projection contains a\nchange worth adopting, that change must be translated into an explicit governed\nEOS mutation/change request.",
+      "title": "Reconciliation"
+    },
+    {
+      "identifiers": [
+        "WC-0001",
+        "WP-0001"
+      ],
+      "level": 2,
+      "line_end": 183,
+      "line_start": 175,
+      "section_id": "migration-decision",
+      "text": "## Migration Decision\n\nAt migration, the accepted machine-readable lifecycle registries and append-only\nevent history agree that PI-001, WC-0001, and WP-0001 are `DRAFT`. Existing\nMarkdown said `Planned` for PI-001 and WC-0001. The migration does not guess or\nmerge these competing states: it seeds canonical state from the agreeing\nmachine-readable operational/event representations and repairs Markdown lifecycle\nmetadata to `DRAFT`.",
+      "title": "Migration Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 189,
+      "line_start": 184,
+      "section_id": "verification",
+      "text": "## Verification\n\n`./scripts/eos state status` is the canonical state/projection integrity check.\nThe standard `./scripts/eos verify` command now passes through canonical\npreflight before the legacy verifier runs, so detected drift cannot be bypassed\nsilently by the ordinary EOS command path.",
+      "title": "Verification"
     }
   ],
   "source": {
-    "bytes": 1462,
+    "bytes": 7520,
     "canonical": true,
     "language": "markdown",
-    "lines": 46,
+    "lines": 189,
     "media_type": "text/markdown",
     "path": "governance/canonical-state-model.md",
-    "sha256": "d6273cc50aea7f23b165b435ea130305b8fa0a35cf8e6fd64f7ec64abdeb0386"
+    "sha256": "b2648f759fdde3e12be00f999a84350bfae42632daf84bf030c8c82196955ccf"
   }
 }

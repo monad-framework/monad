@@ -1,0 +1,46 @@
+{
+  "content": "{\n  \"canonical_digest\": \"957426240dadc646d8fb757a3eb94f1cd18baeadd659cc0fa2baf16c9e40b50d\",\n  \"canonical_revision\": 1,\n  \"github\": {\n    \"network_verification\": \"ON_DEMAND\",\n    \"receipts\": {}\n  },\n  \"markdown\": {\n    \"PI-001\": {\n      \"canonical_revision\": 1,\n      \"path\": \"engineering/increments/PI-001.md\",\n      \"state_fingerprint\": \"428cfba2f16693b16cb6ee2b1f367fe1e93adad9b2f9824c5d2feffd38711b9f\"\n    },\n    \"WC-0001\": {\n      \"canonical_revision\": 1,\n      \"path\": \"engineering/work-cycles/WC-0001.md\",\n      \"state_fingerprint\": \"d3447b42b49e9d0be2c620965768f20bdc7899cc52b7684fe07f38eff9f44350\"\n    },\n    \"WP-0001\": {\n      \"canonical_revision\": 1,\n      \"path\": \"engineering/work-packets/WP-0001.md\",\n      \"state_fingerprint\": \"ba5efa7aa20b562b7b9ee106321540d7ec86b95f4360e61c79070c2043f7af33\"\n    }\n  },\n  \"policy\": {\n    \"canonical\": {\n      \"path\": \".eos/state/current.json\",\n      \"role\": \"SOLE_OPERATIONAL_AUTHORITY\",\n      \"write_policy\": \"EOS_TRANSACTION_ONLY\"\n    },\n    \"event_ledger\": {\n      \"canonical_current_state\": false,\n      \"path\": \".eos/events.jsonl\",\n      \"role\": \"APPEND_ONLY_MUTATION_HISTORY\"\n    },\n    \"git\": {\n      \"canonical_current_state\": false,\n      \"role\": \"VERSION_HISTORY_AND_INTEGRITY_LEDGER\"\n    },\n    \"github\": {\n      \"external_edits\": \"DRIFT_UNTIL_EXPLICIT_RECONCILIATION\",\n      \"role\": \"SYNCHRONIZED_COLLABORATION_PROJECTION\",\n      \"write_back_policy\": \"NEVER_IMPLICIT\"\n    },\n    \"markdown\": {\n      \"content_authority\": \"GOVERNED_HUMAN_ARTIFACT\",\n      \"drift_policy\": \"FAIL_CLOSED_FOR_LIFECYCLE_METADATA\",\n      \"lifecycle_fields\": \"PROJECTION_OF_CANONICAL_STATE\",\n      \"role\": \"HUMAN_READABLE_GOVERNED_ARTIFACT\"\n    },\n    \"tsv\": {\n      \"drift_policy\": \"FAIL_CLOSED\",\n      \"role\": \"GENERATED_COMPATIBILITY_PROJECTION\",\n      \"write_policy\": \"READ_ONLY_OUTSIDE_EOS\"\n    }\n  },\n  \"schema_version\": \"1.0.0\",\n  \"tsv\": {\n    \".eos/change-requests.tsv\": {\n      \"actual_sha256\": \"0dd542ae209514721fd0a7363ee3eb44b4c827fbb498716957c8437f1e605411\",\n      \"canonical_revision\": 1,\n      \"expected_sha256\": \"0dd542ae209514721fd0a7363ee3eb44b4c827fbb498716957c8437f1e605411\"\n    },\n    \".eos/maintenance.tsv\": {\n      \"actual_sha256\": \"60c57d27149a54b2859bc9f3ace3a3aa4a4f68b9acddc724ce1ad5636b3e245c\",\n      \"canonical_revision\": 1,\n      \"expected_sha256\": \"60c57d27149a54b2859bc9f3ace3a3aa4a4f68b9acddc724ce1ad5636b3e245c\"\n    },\n    \".eos/program-increments.tsv\": {\n      \"actual_sha256\": \"1255424255aa6270628dca3b5eb39b2add09fb4490ac600a438cae06eb5d7a4d\",\n      \"canonical_revision\": 1,\n      \"expected_sha256\": \"1255424255aa6270628dca3b5eb39b2add09fb4490ac600a438cae06eb5d7a4d\"\n    },\n    \".eos/releases.tsv\": {\n      \"actual_sha256\": \"fbd66de69e6c5882faf4d33ae64250e9921c25739a0807152433bd817ef986f9\",\n      \"canonical_revision\": 1,\n      \"expected_sha256\": \"fbd66de69e6c5882faf4d33ae64250e9921c25739a0807152433bd817ef986f9\"\n    },\n    \".eos/work-cycles.tsv\": {\n      \"actual_sha256\": \"e7f344f42620775e13fad7f486c8ee98f2c2605d4d8078190eed7051dd5ed1f8\",\n      \"canonical_revision\": 1,\n      \"expected_sha256\": \"e7f344f42620775e13fad7f486c8ee98f2c2605d4d8078190eed7051dd5ed1f8\"\n    },\n    \".eos/work-packets.tsv\": {\n      \"actual_sha256\": \"40a01447a905d888b909f1dd72e7a14a8223e81ce526aaa86d8162bcfe65a277\",\n      \"canonical_revision\": 1,\n      \"expected_sha256\": \"40a01447a905d888b909f1dd72e7a14a8223e81ce526aaa86d8162bcfe65a277\"\n    }\n  }\n}\n",
+  "document_id": "doc:.eos%2Fstate%2Fprojections.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WC-0001",
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/state/projections.json.",
+    "title": "Projections"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "WC-0001",
+        "WP-0001"
+      ],
+      "level": 1,
+      "line_end": 90,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"canonical_digest\": \"957426240dadc646d8fb757a3eb94f1cd18baeadd659cc0fa2baf16c9e40b50d\",\n  \"canonical_revision\": 1,\n  \"github\": {\n    \"network_verification\": \"ON_DEMAND\",\n    \"receipts\": {}\n  },\n  \"markdown\": {\n    \"PI-001\": {\n      \"canonical_revision\": 1,\n      \"path\": \"engineering/increments/PI-001.md\",\n      \"state_fingerprint\": \"428cfba2f16693b16cb6ee2b1f367fe1e93adad9b2f9824c5d2feffd38711b9f\"\n    },\n    \"WC-0001\": {\n      \"canonical_revision\": 1,\n      \"path\": \"engineering/work-cycles/WC-0001.md\",\n      \"state_fingerprint\": \"d3447b42b49e9d0be2c620965768f20bdc7899cc52b7684fe07f38eff9f44350\"\n    },\n    \"WP-0001\": {\n      \"canonical_revision\": 1,\n      \"path\": \"engineering/work-packets/WP-0001.md\",\n      \"state_fingerprint\": \"ba5efa7aa20b562b7b9ee106321540d7ec86b95f4360e61c79070c2043f7af33\"\n    }\n  },\n  \"policy\": {\n    \"canonical\": {\n      \"path\": \".eos/state/current.json\",\n      \"role\": \"SOLE_OPERATIONAL_AUTHORITY\",\n      \"write_policy\": \"EOS_TRANSACTION_ONLY\"\n    },\n    \"event_ledger\": {\n      \"canonical_current_state\": false,\n      \"path\": \".eos/events.jsonl\",\n      \"role\": \"APPEND_ONLY_MUTATION_HISTORY\"\n    },\n    \"git\": {\n      \"canonical_current_state\": false,\n      \"role\": \"VERSION_HISTORY_AND_INTEGRITY_LEDGER\"\n    },\n    \"github\": {\n      \"external_edits\": \"DRIFT_UNTIL_EXPLICIT_RECONCILIATION\",\n      \"role\": \"SYNCHRONIZED_COLLABORATION_PROJECTION\",\n      \"write_back_policy\": \"NEVER_IMPLICIT\"\n    },\n    \"markdown\": {\n      \"content_authority\": \"GOVERNED_HUMAN_ARTIFACT\",\n      \"drift_policy\": \"FAIL_CLOSED_FOR_LIFECYCLE_METADATA\",\n      \"lifecycle_fields\": \"PROJECTION_OF_CANONICAL_STATE\",\n      \"role\": \"HUMAN_READABLE_GOVERNED_ARTIFACT\"\n    },\n    \"tsv\": {\n      \"drift_policy\": \"FAIL_CLOSED\",\n      \"role\": \"GENERATED_COMPATIBILITY_PROJECTION\",\n      \"write_policy\": \"READ_ONLY_OUTSIDE_EOS\"\n    }\n  },\n  \"schema_version\": \"1.0.0\",\n  \"tsv\": {\n    \".eos/change-requests.tsv\": {\n      \"actual_sha256\": \"0dd542ae209514721fd0a7363ee3eb44b4c827fbb498716957c8437f1e605411\",\n      \"canonical_revision\": 1,\n      \"expected_sha256\": \"0dd542ae209514721fd0a7363ee3eb44b4c827fbb498716957c8437f1e605411\"\n    },\n    \".eos/maintenance.tsv\": {\n      \"actual_sha256\": \"60c57d27149a54b2859bc9f3ace3a3aa4a4f68b9acddc724ce1ad5636b3e245c\",\n      \"canonical_revision\": 1,\n      \"expected_sha256\": \"60c57d27149a54b2859bc9f3ace3a3aa4a4f68b9acddc724ce1ad5636b3e245c\"\n    },\n    \".eos/program-increments.tsv\": {\n      \"actual_sha256\": \"1255424255aa6270628dca3b5eb39b2add09fb4490ac600a438cae06eb5d7a4d\",\n      \"canonical_revision\": 1,\n      \"expected_sha256\": \"1255424255aa6270628dca3b5eb39b2add09fb4490ac600a438cae06eb5d7a4d\"\n    },\n    \".eos/releases.tsv\": {\n      \"actual_sha256\": \"fbd66de69e6c5882faf4d33ae64250e9921c25739a0807152433bd817ef986f9\",\n      \"canonical_revision\": 1,\n      \"expected_sha256\": \"fbd66de69e6c5882faf4d33ae64250e9921c25739a0807152433bd817ef986f9\"\n    },\n    \".eos/work-cycles.tsv\": {\n      \"actual_sha256\": \"e7f344f42620775e13fad7f486c8ee98f2c2605d4d8078190eed7051dd5ed1f8\",\n      \"canonical_revision\": 1,\n      \"expected_sha256\": \"e7f344f42620775e13fad7f486c8ee98f2c2605d4d8078190eed7051dd5ed1f8\"\n    },\n    \".eos/work-packets.tsv\": {\n      \"actual_sha256\": \"40a01447a905d888b909f1dd72e7a14a8223e81ce526aaa86d8162bcfe65a277\",\n      \"canonical_revision\": 1,\n      \"expected_sha256\": \"40a01447a905d888b909f1dd72e7a14a8223e81ce526aaa86d8162bcfe65a277\"\n    }\n  }\n}",
+      "title": "Projections"
+    }
+  ],
+  "source": {
+    "bytes": 3402,
+    "canonical": true,
+    "language": "json",
+    "lines": 90,
+    "media_type": "application/json",
+    "path": ".eos/state/projections.json",
+    "sha256": "e93adb33466546075a8be211ffd1048c7ef6d6a595bf9605f8a5b861f3896485"
+  }
+}

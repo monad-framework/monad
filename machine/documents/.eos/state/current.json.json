@@ -1,0 +1,46 @@
+{
+  "content": "{\n  \"entities\": {\n    \"CR\": {},\n    \"MNT\": {},\n    \"PI\": {\n      \"PI-001\": {\n        \"authority_level\": \"L3_BINDING\",\n        \"created_at\": \"2026-08-12T00:00:00Z\",\n        \"entity_type\": \"PI\",\n        \"id\": \"PI-001\",\n        \"kind\": \"PI\",\n        \"lifecycle_state\": \"DRAFT\",\n        \"operational_metadata\": {\n          \"github_url\": \"\",\n          \"path\": \"engineering/increments/PI-001.md\",\n          \"title\": \"Program Increment 001\"\n        },\n        \"provenance\": {\n          \"created_by\": \"EOS canonical-state adapter\",\n          \"generation_method\": \"seed from accepted registry + event ledger\",\n          \"origin\": \"MIGRATION\",\n          \"source_refs\": [\n            \".eos/program-increments.tsv\",\n            \"engineering/increments/PI-001.md\",\n            \".eos/events.jsonl\"\n          ]\n        },\n        \"relationships\": [],\n        \"schema_version\": \"2.0.0\",\n        \"updated_at\": \"2026-08-12T00:00:00Z\",\n        \"version\": \"1.0.0\"\n      }\n    },\n    \"REL\": {},\n    \"WC\": {\n      \"WC-0001\": {\n        \"authority_level\": \"L3_BINDING\",\n        \"created_at\": \"2026-08-12T00:00:00Z\",\n        \"entity_type\": \"WC\",\n        \"id\": \"WC-0001\",\n        \"kind\": \"WC\",\n        \"lifecycle_state\": \"DRAFT\",\n        \"operational_metadata\": {\n          \"github_url\": \"\",\n          \"path\": \"engineering/work-cycles/WC-0001.md\",\n          \"pi\": \"PI-001\",\n          \"title\": \"Work Cycle 0001\"\n        },\n        \"provenance\": {\n          \"created_by\": \"EOS canonical-state adapter\",\n          \"generation_method\": \"seed from accepted registry + event ledger\",\n          \"origin\": \"MIGRATION\",\n          \"source_refs\": [\n            \".eos/work-cycles.tsv\",\n            \"engineering/work-cycles/WC-0001.md\",\n            \".eos/events.jsonl\"\n          ]\n        },\n        \"relationships\": [\n          {\n            \"target_id\": \"PI-001\",\n            \"target_type\": \"PI\",\n            \"type\": \"BELONGS_TO\"\n          }\n        ],\n        \"schema_version\": \"2.0.0\",\n        \"updated_at\": \"2026-08-12T00:00:00Z\",\n        \"version\": \"1.0.0\"\n      }\n    },\n    \"WP\": {\n      \"WP-0001\": {\n        \"authority_level\": \"L3_BINDING\",\n        \"created_at\": \"2026-08-12T00:00:00Z\",\n        \"entity_type\": \"WP\",\n        \"id\": \"WP-0001\",\n        \"kind\": \"WP\",\n        \"lifecycle_state\": \"DRAFT\",\n        \"operational_metadata\": {\n          \"domain\": \"\",\n          \"github_url\": \"\",\n          \"path\": \"engineering/work-packets/WP-0001.md\",\n          \"pi\": \"PI-001\",\n          \"title\": \"First Work Packet\",\n          \"wc\": \"WC-0001\"\n        },\n        \"provenance\": {\n          \"created_by\": \"EOS canonical-state adapter\",\n          \"generation_method\": \"seed from accepted registry + event ledger\",\n          \"origin\": \"MIGRATION\",\n          \"source_refs\": [\n            \".eos/work-packets.tsv\",\n            \"engineering/work-packets/WP-0001.md\",\n            \".eos/events.jsonl\"\n          ]\n        },\n        \"relationships\": [\n          {\n            \"target_id\": \"PI-001\",\n            \"target_type\": \"PI\",\n            \"type\": \"BELONGS_TO\"\n          },\n          {\n            \"target_id\": \"WC-0001\",\n            \"target_type\": \"WC\",\n            \"type\": \"BELONGS_TO\"\n          }\n        ],\n        \"schema_version\": \"2.0.0\",\n        \"updated_at\": \"2026-08-12T00:00:00Z\",\n        \"version\": \"1.0.0\"\n      }\n    }\n  },\n  \"model\": \"EOS-SINGLE-CANONICAL-STATE-1\",\n  \"revision\": 1,\n  \"schema_version\": \"1.0.0\",\n  \"updated_at\": \"2026-08-12T12:28:00Z\"\n}\n",
+  "document_id": "doc:.eos%2Fstate%2Fcurrent.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WC-0001",
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/state/current.json.",
+    "title": "Current"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "WC-0001",
+        "WP-0001"
+      ],
+      "level": 1,
+      "line_end": 119,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"entities\": {\n    \"CR\": {},\n    \"MNT\": {},\n    \"PI\": {\n      \"PI-001\": {\n        \"authority_level\": \"L3_BINDING\",\n        \"created_at\": \"2026-08-12T00:00:00Z\",\n        \"entity_type\": \"PI\",\n        \"id\": \"PI-001\",\n        \"kind\": \"PI\",\n        \"lifecycle_state\": \"DRAFT\",\n        \"operational_metadata\": {\n          \"github_url\": \"\",\n          \"path\": \"engineering/increments/PI-001.md\",\n          \"title\": \"Program Increment 001\"\n        },\n        \"provenance\": {\n          \"created_by\": \"EOS canonical-state adapter\",\n          \"generation_method\": \"seed from accepted registry + event ledger\",\n          \"origin\": \"MIGRATION\",\n          \"source_refs\": [\n            \".eos/program-increments.tsv\",\n            \"engineering/increments/PI-001.md\",\n            \".eos/events.jsonl\"\n          ]\n        },\n        \"relationships\": [],\n        \"schema_version\": \"2.0.0\",\n        \"updated_at\": \"2026-08-12T00:00:00Z\",\n        \"version\": \"1.0.0\"\n      }\n    },\n    \"REL\": {},\n    \"WC\": {\n      \"WC-0001\": {\n        \"authority_level\": \"L3_BINDING\",\n        \"created_at\": \"2026-08-12T00:00:00Z\",\n        \"entity_type\": \"WC\",\n        \"id\": \"WC-0001\",\n        \"kind\": \"WC\",\n        \"lifecycle_state\": \"DRAFT\",\n        \"operational_metadata\": {\n          \"github_url\": \"\",\n          \"path\": \"engineering/work-cycles/WC-0001.md\",\n          \"pi\": \"PI-001\",\n          \"title\": \"Work Cycle 0001\"\n        },\n        \"provenance\": {\n          \"created_by\": \"EOS canonical-state adapter\",\n          \"generation_method\": \"seed from accepted registry + event ledger\",\n          \"origin\": \"MIGRATION\",\n          \"source_refs\": [\n            \".eos/work-cycles.tsv\",\n            \"engineering/work-cycles/WC-0001.md\",\n            \".eos/events.jsonl\"\n          ]\n        },\n        \"relationships\": [\n          {\n            \"target_id\": \"PI-001\",\n            \"target_type\": \"PI\",\n            \"type\": \"BELONGS_TO\"\n          }\n        ],\n        \"schema_version\": \"2.0.0\",\n        \"updated_at\": \"2026-08-12T00:00:00Z\",\n        \"version\": \"1.0.0\"\n      }\n    },\n    \"WP\": {\n      \"WP-0001\": {\n        \"authority_level\": \"L3_BINDING\",\n        \"created_at\": \"2026-08-12T00:00:00Z\",\n        \"entity_type\": \"WP\",\n        \"id\": \"WP-0001\",\n        \"kind\": \"WP\",\n        \"lifecycle_state\": \"DRAFT\",\n        \"operational_metadata\": {\n          \"domain\": \"\",\n          \"github_url\": \"\",\n          \"path\": \"engineering/work-packets/WP-0001.md\",\n          \"pi\": \"PI-001\",\n          \"title\": \"First Work Packet\",\n          \"wc\": \"WC-0001\"\n        },\n        \"provenance\": {\n          \"created_by\": \"EOS canonical-state adapter\",\n          \"generation_method\": \"seed from accepted registry + event ledger\",\n          \"origin\": \"MIGRATION\",\n          \"source_refs\": [\n            \".eos/work-packets.tsv\",\n            \"engineering/work-packets/WP-0001.md\",\n            \".eos/events.jsonl\"\n          ]\n        },\n        \"relationships\": [\n          {\n            \"target_id\": \"PI-001\",\n            \"target_type\": \"PI\",\n            \"type\": \"BELONGS_TO\"\n          },\n          {\n            \"target_id\": \"WC-0001\",\n            \"target_type\": \"WC\",\n            \"type\": \"BELONGS_TO\"\n          }\n        ],\n        \"schema_version\": \"2.0.0\",\n        \"updated_at\": \"2026-08-12T00:00:00Z\",\n        \"version\": \"1.0.0\"\n      }\n    }\n  },\n  \"model\": \"EOS-SINGLE-CANONICAL-STATE-1\",\n  \"revision\": 1,\n  \"schema_version\": \"1.0.0\",\n  \"updated_at\": \"2026-08-12T12:28:00Z\"\n}",
+      "title": "Current"
+    }
+  ],
+  "source": {
+    "bytes": 3421,
+    "canonical": true,
+    "language": "json",
+    "lines": 119,
+    "media_type": "application/json",
+    "path": ".eos/state/current.json",
+    "sha256": "592462eb4f732eed98b1858227a0623df6ec4472e4d21fb80d4c26db4a20286a"
+  }
+}

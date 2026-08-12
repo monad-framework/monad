@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"$id\": \"eos://schemas/projection-manifest/1.0.0\",\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"canonical_digest\": {\n      \"pattern\": \"^[0-9a-f]{64}$\",\n      \"type\": \"string\"\n    },\n    \"canonical_revision\": {\n      \"minimum\": 1,\n      \"type\": \"integer\"\n    },\n    \"github\": {\n      \"properties\": {\n        \"network_verification\": {\n          \"type\": \"string\"\n        },\n        \"receipts\": {\n          \"type\": \"object\"\n        }\n      },\n      \"required\": [\n        \"receipts\",\n        \"network_verification\"\n      ],\n      \"type\": \"object\"\n    },\n    \"markdown\": {\n      \"additionalProperties\": {\n        \"properties\": {\n          \"canonical_revision\": {\n            \"minimum\": 1,\n            \"type\": \"integer\"\n          },\n          \"path\": {\n            \"minLength\": 1,\n            \"type\": \"string\"\n          },\n          \"state_fingerprint\": {\n            \"pattern\": \"^[0-9a-f]{64}$\",\n            \"type\": \"string\"\n          }\n        },\n        \"required\": [\n          \"path\",\n          \"canonical_revision\",\n          \"state_fingerprint\"\n        ],\n        \"type\": \"object\"\n      },\n      \"type\": \"object\"\n    },\n    \"policy\": {\n      \"type\": \"object\"\n    },\n    \"schema_version\": {\n      \"const\": \"1.0.0\"\n    },\n    \"tsv\": {\n      \"additionalProperties\": {\n        \"properties\": {\n          \"actual_sha256\": {\n            \"pattern\": \"^[0-9a-f]{64}$\",\n            \"type\": \"string\"\n          },\n          \"canonical_revision\": {\n            \"minimum\": 1,\n            \"type\": \"integer\"\n          },\n          \"expected_sha256\": {\n            \"pattern\": \"^[0-9a-f]{64}$\",\n            \"type\": \"string\"\n          }\n        },\n        \"required\": [\n          \"canonical_revision\",\n          \"expected_sha256\",\n          \"actual_sha256\"\n        ],\n        \"type\": \"object\"\n      },\n      \"type\": \"object\"\n    }\n  },\n  \"required\": [\n    \"schema_version\",\n    \"canonical_revision\",\n    \"canonical_digest\",\n    \"policy\",\n    \"tsv\",\n    \"markdown\",\n    \"github\"\n  ],\n  \"title\": \"EOS Projection Manifest\",\n  \"type\": \"object\"\n}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fprojection-manifest.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/projection-manifest.schema.json.",
+    "title": "Projection Manifest.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 97,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"$id\": \"eos://schemas/projection-manifest/1.0.0\",\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"canonical_digest\": {\n      \"pattern\": \"^[0-9a-f]{64}$\",\n      \"type\": \"string\"\n    },\n    \"canonical_revision\": {\n      \"minimum\": 1,\n      \"type\": \"integer\"\n    },\n    \"github\": {\n      \"properties\": {\n        \"network_verification\": {\n          \"type\": \"string\"\n        },\n        \"receipts\": {\n          \"type\": \"object\"\n        }\n      },\n      \"required\": [\n        \"receipts\",\n        \"network_verification\"\n      ],\n      \"type\": \"object\"\n    },\n    \"markdown\": {\n      \"additionalProperties\": {\n        \"properties\": {\n          \"canonical_revision\": {\n            \"minimum\": 1,\n            \"type\": \"integer\"\n          },\n          \"path\": {\n            \"minLength\": 1,\n            \"type\": \"string\"\n          },\n          \"state_fingerprint\": {\n            \"pattern\": \"^[0-9a-f]{64}$\",\n            \"type\": \"string\"\n          }\n        },\n        \"required\": [\n          \"path\",\n          \"canonical_revision\",\n          \"state_fingerprint\"\n        ],\n        \"type\": \"object\"\n      },\n      \"type\": \"object\"\n    },\n    \"policy\": {\n      \"type\": \"object\"\n    },\n    \"schema_version\": {\n      \"const\": \"1.0.0\"\n    },\n    \"tsv\": {\n      \"additionalProperties\": {\n        \"properties\": {\n          \"actual_sha256\": {\n            \"pattern\": \"^[0-9a-f]{64}$\",\n            \"type\": \"string\"\n          },\n          \"canonical_revision\": {\n            \"minimum\": 1,\n            \"type\": \"integer\"\n          },\n          \"expected_sha256\": {\n            \"pattern\": \"^[0-9a-f]{64}$\",\n            \"type\": \"string\"\n          }\n        },\n        \"required\": [\n          \"canonical_revision\",\n          \"expected_sha256\",\n          \"actual_sha256\"\n        ],\n        \"type\": \"object\"\n      },\n      \"type\": \"object\"\n    }\n  },\n  \"required\": [\n    \"schema_version\",\n    \"canonical_revision\",\n    \"canonical_digest\",\n    \"policy\",\n    \"tsv\",\n    \"markdown\",\n    \"github\"\n  ],\n  \"title\": \"EOS Projection Manifest\",\n  \"type\": \"object\"\n}",
+      "title": "Projection Manifest.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 2096,
+    "canonical": true,
+    "language": "json",
+    "lines": 97,
+    "media_type": "application/json",
+    "path": ".eos/schemas/projection-manifest.schema.json",
+    "sha256": "fd56bfcb3a824d4dc411bedc196c26e2d28e99bc9ab9ecd0f150269e3defa09b"
+  }
+}
