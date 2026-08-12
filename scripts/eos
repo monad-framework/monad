@@ -12,6 +12,8 @@ fi
 
 CANONICAL="$ROOT/tools/eos/canonical_state.py"
 LEGACY="$ROOT/tools/eos/eos.py"
+EXECUTION_V2="$ROOT/tools/eos/execution_v2.py"
+VERIFICATION_V2="$ROOT/tools/eos/verification_v2.py"
 
 # Canonical-state administration is handled directly by the state controller.
 if [[ "${1:-}" == "state" ]]; then
@@ -28,15 +30,28 @@ if [[ "${1:-}" == "rebuild-state" ]]; then
   exec python3 "$CANONICAL" project "$@"
 fi
 
-# Every legacy EOS command runs inside a canonical transaction:
+# Select exactly one runtime before entering the canonical transaction. The
+# previous wrapper invoked the legacy runtime first and then invoked the selected
+# runtime a second time, duplicating output and side effects for every command.
+RUNNER="$LEGACY"
+case "${1:-}" in
+  preflight|worktree|execute|execution|contract|codex)
+    RUNNER="$EXECUTION_V2"
+    ;;
+  validate|validators|validation|evidence|performance|security|supply-chain|verify)
+    RUNNER="$VERIFICATION_V2"
+    ;;
+esac
+
+# Every EOS command runs inside a canonical transaction:
 # 1. fail closed if any projection already drifted;
-# 2. let the compatibility runtime operate on generated projections;
+# 2. execute exactly one selected runtime;
 # 3. capture only a successful, internally consistent mutation into canonical
 #    machine-readable state; otherwise canonical state never advances.
 python3 "$CANONICAL" pre -- "$@"
 
 set +e
-python3 "$LEGACY" "$@"
+python3 "$RUNNER" "$@"
 rc=$?
 set -e
 
@@ -46,14 +61,3 @@ if (( rc != 0 )); then
 fi
 
 python3 "$CANONICAL" post -- "$@"
-case "${1:-}" in
-  preflight|worktree|execute|execution|contract|codex)
-    exec python3 "$ROOT/tools/eos/execution_v2.py" "$@"
-    ;;
-  validate|validators|validation|evidence|performance|security|supply-chain|verify)
-    exec python3 "$ROOT/tools/eos/verification_v2.py" "$@"
-    ;;
-  *)
-    exec python3 "$ROOT/tools/eos/eos.py" "$@"
-    ;;
-esac
