@@ -1,0 +1,40 @@
+{
+  "content": "# Engineering Operating System\n\nMonad is built under a repository-native Engineering Operating System (EOS).\n\n| Layer | Purpose |\n| --- | --- |\n| EOSB | Bootstrap |\n| EOSP | Planning |\n| EOSE | Execution |\n| EOSV | Verification |\n| EOSR | Review |\n| EOSC | Change Control |\n| EOSL | Release Lifecycle |\n| EOSM | Maintenance |\n\nThe normal flow is product intent → accepted authority → planning → Ready Work Packet → explicit authorization → execution → verification → review → merge/release evidence → maintenance.\n\nCanonical EOS detail lives in the repository. `.eos/` contains machine/control state and does not outrank accepted canonical artifacts.\n",
+  "document_id": "doc:engineering%2Fgithub%2Fwiki%2FEngineering-Operating-System.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Monad is built under a repository-native Engineering Operating System (EOS).",
+    "title": "Engineering Operating System"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 18,
+      "line_start": 1,
+      "section_id": "engineering-operating-system",
+      "text": "# Engineering Operating System\n\nMonad is built under a repository-native Engineering Operating System (EOS).\n\n| Layer | Purpose |\n| --- | --- |\n| EOSB | Bootstrap |\n| EOSP | Planning |\n| EOSE | Execution |\n| EOSV | Verification |\n| EOSR | Review |\n| EOSC | Change Control |\n| EOSL | Release Lifecycle |\n| EOSM | Maintenance |\n\nThe normal flow is product intent → accepted authority → planning → Ready Work Packet → explicit authorization → execution → verification → review → merge/release evidence → maintenance.\n\nCanonical EOS detail lives in the repository. `.eos/` contains machine/control state and does not outrank accepted canonical artifacts.",
+      "title": "Engineering Operating System"
+    }
+  ],
+  "source": {
+    "bytes": 669,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 18,
+    "media_type": "text/markdown",
+    "path": "engineering/github/wiki/Engineering-Operating-System.md",
+    "sha256": "213bd5c691f5b9e1cef2259b47f33f12889eba408d73a8dacbd2dfc92c55cb53"
+  }
+}

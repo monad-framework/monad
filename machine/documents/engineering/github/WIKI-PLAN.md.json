@@ -1,0 +1,76 @@
+{
+  "content": "# GitHub Wiki Plan\n\n**Status:** Proposed  \n**Authority:** Informational projection only\n\nThe Monad Wiki is an orientation and navigation layer for humans. It MUST NOT become the canonical location for architecture, specifications, requirements, decisions, Work Packets, or release evidence.\n\n## Canonical page source\n\nWiki page source is staged under `engineering/github/wiki/`. The owner synchronization process copies these pages into the separate GitHub Wiki repository.\n\n## Initial pages\n\n- `Home.md` — product identity and navigation.\n- `Engineering-Operating-System.md` — EOS layers and operating loop.\n- `MVP-Roadmap.md` — current release goal and milestone sequence.\n- `Artifact-Authority.md` — canonical-vs-projection authority model.\n- `Working-With-ChatGPT-and-Codex.md` — human/ChatGPT/Codex/GitHub responsibility split.\n\n## Update rule\n\nWiki edits should originate from the canonical staged pages or be reconciled back immediately. Meaning-changing engineering decisions MUST be made in their canonical Git artifact first, then reflected into the Wiki.\n\n## Link strategy\n\nWiki pages should link readers back to repository paths for authoritative detail. Avoid copying large normative documents into the Wiki because duplicated normative text will drift.\n",
+  "document_id": "doc:engineering%2Fgithub%2FWIKI-PLAN.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Proposed Authority: Informational projection only",
+    "title": "GitHub Wiki Plan"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "github-wiki-plan",
+      "text": "# GitHub Wiki Plan\n\n**Status:** Proposed  \n**Authority:** Informational projection only\n\nThe Monad Wiki is an orientation and navigation layer for humans. It MUST NOT become the canonical location for architecture, specifications, requirements, decisions, Work Packets, or release evidence.",
+      "title": "GitHub Wiki Plan"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 8,
+      "section_id": "canonical-page-source",
+      "text": "## Canonical page source\n\nWiki page source is staged under `engineering/github/wiki/`. The owner synchronization process copies these pages into the separate GitHub Wiki repository.",
+      "title": "Canonical page source"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 12,
+      "section_id": "initial-pages",
+      "text": "## Initial pages\n\n- `Home.md` — product identity and navigation.\n- `Engineering-Operating-System.md` — EOS layers and operating loop.\n- `MVP-Roadmap.md` — current release goal and milestone sequence.\n- `Artifact-Authority.md` — canonical-vs-projection authority model.\n- `Working-With-ChatGPT-and-Codex.md` — human/ChatGPT/Codex/GitHub responsibility split.",
+      "title": "Initial pages"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 20,
+      "section_id": "update-rule",
+      "text": "## Update rule\n\nWiki edits should originate from the canonical staged pages or be reconciled back immediately. Meaning-changing engineering decisions MUST be made in their canonical Git artifact first, then reflected into the Wiki.",
+      "title": "Update rule"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 24,
+      "section_id": "link-strategy",
+      "text": "## Link strategy\n\nWiki pages should link readers back to repository paths for authoritative detail. Avoid copying large normative documents into the Wiki because duplicated normative text will drift.",
+      "title": "Link strategy"
+    }
+  ],
+  "source": {
+    "bytes": 1277,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 26,
+    "media_type": "text/markdown",
+    "path": "engineering/github/WIKI-PLAN.md",
+    "sha256": "1e63174b53bff55ce0e2f6edb2c3ce09f7173a42a937fb8d456f0aaf687249c3"
+  }
+}
