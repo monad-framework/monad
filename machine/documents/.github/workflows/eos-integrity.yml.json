@@ -1,0 +1,40 @@
+{
+  "content": "name: EOS Integrity\non:\n  push:\n    branches: [main]\n  pull_request:\npermissions:\n  contents: read\njobs:\n  eos-integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - run: ./scripts/eos ci\n",
+  "document_id": "doc:.github%2Fworkflows%2Feos-integrity.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/eos-integrity.yml.",
+    "title": "Eos Integrity"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 16,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: EOS Integrity\non:\n  push:\n    branches: [main]\n  pull_request:\npermissions:\n  contents: read\njobs:\n  eos-integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - run: ./scripts/eos ci",
+      "title": "Eos Integrity"
+    }
+  ],
+  "source": {
+    "bytes": 309,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 16,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/eos-integrity.yml",
+    "sha256": "3f8c47a8dd8cfabf8d96125d2c2aeaacbca8524b8d1031e439e548b9b15bf73b"
+  }
+}
