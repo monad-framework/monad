@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Project Monad MVP backlog into GitHub Issues, labels, milestones, and sub-issues."""
+"""Project Monad MVP backlog into GitHub Issues, labels, milestones, and sub-issues.
+
+Canonical Git artifacts remain authoritative. GitHub is a coordination projection.
+"""
 from __future__ import annotations
 
 import json
@@ -14,11 +17,11 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 BACKLOG = ROOT / "product" / "backlog" / "MVP-BACKLOG.md"
-API_VERSION = "2026-03-10"
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 REPOSITORY = os.environ.get("GITHUB_REPOSITORY", "monad-framework/monad")
 API_ROOT = os.environ.get("GITHUB_API_URL", "https://api.github.com").rstrip("/")
 OWNER, REPO = REPOSITORY.split("/", 1)
+API_VERSION = "2022-11-28"
 
 LABELS: dict[str, tuple[str, str]] = {
     "type:epic": ("6f42c1", "MVP outcome spanning multiple features"),
@@ -80,7 +83,7 @@ class Feature:
     title: str
     work_packet: str
     sprint: str
-    stories: tuple[tuple[str, str], ...]
+    children: tuple[tuple[str, str], ...]
 
     @property
     def epic_id(self) -> str:
@@ -91,7 +94,7 @@ def api(method: str, path: str, payload: dict[str, Any] | None = None) -> Any:
     if not TOKEN:
         raise SystemExit("GITHUB_TOKEN is required")
     data = None if payload is None else json.dumps(payload).encode()
-    request = urllib.request.Request(
+    req = urllib.request.Request(
         f"{API_ROOT}{path}", data=data, method=method,
         headers={
             "Accept": "application/vnd.github+json",
@@ -101,7 +104,7 @@ def api(method: str, path: str, payload: dict[str, Any] | None = None) -> Any:
         },
     )
     try:
-        with urllib.request.urlopen(request, timeout=30) as response:
+        with urllib.request.urlopen(req, timeout=30) as response:
             raw = response.read()
             return None if not raw else json.loads(raw.decode())
     except urllib.error.HTTPError as exc:
@@ -110,11 +113,11 @@ def api(method: str, path: str, payload: dict[str, Any] | None = None) -> Any:
 
 
 def paged(path: str) -> list[dict[str, Any]]:
-    separator = "&" if "?" in path else "?"
-    page = 1
+    sep = "&" if "?" in path else "?"
     result: list[dict[str, Any]] = []
+    page = 1
     while True:
-        batch = api("GET", f"{path}{separator}per_page=100&page={page}")
+        batch = api("GET", f"{path}{sep}per_page=100&page={page}")
         if not isinstance(batch, list):
             raise RuntimeError(f"expected list from {path}")
         result.extend(batch)
@@ -129,44 +132,53 @@ def parse_backlog() -> tuple[list[Epic], list[Feature]]:
     feature_section = text.split("## Feature / Work Packet map", 1)[1].split("## Backlog ordering", 1)[0]
     epics: list[Epic] = []
     features: list[Feature] = []
+
     for line in epic_section.splitlines():
         if not line.startswith("| EPIC-"):
             continue
-        left, outcome, forecast = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        left, outcome, forecast = [c.strip() for c in line.strip().strip("|").split("|")]
         match = re.match(r"(EPIC-\d{3})\s+(.+)", left)
         if not match:
             raise RuntimeError(f"cannot parse epic row: {line}")
         epics.append(Epic(match.group(1), match.group(2), outcome, forecast))
+
     for line in feature_section.splitlines():
         if not line.startswith("| F-"):
             continue
-        left, wp, sprint, story_cell = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        left, wp, sprint, child_cell = [c.strip() for c in line.strip().strip("|").split("|")]
         match = re.match(r"(F-\d{3}-\d{2})\s+(.+)", left)
         if not match:
             raise RuntimeError(f"cannot parse feature row: {line}")
-        stories: list[tuple[str, str]] = []
-        for raw in story_cell.split(";"):
-            story = re.match(r"((?:US|EN)-\d{3})\s+(.+)", raw.strip())
-            if not story:
-                raise RuntimeError(f"cannot parse story {raw!r}")
-            stories.append((story.group(1), story.group(2)))
-        features.append(Feature(match.group(1), match.group(2), wp, sprint, tuple(stories)))
+        children: list[tuple[str, str]] = []
+        for raw in child_cell.split(";"):
+            child = re.match(r"((?:US|EN)-\d{3})\s+(.+)", raw.strip())
+            if not child:
+                raise RuntimeError(f"cannot parse child item {raw!r}")
+            children.append((child.group(1), child.group(2)))
+        features.append(Feature(match.group(1), match.group(2), wp, sprint, tuple(children)))
+
+    user_stories = {ident for f in features for ident, _ in f.children if ident.startswith("US-")}
+    enablers = {ident for f in features for ident, _ in f.children if ident.startswith("EN-")}
+    all_ids = [ident for f in features for ident, _ in f.children]
     if len(epics) != 14 or len(features) != 34:
         raise RuntimeError(f"unexpected backlog: {len(epics)} epics / {len(features)} features")
-    count = sum(len(feature.stories) for feature in features)
-    if count != 105:
-        raise RuntimeError(f"unexpected story/enabler count: {count}")
+    if len(user_stories) != 105 or len(enablers) != 3 or len(all_ids) != 108:
+        raise RuntimeError(
+            "unexpected story/enabler inventory: "
+            f"{len(user_stories)} unique user stories, {len(enablers)} unique enablers, {len(all_ids)} rows"
+        )
+    if len(set(all_ids)) != len(all_ids):
+        raise RuntimeError("duplicate story/enabler identifiers found")
     return epics, features
 
 
 def ensure_labels() -> None:
     existing = {row["name"] for row in paged(f"/repos/{OWNER}/{REPO}/labels")}
     for name, (color, description) in LABELS.items():
-        if name in existing:
-            continue
-        api("POST", f"/repos/{OWNER}/{REPO}/labels", {"name": name, "color": color, "description": description})
-        print(f"created label: {name}")
-        time.sleep(0.15)
+        if name not in existing:
+            api("POST", f"/repos/{OWNER}/{REPO}/labels", {"name": name, "color": color, "description": description})
+            print(f"created label: {name}")
+            time.sleep(0.05)
 
 
 def ensure_milestones() -> dict[str, int]:
@@ -175,18 +187,20 @@ def ensure_milestones() -> dict[str, int]:
     for key, title, description, due_on in MILESTONES:
         row = existing.get(title)
         if row is None:
-            row = api("POST", f"/repos/{OWNER}/{REPO}/milestones", {"title": title, "description": description, "due_on": due_on, "state": "open"})
+            row = api("POST", f"/repos/{OWNER}/{REPO}/milestones", {
+                "title": title, "description": description, "due_on": due_on, "state": "open"
+            })
             print(f"created milestone: {title}")
-            time.sleep(0.2)
+            time.sleep(0.05)
         result[key] = int(row["number"])
     return result
 
 
 def milestone_key(forecast: str) -> str:
-    numbers = [int(value) for value in re.findall(r"WC-MVP-(\d{4})", forecast)]
-    if not numbers:
+    cycles = [int(v) for v in re.findall(r"WC-MVP-(\d{4})", forecast)]
+    if not cycles:
         raise RuntimeError(f"missing work cycle in {forecast!r}")
-    last = max(numbers)
+    last = max(cycles)
     if last == 0:
         return "M-000"
     if last <= 4:
@@ -196,45 +210,44 @@ def milestone_key(forecast: str) -> str:
     return "M-MVP-003"
 
 
-def plan_labels(epic_id: str, feature_id: str | None = None) -> list[str]:
-    if epic_id == "EPIC-001" or feature_id == "F-001-01":
-        return ["status:active", "priority:p0"]
-    return ["status:backlog", "priority:p1"]
+def state_labels(epic_id: str, feature_id: str | None = None) -> list[str]:
+    return ["status:active", "priority:p0"] if epic_id == "EPIC-001" or feature_id == "F-001-01" else ["status:backlog", "priority:p1"]
 
 
-def all_issues() -> dict[str, dict[str, Any]]:
+def existing_issues() -> dict[str, dict[str, Any]]:
     rows = paged(f"/repos/{OWNER}/{REPO}/issues?state=all")
     return {row["title"]: row for row in rows if "pull_request" not in row}
 
 
 def upsert(existing: dict[str, dict[str, Any]], title: str, body: str, labels: list[str], milestone: int) -> dict[str, Any]:
     payload = {"title": title, "body": body, "labels": labels, "milestone": milestone}
-    current = existing.get(title)
-    if current is None:
-        current = api("POST", f"/repos/{OWNER}/{REPO}/issues", payload)
-        existing[title] = current
-        print(f"created #{current['number']}: {title}")
-        time.sleep(0.45)
-        return current
-    current_labels = sorted(label["name"] for label in current.get("labels", []))
-    current_milestone = (current.get("milestone") or {}).get("number")
-    if current.get("body") != body or current_labels != sorted(labels) or current_milestone != milestone:
-        current = api("PATCH", f"/repos/{OWNER}/{REPO}/issues/{current['number']}", payload)
-        existing[title] = current
-        print(f"updated #{current['number']}: {title}")
-        time.sleep(0.2)
-    return current
+    row = existing.get(title)
+    if row is None:
+        row = api("POST", f"/repos/{OWNER}/{REPO}/issues", payload)
+        existing[title] = row
+        print(f"created #{row['number']}: {title}")
+        time.sleep(0.08)
+        return row
+    current_labels = sorted(label["name"] for label in row.get("labels", []))
+    current_milestone = (row.get("milestone") or {}).get("number")
+    if row.get("body") != body or current_labels != sorted(labels) or current_milestone != milestone:
+        row = api("PATCH", f"/repos/{OWNER}/{REPO}/issues/{row['number']}", payload)
+        existing[title] = row
+        print(f"updated #{row['number']}: {title}")
+        time.sleep(0.04)
+    return row
 
 
-def create_projection(epics: list[Epic], features: list[Feature], milestones: dict[str, int]):
-    existing = all_issues()
+def project(epics: list[Epic], features: list[Feature], milestones: dict[str, int]):
+    existing = existing_issues()
     epic_rows: dict[str, dict[str, Any]] = {}
     feature_rows: dict[str, dict[str, Any]] = {}
-    story_rows: dict[str, dict[str, Any]] = {}
-    epic_by_id = {epic.ident: epic for epic in epics}
+    child_rows: dict[str, dict[str, Any]] = {}
+    epic_by_id = {e.ident: e for e in epics}
+
     for epic in epics:
         title = f"[Epic] {epic.ident} — {epic.title}"
-        labels = ["type:epic", "release:mvp-1", AREA_BY_EPIC[epic.ident.split('-')[1]], *plan_labels(epic.ident)]
+        labels = ["type:epic", "release:mvp-1", AREA_BY_EPIC[epic.ident.split('-')[1]], *state_labels(epic.ident)]
         body = f"""<!-- monad-tracking kind=epic id={epic.ident} source=product/backlog/MVP-BACKLOG.md -->
 # Outcome
 
@@ -249,15 +262,16 @@ def create_projection(epics: list[Epic], features: list[Feature], milestones: di
 
 ## Authority
 
-This Issue is a coordination projection. Canonical product, architecture, specification, and engineering artifacts in Git remain authoritative.
+This Issue is a coordination projection. Canonical artifacts in Git remain authoritative.
 """
         epic_rows[epic.ident] = upsert(existing, title, body, labels, milestones[milestone_key(epic.forecast)])
+
     for feature in features:
         epic = epic_by_id[feature.epic_id]
+        area = AREA_BY_EPIC[feature.epic_id.split('-')[1]]
         title = f"[Feature] {feature.ident} / {feature.work_packet} — {feature.title}"
-        labels = ["type:feature", "type:work-packet", "release:mvp-1", AREA_BY_EPIC[feature.epic_id.split('-')[1]], *plan_labels(feature.epic_id, feature.ident)]
-        wp_path = f"engineering/work-packets/{feature.work_packet}.md"
-        story_lines = "\n".join(f"- `{sid}` — {name}" for sid, name in feature.stories)
+        labels = ["type:feature", "type:work-packet", "release:mvp-1", area, *state_labels(feature.epic_id, feature.ident)]
+        child_lines = "\n".join(f"- `{ident}` — {name}" for ident, name in feature.children)
         body = f"""<!-- monad-tracking kind=feature id={feature.ident} wp={feature.work_packet} parent={feature.epic_id} source=product/backlog/MVP-BACKLOG.md -->
 # Outcome
 
@@ -267,26 +281,27 @@ This Issue is a coordination projection. Canonical product, architecture, specif
 
 - Parent Epic: `{feature.epic_id}`
 - Work Packet: `{feature.work_packet}`
-- Canonical Work Packet: `{wp_path}`
+- Canonical Work Packet: `engineering/work-packets/{feature.work_packet}.md`
 - Forecast Sprint: `{feature.sprint}`
 - Product Goal: `PG-001`
-- Target release: MVP Release 1
 
 ## Planned stories / enablers
 
-{story_lines}
+{child_lines}
 
 ## Readiness
 
-This Feature is **Backlog** unless its labels and canonical Work Packet explicitly say otherwise. Scheduling does not by itself authorize implementation.
+This Feature remains **Backlog** unless its labels and canonical Work Packet explicitly say otherwise. Scheduling does not authorize implementation.
 """
         feature_rows[feature.ident] = upsert(existing, title, body, labels, milestones[milestone_key(feature.sprint)])
-        for sid, name in feature.stories:
-            kind = "Enabler" if sid.startswith("EN-") else "Story"
-            issue_title = f"[{kind}] {sid} — {name[0].upper() + name[1:]}"
-            labels = [("type:enabler" if sid.startswith("EN-") else "type:story"), "release:mvp-1", AREA_BY_EPIC[feature.epic_id.split('-')[1]], *plan_labels(feature.epic_id, feature.ident)]
-            story_body = f"""<!-- monad-tracking kind=story id={sid} parent={feature.ident} wp={feature.work_packet} source=product/backlog/MVP-BACKLOG.md -->
-# Story / enabler
+
+        for ident, name in feature.children:
+            is_enabler = ident.startswith("EN-")
+            kind = "Enabler" if is_enabler else "Story"
+            child_title = f"[{kind}] {ident} — {name[0].upper() + name[1:]}"
+            child_labels = ["type:enabler" if is_enabler else "type:story", "release:mvp-1", area, *state_labels(feature.epic_id, feature.ident)]
+            child_body = f"""<!-- monad-tracking kind=child id={ident} parent={feature.ident} wp={feature.work_packet} source=product/backlog/MVP-BACKLOG.md -->
+# Planned outcome
 
 {name}
 
@@ -297,38 +312,41 @@ This Feature is **Backlog** unless its labels and canonical Work Packet explicit
 - Work Packet: `{feature.work_packet}`
 - Forecast Sprint: `{feature.sprint}`
 - Product Goal: `PG-001`
-- Canonical source: `product/backlog/MVP-BACKLOG.md`
 
 ## Readiness rule
 
 Before this item enters Ready, observable acceptance, negative/boundary behavior, governing ADR/specification where applicable, verification method, and Work Packet ownership must be explicit in canonical engineering artifacts.
 """
-            story_rows[sid] = upsert(existing, issue_title, story_body, labels, milestones[milestone_key(feature.sprint)])
-    return epic_rows, feature_rows, story_rows
+            child_rows[ident] = upsert(existing, child_title, child_body, child_labels, milestones[milestone_key(feature.sprint)])
+    return epic_rows, feature_rows, child_rows
 
 
-def subissue_ids(parent_number: int) -> set[int]:
+def children_of(parent_number: int) -> set[int]:
     return {int(row["id"]) for row in paged(f"/repos/{OWNER}/{REPO}/issues/{parent_number}/sub_issues")}
 
 
 def ensure_child(parent: dict[str, Any], child: dict[str, Any]) -> None:
-    if int(child["id"]) in subissue_ids(int(parent["number"])):
-        return
-    api("POST", f"/repos/{OWNER}/{REPO}/issues/{parent['number']}/sub_issues", {"sub_issue_id": int(child["id"])})
-    print(f"linked #{child['number']} under #{parent['number']}")
-    time.sleep(0.25)
+    existing = children_of(int(parent["number"]))
+    if int(child["id"]) not in existing:
+        api("POST", f"/repos/{OWNER}/{REPO}/issues/{parent['number']}/sub_issues", {"sub_issue_id": int(child["id"])})
+        print(f"linked #{child['number']} under #{parent['number']}")
+        time.sleep(0.04)
 
 
 def main() -> int:
     epics, features = parse_backlog()
     ensure_labels()
     milestones = ensure_milestones()
-    epic_rows, feature_rows, story_rows = create_projection(epics, features, milestones)
+    epic_rows, feature_rows, child_rows = project(epics, features, milestones)
     for feature in features:
         ensure_child(epic_rows[feature.epic_id], feature_rows[feature.ident])
-        for sid, _ in feature.stories:
-            ensure_child(feature_rows[feature.ident], story_rows[sid])
-    print(f"GitHub tracking synchronized: {len(epic_rows)} epics, {len(feature_rows)} features/work packets, {len(story_rows)} stories/enablers.")
+        for ident, _ in feature.children:
+            ensure_child(feature_rows[feature.ident], child_rows[ident])
+    print(
+        "GitHub tracking synchronized: "
+        f"{len(epic_rows)} epics, {len(feature_rows)} features/work packets, "
+        "105 user stories, 3 engineering enablers (108 child backlog items)."
+    )
     return 0
 
 if __name__ == "__main__":
