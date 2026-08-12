@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"kind\": \"EXEC\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"PREPARED\",\n  \"terminal_states\": [\"CLOSED\", \"ABORTED\", \"FAILED\", \"INVALIDATED\"],\n  \"states\": [\"PREPARED\", \"RUNNING\", \"RESULT_INGESTED\", \"VERIFIED\", \"BLOCKED\", \"FAILED\", \"INVALIDATED\", \"ABORTED\", \"CLOSED\"],\n  \"transitions\": {\n    \"PREPARED\": [\"RUNNING\", \"ABORTED\", \"INVALIDATED\"],\n    \"RUNNING\": [\"RESULT_INGESTED\", \"BLOCKED\", \"FAILED\", \"ABORTED\", \"INVALIDATED\"],\n    \"RESULT_INGESTED\": [\"VERIFIED\", \"BLOCKED\", \"FAILED\", \"INVALIDATED\"],\n    \"VERIFIED\": [\"CLOSED\", \"INVALIDATED\"],\n    \"BLOCKED\": [\"RUNNING\", \"ABORTED\", \"INVALIDATED\"],\n    \"FAILED\": [],\n    \"INVALIDATED\": [],\n    \"ABORTED\": [],\n    \"CLOSED\": []\n  }\n}\n",
+  "document_id": "doc:.eos%2Fstate-machines%2Fexec.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/state-machines/exec.json.",
+    "title": "Exec"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 18,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"kind\": \"EXEC\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"PREPARED\",\n  \"terminal_states\": [\"CLOSED\", \"ABORTED\", \"FAILED\", \"INVALIDATED\"],\n  \"states\": [\"PREPARED\", \"RUNNING\", \"RESULT_INGESTED\", \"VERIFIED\", \"BLOCKED\", \"FAILED\", \"INVALIDATED\", \"ABORTED\", \"CLOSED\"],\n  \"transitions\": {\n    \"PREPARED\": [\"RUNNING\", \"ABORTED\", \"INVALIDATED\"],\n    \"RUNNING\": [\"RESULT_INGESTED\", \"BLOCKED\", \"FAILED\", \"ABORTED\", \"INVALIDATED\"],\n    \"RESULT_INGESTED\": [\"VERIFIED\", \"BLOCKED\", \"FAILED\", \"INVALIDATED\"],\n    \"VERIFIED\": [\"CLOSED\", \"INVALIDATED\"],\n    \"BLOCKED\": [\"RUNNING\", \"ABORTED\", \"INVALIDATED\"],\n    \"FAILED\": [],\n    \"INVALIDATED\": [],\n    \"ABORTED\": [],\n    \"CLOSED\": []\n  }\n}",
+      "title": "Exec"
+    }
+  ],
+  "source": {
+    "bytes": 677,
+    "canonical": true,
+    "language": "json",
+    "lines": 18,
+    "media_type": "application/json",
+    "path": ".eos/state-machines/exec.json",
+    "sha256": "1d5712f289ed7400c8ae0b73a9567439b3e02474df7ebfa043944fc4b48c718d"
+  }
+}

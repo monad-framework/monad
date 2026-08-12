@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"version\": \"1.0.0\",\n  \"branch_prefix\": \"wp/\",\n  \"worktree_root\": \"../.{repo}-worktrees\",\n  \"require_clean_current_tree_for_no_worktree\": true,\n  \"system_forbidden_paths\": [\".git\", \".git/**\", \".eos\", \".eos/**\"],\n  \"governed_paths\": [\n    \"idea.md\",\n    \"vision/**\",\n    \"product/**\",\n    \"architecture/**\",\n    \"specifications/**\",\n    \"governance/**\",\n    \"engineering/increments/**\",\n    \"engineering/work-cycles/**\",\n    \"engineering/work-packets/**\"\n  ]\n}\n",
+  "document_id": "doc:.eos%2Fexecution-policy.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/execution-policy.json.",
+    "title": "Execution Policy"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 18,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"version\": \"1.0.0\",\n  \"branch_prefix\": \"wp/\",\n  \"worktree_root\": \"../.{repo}-worktrees\",\n  \"require_clean_current_tree_for_no_worktree\": true,\n  \"system_forbidden_paths\": [\".git\", \".git/**\", \".eos\", \".eos/**\"],\n  \"governed_paths\": [\n    \"idea.md\",\n    \"vision/**\",\n    \"product/**\",\n    \"architecture/**\",\n    \"specifications/**\",\n    \"governance/**\",\n    \"engineering/increments/**\",\n    \"engineering/work-cycles/**\",\n    \"engineering/work-packets/**\"\n  ]\n}",
+      "title": "Execution Policy"
+    }
+  ],
+  "source": {
+    "bytes": 463,
+    "canonical": true,
+    "language": "json",
+    "lines": 18,
+    "media_type": "application/json",
+    "path": ".eos/execution-policy.json",
+    "sha256": "3bd2b9b9323575e176cd5d44ededb83767975bc2b216228304ffbf949f094628"
+  }
+}
