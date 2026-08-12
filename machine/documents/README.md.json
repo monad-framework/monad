@@ -1,5 +1,5 @@
 {
-  "content": "# MonadV2\n\nMonadV2 is organized as a documentation-first project: the problem,\nproduct intent, architecture, specifications, delivery plan, controls, and\noperating practices are versioned beside the implementation they govern. This\nrepository begins with an executable system of record rather than a loose set\nof notes.\n\n## Current state\n\nThe project is in **inception**. The initial objective is to validate the\nproblem and freeze enough of the product and architecture baseline to begin the\nfirst implementation increment without hiding unresolved risk.\n\n| Area | Source of truth | Initial decision gate |\n| --- | --- | --- |\n| Why the project exists | `vision/` | Vision review |\n| What must be delivered | `product/` and `specifications/` | Product baseline |\n| How the system is shaped | `architecture/` | Architecture review |\n| How work is controlled | `engineering/` | Increment authorization |\n| How change is governed | `governance/` | Change approval |\n| How quality and safety are proven | `testing/` and `security/` | Release readiness |\n| How the service is run | `operations/` | Operational readiness |\n\n## Start here\n\n1. Read [`idea.md`](idea.md) for the original hypothesis and validation plan.\n2. Confirm the problem in [`vision/problem-statement.md`](vision/problem-statement.md).\n3. Review the product baseline in [`product/product-requirements.md`](product/product-requirements.md).\n4. Review the system shape in [`architecture/overview.md`](architecture/overview.md).\n5. Select authorized work from [`engineering/work-packets/active.md`](engineering/work-packets/active.md).\n6. Use [`CONTRIBUTING.md`](CONTRIBUTING.md) before proposing a change.\n\n## Repository map\n\n- `vision/` — enduring intent, principles, goals, exclusions, and outcomes.\n- `product/` — users, journeys, capabilities, requirements, and roadmap.\n- `architecture/` — system context, boundaries, quality attributes, and ADRs.\n- `specifications/` — testable functional and technical contracts.\n- `engineering/` — milestones, increments, work cycles, packets, reviews, and risks.\n- `research/` — questions, evidence, experiments, and references.\n- `governance/` — authority, decisions, change control, lifecycle, and language.\n- `operations/` — environments, delivery, telemetry, reliability, and incidents.\n- `security/` — security objectives, threats, controls, and supply-chain policy.\n- `testing/` — verification strategy, acceptance, performance, and quality gates.\n- `docs/` — user and maintainer documentation intended for publication.\n- `journal/` — chronological project narrative and rationale.\n- `machine/` — generated JSON companions, manifest, graph, and section corpus\n  for AI agents, search, validation, and automation.\n\n## Working agreements\n\n- Every material claim links to evidence or is labeled as an assumption.\n- Every requirement has a stable identifier and verifiable acceptance criteria.\n- Every irreversible or cross-cutting architecture choice receives an ADR.\n- Work begins only when the Definition of Ready is met and closes only when the\n  Definition of Done is satisfied.\n- Security, operability, accessibility, and documentation are product work,\n  not post-release cleanup.\n- Decisions are changed by superseding records, never by silently rewriting\n  history.\n- Human-readable source files are canonical. Generated machine companions must\n  pass `python3 scripts/sync-machine-docs.py --check` before merge.\n\n## Contribution and support\n\nUse issues for observable problems and bounded proposals. Use pull requests for\nreviewable changes. Security reports must follow [`SECURITY.md`](SECURITY.md)\nand must not be filed publicly. Project conduct is governed by\n[`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).\n\n## License\n\nCopyright © 2026 Thomas Carter. Released under the MIT License; see\n[`LICENSE`](LICENSE).\n",
+  "content": "# Monad\n\nMonad is an **Engineering Knowledge Compilation Platform**: a local-first, AI-native software-engineering knowledge compiler and orchestration runtime that turns canonical engineering knowledge into a deterministic semantic model from which humans, agents, tools, validation, planning, execution decisions, and documentation can operate.\n\n## Current state\n\nMonad is in **foundation stabilization / pre-implementation**. The repository is intentionally establishing one coherent product thesis, authoritative artifact model, machine-readable knowledge layer, GitHub operating surface, and MVP execution backlog before broad implementation begins.\n\nThe current MVP goal is defined in [`product/MVP-RELEASE-1.md`](product/MVP-RELEASE-1.md).\n\n## Core thesis\n\nSoftware systems are governed by far more than source code. Requirements, decisions, specifications, ownership, risks, work authorization, tests, provenance, releases, and operational evidence all affect what a change means and whether it is safe.\n\nMonad treats that body of engineering knowledge as a compilable system.\n\n```text\nHuman engineering knowledge\n        ↓\nCanonical artifacts\n        ↓\nDiscovery + parsing + semantic analysis\n        ↓\nMonad Semantic Graph\n        ↓\nKIR / query / diagnostics / context packages\n        ↓\nHumans + ChatGPT + Codex + native tools\n        ↓\nValidated engineering change and evidence\n```\n\nThe mature product should answer not only **what exists**, but also **why it exists, what governs it, what depends on it, what a change affects, what evidence proves it, and what an authorized agent needs to act safely**.\n\n## Architectural commitments already carried forward\n\n- Knowledge is a first-class engineering artifact.\n- Human-readable canonical source remains the project source of truth.\n- Machine representations are deterministic derivatives with provenance.\n- Local operation must remain useful without a hosted control plane.\n- AI is a bounded consumer/producer of engineering context, not an authority above accepted human decisions.\n- Monad coordinates native tools instead of replacing every language/build ecosystem.\n- Determinism, explainability, traceability, and reproducibility are product properties.\n- Architecture should be modular before repositories are split prematurely.\n\n## Repository map\n\n| Path | Purpose |\n| --- | --- |\n| `vision/` | Why Monad exists and the durable principles constraining it |\n| `product/` | Users, outcomes, capabilities, MVP, requirements, and roadmap |\n| `architecture/` | System context, boundaries, architecture, and ADRs |\n| `specifications/` | Normative testable contracts |\n| `engineering/` | Milestones, increments, work cycles, Work Packets, status, reviews, and risks |\n| `artifact-system/` | Comprehensive catalog of engineering artifact contracts |\n| `governance/` | Authority, change control, terminology, decisions, and document lifecycle |\n| `research/` | Questions, experiments, evidence, findings, and trade studies |\n| `security/` | Threats, controls, supply chain, and security model |\n| `testing/` | Test strategy, quality gates, performance, and acceptance |\n| `operations/` | Deployment, observability, reliability, incidents, and environments |\n| `journal/` | Historical design narrative; informative unless promoted |\n| `machine/` | Deterministic semantic projections for AI, search, validation, and graph use |\n| `.monad/` | Monad repository identity/configuration bootstrap state |\n\n## Canonical vs machine representation\n\nCanonical human-readable source is edited directly. `machine/` is generated with:\n\n```bash\npython3 scripts/sync-machine-docs.py --write\npython3 scripts/sync-machine-docs.py --check\n```\n\nAI tools may use machine companions for retrieval and graph navigation, but must read the canonical source before making meaning-changing edits. A stale machine companion has no authority.\n\n## Engineering workflow\n\n```text\nProduct intent\n  → accepted decisions/specifications\n  → ordered backlog\n  → ready Work Packet\n  → bounded ChatGPT/Codex context\n  → implementation\n  → deterministic verification\n  → PR/review\n  → merge/release evidence\n```\n\nGitHub is the durable collaboration and review surface. Canonical requirements, decisions, specifications, and Work Packets remain versioned in Git; GitHub Issues/Projects project and coordinate that work rather than silently replacing its authority.\n\n## Transitional note\n\nThe repository is undergoing a controlled re-foundation. Draft and Proposed documents may change substantially until the Foundation Stabilization Review. Accepted decisions are migrated or superseded explicitly rather than erased. `architecture/decisions/` is the intended canonical ADR root.\n\n## Start here\n\n1. [`engineering/stabilization/STABILIZATION-CHARTER.md`](engineering/stabilization/STABILIZATION-CHARTER.md)\n2. [`vision/product-vision.md`](vision/product-vision.md)\n3. [`vision/problem-statement.md`](vision/problem-statement.md)\n4. [`product/MVP-RELEASE-1.md`](product/MVP-RELEASE-1.md)\n5. [`architecture/overview.md`](architecture/overview.md)\n6. [`engineering/project-status.md`](engineering/project-status.md)\n7. [`engineering/work-packets/active.md`](engineering/work-packets/active.md)\n\n## License\n\nCopyright © 2026 Thomas Carter. Released under the MIT License; see [`LICENSE`](LICENSE).",
   "document_id": "doc:README.md",
   "generation": {
     "deterministic": true,
@@ -10,8 +10,18 @@
   "links": [
     {
       "kind": "local",
-      "resolved_source": "idea.md",
-      "target": "idea.md"
+      "resolved_source": "product/MVP-RELEASE-1.md",
+      "target": "product/MVP-RELEASE-1.md"
+    },
+    {
+      "kind": "local",
+      "resolved_source": "engineering/stabilization/STABILIZATION-CHARTER.md",
+      "target": "engineering/stabilization/STABILIZATION-CHARTER.md"
+    },
+    {
+      "kind": "local",
+      "resolved_source": "vision/product-vision.md",
+      "target": "vision/product-vision.md"
     },
     {
       "kind": "local",
@@ -20,33 +30,18 @@
     },
     {
       "kind": "local",
-      "resolved_source": "product/product-requirements.md",
-      "target": "product/product-requirements.md"
-    },
-    {
-      "kind": "local",
       "resolved_source": "architecture/overview.md",
       "target": "architecture/overview.md"
     },
     {
       "kind": "local",
+      "resolved_source": "engineering/project-status.md",
+      "target": "engineering/project-status.md"
+    },
+    {
+      "kind": "local",
       "resolved_source": "engineering/work-packets/active.md",
       "target": "engineering/work-packets/active.md"
-    },
-    {
-      "kind": "local",
-      "resolved_source": "CONTRIBUTING.md",
-      "target": "CONTRIBUTING.md"
-    },
-    {
-      "kind": "local",
-      "resolved_source": "SECURITY.md",
-      "target": "SECURITY.md"
-    },
-    {
-      "kind": "local",
-      "resolved_source": "CODE_OF_CONDUCT.md",
-      "target": "CODE_OF_CONDUCT.md"
     },
     {
       "kind": "local",
@@ -57,28 +52,13 @@
   "metadata": {
     "document_type": "repository-index",
     "normative": false,
-    "summary": "MonadV2 is organized as a documentation-first project: the problem, product intent, architecture, specifications, delivery plan, controls, and operating practices are versioned beside the implementation they govern. This repository begins with an executable system of record rather than a loose set of notes.",
-    "title": "MonadV2"
+    "summary": "Monad is an Engineering Knowledge Compilation Platform: a local-first, AI-native software-engineering knowledge compiler and orchestration runtime that turns canonical engineering knowledge into a deterministic semantic model from which humans, agents, tools, validation, planning, execution decisions, and documentation can operate.",
+    "title": "Monad"
   },
   "relations": [
     {
-      "target_document_id": "doc:CODE_OF_CONDUCT.md",
-      "target_source": "CODE_OF_CONDUCT.md",
-      "type": "references"
-    },
-    {
-      "target_document_id": "doc:CONTRIBUTING.md",
-      "target_source": "CONTRIBUTING.md",
-      "type": "references"
-    },
-    {
       "target_document_id": "doc:LICENSE",
       "target_source": "LICENSE",
-      "type": "references"
-    },
-    {
-      "target_document_id": "doc:SECURITY.md",
-      "target_source": "SECURITY.md",
       "type": "references"
     },
     {
@@ -87,23 +67,33 @@
       "type": "references"
     },
     {
+      "target_document_id": "doc:engineering%2Fproject-status.md",
+      "target_source": "engineering/project-status.md",
+      "type": "references"
+    },
+    {
+      "target_document_id": "doc:engineering%2Fstabilization%2FSTABILIZATION-CHARTER.md",
+      "target_source": "engineering/stabilization/STABILIZATION-CHARTER.md",
+      "type": "references"
+    },
+    {
       "target_document_id": "doc:engineering%2Fwork-packets%2Factive.md",
       "target_source": "engineering/work-packets/active.md",
       "type": "references"
     },
     {
-      "target_document_id": "doc:idea.md",
-      "target_source": "idea.md",
-      "type": "references"
-    },
-    {
-      "target_document_id": "doc:product%2Fproduct-requirements.md",
-      "target_source": "product/product-requirements.md",
+      "target_document_id": "doc:product%2FMVP-RELEASE-1.md",
+      "target_source": "product/MVP-RELEASE-1.md",
       "type": "references"
     },
     {
       "target_document_id": "doc:vision%2Fproblem-statement.md",
       "target_source": "vision/problem-statement.md",
+      "type": "references"
+    },
+    {
+      "target_document_id": "doc:vision%2Fproduct-vision.md",
+      "target_source": "vision/product-vision.md",
       "type": "references"
     }
   ],
@@ -113,74 +103,101 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 8,
+      "line_end": 4,
       "line_start": 1,
-      "section_id": "monadv2",
-      "text": "# MonadV2\n\nMonadV2 is organized as a documentation-first project: the problem,\nproduct intent, architecture, specifications, delivery plan, controls, and\noperating practices are versioned beside the implementation they govern. This\nrepository begins with an executable system of record rather than a loose set\nof notes.",
-      "title": "MonadV2"
+      "section_id": "monad",
+      "text": "# Monad\n\nMonad is an **Engineering Knowledge Compilation Platform**: a local-first, AI-native software-engineering knowledge compiler and orchestration runtime that turns canonical engineering knowledge into a deterministic semantic model from which humans, agents, tools, validation, planning, execution decisions, and documentation can operate.",
+      "title": "Monad"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 24,
-      "line_start": 9,
+      "line_end": 10,
+      "line_start": 5,
       "section_id": "current-state",
-      "text": "## Current state\n\nThe project is in **inception**. The initial objective is to validate the\nproblem and freeze enough of the product and architecture baseline to begin the\nfirst implementation increment without hiding unresolved risk.\n\n| Area | Source of truth | Initial decision gate |\n| --- | --- | --- |\n| Why the project exists | `vision/` | Vision review |\n| What must be delivered | `product/` and `specifications/` | Product baseline |\n| How the system is shaped | `architecture/` | Architecture review |\n| How work is controlled | `engineering/` | Increment authorization |\n| How change is governed | `governance/` | Change approval |\n| How quality and safety are proven | `testing/` and `security/` | Release readiness |\n| How the service is run | `operations/` | Operational readiness |",
+      "text": "## Current state\n\nMonad is in **foundation stabilization / pre-implementation**. The repository is intentionally establishing one coherent product thesis, authoritative artifact model, machine-readable knowledge layer, GitHub operating surface, and MVP execution backlog before broad implementation begins.\n\nThe current MVP goal is defined in [`product/MVP-RELEASE-1.md`](product/MVP-RELEASE-1.md).",
       "title": "Current state"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 33,
-      "line_start": 25,
-      "section_id": "start-here",
-      "text": "## Start here\n\n1. Read [`idea.md`](idea.md) for the original hypothesis and validation plan.\n2. Confirm the problem in [`vision/problem-statement.md`](vision/problem-statement.md).\n3. Review the product baseline in [`product/product-requirements.md`](product/product-requirements.md).\n4. Review the system shape in [`architecture/overview.md`](architecture/overview.md).\n5. Select authorized work from [`engineering/work-packets/active.md`](engineering/work-packets/active.md).\n6. Use [`CONTRIBUTING.md`](CONTRIBUTING.md) before proposing a change.",
-      "title": "Start here"
+      "line_end": 34,
+      "line_start": 11,
+      "section_id": "core-thesis",
+      "text": "## Core thesis\n\nSoftware systems are governed by far more than source code. Requirements, decisions, specifications, ownership, risks, work authorization, tests, provenance, releases, and operational evidence all affect what a change means and whether it is safe.\n\nMonad treats that body of engineering knowledge as a compilable system.\n\n```text\nHuman engineering knowledge\n        ↓\nCanonical artifacts\n        ↓\nDiscovery + parsing + semantic analysis\n        ↓\nMonad Semantic Graph\n        ↓\nKIR / query / diagnostics / context packages\n        ↓\nHumans + ChatGPT + Codex + native tools\n        ↓\nValidated engineering change and evidence\n```\n\nThe mature product should answer not only **what exists**, but also **why it exists, what governs it, what depends on it, what a change affects, what evidence proves it, and what an authorized agent needs to act safely**.",
+      "title": "Core thesis"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 50,
-      "line_start": 34,
-      "section_id": "repository-map",
-      "text": "## Repository map\n\n- `vision/` — enduring intent, principles, goals, exclusions, and outcomes.\n- `product/` — users, journeys, capabilities, requirements, and roadmap.\n- `architecture/` — system context, boundaries, quality attributes, and ADRs.\n- `specifications/` — testable functional and technical contracts.\n- `engineering/` — milestones, increments, work cycles, packets, reviews, and risks.\n- `research/` — questions, evidence, experiments, and references.\n- `governance/` — authority, decisions, change control, lifecycle, and language.\n- `operations/` — environments, delivery, telemetry, reliability, and incidents.\n- `security/` — security objectives, threats, controls, and supply-chain policy.\n- `testing/` — verification strategy, acceptance, performance, and quality gates.\n- `docs/` — user and maintainer documentation intended for publication.\n- `journal/` — chronological project narrative and rationale.\n- `machine/` — generated JSON companions, manifest, graph, and section corpus\n  for AI agents, search, validation, and automation.",
-      "title": "Repository map"
+      "line_end": 45,
+      "line_start": 35,
+      "section_id": "architectural-commitments-already-carried-forward",
+      "text": "## Architectural commitments already carried forward\n\n- Knowledge is a first-class engineering artifact.\n- Human-readable canonical source remains the project source of truth.\n- Machine representations are deterministic derivatives with provenance.\n- Local operation must remain useful without a hosted control plane.\n- AI is a bounded consumer/producer of engineering context, not an authority above accepted human decisions.\n- Monad coordinates native tools instead of replacing every language/build ecosystem.\n- Determinism, explainability, traceability, and reproducibility are product properties.\n- Architecture should be modular before repositories are split prematurely.",
+      "title": "Architectural commitments already carried forward"
     },
     {
       "identifiers": [],
       "level": 2,
       "line_end": 64,
-      "line_start": 51,
-      "section_id": "working-agreements",
-      "text": "## Working agreements\n\n- Every material claim links to evidence or is labeled as an assumption.\n- Every requirement has a stable identifier and verifiable acceptance criteria.\n- Every irreversible or cross-cutting architecture choice receives an ADR.\n- Work begins only when the Definition of Ready is met and closes only when the\n  Definition of Done is satisfied.\n- Security, operability, accessibility, and documentation are product work,\n  not post-release cleanup.\n- Decisions are changed by superseding records, never by silently rewriting\n  history.\n- Human-readable source files are canonical. Generated machine companions must\n  pass `python3 scripts/sync-machine-docs.py --check` before merge.",
-      "title": "Working agreements"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 71,
-      "line_start": 65,
-      "section_id": "contribution-and-support",
-      "text": "## Contribution and support\n\nUse issues for observable problems and bounded proposals. Use pull requests for\nreviewable changes. Security reports must follow [`SECURITY.md`](SECURITY.md)\nand must not be filed publicly. Project conduct is governed by\n[`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).",
-      "title": "Contribution and support"
+      "line_start": 46,
+      "section_id": "repository-map",
+      "text": "## Repository map\n\n| Path | Purpose |\n| --- | --- |\n| `vision/` | Why Monad exists and the durable principles constraining it |\n| `product/` | Users, outcomes, capabilities, MVP, requirements, and roadmap |\n| `architecture/` | System context, boundaries, architecture, and ADRs |\n| `specifications/` | Normative testable contracts |\n| `engineering/` | Milestones, increments, work cycles, Work Packets, status, reviews, and risks |\n| `artifact-system/` | Comprehensive catalog of engineering artifact contracts |\n| `governance/` | Authority, change control, terminology, decisions, and document lifecycle |\n| `research/` | Questions, experiments, evidence, findings, and trade studies |\n| `security/` | Threats, controls, supply chain, and security model |\n| `testing/` | Test strategy, quality gates, performance, and acceptance |\n| `operations/` | Deployment, observability, reliability, incidents, and environments |\n| `journal/` | Historical design narrative; informative unless promoted |\n| `machine/` | Deterministic semantic projections for AI, search, validation, and graph use |\n| `.monad/` | Monad repository identity/configuration bootstrap state |",
+      "title": "Repository map"
     },
     {
       "identifiers": [],
       "level": 2,
       "line_end": 75,
-      "line_start": 72,
+      "line_start": 65,
+      "section_id": "canonical-vs-machine-representation",
+      "text": "## Canonical vs machine representation\n\nCanonical human-readable source is edited directly. `machine/` is generated with:\n\n```bash\npython3 scripts/sync-machine-docs.py --write\npython3 scripts/sync-machine-docs.py --check\n```\n\nAI tools may use machine companions for retrieval and graph navigation, but must read the canonical source before making meaning-changing edits. A stale machine companion has no authority.",
+      "title": "Canonical vs machine representation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 91,
+      "line_start": 76,
+      "section_id": "engineering-workflow",
+      "text": "## Engineering workflow\n\n```text\nProduct intent\n  → accepted decisions/specifications\n  → ordered backlog\n  → ready Work Packet\n  → bounded ChatGPT/Codex context\n  → implementation\n  → deterministic verification\n  → PR/review\n  → merge/release evidence\n```\n\nGitHub is the durable collaboration and review surface. Canonical requirements, decisions, specifications, and Work Packets remain versioned in Git; GitHub Issues/Projects project and coordinate that work rather than silently replacing its authority.",
+      "title": "Engineering workflow"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 95,
+      "line_start": 92,
+      "section_id": "transitional-note",
+      "text": "## Transitional note\n\nThe repository is undergoing a controlled re-foundation. Draft and Proposed documents may change substantially until the Foundation Stabilization Review. Accepted decisions are migrated or superseded explicitly rather than erased. `architecture/decisions/` is the intended canonical ADR root.",
+      "title": "Transitional note"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 105,
+      "line_start": 96,
+      "section_id": "start-here",
+      "text": "## Start here\n\n1. [`engineering/stabilization/STABILIZATION-CHARTER.md`](engineering/stabilization/STABILIZATION-CHARTER.md)\n2. [`vision/product-vision.md`](vision/product-vision.md)\n3. [`vision/problem-statement.md`](vision/problem-statement.md)\n4. [`product/MVP-RELEASE-1.md`](product/MVP-RELEASE-1.md)\n5. [`architecture/overview.md`](architecture/overview.md)\n6. [`engineering/project-status.md`](engineering/project-status.md)\n7. [`engineering/work-packets/active.md`](engineering/work-packets/active.md)",
+      "title": "Start here"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 108,
+      "line_start": 106,
       "section_id": "license",
-      "text": "## License\n\nCopyright © 2026 Thomas Carter. Released under the MIT License; see\n[`LICENSE`](LICENSE).",
+      "text": "## License\n\nCopyright © 2026 Thomas Carter. Released under the MIT License; see [`LICENSE`](LICENSE).",
       "title": "License"
     }
   ],
   "source": {
-    "bytes": 3853,
+    "bytes": 5340,
     "canonical": true,
     "language": "markdown",
-    "lines": 75,
+    "lines": 108,
     "media_type": "text/markdown",
     "path": "README.md",
-    "sha256": "d02e7593f1caefab751aac689920c03f9c5476ced1bd50a1a20088e0787324a6"
+    "sha256": "371988bb2cc08c324b69255f34adfb667eeb06263fad27250488edd83e0afb29"
   }
 }

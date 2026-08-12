@@ -1,5 +1,5 @@
 {
-  "content": "# Outcome Roadmap\n\nThe roadmap orders learning and outcomes, not a fixed inventory of features.\nDates become commitments only within an authorized increment. Movement between\nhorizons depends on evidence and capacity.\n\n## Now — Validate and prove\n\n**Outcome:** prove that the primary persona can achieve the core result more\nreliably under realistic constraints.\n\n- Complete problem research and baseline measurement.\n- Freeze the primary journey, requirements, data classification, and quality\n  scenarios.\n- Build one vertical slice from authenticated intent to verified result.\n- Demonstrate validation, idempotency, interruption recovery, evidence, and\n  operator diagnosis.\n- Pilot with representative users and compare results with the baseline.\n\n**Exit gate:** product success thresholds are credible, the primary acceptance\nsuite passes, and no unaccepted critical or high risk remains.\n\n## Next — Strengthen and repeat\n\n**Outcome:** make the proven workflow dependable for repeated use without\nmaintainer-assisted operation.\n\n- Address pilot friction and the highest-value failure modes.\n- Establish service objectives, capacity evidence, backup and restore, and\n  cost controls.\n- Improve administration, onboarding, accessibility, and evidence review.\n- Add only the integration that removes the largest measured barrier.\n- Automate release evidence and operational readiness checks.\n\n**Entry condition:** repeat use shows the workflow solves the validated problem.\n\n## Later — Extend deliberately\n\n**Outcome:** expand value through adjacent workflows or segments while\npreserving trust and operational control.\n\n- Evaluate controlled extension points from repeated product needs.\n- Support an adjacent persona or journey with independent validation.\n- Consider additional regions, identity providers, or deployment shapes.\n- Extract platform capabilities only when ownership and economics are clear.\n\n## Roadmap decision rules\n\nAn item enters `Now` only when it advances a committed goal, has an accountable\nowner, satisfies the Definition of Ready, fits available capacity, and has a\nmeasurable outcome. Security, legal, or reliability work may preempt feature\nwork when it protects the product's ability to operate safely.\n\n## Review cadence\n\nReview the `Now` horizon each work cycle, horizon transitions at increment\nreviews, and strategic order quarterly. Record decisions and displaced work;\ndo not silently roll unfinished commitments forward.\n",
+  "content": "# Product Roadmap\n\n**Status:** Proposed rolling roadmap\n\n## Now — Foundation stabilization\n\n- reconcile product identity and authority;\n- consolidate ADRs under `architecture/decisions/`;\n- populate artifact-system contracts;\n- synchronize machine knowledge;\n- establish GitHub operating surface;\n- define MVP Product Goal, architecture gates, specifications, epics/features, Work Packets, and ready sprint horizon.\n\n**Exit:** Foundation Stabilization Review authorizes routine MVP execution.\n\n## MVP Release 1 — Compile and understand\n\n1. repository/workspace discovery;\n2. canonical artifact ingestion and identity;\n3. semantic graph ontology/construction;\n4. structural/semantic diagnostics;\n5. query and explanation;\n6. Work Packet agent context package;\n7. CLI vertical slice;\n8. deterministic/reproducibility conformance;\n9. installation/reference docs and release provenance.\n\n## Post-MVP 1 — Change intelligence and execution planning\n\n- semantic diff and impact analysis;\n- dependency/invalidation graph;\n- incremental execution planning;\n- verified caches;\n- native-tool adapter contracts;\n- architecture/policy enforcement;\n- richer PR impact reports.\n\n## Post-MVP 2 — Extensibility and knowledge lifecycle\n\n- stable KIR/schema versioning;\n- plugin/adapter SDK and conformance;\n- registry foundations;\n- publication/document projections;\n- richer specification compilation;\n- broader polyglot workspace support.\n\n## Post-MVP 3 — Team and ecosystem scale\n\n- cross-repository semantic knowledge;\n- organization ownership/policy models;\n- remote cache/execution only if justified;\n- hosted collaboration/control-plane features only when local-first boundaries are preserved;\n- advanced agent delegation/evaluation;\n- enterprise governance and compliance where market evidence exists.\n\n## Roadmap rule\n\nOnly the current horizon is decomposed into detailed tasks. Later horizons remain outcome/capability forecasts until evidence and dependencies make detailed decomposition useful.",
   "document_id": "doc:product%2Froadmap.md",
   "generation": {
     "deterministic": true,
@@ -11,8 +11,8 @@
   "metadata": {
     "document_type": "product",
     "normative": true,
-    "summary": "The roadmap orders learning and outcomes, not a fixed inventory of features. Dates become commitments only within an authorized increment. Movement between horizons depends on evidence and capacity.",
-    "title": "Outcome Roadmap"
+    "summary": "Status: Proposed rolling roadmap",
+    "title": "Product Roadmap"
   },
   "relations": [],
   "schema": "machine/schemas/document.schema.json",
@@ -21,65 +21,74 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 6,
+      "line_end": 4,
       "line_start": 1,
-      "section_id": "outcome-roadmap",
-      "text": "# Outcome Roadmap\n\nThe roadmap orders learning and outcomes, not a fixed inventory of features.\nDates become commitments only within an authorized increment. Movement between\nhorizons depends on evidence and capacity.",
-      "title": "Outcome Roadmap"
+      "section_id": "product-roadmap",
+      "text": "# Product Roadmap\n\n**Status:** Proposed rolling roadmap",
+      "title": "Product Roadmap"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 22,
-      "line_start": 7,
-      "section_id": "now-validate-and-prove",
-      "text": "## Now — Validate and prove\n\n**Outcome:** prove that the primary persona can achieve the core result more\nreliably under realistic constraints.\n\n- Complete problem research and baseline measurement.\n- Freeze the primary journey, requirements, data classification, and quality\n  scenarios.\n- Build one vertical slice from authenticated intent to verified result.\n- Demonstrate validation, idempotency, interruption recovery, evidence, and\n  operator diagnosis.\n- Pilot with representative users and compare results with the baseline.\n\n**Exit gate:** product success thresholds are credible, the primary acceptance\nsuite passes, and no unaccepted critical or high risk remains.",
-      "title": "Now — Validate and prove"
+      "line_end": 15,
+      "line_start": 5,
+      "section_id": "now-foundation-stabilization",
+      "text": "## Now — Foundation stabilization\n\n- reconcile product identity and authority;\n- consolidate ADRs under `architecture/decisions/`;\n- populate artifact-system contracts;\n- synchronize machine knowledge;\n- establish GitHub operating surface;\n- define MVP Product Goal, architecture gates, specifications, epics/features, Work Packets, and ready sprint horizon.\n\n**Exit:** Foundation Stabilization Review authorizes routine MVP execution.",
+      "title": "Now — Foundation stabilization"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 36,
-      "line_start": 23,
-      "section_id": "next-strengthen-and-repeat",
-      "text": "## Next — Strengthen and repeat\n\n**Outcome:** make the proven workflow dependable for repeated use without\nmaintainer-assisted operation.\n\n- Address pilot friction and the highest-value failure modes.\n- Establish service objectives, capacity evidence, backup and restore, and\n  cost controls.\n- Improve administration, onboarding, accessibility, and evidence review.\n- Add only the integration that removes the largest measured barrier.\n- Automate release evidence and operational readiness checks.\n\n**Entry condition:** repeat use shows the workflow solves the validated problem.",
-      "title": "Next — Strengthen and repeat"
+      "line_end": 27,
+      "line_start": 16,
+      "section_id": "mvp-release-1-compile-and-understand",
+      "text": "## MVP Release 1 — Compile and understand\n\n1. repository/workspace discovery;\n2. canonical artifact ingestion and identity;\n3. semantic graph ontology/construction;\n4. structural/semantic diagnostics;\n5. query and explanation;\n6. Work Packet agent context package;\n7. CLI vertical slice;\n8. deterministic/reproducibility conformance;\n9. installation/reference docs and release provenance.",
+      "title": "MVP Release 1 — Compile and understand"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 28,
+      "section_id": "post-mvp-1-change-intelligence-and-execution-planning",
+      "text": "## Post-MVP 1 — Change intelligence and execution planning\n\n- semantic diff and impact analysis;\n- dependency/invalidation graph;\n- incremental execution planning;\n- verified caches;\n- native-tool adapter contracts;\n- architecture/policy enforcement;\n- richer PR impact reports.",
+      "title": "Post-MVP 1 — Change intelligence and execution planning"
     },
     {
       "identifiers": [],
       "level": 2,
       "line_end": 46,
-      "line_start": 37,
-      "section_id": "later-extend-deliberately",
-      "text": "## Later — Extend deliberately\n\n**Outcome:** expand value through adjacent workflows or segments while\npreserving trust and operational control.\n\n- Evaluate controlled extension points from repeated product needs.\n- Support an adjacent persona or journey with independent validation.\n- Consider additional regions, identity providers, or deployment shapes.\n- Extract platform capabilities only when ownership and economics are clear.",
-      "title": "Later — Extend deliberately"
+      "line_start": 38,
+      "section_id": "post-mvp-2-extensibility-and-knowledge-lifecycle",
+      "text": "## Post-MVP 2 — Extensibility and knowledge lifecycle\n\n- stable KIR/schema versioning;\n- plugin/adapter SDK and conformance;\n- registry foundations;\n- publication/document projections;\n- richer specification compilation;\n- broader polyglot workspace support.",
+      "title": "Post-MVP 2 — Extensibility and knowledge lifecycle"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 53,
+      "line_end": 55,
       "line_start": 47,
-      "section_id": "roadmap-decision-rules",
-      "text": "## Roadmap decision rules\n\nAn item enters `Now` only when it advances a committed goal, has an accountable\nowner, satisfies the Definition of Ready, fits available capacity, and has a\nmeasurable outcome. Security, legal, or reliability work may preempt feature\nwork when it protects the product's ability to operate safely.",
-      "title": "Roadmap decision rules"
+      "section_id": "post-mvp-3-team-and-ecosystem-scale",
+      "text": "## Post-MVP 3 — Team and ecosystem scale\n\n- cross-repository semantic knowledge;\n- organization ownership/policy models;\n- remote cache/execution only if justified;\n- hosted collaboration/control-plane features only when local-first boundaries are preserved;\n- advanced agent delegation/evaluation;\n- enterprise governance and compliance where market evidence exists.",
+      "title": "Post-MVP 3 — Team and ecosystem scale"
     },
     {
       "identifiers": [],
       "level": 2,
       "line_end": 58,
-      "line_start": 54,
-      "section_id": "review-cadence",
-      "text": "## Review cadence\n\nReview the `Now` horizon each work cycle, horizon transitions at increment\nreviews, and strategic order quarterly. Record decisions and displaced work;\ndo not silently roll unfinished commitments forward.",
-      "title": "Review cadence"
+      "line_start": 56,
+      "section_id": "roadmap-rule",
+      "text": "## Roadmap rule\n\nOnly the current horizon is decomposed into detailed tasks. Later horizons remain outcome/capability forecasts until evidence and dependencies make detailed decomposition useful.",
+      "title": "Roadmap rule"
     }
   ],
   "source": {
-    "bytes": 2468,
+    "bytes": 1998,
     "canonical": true,
     "language": "markdown",
     "lines": 58,
     "media_type": "text/markdown",
     "path": "product/roadmap.md",
-    "sha256": "b237ee972760552ab746e02f9412f3c8ea6eed5e1ff6b20887236fd1de31771e"
+    "sha256": "8ab62606d0777bc5b55ac323734cd40028cc22def70fa36b45e55c205f6a13d8"
   }
 }
