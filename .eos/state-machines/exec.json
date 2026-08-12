@@ -1,0 +1,18 @@
+{
+  "kind": "EXEC",
+  "version": "1.0.0",
+  "initial_state": "PREPARED",
+  "terminal_states": ["CLOSED", "ABORTED", "FAILED", "INVALIDATED"],
+  "states": ["PREPARED", "RUNNING", "RESULT_INGESTED", "VERIFIED", "BLOCKED", "FAILED", "INVALIDATED", "ABORTED", "CLOSED"],
+  "transitions": {
+    "PREPARED": ["RUNNING", "ABORTED", "INVALIDATED"],
+    "RUNNING": ["RESULT_INGESTED", "BLOCKED", "FAILED", "ABORTED", "INVALIDATED"],
+    "RESULT_INGESTED": ["VERIFIED", "BLOCKED", "FAILED", "INVALIDATED"],
+    "VERIFIED": ["CLOSED", "INVALIDATED"],
+    "BLOCKED": ["RUNNING", "ABORTED", "INVALIDATED"],
+    "FAILED": [],
+    "INVALIDATED": [],
+    "ABORTED": [],
+    "CLOSED": []
+  }
+}

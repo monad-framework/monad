@@ -31,8 +31,7 @@ ID_RE = re.compile(
     r"CR-\d{4}|"
     r"MNT-\d{4}|"
     r"RISK-\d{3,4}|"
-    r"REL-\d+\.\d+\.\d+|"
-    r"EXEC-\d{4}"
+    r"REL-\d+\.\d+\.\d+"
     r")\b"
 )
 
@@ -54,7 +53,6 @@ VALID_STATES = {
     "CR": {"DRAFT", "PROPOSED", "APPROVED", "APPLIED", "CLOSED", "REJECTED"},
     "MNT": {"OPEN", "PLANNED", "IN_PROGRESS", "VERIFYING", "CLOSED", "DEFERRED"},
     "REL": {"PROPOSED", "READY", "RELEASED", "WITHDRAWN"},
-    "EXEC": {"PREPARED", "RUNNING", "RESULT_INGESTED", "VERIFIED", "BLOCKED", "FAILED", "INVALIDATED", "ABORTED", "CLOSED"},
 }
 
 REGISTRY_FIELDS = {
@@ -75,7 +73,6 @@ REGISTRY_FIELDS = {
     "CR": ["id", "path", "target", "summary", "status", "created", "updated", "github_url"],
     "MNT": ["id", "path", "type", "summary", "status", "created", "updated", "github_url"],
     "REL": ["id", "path", "version", "status", "created", "updated", "github_url"],
-    "EXEC": ["id", "path", "target", "status", "branch", "worktree", "baseline_commit", "governing_hash", "contract_hash", "result_path", "actor", "created", "updated"],
 }
 
 REGISTRY_PATHS = {
@@ -85,7 +82,6 @@ REGISTRY_PATHS = {
     "CR": ".eos/change-requests.tsv",
     "MNT": ".eos/maintenance.tsv",
     "REL": ".eos/releases.tsv",
-    "EXEC": ".eos/executions.tsv",
 }
 
 
@@ -286,7 +282,7 @@ def ensure_event_ledger_seeded() -> None:
         reason="initialize append-only EOS lifecycle event ledger",
         metadata={"root": str(ROOT)},
     )
-    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC"):
+    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
         for row in registry(kind):
             append_event(
                 "ENTITY_IMPORTED",
@@ -359,8 +355,6 @@ def ensure_dirs() -> None:
         EOS / "policies",
         EOS / "cache",
         EOS / "sync",
-        EOS / "executions",
-        EOS / "locks",
         ROOT / "engineering" / "reviews",
         ROOT / "engineering" / "increments",
         ROOT / "engineering" / "work-cycles",
@@ -552,8 +546,6 @@ def kind_for_id(target: str) -> str:
         return "MNT"
     if re.fullmatch(r"REL-\d+\.\d+\.\d+", target):
         return "REL"
-    if re.fullmatch(r"EXEC-\d{4}", target):
-        return "EXEC"
     raise EosError(f"Unsupported lifecycle target: {target}")
 
 
@@ -606,8 +598,6 @@ def next_number(kind: str, width: int, *, prefix: str | None = None) -> int:
         pattern = re.compile(r"^CR-(\d{4})$")
     elif kind == "MNT":
         pattern = re.compile(r"^MNT-(\d{4})$")
-    elif kind == "EXEC":
-        pattern = re.compile(r"^EXEC-(\d{4})$")
     else:
         raise EosError(f"Cannot allocate ID for kind {kind}")
     for row in rows:
@@ -644,7 +634,7 @@ def replace_state_line(path: Path, new_state: str) -> None:
 
 
 def sync_artifact_state(path: Path, state: str) -> None:
-    if not path.exists() or path.suffix != ".md":
+    if not path.exists():
         return
     replace_state_line(path, state)
     data, _ = parse_frontmatter(path) if path.suffix == ".md" else ({}, "")
@@ -1718,12 +1708,6 @@ TBD.
 ### Out of Scope
 
 TBD.
-
-## Execution Scope
-
-EOSE blocks Git/EOS internals and governed-artifact changes by default. Add
-`allowed-path`, `forbidden-path`, or `allowed-governed-path` directives when this
-work packet requires a more explicit machine-enforced file boundary.
 
 ## Governing Artifacts
 
@@ -3803,10 +3787,10 @@ def cmd_schema(args: argparse.Namespace) -> None:
     name = args.name.lower()
     aliases = {
         "pi": "pi", "wc": "wc", "wp": "wp", "cr": "cr", "mnt": "mnt",
-        "rel": "rel", "exec": "exec", "artifact": "artifact", "event": "event",
+        "rel": "rel", "artifact": "artifact", "event": "event",
     }
     if name not in aliases:
-        raise EosError("Schema must be one of PI, WC, WP, CR, MNT, REL, EXEC, artifact, event")
+        raise EosError("Schema must be one of PI, WC, WP, CR, MNT, REL, artifact, event")
     schema = load_json(SCHEMA_DIR / f"{aliases[name]}.schema.json")
     print(json.dumps(schema, indent=2, sort_keys=True))
 
@@ -3814,7 +3798,7 @@ def cmd_schema(args: argparse.Namespace) -> None:
 def cmd_rebuild_state(args: argparse.Namespace) -> None:
     projected = event_projected_state()
     mismatches: list[tuple[str, str, str, str]] = []
-    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC"):
+    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
         for row in registry(kind):
             key = (kind, row["id"])
             if key not in projected:
@@ -3963,7 +3947,7 @@ def verify_all(*, strict: bool = False) -> tuple[bool, str]:
                     )
 
     # Declarative state-machine integrity.
-    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC"):
+    for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
         try:
             machine = state_machine(kind)
             states = set(machine.get("states", []))
@@ -4006,7 +3990,7 @@ def verify_all(*, strict: bool = False) -> tuple[bool, str]:
                         f"illegal recorded transition in {event_id}: {kind} {frm} -> {to}"
                     )
         projected = event_projected_state()
-        for kind in ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC"):
+        for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
             for row in registry(kind):
                 expected = projected.get((kind, row["id"]))
                 if expected and expected != row["status"]:
@@ -4127,7 +4111,7 @@ def cmd_doctor(_: argparse.Namespace) -> None:
 TOP_LEVEL_COMPLETION_COMMANDS = (
     "layers", "status", "next", "prompt", "complete", "reopen", "version",
     "history", "rollback", "checkpoint", "plan", "create-wc", "create-wp",
-    "ready", "authorize", "start", "preflight", "worktree", "execute", "execution", "contract", "codex", "validate", "review", "close",
+    "ready", "authorize", "start", "codex", "validate", "review", "close",
     "close-cycle", "close-pi", "trace", "impact", "github-sync", "change",
     "maintain", "release", "planning", "policy", "gate", "override", "stale", "events",
     "state-machine", "schema", "rebuild-state", "verify", "doctor",
@@ -4140,12 +4124,7 @@ COMMAND_COMPLETION_OPTIONS = {
     "create-wp": ("--wc", "--domain", "--title"),
     "ready": ("--reason", "--by"),
     "authorize": ("--force", "--reason", "--by"),
-    "codex": ("--force", "--no-worktree", "--base", "--actor", "--json"),
-    "preflight": ("--no-worktree", "--base", "--json"),
-    "execute": ("--no-worktree", "--base", "--actor", "--json"),
-    "worktree": ("--base", "--path", "--force"),
-    "execution": ("--target", "--json", "--reason", "--by"),
-    "contract": ("--json",),
+    "codex": ("--force",),
     "close": ("--force", "--reason", "--by"),
     "close-cycle": ("--force", "--reason", "--by"),
     "close-pi": ("--force", "--reason", "--by"),
@@ -4279,12 +4258,6 @@ def completion_candidates(words: list[str]) -> list[str]:
     previous = prior[-1] if prior else ""
 
     # Subcommand discovery.
-    if command == "worktree" and len(args) == 1:
-        return filter_completion(("create", "list", "remove"), current)
-    if command == "execution" and len(args) == 1:
-        return filter_completion(("list", "show", "ingest", "check", "close", "abort", "environment"), current)
-    if command == "contract" and len(args) == 1:
-        return filter_completion(("verify", "show"), current)
     if command == "change" and len(args) == 1:
         return filter_completion(("create", "approve", "apply", "close"), current)
     if command == "maintain" and len(args) == 1:
@@ -4394,13 +4367,13 @@ def completion_candidates(words: list[str]) -> list[str]:
     if command in {"impact", "events"}:
         return filter_completion(completion_artifact_ids(), current)
     if command == "state-machine":
-        values = ["PI", "WC", "WP", "CR", "MNT", "REL", "EXEC"] + completion_ids(
-            "PI", "WC", "WP", "CR", "MNT", "REL", "EXEC"
+        values = ["PI", "WC", "WP", "CR", "MNT", "REL"] + completion_ids(
+            "PI", "WC", "WP", "CR", "MNT", "REL"
         )
         return filter_completion(values, current.upper())
     if command == "schema":
         return filter_completion(
-            ("PI", "WC", "WP", "CR", "MNT", "REL", "EXEC", "artifact", "event", "override"),
+            ("PI", "WC", "WP", "CR", "MNT", "REL", "artifact", "event", "override"),
             current,
         )
     if command == "release":
@@ -4466,34 +4439,6 @@ def completion_candidates(words: list[str]) -> list[str]:
         if subcmd == "clear" and len(subargs) <= 1:
             values = [r["id"] for r in stale_rows() if r.get("status") == "OPEN"]
             return filter_completion(values, subcurrent.upper())
-        return []
-
-    # EOSE Execution v2 subcommands.
-    if command in {"preflight", "execute", "codex"}:
-        return filter_completion(completion_ids("WP"), current)
-
-    if command == "worktree" and args:
-        subcmd = args[0]
-        subargs = args[1:]
-        subcurrent = subargs[-1] if subargs else ""
-        if subcmd in {"create", "remove"} and len(subargs) <= 1:
-            return filter_completion(completion_ids("WP"), subcurrent)
-        return []
-
-    if command == "execution" and args:
-        subcmd = args[0]
-        subargs = args[1:]
-        subcurrent = subargs[-1] if subargs else ""
-        if subcmd in {"show", "ingest", "check", "close", "abort", "environment"} and len(subargs) <= 1:
-            return filter_completion(completion_ids("EXEC"), subcurrent)
-        return []
-
-    if command == "contract" and args:
-        subcmd = args[0]
-        subargs = args[1:]
-        subcurrent = subargs[-1] if subargs else ""
-        if subcmd in {"verify", "show"} and len(subargs) <= 1:
-            return filter_completion(completion_ids("EXEC"), subcurrent)
         return []
 
     # Change/maintenance subcommands.
