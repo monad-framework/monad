@@ -222,7 +222,22 @@
     },
     {
       "source": "doc:README.md",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:README.md",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:README.md",
       "target": "doc:LICENSE",
+      "type": "references"
+    },
+    {
+      "source": "doc:README.md",
+      "target": "doc:architecture%2Fdecisions%2FREADME.md",
       "type": "references"
     },
     {
@@ -248,6 +263,11 @@
     {
       "source": "doc:README.md",
       "target": "doc:product%2FMVP-RELEASE-1.md",
+      "type": "references"
+    },
+    {
+      "source": "doc:README.md",
+      "target": "doc:scripts%2Feos",
       "type": "references"
     },
     {
@@ -9807,5 +9827,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "d29e5f1c91fe414fb97971bd43f2387d930c2113bc90251b85364fb908f15cd0"
+  "source_tree_sha256": "000318a4e71cbd7a34915449684df8dbda702ba0c749df91a240bba5e1cce15a"
 }
