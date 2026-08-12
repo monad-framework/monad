@@ -1,0 +1,40 @@
+{
+  "content": "name: EOS trace projection repair\n\non:\n  push:\n    branches: [eos/trace-projection-integrity]\n    paths:\n      - '.github/workflows/eos-trace-projection-repair.yml'\n\npermissions:\n  contents: write\n\njobs:\n  repair:\n    if: github.actor != 'github-actions[bot]'\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - name: Regenerate deterministic trace projection\n        run: python3 tools/eos/trace_integrity.py --write\n      - name: Regenerate machine documents\n        run: python3 scripts/sync-machine-docs.py --write\n      - name: Commit derived projection repair\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add .eos/trace-edges.tsv machine\n          if git diff --cached --quiet --exit-code; then\n            echo 'No derived changes required.'\n            exit 0\n          fi\n          git commit -m \"fix(eos): regenerate deterministic trace projection\"\n          git push origin \"HEAD:${GITHUB_REF_NAME}\"\n",
+  "document_id": "doc:.github%2Fworkflows%2Feos-trace-projection-repair.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/eos-trace-projection-repair.yml.",
+    "title": "Eos Trace Projection Repair"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 38,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: EOS trace projection repair\n\non:\n  push:\n    branches: [eos/trace-projection-integrity]\n    paths:\n      - '.github/workflows/eos-trace-projection-repair.yml'\n\npermissions:\n  contents: write\n\njobs:\n  repair:\n    if: github.actor != 'github-actions[bot]'\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - name: Regenerate deterministic trace projection\n        run: python3 tools/eos/trace_integrity.py --write\n      - name: Regenerate machine documents\n        run: python3 scripts/sync-machine-docs.py --write\n      - name: Commit derived projection repair\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add .eos/trace-edges.tsv machine\n          if git diff --cached --quiet --exit-code; then\n            echo 'No derived changes required.'\n            exit 0\n          fi\n          git commit -m \"fix(eos): regenerate deterministic trace projection\"\n          git push origin \"HEAD:${GITHUB_REF_NAME}\"",
+      "title": "Eos Trace Projection Repair"
+    }
+  ],
+  "source": {
+    "bytes": 1212,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 38,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/eos-trace-projection-repair.yml",
+    "sha256": "ee66c7d5458841d54fc20c737fb21ab323f15761a537998c3354db3555483c48"
+  }
+}
