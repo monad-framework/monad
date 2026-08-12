@@ -1,5 +1,5 @@
 {
-  "content": "name: EOS Integrity\non:\n  push:\n    branches: [main]\n  pull_request:\npermissions:\n  contents: read\njobs:\n  eos-integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - run: ./scripts/eos ci\n",
+  "content": "name: EOS Integrity\non:\n  push:\n    branches: [main]\n  pull_request:\npermissions:\n  contents: read\njobs:\n  eos-integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - name: Run governed EOS verification\n        run: ./scripts/eos verify --strict\n",
   "document_id": "doc:.github%2Fworkflows%2Feos-integrity.yml",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 16,
+      "line_end": 17,
       "line_start": 1,
       "section_id": "content",
-      "text": "name: EOS Integrity\non:\n  push:\n    branches: [main]\n  pull_request:\npermissions:\n  contents: read\njobs:\n  eos-integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - run: ./scripts/eos ci",
+      "text": "name: EOS Integrity\non:\n  push:\n    branches: [main]\n  pull_request:\npermissions:\n  contents: read\njobs:\n  eos-integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - name: Run governed EOS verification\n        run: ./scripts/eos verify --strict",
       "title": "Eos Integrity"
     }
   ],
   "source": {
-    "bytes": 309,
+    "bytes": 366,
     "canonical": true,
     "language": "yaml",
-    "lines": 16,
+    "lines": 17,
     "media_type": "application/yaml",
     "path": ".github/workflows/eos-integrity.yml",
-    "sha256": "3f8c47a8dd8cfabf8d96125d2c2aeaacbca8524b8d1031e439e548b9b15bf73b"
+    "sha256": "c0e43ccb64c44c4eec5b86467bf043a1b23052d41f05229babef9e7469977c6b"
   }
 }
