@@ -1,40 +1,40 @@
 {
-  "content": "<!-- mvp-work-packet-forecast:v1 -->\n# WP-MVP-0002 — Workspace discovery\n\n**Status:** Planned  \n**Epic:** EPIC-002  \n**Work Cycle / Sprint:** WC-MVP-0001  \n**Product Goal:** PG-001  \n**Target:** MVP Release 1\n\n## Objective\n\nDeliver **workspace discovery** as one independently reviewable vertical engineering outcome that advances PG-001 without expanding beyond the MVP boundary.\n\n## Context\n\nThis packet is forecast in `product/backlog/MVP-BACKLOG.md`. It becomes **Ready** only after its required governing ADRs/specifications are accepted or explicitly identified as not required, upstream packet dependencies have passing evidence, and task-level implementation scope can be bounded without guessing.\n\n## Scope\n\n### In scope\n\n- behavior necessary to satisfy the linked stories/enablers;\n- deterministic positive, negative, boundary, and failure behavior;\n- diagnostics, provenance, documentation, and tests required by the Definition of Done;\n- compatibility/security implications introduced by this packet.\n\n### Out of scope\n\n- unrelated refactoring;\n- post-MVP generalization not required by PG-001;\n- silent changes to accepted architecture/specification authority;\n- introducing hosted, remote, or agent autonomy dependencies unless explicitly authorized.\n\n## Governing artifacts\n\nBefore activation, replace unresolved entries with concrete links:\n\n- Product Goal: `product/PRODUCT-GOAL.md`\n- MVP contract: `product/MVP-RELEASE-1.md`\n- Product requirements: `product/product-requirements.md`\n- Architecture: `architecture/overview.md`\n- Required ADR(s): **TBD during refinement**\n- Required specification(s): **TBD during refinement**\n\n## Dependencies\n\nDependencies are the accepted outputs of earlier packets on the critical path plus any explicit native-tool/schema contracts discovered during refinement. A packet MUST NOT become Ready while a dependency capable of changing its public semantic contract remains unresolved.\n\n## Acceptance criteria\n\n- [ ] US-005 discover supported workspace structure.\n- [ ] US-006 guarantee stable discovery ordering.\n- [ ] US-007 diagnose unsupported workspace structure.\n- [ ] Required negative and boundary behavior is verified.\n- [ ] Deterministic output/order/identity requirements relevant to this packet pass.\n- [ ] Diagnostics and provenance are sufficient to explain failure and derived state.\n- [ ] No new unaccepted critical/high security or correctness risk remains.\n- [ ] Canonical documentation and machine projection are synchronized.\n\n## Implementation constraints\n\n1. Core semantic truth must not depend on LLM output.\n2. Canonical repository inspection must not execute untrusted project code implicitly.\n3. Stable public identifiers/schemas require explicit compatibility treatment.\n4. Native tool results remain authoritative for native semantics.\n5. Agent execution scope cannot exceed this Work Packet or its governing authority.\n6. Generated state must be rebuildable or explicitly treated as external evidence.\n\n## Validation\n\nRefinement MUST identify exact commands/tests before authorization. Expected evidence includes focused unit tests, conformance/golden/property tests where semantics are canonical, integration tests across the affected boundary, machine-document synchronization, and end-to-end evidence when the packet changes a user-visible journey.\n\n## Risks\n\nPrimary risks are semantic ambiguity, accidental coupling to future architecture, nondeterminism, insufficient provenance, and over-broad MVP scope. Any discovered risk that changes the governing contract triggers refinement or escalation rather than being hidden in implementation.\n\n## Completion evidence\n\nPopulate with branch/commit, PR, test commands/results, semantic/architecture review, generated artifacts, and closure disposition. Merge alone is not completion.\n\n## Refinement state\n\nThis forecast packet is intentionally not Ready merely because it has been generated. Remove `<!-- mvp-work-packet-forecast:v1 -->` when the packet has been manually refined and authorized; the generator will then stop owning its contents.\n",
+  "content": "# WP-MVP-0002 — Deterministic workspace discovery\n\n**Status:** Refined — blocked from Ready by WP-MVP-0001 implementation and ADR-0005  \n**Epic:** EPIC-002  \n**Feature:** F-002-02  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0001  \n**Product Goal:** PG-001\n\n## Objective\n\nEnumerate the configured canonical workspace deterministically and safely, with stable ordering, containment checks, exclusions, and discovery provenance.\n\n## Governing authority\n\n- FR-001; QR-001, QR-003\n- ADR-0002, ADR-0004\n- IFC-WORKSPACE-0001\n- TECH-WORKSPACE-0001\n- proposed ADR-0005\n\n## Dependencies\n\n- WP-MVP-0001 must provide valid root/effective configuration.\n- ADR-0005 must establish implementation topology before authorization.\n\n## In scope\n\nconfigured include/exclude matching; canonical relative paths; stable candidate ordering; overlapping-pattern de-duplication; symlink containment/cycle handling; unsupported-source diagnostics; discovery provenance; fixtures.\n\n## Out of scope\n\nparsing document content; source/document ID allocation beyond the canonical-path inputs needed by WP-MVP-0003; graph construction; package-manager/native-tool discovery requiring execution; network access.\n\n## Acceptance criteria\n\n- [ ] US-005 supported configured workspace candidates are discovered.\n- [ ] US-006 ordering is stable under randomized filesystem enumeration.\n- [ ] US-007 unsupported/unsafe structures produce actionable diagnostics.\n- [ ] exclusions prevent `.git/`, `.eos/`, `machine/`, and configured build output from canonical ingestion by default.\n- [ ] overlapping patterns produce one canonical candidate.\n- [ ] external/cyclic symlinks cannot escape root or create duplicate semantic sources.\n- [ ] no repository code/network executes.\n\n## Implementation boundary\n\nUnder accepted ADR-0005, changes belong in the workspace/discovery module and its focused fixtures/tests in `monad-core`; CLI changes are limited to exposing already-defined discovery results/diagnostics.\n\n## Validation\n\nFocused unit/property/golden discovery tests, randomized-order test harness, symlink/security fixtures where the platform supports them, and machine-document freshness check.\n",
   "document_id": "doc:engineering%2Fwork-packets%2FWP-MVP-0002.md",
   "generation": {
     "deterministic": true,
     "tool": "sync-machine-docs",
     "version": "1.0.0"
   },
-  "identifiers": [],
+  "identifiers": [
+    "ADR-0002",
+    "ADR-0004",
+    "ADR-0005",
+    "FR-001",
+    "QR-001",
+    "QR-003"
+  ],
   "links": [],
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "Status: Planned Epic: EPIC-002 Work Cycle / Sprint: WC-MVP-0001 Product Goal: PG-001 Target: MVP Release 1",
-    "title": "WP-MVP-0002 — Workspace discovery"
+    "summary": "Status: Refined — blocked from Ready by WP-MVP-0001 implementation and ADR-0005 Epic: EPIC-002 Feature: F-002-02 Program Increment: PI-MVP-001 Work Cycle: WC-MVP-0001 Product Goal: PG-001",
+    "title": "WP-MVP-0002 — Deterministic workspace discovery"
   },
   "relations": [],
   "schema": "machine/schemas/document.schema.json",
   "schema_version": "1.0.0",
   "sections": [
     {
-      "identifiers": [],
-      "level": 0,
-      "line_end": 1,
-      "line_start": 1,
-      "section_id": "preamble",
-      "text": "<!-- mvp-work-packet-forecast:v1 -->",
-      "title": "Preamble"
-    },
-    {
-      "identifiers": [],
+      "identifiers": [
+        "ADR-0005"
+      ],
       "level": 1,
       "line_end": 9,
-      "line_start": 2,
-      "section_id": "wp-mvp-0002-workspace-discovery",
-      "text": "# WP-MVP-0002 — Workspace discovery\n\n**Status:** Planned  \n**Epic:** EPIC-002  \n**Work Cycle / Sprint:** WC-MVP-0001  \n**Product Goal:** PG-001  \n**Target:** MVP Release 1",
-      "title": "WP-MVP-0002 — Workspace discovery"
+      "line_start": 1,
+      "section_id": "wp-mvp-0002-deterministic-workspace-discovery",
+      "text": "# WP-MVP-0002 — Deterministic workspace discovery\n\n**Status:** Refined — blocked from Ready by WP-MVP-0001 implementation and ADR-0005  \n**Epic:** EPIC-002  \n**Feature:** F-002-02  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0001  \n**Product Goal:** PG-001",
+      "title": "WP-MVP-0002 — Deterministic workspace discovery"
     },
     {
       "identifiers": [],
@@ -42,125 +42,91 @@
       "line_end": 13,
       "line_start": 10,
       "section_id": "objective",
-      "text": "## Objective\n\nDeliver **workspace discovery** as one independently reviewable vertical engineering outcome that advances PG-001 without expanding beyond the MVP boundary.",
+      "text": "## Objective\n\nEnumerate the configured canonical workspace deterministically and safely, with stable ordering, containment checks, exclusions, and discovery provenance.",
       "title": "Objective"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "ADR-0002",
+        "ADR-0004",
+        "ADR-0005",
+        "FR-001",
+        "QR-001",
+        "QR-003"
+      ],
       "level": 2,
-      "line_end": 17,
+      "line_end": 21,
       "line_start": 14,
-      "section_id": "context",
-      "text": "## Context\n\nThis packet is forecast in `product/backlog/MVP-BACKLOG.md`. It becomes **Ready** only after its required governing ADRs/specifications are accepted or explicitly identified as not required, upstream packet dependencies have passing evidence, and task-level implementation scope can be bounded without guessing.",
-      "title": "Context"
+      "section_id": "governing-authority",
+      "text": "## Governing authority\n\n- FR-001; QR-001, QR-003\n- ADR-0002, ADR-0004\n- IFC-WORKSPACE-0001\n- TECH-WORKSPACE-0001\n- proposed ADR-0005",
+      "title": "Governing authority"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 22,
+      "section_id": "dependencies",
+      "text": "## Dependencies\n\n- WP-MVP-0001 must provide valid root/effective configuration.\n- ADR-0005 must establish implementation topology before authorization.",
+      "title": "Dependencies"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 19,
-      "line_start": 18,
-      "section_id": "scope",
-      "text": "## Scope",
-      "title": "Scope"
-    },
-    {
-      "identifiers": [],
-      "level": 3,
-      "line_end": 26,
-      "line_start": 20,
+      "line_end": 30,
+      "line_start": 27,
       "section_id": "in-scope",
-      "text": "### In scope\n\n- behavior necessary to satisfy the linked stories/enablers;\n- deterministic positive, negative, boundary, and failure behavior;\n- diagnostics, provenance, documentation, and tests required by the Definition of Done;\n- compatibility/security implications introduced by this packet.",
+      "text": "## In scope\n\nconfigured include/exclude matching; canonical relative paths; stable candidate ordering; overlapping-pattern de-duplication; symlink containment/cycle handling; unsupported-source diagnostics; discovery provenance; fixtures.",
       "title": "In scope"
     },
     {
       "identifiers": [],
-      "level": 3,
-      "line_end": 33,
-      "line_start": 27,
+      "level": 2,
+      "line_end": 34,
+      "line_start": 31,
       "section_id": "out-of-scope",
-      "text": "### Out of scope\n\n- unrelated refactoring;\n- post-MVP generalization not required by PG-001;\n- silent changes to accepted architecture/specification authority;\n- introducing hosted, remote, or agent autonomy dependencies unless explicitly authorized.",
+      "text": "## Out of scope\n\nparsing document content; source/document ID allocation beyond the canonical-path inputs needed by WP-MVP-0003; graph construction; package-manager/native-tool discovery requiring execution; network access.",
       "title": "Out of scope"
     },
     {
       "identifiers": [],
       "level": 2,
       "line_end": 44,
-      "line_start": 34,
-      "section_id": "governing-artifacts",
-      "text": "## Governing artifacts\n\nBefore activation, replace unresolved entries with concrete links:\n\n- Product Goal: `product/PRODUCT-GOAL.md`\n- MVP contract: `product/MVP-RELEASE-1.md`\n- Product requirements: `product/product-requirements.md`\n- Architecture: `architecture/overview.md`\n- Required ADR(s): **TBD during refinement**\n- Required specification(s): **TBD during refinement**",
-      "title": "Governing artifacts"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 48,
-      "line_start": 45,
-      "section_id": "dependencies",
-      "text": "## Dependencies\n\nDependencies are the accepted outputs of earlier packets on the critical path plus any explicit native-tool/schema contracts discovered during refinement. A packet MUST NOT become Ready while a dependency capable of changing its public semantic contract remains unresolved.",
-      "title": "Dependencies"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 59,
-      "line_start": 49,
+      "line_start": 35,
       "section_id": "acceptance-criteria",
-      "text": "## Acceptance criteria\n\n- [ ] US-005 discover supported workspace structure.\n- [ ] US-006 guarantee stable discovery ordering.\n- [ ] US-007 diagnose unsupported workspace structure.\n- [ ] Required negative and boundary behavior is verified.\n- [ ] Deterministic output/order/identity requirements relevant to this packet pass.\n- [ ] Diagnostics and provenance are sufficient to explain failure and derived state.\n- [ ] No new unaccepted critical/high security or correctness risk remains.\n- [ ] Canonical documentation and machine projection are synchronized.",
+      "text": "## Acceptance criteria\n\n- [ ] US-005 supported configured workspace candidates are discovered.\n- [ ] US-006 ordering is stable under randomized filesystem enumeration.\n- [ ] US-007 unsupported/unsafe structures produce actionable diagnostics.\n- [ ] exclusions prevent `.git/`, `.eos/`, `machine/`, and configured build output from canonical ingestion by default.\n- [ ] overlapping patterns produce one canonical candidate.\n- [ ] external/cyclic symlinks cannot escape root or create duplicate semantic sources.\n- [ ] no repository code/network executes.",
       "title": "Acceptance criteria"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "ADR-0005"
+      ],
       "level": 2,
-      "line_end": 68,
-      "line_start": 60,
-      "section_id": "implementation-constraints",
-      "text": "## Implementation constraints\n\n1. Core semantic truth must not depend on LLM output.\n2. Canonical repository inspection must not execute untrusted project code implicitly.\n3. Stable public identifiers/schemas require explicit compatibility treatment.\n4. Native tool results remain authoritative for native semantics.\n5. Agent execution scope cannot exceed this Work Packet or its governing authority.\n6. Generated state must be rebuildable or explicitly treated as external evidence.",
-      "title": "Implementation constraints"
+      "line_end": 48,
+      "line_start": 45,
+      "section_id": "implementation-boundary",
+      "text": "## Implementation boundary\n\nUnder accepted ADR-0005, changes belong in the workspace/discovery module and its focused fixtures/tests in `monad-core`; CLI changes are limited to exposing already-defined discovery results/diagnostics.",
+      "title": "Implementation boundary"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 72,
-      "line_start": 69,
+      "line_end": 51,
+      "line_start": 49,
       "section_id": "validation",
-      "text": "## Validation\n\nRefinement MUST identify exact commands/tests before authorization. Expected evidence includes focused unit tests, conformance/golden/property tests where semantics are canonical, integration tests across the affected boundary, machine-document synchronization, and end-to-end evidence when the packet changes a user-visible journey.",
+      "text": "## Validation\n\nFocused unit/property/golden discovery tests, randomized-order test harness, symlink/security fixtures where the platform supports them, and machine-document freshness check.",
       "title": "Validation"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 76,
-      "line_start": 73,
-      "section_id": "risks",
-      "text": "## Risks\n\nPrimary risks are semantic ambiguity, accidental coupling to future architecture, nondeterminism, insufficient provenance, and over-broad MVP scope. Any discovered risk that changes the governing contract triggers refinement or escalation rather than being hidden in implementation.",
-      "title": "Risks"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 80,
-      "line_start": 77,
-      "section_id": "completion-evidence",
-      "text": "## Completion evidence\n\nPopulate with branch/commit, PR, test commands/results, semantic/architecture review, generated artifacts, and closure disposition. Merge alone is not completion.",
-      "title": "Completion evidence"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 83,
-      "line_start": 81,
-      "section_id": "refinement-state",
-      "text": "## Refinement state\n\nThis forecast packet is intentionally not Ready merely because it has been generated. Remove `<!-- mvp-work-packet-forecast:v1 -->` when the packet has been manually refined and authorized; the generator will then stop owning its contents.",
-      "title": "Refinement state"
     }
   ],
   "source": {
-    "bytes": 4077,
+    "bytes": 2179,
     "canonical": true,
     "language": "markdown",
-    "lines": 83,
+    "lines": 51,
     "media_type": "text/markdown",
     "path": "engineering/work-packets/WP-MVP-0002.md",
-    "sha256": "0886d31f003e0c8601b8b892dd5842115b35ae1199ac200858c4be014ea1ca0f"
+    "sha256": "237cb246ae9e6e1b4a41fae895a24a6a2b6547a34d6bee19938ef1d251dc2aa7"
   }
 }

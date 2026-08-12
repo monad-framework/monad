@@ -1,0 +1,90 @@
+{
+  "content": "# TECH-INGEST-0002: Structured Monad Configuration Parsing\n\n**Status:** approved  \n**Version:** 1.0.0  \n**Owner:** Monad Core  \n**Related requirements:** FR-001, FR-002, QR-001, QR-003  \n**Governing ADRs:** ADR-0002, ADR-0004\n\n## Purpose\n\nDefines semantic ingestion of `monad.toml` as a structured engineering source after bootstrap configuration resolution. It intentionally distinguishes the narrow bootstrap loader needed to establish the repository from the semantic document representation used by later graph/query/provenance features.\n\n## Normative behavior\n\n1. Input is the exact root `monad.toml` bytes plus the effective validated configuration established under IFC-WORKSPACE-0001.\n2. The parser MUST preserve source identity, SHA-256 provenance, schema version, project identity, artifact-root definitions, ingestion controls, exclusions, and source ranges where the TOML parser exposes them reliably.\n3. Semantic representation MUST use normalized types and deterministic key ordering without discarding the original source provenance.\n4. Unknown/invalid semantic keys are configuration diagnostics; they MUST NOT appear as valid semantic configuration facts.\n5. The semantic representation MUST distinguish explicit source values from defaults and CLI overrides. CLI overrides are effective-run provenance, not edits to the canonical `monad.toml` document.\n6. `.monad/manifest.yaml` is not a second input to this parser and MUST NOT override `monad.toml`.\n7. Parsing performs no environment interpolation, command substitution, file include, network lookup, or executable extension.\n\n## Failure behavior\n\nWhen bootstrap validation fails, no valid semantic configuration document is emitted. Diagnostics may still reference parse/source locations. Unsupported schema versions are explicit errors.\n\n## Verification\n\nGolden fixtures cover the canonical repository config, defaults, explicit overrides, unknown/duplicate keys, unsupported versions, malformed TOML, provenance, and deterministic machine serialization.\n",
+  "document_id": "doc:specifications%2Ftechnical%2FTECH-INGEST-0002-structured-monad-configuration-parsing.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0002",
+    "ADR-0004",
+    "FR-001",
+    "FR-002",
+    "QR-001",
+    "QR-003"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "specification",
+    "normative": true,
+    "summary": "Status: approved Version: 1.0.0 Owner: Monad Core Related requirements: FR-001, FR-002, QR-001, QR-003 Governing ADRs: ADR-0002, ADR-0004",
+    "title": "TECH-INGEST-0002: Structured Monad Configuration Parsing"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0002",
+        "ADR-0004",
+        "FR-001",
+        "FR-002",
+        "QR-001",
+        "QR-003"
+      ],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "tech-ingest-0002-structured-monad-configuration-parsing",
+      "text": "# TECH-INGEST-0002: Structured Monad Configuration Parsing\n\n**Status:** approved  \n**Version:** 1.0.0  \n**Owner:** Monad Core  \n**Related requirements:** FR-001, FR-002, QR-001, QR-003  \n**Governing ADRs:** ADR-0002, ADR-0004",
+      "title": "TECH-INGEST-0002: Structured Monad Configuration Parsing"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 9,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nDefines semantic ingestion of `monad.toml` as a structured engineering source after bootstrap configuration resolution. It intentionally distinguishes the narrow bootstrap loader needed to establish the repository from the semantic document representation used by later graph/query/provenance features.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 13,
+      "section_id": "normative-behavior",
+      "text": "## Normative behavior\n\n1. Input is the exact root `monad.toml` bytes plus the effective validated configuration established under IFC-WORKSPACE-0001.\n2. The parser MUST preserve source identity, SHA-256 provenance, schema version, project identity, artifact-root definitions, ingestion controls, exclusions, and source ranges where the TOML parser exposes them reliably.\n3. Semantic representation MUST use normalized types and deterministic key ordering without discarding the original source provenance.\n4. Unknown/invalid semantic keys are configuration diagnostics; they MUST NOT appear as valid semantic configuration facts.\n5. The semantic representation MUST distinguish explicit source values from defaults and CLI overrides. CLI overrides are effective-run provenance, not edits to the canonical `monad.toml` document.\n6. `.monad/manifest.yaml` is not a second input to this parser and MUST NOT override `monad.toml`.\n7. Parsing performs no environment interpolation, command substitution, file include, network lookup, or executable extension.",
+      "title": "Normative behavior"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 23,
+      "section_id": "failure-behavior",
+      "text": "## Failure behavior\n\nWhen bootstrap validation fails, no valid semantic configuration document is emitted. Diagnostics may still reference parse/source locations. Unsupported schema versions are explicit errors.",
+      "title": "Failure behavior"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 27,
+      "section_id": "verification",
+      "text": "## Verification\n\nGolden fixtures cover the canonical repository config, defaults, explicit overrides, unknown/duplicate keys, unsupported versions, malformed TOML, provenance, and deterministic machine serialization.",
+      "title": "Verification"
+    }
+  ],
+  "source": {
+    "bytes": 2028,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 29,
+    "media_type": "text/markdown",
+    "path": "specifications/technical/TECH-INGEST-0002-structured-monad-configuration-parsing.md",
+    "sha256": "589ed66103af9a0ef878f2051395c999ae2a55a336e492c249045c828b63377e"
+  }
+}
