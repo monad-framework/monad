@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"kind\": \"EVID\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"CAPTURED\",\n  \"terminal_states\": [\"FAILED\", \"SUPERSEDED\"],\n  \"states\": [\"CAPTURED\", \"VALIDATED\", \"FAILED\", \"STALE\", \"SUPERSEDED\"],\n  \"transitions\": {\n    \"CAPTURED\": [\"VALIDATED\", \"FAILED\"],\n    \"VALIDATED\": [\"STALE\", \"SUPERSEDED\"],\n    \"FAILED\": [\"SUPERSEDED\"],\n    \"STALE\": [\"SUPERSEDED\"],\n    \"SUPERSEDED\": []\n  }\n}\n",
+  "document_id": "doc:.eos%2Fstate-machines%2Fevid.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/state-machines/evid.json.",
+    "title": "Evid"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 14,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"kind\": \"EVID\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"CAPTURED\",\n  \"terminal_states\": [\"FAILED\", \"SUPERSEDED\"],\n  \"states\": [\"CAPTURED\", \"VALIDATED\", \"FAILED\", \"STALE\", \"SUPERSEDED\"],\n  \"transitions\": {\n    \"CAPTURED\": [\"VALIDATED\", \"FAILED\"],\n    \"VALIDATED\": [\"STALE\", \"SUPERSEDED\"],\n    \"FAILED\": [\"SUPERSEDED\"],\n    \"STALE\": [\"SUPERSEDED\"],\n    \"SUPERSEDED\": []\n  }\n}",
+      "title": "Evid"
+    }
+  ],
+  "source": {
+    "bytes": 380,
+    "canonical": true,
+    "language": "json",
+    "lines": 14,
+    "media_type": "application/json",
+    "path": ".eos/state-machines/evid.json",
+    "sha256": "9acf3f7622198483ee337a9a8c95f3cbc0b43ec2a18a0a8f02142ab22462d45a"
+  }
+}

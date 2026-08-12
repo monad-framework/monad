@@ -1,0 +1,40 @@
+{
+  "content": "name: EOS 0.8 Program Adoption v2\n\non:\n  push:\n    branches: [eos/v0.8-program-adoption]\n    paths:\n      - '.github/workflows/eos-v08-program-adoption-v2.yml'\n      - '.eos/adoptions/**'\n      - 'engineering/work-cycles/WC-MVP-0001.md'\n      - 'scripts/upgrade-eos-0.8.py'\n      - 'scripts/test-eos-0.8-program-adoption.py'\n  workflow_dispatch:\n\npermissions:\n  contents: write\n\njobs:\n  upgrade-and-adopt:\n    if: github.actor != 'github-actions[bot]'\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n\n      - name: Converge EOS implementation and schemas to 0.8\n        run: |\n          python3 scripts/upgrade-eos-0.8.py --apply\n          python3 scripts/upgrade-eos-0.8.py --apply\n          python3 scripts/upgrade-eos-0.8.py\n\n      - name: Adopt accepted MVP execution horizon\n        run: >-\n          ./scripts/eos adopt .eos/adoptions/mvp-foundation.json --apply\n          --by \"Project Authority\"\n          --reason \"Adopt the accepted Foundation Stabilization MVP execution horizon.\"\n\n      - name: Run EOS 0.8 regression contract\n        run: python3 scripts/test-eos-0.8-program-adoption.py\n\n      - name: Verify EOS strictly\n        run: ./scripts/eos verify --strict\n\n      - name: Synchronize machine documents\n        run: python3 scripts/sync-machine-docs.py\n\n      - name: Commit deterministic migration outputs\n        run: |\n          if git diff --quiet && git diff --cached --quiet; then\n            echo \"No migration changes to commit.\"\n            exit 0\n          fi\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add -A\n          git commit -m \"feat(eos): adopt stabilized MVP program under EOS 0.8\"\n          git push origin HEAD:eos/v0.8-program-adoption\n",
+  "document_id": "doc:.github%2Fworkflows%2Feos-v08-program-adoption-v2.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/eos-v08-program-adoption-v2.yml.",
+    "title": "Eos V08 Program Adoption V2"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 61,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: EOS 0.8 Program Adoption v2\n\non:\n  push:\n    branches: [eos/v0.8-program-adoption]\n    paths:\n      - '.github/workflows/eos-v08-program-adoption-v2.yml'\n      - '.eos/adoptions/**'\n      - 'engineering/work-cycles/WC-MVP-0001.md'\n      - 'scripts/upgrade-eos-0.8.py'\n      - 'scripts/test-eos-0.8-program-adoption.py'\n  workflow_dispatch:\n\npermissions:\n  contents: write\n\njobs:\n  upgrade-and-adopt:\n    if: github.actor != 'github-actions[bot]'\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n\n      - name: Converge EOS implementation and schemas to 0.8\n        run: |\n          python3 scripts/upgrade-eos-0.8.py --apply\n          python3 scripts/upgrade-eos-0.8.py --apply\n          python3 scripts/upgrade-eos-0.8.py\n\n      - name: Adopt accepted MVP execution horizon\n        run: >-\n          ./scripts/eos adopt .eos/adoptions/mvp-foundation.json --apply\n          --by \"Project Authority\"\n          --reason \"Adopt the accepted Foundation Stabilization MVP execution horizon.\"\n\n      - name: Run EOS 0.8 regression contract\n        run: python3 scripts/test-eos-0.8-program-adoption.py\n\n      - name: Verify EOS strictly\n        run: ./scripts/eos verify --strict\n\n      - name: Synchronize machine documents\n        run: python3 scripts/sync-machine-docs.py\n\n      - name: Commit deterministic migration outputs\n        run: |\n          if git diff --quiet && git diff --cached --quiet; then\n            echo \"No migration changes to commit.\"\n            exit 0\n          fi\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add -A\n          git commit -m \"feat(eos): adopt stabilized MVP program under EOS 0.8\"\n          git push origin HEAD:eos/v0.8-program-adoption",
+      "title": "Eos V08 Program Adoption V2"
+    }
+  ],
+  "source": {
+    "bytes": 1939,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 61,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/eos-v08-program-adoption-v2.yml",
+    "sha256": "b32e7bb8000bfc1ab3b8033c480059e80cc3b1d6f52e68ed9c3035515e1bf5c4"
+  }
+}

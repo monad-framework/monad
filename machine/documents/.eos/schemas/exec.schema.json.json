@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/exec/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"path\", \"target\", \"status\", \"branch\", \"worktree\", \"baseline_commit\", \"governing_hash\", \"contract_hash\", \"created\", \"updated\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^EXEC-[0-9]{4}$\"},\n    \"path\": {\"type\": \"string\", \"minLength\": 1},\n    \"target\": {\"type\": \"string\", \"pattern\": \"^WP(?:-[A-Z][A-Z0-9]{1,15})?-[0-9]{4}$\"},\n    \"status\": {\"type\": \"string\"},\n    \"branch\": {\"type\": \"string\"},\n    \"worktree\": {\"type\": \"string\"},\n    \"baseline_commit\": {\"type\": \"string\"},\n    \"governing_hash\": {\"type\": \"string\"},\n    \"contract_hash\": {\"type\": \"string\"},\n    \"result_path\": {\"type\": \"string\"},\n    \"actor\": {\"type\": \"string\"},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1}\n  },\n  \"additionalProperties\": false\n}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fexec.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/exec.schema.json.",
+    "title": "Exec.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 22,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/exec/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"path\", \"target\", \"status\", \"branch\", \"worktree\", \"baseline_commit\", \"governing_hash\", \"contract_hash\", \"created\", \"updated\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^EXEC-[0-9]{4}$\"},\n    \"path\": {\"type\": \"string\", \"minLength\": 1},\n    \"target\": {\"type\": \"string\", \"pattern\": \"^WP(?:-[A-Z][A-Z0-9]{1,15})?-[0-9]{4}$\"},\n    \"status\": {\"type\": \"string\"},\n    \"branch\": {\"type\": \"string\"},\n    \"worktree\": {\"type\": \"string\"},\n    \"baseline_commit\": {\"type\": \"string\"},\n    \"governing_hash\": {\"type\": \"string\"},\n    \"contract_hash\": {\"type\": \"string\"},\n    \"result_path\": {\"type\": \"string\"},\n    \"actor\": {\"type\": \"string\"},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1}\n  },\n  \"additionalProperties\": false\n}",
+      "title": "Exec.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 923,
+    "canonical": true,
+    "language": "json",
+    "lines": 22,
+    "media_type": "application/json",
+    "path": ".eos/schemas/exec.schema.json",
+    "sha256": "0561ceb702920896a104c9d9fd9ada985d495c7cfbfa3a29adea1855217258e7"
+  }
+}
