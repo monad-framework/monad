@@ -861,6 +861,16 @@
       "type": "declares"
     },
     {
+      "source": "doc:engineering%2Freviews%2FEOS-0.8-CANONICAL-STATE-RECONCILIATION.md",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FEOS-0.8-CANONICAL-STATE-RECONCILIATION.md",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
       "source": "doc:engineering%2Freviews%2FEOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
       "target": "identifier:WC-0001",
       "type": "declares"
@@ -1808,6 +1818,16 @@
     {
       "source": "doc:tools%2Feos%2Feos.py",
       "target": "identifier:ADR-0000",
+      "type": "declares"
+    },
+    {
+      "source": "doc:tools%2Feos%2Ftest_canonical_reconciliation.py",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:tools%2Feos%2Ftest_canonical_reconciliation.py",
+      "target": "identifier:WP-0001",
       "type": "declares"
     },
     {
@@ -9570,6 +9590,14 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Freviews%2FEOS-0.8-CANONICAL-STATE-RECONCILIATION.md",
+      "normative": true,
+      "source_path": "engineering/reviews/EOS-0.8-CANONICAL-STATE-RECONCILIATION.md",
+      "title": "EOS 0.8 Canonical State Reconciliation",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Freviews%2FEOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
       "normative": true,
       "source_path": "engineering/reviews/EOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
@@ -10378,6 +10406,14 @@
     },
     {
       "document_type": "automation",
+      "id": "doc:scripts%2Freconcile-eos-canonical-state.py",
+      "normative": false,
+      "source_path": "scripts/reconcile-eos-canonical-state.py",
+      "title": "Reconcile Eos Canonical State",
+      "type": "document"
+    },
+    {
+      "document_type": "automation",
       "id": "doc:scripts%2Fsetup-github-owner.sh",
       "normative": false,
       "source_path": "scripts/setup-github-owner.sh",
@@ -10606,6 +10642,14 @@
       "normative": false,
       "source_path": "tools/eos/execution_v2.py",
       "title": "Execution V2",
+      "type": "document"
+    },
+    {
+      "document_type": "tooling",
+      "id": "doc:tools%2Feos%2Ftest_canonical_reconciliation.py",
+      "normative": false,
+      "source_path": "tools/eos/test_canonical_reconciliation.py",
+      "title": "Test Canonical Reconciliation",
       "type": "document"
     },
     {
@@ -11279,5 +11323,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "f011d5b269930f0d02aac35d404a7f44bf1dc4117d15cd94968d356753374a14"
+  "source_tree_sha256": "e55f2009fe0110f2c29cf68e4722660a7e095baacbc950d9dc5b0741446290bb"
 }
