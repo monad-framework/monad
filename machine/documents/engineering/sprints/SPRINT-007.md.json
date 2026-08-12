@@ -1,0 +1,94 @@
+{
+  "content": "# SPRINT-007 — Impact and Diagnostic Hardening\n\n**Status:** Forecast  \n**Dates:** 2026-09-28 through 2026-10-04  \n**Product Increment:** PI-003 — Executable Engineering Loop\n\n## Sprint Goal\n\nMake semantic impact safe enough to drive later execution planning by explaining impact paths, representing uncertainty conservatively, and hardening diagnostics/negative behavior across change analysis.\n\n## Forecast PBIs\n\nUS-009-03, US-009-06 and cross-cutting diagnostic hardening from EPIC-007.\n\n## Forecast Work Packet\n\nWP-DIAG-0003.\n\n## Acceptance scenario\n\nFor each affected entity/check in the reference change corpus, Monad can explain at least one path from changed input to impact. Ambiguous/unknown dependency conditions expand or invalidate optimization with structured diagnostics instead of yielding an unjustifiably narrow plan.\n\n## Review evidence\n\nImpact-path fixtures, uncertainty/fallback tests, false-negative guard corpus, diagnostic code review, and performance observation of conservative fallback.\n\n## Exit condition\n\nSPRINT-008 planner/incrementality work can consume a trusted affected-set contract with explicit uncertainty semantics.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-007.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-09-28 through 2026-10-04 Product Increment: PI-003 — Executable Engineering Loop",
+    "title": "SPRINT-007 — Impact and Diagnostic Hardening"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-007-impact-and-diagnostic-hardening",
+      "text": "# SPRINT-007 — Impact and Diagnostic Hardening\n\n**Status:** Forecast  \n**Dates:** 2026-09-28 through 2026-10-04  \n**Product Increment:** PI-003 — Executable Engineering Loop",
+      "title": "SPRINT-007 — Impact and Diagnostic Hardening"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nMake semantic impact safe enough to drive later execution planning by explaining impact paths, representing uncertainty conservatively, and hardening diagnostics/negative behavior across change analysis.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\nUS-009-03, US-009-06 and cross-cutting diagnostic hardening from EPIC-007.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "forecast-work-packet",
+      "text": "## Forecast Work Packet\n\nWP-DIAG-0003.",
+      "title": "Forecast Work Packet"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "acceptance-scenario",
+      "text": "## Acceptance scenario\n\nFor each affected entity/check in the reference change corpus, Monad can explain at least one path from changed input to impact. Ambiguous/unknown dependency conditions expand or invalidate optimization with structured diagnostics instead of yielding an unjustifiably narrow plan.",
+      "title": "Acceptance scenario"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 23,
+      "section_id": "review-evidence",
+      "text": "## Review evidence\n\nImpact-path fixtures, uncertainty/fallback tests, false-negative guard corpus, diagnostic code review, and performance observation of conservative fallback.",
+      "title": "Review evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 27,
+      "section_id": "exit-condition",
+      "text": "## Exit condition\n\nSPRINT-008 planner/incrementality work can consume a trusted affected-set contract with explicit uncertainty semantics.",
+      "title": "Exit condition"
+    }
+  ],
+  "source": {
+    "bytes": 1157,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 29,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-007.md",
+    "sha256": "d83d9877e7ec0e9f9f22332a1569931c250a7fc70dff40a4e2e47d1b8582ba5e"
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "content": "# Monad Product Backlog\n\n**Status:** Proposed operating baseline  \n**Product Goal:** Deliver MVP Release 1: a local-first deterministic semantic engineering loop from repository knowledge to graph/KIR, explanation, change impact, bounded agent context, execution plan, native tools, and reproducible evidence.\n\n## Backlog hierarchy\n\n```text\nProduct Goal\n  ↓\nEpic\n  ↓\nFeature\n  ↓\nProduct Backlog Item\n  ├─ User Story\n  ├─ Enabler\n  ├─ Bug\n  ├─ Spike\n  ├─ Debt\n  └─ Risk/Decision work when delivery-relevant\n       ↓\nSprint selection\n       ↓\nWork Packet\n       ↓\nTask / Codex execution unit\n       ↓\nPR + evidence\n```\n\nThe Product Backlog describes value and delivery. Work Packets remain the smallest formally governed engineering authorization. GitHub Issues/Projects are projections of this model.\n\n## Canonical files\n\n- `epics.md` — complete foreseeable Epic map.\n- `features.md` — complete foreseeable Feature map and forecast target.\n- `stories.md` — MVP Product Backlog Items and refinement state.\n- `tasks.md` — current and near-term executable task decomposition.\n- `backlog.md` — ordered current Product Backlog and dependency-critical sequence.\n- `../sprints/` — Sprint Goals and selected/forecast work.\n- `../increments/` — Product Increment outcomes and exit gates.\n- `../work-packets/` — formal engineering authorization and acceptance.\n\n## Backlog item types\n\n### User Story\n\nA user- or operator-observable capability stated from an actor/outcome perspective. Technical implementation may be large internally, but the Story must still demonstrate value at a boundary.\n\n### Enabler\n\nArchitecture, semantic model, tooling, quality, security, or infrastructure work that enables product behavior and has objective engineering acceptance. Do not force an artificial “As a user” sentence onto internal contracts.\n\n### Spike\n\nTime-boxed investigation whose result is evidence, a decision, or a recommendation—not production code by default.\n\n### Bug\n\nObserved behavior that contradicts an accepted requirement, specification, invariant, or user expectation.\n\n### Task\n\nA small execution step underneath a Story/Enabler/Work Packet. Tasks should normally be independently verifiable and small enough for one focused Codex/human execution unit.\n\n### Debt\n\nKnown maintainability, architecture, dependency, test, or operational deficiency with explicit consequence and repayment trigger.\n\n## Priority\n\n- **P0:** existential correctness/security/authority need or hard critical-path blocker.\n- **P1:** required to complete the MVP user outcome.\n- **P2:** useful post-MVP capability or material optimization not required for Release 1.\n- **P3:** future option kept visible to avoid architectural dead ends.\n\n## Estimation\n\nStories/Enablers use Fibonacci comparative points: `1, 2, 3, 5, 8, 13`. Items larger than 8 should normally be split before Sprint commitment; 13 is a decomposition warning, not a target size. Points are not hours and are not converted into individual productivity measures.\n\n## Rolling-wave refinement\n\n- Entire foreseeable product: Epics visible.\n- MVP and next horizons: Features visible and dependency-ordered.\n- MVP: Stories/Enablers enumerated with acceptance anchors.\n- Next 2–3 Sprints: refined enough to estimate and pass Definition of Ready.\n- Current Sprint: Work Packets and Tasks fully decomposed with validation commands/evidence expectations.\n\nThis preserves long-range visibility without pretending the implementation details of later Sprints are already known.\n\n## Ordering model\n\nBacklog ordering considers, in order:\n\n1. critical safety/security/correctness/authority risk;\n2. assumptions or decisions that can invalidate downstream architecture;\n3. dependency critical path to an integrated MVP scenario;\n4. direct product value and learning value;\n5. enablement of subsequent work;\n6. effort, reversibility, and opportunity cost.\n\nThe Product Owner can override algorithmic or suggested ordering. The reason for a material override should be visible when it changes the Release 1 critical path.\n\n## Definition of Ready\n\nA PBI may be selected when its outcome is clear, dependencies are sufficiently known, acceptance is objective, governing authority is identified, risk is understood enough for the Sprint, and the implementing team/agent will not have to invent product or architecture meaning.\n\nA Work Packet adds stricter engineering scope, authorized paths/concerns, prohibited changes, tests, validation commands, and completion evidence.\n\n## Definition of Done\n\nDone means integrated behavior and evidence—not “code written.” Applicable tests, static checks, documentation, machine projection, security/compatibility impact, diagnostics, traceability, review findings, and generated artifacts must satisfy the repository Definition of Done.\n\n## GitHub projection\n\nGitHub Issue hierarchy should follow:\n\n```text\nEpic Issue\n  └─ Feature Issue\n      └─ Story / Enabler Issue\n          └─ Task Issue only when a separately tracked task is useful\n```\n\nSprint is represented by a Project iteration field where available; repository Milestones represent major delivery/release outcomes rather than duplicating one-week Sprints. Issue state is a collaboration view and must not silently replace canonical status in Git.\n",
+  "document_id": "doc:engineering%2Fbacklog%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Proposed operating baseline Product Goal: Deliver MVP Release 1: a local-first deterministic semantic engineering loop from repository knowledge to graph/KIR, explanation, change impact, bounded agent context, execution plan, native tools, and reproducible evidence.",
+    "title": "Monad Product Backlog"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 5,
+      "line_start": 1,
+      "section_id": "monad-product-backlog",
+      "text": "# Monad Product Backlog\n\n**Status:** Proposed operating baseline  \n**Product Goal:** Deliver MVP Release 1: a local-first deterministic semantic engineering loop from repository knowledge to graph/KIR, explanation, change impact, bounded agent context, execution plan, native tools, and reproducible evidence.",
+      "title": "Monad Product Backlog"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 6,
+      "section_id": "backlog-hierarchy",
+      "text": "## Backlog hierarchy\n\n```text\nProduct Goal\n  ↓\nEpic\n  ↓\nFeature\n  ↓\nProduct Backlog Item\n  ├─ User Story\n  ├─ Enabler\n  ├─ Bug\n  ├─ Spike\n  ├─ Debt\n  └─ Risk/Decision work when delivery-relevant\n       ↓\nSprint selection\n       ↓\nWork Packet\n       ↓\nTask / Codex execution unit\n       ↓\nPR + evidence\n```\n\nThe Product Backlog describes value and delivery. Work Packets remain the smallest formally governed engineering authorization. GitHub Issues/Projects are projections of this model.",
+      "title": "Backlog hierarchy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 34,
+      "section_id": "canonical-files",
+      "text": "## Canonical files\n\n- `epics.md` — complete foreseeable Epic map.\n- `features.md` — complete foreseeable Feature map and forecast target.\n- `stories.md` — MVP Product Backlog Items and refinement state.\n- `tasks.md` — current and near-term executable task decomposition.\n- `backlog.md` — ordered current Product Backlog and dependency-critical sequence.\n- `../sprints/` — Sprint Goals and selected/forecast work.\n- `../increments/` — Product Increment outcomes and exit gates.\n- `../work-packets/` — formal engineering authorization and acceptance.",
+      "title": "Canonical files"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 45,
+      "section_id": "backlog-item-types",
+      "text": "## Backlog item types",
+      "title": "Backlog item types"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 50,
+      "line_start": 47,
+      "section_id": "user-story",
+      "text": "### User Story\n\nA user- or operator-observable capability stated from an actor/outcome perspective. Technical implementation may be large internally, but the Story must still demonstrate value at a boundary.",
+      "title": "User Story"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 54,
+      "line_start": 51,
+      "section_id": "enabler",
+      "text": "### Enabler\n\nArchitecture, semantic model, tooling, quality, security, or infrastructure work that enables product behavior and has objective engineering acceptance. Do not force an artificial “As a user” sentence onto internal contracts.",
+      "title": "Enabler"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 58,
+      "line_start": 55,
+      "section_id": "spike",
+      "text": "### Spike\n\nTime-boxed investigation whose result is evidence, a decision, or a recommendation—not production code by default.",
+      "title": "Spike"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 62,
+      "line_start": 59,
+      "section_id": "bug",
+      "text": "### Bug\n\nObserved behavior that contradicts an accepted requirement, specification, invariant, or user expectation.",
+      "title": "Bug"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 66,
+      "line_start": 63,
+      "section_id": "task",
+      "text": "### Task\n\nA small execution step underneath a Story/Enabler/Work Packet. Tasks should normally be independently verifiable and small enough for one focused Codex/human execution unit.",
+      "title": "Task"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 70,
+      "line_start": 67,
+      "section_id": "debt",
+      "text": "### Debt\n\nKnown maintainability, architecture, dependency, test, or operational deficiency with explicit consequence and repayment trigger.",
+      "title": "Debt"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 77,
+      "line_start": 71,
+      "section_id": "priority",
+      "text": "## Priority\n\n- **P0:** existential correctness/security/authority need or hard critical-path blocker.\n- **P1:** required to complete the MVP user outcome.\n- **P2:** useful post-MVP capability or material optimization not required for Release 1.\n- **P3:** future option kept visible to avoid architectural dead ends.",
+      "title": "Priority"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 81,
+      "line_start": 78,
+      "section_id": "estimation",
+      "text": "## Estimation\n\nStories/Enablers use Fibonacci comparative points: `1, 2, 3, 5, 8, 13`. Items larger than 8 should normally be split before Sprint commitment; 13 is a decomposition warning, not a target size. Points are not hours and are not converted into individual productivity measures.",
+      "title": "Estimation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 91,
+      "line_start": 82,
+      "section_id": "rolling-wave-refinement",
+      "text": "## Rolling-wave refinement\n\n- Entire foreseeable product: Epics visible.\n- MVP and next horizons: Features visible and dependency-ordered.\n- MVP: Stories/Enablers enumerated with acceptance anchors.\n- Next 2–3 Sprints: refined enough to estimate and pass Definition of Ready.\n- Current Sprint: Work Packets and Tasks fully decomposed with validation commands/evidence expectations.\n\nThis preserves long-range visibility without pretending the implementation details of later Sprints are already known.",
+      "title": "Rolling-wave refinement"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 104,
+      "line_start": 92,
+      "section_id": "ordering-model",
+      "text": "## Ordering model\n\nBacklog ordering considers, in order:\n\n1. critical safety/security/correctness/authority risk;\n2. assumptions or decisions that can invalidate downstream architecture;\n3. dependency critical path to an integrated MVP scenario;\n4. direct product value and learning value;\n5. enablement of subsequent work;\n6. effort, reversibility, and opportunity cost.\n\nThe Product Owner can override algorithmic or suggested ordering. The reason for a material override should be visible when it changes the Release 1 critical path.",
+      "title": "Ordering model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 110,
+      "line_start": 105,
+      "section_id": "definition-of-ready",
+      "text": "## Definition of Ready\n\nA PBI may be selected when its outcome is clear, dependencies are sufficiently known, acceptance is objective, governing authority is identified, risk is understood enough for the Sprint, and the implementing team/agent will not have to invent product or architecture meaning.\n\nA Work Packet adds stricter engineering scope, authorized paths/concerns, prohibited changes, tests, validation commands, and completion evidence.",
+      "title": "Definition of Ready"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 114,
+      "line_start": 111,
+      "section_id": "definition-of-done",
+      "text": "## Definition of Done\n\nDone means integrated behavior and evidence—not “code written.” Applicable tests, static checks, documentation, machine projection, security/compatibility impact, diagnostics, traceability, review findings, and generated artifacts must satisfy the repository Definition of Done.",
+      "title": "Definition of Done"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 126,
+      "line_start": 115,
+      "section_id": "github-projection",
+      "text": "## GitHub projection\n\nGitHub Issue hierarchy should follow:\n\n```text\nEpic Issue\n  └─ Feature Issue\n      └─ Story / Enabler Issue\n          └─ Task Issue only when a separately tracked task is useful\n```\n\nSprint is represented by a Project iteration field where available; repository Milestones represent major delivery/release outcomes rather than duplicating one-week Sprints. Issue state is a collaboration view and must not silently replace canonical status in Git.",
+      "title": "GitHub projection"
+    }
+  ],
+  "source": {
+    "bytes": 5345,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 126,
+    "media_type": "text/markdown",
+    "path": "engineering/backlog/README.md",
+    "sha256": "fa2d25064db3cdf7de12fe4ace937bec1405865d9dc6ddc185b57886bd6391a5"
+  }
+}

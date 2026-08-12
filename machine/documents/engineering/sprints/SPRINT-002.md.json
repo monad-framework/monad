@@ -1,0 +1,103 @@
+{
+  "content": "# SPRINT-002 — Workspace and Artifact Intelligence\n\n**Status:** Forecast  \n**Dates:** 2026-08-24 through 2026-08-30  \n**Product Increment:** PI-002 — Semantic Kernel\n\n## Sprint Goal\n\nGiven a representative repository, deterministically discover the intended workspace, repository identity, configuration, components/packages, supported artifact/tool roots, and native toolchain evidence without causing arbitrary execution side effects.\n\n## Forecast PBIs\n\nUS-003-01 through US-003-06 plus EN-007-02.\n\n## Forecast Work Packets\n\nWP-WS-0001, WP-CONF-0001, WP-DISC-0001, WP-DIAG-0001.\n\n## Acceptance scenario\n\nFrom several invocation directories in each reference repository, Monad produces the same canonical workspace/repository model; valid configuration resolves predictably; invalid/ambiguous cases produce stable diagnostics; component/tool discovery is inspectable and read-only.\n\n## Key negative cases\n\n- no repository/workspace marker;\n- nested/ambiguous repositories;\n- invalid or unsupported configuration version;\n- traversal/symlink boundary attempts;\n- missing/unsupported native tool;\n- duplicate component/repository identity;\n- repository text declaring a command that is not authorized for execution.\n\n## Review evidence\n\nReference fixtures, deterministic discovery tests, configuration conformance tests, structured diagnostic examples, and an integrated `inspect`/internal inspection demonstration.\n\n## Exit condition\n\nSPRINT-003 can consume stable artifact/repository identity inputs without defining workspace semantics itself.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-002.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-08-24 through 2026-08-30 Product Increment: PI-002 — Semantic Kernel",
+    "title": "SPRINT-002 — Workspace and Artifact Intelligence"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-002-workspace-and-artifact-intelligence",
+      "text": "# SPRINT-002 — Workspace and Artifact Intelligence\n\n**Status:** Forecast  \n**Dates:** 2026-08-24 through 2026-08-30  \n**Product Increment:** PI-002 — Semantic Kernel",
+      "title": "SPRINT-002 — Workspace and Artifact Intelligence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nGiven a representative repository, deterministically discover the intended workspace, repository identity, configuration, components/packages, supported artifact/tool roots, and native toolchain evidence without causing arbitrary execution side effects.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\nUS-003-01 through US-003-06 plus EN-007-02.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "forecast-work-packets",
+      "text": "## Forecast Work Packets\n\nWP-WS-0001, WP-CONF-0001, WP-DISC-0001, WP-DIAG-0001.",
+      "title": "Forecast Work Packets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "acceptance-scenario",
+      "text": "## Acceptance scenario\n\nFrom several invocation directories in each reference repository, Monad produces the same canonical workspace/repository model; valid configuration resolves predictably; invalid/ambiguous cases produce stable diagnostics; component/tool discovery is inspectable and read-only.",
+      "title": "Acceptance scenario"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 23,
+      "section_id": "key-negative-cases",
+      "text": "## Key negative cases\n\n- no repository/workspace marker;\n- nested/ambiguous repositories;\n- invalid or unsupported configuration version;\n- traversal/symlink boundary attempts;\n- missing/unsupported native tool;\n- duplicate component/repository identity;\n- repository text declaring a command that is not authorized for execution.",
+      "title": "Key negative cases"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 33,
+      "section_id": "review-evidence",
+      "text": "## Review evidence\n\nReference fixtures, deterministic discovery tests, configuration conformance tests, structured diagnostic examples, and an integrated `inspect`/internal inspection demonstration.",
+      "title": "Review evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 37,
+      "section_id": "exit-condition",
+      "text": "## Exit condition\n\nSPRINT-003 can consume stable artifact/repository identity inputs without defining workspace semantics itself.",
+      "title": "Exit condition"
+    }
+  ],
+  "source": {
+    "bytes": 1550,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 39,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-002.md",
+    "sha256": "4fea868acfa0a32dbb6ac0753434502c210ce904863eb74a8f373f5359e401f9"
+  }
+}

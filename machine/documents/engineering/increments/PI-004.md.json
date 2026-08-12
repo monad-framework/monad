@@ -1,0 +1,85 @@
+{
+  "content": "# PI-004 — MVP Hardening and Release\n\n**Status:** Forecast  \n**Dates:** 2026-10-26 through 2026-11-22  \n**Sprints:** SPRINT-011 through SPRINT-014  \n**Forecast release:** 2026-11-23\n\n## Objective\n\nTurn the integrated semantic engineering loop into a release-quality MVP with reproducibility, conformance, security, performance, compatibility, packaging, dogfooding, documentation, provenance, support, rollback, and explicit release-readiness evidence.\n\n## Capability sequence\n\n1. Integrated reference repositories and clean-machine deterministic/reproducibility suite.\n2. Security/fuzz/negative and supply-chain hardening.\n3. Performance baselines and compatibility/migration verification.\n4. Installable packaging and supported version/upgrade/rollback path.\n5. Monad-on-Monad dogfooding.\n6. Generated/user/maintainer documentation and bounded beta feedback.\n7. Release CI, provenance, SBOM/signing/attestation as applicable.\n8. Release-candidate freeze and formal readiness decision.\n\n## Release guardrails\n\nThe PI may not trade away semantic correctness, deterministic behavior, secret/context safety, execution authorization, or reproducibility to preserve the forecast date. Scope is reduced before these gates are weakened.\n\n## Exit criteria\n\n- [ ] Every must-have MVP requirement traces to passing automated/manual evidence.\n- [ ] Determinism/reproducibility reference suites pass from clean environments.\n- [ ] No supported affected-set scenario has a known false-negative required validation without blocking uncertainty behavior.\n- [ ] Security/supply-chain controls are verified and no unaccepted critical/high risk remains.\n- [ ] Performance baseline and known scale limits are documented.\n- [ ] Public CLI/config/graph/KIR compatibility expectations are explicit and tested.\n- [ ] Installation, upgrade where supported, and rollback/recovery are demonstrated.\n- [ ] Monad dogfoods meaningful portions of its own workflow.\n- [ ] Documentation, known limitations, changelog/release notes, support and troubleshooting are ready.\n- [ ] Release artifacts preserve source/toolchain/test/provenance metadata and verification.\n- [ ] Product Owner and required Engineering/Security/Operations authorities record Release or Do Not Release.\n\n## Closure\n\nPI-004 closes with the MVP Release 1 decision, not simply the end of SPRINT-014. If evidence rejects the candidate, blockers return to the ordered backlog and a revised release forecast is created.\n",
+  "document_id": "doc:engineering%2Fincrements%2FPI-004.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-10-26 through 2026-11-22 Sprints: SPRINT-011 through SPRINT-014 Forecast release: 2026-11-23",
+    "title": "PI-004 — MVP Hardening and Release"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "pi-004-mvp-hardening-and-release",
+      "text": "# PI-004 — MVP Hardening and Release\n\n**Status:** Forecast  \n**Dates:** 2026-10-26 through 2026-11-22  \n**Sprints:** SPRINT-011 through SPRINT-014  \n**Forecast release:** 2026-11-23",
+      "title": "PI-004 — MVP Hardening and Release"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 8,
+      "section_id": "objective",
+      "text": "## Objective\n\nTurn the integrated semantic engineering loop into a release-quality MVP with reproducibility, conformance, security, performance, compatibility, packaging, dogfooding, documentation, provenance, support, rollback, and explicit release-readiness evidence.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 12,
+      "section_id": "capability-sequence",
+      "text": "## Capability sequence\n\n1. Integrated reference repositories and clean-machine deterministic/reproducibility suite.\n2. Security/fuzz/negative and supply-chain hardening.\n3. Performance baselines and compatibility/migration verification.\n4. Installable packaging and supported version/upgrade/rollback path.\n5. Monad-on-Monad dogfooding.\n6. Generated/user/maintainer documentation and bounded beta feedback.\n7. Release CI, provenance, SBOM/signing/attestation as applicable.\n8. Release-candidate freeze and formal readiness decision.",
+      "title": "Capability sequence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 23,
+      "section_id": "release-guardrails",
+      "text": "## Release guardrails\n\nThe PI may not trade away semantic correctness, deterministic behavior, secret/context safety, execution authorization, or reproducibility to preserve the forecast date. Scope is reduced before these gates are weakened.",
+      "title": "Release guardrails"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 27,
+      "section_id": "exit-criteria",
+      "text": "## Exit criteria\n\n- [ ] Every must-have MVP requirement traces to passing automated/manual evidence.\n- [ ] Determinism/reproducibility reference suites pass from clean environments.\n- [ ] No supported affected-set scenario has a known false-negative required validation without blocking uncertainty behavior.\n- [ ] Security/supply-chain controls are verified and no unaccepted critical/high risk remains.\n- [ ] Performance baseline and known scale limits are documented.\n- [ ] Public CLI/config/graph/KIR compatibility expectations are explicit and tested.\n- [ ] Installation, upgrade where supported, and rollback/recovery are demonstrated.\n- [ ] Monad dogfoods meaningful portions of its own workflow.\n- [ ] Documentation, known limitations, changelog/release notes, support and troubleshooting are ready.\n- [ ] Release artifacts preserve source/toolchain/test/provenance metadata and verification.\n- [ ] Product Owner and required Engineering/Security/Operations authorities record Release or Do Not Release.",
+      "title": "Exit criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 41,
+      "section_id": "closure",
+      "text": "## Closure\n\nPI-004 closes with the MVP Release 1 decision, not simply the end of SPRINT-014. If evidence rejects the candidate, blockers return to the ordered backlog and a revised release forecast is created.",
+      "title": "Closure"
+    }
+  ],
+  "source": {
+    "bytes": 2457,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 43,
+    "media_type": "text/markdown",
+    "path": "engineering/increments/PI-004.md",
+    "sha256": "8ad06e288e867faddf022e6780346233e0f0240ca34baa9b8df619378769b384"
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "content": "# SPRINT-003 — Semantic Identity and Provenance\n\n**Status:** Forecast  \n**Dates:** 2026-08-31 through 2026-09-06  \n**Product Increment:** PI-002 — Semantic Kernel\n\n## Sprint Goal\n\nTurn discovered canonical artifacts into stable semantic inputs with versioned canonicalization, identity, hashing, source coordinates, provenance, and structured diagnostics that remain deterministic across clean recompilation.\n\n## Forecast PBIs\n\nEN-004-01 through EN-004-06, EN-007-01, EN-007-03, EN-014-01.\n\n## Forecast Work Packets\n\nWP-ID-0001, WP-PROV-0001, WP-HASH-0001, WP-DIAG-0002, WP-TEST-0001.\n\n## Acceptance scenario\n\nA representative canonical artifact is parsed by a supported adapter, normalized under explicit rules, assigned stable identity, linked to source coordinates and provenance, hashed deterministically, and exposed through machine-readable output. Equivalent input representations converge where specified; meaning-changing input differs.\n\n## Key negative cases\n\nIdentity collision, ambiguous alias, unsupported normalization, malformed source coordinate, incomplete required provenance, algorithm/version mismatch, and nondeterministic iteration order.\n\n## Review evidence\n\nUnit/property tests, deterministic test vectors, source-coordinate fixtures, provenance samples, collision/alias diagnostics, and repeated clean-run comparison.\n\n## Exit condition\n\nSPRINT-004 can construct MSG nodes/edges from stable semantic identity/provenance primitives without inventing identity rules inside graph code.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-003.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-08-31 through 2026-09-06 Product Increment: PI-002 — Semantic Kernel",
+    "title": "SPRINT-003 — Semantic Identity and Provenance"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-003-semantic-identity-and-provenance",
+      "text": "# SPRINT-003 — Semantic Identity and Provenance\n\n**Status:** Forecast  \n**Dates:** 2026-08-31 through 2026-09-06  \n**Product Increment:** PI-002 — Semantic Kernel",
+      "title": "SPRINT-003 — Semantic Identity and Provenance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nTurn discovered canonical artifacts into stable semantic inputs with versioned canonicalization, identity, hashing, source coordinates, provenance, and structured diagnostics that remain deterministic across clean recompilation.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\nEN-004-01 through EN-004-06, EN-007-01, EN-007-03, EN-014-01.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "forecast-work-packets",
+      "text": "## Forecast Work Packets\n\nWP-ID-0001, WP-PROV-0001, WP-HASH-0001, WP-DIAG-0002, WP-TEST-0001.",
+      "title": "Forecast Work Packets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "acceptance-scenario",
+      "text": "## Acceptance scenario\n\nA representative canonical artifact is parsed by a supported adapter, normalized under explicit rules, assigned stable identity, linked to source coordinates and provenance, hashed deterministically, and exposed through machine-readable output. Equivalent input representations converge where specified; meaning-changing input differs.",
+      "title": "Acceptance scenario"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 23,
+      "section_id": "key-negative-cases",
+      "text": "## Key negative cases\n\nIdentity collision, ambiguous alias, unsupported normalization, malformed source coordinate, incomplete required provenance, algorithm/version mismatch, and nondeterministic iteration order.",
+      "title": "Key negative cases"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 27,
+      "section_id": "review-evidence",
+      "text": "## Review evidence\n\nUnit/property tests, deterministic test vectors, source-coordinate fixtures, provenance samples, collision/alias diagnostics, and repeated clean-run comparison.",
+      "title": "Review evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 31,
+      "section_id": "exit-condition",
+      "text": "## Exit condition\n\nSPRINT-004 can construct MSG nodes/edges from stable semantic identity/provenance primitives without inventing identity rules inside graph code.",
+      "title": "Exit condition"
+    }
+  ],
+  "source": {
+    "bytes": 1512,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 33,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-003.md",
+    "sha256": "278be193e897c120192bae5b7b57926c6749cc5e0b9636bf57af9cb6ccf30505"
+  }
+}

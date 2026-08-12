@@ -1,0 +1,103 @@
+{
+  "content": "# SPRINT-010 — CLI and AI-Agent Context\n\n**Status:** Forecast  \n**Dates:** 2026-10-19 through 2026-10-25  \n**Product Increment:** PI-003 — Executable Engineering Loop\n\n## Sprint Goal\n\nExpose the integrated semantic/execution loop through a coherent human/automation CLI and generate deterministic bounded context packages for authorized Codex/AI-agent tasks without granting agents implicit authority.\n\n## Forecast PBIs\n\nUS-011-01 through US-011-07; US-012-01 through US-012-06; EN-013-03 and EN-013-04.\n\n## Forecast Work Packets\n\nWP-CLI-0001 and WP-AGENT-0001.\n\n## Acceptance scenario\n\nA maintainer can use the Release 1 CLI flow to inspect, validate, query/explain, calculate impact, generate context, inspect a plan, execute it, and diagnose the environment. Separately, a Work Packet can be transformed into a bounded Codex context package containing governing artifacts, relevant dependencies, constraints, acceptance criteria, validation, provenance, and explicit exclusions/capabilities.\n\n## Security and authority rules\n\n- context selection minimizes repository disclosure;\n- secrets/sensitive material are not included because of graph reachability alone;\n- agents cannot expand their capabilities or approve high-consequence work;\n- machine-readable and text output have stable contracts;\n- noninteractive automation never depends on TUI behavior.\n\n## Review evidence\n\nCLI command/help/exit-code/structured-output tests, end-to-end local scenario, context-package golden fixtures, context minimization tests, exclusion/secret tests, Codex task demonstration, and AI provenance/audit review.\n\n## PI-003 exit\n\nA user can progress from repository/task/change through semantic understanding, affected set, bounded context, inspectable plan, native execution, and evidence through stable product interfaces.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-010.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-10-19 through 2026-10-25 Product Increment: PI-003 — Executable Engineering Loop",
+    "title": "SPRINT-010 — CLI and AI-Agent Context"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-010-cli-and-ai-agent-context",
+      "text": "# SPRINT-010 — CLI and AI-Agent Context\n\n**Status:** Forecast  \n**Dates:** 2026-10-19 through 2026-10-25  \n**Product Increment:** PI-003 — Executable Engineering Loop",
+      "title": "SPRINT-010 — CLI and AI-Agent Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nExpose the integrated semantic/execution loop through a coherent human/automation CLI and generate deterministic bounded context packages for authorized Codex/AI-agent tasks without granting agents implicit authority.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\nUS-011-01 through US-011-07; US-012-01 through US-012-06; EN-013-03 and EN-013-04.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "forecast-work-packets",
+      "text": "## Forecast Work Packets\n\nWP-CLI-0001 and WP-AGENT-0001.",
+      "title": "Forecast Work Packets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "acceptance-scenario",
+      "text": "## Acceptance scenario\n\nA maintainer can use the Release 1 CLI flow to inspect, validate, query/explain, calculate impact, generate context, inspect a plan, execute it, and diagnose the environment. Separately, a Work Packet can be transformed into a bounded Codex context package containing governing artifacts, relevant dependencies, constraints, acceptance criteria, validation, provenance, and explicit exclusions/capabilities.",
+      "title": "Acceptance scenario"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 23,
+      "section_id": "security-and-authority-rules",
+      "text": "## Security and authority rules\n\n- context selection minimizes repository disclosure;\n- secrets/sensitive material are not included because of graph reachability alone;\n- agents cannot expand their capabilities or approve high-consequence work;\n- machine-readable and text output have stable contracts;\n- noninteractive automation never depends on TUI behavior.",
+      "title": "Security and authority rules"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 31,
+      "section_id": "review-evidence",
+      "text": "## Review evidence\n\nCLI command/help/exit-code/structured-output tests, end-to-end local scenario, context-package golden fixtures, context minimization tests, exclusion/secret tests, Codex task demonstration, and AI provenance/audit review.",
+      "title": "Review evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 35,
+      "section_id": "pi-003-exit",
+      "text": "## PI-003 exit\n\nA user can progress from repository/task/change through semantic understanding, affected set, bounded context, inspectable plan, native execution, and evidence through stable product interfaces.",
+      "title": "PI-003 exit"
+    }
+  ],
+  "source": {
+    "bytes": 1817,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 37,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-010.md",
+    "sha256": "76e50f27491127323f146a8ee8d8a7d78cf8f9b6159e3667fe4205cb66af20fd"
+  }
+}

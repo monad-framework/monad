@@ -1,0 +1,103 @@
+{
+  "content": "# SPRINT-004 — Monad Semantic Graph\n\n**Status:** Forecast  \n**Dates:** 2026-09-07 through 2026-09-13  \n**Product Increment:** PI-002 — Semantic Kernel\n\n## Sprint Goal\n\nCompile stable semantic inputs into the first deterministic Monad Semantic Graph with an explicit ontology, typed entities/relationships, provenance, invariants, canonical snapshot, and traversal support.\n\n## Forecast PBIs\n\nEN-005-01 through EN-005-07, EN-007-04, EN-014-02.\n\n## Forecast Work Packets\n\nWP-MSG-0001 — ontology/taxonomy; WP-MSG-0002 — construction/invariants/snapshot/traversal.\n\n## Acceptance scenario\n\nReference artifacts representing requirements, decisions, specifications, components/dependencies, tests, work, and evidence compile into the expected typed graph. Repeated compilation produces the same semantic graph and canonical serialization; sampled edges explain their provenance.\n\n## Key invariants\n\n- unique stable node identity;\n- permitted edge endpoint/type combinations;\n- deterministic ordering independent of traversal/concurrency;\n- required provenance on derived relationships;\n- unresolved required references do not become invented edges;\n- invalid graph state cannot be serialized as accepted output.\n\n## Review evidence\n\nGolden graphs, property tests, invalid-graph fixtures, deterministic hashes, provenance/explanation samples, and traversal/index conformance.\n\n## Exit condition\n\nKIR lowering in SPRINT-005 can consume a stable versioned graph boundary without reparsing source artifacts.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-004.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-09-07 through 2026-09-13 Product Increment: PI-002 — Semantic Kernel",
+    "title": "SPRINT-004 — Monad Semantic Graph"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-004-monad-semantic-graph",
+      "text": "# SPRINT-004 — Monad Semantic Graph\n\n**Status:** Forecast  \n**Dates:** 2026-09-07 through 2026-09-13  \n**Product Increment:** PI-002 — Semantic Kernel",
+      "title": "SPRINT-004 — Monad Semantic Graph"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nCompile stable semantic inputs into the first deterministic Monad Semantic Graph with an explicit ontology, typed entities/relationships, provenance, invariants, canonical snapshot, and traversal support.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\nEN-005-01 through EN-005-07, EN-007-04, EN-014-02.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "forecast-work-packets",
+      "text": "## Forecast Work Packets\n\nWP-MSG-0001 — ontology/taxonomy; WP-MSG-0002 — construction/invariants/snapshot/traversal.",
+      "title": "Forecast Work Packets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "acceptance-scenario",
+      "text": "## Acceptance scenario\n\nReference artifacts representing requirements, decisions, specifications, components/dependencies, tests, work, and evidence compile into the expected typed graph. Repeated compilation produces the same semantic graph and canonical serialization; sampled edges explain their provenance.",
+      "title": "Acceptance scenario"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 23,
+      "section_id": "key-invariants",
+      "text": "## Key invariants\n\n- unique stable node identity;\n- permitted edge endpoint/type combinations;\n- deterministic ordering independent of traversal/concurrency;\n- required provenance on derived relationships;\n- unresolved required references do not become invented edges;\n- invalid graph state cannot be serialized as accepted output.",
+      "title": "Key invariants"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 32,
+      "section_id": "review-evidence",
+      "text": "## Review evidence\n\nGolden graphs, property tests, invalid-graph fixtures, deterministic hashes, provenance/explanation samples, and traversal/index conformance.",
+      "title": "Review evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 36,
+      "section_id": "exit-condition",
+      "text": "## Exit condition\n\nKIR lowering in SPRINT-005 can consume a stable versioned graph boundary without reparsing source artifacts.",
+      "title": "Exit condition"
+    }
+  ],
+  "source": {
+    "bytes": 1506,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 38,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-004.md",
+    "sha256": "08048b380b7c80510df310ac18727357a185aff3acc1d32b3712a612bb3294c9"
+  }
+}

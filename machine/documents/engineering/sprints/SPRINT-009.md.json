@@ -1,0 +1,103 @@
+{
+  "content": "# SPRINT-009 — Native Tool Execution and Evidence\n\n**Status:** Forecast  \n**Dates:** 2026-10-12 through 2026-10-18  \n**Product Increment:** PI-003 — Executable Engineering Loop\n\n## Sprint Goal\n\nExecute approved local plans through real native-tool adapters with controlled process behavior, deterministic evidence capture, explicit failure/cancellation semantics, and the first verified-cache slice.\n\n## Forecast PBIs\n\nEN-007-06, US-010-03 through US-010-07.\n\n## Forecast Work Packet\n\nWP-EXEC-0001.\n\n## Acceptance scenario\n\nA user inspects a plan, runs it, and sees real native-tool commands execute in dependency order. Results capture tool identity/version, working directory, declared environment/input metadata, exit status, diagnostics, outputs/evidence, timing needed for performance analysis, and cache decision provenance.\n\n## Key failure cases\n\nMissing tool, unsupported version, non-zero exit, timeout, cancellation, downstream dependency skip, partial output, invalid/corrupt cache entry, and unknown subprocess result must have explicit behavior.\n\n## Review evidence\n\nReference tool adapters, execution integration tests, subprocess isolation tests, cancellation/failure fixtures, cache verification tests, execution evidence schema, and a repeatable local run.\n\n## Exit condition\n\nSPRINT-010 can expose execution safely through the CLI and agent workflow without changing execution semantics at the interaction layer.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-009.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-10-12 through 2026-10-18 Product Increment: PI-003 — Executable Engineering Loop",
+    "title": "SPRINT-009 — Native Tool Execution and Evidence"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-009-native-tool-execution-and-evidence",
+      "text": "# SPRINT-009 — Native Tool Execution and Evidence\n\n**Status:** Forecast  \n**Dates:** 2026-10-12 through 2026-10-18  \n**Product Increment:** PI-003 — Executable Engineering Loop",
+      "title": "SPRINT-009 — Native Tool Execution and Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nExecute approved local plans through real native-tool adapters with controlled process behavior, deterministic evidence capture, explicit failure/cancellation semantics, and the first verified-cache slice.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\nEN-007-06, US-010-03 through US-010-07.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "forecast-work-packet",
+      "text": "## Forecast Work Packet\n\nWP-EXEC-0001.",
+      "title": "Forecast Work Packet"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "acceptance-scenario",
+      "text": "## Acceptance scenario\n\nA user inspects a plan, runs it, and sees real native-tool commands execute in dependency order. Results capture tool identity/version, working directory, declared environment/input metadata, exit status, diagnostics, outputs/evidence, timing needed for performance analysis, and cache decision provenance.",
+      "title": "Acceptance scenario"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 23,
+      "section_id": "key-failure-cases",
+      "text": "## Key failure cases\n\nMissing tool, unsupported version, non-zero exit, timeout, cancellation, downstream dependency skip, partial output, invalid/corrupt cache entry, and unknown subprocess result must have explicit behavior.",
+      "title": "Key failure cases"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 27,
+      "section_id": "review-evidence",
+      "text": "## Review evidence\n\nReference tool adapters, execution integration tests, subprocess isolation tests, cancellation/failure fixtures, cache verification tests, execution evidence schema, and a repeatable local run.",
+      "title": "Review evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 31,
+      "section_id": "exit-condition",
+      "text": "## Exit condition\n\nSPRINT-010 can expose execution safely through the CLI and agent workflow without changing execution semantics at the interaction layer.",
+      "title": "Exit condition"
+    }
+  ],
+  "source": {
+    "bytes": 1435,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 33,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-009.md",
+    "sha256": "fbe1bc5933fb4305ae87f09c338ba70fc8c133b74271c1c0c8be9589942b53b2"
+  }
+}

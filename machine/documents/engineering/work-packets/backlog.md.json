@@ -1,5 +1,5 @@
 {
-  "content": "# Work Packet Backlog\n\nThe backlog contains qualified candidate outcomes, ordered by risk reduction\nand dependency—not a promise that every item will be delivered. A candidate\nmust pass the Definition of Ready before it can enter a work cycle.\n\n## Ordering policy\n\n1. Contain critical safety, security, privacy, or reliability risk.\n2. Test assumptions that could invalidate the product or architecture.\n3. Complete the thinnest end-to-end path to a verified user outcome.\n4. Remove blockers and high-cost uncertainty.\n5. Improve proven adoption, reliability, accessibility, or economics.\n\n## Ordered candidates\n\n| Order | Candidate result | Why next | Readiness gap |\n| --- | --- | --- | --- |\n| 1 | Approved primary-journey specification | Converts validated behavior into a testable contract | Awaiting WP-0001 findings |\n| 2 | Accepted data classification and lifecycle | Determines safe prototype data handling | Data inventory and owner review |\n| 3 | Walking-skeleton architecture decisions | Resolves identity, workflow state, persistence, and deployment choices | Quality baselines and exploration results |\n| 4 | Protected repository quality path | Establishes repeatable review, test, secret, dependency, and artifact checks | Implementation stack selection |\n| 5 | Authenticated vertical slice | Proves interface-to-domain-to-evidence path | First increment authorization |\n| 6 | Durable idempotent workflow state | Retires duplicate-effect and interruption risk | State-model specification |\n| 7 | Correlated journey observability | Enables outcome measurement and diagnosis | Event semantics and privacy review |\n| 8 | Automated deployment and rollback evidence | Establishes safe delivery and recovery | Reference environment decision |\n| 9 | Representative primary acceptance suite | Makes the product promise executable | Approved workflow and test data |\n| 10 | Pilot operational readiness | Enables bounded external use | Completed journey and risk review |\n\n## Candidate hygiene\n\nReview the backlog each work cycle. Remove items that no longer advance an\nauthorized outcome, split oversized work, merge duplicates, and record new\nevidence. Do not keep low-value work solely because effort was previously spent\ndescribing it.\n",
+  "content": "# Work Packet Backlog and Release Map\n\n**Status:** Proposed delivery baseline\n\nThe backlog below forecasts formal engineering packets through MVP Release 1. Forecast packets do not authorize implementation. A packet becomes Ready only after its scope, governing authority, dependencies, acceptance, validation, and risks satisfy `engineering/definition-of-ready.md`.\n\n| Order | Work Packet | Target | State | Outcome |\n| ---: | --- | --- | --- | --- |\n| 1 | WP-STAB-0008 | STAB-0001 | Planned | Reconcile minimum C1 semantic-kernel architecture/specification authority. |\n| 2 | WP-STAB-0007 | STAB-0001 | Planned | Stabilization readiness review and transition decision. |\n| 3 | WP-FND-0001 | SPRINT-001 | Draft | C0 foundation acceptance and Product Goal baseline. |\n| 4 | WP-ARCH-0001 | SPRINT-001 | Draft | First-slice architecture decision set and semantic-kernel responsibility review. |\n| 5 | WP-SPEC-0001 | SPRINT-001 | Draft | First-slice specification pack for workspace/configuration/identity/provenance/diagnostics. |\n| 6 | WP-SEC-0001 | SPRINT-001 | Draft | Repository-input threat model and first-slice security obligations. |\n| 7 | WP-GH-0001 | SPRINT-001 | Draft | Protected GitHub operating/repository quality baseline. |\n| 8 | WP-WS-0001 | SPRINT-002 | Draft | Workspace root discovery and repository identity. |\n| 9 | WP-CONF-0001 | SPRINT-002 | Draft | Monad configuration plus lock/local-state boundary. |\n| 10 | WP-DISC-0001 | SPRINT-002 | Draft | Component/package/artifact/toolchain discovery adapter slice. |\n| 11 | WP-DIAG-0001 | SPRINT-002 | Draft | Workspace/configuration diagnostic family. |\n| 12 | WP-ID-0001 | SPRINT-003 | Forecast | Stable semantic identity and canonicalization. |\n| 13 | WP-PROV-0001 | SPRINT-003 | Forecast | Source coordinates and provenance model/implementation. |\n| 14 | WP-HASH-0001 | SPRINT-003 | Forecast | Content/semantic hashing plus alias/rename/collision handling. |\n| 15 | WP-DIAG-0002 | SPRINT-003 | Forecast | Common diagnostic registry plus identity/provenance diagnostics. |\n| 16 | WP-TEST-0001 | SPRINT-003 | Forecast | Semantic unit/property tests for identity/provenance foundation. |\n| 17 | WP-MSG-0001 | SPRINT-004 | Forecast | Core ontology, entity and relationship taxonomy. |\n| 18 | WP-MSG-0002 | SPRINT-004 | Forecast | Deterministic graph construction, invariants, snapshot, traversal. |\n| 19 | WP-KIR-0001 | SPRINT-005 | Forecast | KIR charter/schema/canonical serialization and MSG lowering. |\n| 20 | WP-KIR-0002 | SPRINT-005 | Forecast | KIR validation, conformance, versioning, compatibility, migration baseline. |\n| 21 | WP-QUERY-0001 | SPRINT-006 | Forecast | Entity/relationship query, provenance explanation, structured output. |\n| 22 | WP-IMPACT-0001 | SPRINT-006 | Forecast | Git change ingestion and first conservative semantic affected set. |\n| 23 | WP-DIAG-0003 | SPRINT-007 | Forecast | Impact-path explanation, uncertainty behavior, diagnostic hardening. |\n| 24 | WP-INCR-0001 | SPRINT-008 | Forecast | Incremental invalidation/update, fingerprints and cache-validity semantics. |\n| 25 | WP-PLAN-0001 | SPRINT-008 | Forecast | Execution-plan schema, deterministic planner and authority/policy first slice. |\n| 26 | WP-EXEC-0001 | SPRINT-009 | Forecast | Native-tool adapter, local runtime, failure/cancellation, evidence and verified cache slice. |\n| 27 | WP-CLI-0001 | SPRINT-010 | Forecast | Integrated Release 1 CLI and structured-output contracts. |\n| 28 | WP-AGENT-0001 | SPRINT-010 | Forecast | Agent task contract, semantic context package, Codex export, capability/privacy boundaries. |\n| 29 | WP-CONF-0002 | SPRINT-011 | Forecast | Determinism/reproducibility and integrated reference-repository conformance suite. |\n| 30 | WP-SEC-0002 | SPRINT-012 | Forecast | Security/fuzz/supply-chain/performance/compatibility hardening evidence. |\n| 31 | WP-REL-0001 | SPRINT-012 | Forecast | Packaging, installation, versioning and compatibility baseline. |\n| 32 | WP-DOG-0001 | SPRINT-013 | Forecast | Monad-on-Monad dogfooding, generated documentation, beta and gap closure. |\n| 33 | WP-REL-0002 | SPRINT-013/014 | Forecast | Release CI/provenance/SBOM/signing, documentation, readiness, rollback and Release 1 publication. |\n\n## Readiness progression\n\n- `Draft`: packet exists to support refinement but may still depend on unresolved authority.\n- `Forecast`: only outcome/sequence is currently reliable; details must be derived later.\n- `Ready`: all Definition of Ready conditions and required authority are satisfied.\n- `Active`: explicitly pulled for execution.\n- `Review`: implementation complete enough for acceptance review.\n- `Done`: accepted evidence satisfies Definition of Done and closure is recorded.\n- `Blocked`: execution cannot safely proceed; blocker/owner/next action are explicit.\n\n## Critical path\n\n```text\nSTAB C0/C1 reconciliation\n  ↓\nWorkspace/configuration\n  ↓\nIdentity + provenance\n  ↓\nSemantic graph\n  ↓\nKIR\n  ↓\nQuery + affected set\n  ↓\nIncrementality + planner\n  ↓\nNative execution\n  ↓\nCLI + agent context\n  ↓\nIntegrated conformance\n  ↓\nSecurity/performance/packaging\n  ↓\nDogfood + release readiness\n  ↓\nMVP Release 1\n```\n\nWork outside this path may run in parallel when it does not consume unresolved semantics or increase integration risk.\n",
   "document_id": "doc:engineering%2Fwork-packets%2Fbacklog.md",
   "generation": {
     "deterministic": true,
@@ -7,65 +7,60 @@
     "version": "1.0.0"
   },
   "identifiers": [
-    "WP-0001"
+    "FND-0001",
+    "SEC-0001",
+    "SEC-0002"
   ],
   "links": [],
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "The backlog contains qualified candidate outcomes, ordered by risk reduction and dependency—not a promise that every item will be delivered. A candidate must pass the Definition of Ready before it can enter a work cycle.",
-    "title": "Work Packet Backlog"
+    "summary": "Status: Proposed delivery baseline",
+    "title": "Work Packet Backlog and Release Map"
   },
   "relations": [],
   "schema": "machine/schemas/document.schema.json",
   "schema_version": "1.0.0",
   "sections": [
     {
-      "identifiers": [],
-      "level": 1,
-      "line_end": 6,
-      "line_start": 1,
-      "section_id": "work-packet-backlog",
-      "text": "# Work Packet Backlog\n\nThe backlog contains qualified candidate outcomes, ordered by risk reduction\nand dependency—not a promise that every item will be delivered. A candidate\nmust pass the Definition of Ready before it can enter a work cycle.",
-      "title": "Work Packet Backlog"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 14,
-      "line_start": 7,
-      "section_id": "ordering-policy",
-      "text": "## Ordering policy\n\n1. Contain critical safety, security, privacy, or reliability risk.\n2. Test assumptions that could invalidate the product or architecture.\n3. Complete the thinnest end-to-end path to a verified user outcome.\n4. Remove blockers and high-cost uncertainty.\n5. Improve proven adoption, reliability, accessibility, or economics.",
-      "title": "Ordering policy"
-    },
-    {
       "identifiers": [
-        "WP-0001"
+        "FND-0001",
+        "SEC-0001",
+        "SEC-0002"
       ],
-      "level": 2,
-      "line_end": 29,
-      "line_start": 15,
-      "section_id": "ordered-candidates",
-      "text": "## Ordered candidates\n\n| Order | Candidate result | Why next | Readiness gap |\n| --- | --- | --- | --- |\n| 1 | Approved primary-journey specification | Converts validated behavior into a testable contract | Awaiting WP-0001 findings |\n| 2 | Accepted data classification and lifecycle | Determines safe prototype data handling | Data inventory and owner review |\n| 3 | Walking-skeleton architecture decisions | Resolves identity, workflow state, persistence, and deployment choices | Quality baselines and exploration results |\n| 4 | Protected repository quality path | Establishes repeatable review, test, secret, dependency, and artifact checks | Implementation stack selection |\n| 5 | Authenticated vertical slice | Proves interface-to-domain-to-evidence path | First increment authorization |\n| 6 | Durable idempotent workflow state | Retires duplicate-effect and interruption risk | State-model specification |\n| 7 | Correlated journey observability | Enables outcome measurement and diagnosis | Event semantics and privacy review |\n| 8 | Automated deployment and rollback evidence | Establishes safe delivery and recovery | Reference environment decision |\n| 9 | Representative primary acceptance suite | Makes the product promise executable | Approved workflow and test data |\n| 10 | Pilot operational readiness | Enables bounded external use | Completed journey and risk review |",
-      "title": "Ordered candidates"
+      "level": 1,
+      "line_end": 42,
+      "line_start": 1,
+      "section_id": "work-packet-backlog-and-release-map",
+      "text": "# Work Packet Backlog and Release Map\n\n**Status:** Proposed delivery baseline\n\nThe backlog below forecasts formal engineering packets through MVP Release 1. Forecast packets do not authorize implementation. A packet becomes Ready only after its scope, governing authority, dependencies, acceptance, validation, and risks satisfy `engineering/definition-of-ready.md`.\n\n| Order | Work Packet | Target | State | Outcome |\n| ---: | --- | --- | --- | --- |\n| 1 | WP-STAB-0008 | STAB-0001 | Planned | Reconcile minimum C1 semantic-kernel architecture/specification authority. |\n| 2 | WP-STAB-0007 | STAB-0001 | Planned | Stabilization readiness review and transition decision. |\n| 3 | WP-FND-0001 | SPRINT-001 | Draft | C0 foundation acceptance and Product Goal baseline. |\n| 4 | WP-ARCH-0001 | SPRINT-001 | Draft | First-slice architecture decision set and semantic-kernel responsibility review. |\n| 5 | WP-SPEC-0001 | SPRINT-001 | Draft | First-slice specification pack for workspace/configuration/identity/provenance/diagnostics. |\n| 6 | WP-SEC-0001 | SPRINT-001 | Draft | Repository-input threat model and first-slice security obligations. |\n| 7 | WP-GH-0001 | SPRINT-001 | Draft | Protected GitHub operating/repository quality baseline. |\n| 8 | WP-WS-0001 | SPRINT-002 | Draft | Workspace root discovery and repository identity. |\n| 9 | WP-CONF-0001 | SPRINT-002 | Draft | Monad configuration plus lock/local-state boundary. |\n| 10 | WP-DISC-0001 | SPRINT-002 | Draft | Component/package/artifact/toolchain discovery adapter slice. |\n| 11 | WP-DIAG-0001 | SPRINT-002 | Draft | Workspace/configuration diagnostic family. |\n| 12 | WP-ID-0001 | SPRINT-003 | Forecast | Stable semantic identity and canonicalization. |\n| 13 | WP-PROV-0001 | SPRINT-003 | Forecast | Source coordinates and provenance model/implementation. |\n| 14 | WP-HASH-0001 | SPRINT-003 | Forecast | Content/semantic hashing plus alias/rename/collision handling. |\n| 15 | WP-DIAG-0002 | SPRINT-003 | Forecast | Common diagnostic registry plus identity/provenance diagnostics. |\n| 16 | WP-TEST-0001 | SPRINT-003 | Forecast | Semantic unit/property tests for identity/provenance foundation. |\n| 17 | WP-MSG-0001 | SPRINT-004 | Forecast | Core ontology, entity and relationship taxonomy. |\n| 18 | WP-MSG-0002 | SPRINT-004 | Forecast | Deterministic graph construction, invariants, snapshot, traversal. |\n| 19 | WP-KIR-0001 | SPRINT-005 | Forecast | KIR charter/schema/canonical serialization and MSG lowering. |\n| 20 | WP-KIR-0002 | SPRINT-005 | Forecast | KIR validation, conformance, versioning, compatibility, migration baseline. |\n| 21 | WP-QUERY-0001 | SPRINT-006 | Forecast | Entity/relationship query, provenance explanation, structured output. |\n| 22 | WP-IMPACT-0001 | SPRINT-006 | Forecast | Git change ingestion and first conservative semantic affected set. |\n| 23 | WP-DIAG-0003 | SPRINT-007 | Forecast | Impact-path explanation, uncertainty behavior, diagnostic hardening. |\n| 24 | WP-INCR-0001 | SPRINT-008 | Forecast | Incremental invalidation/update, fingerprints and cache-validity semantics. |\n| 25 | WP-PLAN-0001 | SPRINT-008 | Forecast | Execution-plan schema, deterministic planner and authority/policy first slice. |\n| 26 | WP-EXEC-0001 | SPRINT-009 | Forecast | Native-tool adapter, local runtime, failure/cancellation, evidence and verified cache slice. |\n| 27 | WP-CLI-0001 | SPRINT-010 | Forecast | Integrated Release 1 CLI and structured-output contracts. |\n| 28 | WP-AGENT-0001 | SPRINT-010 | Forecast | Agent task contract, semantic context package, Codex export, capability/privacy boundaries. |\n| 29 | WP-CONF-0002 | SPRINT-011 | Forecast | Determinism/reproducibility and integrated reference-repository conformance suite. |\n| 30 | WP-SEC-0002 | SPRINT-012 | Forecast | Security/fuzz/supply-chain/performance/compatibility hardening evidence. |\n| 31 | WP-REL-0001 | SPRINT-012 | Forecast | Packaging, installation, versioning and compatibility baseline. |\n| 32 | WP-DOG-0001 | SPRINT-013 | Forecast | Monad-on-Monad dogfooding, generated documentation, beta and gap closure. |\n| 33 | WP-REL-0002 | SPRINT-013/014 | Forecast | Release CI/provenance/SBOM/signing, documentation, readiness, rollback and Release 1 publication. |",
+      "title": "Work Packet Backlog and Release Map"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 35,
-      "line_start": 30,
-      "section_id": "candidate-hygiene",
-      "text": "## Candidate hygiene\n\nReview the backlog each work cycle. Remove items that no longer advance an\nauthorized outcome, split oversized work, merge duplicates, and record new\nevidence. Do not keep low-value work solely because effort was previously spent\ndescribing it.",
-      "title": "Candidate hygiene"
+      "line_end": 52,
+      "line_start": 43,
+      "section_id": "readiness-progression",
+      "text": "## Readiness progression\n\n- `Draft`: packet exists to support refinement but may still depend on unresolved authority.\n- `Forecast`: only outcome/sequence is currently reliable; details must be derived later.\n- `Ready`: all Definition of Ready conditions and required authority are satisfied.\n- `Active`: explicitly pulled for execution.\n- `Review`: implementation complete enough for acceptance review.\n- `Done`: accepted evidence satisfies Definition of Done and closure is recorded.\n- `Blocked`: execution cannot safely proceed; blocker/owner/next action are explicit.",
+      "title": "Readiness progression"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 83,
+      "line_start": 53,
+      "section_id": "critical-path",
+      "text": "## Critical path\n\n```text\nSTAB C0/C1 reconciliation\n  ↓\nWorkspace/configuration\n  ↓\nIdentity + provenance\n  ↓\nSemantic graph\n  ↓\nKIR\n  ↓\nQuery + affected set\n  ↓\nIncrementality + planner\n  ↓\nNative execution\n  ↓\nCLI + agent context\n  ↓\nIntegrated conformance\n  ↓\nSecurity/performance/packaging\n  ↓\nDogfood + release readiness\n  ↓\nMVP Release 1\n```\n\nWork outside this path may run in parallel when it does not consume unresolved semantics or increase integration risk.",
+      "title": "Critical path"
     }
   ],
   "source": {
-    "bytes": 2247,
+    "bytes": 5285,
     "canonical": true,
     "language": "markdown",
-    "lines": 35,
+    "lines": 83,
     "media_type": "text/markdown",
     "path": "engineering/work-packets/backlog.md",
-    "sha256": "b4a6bb882503ba1117077b2e12819d92fc4cd10b71a3334482fea03f6dbcd3bb"
+    "sha256": "19fff395dd404518005cd99280df842003f1c6670e73543b26ed4965d22c19b8"
   }
 }

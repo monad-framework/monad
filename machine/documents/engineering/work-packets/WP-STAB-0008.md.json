@@ -1,0 +1,116 @@
+{
+  "content": "# WP-STAB-0008 — Reconcile First-Slice C1 Architecture and Specifications\n\n**Status:** Planned  \n**Owner:** Architecture Owner / Engineering Owner  \n**Program:** STAB-0001\n\n## Objective\n\nDetermine the minimum architecture decisions and normative specifications that must be sufficiently accepted before SPRINT-002 can implement workspace/configuration discovery without inventing semantic-kernel authority inside code.\n\n## Scope\n\n### Review concerns\n\n- local-first runtime/module boundary;\n- workspace root and repository identity;\n- configuration source/schema/precedence;\n- canonical versus generated artifact semantics;\n- stable identity/canonicalization/provenance direction;\n- diagnostic contract;\n- first semantic graph boundary and relationship to the existing bootstrap `machine/graph.json`;\n- KIR responsibility boundary;\n- repository-input trust/security boundary;\n- public CLI/config/schema compatibility direction;\n- implementation-language/runtime decision if it materially constrains the first slice.\n\n### Out of scope\n\n- approving all C1/C2 artifact-system documents;\n- remote execution, registry, hosted control plane, enterprise governance;\n- detailed implementation of SPRINT-004+ graph/KIR algorithms before their refinement windows.\n\n## Method\n\n1. Inventory C1 Drafts relevant to SPRINT-002/003.\n2. Identify contradictions, duplicates, and decisions already covered by ADR-0001 or higher authority.\n3. Classify each concern as:\n   - accepted authority already sufficient;\n   - requires an ADR before implementation;\n   - requires a specification before implementation;\n   - implementation-local/reversible and may be decided inside the Work Packet;\n   - deliberately deferred with bounded interface.\n4. Produce only the new ADR/specification artifacts required by the first vertical slice.\n5. Run implementation-readiness review for WP-WS-0001/WP-CONF-0001/WP-DISC-0001/WP-DIAG-0001.\n\n## Acceptance criteria\n\n- [ ] First-slice implementers have an explicit runtime/config/workspace/identity/diagnostic contract or a documented local-decision allowance.\n- [ ] Bootstrap machine projection and future production MSG are not conflated.\n- [ ] No two approved artifacts claim conflicting authority for the same semantic concern.\n- [ ] Required new ADRs/specifications are identified with owners/status and dependency order.\n- [ ] SPRINT-002 packet readiness can be evaluated without relying on chat context.\n- [ ] Lower-criticality C1/C2 artifacts remain Draft rather than being bulk-approved for convenience.\n\n## Validation\n\nRun a paper implementation walkthrough: starting from an empty implementation directory, identify every consequential design question required to build SPRINT-002. Any question whose answer could materially alter public semantics, security, compatibility, or downstream architecture must point to sufficient authority or remain an explicit blocker.\n\n## Completion evidence\n\nC1 reconciliation review, required ADR/specification changes, and updated Work Packet readiness states.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2FWP-STAB-0008.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Planned Owner: Architecture Owner / Engineering Owner Program: STAB-0001",
+    "title": "WP-STAB-0008 — Reconcile First-Slice C1 Architecture and Specifications"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "wp-stab-0008-reconcile-first-slice-c1-architecture-and-specifications",
+      "text": "# WP-STAB-0008 — Reconcile First-Slice C1 Architecture and Specifications\n\n**Status:** Planned  \n**Owner:** Architecture Owner / Engineering Owner  \n**Program:** STAB-0001",
+      "title": "WP-STAB-0008 — Reconcile First-Slice C1 Architecture and Specifications"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "objective",
+      "text": "## Objective\n\nDetermine the minimum architecture decisions and normative specifications that must be sufficiently accepted before SPRINT-002 can implement workspace/configuration discovery without inventing semantic-kernel authority inside code.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 11,
+      "section_id": "scope",
+      "text": "## Scope",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 26,
+      "line_start": 13,
+      "section_id": "review-concerns",
+      "text": "### Review concerns\n\n- local-first runtime/module boundary;\n- workspace root and repository identity;\n- configuration source/schema/precedence;\n- canonical versus generated artifact semantics;\n- stable identity/canonicalization/provenance direction;\n- diagnostic contract;\n- first semantic graph boundary and relationship to the existing bootstrap `machine/graph.json`;\n- KIR responsibility boundary;\n- repository-input trust/security boundary;\n- public CLI/config/schema compatibility direction;\n- implementation-language/runtime decision if it materially constrains the first slice.",
+      "title": "Review concerns"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 32,
+      "line_start": 27,
+      "section_id": "out-of-scope",
+      "text": "### Out of scope\n\n- approving all C1/C2 artifact-system documents;\n- remote execution, registry, hosted control plane, enterprise governance;\n- detailed implementation of SPRINT-004+ graph/KIR algorithms before their refinement windows.",
+      "title": "Out of scope"
+    },
+    {
+      "identifiers": [
+        "ADR-0001"
+      ],
+      "level": 2,
+      "line_end": 45,
+      "line_start": 33,
+      "section_id": "method",
+      "text": "## Method\n\n1. Inventory C1 Drafts relevant to SPRINT-002/003.\n2. Identify contradictions, duplicates, and decisions already covered by ADR-0001 or higher authority.\n3. Classify each concern as:\n   - accepted authority already sufficient;\n   - requires an ADR before implementation;\n   - requires a specification before implementation;\n   - implementation-local/reversible and may be decided inside the Work Packet;\n   - deliberately deferred with bounded interface.\n4. Produce only the new ADR/specification artifacts required by the first vertical slice.\n5. Run implementation-readiness review for WP-WS-0001/WP-CONF-0001/WP-DISC-0001/WP-DIAG-0001.",
+      "title": "Method"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 46,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] First-slice implementers have an explicit runtime/config/workspace/identity/diagnostic contract or a documented local-decision allowance.\n- [ ] Bootstrap machine projection and future production MSG are not conflated.\n- [ ] No two approved artifacts claim conflicting authority for the same semantic concern.\n- [ ] Required new ADRs/specifications are identified with owners/status and dependency order.\n- [ ] SPRINT-002 packet readiness can be evaluated without relying on chat context.\n- [ ] Lower-criticality C1/C2 artifacts remain Draft rather than being bulk-approved for convenience.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 55,
+      "section_id": "validation",
+      "text": "## Validation\n\nRun a paper implementation walkthrough: starting from an empty implementation directory, identify every consequential design question required to build SPRINT-002. Any question whose answer could materially alter public semantics, security, compatibility, or downstream architecture must point to sufficient authority or remain an explicit blocker.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 61,
+      "line_start": 59,
+      "section_id": "completion-evidence",
+      "text": "## Completion evidence\n\nC1 reconciliation review, required ADR/specification changes, and updated Work Packet readiness states.",
+      "title": "Completion evidence"
+    }
+  ],
+  "source": {
+    "bytes": 3021,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 61,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/WP-STAB-0008.md",
+    "sha256": "3e4a87b9511cc53edc9504f92effc7da0526456ddf0a6dd9d5a64f5b5d8b1167"
+  }
+}

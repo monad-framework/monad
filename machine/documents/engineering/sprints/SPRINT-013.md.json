@@ -1,0 +1,112 @@
+{
+  "content": "# SPRINT-013 — Dogfood, Documentation, Beta and Release Automation\n\n**Status:** Forecast  \n**Dates:** 2026-11-09 through 2026-11-15  \n**Product Increment:** PI-004 — MVP Hardening and Release\n\n## Sprint Goal\n\nUse Monad against Monad, close high-value self-hosting gaps, complete Release 1 documentation/publication, incorporate bounded beta/reference feedback, and automate release provenance so the final Sprint can focus on readiness rather than feature construction.\n\n## Forecast PBIs\n\nUS-015-02, US-015-03, US-016-03, US-016-04, US-016-05.\n\n## Forecast Work Packets\n\nWP-DOG-0001 and the first phase of WP-REL-0002.\n\n## Dogfood expectations\n\nMonad should inspect significant portions of its own repository, compile and query its own engineering knowledge, calculate impact for representative changes, generate at least one bounded agent context package, and execute a meaningful subset of its own validation plan. Dogfooding defects are product evidence, not exceptions to be hidden.\n\n## Documentation expectations\n\n- installation and first run;\n- core concepts: Artifact, MSG, KIR, provenance, affected set, plan, context package;\n- command reference and structured output;\n- configuration and supported environments;\n- troubleshooting/diagnostics;\n- security/data/AI boundaries;\n- contributor/maintainer workflow;\n- compatibility, limitations, upgrade/rollback;\n- generated architecture/specification/reference views where mature.\n\n## Release automation expectations\n\nBuild/version/package checks, changelog/release notes, source/revision metadata, checksums, provenance, SBOM and signing/attestation where applicable, plus reproducible artifact verification.\n\n## Review evidence\n\nDogfood report, beta/reference-user findings, documentation quality/link checks, release-pipeline dry run, generated artifact manifest/provenance, and remaining release blockers.\n\n## Exit condition\n\nThe final Release Candidate Sprint does not depend on unfinished core features; remaining work is blocker resolution, final evidence, known-limitations documentation, and acceptance.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-013.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-11-09 through 2026-11-15 Product Increment: PI-004 — MVP Hardening and Release",
+    "title": "SPRINT-013 — Dogfood, Documentation, Beta and Release Automation"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-013-dogfood-documentation-beta-and-release-automation",
+      "text": "# SPRINT-013 — Dogfood, Documentation, Beta and Release Automation\n\n**Status:** Forecast  \n**Dates:** 2026-11-09 through 2026-11-15  \n**Product Increment:** PI-004 — MVP Hardening and Release",
+      "title": "SPRINT-013 — Dogfood, Documentation, Beta and Release Automation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nUse Monad against Monad, close high-value self-hosting gaps, complete Release 1 documentation/publication, incorporate bounded beta/reference feedback, and automate release provenance so the final Sprint can focus on readiness rather than feature construction.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\nUS-015-02, US-015-03, US-016-03, US-016-04, US-016-05.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "forecast-work-packets",
+      "text": "## Forecast Work Packets\n\nWP-DOG-0001 and the first phase of WP-REL-0002.",
+      "title": "Forecast Work Packets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "dogfood-expectations",
+      "text": "## Dogfood expectations\n\nMonad should inspect significant portions of its own repository, compile and query its own engineering knowledge, calculate impact for representative changes, generate at least one bounded agent context package, and execute a meaningful subset of its own validation plan. Dogfooding defects are product evidence, not exceptions to be hidden.",
+      "title": "Dogfood expectations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 23,
+      "section_id": "documentation-expectations",
+      "text": "## Documentation expectations\n\n- installation and first run;\n- core concepts: Artifact, MSG, KIR, provenance, affected set, plan, context package;\n- command reference and structured output;\n- configuration and supported environments;\n- troubleshooting/diagnostics;\n- security/data/AI boundaries;\n- contributor/maintainer workflow;\n- compatibility, limitations, upgrade/rollback;\n- generated architecture/specification/reference views where mature.",
+      "title": "Documentation expectations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 35,
+      "section_id": "release-automation-expectations",
+      "text": "## Release automation expectations\n\nBuild/version/package checks, changelog/release notes, source/revision metadata, checksums, provenance, SBOM and signing/attestation where applicable, plus reproducible artifact verification.",
+      "title": "Release automation expectations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 39,
+      "section_id": "review-evidence",
+      "text": "## Review evidence\n\nDogfood report, beta/reference-user findings, documentation quality/link checks, release-pipeline dry run, generated artifact manifest/provenance, and remaining release blockers.",
+      "title": "Review evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 45,
+      "line_start": 43,
+      "section_id": "exit-condition",
+      "text": "## Exit condition\n\nThe final Release Candidate Sprint does not depend on unfinished core features; remaining work is blocker resolution, final evidence, known-limitations documentation, and acceptance.",
+      "title": "Exit condition"
+    }
+  ],
+  "source": {
+    "bytes": 2072,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 45,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-013.md",
+    "sha256": "80760ac7ff595bd655e55e87b52c1a64cd21701524693ac3bc0b8ad768af272d"
+  }
+}

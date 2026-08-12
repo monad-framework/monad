@@ -1,0 +1,120 @@
+{
+  "content": "# WP-STAB-0002 — Consolidate ADR and Authority Structure\n\n**Status:** Review  \n**Owner:** Architecture Owner  \n**Program:** STAB-0001\n\n## Objective\n\nMake `architecture/decisions/` the single canonical ADR location and remove contradictory decision-path/status information from active repository authority.\n\n## Scope\n\n### In scope\n\n- move/preserve ADR-0001 under `architecture/decisions/`;\n- retire the top-level `adrs/` path;\n- update `.monad/manifest.yaml`, ADR index, repository guidance, and machine projection;\n- preserve accepted ADR history and status.\n\n### Out of scope\n\n- silently rewriting ADR-0001 meaning;\n- accepting additional architecture decisions;\n- broad C1 architecture review, which belongs to WP-STAB-0008/WP-ARCH-0001.\n\n## Acceptance criteria\n\n- [ ] One live ADR root exists: `architecture/decisions/`.\n- [ ] ADR-0001 exists there with its Accepted status/history preserved.\n- [ ] `.monad` points to the same decision path.\n- [ ] ADR index recognizes ADR-0001 and does not claim the accepted-decision set is empty.\n- [ ] No canonical guidance points contributors to the retired `adrs/` path.\n- [ ] Machine projection reflects the canonical move without stale/orphaned companions.\n\n## Validation\n\nSearch canonical repository content and generated manifest for live references to the retired ADR path; verify only historical/explanatory references remain where intentionally preserved.\n\n## Risks\n\nPath migration can create duplicate document identities or broken links. Treat the move as lineage-preserving architectural history and regenerate all derived representations.\n\n## Completion evidence\n\nUser ADR-move commit, stabilization merge/reconciliation commit, updated ADR index/manifest, and green machine synchronization check.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2FWP-STAB-0002.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Review Owner: Architecture Owner Program: STAB-0001",
+    "title": "WP-STAB-0002 — Consolidate ADR and Authority Structure"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "wp-stab-0002-consolidate-adr-and-authority-structure",
+      "text": "# WP-STAB-0002 — Consolidate ADR and Authority Structure\n\n**Status:** Review  \n**Owner:** Architecture Owner  \n**Program:** STAB-0001",
+      "title": "WP-STAB-0002 — Consolidate ADR and Authority Structure"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "objective",
+      "text": "## Objective\n\nMake `architecture/decisions/` the single canonical ADR location and remove contradictory decision-path/status information from active repository authority.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 11,
+      "section_id": "scope",
+      "text": "## Scope",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [
+        "ADR-0001"
+      ],
+      "level": 3,
+      "line_end": 19,
+      "line_start": 13,
+      "section_id": "in-scope",
+      "text": "### In scope\n\n- move/preserve ADR-0001 under `architecture/decisions/`;\n- retire the top-level `adrs/` path;\n- update `.monad/manifest.yaml`, ADR index, repository guidance, and machine projection;\n- preserve accepted ADR history and status.",
+      "title": "In scope"
+    },
+    {
+      "identifiers": [
+        "ADR-0001"
+      ],
+      "level": 3,
+      "line_end": 25,
+      "line_start": 20,
+      "section_id": "out-of-scope",
+      "text": "### Out of scope\n\n- silently rewriting ADR-0001 meaning;\n- accepting additional architecture decisions;\n- broad C1 architecture review, which belongs to WP-STAB-0008/WP-ARCH-0001.",
+      "title": "Out of scope"
+    },
+    {
+      "identifiers": [
+        "ADR-0001"
+      ],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 26,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] One live ADR root exists: `architecture/decisions/`.\n- [ ] ADR-0001 exists there with its Accepted status/history preserved.\n- [ ] `.monad` points to the same decision path.\n- [ ] ADR index recognizes ADR-0001 and does not claim the accepted-decision set is empty.\n- [ ] No canonical guidance points contributors to the retired `adrs/` path.\n- [ ] Machine projection reflects the canonical move without stale/orphaned companions.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 35,
+      "section_id": "validation",
+      "text": "## Validation\n\nSearch canonical repository content and generated manifest for live references to the retired ADR path; verify only historical/explanatory references remain where intentionally preserved.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 39,
+      "section_id": "risks",
+      "text": "## Risks\n\nPath migration can create duplicate document identities or broken links. Treat the move as lineage-preserving architectural history and regenerate all derived representations.",
+      "title": "Risks"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 45,
+      "line_start": 43,
+      "section_id": "completion-evidence",
+      "text": "## Completion evidence\n\nUser ADR-move commit, stabilization merge/reconciliation commit, updated ADR index/manifest, and green machine synchronization check.",
+      "title": "Completion evidence"
+    }
+  ],
+  "source": {
+    "bytes": 1753,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 45,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/WP-STAB-0002.md",
+    "sha256": "b275676897169655dd734ccedee31339ca068b759e296eebeede3ccc8528800f"
+  }
+}

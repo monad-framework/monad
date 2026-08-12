@@ -1,0 +1,85 @@
+{
+  "content": "# M-001 — MVP Release 1\n\n**Status:** Forecast  \n**Target release:** 2026-11-23  \n**Product Goal:** deterministic local semantic engineering loop\n\n## Outcome\n\nA user can point Monad at a representative repository and, through a coherent local CLI, discover the workspace, compile canonical engineering knowledge into a deterministic MSG/KIR, validate/query/explain relationships, calculate conservative change impact, generate bounded AI-agent context, derive and inspect an execution plan, run native validation tools, and retain reproducible diagnostics/evidence.\n\n## Included increments\n\n- PI-002 — Semantic Kernel.\n- PI-003 — Executable Engineering Loop.\n- PI-004 — MVP Hardening and Release.\n\nPI-001/M-000 are prerequisites.\n\n## Acceptance\n\nM-001 closes only when:\n\n- all must-have Product Requirements have passing evidence;\n- deterministic/reproducibility scenarios pass;\n- affected-set safety guardrails pass;\n- graph/KIR identity/provenance/conformance are stable enough for the declared Release 1 compatibility contract;\n- agent context preserves authorization/privacy constraints;\n- native execution runs only explicit plans and captures evidence;\n- installation and rollback/recovery are documented/tested;\n- security/supply-chain/performance/release-readiness reviews pass or contain explicitly accepted nonblocking limitations;\n- Monad-on-Monad dogfooding produces useful evidence;\n- release documentation and known limitations are published;\n- Product Owner records the Release decision.\n\n## Explicitly not required\n\nRemote execution/cache, hosted collaboration, enterprise fleet governance, mature plugin marketplace/registry, commercial hosted offerings, autonomous high-consequence agents, and broad multi-repository federation.\n\n## Release semantics\n\nThe target date is a forecast. If the candidate does not satisfy the release guardrails, M-001 remains open and Release 1 moves; the milestone is not declared complete because the calendar ended.\n",
+  "document_id": "doc:engineering%2Fmilestones%2FM-001-MVP-RELEASE-1.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Target release: 2026-11-23 Product Goal: deterministic local semantic engineering loop",
+    "title": "M-001 — MVP Release 1"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "m-001-mvp-release-1",
+      "text": "# M-001 — MVP Release 1\n\n**Status:** Forecast  \n**Target release:** 2026-11-23  \n**Product Goal:** deterministic local semantic engineering loop",
+      "title": "M-001 — MVP Release 1"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "outcome",
+      "text": "## Outcome\n\nA user can point Monad at a representative repository and, through a coherent local CLI, discover the workspace, compile canonical engineering knowledge into a deterministic MSG/KIR, validate/query/explain relationships, calculate conservative change impact, generate bounded AI-agent context, derive and inspect an execution plan, run native validation tools, and retain reproducible diagnostics/evidence.",
+      "title": "Outcome"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 11,
+      "section_id": "included-increments",
+      "text": "## Included increments\n\n- PI-002 — Semantic Kernel.\n- PI-003 — Executable Engineering Loop.\n- PI-004 — MVP Hardening and Release.\n\nPI-001/M-000 are prerequisites.",
+      "title": "Included increments"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 19,
+      "section_id": "acceptance",
+      "text": "## Acceptance\n\nM-001 closes only when:\n\n- all must-have Product Requirements have passing evidence;\n- deterministic/reproducibility scenarios pass;\n- affected-set safety guardrails pass;\n- graph/KIR identity/provenance/conformance are stable enough for the declared Release 1 compatibility contract;\n- agent context preserves authorization/privacy constraints;\n- native execution runs only explicit plans and captures evidence;\n- installation and rollback/recovery are documented/tested;\n- security/supply-chain/performance/release-readiness reviews pass or contain explicitly accepted nonblocking limitations;\n- Monad-on-Monad dogfooding produces useful evidence;\n- release documentation and known limitations are published;\n- Product Owner records the Release decision.",
+      "title": "Acceptance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 35,
+      "section_id": "explicitly-not-required",
+      "text": "## Explicitly not required\n\nRemote execution/cache, hosted collaboration, enterprise fleet governance, mature plugin marketplace/registry, commercial hosted offerings, autonomous high-consequence agents, and broad multi-repository federation.",
+      "title": "Explicitly not required"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 41,
+      "line_start": 39,
+      "section_id": "release-semantics",
+      "text": "## Release semantics\n\nThe target date is a forecast. If the candidate does not satisfy the release guardrails, M-001 remains open and Release 1 moves; the milestone is not declared complete because the calendar ended.",
+      "title": "Release semantics"
+    }
+  ],
+  "source": {
+    "bytes": 1973,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 41,
+    "media_type": "text/markdown",
+    "path": "engineering/milestones/M-001-MVP-RELEASE-1.md",
+    "sha256": "6315e0205736ef0943f5606b950a4550a63cb8c074d70b3a3c66160595b8d35c"
+  }
+}

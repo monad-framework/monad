@@ -1,0 +1,94 @@
+{
+  "content": "# SPRINT-005 — Kernel Intermediate Representation\n\n**Status:** Forecast  \n**Dates:** 2026-09-14 through 2026-09-20  \n**Product Increment:** PI-002 — Semantic Kernel\n\n## Sprint Goal\n\nEstablish KIR as a versioned, canonical machine boundary derived from MSG so downstream validation, query, interoperability, execution planning, and future plugins do not need to reinterpret arbitrary source documents.\n\n## Forecast PBIs\n\nEN-006-01 through EN-006-06.\n\n## Forecast Work Packets\n\nWP-KIR-0001 — charter/schema/serialization/lowering; WP-KIR-0002 — validation/conformance/versioning/compatibility/migrations.\n\n## Acceptance scenario\n\nA known MSG fixture lowers into schema-valid KIR with deterministic canonical serialization. Equivalent graph semantics produce equivalent KIR; invalid or unsupported graph semantics fail with structured diagnostics. Version/compatibility metadata is explicit.\n\n## Review evidence\n\nJSON/schema or selected representation contract, canonicalization vectors, graph→KIR golden fixtures, validation tests, compatibility matrix, migration examples, and independent consumer fixture.\n\n## Exit condition\n\nSPRINT-006 query/impact capabilities can consume stable graph/KIR contracts and machine representations without relying on internal implementation layout.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-005.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-09-14 through 2026-09-20 Product Increment: PI-002 — Semantic Kernel",
+    "title": "SPRINT-005 — Kernel Intermediate Representation"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-005-kernel-intermediate-representation",
+      "text": "# SPRINT-005 — Kernel Intermediate Representation\n\n**Status:** Forecast  \n**Dates:** 2026-09-14 through 2026-09-20  \n**Product Increment:** PI-002 — Semantic Kernel",
+      "title": "SPRINT-005 — Kernel Intermediate Representation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nEstablish KIR as a versioned, canonical machine boundary derived from MSG so downstream validation, query, interoperability, execution planning, and future plugins do not need to reinterpret arbitrary source documents.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\nEN-006-01 through EN-006-06.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "forecast-work-packets",
+      "text": "## Forecast Work Packets\n\nWP-KIR-0001 — charter/schema/serialization/lowering; WP-KIR-0002 — validation/conformance/versioning/compatibility/migrations.",
+      "title": "Forecast Work Packets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "acceptance-scenario",
+      "text": "## Acceptance scenario\n\nA known MSG fixture lowers into schema-valid KIR with deterministic canonical serialization. Equivalent graph semantics produce equivalent KIR; invalid or unsupported graph semantics fail with structured diagnostics. Version/compatibility metadata is explicit.",
+      "title": "Acceptance scenario"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 23,
+      "section_id": "review-evidence",
+      "text": "## Review evidence\n\nJSON/schema or selected representation contract, canonicalization vectors, graph→KIR golden fixtures, validation tests, compatibility matrix, migration examples, and independent consumer fixture.",
+      "title": "Review evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 27,
+      "section_id": "exit-condition",
+      "text": "## Exit condition\n\nSPRINT-006 query/impact capabilities can consume stable graph/KIR contracts and machine representations without relying on internal implementation layout.",
+      "title": "Exit condition"
+    }
+  ],
+  "source": {
+    "bytes": 1291,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 29,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-005.md",
+    "sha256": "06cf649c4a0d1da663d121f2b821f94823fc5077cd53aefd96de57a67e6d45c3"
+  }
+}

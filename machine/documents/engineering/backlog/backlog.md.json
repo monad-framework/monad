@@ -1,0 +1,193 @@
+{
+  "content": "# Ordered Product Backlog\n\n**Status:** Active ordering baseline  \n**Product Goal:** MVP Release 1 — deterministic semantic engineering loop\n\nThis is the current order in which product/engineering outcomes should be pulled, subject to Sprint Planning, newly discovered risk, and explicit Product Owner reprioritization. The order follows the dependency critical path; it is not simply Feature ID order.\n\n## Now — STAB-0001\n\n1. **EN-001-01 / F-001-01** — Canonical product thesis reconciliation.\n2. **EN-001-03 / F-001-03** — Authority hierarchy and canonical ADR location.\n3. **EN-001-02 / F-001-02** — Product Goal, MVP scope, success criteria, exclusions.\n4. **EN-001-04 / F-001-04** — Artifact lifecycle/criticality; Draft versus approved authority.\n5. **EN-002-01..06** — Complete deterministic machine projection and drift enforcement.\n6. **EN-007-05** — Machine drift diagnostics.\n7. **US-015-04** — GitHub Issues projection.\n8. **US-015-05** — GitHub Project schema/views/iterations.\n9. **US-015-06** — GitHub Wiki projection.\n10. **STAB readiness** — complete Sprint/PI/WP plan and review the transition baseline.\n\n## Next — SPRINT-001 / PI-001\n\n11. **EN-001-05** — Canonical terminology.\n12. **EN-001-06** — Scrum/EOS operating model.\n13. **EN-001-07** — Repository governance/branch strategy/quality baseline.\n14. **EN-013-01** — Repository-input threat model.\n15. **US-015-01** — Documentation source-of-truth architecture.\n16. **US-015-07** — Project status/traceability projection.\n17. **C1 decision set** — identify and disposition first-slice architecture decisions.\n18. **First-slice specification pack** — workspace/configuration/identity/provenance/diagnostics contracts.\n19. **First implementation readiness review** — make SPRINT-002 Work Packets Ready.\n\n## SPRINT-002 — Workspace and configuration intelligence\n\n20. **US-003-01** — Workspace root discovery.\n21. **US-003-02** — Repository identity.\n22. **US-003-03** — Monad configuration model.\n23. **EN-007-02** — Workspace/configuration diagnostics.\n24. **US-003-05** — Component/package discovery.\n25. **US-003-06** — Native toolchain discovery.\n26. **US-003-04** — Lock/local-state model, to the minimum maturity required by semantic compilation.\n\n## SPRINT-003 — Identity and provenance\n\n27. **EN-004-01** — Semantic identity model.\n28. **EN-004-02** — Canonicalization rules.\n29. **EN-004-03** — Content/semantic hashing.\n30. **EN-004-04** — Source coordinates.\n31. **EN-004-05** — Provenance model.\n32. **EN-004-06** — Alias/rename/collision handling.\n33. **EN-007-01** — Diagnostic model/registry.\n34. **EN-007-03** — Identity/provenance diagnostics.\n35. **EN-014-01** — Semantic unit/property tests.\n\n## SPRINT-004 — Monad Semantic Graph\n\n36. Core ontology.\n37. Node/entity taxonomy.\n38. Relationship/edge taxonomy.\n39. Deterministic graph construction.\n40. Graph invariants/validation and diagnostics.\n41. Canonical graph snapshot/serialization.\n42. Graph traversal/indexes and golden/conformance fixtures.\n\n## SPRINT-005 — KIR\n\n43. KIR charter/semantic boundary.\n44. KIR schema.\n45. Canonical serialization.\n46. MSG→KIR lowering.\n47. KIR validation/conformance.\n48. Versioning/compatibility/migration baseline.\n\n## SPRINT-006 — Query and first semantic impact\n\n49. Entity lookup/inspect.\n50. Relationship query/traversal.\n51. Why/provenance explanation.\n52. Structured query output and indexes.\n53. Coverage/gap query first slice.\n54. Git/repository change ingestion.\n55. Conservative semantic affected-set calculation.\n\n## SPRINT-007 — Impact and diagnostic hardening\n\n56. Impact-path explanation.\n57. Conservative uncertainty/fallback.\n58. Affected-set negative/boundary corpus and diagnostic hardening.\n\n## SPRINT-008 — Incrementality and execution planning\n\n59. Incremental graph invalidation/update.\n60. Content/semantic fingerprints and cache-validity rules.\n61. Execution-plan schema.\n62. Deterministic plan construction.\n63. Authority/policy evaluator first slice.\n\n## SPRINT-009 — Native execution\n\n64. Native-tool adapter contract.\n65. Local execution runtime.\n66. Parallelism/cancellation/failure propagation.\n67. Execution/native-tool diagnostics.\n68. Verified cache first slice.\n69. Execution evidence/provenance.\n\n## SPRINT-010 — CLI and agent context\n\n70. CLI information architecture and output contracts.\n71. `inspect`/`validate`/`graph` command integration.\n72. `query`/`explain`/`affected` command integration.\n73. `context`/`plan`/`run` integration.\n74. `doctor`/`version` and first-run guidance; `init` only if ready.\n75. Agent identity/capabilities and Task/Work Packet contract.\n76. Semantic context selection/minimization.\n77. Context package schema and Codex export.\n78. Secrets/context boundaries and least privilege.\n79. AI provenance/audit/evaluation safeguards.\n\n## SPRINT-011 — Integrated conformance\n\n80. Determinism/reproducibility suite.\n81. Integration/E2E reference repositories.\n82. Full MVP reference acceptance scenario runner.\n83. Local/CI parity and clean-checkout execution evidence.\n\n## SPRINT-012 — Security, performance, compatibility, packaging\n\n84. Supply-chain/dependency controls.\n85. Security review/exception model.\n86. Security/fuzz/negative tests.\n87. Performance benchmark suite and baseline.\n88. Compatibility/migration tests and public compatibility policy.\n89. Packaging/installation.\n\n## SPRINT-013 — Dogfood, documentation, beta, release automation\n\n90. Generated publication and search/navigation.\n91. Release CI, provenance, SBOM/signing as applicable.\n92. Monad-on-Monad dogfooding and self-hosting gap closure.\n93. Release documentation/changelog/user/maintainer guidance.\n94. Beta/reference-user feedback and blocker resolution.\n\n## SPRINT-014 — Release candidate\n\n95. Release readiness/rollback/support evidence.\n96. Clean-machine Release 1 reproducibility run.\n97. Security/operability/performance/release-readiness reviews.\n98. Final known limitations and migration/compatibility notes.\n99. MVP Release 1 candidate acceptance and publication.\n\n## Post-MVP order\n\nAfter Release 1, prioritize EPIC-017 (plugins/adapters/registry) before EPIC-018 (remote/team/hosted) unless user evidence requires remote collaboration earlier. EPIC-019 (enterprise/commercial ecosystem) remains future until the local product demonstrates repeat use and sustainable operational demand.\n\n## Reordering triggers\n\nReorder immediately when a discovered correctness/security defect invalidates downstream work, a required architecture decision is unresolved, user evidence falsifies an assumption, the implementation reveals a lower-cost vertical slice, or an external dependency makes the current path infeasible. Record material changes in Sprint/PI planning rather than silently editing history.\n",
+  "document_id": "doc:engineering%2Fbacklog%2Fbacklog.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Active ordering baseline Product Goal: MVP Release 1 — deterministic semantic engineering loop",
+    "title": "Ordered Product Backlog"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "ordered-product-backlog",
+      "text": "# Ordered Product Backlog\n\n**Status:** Active ordering baseline  \n**Product Goal:** MVP Release 1 — deterministic semantic engineering loop\n\nThis is the current order in which product/engineering outcomes should be pulled, subject to Sprint Planning, newly discovered risk, and explicit Product Owner reprioritization. The order follows the dependency critical path; it is not simply Feature ID order.",
+      "title": "Ordered Product Backlog"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 20,
+      "line_start": 8,
+      "section_id": "now-stab-0001",
+      "text": "## Now — STAB-0001\n\n1. **EN-001-01 / F-001-01** — Canonical product thesis reconciliation.\n2. **EN-001-03 / F-001-03** — Authority hierarchy and canonical ADR location.\n3. **EN-001-02 / F-001-02** — Product Goal, MVP scope, success criteria, exclusions.\n4. **EN-001-04 / F-001-04** — Artifact lifecycle/criticality; Draft versus approved authority.\n5. **EN-002-01..06** — Complete deterministic machine projection and drift enforcement.\n6. **EN-007-05** — Machine drift diagnostics.\n7. **US-015-04** — GitHub Issues projection.\n8. **US-015-05** — GitHub Project schema/views/iterations.\n9. **US-015-06** — GitHub Wiki projection.\n10. **STAB readiness** — complete Sprint/PI/WP plan and review the transition baseline.",
+      "title": "Now — STAB-0001"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 21,
+      "section_id": "next-sprint-001-pi-001",
+      "text": "## Next — SPRINT-001 / PI-001\n\n11. **EN-001-05** — Canonical terminology.\n12. **EN-001-06** — Scrum/EOS operating model.\n13. **EN-001-07** — Repository governance/branch strategy/quality baseline.\n14. **EN-013-01** — Repository-input threat model.\n15. **US-015-01** — Documentation source-of-truth architecture.\n16. **US-015-07** — Project status/traceability projection.\n17. **C1 decision set** — identify and disposition first-slice architecture decisions.\n18. **First-slice specification pack** — workspace/configuration/identity/provenance/diagnostics contracts.\n19. **First implementation readiness review** — make SPRINT-002 Work Packets Ready.",
+      "title": "Next — SPRINT-001 / PI-001"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 33,
+      "section_id": "sprint-002-workspace-and-configuration-intelligence",
+      "text": "## SPRINT-002 — Workspace and configuration intelligence\n\n20. **US-003-01** — Workspace root discovery.\n21. **US-003-02** — Repository identity.\n22. **US-003-03** — Monad configuration model.\n23. **EN-007-02** — Workspace/configuration diagnostics.\n24. **US-003-05** — Component/package discovery.\n25. **US-003-06** — Native toolchain discovery.\n26. **US-003-04** — Lock/local-state model, to the minimum maturity required by semantic compilation.",
+      "title": "SPRINT-002 — Workspace and configuration intelligence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 43,
+      "section_id": "sprint-003-identity-and-provenance",
+      "text": "## SPRINT-003 — Identity and provenance\n\n27. **EN-004-01** — Semantic identity model.\n28. **EN-004-02** — Canonicalization rules.\n29. **EN-004-03** — Content/semantic hashing.\n30. **EN-004-04** — Source coordinates.\n31. **EN-004-05** — Provenance model.\n32. **EN-004-06** — Alias/rename/collision handling.\n33. **EN-007-01** — Diagnostic model/registry.\n34. **EN-007-03** — Identity/provenance diagnostics.\n35. **EN-014-01** — Semantic unit/property tests.",
+      "title": "SPRINT-003 — Identity and provenance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 64,
+      "line_start": 55,
+      "section_id": "sprint-004-monad-semantic-graph",
+      "text": "## SPRINT-004 — Monad Semantic Graph\n\n36. Core ontology.\n37. Node/entity taxonomy.\n38. Relationship/edge taxonomy.\n39. Deterministic graph construction.\n40. Graph invariants/validation and diagnostics.\n41. Canonical graph snapshot/serialization.\n42. Graph traversal/indexes and golden/conformance fixtures.",
+      "title": "SPRINT-004 — Monad Semantic Graph"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 73,
+      "line_start": 65,
+      "section_id": "sprint-005-kir",
+      "text": "## SPRINT-005 — KIR\n\n43. KIR charter/semantic boundary.\n44. KIR schema.\n45. Canonical serialization.\n46. MSG→KIR lowering.\n47. KIR validation/conformance.\n48. Versioning/compatibility/migration baseline.",
+      "title": "SPRINT-005 — KIR"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 83,
+      "line_start": 74,
+      "section_id": "sprint-006-query-and-first-semantic-impact",
+      "text": "## SPRINT-006 — Query and first semantic impact\n\n49. Entity lookup/inspect.\n50. Relationship query/traversal.\n51. Why/provenance explanation.\n52. Structured query output and indexes.\n53. Coverage/gap query first slice.\n54. Git/repository change ingestion.\n55. Conservative semantic affected-set calculation.",
+      "title": "SPRINT-006 — Query and first semantic impact"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 89,
+      "line_start": 84,
+      "section_id": "sprint-007-impact-and-diagnostic-hardening",
+      "text": "## SPRINT-007 — Impact and diagnostic hardening\n\n56. Impact-path explanation.\n57. Conservative uncertainty/fallback.\n58. Affected-set negative/boundary corpus and diagnostic hardening.",
+      "title": "SPRINT-007 — Impact and diagnostic hardening"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 97,
+      "line_start": 90,
+      "section_id": "sprint-008-incrementality-and-execution-planning",
+      "text": "## SPRINT-008 — Incrementality and execution planning\n\n59. Incremental graph invalidation/update.\n60. Content/semantic fingerprints and cache-validity rules.\n61. Execution-plan schema.\n62. Deterministic plan construction.\n63. Authority/policy evaluator first slice.",
+      "title": "SPRINT-008 — Incrementality and execution planning"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 106,
+      "line_start": 98,
+      "section_id": "sprint-009-native-execution",
+      "text": "## SPRINT-009 — Native execution\n\n64. Native-tool adapter contract.\n65. Local execution runtime.\n66. Parallelism/cancellation/failure propagation.\n67. Execution/native-tool diagnostics.\n68. Verified cache first slice.\n69. Execution evidence/provenance.",
+      "title": "SPRINT-009 — Native execution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 119,
+      "line_start": 107,
+      "section_id": "sprint-010-cli-and-agent-context",
+      "text": "## SPRINT-010 — CLI and agent context\n\n70. CLI information architecture and output contracts.\n71. `inspect`/`validate`/`graph` command integration.\n72. `query`/`explain`/`affected` command integration.\n73. `context`/`plan`/`run` integration.\n74. `doctor`/`version` and first-run guidance; `init` only if ready.\n75. Agent identity/capabilities and Task/Work Packet contract.\n76. Semantic context selection/minimization.\n77. Context package schema and Codex export.\n78. Secrets/context boundaries and least privilege.\n79. AI provenance/audit/evaluation safeguards.",
+      "title": "SPRINT-010 — CLI and agent context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 126,
+      "line_start": 120,
+      "section_id": "sprint-011-integrated-conformance",
+      "text": "## SPRINT-011 — Integrated conformance\n\n80. Determinism/reproducibility suite.\n81. Integration/E2E reference repositories.\n82. Full MVP reference acceptance scenario runner.\n83. Local/CI parity and clean-checkout execution evidence.",
+      "title": "SPRINT-011 — Integrated conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 135,
+      "line_start": 127,
+      "section_id": "sprint-012-security-performance-compatibility-packaging",
+      "text": "## SPRINT-012 — Security, performance, compatibility, packaging\n\n84. Supply-chain/dependency controls.\n85. Security review/exception model.\n86. Security/fuzz/negative tests.\n87. Performance benchmark suite and baseline.\n88. Compatibility/migration tests and public compatibility policy.\n89. Packaging/installation.",
+      "title": "SPRINT-012 — Security, performance, compatibility, packaging"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 143,
+      "line_start": 136,
+      "section_id": "sprint-013-dogfood-documentation-beta-release-automation",
+      "text": "## SPRINT-013 — Dogfood, documentation, beta, release automation\n\n90. Generated publication and search/navigation.\n91. Release CI, provenance, SBOM/signing as applicable.\n92. Monad-on-Monad dogfooding and self-hosting gap closure.\n93. Release documentation/changelog/user/maintainer guidance.\n94. Beta/reference-user feedback and blocker resolution.",
+      "title": "SPRINT-013 — Dogfood, documentation, beta, release automation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 151,
+      "line_start": 144,
+      "section_id": "sprint-014-release-candidate",
+      "text": "## SPRINT-014 — Release candidate\n\n95. Release readiness/rollback/support evidence.\n96. Clean-machine Release 1 reproducibility run.\n97. Security/operability/performance/release-readiness reviews.\n98. Final known limitations and migration/compatibility notes.\n99. MVP Release 1 candidate acceptance and publication.",
+      "title": "SPRINT-014 — Release candidate"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 155,
+      "line_start": 152,
+      "section_id": "post-mvp-order",
+      "text": "## Post-MVP order\n\nAfter Release 1, prioritize EPIC-017 (plugins/adapters/registry) before EPIC-018 (remote/team/hosted) unless user evidence requires remote collaboration earlier. EPIC-019 (enterprise/commercial ecosystem) remains future until the local product demonstrates repeat use and sustainable operational demand.",
+      "title": "Post-MVP order"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 158,
+      "line_start": 156,
+      "section_id": "reordering-triggers",
+      "text": "## Reordering triggers\n\nReorder immediately when a discovered correctness/security defect invalidates downstream work, a required architecture decision is unresolved, user evidence falsifies an assumption, the implementation reveals a lower-cost vertical slice, or an external dependency makes the current path infeasible. Record material changes in Sprint/PI planning rather than silently editing history.",
+      "title": "Reordering triggers"
+    }
+  ],
+  "source": {
+    "bytes": 6827,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 158,
+    "media_type": "text/markdown",
+    "path": "engineering/backlog/backlog.md",
+    "sha256": "31920fbce425b2932a0bdf1c3c89b645bd7def363e9b4490628737be58fea972"
+  }
+}

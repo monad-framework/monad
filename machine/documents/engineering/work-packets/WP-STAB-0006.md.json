@@ -1,0 +1,112 @@
+{
+  "content": "# WP-STAB-0006 — Establish the GitHub Operating Surface\n\n**Status:** Active  \n**Owner:** Engineering Owner  \n**Program:** STAB-0001\n\n## Objective\n\nMake GitHub a complete, trustworthy collaboration and project-projection layer for Monad without moving canonical product/architecture/work authority out of the repository.\n\n## Scope\n\n### In scope\n\n- repository labels and milestones;\n- Issue Forms and PR template;\n- Epic/Feature/PBI/Sprint/Work Packet issue projection;\n- organization Project field/view/iteration specification;\n- Wiki source/projection;\n- repository/ruleset/branch target settings;\n- CODEOWNERS and required-review model;\n- Actions permissions/pinning/security/dependency automation targets;\n- idempotent setup/projection automation where available.\n\n### Out of scope\n\n- claiming Project v2, Wiki, rulesets, or organization settings are configured when the connected automation identity cannot mutate them;\n- making GitHub Issues the canonical specification or Work Packet;\n- duplicating every small implementation task as an Issue when it adds no collaboration value.\n\n## Acceptance criteria\n\n- [ ] Label taxonomy covers item type, status, priority, criticality, area, risk, and agent/execution needs without label explosion.\n- [ ] MVP Milestone(s) and release target are defined and live where API permissions allow.\n- [ ] Issue Forms exist for Epic, Feature, Story, Enabler, Bug, Spike, Task, Work Packet, Decision/Risk where useful.\n- [ ] Canonical Epics and refinement-horizon items are projected into GitHub with stable IDs and no duplicate creation.\n- [ ] Project fields/views/iterations are specified exactly enough for one-time UI/API setup and kept out of canonical authority.\n- [ ] Wiki source pages exist and identify canonical source links.\n- [ ] Target `main` branch protections/ruleset, required checks, merge strategy, branch deletion/update behavior, and CODEOWNERS expectations are documented.\n- [ ] Security/dependency automation target includes pinned Actions, least-privilege workflow permissions, secret/dependency checks, and update policy.\n- [ ] Any unautomatable GitHub setting is recorded as an explicit remaining setup action rather than implied complete.\n\n## Validation\n\nCompare live GitHub repository state with `.github/` setup artifacts and the canonical backlog. Re-run issue/setup automation to prove idempotency. Sample Issue→canonical ID→Feature/PBI/WP traceability in both directions.\n\n## Risks\n\nGitHub Projects v2 and Wiki/ruleset mutations can require organization-level scopes unavailable to normal repository tokens. The repository must preserve deterministic setup instructions so the missing permission does not become undocumented manual knowledge.\n\n## Completion evidence\n\nLive issues/milestones/labels where authorized, setup specifications, Wiki source, automation results, and GitHub operating-baseline review.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2FWP-STAB-0006.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Active Owner: Engineering Owner Program: STAB-0001",
+    "title": "WP-STAB-0006 — Establish the GitHub Operating Surface"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "wp-stab-0006-establish-the-github-operating-surface",
+      "text": "# WP-STAB-0006 — Establish the GitHub Operating Surface\n\n**Status:** Active  \n**Owner:** Engineering Owner  \n**Program:** STAB-0001",
+      "title": "WP-STAB-0006 — Establish the GitHub Operating Surface"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "objective",
+      "text": "## Objective\n\nMake GitHub a complete, trustworthy collaboration and project-projection layer for Monad without moving canonical product/architecture/work authority out of the repository.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 11,
+      "section_id": "scope",
+      "text": "## Scope",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 24,
+      "line_start": 13,
+      "section_id": "in-scope",
+      "text": "### In scope\n\n- repository labels and milestones;\n- Issue Forms and PR template;\n- Epic/Feature/PBI/Sprint/Work Packet issue projection;\n- organization Project field/view/iteration specification;\n- Wiki source/projection;\n- repository/ruleset/branch target settings;\n- CODEOWNERS and required-review model;\n- Actions permissions/pinning/security/dependency automation targets;\n- idempotent setup/projection automation where available.",
+      "title": "In scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 30,
+      "line_start": 25,
+      "section_id": "out-of-scope",
+      "text": "### Out of scope\n\n- claiming Project v2, Wiki, rulesets, or organization settings are configured when the connected automation identity cannot mutate them;\n- making GitHub Issues the canonical specification or Work Packet;\n- duplicating every small implementation task as an Issue when it adds no collaboration value.",
+      "title": "Out of scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 31,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] Label taxonomy covers item type, status, priority, criticality, area, risk, and agent/execution needs without label explosion.\n- [ ] MVP Milestone(s) and release target are defined and live where API permissions allow.\n- [ ] Issue Forms exist for Epic, Feature, Story, Enabler, Bug, Spike, Task, Work Packet, Decision/Risk where useful.\n- [ ] Canonical Epics and refinement-horizon items are projected into GitHub with stable IDs and no duplicate creation.\n- [ ] Project fields/views/iterations are specified exactly enough for one-time UI/API setup and kept out of canonical authority.\n- [ ] Wiki source pages exist and identify canonical source links.\n- [ ] Target `main` branch protections/ruleset, required checks, merge strategy, branch deletion/update behavior, and CODEOWNERS expectations are documented.\n- [ ] Security/dependency automation target includes pinned Actions, least-privilege workflow permissions, secret/dependency checks, and update policy.\n- [ ] Any unautomatable GitHub setting is recorded as an explicit remaining setup action rather than implied complete.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 43,
+      "section_id": "validation",
+      "text": "## Validation\n\nCompare live GitHub repository state with `.github/` setup artifacts and the canonical backlog. Re-run issue/setup automation to prove idempotency. Sample Issue→canonical ID→Feature/PBI/WP traceability in both directions.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 47,
+      "section_id": "risks",
+      "text": "## Risks\n\nGitHub Projects v2 and Wiki/ruleset mutations can require organization-level scopes unavailable to normal repository tokens. The repository must preserve deterministic setup instructions so the missing permission does not become undocumented manual knowledge.",
+      "title": "Risks"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 51,
+      "section_id": "completion-evidence",
+      "text": "## Completion evidence\n\nLive issues/milestones/labels where authorized, setup specifications, Wiki source, automation results, and GitHub operating-baseline review.",
+      "title": "Completion evidence"
+    }
+  ],
+  "source": {
+    "bytes": 2880,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 53,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/WP-STAB-0006.md",
+    "sha256": "0748e3cb96b6fd80d410ed9f93fa843fd8bc025bf8b5f0541a4728dbd4273ad6"
+  }
+}

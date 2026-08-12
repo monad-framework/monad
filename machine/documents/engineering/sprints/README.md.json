@@ -1,0 +1,76 @@
+{
+  "content": "# Sprints\n\nMonad uses one-week Sprints from Monday through Sunday once Foundation Stabilization closes. Sprints are inspection/adaptation windows, not mini-waterfall phases. The forecast through MVP Release 1 exists to expose sequencing and dependencies; actual Sprint commitment occurs during Sprint Planning.\n\n## Cadence\n\n- **Planning:** Monday — Product Goal context, Sprint Goal, Ready PBI selection, capacity/dependency check.\n- **Execution:** continuous implementation, review, integration, and daily state inspection.\n- **Refinement:** throughout the Sprint; next two Sprints receive the deepest refinement.\n- **Review:** demonstrate integrated outcome and acceptance evidence before Sprint closure.\n- **Retrospective:** record process/system improvements and update operating agreements/backlog where evidence justifies change.\n\n## Forecast\n\n| Sprint | Dates | Product Increment | Goal |\n| --- | --- | --- | --- |\n| SPRINT-001 | Aug 17–23, 2026 | PI-001 | Accept stabilized foundation and make first implementation packets Ready. |\n| SPRINT-002 | Aug 24–30 | PI-002 | Discover workspace, repository identity, configuration, components and tools deterministically. |\n| SPRINT-003 | Aug 31–Sep 6 | PI-002 | Establish stable semantic identity, canonicalization, hashing, source coordinates and provenance. |\n| SPRINT-004 | Sep 7–13 | PI-002 | Build deterministic Monad Semantic Graph with ontology and invariants. |\n| SPRINT-005 | Sep 14–20 | PI-002 | Establish KIR schema, lowering, serialization and conformance. |\n| SPRINT-006 | Sep 21–27 | PI-002 | Query/explain the graph and compute the first conservative affected set. |\n| SPRINT-007 | Sep 28–Oct 4 | PI-003 | Harden diagnostics, impact paths and conservative uncertainty behavior. |\n| SPRINT-008 | Oct 5–11 | PI-003 | Add incrementality, fingerprints, policy first slice and execution-plan construction. |\n| SPRINT-009 | Oct 12–18 | PI-003 | Execute native tools locally with failure semantics, cache and evidence. |\n| SPRINT-010 | Oct 19–25 | PI-003 | Integrate Release 1 CLI and bounded AI-agent context workflow. |\n| SPRINT-011 | Oct 26–Nov 1 | PI-004 | Prove integrated determinism/reproducibility across reference repositories. |\n| SPRINT-012 | Nov 2–8 | PI-004 | Harden security, performance, compatibility and packaging. |\n| SPRINT-013 | Nov 9–15 | PI-004 | Dogfood Monad, finish publication/beta feedback and release automation. |\n| SPRINT-014 | Nov 16–22 | PI-004 | Produce and review the Release 1 candidate. |\n\n**Forecast release:** Monday, November 23, 2026, only if release-readiness evidence passes.\n\n## Sprint status vocabulary\n\n`Forecast` → `Planned` → `Active` → `Review` → `Closed`. A Sprint may close with incomplete PBIs; unfinished work returns to backlog and is reordered rather than silently carried as Done.\n\n## Scope-change rule\n\nThe Sprint Goal is more stable than the exact task list. Newly discovered work may be added or exchanged when necessary to meet the Goal, but material product/architecture scope changes follow normal authority and backlog processes. Quality gates are not traded for point completion.\n",
+  "document_id": "doc:engineering%2Fsprints%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Monad uses one-week Sprints from Monday through Sunday once Foundation Stabilization closes. Sprints are inspection/adaptation windows, not mini-waterfall phases. The forecast through MVP Release 1 exists to expose sequencing and dependencies; actual Sprint commitment occurs during Sprint Planning.",
+    "title": "Sprints"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 4,
+      "line_start": 1,
+      "section_id": "sprints",
+      "text": "# Sprints\n\nMonad uses one-week Sprints from Monday through Sunday once Foundation Stabilization closes. Sprints are inspection/adaptation windows, not mini-waterfall phases. The forecast through MVP Release 1 exists to expose sequencing and dependencies; actual Sprint commitment occurs during Sprint Planning.",
+      "title": "Sprints"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 5,
+      "section_id": "cadence",
+      "text": "## Cadence\n\n- **Planning:** Monday — Product Goal context, Sprint Goal, Ready PBI selection, capacity/dependency check.\n- **Execution:** continuous implementation, review, integration, and daily state inspection.\n- **Refinement:** throughout the Sprint; next two Sprints receive the deepest refinement.\n- **Review:** demonstrate integrated outcome and acceptance evidence before Sprint closure.\n- **Retrospective:** record process/system improvements and update operating agreements/backlog where evidence justifies change.",
+      "title": "Cadence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 13,
+      "section_id": "forecast",
+      "text": "## Forecast\n\n| Sprint | Dates | Product Increment | Goal |\n| --- | --- | --- | --- |\n| SPRINT-001 | Aug 17–23, 2026 | PI-001 | Accept stabilized foundation and make first implementation packets Ready. |\n| SPRINT-002 | Aug 24–30 | PI-002 | Discover workspace, repository identity, configuration, components and tools deterministically. |\n| SPRINT-003 | Aug 31–Sep 6 | PI-002 | Establish stable semantic identity, canonicalization, hashing, source coordinates and provenance. |\n| SPRINT-004 | Sep 7–13 | PI-002 | Build deterministic Monad Semantic Graph with ontology and invariants. |\n| SPRINT-005 | Sep 14–20 | PI-002 | Establish KIR schema, lowering, serialization and conformance. |\n| SPRINT-006 | Sep 21–27 | PI-002 | Query/explain the graph and compute the first conservative affected set. |\n| SPRINT-007 | Sep 28–Oct 4 | PI-003 | Harden diagnostics, impact paths and conservative uncertainty behavior. |\n| SPRINT-008 | Oct 5–11 | PI-003 | Add incrementality, fingerprints, policy first slice and execution-plan construction. |\n| SPRINT-009 | Oct 12–18 | PI-003 | Execute native tools locally with failure semantics, cache and evidence. |\n| SPRINT-010 | Oct 19–25 | PI-003 | Integrate Release 1 CLI and bounded AI-agent context workflow. |\n| SPRINT-011 | Oct 26–Nov 1 | PI-004 | Prove integrated determinism/reproducibility across reference repositories. |\n| SPRINT-012 | Nov 2–8 | PI-004 | Harden security, performance, compatibility and packaging. |\n| SPRINT-013 | Nov 9–15 | PI-004 | Dogfood Monad, finish publication/beta feedback and release automation. |\n| SPRINT-014 | Nov 16–22 | PI-004 | Produce and review the Release 1 candidate. |\n\n**Forecast release:** Monday, November 23, 2026, only if release-readiness evidence passes.",
+      "title": "Forecast"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 34,
+      "section_id": "sprint-status-vocabulary",
+      "text": "## Sprint status vocabulary\n\n`Forecast` → `Planned` → `Active` → `Review` → `Closed`. A Sprint may close with incomplete PBIs; unfinished work returns to backlog and is reordered rather than silently carried as Done.",
+      "title": "Sprint status vocabulary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 38,
+      "section_id": "scope-change-rule",
+      "text": "## Scope-change rule\n\nThe Sprint Goal is more stable than the exact task list. Newly discovered work may be added or exchanged when necessary to meet the Goal, but material product/architecture scope changes follow normal authority and backlog processes. Quality gates are not traded for point completion.",
+      "title": "Scope-change rule"
+    }
+  ],
+  "source": {
+    "bytes": 3140,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 40,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/README.md",
+    "sha256": "31051ed20c836ed433570ff5090dcae91de0c3027bcd6374513f4612c0dcaa7e"
+  }
+}

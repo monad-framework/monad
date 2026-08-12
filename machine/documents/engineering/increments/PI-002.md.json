@@ -1,0 +1,85 @@
+{
+  "content": "# PI-002 — Semantic Kernel\n\n**Status:** Forecast  \n**Dates:** 2026-08-24 through 2026-09-27  \n**Sprints:** SPRINT-002 through SPRINT-006\n\n## Objective\n\nCompile a representative repository's canonical engineering artifacts into a deterministic, provenance-rich Monad Semantic Graph and versioned KIR that users can validate, query, explain, and use for a first conservative change-impact calculation.\n\n## Capability sequence\n\n1. Workspace/configuration/artifact/tool discovery.\n2. Semantic identity, normalization, hashing, source coordinates, provenance and diagnostics.\n3. MSG ontology, graph construction, invariants, canonical snapshot and traversal.\n4. KIR schema, canonical serialization, lowering, validation and compatibility.\n5. Query/explanation plus Git change ingestion and first affected-set analysis.\n\n## Integrated PI scenario\n\nFrom a clean checkout of a reference repository:\n\n```text\ninspect workspace\n  → inventory supported artifacts\n  → assign identity/provenance\n  → compile MSG\n  → lower KIR\n  → validate\n  → query/explain relationships\n  → apply/observe bounded change\n  → compute and explain affected set\n```\n\nThe same declared input state must reproduce equivalent graph/KIR semantics.\n\n## Exit criteria\n\n- [ ] Workspace and artifact discovery are deterministic and read-only.\n- [ ] Stable identity/provenance contracts are implemented and property-tested.\n- [ ] MSG construction/invariants/canonical serialization pass conformance fixtures.\n- [ ] KIR is versioned, validated, and produced from MSG without source reparsing downstream.\n- [ ] Query/explanation exposes provenance and relationship paths.\n- [ ] First affected-set corpus has no known false-negative required validation in supported scenarios.\n- [ ] Structured diagnostics cover known invalid/unsupported states.\n- [ ] PI integration, machine sync, security and Definition-of-Done gates pass.\n\n## PI decision\n\nProceed to PI-003 only when semantic impact is trusted enough to inform execution planning. If affected-set correctness is uncertain, harden the semantic kernel rather than allowing execution to depend on unjustified optimization.\n",
+  "document_id": "doc:engineering%2Fincrements%2FPI-002.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-08-24 through 2026-09-27 Sprints: SPRINT-002 through SPRINT-006",
+    "title": "PI-002 — Semantic Kernel"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "pi-002-semantic-kernel",
+      "text": "# PI-002 — Semantic Kernel\n\n**Status:** Forecast  \n**Dates:** 2026-08-24 through 2026-09-27  \n**Sprints:** SPRINT-002 through SPRINT-006",
+      "title": "PI-002 — Semantic Kernel"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "objective",
+      "text": "## Objective\n\nCompile a representative repository's canonical engineering artifacts into a deterministic, provenance-rich Monad Semantic Graph and versioned KIR that users can validate, query, explain, and use for a first conservative change-impact calculation.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 11,
+      "section_id": "capability-sequence",
+      "text": "## Capability sequence\n\n1. Workspace/configuration/artifact/tool discovery.\n2. Semantic identity, normalization, hashing, source coordinates, provenance and diagnostics.\n3. MSG ontology, graph construction, invariants, canonical snapshot and traversal.\n4. KIR schema, canonical serialization, lowering, validation and compatibility.\n5. Query/explanation plus Git change ingestion and first affected-set analysis.",
+      "title": "Capability sequence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 19,
+      "section_id": "integrated-pi-scenario",
+      "text": "## Integrated PI scenario\n\nFrom a clean checkout of a reference repository:\n\n```text\ninspect workspace\n  → inventory supported artifacts\n  → assign identity/provenance\n  → compile MSG\n  → lower KIR\n  → validate\n  → query/explain relationships\n  → apply/observe bounded change\n  → compute and explain affected set\n```\n\nThe same declared input state must reproduce equivalent graph/KIR semantics.",
+      "title": "Integrated PI scenario"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 37,
+      "section_id": "exit-criteria",
+      "text": "## Exit criteria\n\n- [ ] Workspace and artifact discovery are deterministic and read-only.\n- [ ] Stable identity/provenance contracts are implemented and property-tested.\n- [ ] MSG construction/invariants/canonical serialization pass conformance fixtures.\n- [ ] KIR is versioned, validated, and produced from MSG without source reparsing downstream.\n- [ ] Query/explanation exposes provenance and relationship paths.\n- [ ] First affected-set corpus has no known false-negative required validation in supported scenarios.\n- [ ] Structured diagnostics cover known invalid/unsupported states.\n- [ ] PI integration, machine sync, security and Definition-of-Done gates pass.",
+      "title": "Exit criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 48,
+      "section_id": "pi-decision",
+      "text": "## PI decision\n\nProceed to PI-003 only when semantic impact is trusted enough to inform execution planning. If affected-set correctness is uncertain, harden the semantic kernel rather than allowing execution to depend on unjustified optimization.",
+      "title": "PI decision"
+    }
+  ],
+  "source": {
+    "bytes": 2146,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 50,
+    "media_type": "text/markdown",
+    "path": "engineering/increments/PI-002.md",
+    "sha256": "fac38dfad78b77746ba9e9a181ce427eabc23fd371295623b394f0255c2f5ad1"
+  }
+}

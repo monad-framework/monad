@@ -1,0 +1,109 @@
+{
+  "content": "# SPRINT-001 — Stabilized Foundation\n\n**Status:** Forecast  \n**Dates:** 2026-08-17 through 2026-08-23  \n**Product Increment:** PI-001 — Stabilized Foundation\n\n## Sprint Goal\n\nAccept enough of Monad's C0/C1 foundation, governance, security boundary, and GitHub operating model that the first semantic-kernel implementation packets can become Ready without implementers inventing product or architecture decisions.\n\n## Forecast PBIs\n\n- EN-001-01 — Canonical product thesis.\n- EN-001-02 — Product Goal and MVP scope.\n- EN-001-03 — Authority hierarchy and ADR consolidation.\n- EN-001-04 — Artifact lifecycle and criticality.\n- EN-001-05 — Canonical terminology.\n- EN-001-06 — Scrum/EOS operating model.\n- EN-001-07 — Repository governance and branch strategy.\n- EN-013-01 — Repository-input threat model.\n- US-015-01 — Documentation source-of-truth architecture.\n- US-015-07 — Project status/traceability projection.\n\n## Forecast Work Packets\n\n- WP-FND-0001 — C0 foundation acceptance.\n- WP-ARCH-0001 — first-slice architecture decision set.\n- WP-SPEC-0001 — first-slice specification pack.\n- WP-SEC-0001 — repository-input threat model/security obligations.\n- WP-GH-0001 — protected GitHub operating baseline.\n\n## Required outcomes\n\n1. C0 foundation is Accepted or has named nonblocking conditions.\n2. ADR/specification needs for SPRINT-002/003 are explicit and resolved enough to make implementation packets Ready.\n3. Implementation language/runtime and repository structure are decided only to the extent required by the first slice.\n4. Repository input/execution trust boundary is explicit before code can execute discovered commands.\n5. GitHub branch/check/project/wiki operating target is live or has precisely identified permission-bound setup actions.\n6. Machine projection and repository quality gates pass on the Sprint review head.\n\n## Review evidence\n\n- C0 foundation review;\n- C1/implementation-readiness review;\n- threat-model review;\n- GitHub operating-baseline review;\n- first Ready Work Packet(s) for SPRINT-002;\n- synchronized machine projection.\n\n## Sprint risk\n\nThe main risk is turning stabilization into a bulk approval exercise. The Sprint should approve only artifacts needed to remove ambiguity from the next implementation slice; everything else may remain Draft.\n\n## Closure\n\nSPRINT-001 closes only after the Sprint Review and Retrospective. Forecast PBIs not completed or accepted return to the Product Backlog and are reordered; they are not automatically carried as Done.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-001.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "FND-0001",
+    "SEC-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-08-17 through 2026-08-23 Product Increment: PI-001 — Stabilized Foundation",
+    "title": "SPRINT-001 — Stabilized Foundation"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-001-stabilized-foundation",
+      "text": "# SPRINT-001 — Stabilized Foundation\n\n**Status:** Forecast  \n**Dates:** 2026-08-17 through 2026-08-23  \n**Product Increment:** PI-001 — Stabilized Foundation",
+      "title": "SPRINT-001 — Stabilized Foundation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nAccept enough of Monad's C0/C1 foundation, governance, security boundary, and GitHub operating model that the first semantic-kernel implementation packets can become Ready without implementers inventing product or architecture decisions.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\n- EN-001-01 — Canonical product thesis.\n- EN-001-02 — Product Goal and MVP scope.\n- EN-001-03 — Authority hierarchy and ADR consolidation.\n- EN-001-04 — Artifact lifecycle and criticality.\n- EN-001-05 — Canonical terminology.\n- EN-001-06 — Scrum/EOS operating model.\n- EN-001-07 — Repository governance and branch strategy.\n- EN-013-01 — Repository-input threat model.\n- US-015-01 — Documentation source-of-truth architecture.\n- US-015-07 — Project status/traceability projection.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [
+        "FND-0001",
+        "SEC-0001"
+      ],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 24,
+      "section_id": "forecast-work-packets",
+      "text": "## Forecast Work Packets\n\n- WP-FND-0001 — C0 foundation acceptance.\n- WP-ARCH-0001 — first-slice architecture decision set.\n- WP-SPEC-0001 — first-slice specification pack.\n- WP-SEC-0001 — repository-input threat model/security obligations.\n- WP-GH-0001 — protected GitHub operating baseline.",
+      "title": "Forecast Work Packets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 32,
+      "section_id": "required-outcomes",
+      "text": "## Required outcomes\n\n1. C0 foundation is Accepted or has named nonblocking conditions.\n2. ADR/specification needs for SPRINT-002/003 are explicit and resolved enough to make implementation packets Ready.\n3. Implementation language/runtime and repository structure are decided only to the extent required by the first slice.\n4. Repository input/execution trust boundary is explicit before code can execute discovered commands.\n5. GitHub branch/check/project/wiki operating target is live or has precisely identified permission-bound setup actions.\n6. Machine projection and repository quality gates pass on the Sprint review head.",
+      "title": "Required outcomes"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 41,
+      "section_id": "review-evidence",
+      "text": "## Review evidence\n\n- C0 foundation review;\n- C1/implementation-readiness review;\n- threat-model review;\n- GitHub operating-baseline review;\n- first Ready Work Packet(s) for SPRINT-002;\n- synchronized machine projection.",
+      "title": "Review evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 50,
+      "section_id": "sprint-risk",
+      "text": "## Sprint risk\n\nThe main risk is turning stabilization into a bulk approval exercise. The Sprint should approve only artifacts needed to remove ambiguity from the next implementation slice; everything else may remain Draft.",
+      "title": "Sprint risk"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 54,
+      "section_id": "closure",
+      "text": "## Closure\n\nSPRINT-001 closes only after the Sprint Review and Retrospective. Forecast PBIs not completed or accepted return to the Product Backlog and are reordered; they are not automatically carried as Done.",
+      "title": "Closure"
+    }
+  ],
+  "source": {
+    "bytes": 2532,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 56,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-001.md",
+    "sha256": "bee58017959d763b82af607ed838ae8d537554c4a0370c76d5b3dcca5f5df1cc"
+  }
+}

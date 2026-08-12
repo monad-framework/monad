@@ -1,0 +1,98 @@
+{
+  "content": "# SPRINT-012 — Security, Performance, Compatibility and Packaging\n\n**Status:** Forecast  \n**Dates:** 2026-11-02 through 2026-11-08  \n**Product Increment:** PI-004 — MVP Hardening and Release\n\n## Sprint Goal\n\nHarden the integrated MVP against security, dependency, performance, compatibility, migration, and installation risks and produce an installable Release 1 candidate shape.\n\n## Forecast PBIs\n\nEN-013-05, EN-013-06, EN-014-05 through EN-014-07, US-016-01 and US-016-02.\n\n## Forecast Work Packets\n\nWP-SEC-0002 and WP-REL-0001.\n\n## Acceptance scenario\n\nA clean user environment can install Monad and run the reference workflow under documented supported versions. Security/negative testing covers repository parsing, configuration, command execution, context disclosure, dependency/supply-chain inputs, and malformed machine data. Performance baselines are measured on named reference repositories and compatibility contracts are explicit.\n\n## Review evidence\n\nThreat/control test mapping, fuzz/negative results, dependency/supply-chain report, performance benchmark baseline, public compatibility/version policy, install/upgrade/rollback tests, and release-risk updates.\n\n## Exit condition\n\nNo unaccepted critical/high security or release risk remains; packaging and compatibility behavior is stable enough for dogfooding/beta and release automation.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-012.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "SEC-0002"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-11-02 through 2026-11-08 Product Increment: PI-004 — MVP Hardening and Release",
+    "title": "SPRINT-012 — Security, Performance, Compatibility and Packaging"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-012-security-performance-compatibility-and-packaging",
+      "text": "# SPRINT-012 — Security, Performance, Compatibility and Packaging\n\n**Status:** Forecast  \n**Dates:** 2026-11-02 through 2026-11-08  \n**Product Increment:** PI-004 — MVP Hardening and Release",
+      "title": "SPRINT-012 — Security, Performance, Compatibility and Packaging"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nHarden the integrated MVP against security, dependency, performance, compatibility, migration, and installation risks and produce an installable Release 1 candidate shape.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\nEN-013-05, EN-013-06, EN-014-05 through EN-014-07, US-016-01 and US-016-02.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [
+        "SEC-0002"
+      ],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "forecast-work-packets",
+      "text": "## Forecast Work Packets\n\nWP-SEC-0002 and WP-REL-0001.",
+      "title": "Forecast Work Packets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "acceptance-scenario",
+      "text": "## Acceptance scenario\n\nA clean user environment can install Monad and run the reference workflow under documented supported versions. Security/negative testing covers repository parsing, configuration, command execution, context disclosure, dependency/supply-chain inputs, and malformed machine data. Performance baselines are measured on named reference repositories and compatibility contracts are explicit.",
+      "title": "Acceptance scenario"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 23,
+      "section_id": "review-evidence",
+      "text": "## Review evidence\n\nThreat/control test mapping, fuzz/negative results, dependency/supply-chain report, performance benchmark baseline, public compatibility/version policy, install/upgrade/rollback tests, and release-risk updates.",
+      "title": "Review evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 27,
+      "section_id": "exit-condition",
+      "text": "## Exit condition\n\nNo unaccepted critical/high security or release risk remains; packaging and compatibility behavior is stable enough for dogfooding/beta and release automation.",
+      "title": "Exit condition"
+    }
+  ],
+  "source": {
+    "bytes": 1359,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 29,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-012.md",
+    "sha256": "cff42cd3ed61a4416e604156d49571cb2ba508ef7ccdbd1bb3ba5a2b0ac31fa9"
+  }
+}

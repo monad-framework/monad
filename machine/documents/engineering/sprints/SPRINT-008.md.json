@@ -1,0 +1,103 @@
+{
+  "content": "# SPRINT-008 — Incrementality and Execution Planning\n\n**Status:** Forecast  \n**Dates:** 2026-10-05 through 2026-10-11  \n**Product Increment:** PI-003 — Executable Engineering Loop\n\n## Sprint Goal\n\nTurn a trusted semantic change/affected set into incremental invalidation and an explicit, inspectable execution plan without performing side effects.\n\n## Forecast PBIs\n\nUS-009-04, US-009-05, US-010-01, US-010-02, EN-013-02.\n\n## Forecast Work Packets\n\nWP-INCR-0001 and WP-PLAN-0001.\n\n## Acceptance scenario\n\nGiven a known repository state and bounded change, Monad invalidates the correct semantic subgraph, updates or conservatively recomputes affected knowledge, derives stable fingerprints, and emits a serializable dependency-ordered plan whose tasks explain why they are required. Policy/authority can deny or require confirmation before execution.\n\n## Key safety rules\n\n- incremental output must equal correct full-rebuild semantics;\n- cache/fingerprint uncertainty becomes a miss or recomputation, never an unverified hit;\n- a discovered repository command is data until a supported adapter/planning rule authorizes it;\n- plan construction causes no execution side effects.\n\n## Review evidence\n\nIncremental-vs-full differential tests, fingerprint vectors, invalidation fixtures, execution-plan schema/conformance, plan determinism tests, and policy denial/approval examples.\n\n## Exit condition\n\nSPRINT-009 can execute a stable explicit plan without embedding semantic dependency reasoning inside native-tool adapters.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-008.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-10-05 through 2026-10-11 Product Increment: PI-003 — Executable Engineering Loop",
+    "title": "SPRINT-008 — Incrementality and Execution Planning"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-008-incrementality-and-execution-planning",
+      "text": "# SPRINT-008 — Incrementality and Execution Planning\n\n**Status:** Forecast  \n**Dates:** 2026-10-05 through 2026-10-11  \n**Product Increment:** PI-003 — Executable Engineering Loop",
+      "title": "SPRINT-008 — Incrementality and Execution Planning"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nTurn a trusted semantic change/affected set into incremental invalidation and an explicit, inspectable execution plan without performing side effects.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\nUS-009-04, US-009-05, US-010-01, US-010-02, EN-013-02.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "forecast-work-packets",
+      "text": "## Forecast Work Packets\n\nWP-INCR-0001 and WP-PLAN-0001.",
+      "title": "Forecast Work Packets"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "acceptance-scenario",
+      "text": "## Acceptance scenario\n\nGiven a known repository state and bounded change, Monad invalidates the correct semantic subgraph, updates or conservatively recomputes affected knowledge, derives stable fingerprints, and emits a serializable dependency-ordered plan whose tasks explain why they are required. Policy/authority can deny or require confirmation before execution.",
+      "title": "Acceptance scenario"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 23,
+      "section_id": "key-safety-rules",
+      "text": "## Key safety rules\n\n- incremental output must equal correct full-rebuild semantics;\n- cache/fingerprint uncertainty becomes a miss or recomputation, never an unverified hit;\n- a discovered repository command is data until a supported adapter/planning rule authorizes it;\n- plan construction causes no execution side effects.",
+      "title": "Key safety rules"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 30,
+      "section_id": "review-evidence",
+      "text": "## Review evidence\n\nIncremental-vs-full differential tests, fingerprint vectors, invalidation fixtures, execution-plan schema/conformance, plan determinism tests, and policy denial/approval examples.",
+      "title": "Review evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 34,
+      "section_id": "exit-condition",
+      "text": "## Exit condition\n\nSPRINT-009 can execute a stable explicit plan without embedding semantic dependency reasoning inside native-tool adapters.",
+      "title": "Exit condition"
+    }
+  ],
+  "source": {
+    "bytes": 1526,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 36,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-008.md",
+    "sha256": "52b70b77fd84bff8a752808f4089d962875a963564f94db51a78e9f646128c20"
+  }
+}

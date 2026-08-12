@@ -1,0 +1,94 @@
+{
+  "content": "# SPRINT-011 — Integrated Conformance and Reproducibility\n\n**Status:** Forecast  \n**Dates:** 2026-10-26 through 2026-11-01  \n**Product Increment:** PI-004 — MVP Hardening and Release\n\n## Sprint Goal\n\nProve the complete Release 1 semantic engineering loop across controlled reference repositories and clean environments, with determinism, reproducibility, integration, failure, and recovery evidence strong enough to begin release hardening.\n\n## Forecast PBIs\n\nEN-014-03 and EN-014-04 plus integrated acceptance work spanning the Release 1 requirements.\n\n## Forecast Work Packet\n\nWP-CONF-0002.\n\n## Required reference scenarios\n\n- fresh workspace inspection;\n- repeated deterministic graph/KIR compilation;\n- invalid configuration and semantic-reference failures;\n- entity/relationship/provenance explanation;\n- bounded Git change and affected-set calculation;\n- context-package generation;\n- plan generation and native execution;\n- native-tool failure/cancellation/retry semantics;\n- clean-checkout reproduction;\n- first Monad-on-Monad scenario where mature enough.\n\n## Review evidence\n\nGolden/conformance fixtures, deterministic hashes, clean-machine CI runs, local/CI parity evidence, integration/E2E results, known platform variance, and unresolved conformance defects ordered as release blockers or accepted limitations.\n\n## Exit condition\n\nNo known deterministic/reproducibility defect blocks the Release 1 core path; remaining work is primarily hardening, packaging, documentation, dogfooding, and release readiness rather than missing architecture integration.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-011.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-10-26 through 2026-11-01 Product Increment: PI-004 — MVP Hardening and Release",
+    "title": "SPRINT-011 — Integrated Conformance and Reproducibility"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-011-integrated-conformance-and-reproducibility",
+      "text": "# SPRINT-011 — Integrated Conformance and Reproducibility\n\n**Status:** Forecast  \n**Dates:** 2026-10-26 through 2026-11-01  \n**Product Increment:** PI-004 — MVP Hardening and Release",
+      "title": "SPRINT-011 — Integrated Conformance and Reproducibility"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nProve the complete Release 1 semantic engineering loop across controlled reference repositories and clean environments, with determinism, reproducibility, integration, failure, and recovery evidence strong enough to begin release hardening.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\nEN-014-03 and EN-014-04 plus integrated acceptance work spanning the Release 1 requirements.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "forecast-work-packet",
+      "text": "## Forecast Work Packet\n\nWP-CONF-0002.",
+      "title": "Forecast Work Packet"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 19,
+      "section_id": "required-reference-scenarios",
+      "text": "## Required reference scenarios\n\n- fresh workspace inspection;\n- repeated deterministic graph/KIR compilation;\n- invalid configuration and semantic-reference failures;\n- entity/relationship/provenance explanation;\n- bounded Git change and affected-set calculation;\n- context-package generation;\n- plan generation and native execution;\n- native-tool failure/cancellation/retry semantics;\n- clean-checkout reproduction;\n- first Monad-on-Monad scenario where mature enough.",
+      "title": "Required reference scenarios"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 32,
+      "section_id": "review-evidence",
+      "text": "## Review evidence\n\nGolden/conformance fixtures, deterministic hashes, clean-machine CI runs, local/CI parity evidence, integration/E2E results, known platform variance, and unresolved conformance defects ordered as release blockers or accepted limitations.",
+      "title": "Review evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 36,
+      "section_id": "exit-condition",
+      "text": "## Exit condition\n\nNo known deterministic/reproducibility defect blocks the Release 1 core path; remaining work is primarily hardening, packaging, documentation, dogfooding, and release readiness rather than missing architecture integration.",
+      "title": "Exit condition"
+    }
+  ],
+  "source": {
+    "bytes": 1571,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 38,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-011.md",
+    "sha256": "52c3d41f066059b90602e117da3e163f95ad9a55ff6a905fc2f0a39fffea82aa"
+  }
+}

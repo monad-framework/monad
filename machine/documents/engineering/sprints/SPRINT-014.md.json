@@ -1,0 +1,103 @@
+{
+  "content": "# SPRINT-014 — MVP Release Candidate and Readiness\n\n**Status:** Forecast  \n**Dates:** 2026-11-16 through 2026-11-22  \n**Product Increment:** PI-004 — MVP Hardening and Release\n\n## Sprint Goal\n\nProduce, verify, and explicitly accept or reject the MVP Release 1 candidate using clean-machine reproducibility, security, performance, operability, compatibility, documentation, support, and rollback evidence.\n\n## Forecast PBIs\n\nUS-016-06 and US-016-07 plus closure of any approved Release 1 blockers discovered by prior Sprint evidence.\n\n## Forecast Work Packet\n\nWP-REL-0002.\n\n## Release-candidate freeze\n\nNo new Feature enters Release 1 after Sprint Planning unless it fixes a release blocker or is explicitly authorized as necessary to satisfy an accepted requirement. Scope is reduced before quality/security gates are weakened.\n\n## Required evidence\n\n- complete Release 1 requirements traceability;\n- integrated reference-scenario results;\n- deterministic graph/KIR and reproducibility evidence;\n- clean installation and supported upgrade/rollback evidence;\n- security/supply-chain review;\n- performance/capacity baseline review;\n- public compatibility/version assessment;\n- known limitations and unresolved accepted risks;\n- user/maintainer documentation and support path;\n- release artifact checksums/provenance/SBOM/signing as applicable;\n- Monad-on-Monad dogfood findings/disposition;\n- exact source revision and CI/release workflow evidence.\n\n## Decision\n\nThe Product Owner, with required Engineering/Security/Operations concurrence for their delegated concerns, records one of:\n\n- **Release:** candidate satisfies Release 1 acceptance.\n- **Release with explicit accepted limitations:** no blocker violates release guardrails and limitations are visible/owned.\n- **Do not release:** blocking evidence remains; work returns to backlog and a new forecast is created.\n\n## Forecast release date\n\nMonday, **2026-11-23**, only after the Release decision is recorded. The date itself is not a release criterion.\n",
+  "document_id": "doc:engineering%2Fsprints%2FSPRINT-014.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-11-16 through 2026-11-22 Product Increment: PI-004 — MVP Hardening and Release",
+    "title": "SPRINT-014 — MVP Release Candidate and Readiness"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "sprint-014-mvp-release-candidate-and-readiness",
+      "text": "# SPRINT-014 — MVP Release Candidate and Readiness\n\n**Status:** Forecast  \n**Dates:** 2026-11-16 through 2026-11-22  \n**Product Increment:** PI-004 — MVP Hardening and Release",
+      "title": "SPRINT-014 — MVP Release Candidate and Readiness"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "sprint-goal",
+      "text": "## Sprint Goal\n\nProduce, verify, and explicitly accept or reject the MVP Release 1 candidate using clean-machine reproducibility, security, performance, operability, compatibility, documentation, support, and rollback evidence.",
+      "title": "Sprint Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "forecast-pbis",
+      "text": "## Forecast PBIs\n\nUS-016-06 and US-016-07 plus closure of any approved Release 1 blockers discovered by prior Sprint evidence.",
+      "title": "Forecast PBIs"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "forecast-work-packet",
+      "text": "## Forecast Work Packet\n\nWP-REL-0002.",
+      "title": "Forecast Work Packet"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 19,
+      "section_id": "release-candidate-freeze",
+      "text": "## Release-candidate freeze\n\nNo new Feature enters Release 1 after Sprint Planning unless it fixes a release blocker or is explicitly authorized as necessary to satisfy an accepted requirement. Scope is reduced before quality/security gates are weakened.",
+      "title": "Release-candidate freeze"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 23,
+      "section_id": "required-evidence",
+      "text": "## Required evidence\n\n- complete Release 1 requirements traceability;\n- integrated reference-scenario results;\n- deterministic graph/KIR and reproducibility evidence;\n- clean installation and supported upgrade/rollback evidence;\n- security/supply-chain review;\n- performance/capacity baseline review;\n- public compatibility/version assessment;\n- known limitations and unresolved accepted risks;\n- user/maintainer documentation and support path;\n- release artifact checksums/provenance/SBOM/signing as applicable;\n- Monad-on-Monad dogfood findings/disposition;\n- exact source revision and CI/release workflow evidence.",
+      "title": "Required evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 45,
+      "line_start": 38,
+      "section_id": "decision",
+      "text": "## Decision\n\nThe Product Owner, with required Engineering/Security/Operations concurrence for their delegated concerns, records one of:\n\n- **Release:** candidate satisfies Release 1 acceptance.\n- **Release with explicit accepted limitations:** no blocker violates release guardrails and limitations are visible/owned.\n- **Do not release:** blocking evidence remains; work returns to backlog and a new forecast is created.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 46,
+      "section_id": "forecast-release-date",
+      "text": "## Forecast release date\n\nMonday, **2026-11-23**, only after the Release decision is recorded. The date itself is not a release criterion.",
+      "title": "Forecast release date"
+    }
+  ],
+  "source": {
+    "bytes": 2014,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 48,
+    "media_type": "text/markdown",
+    "path": "engineering/sprints/SPRINT-014.md",
+    "sha256": "243a8ed06ae14cbd794ce23c01a0197ff67100014396806ecf64775091bf6e97"
+  }
+}

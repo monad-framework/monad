@@ -211,6 +211,36 @@
       "type": "declares"
     },
     {
+      "source": "doc:engineering%2Fbacklog%2Ftasks.md",
+      "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fbacklog%2Ftasks.md",
+      "target": "identifier:FND-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fbacklog%2Ftasks.md",
+      "target": "identifier:SEC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fbacklog%2Ftasks.md",
+      "target": "identifier:T-001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fbacklog%2Ftasks.md",
+      "target": "identifier:T-002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fbacklog%2Ftasks.md",
+      "target": "identifier:T-003",
+      "type": "declares"
+    },
+    {
       "source": "doc:engineering%2Fproject-status.md",
       "target": "identifier:ADR-0001",
       "type": "declares"
@@ -261,23 +291,53 @@
       "type": "declares"
     },
     {
-      "source": "doc:engineering%2Fwork-packets%2Factive.md",
-      "target": "identifier:A-01",
+      "source": "doc:engineering%2Fsprints%2FSPRINT-001.md",
+      "target": "identifier:FND-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fsprints%2FSPRINT-001.md",
+      "target": "identifier:SEC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fsprints%2FSPRINT-012.md",
+      "target": "identifier:SEC-0002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fwork-packets%2FWP-STAB-0001.md",
+      "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fwork-packets%2FWP-STAB-0002.md",
+      "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fwork-packets%2FWP-STAB-0008.md",
+      "target": "identifier:ADR-0001",
       "type": "declares"
     },
     {
       "source": "doc:engineering%2Fwork-packets%2Factive.md",
-      "target": "identifier:A-05",
-      "type": "declares"
-    },
-    {
-      "source": "doc:engineering%2Fwork-packets%2Factive.md",
-      "target": "identifier:WP-0001",
+      "target": "identifier:ADR-0001",
       "type": "declares"
     },
     {
       "source": "doc:engineering%2Fwork-packets%2Fbacklog.md",
-      "target": "identifier:WP-0001",
+      "target": "identifier:FND-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fwork-packets%2Fbacklog.md",
+      "target": "identifier:SEC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fwork-packets%2Fbacklog.md",
+      "target": "identifier:SEC-0002",
       "type": "declares"
     },
     {
@@ -7047,6 +7107,54 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Fbacklog%2FREADME.md",
+      "normative": true,
+      "source_path": "engineering/backlog/README.md",
+      "title": "Monad Product Backlog",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fbacklog%2Fbacklog.md",
+      "normative": true,
+      "source_path": "engineering/backlog/backlog.md",
+      "title": "Ordered Product Backlog",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fbacklog%2Fepics.md",
+      "normative": true,
+      "source_path": "engineering/backlog/epics.md",
+      "title": "Epic Registry",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fbacklog%2Ffeatures.md",
+      "normative": true,
+      "source_path": "engineering/backlog/features.md",
+      "title": "Feature Registry",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fbacklog%2Fstories.md",
+      "normative": true,
+      "source_path": "engineering/backlog/stories.md",
+      "title": "MVP Product Backlog Items",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fbacklog%2Ftasks.md",
+      "normative": true,
+      "source_path": "engineering/backlog/tasks.md",
+      "title": "Near-Term Task Registry",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Fdefinition-of-done.md",
       "normative": true,
       "source_path": "engineering/definition-of-done.md",
@@ -7071,10 +7179,58 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Fincrements%2FPI-001.md",
+      "normative": true,
+      "source_path": "engineering/increments/PI-001.md",
+      "title": "PI-001 — Stabilized Foundation",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fincrements%2FPI-002.md",
+      "normative": true,
+      "source_path": "engineering/increments/PI-002.md",
+      "title": "PI-002 — Semantic Kernel",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fincrements%2FPI-003.md",
+      "normative": true,
+      "source_path": "engineering/increments/PI-003.md",
+      "title": "PI-003 — Executable Engineering Loop",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fincrements%2FPI-004.md",
+      "normative": true,
+      "source_path": "engineering/increments/PI-004.md",
+      "title": "PI-004 — MVP Hardening and Release",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Fincrements%2FREADME.md",
       "normative": true,
       "source_path": "engineering/increments/README.md",
       "title": "Product Increments",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fmilestones%2FM-000-STABILIZED-FOUNDATION.md",
+      "normative": true,
+      "source_path": "engineering/milestones/M-000-STABILIZED-FOUNDATION.md",
+      "title": "M-000 — Stabilized Foundation",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fmilestones%2FM-001-MVP-RELEASE-1.md",
+      "normative": true,
+      "source_path": "engineering/milestones/M-001-MVP-RELEASE-1.md",
+      "title": "M-001 — MVP Release 1",
       "type": "document"
     },
     {
@@ -7111,6 +7267,126 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FREADME.md",
+      "normative": true,
+      "source_path": "engineering/sprints/README.md",
+      "title": "Sprints",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-001.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-001.md",
+      "title": "SPRINT-001 — Stabilized Foundation",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-002.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-002.md",
+      "title": "SPRINT-002 — Workspace and Artifact Intelligence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-003.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-003.md",
+      "title": "SPRINT-003 — Semantic Identity and Provenance",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-004.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-004.md",
+      "title": "SPRINT-004 — Monad Semantic Graph",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-005.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-005.md",
+      "title": "SPRINT-005 — Kernel Intermediate Representation",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-006.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-006.md",
+      "title": "SPRINT-006 — Query, Explanation and First Change Impact",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-007.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-007.md",
+      "title": "SPRINT-007 — Impact and Diagnostic Hardening",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-008.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-008.md",
+      "title": "SPRINT-008 — Incrementality and Execution Planning",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-009.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-009.md",
+      "title": "SPRINT-009 — Native Tool Execution and Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-010.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-010.md",
+      "title": "SPRINT-010 — CLI and AI-Agent Context",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-011.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-011.md",
+      "title": "SPRINT-011 — Integrated Conformance and Reproducibility",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-012.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-012.md",
+      "title": "SPRINT-012 — Security, Performance, Compatibility and Packaging",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-013.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-013.md",
+      "title": "SPRINT-013 — Dogfood, Documentation, Beta and Release Automation",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fsprints%2FSPRINT-014.md",
+      "normative": true,
+      "source_path": "engineering/sprints/SPRINT-014.md",
+      "title": "SPRINT-014 — MVP Release Candidate and Readiness",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Fstabilization%2FSTABILIZATION-PROGRAM.md",
       "normative": true,
       "source_path": "engineering/stabilization/STABILIZATION-PROGRAM.md",
@@ -7135,6 +7411,70 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Fwork-packets%2FWP-STAB-0001.md",
+      "normative": true,
+      "source_path": "engineering/work-packets/WP-STAB-0001.md",
+      "title": "WP-STAB-0001 — Reconcile Monad Product Identity",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fwork-packets%2FWP-STAB-0002.md",
+      "normative": true,
+      "source_path": "engineering/work-packets/WP-STAB-0002.md",
+      "title": "WP-STAB-0002 — Consolidate ADR and Authority Structure",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fwork-packets%2FWP-STAB-0003.md",
+      "normative": true,
+      "source_path": "engineering/work-packets/WP-STAB-0003.md",
+      "title": "WP-STAB-0003 — Materialize the Artifact-System Corpus",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fwork-packets%2FWP-STAB-0004.md",
+      "normative": true,
+      "source_path": "engineering/work-packets/WP-STAB-0004.md",
+      "title": "WP-STAB-0004 — Synchronize the Machine Knowledge Layer",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fwork-packets%2FWP-STAB-0005.md",
+      "normative": true,
+      "source_path": "engineering/work-packets/WP-STAB-0005.md",
+      "title": "WP-STAB-0005 — Bootstrap the MVP Product Backlog",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fwork-packets%2FWP-STAB-0006.md",
+      "normative": true,
+      "source_path": "engineering/work-packets/WP-STAB-0006.md",
+      "title": "WP-STAB-0006 — Establish the GitHub Operating Surface",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fwork-packets%2FWP-STAB-0007.md",
+      "normative": true,
+      "source_path": "engineering/work-packets/WP-STAB-0007.md",
+      "title": "WP-STAB-0007 — Stabilization Readiness Review",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fwork-packets%2FWP-STAB-0008.md",
+      "normative": true,
+      "source_path": "engineering/work-packets/WP-STAB-0008.md",
+      "title": "WP-STAB-0008 — Reconcile First-Slice C1 Architecture and Specifications",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Fwork-packets%2Factive.md",
       "normative": true,
       "source_path": "engineering/work-packets/active.md",
@@ -7146,7 +7486,7 @@
       "id": "doc:engineering%2Fwork-packets%2Fbacklog.md",
       "normative": true,
       "source_path": "engineering/work-packets/backlog.md",
-      "title": "Work Packet Backlog",
+      "title": "Work Packet Backlog and Release Map",
       "type": "document"
     },
     {
@@ -7790,6 +8130,11 @@
       "value": "C-18"
     },
     {
+      "id": "identifier:FND-0001",
+      "type": "identifier",
+      "value": "FND-0001"
+    },
+    {
       "id": "identifier:FR-001",
       "type": "identifier",
       "value": "FR-001"
@@ -8240,6 +8585,16 @@
       "value": "RQ-008"
     },
     {
+      "id": "identifier:SEC-0001",
+      "type": "identifier",
+      "value": "SEC-0001"
+    },
+    {
+      "id": "identifier:SEC-0002",
+      "type": "identifier",
+      "value": "SEC-0002"
+    },
+    {
       "id": "identifier:T-001",
       "type": "identifier",
       "value": "T-001"
@@ -8321,5 +8676,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "b92ff9a3142fb4dea3a073790d3b4e77f551b887d997aef246c5821d20503580"
+  "source_tree_sha256": "f28df38f97ed8822016b8a39c9835b3435ba8d1cc2e23ea95d1a882927804370"
 }

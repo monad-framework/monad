@@ -1,0 +1,85 @@
+{
+  "content": "# PI-003 — Executable Engineering Loop\n\n**Status:** Forecast  \n**Dates:** 2026-09-28 through 2026-10-25  \n**Sprints:** SPRINT-007 through SPRINT-010\n\n## Objective\n\nTurn trusted semantic knowledge and change impact into conservative incrementality, explicit execution plans, native-tool execution evidence, a coherent CLI, and bounded AI-agent context under human-controlled authority.\n\n## Capability sequence\n\n1. Impact-path explanation and uncertainty hardening.\n2. Incremental invalidation/update and stable fingerprints.\n3. Execution-plan schema, planner and policy/authority first slice.\n4. Native-tool adapter/runtime, failure semantics, verified cache and evidence.\n5. Release 1 CLI integration.\n6. Agent task/capability model, semantic context selection, context package and Codex export.\n\n## Integrated PI scenario\n\nGiven a known repository state plus an authorized change/task, Monad:\n\n```text\ncalculates semantic affected set\n  → explains impact paths/uncertainty\n  → updates only safe semantic dependencies\n  → builds an inspectable execution plan\n  → checks authority/policy\n  → generates bounded agent context when requested\n  → invokes real native tools\n  → captures diagnostics and evidence\n  → exposes the flow through the CLI\n```\n\n## Exit criteria\n\n- [ ] Conservative uncertainty cannot silently narrow required work.\n- [ ] Incremental semantic output matches correct full-rebuild semantics in the differential suite.\n- [ ] Plans are deterministic, serializable, inspectable, and side-effect-free until execution.\n- [ ] Native-tool execution has explicit working directory/environment/tool identity/failure semantics.\n- [ ] Cache hits are verified against declared fingerprint semantics.\n- [ ] CLI exposes the integrated Release 1 workflow with stable structured output/exit behavior.\n- [ ] Agent context is minimal, attributable, capability-bounded, and excludes unauthorized sensitive content.\n- [ ] PI integration/security/Definition-of-Done gates pass.\n\n## PI decision\n\nProceed to release hardening only when the engineering loop is complete enough that later work is validation, packaging, documentation, dogfooding, and defect correction rather than missing semantic/execution architecture.\n",
+  "document_id": "doc:engineering%2Fincrements%2FPI-003.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast Dates: 2026-09-28 through 2026-10-25 Sprints: SPRINT-007 through SPRINT-010",
+    "title": "PI-003 — Executable Engineering Loop"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "pi-003-executable-engineering-loop",
+      "text": "# PI-003 — Executable Engineering Loop\n\n**Status:** Forecast  \n**Dates:** 2026-09-28 through 2026-10-25  \n**Sprints:** SPRINT-007 through SPRINT-010",
+      "title": "PI-003 — Executable Engineering Loop"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "objective",
+      "text": "## Objective\n\nTurn trusted semantic knowledge and change impact into conservative incrementality, explicit execution plans, native-tool execution evidence, a coherent CLI, and bounded AI-agent context under human-controlled authority.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 11,
+      "section_id": "capability-sequence",
+      "text": "## Capability sequence\n\n1. Impact-path explanation and uncertainty hardening.\n2. Incremental invalidation/update and stable fingerprints.\n3. Execution-plan schema, planner and policy/authority first slice.\n4. Native-tool adapter/runtime, failure semantics, verified cache and evidence.\n5. Release 1 CLI integration.\n6. Agent task/capability model, semantic context selection, context package and Codex export.",
+      "title": "Capability sequence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 20,
+      "section_id": "integrated-pi-scenario",
+      "text": "## Integrated PI scenario\n\nGiven a known repository state plus an authorized change/task, Monad:\n\n```text\ncalculates semantic affected set\n  → explains impact paths/uncertainty\n  → updates only safe semantic dependencies\n  → builds an inspectable execution plan\n  → checks authority/policy\n  → generates bounded agent context when requested\n  → invokes real native tools\n  → captures diagnostics and evidence\n  → exposes the flow through the CLI\n```",
+      "title": "Integrated PI scenario"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 36,
+      "section_id": "exit-criteria",
+      "text": "## Exit criteria\n\n- [ ] Conservative uncertainty cannot silently narrow required work.\n- [ ] Incremental semantic output matches correct full-rebuild semantics in the differential suite.\n- [ ] Plans are deterministic, serializable, inspectable, and side-effect-free until execution.\n- [ ] Native-tool execution has explicit working directory/environment/tool identity/failure semantics.\n- [ ] Cache hits are verified against declared fingerprint semantics.\n- [ ] CLI exposes the integrated Release 1 workflow with stable structured output/exit behavior.\n- [ ] Agent context is minimal, attributable, capability-bounded, and excludes unauthorized sensitive content.\n- [ ] PI integration/security/Definition-of-Done gates pass.",
+      "title": "Exit criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 47,
+      "section_id": "pi-decision",
+      "text": "## PI decision\n\nProceed to release hardening only when the engineering loop is complete enough that later work is validation, packaging, documentation, dogfooding, and defect correction rather than missing semantic/execution architecture.",
+      "title": "PI decision"
+    }
+  ],
+  "source": {
+    "bytes": 2232,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 49,
+    "media_type": "text/markdown",
+    "path": "engineering/increments/PI-003.md",
+    "sha256": "ee2d420166a4cf8c59c3f6f0a81768573d2c7dfa0307dc10eaff9d60e0da4887"
+  }
+}

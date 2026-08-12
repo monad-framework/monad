@@ -1,0 +1,112 @@
+{
+  "content": "# WP-STAB-0005 — Bootstrap the MVP Product Backlog\n\n**Status:** Active  \n**Owner:** Product Owner / Engineering Owner  \n**Program:** STAB-0001\n\n## Objective\n\nCreate a complete, ordered, Scrum-aligned product backlog and delivery forecast from stabilization through MVP Release 1 while preserving Monad's Work Packet/ADR/specification engineering authority.\n\n## Scope\n\n### In scope\n\n- Product Goal;\n- all foreseeable Epics and Features;\n- MVP Stories/Enablers and provisional estimates;\n- one-week Sprint forecast and PI/Milestone mapping;\n- ordered critical path;\n- Work Packet release map;\n- full task decomposition for stabilization and the near refinement horizon;\n- GitHub projection identifiers and traceability.\n\n### Out of scope\n\n- pretending later implementation tasks are already knowable;\n- converting points to hours or individual productivity measures;\n- authorizing implementation before governing artifacts are Ready;\n- scheduling post-MVP/Future Epics into Release 1 without approved scope change.\n\n## Acceptance criteria\n\n- [ ] All foreseeable Epics are enumerated and horizon/priority classified.\n- [ ] Every Epic has named Features; every MVP Feature has a forecast Sprint.\n- [ ] Every MVP Feature maps to at least one PBI.\n- [ ] Current/next refinement horizon PBIs have outcome, acceptance anchor, estimate, and dependencies sufficient for planning.\n- [ ] STAB-0001 and SPRINT-001 through SPRINT-003 have task-level decomposition.\n- [ ] SPRINT-001 through SPRINT-014 have goals and release sequencing.\n- [ ] PI-001 through PI-004 and MVP Milestone exit gates are defined.\n- [ ] Work Packets map the engineering critical path to Release 1.\n- [ ] Backlog ordering exposes security/correctness/decision blockers before dependent implementation.\n- [ ] GitHub projection can be generated without becoming a competing canonical plan.\n\n## Validation\n\nTrace the MVP acceptance scenarios backward through Features/PBIs/WPs and forward from foundational work to Release 1. No must-have product requirement should have no planned delivery/evidence path.\n\n## Risks\n\nDetailed long-range planning can produce false confidence. Mitigation: Feature/PBI visibility across MVP, but task decomposition only near execution and explicit forecast status everywhere.\n\n## Completion evidence\n\n`engineering/backlog/`, Sprint/PI/Milestone records, Work Packet indexes, GitHub projection, and backlog-readiness review.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2FWP-STAB-0005.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Active Owner: Product Owner / Engineering Owner Program: STAB-0001",
+    "title": "WP-STAB-0005 — Bootstrap the MVP Product Backlog"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "wp-stab-0005-bootstrap-the-mvp-product-backlog",
+      "text": "# WP-STAB-0005 — Bootstrap the MVP Product Backlog\n\n**Status:** Active  \n**Owner:** Product Owner / Engineering Owner  \n**Program:** STAB-0001",
+      "title": "WP-STAB-0005 — Bootstrap the MVP Product Backlog"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "objective",
+      "text": "## Objective\n\nCreate a complete, ordered, Scrum-aligned product backlog and delivery forecast from stabilization through MVP Release 1 while preserving Monad's Work Packet/ADR/specification engineering authority.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 11,
+      "section_id": "scope",
+      "text": "## Scope",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 23,
+      "line_start": 13,
+      "section_id": "in-scope",
+      "text": "### In scope\n\n- Product Goal;\n- all foreseeable Epics and Features;\n- MVP Stories/Enablers and provisional estimates;\n- one-week Sprint forecast and PI/Milestone mapping;\n- ordered critical path;\n- Work Packet release map;\n- full task decomposition for stabilization and the near refinement horizon;\n- GitHub projection identifiers and traceability.",
+      "title": "In scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 30,
+      "line_start": 24,
+      "section_id": "out-of-scope",
+      "text": "### Out of scope\n\n- pretending later implementation tasks are already knowable;\n- converting points to hours or individual productivity measures;\n- authorizing implementation before governing artifacts are Ready;\n- scheduling post-MVP/Future Epics into Release 1 without approved scope change.",
+      "title": "Out of scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 31,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] All foreseeable Epics are enumerated and horizon/priority classified.\n- [ ] Every Epic has named Features; every MVP Feature has a forecast Sprint.\n- [ ] Every MVP Feature maps to at least one PBI.\n- [ ] Current/next refinement horizon PBIs have outcome, acceptance anchor, estimate, and dependencies sufficient for planning.\n- [ ] STAB-0001 and SPRINT-001 through SPRINT-003 have task-level decomposition.\n- [ ] SPRINT-001 through SPRINT-014 have goals and release sequencing.\n- [ ] PI-001 through PI-004 and MVP Milestone exit gates are defined.\n- [ ] Work Packets map the engineering critical path to Release 1.\n- [ ] Backlog ordering exposes security/correctness/decision blockers before dependent implementation.\n- [ ] GitHub projection can be generated without becoming a competing canonical plan.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 44,
+      "section_id": "validation",
+      "text": "## Validation\n\nTrace the MVP acceptance scenarios backward through Features/PBIs/WPs and forward from foundational work to Release 1. No must-have product requirement should have no planned delivery/evidence path.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 51,
+      "line_start": 48,
+      "section_id": "risks",
+      "text": "## Risks\n\nDetailed long-range planning can produce false confidence. Mitigation: Feature/PBI visibility across MVP, but task decomposition only near execution and explicit forecast status everywhere.",
+      "title": "Risks"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 52,
+      "section_id": "completion-evidence",
+      "text": "## Completion evidence\n\n`engineering/backlog/`, Sprint/PI/Milestone records, Work Packet indexes, GitHub projection, and backlog-readiness review.",
+      "title": "Completion evidence"
+    }
+  ],
+  "source": {
+    "bytes": 2414,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 54,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/WP-STAB-0005.md",
+    "sha256": "8e212537b7c46966dec74c81cd4862daecee4d454522ca26b587f76ee81d295c"
+  }
+}

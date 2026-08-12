@@ -1,0 +1,112 @@
+{
+  "content": "# WP-STAB-0003 — Materialize the Artifact-System Corpus\n\n**Status:** Review  \n**Owner:** Engineering Owner  \n**Program:** STAB-0001\n\n## Objective\n\nEliminate empty Markdown placeholders from `artifact-system/` by creating substantive, explicitly non-authoritative Draft baselines for every artifact path while preserving already-authored content.\n\n## Scope\n\n### In scope\n\n- deterministic materialization of empty `artifact-system/**/*.md` files;\n- purpose, scope, principles, inputs, traceability, lifecycle, verification, acceptance, and category/filename-specific engineering rules;\n- criticality/approval policy explaining taxonomy versus authority;\n- repeatable `--check` validation.\n\n### Out of scope\n\n- bulk approving generated Drafts;\n- overwriting authored non-empty content by default;\n- treating the generator as the permanent source of artifact meaning;\n- implementing the capabilities described by the artifact taxonomy.\n\n## Acceptance criteria\n\n- [ ] Zero artifact-system Markdown files remain empty after materialization.\n- [ ] Every generated document declares Draft/proposed authority status.\n- [ ] Existing authored non-empty files are unchanged unless explicitly forced.\n- [ ] Generated content is category-aware and contains concrete verification/acceptance structure rather than a title-only stub.\n- [ ] `python3 scripts/populate-artifact-system.py --check` passes.\n- [ ] `artifact-system/README.md` explains criticality, approval, canonicality, and backlog relationship.\n- [ ] Machine projection is regenerated after materialization.\n\n## Validation\n\nRun materializer in a clean checkout, rerun to prove idempotency, run `--check`, and inspect representative artifacts across KIR, AI/agent, security, execution, product, commercial, and future categories.\n\n## Risks\n\nLarge generated Draft volume may be mistaken for design maturity. Mitigation is explicit status/authority metadata plus criticality-driven selective review.\n\n## Completion evidence\n\nMaterializer source, generated artifact corpus, representative review samples, and successful artifact/machine synchronization workflow.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2FWP-STAB-0003.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Review Owner: Engineering Owner Program: STAB-0001",
+    "title": "WP-STAB-0003 — Materialize the Artifact-System Corpus"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "wp-stab-0003-materialize-the-artifact-system-corpus",
+      "text": "# WP-STAB-0003 — Materialize the Artifact-System Corpus\n\n**Status:** Review  \n**Owner:** Engineering Owner  \n**Program:** STAB-0001",
+      "title": "WP-STAB-0003 — Materialize the Artifact-System Corpus"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 7,
+      "section_id": "objective",
+      "text": "## Objective\n\nEliminate empty Markdown placeholders from `artifact-system/` by creating substantive, explicitly non-authoritative Draft baselines for every artifact path while preserving already-authored content.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 11,
+      "section_id": "scope",
+      "text": "## Scope",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 19,
+      "line_start": 13,
+      "section_id": "in-scope",
+      "text": "### In scope\n\n- deterministic materialization of empty `artifact-system/**/*.md` files;\n- purpose, scope, principles, inputs, traceability, lifecycle, verification, acceptance, and category/filename-specific engineering rules;\n- criticality/approval policy explaining taxonomy versus authority;\n- repeatable `--check` validation.",
+      "title": "In scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 26,
+      "line_start": 20,
+      "section_id": "out-of-scope",
+      "text": "### Out of scope\n\n- bulk approving generated Drafts;\n- overwriting authored non-empty content by default;\n- treating the generator as the permanent source of artifact meaning;\n- implementing the capabilities described by the artifact taxonomy.",
+      "title": "Out of scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 27,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] Zero artifact-system Markdown files remain empty after materialization.\n- [ ] Every generated document declares Draft/proposed authority status.\n- [ ] Existing authored non-empty files are unchanged unless explicitly forced.\n- [ ] Generated content is category-aware and contains concrete verification/acceptance structure rather than a title-only stub.\n- [ ] `python3 scripts/populate-artifact-system.py --check` passes.\n- [ ] `artifact-system/README.md` explains criticality, approval, canonicality, and backlog relationship.\n- [ ] Machine projection is regenerated after materialization.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 37,
+      "section_id": "validation",
+      "text": "## Validation\n\nRun materializer in a clean checkout, rerun to prove idempotency, run `--check`, and inspect representative artifacts across KIR, AI/agent, security, execution, product, commercial, and future categories.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 41,
+      "section_id": "risks",
+      "text": "## Risks\n\nLarge generated Draft volume may be mistaken for design maturity. Mitigation is explicit status/authority metadata plus criticality-driven selective review.",
+      "title": "Risks"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 45,
+      "section_id": "completion-evidence",
+      "text": "## Completion evidence\n\nMaterializer source, generated artifact corpus, representative review samples, and successful artifact/machine synchronization workflow.",
+      "title": "Completion evidence"
+    }
+  ],
+  "source": {
+    "bytes": 2107,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 47,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/WP-STAB-0003.md",
+    "sha256": "f2520fadfc9900bd5590e6b1de32cadebe3f8a52da5c1dce702192ca5cb7f42c"
+  }
+}

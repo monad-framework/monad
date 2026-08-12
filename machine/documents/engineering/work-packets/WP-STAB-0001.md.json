@@ -1,0 +1,127 @@
+{
+  "content": "# WP-STAB-0001 — Reconcile Monad Product Identity\n\n**Status:** Review  \n**Owner:** Product Owner / Project Steward  \n**Program:** STAB-0001  \n**Target:** Foundation stabilization\n\n## Objective\n\nEstablish one coherent C0 product definition for Monad as a local-first Engineering Knowledge Compilation Platform and remove the generic MonadV2 consequential-workflow definition from the critical authority path.\n\n## Scope\n\n### In scope\n\n- `README.md`, `idea.md`, `vision/`, MVP requirements/capabilities/roadmap, architecture context/overview, engineering plan, project status;\n- product thesis, users, problem, goals, non-goals, success criteria, MVP scope and release guardrails;\n- consistency with ADR-0001 and the repository description.\n\n### Out of scope\n\n- choosing implementation language/runtime;\n- approving every C1 artifact-system Draft;\n- implementing semantic-kernel code;\n- committing post-MVP commercial/hosted scope.\n\n## Governing artifacts\n\n- repository description and project mandate;\n- `architecture/decisions/ADR-0001-knowledge-engine-core.md`;\n- `governance/authority.md` and document lifecycle.\n\n## Acceptance criteria\n\n- [ ] Core C0 documents describe the same primary product and user outcome.\n- [ ] MVP Release 1 is explicitly bounded and testable.\n- [ ] Product non-goals exclude adjacent platform breadth not required for Release 1.\n- [ ] Success criteria require semantic correctness, determinism, impact value, bounded context, native execution, and reproducibility.\n- [ ] Contradictory legacy wording is removed, scoped as history, or explicitly superseded.\n- [ ] Machine projection is regenerated after canonical edits.\n- [ ] Product Owner records acceptance or named conditions.\n\n## Validation\n\nCross-read the C0 set from the perspective of a new maintainer and an implementation agent. No implementer should have to choose between two incompatible definitions of what Monad is building.\n\n## Risks\n\nOver-correcting during a fluid transition could freeze details that belong in C1/C2. Resolve only the product identity and Release 1 contract needed for sequencing; leave lower-level design Draft until evidence requires it.\n\n## Completion evidence\n\nFoundation reconciliation commit(s), synchronized machine projection, and C0 foundation review.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2FWP-STAB-0001.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Review Owner: Product Owner / Project Steward Program: STAB-0001 Target: Foundation stabilization",
+    "title": "WP-STAB-0001 — Reconcile Monad Product Identity"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "wp-stab-0001-reconcile-monad-product-identity",
+      "text": "# WP-STAB-0001 — Reconcile Monad Product Identity\n\n**Status:** Review  \n**Owner:** Product Owner / Project Steward  \n**Program:** STAB-0001  \n**Target:** Foundation stabilization",
+      "title": "WP-STAB-0001 — Reconcile Monad Product Identity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 8,
+      "section_id": "objective",
+      "text": "## Objective\n\nEstablish one coherent C0 product definition for Monad as a local-first Engineering Knowledge Compilation Platform and remove the generic MonadV2 consequential-workflow definition from the critical authority path.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "scope",
+      "text": "## Scope",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [
+        "ADR-0001"
+      ],
+      "level": 3,
+      "line_end": 19,
+      "line_start": 14,
+      "section_id": "in-scope",
+      "text": "### In scope\n\n- `README.md`, `idea.md`, `vision/`, MVP requirements/capabilities/roadmap, architecture context/overview, engineering plan, project status;\n- product thesis, users, problem, goals, non-goals, success criteria, MVP scope and release guardrails;\n- consistency with ADR-0001 and the repository description.",
+      "title": "In scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 26,
+      "line_start": 20,
+      "section_id": "out-of-scope",
+      "text": "### Out of scope\n\n- choosing implementation language/runtime;\n- approving every C1 artifact-system Draft;\n- implementing semantic-kernel code;\n- committing post-MVP commercial/hosted scope.",
+      "title": "Out of scope"
+    },
+    {
+      "identifiers": [
+        "ADR-0001"
+      ],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 27,
+      "section_id": "governing-artifacts",
+      "text": "## Governing artifacts\n\n- repository description and project mandate;\n- `architecture/decisions/ADR-0001-knowledge-engine-core.md`;\n- `governance/authority.md` and document lifecycle.",
+      "title": "Governing artifacts"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 33,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] Core C0 documents describe the same primary product and user outcome.\n- [ ] MVP Release 1 is explicitly bounded and testable.\n- [ ] Product non-goals exclude adjacent platform breadth not required for Release 1.\n- [ ] Success criteria require semantic correctness, determinism, impact value, bounded context, native execution, and reproducibility.\n- [ ] Contradictory legacy wording is removed, scoped as history, or explicitly superseded.\n- [ ] Machine projection is regenerated after canonical edits.\n- [ ] Product Owner records acceptance or named conditions.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 43,
+      "section_id": "validation",
+      "text": "## Validation\n\nCross-read the C0 set from the perspective of a new maintainer and an implementation agent. No implementer should have to choose between two incompatible definitions of what Monad is building.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 47,
+      "section_id": "risks",
+      "text": "## Risks\n\nOver-correcting during a fluid transition could freeze details that belong in C1/C2. Resolve only the product identity and Release 1 contract needed for sequencing; leave lower-level design Draft until evidence requires it.",
+      "title": "Risks"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 51,
+      "section_id": "completion-evidence",
+      "text": "## Completion evidence\n\nFoundation reconciliation commit(s), synchronized machine projection, and C0 foundation review.",
+      "title": "Completion evidence"
+    }
+  ],
+  "source": {
+    "bytes": 2275,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 53,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/WP-STAB-0001.md",
+    "sha256": "71a3ba1bb5df2f9d88e0d3ddb62fe5f9f1a376a25d52712851c97c9eff676313"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "content": "# Active Work Packets\n\nThis index contains only work explicitly authorized for current execution.\nDetailed scope and acceptance live in the individual packet record. Work is\nremoved from this list when it is done, cancelled, superseded, or returned to\nthe backlog.\n\n## Work-in-progress policy\n\n- One active packet per accountable owner unless an expedite is approved.\n- Finish review and integration before pulling another packet.\n- Update blockers within one business day with a named decision or dependency.\n- Do not add work directly; it must meet the Definition of Ready and belong to\n  an authorized increment or inception outcome.\n\n## Active\n\n### WP-0001 — Validated problem and current-state baseline\n\n- **Status:** active\n- **Owner:** Product owner\n- **Outcome:** representative evidence confirms, narrows, or rejects the core\n  problem and establishes a quantitative baseline for the primary journey.\n- **Acceptance:** at least five practitioner and three accountable-stakeholder\n  interviews; at least three direct workflow or artifact observations; baseline\n  definitions and measurements; alternatives compared; assumptions A-01 through\n  A-05 updated; findings reviewed with product and engineering.\n- **Dependencies:** access to representative participants and non-sensitive\n  workflow evidence.\n- **Evidence location:** `research/findings/` and approved updates to vision and\n  product documents.\n\n## Blocked\n\nNo packet is currently classified as blocked. When one is blocked, record the\nstart date, reason, impact, owner of the unblock action, and next escalation\ntime rather than using status alone.\n\n## Recently completed\n\nThe documentation and governance scaffold was established during project\ninception. Completion of a scaffold is not treated as validation of the product\nhypothesis.\n",
+  "content": "# Active Work Packets\n\nThis index contains engineering work currently authorized inside the Foundation Stabilization Program. A Work Packet is engineering authority; a Product Backlog Item or GitHub Issue alone does not authorize implementation.\n\n## Work-in-progress policy\n\n- Prefer one actively implemented packet per execution owner/agent at a time.\n- Review/integration work may overlap when it does not require conflicting edits or unresolved authority.\n- A packet moves to Ready only when its governing decisions/specifications are sufficient for its scope.\n- Blocked packets name the dependency/decision owner and next escalation point.\n- Generated Draft documents are not treated as accepted prerequisites merely because they exist.\n\n## Active / Review\n\n| Work Packet | Status | Target | Outcome |\n| --- | --- | --- | --- |\n| WP-STAB-0001 | Review | STAB-0001 | Reconcile Monad product identity and MVP thesis across the C0 foundation. |\n| WP-STAB-0002 | Review | STAB-0001 | Consolidate architectural-decision authority under `architecture/decisions/` and remove path/status contradictions. |\n| WP-STAB-0003 | Review | STAB-0001 | Materialize every empty artifact-system Markdown file as a substantive non-authoritative Draft baseline. |\n| WP-STAB-0004 | Review | STAB-0001 | Regenerate and verify the complete deterministic machine-readable knowledge layer. |\n| WP-STAB-0005 | Active | STAB-0001 | Bootstrap complete MVP Epic/Feature/PBI/Sprint/PI/WP backlog and ordered release plan. |\n| WP-STAB-0006 | Active | STAB-0001 | Establish the GitHub operating surface: issues, labels, milestones, project schema, wiki projection, repository settings target, and automation. |\n| WP-STAB-0008 | Planned | STAB-0001 | Reconcile first-slice C1 architecture/specification authority for semantic-kernel implementation. |\n| WP-STAB-0007 | Planned | STAB-0001 | Conduct stabilization readiness review after the other transition packets reach review-complete state. |\n\n## Next Ready target\n\nThe first implementation packet should become **WP-WS-0001 — Workspace Root and Repository Identity** for SPRINT-002 only after SPRINT-001 accepts the minimum runtime/configuration/identity architecture and specification contracts it requires.\n\n## Recently completed transition evidence\n\n- ADR-0001 was moved into the canonical `architecture/decisions/` hierarchy and `.monad` was reconciled.\n- Artifact-system Draft materialization is deterministic and does not overwrite authored non-empty files by default.\n- Machine companions/manifest/graph/corpus have been regenerated on the stabilization branch and the synchronization workflow has passed.\n\nThese accomplishments remain subject to stabilization review; passing generation does not by itself approve the semantic content of every Draft artifact.\n",
   "document_id": "doc:engineering%2Fwork-packets%2Factive.md",
   "generation": {
     "deterministic": true,
@@ -7,15 +7,13 @@
     "version": "1.0.0"
   },
   "identifiers": [
-    "A-01",
-    "A-05",
-    "WP-0001"
+    "ADR-0001"
   ],
   "links": [],
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "This index contains only work explicitly authorized for current execution. Detailed scope and acceptance live in the individual packet record. Work is removed from this list when it is done, cancelled, superseded, or returned to the backlog.",
+    "summary": "This index contains engineering work currently authorized inside the Foundation Stabilization Program. A Work Packet is engineering authority; a Product Backlog Item or GitHub Issue alone does not authorize implementation.",
     "title": "Active Work Packets"
   },
   "relations": [],
@@ -25,69 +23,58 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 7,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "active-work-packets",
-      "text": "# Active Work Packets\n\nThis index contains only work explicitly authorized for current execution.\nDetailed scope and acceptance live in the individual packet record. Work is\nremoved from this list when it is done, cancelled, superseded, or returned to\nthe backlog.",
+      "text": "# Active Work Packets\n\nThis index contains engineering work currently authorized inside the Foundation Stabilization Program. A Work Packet is engineering authority; a Product Backlog Item or GitHub Issue alone does not authorize implementation.",
       "title": "Active Work Packets"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 15,
-      "line_start": 8,
+      "line_end": 12,
+      "line_start": 5,
       "section_id": "work-in-progress-policy",
-      "text": "## Work-in-progress policy\n\n- One active packet per accountable owner unless an expedite is approved.\n- Finish review and integration before pulling another packet.\n- Update blockers within one business day with a named decision or dependency.\n- Do not add work directly; it must meet the Definition of Ready and belong to\n  an authorized increment or inception outcome.",
+      "text": "## Work-in-progress policy\n\n- Prefer one actively implemented packet per execution owner/agent at a time.\n- Review/integration work may overlap when it does not require conflicting edits or unresolved authority.\n- A packet moves to Ready only when its governing decisions/specifications are sufficient for its scope.\n- Blocked packets name the dependency/decision owner and next escalation point.\n- Generated Draft documents are not treated as accepted prerequisites merely because they exist.",
       "title": "Work-in-progress policy"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 17,
-      "line_start": 16,
-      "section_id": "active",
-      "text": "## Active",
-      "title": "Active"
+      "line_end": 25,
+      "line_start": 13,
+      "section_id": "active-review",
+      "text": "## Active / Review\n\n| Work Packet | Status | Target | Outcome |\n| --- | --- | --- | --- |\n| WP-STAB-0001 | Review | STAB-0001 | Reconcile Monad product identity and MVP thesis across the C0 foundation. |\n| WP-STAB-0002 | Review | STAB-0001 | Consolidate architectural-decision authority under `architecture/decisions/` and remove path/status contradictions. |\n| WP-STAB-0003 | Review | STAB-0001 | Materialize every empty artifact-system Markdown file as a substantive non-authoritative Draft baseline. |\n| WP-STAB-0004 | Review | STAB-0001 | Regenerate and verify the complete deterministic machine-readable knowledge layer. |\n| WP-STAB-0005 | Active | STAB-0001 | Bootstrap complete MVP Epic/Feature/PBI/Sprint/PI/WP backlog and ordered release plan. |\n| WP-STAB-0006 | Active | STAB-0001 | Establish the GitHub operating surface: issues, labels, milestones, project schema, wiki projection, repository settings target, and automation. |\n| WP-STAB-0008 | Planned | STAB-0001 | Reconcile first-slice C1 architecture/specification authority for semantic-kernel implementation. |\n| WP-STAB-0007 | Planned | STAB-0001 | Conduct stabilization readiness review after the other transition packets reach review-complete state. |",
+      "title": "Active / Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 26,
+      "section_id": "next-ready-target",
+      "text": "## Next Ready target\n\nThe first implementation packet should become **WP-WS-0001 — Workspace Root and Repository Identity** for SPRINT-002 only after SPRINT-001 accepts the minimum runtime/configuration/identity architecture and specification contracts it requires.",
+      "title": "Next Ready target"
     },
     {
       "identifiers": [
-        "A-01",
-        "A-05",
-        "WP-0001"
+        "ADR-0001"
       ],
-      "level": 3,
-      "line_end": 32,
-      "line_start": 18,
-      "section_id": "wp-0001-validated-problem-and-current-state-baseline",
-      "text": "### WP-0001 — Validated problem and current-state baseline\n\n- **Status:** active\n- **Owner:** Product owner\n- **Outcome:** representative evidence confirms, narrows, or rejects the core\n  problem and establishes a quantitative baseline for the primary journey.\n- **Acceptance:** at least five practitioner and three accountable-stakeholder\n  interviews; at least three direct workflow or artifact observations; baseline\n  definitions and measurements; alternatives compared; assumptions A-01 through\n  A-05 updated; findings reviewed with product and engineering.\n- **Dependencies:** access to representative participants and non-sensitive\n  workflow evidence.\n- **Evidence location:** `research/findings/` and approved updates to vision and\n  product documents.",
-      "title": "WP-0001 — Validated problem and current-state baseline"
-    },
-    {
-      "identifiers": [],
       "level": 2,
-      "line_end": 38,
-      "line_start": 33,
-      "section_id": "blocked",
-      "text": "## Blocked\n\nNo packet is currently classified as blocked. When one is blocked, record the\nstart date, reason, impact, owner of the unblock action, and next escalation\ntime rather than using status alone.",
-      "title": "Blocked"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 43,
-      "line_start": 39,
-      "section_id": "recently-completed",
-      "text": "## Recently completed\n\nThe documentation and governance scaffold was established during project\ninception. Completion of a scaffold is not treated as validation of the product\nhypothesis.",
-      "title": "Recently completed"
+      "line_end": 36,
+      "line_start": 30,
+      "section_id": "recently-completed-transition-evidence",
+      "text": "## Recently completed transition evidence\n\n- ADR-0001 was moved into the canonical `architecture/decisions/` hierarchy and `.monad` was reconciled.\n- Artifact-system Draft materialization is deterministic and does not overwrite authored non-empty files by default.\n- Machine companions/manifest/graph/corpus have been regenerated on the stabilization branch and the synchronization workflow has passed.\n\nThese accomplishments remain subject to stabilization review; passing generation does not by itself approve the semantic content of every Draft artifact.",
+      "title": "Recently completed transition evidence"
     }
   ],
   "source": {
-    "bytes": 1808,
+    "bytes": 2793,
     "canonical": true,
     "language": "markdown",
-    "lines": 43,
+    "lines": 36,
     "media_type": "text/markdown",
     "path": "engineering/work-packets/active.md",
-    "sha256": "efc807344aca42819e81221f5ee7d2573f5d1914e36fd26d428ce74e3c49c889"
+    "sha256": "627b771ec213c0a46953f752bf737217d2e43f7f6ccaa657d34ccea21404176e"
   }
 }
