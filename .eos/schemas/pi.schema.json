@@ -1,16 +1,42 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "eos://schemas/pi/1.0.0",
+  "$id": "eos://schemas/pi/1.2.0",
   "type": "object",
-  "required": ["id", "path", "title", "status", "created", "updated"],
+  "required": [
+    "id",
+    "path",
+    "title",
+    "status",
+    "created",
+    "updated"
+  ],
   "properties": {
-    "id": {"type": "string", "pattern": "^PI-[0-9]{3}$"},
-    "path": {"type": "string", "minLength": 1},
-    "title": {"type": "string", "minLength": 1},
-    "status": {"type": "string"},
-    "created": {"type": "string", "minLength": 1},
-    "updated": {"type": "string", "minLength": 1},
-    "github_url": {"type": "string"}
+    "id": {
+      "type": "string",
+      "pattern": "^PI(?:-[A-Z][A-Z0-9]*)?-[0-9]{3}$"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string"
+    },
+    "created": {
+      "type": "string",
+      "minLength": 1
+    },
+    "updated": {
+      "type": "string",
+      "minLength": 1
+    },
+    "github_url": {
+      "type": "string"
+    }
   },
   "additionalProperties": false
 }

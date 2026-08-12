@@ -25,7 +25,7 @@ EVID_FIELDS = [
 ]
 LINK_FIELDS = ["evidence_id", "reference", "relation", "created", "actor"]
 PERF_FIELDS = ["id", "name", "target", "unit", "direction", "baseline", "tolerance", "created", "updated"]
-ID_RE = re.compile(r"\b(?:REQ-[A-Z0-9][A-Z0-9-]*|SPEC-[A-Z0-9][A-Z0-9-]*|ADR-\d{4}|QA-[A-Z0-9][A-Z0-9-]*|CAP-[A-Z0-9][A-Z0-9-]*|PI-\d{3}|WC-\d{4}|WP(?:-[A-Z][A-Z0-9]*)?-\d{4}|EXEC-\d{4}|EVID-\d{4})\b")
+ID_RE = re.compile(r"\b(?:REQ-[A-Z0-9][A-Z0-9-]*|SPEC-[A-Z0-9][A-Z0-9-]*|ADR-\d{4}|QA-[A-Z0-9][A-Z0-9-]*|CAP-[A-Z0-9][A-Z0-9-]*|PI(?:-[A-Z][A-Z0-9]*)?-\d{3}|WC(?:-[A-Z][A-Z0-9]*)?-\d{4}|WP(?:-[A-Z][A-Z0-9]*)?-\d{4}|EXEC-\d{4}|EVID-\d{4})\b")
 AC_RE = re.compile(r"^\s*-\s*\[[ xX]\]\s*(AC-[A-Z0-9][A-Z0-9-]*)\s*(?::|—|-)\s*(.+)$")
 SECRET_PATTERNS = {
     "private-key": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----"),

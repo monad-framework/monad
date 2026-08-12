@@ -1,6 +1,6 @@
 # WP-MVP-0001 — Repository identity and effective configuration
 
-**Status:** Ready — not Authorized  
+**Status:** READY
 **Epic:** EPIC-002  
 **Feature:** F-002-01  
 **Program Increment:** PI-MVP-001  

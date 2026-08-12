@@ -1,5 +1,5 @@
 {
-  "content": "{\n  \"kind\": \"WC\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\"CLOSED\"],\n  \"states\": [\"DRAFT\", \"READY\", \"AUTHORIZED\", \"ACTIVE\", \"IN_REVIEW\", \"BLOCKED\", \"CLOSED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"READY\", \"BLOCKED\"],\n    \"READY\": [\"AUTHORIZED\", \"BLOCKED\"],\n    \"AUTHORIZED\": [\"ACTIVE\", \"BLOCKED\"],\n    \"ACTIVE\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"IN_REVIEW\": [\"CLOSED\", \"BLOCKED\"],\n    \"BLOCKED\": [\"READY\", \"AUTHORIZED\", \"ACTIVE\", \"IN_REVIEW\"],\n    \"CLOSED\": []\n  }\n}\n",
+  "content": "{\n  \"kind\": \"WC\",\n  \"version\": \"1.2.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\n    \"CLOSED\",\n    \"SUPERSEDED\"\n  ],\n  \"states\": [\n    \"DRAFT\",\n    \"READY\",\n    \"AUTHORIZED\",\n    \"ACTIVE\",\n    \"IN_REVIEW\",\n    \"BLOCKED\",\n    \"CLOSED\",\n    \"SUPERSEDED\"\n  ],\n  \"transitions\": {\n    \"DRAFT\": [\n      \"READY\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"READY\": [\n      \"AUTHORIZED\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"AUTHORIZED\": [\n      \"ACTIVE\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"ACTIVE\": [\n      \"IN_REVIEW\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"IN_REVIEW\": [\n      \"CLOSED\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"BLOCKED\": [\n      \"READY\",\n      \"AUTHORIZED\",\n      \"ACTIVE\",\n      \"IN_REVIEW\",\n      \"SUPERSEDED\"\n    ],\n    \"CLOSED\": [],\n    \"SUPERSEDED\": []\n  }\n}\n",
   "document_id": "doc:.eos%2Fstate-machines%2Fwc.json",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 16,
+      "line_end": 55,
       "line_start": 1,
       "section_id": "content",
-      "text": "{\n  \"kind\": \"WC\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\"CLOSED\"],\n  \"states\": [\"DRAFT\", \"READY\", \"AUTHORIZED\", \"ACTIVE\", \"IN_REVIEW\", \"BLOCKED\", \"CLOSED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"READY\", \"BLOCKED\"],\n    \"READY\": [\"AUTHORIZED\", \"BLOCKED\"],\n    \"AUTHORIZED\": [\"ACTIVE\", \"BLOCKED\"],\n    \"ACTIVE\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"IN_REVIEW\": [\"CLOSED\", \"BLOCKED\"],\n    \"BLOCKED\": [\"READY\", \"AUTHORIZED\", \"ACTIVE\", \"IN_REVIEW\"],\n    \"CLOSED\": []\n  }\n}",
+      "text": "{\n  \"kind\": \"WC\",\n  \"version\": \"1.2.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\n    \"CLOSED\",\n    \"SUPERSEDED\"\n  ],\n  \"states\": [\n    \"DRAFT\",\n    \"READY\",\n    \"AUTHORIZED\",\n    \"ACTIVE\",\n    \"IN_REVIEW\",\n    \"BLOCKED\",\n    \"CLOSED\",\n    \"SUPERSEDED\"\n  ],\n  \"transitions\": {\n    \"DRAFT\": [\n      \"READY\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"READY\": [\n      \"AUTHORIZED\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"AUTHORIZED\": [\n      \"ACTIVE\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"ACTIVE\": [\n      \"IN_REVIEW\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"IN_REVIEW\": [\n      \"CLOSED\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"BLOCKED\": [\n      \"READY\",\n      \"AUTHORIZED\",\n      \"ACTIVE\",\n      \"IN_REVIEW\",\n      \"SUPERSEDED\"\n    ],\n    \"CLOSED\": [],\n    \"SUPERSEDED\": []\n  }\n}",
       "title": "Wc"
     }
   ],
   "source": {
-    "bytes": 492,
+    "bytes": 830,
     "canonical": true,
     "language": "json",
-    "lines": 16,
+    "lines": 55,
     "media_type": "application/json",
     "path": ".eos/state-machines/wc.json",
-    "sha256": "7a61ad02099771ceb4f53d6a6cacdbdb0ab05f8fa4849ee227503a08c0bb5146"
+    "sha256": "8b8bd3c2047dc0805c718fc26d32e246ca514a297acba14b9c1e739d9eda153b"
   }
 }
