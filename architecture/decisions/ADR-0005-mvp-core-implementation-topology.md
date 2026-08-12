@@ -1,7 +1,7 @@
 # ADR-0005: MVP Core Implementation Topology
 
-**Status:** Proposed  
-**Date:** 2026-08-12  
+**Status:** Accepted
+**Date:** 2026-08-12
 **Decision scope:** implementation language and source topology for the Monad MVP semantic kernel
 
 ## Context
