@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "adoption_id": "ADOPT-MVP-FOUNDATION-2026-08-12",
+  "reason": "Adopt the accepted Foundation Stabilization baseline into EOS lifecycle control without replaying obsolete bootstrap work.",
+  "evidence": [
+    "engineering/reviews/FOUNDATION-STABILIZATION-CLOSURE-2026-08-12.md",
+    "architecture/decisions/ADR-0005-mvp-core-implementation-topology.md",
+    "engineering/project-status.md"
+  ],
+  "bootstrap": {
+    "complete": true,
+    "disposition": "superseded-by-foundation-stabilization"
+  },
+  "supersede": [
+    "PI-001",
+    "WC-0001",
+    "WP-0001"
+  ],
+  "program_increments": [
+    {
+      "id": "PI-MVP-001",
+      "path": "engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md",
+      "title": "Semantic Foundation",
+      "status": "AUTHORIZED",
+      "created": "2026-08-12T00:00:00Z",
+      "updated": "2026-08-12T00:00:00Z",
+      "github_url": ""
+    }
+  ],
+  "work_cycles": [
+    {
+      "id": "WC-MVP-0001",
+      "path": "engineering/work-cycles/WC-MVP-0001.md",
+      "title": "Workspace, Discovery, and Identity",
+      "status": "READY",
+      "pi": "PI-MVP-001",
+      "created": "2026-08-12T00:00:00Z",
+      "updated": "2026-08-12T00:00:00Z",
+      "github_url": ""
+    }
+  ],
+  "work_packets": [
+    {
+      "id": "WP-MVP-0001",
+      "path": "engineering/work-packets/WP-MVP-0001.md",
+      "title": "Repository identity and effective configuration",
+      "status": "READY",
+      "pi": "PI-MVP-001",
+      "wc": "WC-MVP-0001",
+      "domain": "CORE",
+      "created": "2026-08-12T00:00:00Z",
+      "updated": "2026-08-12T00:00:00Z",
+      "github_url": "https://github.com/monad-framework/monad/issues/21"
+    }
+  ]
+}

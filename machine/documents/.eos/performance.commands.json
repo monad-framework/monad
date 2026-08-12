@@ -1,0 +1,40 @@
+{
+  "content": "# Tab-separated: name<TAB>unit<TAB>command\n# Command stdout must contain exactly one numeric measurement.\n# Baselines are governed through `./scripts/eos performance record`.\n# Example:\n# graph_lookup_ms\\tms\\t./scripts/benchmark-graph.sh\n",
+  "document_id": "doc:.eos%2Fperformance.commands",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical plain-text source for .eos/performance.commands.",
+    "title": "Performance"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 5,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "# Tab-separated: name<TAB>unit<TAB>command\n# Command stdout must contain exactly one numeric measurement.\n# Baselines are governed through `./scripts/eos performance record`.\n# Example:\n# graph_lookup_ms\\tms\\t./scripts/benchmark-graph.sh",
+      "title": "Performance"
+    }
+  ],
+  "source": {
+    "bytes": 238,
+    "canonical": true,
+    "language": "plain-text",
+    "lines": 5,
+    "media_type": "text/plain",
+    "path": ".eos/performance.commands",
+    "sha256": "4fbdd2e6ce0fde178eb0fb605b71e03b8fccaf6a17fa2325f3e0f1102dc4a138"
+  }
+}

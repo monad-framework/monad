@@ -16,15 +16,15 @@
     },
     {
       "companion_path": "machine/documents/.eos/README.md.json",
-      "companion_sha256": "5cfa8c6ea2bc8c1ac0ea8ff82f55e204be2d4e9d781a44e130b4f89b60140152",
+      "companion_sha256": "0c6c674b68c6b6a4c7f9c64d875a1347f24b01f6fc96a1f0dfc8917c828f2430",
       "document_id": "doc:.eos%2FREADME.md",
       "document_type": "project-source",
       "identifier_count": 0,
       "normative": false,
       "relation_count": 0,
-      "section_count": 2,
+      "section_count": 6,
       "source_path": ".eos/README.md",
-      "source_sha256": "9172db4f9ef815c1f5db0b991d659eb8d4bd2f7876e01bf08b0282bca3182b94",
+      "source_sha256": "9b470fed4ec60594078e00bd5069ce0e048207c5773817360c33e8e6d9697776",
       "title": ".eos"
     },
     {
@@ -41,6 +41,19 @@
       "title": "Version"
     },
     {
+      "companion_path": "machine/documents/.eos/adoptions/mvp-foundation.json.json",
+      "companion_sha256": "c35ccfc24008311b13f2c694fe857be8b6f9c041f09f0aaaaa97048aa3f06e63",
+      "document_id": "doc:.eos%2Fadoptions%2Fmvp-foundation.json",
+      "document_type": "project-source",
+      "identifier_count": 3,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/adoptions/mvp-foundation.json",
+      "source_sha256": "3bc9aa25cd0e240b82b4042a5b16146aa84ff48ae525c566e157cf240bf711ef",
+      "title": "Mvp Foundation"
+    },
+    {
       "companion_path": "machine/documents/.eos/artifact-changelog.tsv.json",
       "companion_sha256": "37c9d9b2d66d89f3d90a5655a7dff5316c256752cd58b708bd5fcd54d7aa9a5d",
       "document_id": "doc:.eos%2Fartifact-changelog.tsv",
@@ -55,7 +68,7 @@
     },
     {
       "companion_path": "machine/documents/.eos/artifacts.tsv.json",
-      "companion_sha256": "b934e1220f4b9ae4e54db3fd66dfbcbecbe4e3ce6f200a69ab3eb9eb0585bc1d",
+      "companion_sha256": "a416e115028e1c8fd6d224e2f7851fd255e0c4014c7196bc07d73c863112af63",
       "document_id": "doc:.eos%2Fartifacts.tsv",
       "document_type": "project-source",
       "identifier_count": 3,
@@ -63,7 +76,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/artifacts.tsv",
-      "source_sha256": "e5da9251b6a9e56b575a6da0213021ba0cb51db6b90d5914d7e83113dcbb4f73",
+      "source_sha256": "2d8e7a5b319860dbb47405c338d470d944ab4901b43c33af5ebd627f2e0480c8",
       "title": "Artifacts"
     },
     {
@@ -94,7 +107,7 @@
     },
     {
       "companion_path": "machine/documents/.eos/domain-model.json.json",
-      "companion_sha256": "7d12a4cb6b205a91f0326eb92d658e12fe1baab409641fd338fcc295f46e16ca",
+      "companion_sha256": "5a4de0a88f2d9413a32129b796c5fdff3f053c7b1a9f85b2159941db8bf2c2a7",
       "document_id": "doc:.eos%2Fdomain-model.json",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -102,21 +115,86 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/domain-model.json",
-      "source_sha256": "dcba8fb41a115759ff4b38815af730b239a788a7fdad39d91c7089fb8c2bddce",
+      "source_sha256": "abd2f3020878446d52aaa4e32bb1860db0a02c46d662af23efe535e86eea1691",
       "title": "Domain Model"
     },
     {
+      "companion_path": "machine/documents/.eos/environment.commands.json",
+      "companion_sha256": "b8c0f6e5f4a96df14d2005254180580fc021c0e690e45388ab599ec36dc926a8",
+      "document_id": "doc:.eos%2Fenvironment.commands",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/environment.commands",
+      "source_sha256": "9cdb2e4d92f3d88cc5d1b8f110e92e0aad563a4e06ec40284139af3530a70ed9",
+      "title": "Environment"
+    },
+    {
       "companion_path": "machine/documents/.eos/events.jsonl.json",
-      "companion_sha256": "6ae6433cddb1e5f8e9e312d3e8c0f41d8bf3f77d7ddf147b783274b1c3ab07f0",
+      "companion_sha256": "79f8d5a647b597851d0b18d512a8961c13c215985064b45c9fe4b244c5c41f63",
       "document_id": "doc:.eos%2Fevents.jsonl",
       "document_type": "project-source",
-      "identifier_count": 2,
+      "identifier_count": 3,
       "normative": false,
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/events.jsonl",
-      "source_sha256": "5e7ebcd888c2d38fe2bf75524bc8a846b17fe1158671a130a1f4066ce9fa2eae",
+      "source_sha256": "b7a4aa08e29a3013b0fdb6d165a820a64d22a058c64173d7179939c0713ae7c7",
       "title": "Events"
+    },
+    {
+      "companion_path": "machine/documents/.eos/evidence-links.tsv.json",
+      "companion_sha256": "536ead4b61828f695c69e704b2e3c4631d3e3b68322645ef81c39071c45d9750",
+      "document_id": "doc:.eos%2Fevidence-links.tsv",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/evidence-links.tsv",
+      "source_sha256": "bc1ed76ed25d2c7ae34a981f0b45e909d54aa405e53b8820b99befb3ee472cca",
+      "title": "Evidence Links"
+    },
+    {
+      "companion_path": "machine/documents/.eos/evidence.tsv.json",
+      "companion_sha256": "320d450ee3c67fb6ee76fdb3b5347d419e95db5d21b7e6046894b7546a5c5699",
+      "document_id": "doc:.eos%2Fevidence.tsv",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/evidence.tsv",
+      "source_sha256": "73e10f71ce5547f026481da6626ef7ab8e5241bb08527a5e2e1eca7fd892ac38",
+      "title": "Evidence"
+    },
+    {
+      "companion_path": "machine/documents/.eos/execution-policy.json.json",
+      "companion_sha256": "65df37dd81b3d703392411814c10fb427c6a32ecc0455e0ef6de5e712b2c625e",
+      "document_id": "doc:.eos%2Fexecution-policy.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/execution-policy.json",
+      "source_sha256": "3bd2b9b9323575e176cd5d44ededb83767975bc2b216228304ffbf949f094628",
+      "title": "Execution Policy"
+    },
+    {
+      "companion_path": "machine/documents/.eos/executions.tsv.json",
+      "companion_sha256": "afa0216fd6a3b413fe2761b99f6afc5cc2aa84d5bed5d8bf374d0de8b0ee1dd3",
+      "document_id": "doc:.eos%2Fexecutions.tsv",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/executions.tsv",
+      "source_sha256": "b78ffcf197b17e11367615d52751502e94d1ab395e512ae2c5ad90f7c404e8d7",
+      "title": "Executions"
     },
     {
       "companion_path": "machine/documents/.eos/history/engineering/increments/PI-001/v0.1.0.md.json",
@@ -221,6 +299,19 @@
       "source_path": ".eos/history/engineering/lifecycle/EOSR-review/v0.1.0.md",
       "source_sha256": "1763b6ede4deed06b37a0ed3d86227ef9c3384bc73abd44804018d90a2d16d2e",
       "title": "EOSR — Review"
+    },
+    {
+      "companion_path": "machine/documents/.eos/history/engineering/lifecycle/EOSV-verification-v2/v0.1.0.md.json",
+      "companion_sha256": "d6545c4d8630d0d60fa4cc38d56d2ccae384f07b66d260507d871867fc980d0d",
+      "document_id": "doc:.eos%2Fhistory%2Fengineering%2Flifecycle%2FEOSV-verification-v2%2Fv0.1.0.md",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 6,
+      "source_path": ".eos/history/engineering/lifecycle/EOSV-verification-v2/v0.1.0.md",
+      "source_sha256": "46388a6887f27f10ac5fdfa5d3835de47c957a1fc982e67743948cf06635ab74",
+      "title": "EOSV — Verification v2"
     },
     {
       "companion_path": "machine/documents/.eos/history/engineering/lifecycle/EOSV-verification/v0.1.0.md.json",
@@ -340,6 +431,19 @@
       "title": "EOS Event Ledger Policy"
     },
     {
+      "companion_path": "machine/documents/.eos/history/governance/execution-engine/v0.1.0.md.json",
+      "companion_sha256": "b0ab6de37e76536de4be993664acfdb2a9ad8757d0377f1b60d57eea9c93c08f",
+      "document_id": "doc:.eos%2Fhistory%2Fgovernance%2Fexecution-engine%2Fv0.1.0.md",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 5,
+      "source_path": ".eos/history/governance/execution-engine/v0.1.0.md",
+      "source_sha256": "f6b5bd538e3917578e135cd389456fcec1b34e0b0388166e16da1754efb7072a",
+      "title": "EOSE Execution Engine"
+    },
+    {
       "companion_path": "machine/documents/.eos/history/governance/github-integration/v0.1.0.md.json",
       "companion_sha256": "18b2cc7c527f03de4bc2e0bb5fa79fa8aaeaa74195b017d7683b239b22da0226",
       "document_id": "doc:.eos%2Fhistory%2Fgovernance%2Fgithub-integration%2Fv0.1.0.md",
@@ -405,6 +509,58 @@
       "title": "EOS Semantic Traceability Graph"
     },
     {
+      "companion_path": "machine/documents/.eos/history/managed/20260812T093508Z/.eos/domain-model.json.json",
+      "companion_sha256": "ce93f4269bed8ab5d79efbc0a80751506d608c5ca72bfbbdebabbc5529f046f6",
+      "document_id": "doc:.eos%2Fhistory%2Fmanaged%2F20260812T093508Z%2F.eos%2Fdomain-model.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/history/managed/20260812T093508Z/.eos/domain-model.json",
+      "source_sha256": "dcba8fb41a115759ff4b38815af730b239a788a7fdad39d91c7089fb8c2bddce",
+      "title": "Domain Model"
+    },
+    {
+      "companion_path": "machine/documents/.eos/history/managed/20260812T093508Z/.eos/version.json.json",
+      "companion_sha256": "86b6718535fac9f75523c08a8326850c3ac2cebf0d9bffe166eedc06ea1e9d51",
+      "document_id": "doc:.eos%2Fhistory%2Fmanaged%2F20260812T093508Z%2F.eos%2Fversion.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/history/managed/20260812T093508Z/.eos/version.json",
+      "source_sha256": "5f30d9fb554c70e4d9f6f8fbf983ed7a6ead308db459c19f8770326459d82207",
+      "title": "Version"
+    },
+    {
+      "companion_path": "machine/documents/.eos/history/managed/20260812T112642Z/.eos/domain-model.json.json",
+      "companion_sha256": "950f31c6d06f7b12af5a778a5212e19dfc4495a7fb6dab8fb3db9e0f1e7af5e3",
+      "document_id": "doc:.eos%2Fhistory%2Fmanaged%2F20260812T112642Z%2F.eos%2Fdomain-model.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/history/managed/20260812T112642Z/.eos/domain-model.json",
+      "source_sha256": "b6c76104ed49a038170bc79dec4643ad21d360b59675e8d6a71d8b6ede19dbeb",
+      "title": "Domain Model"
+    },
+    {
+      "companion_path": "machine/documents/.eos/history/managed/20260812T112642Z/.eos/version.json.json",
+      "companion_sha256": "042e6e3afb2fdbbaf8f9d0cc3ffa8cc808f53cc98d019264ff62b5dfb3008c1e",
+      "document_id": "doc:.eos%2Fhistory%2Fmanaged%2F20260812T112642Z%2F.eos%2Fversion.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/history/managed/20260812T112642Z/.eos/version.json",
+      "source_sha256": "2cc97bd26f1ef690dff95de8a18ba134b41de5653a48fca2aaf3ea6dbf6ec861",
+      "title": "Version"
+    },
+    {
       "companion_path": "machine/documents/.eos/history/specifications/baseline/v0.1.0.md.json",
       "companion_sha256": "55ef313cac460f67fa2fea24c652e6481d27d324c787ff9264f55a7b6b807715",
       "document_id": "doc:.eos%2Fhistory%2Fspecifications%2Fbaseline%2Fv0.1.0.md",
@@ -431,6 +587,45 @@
       "title": "Eos Py Pre V0.5 20260812T090718Z"
     },
     {
+      "companion_path": "machine/documents/.eos/history/tooling/eos-py-pre-v0.6-20260812T093510Z.py.json",
+      "companion_sha256": "3edbdfa2237ea7bb368822423b695a9edf4c4a63d8227c754408a57a594823af",
+      "document_id": "doc:.eos%2Fhistory%2Ftooling%2Feos-py-pre-v0.6-20260812T093510Z.py",
+      "document_type": "project-source",
+      "identifier_count": 1,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/history/tooling/eos-py-pre-v0.6-20260812T093510Z.py",
+      "source_sha256": "f7b19bc87f75ac14ac3ec61cd67a7b6726f434a8789325ee6d82aa30b4adf7ce",
+      "title": "Eos Py Pre V0.6 20260812T093510Z"
+    },
+    {
+      "companion_path": "machine/documents/.eos/history/tooling/eos-py-pre-v0.7-20260812T112645Z.py.json",
+      "companion_sha256": "d8900318a2ab3a0a19bdc56f4ae65101d67b54edaf6f706f635e942f053ca474",
+      "document_id": "doc:.eos%2Fhistory%2Ftooling%2Feos-py-pre-v0.7-20260812T112645Z.py",
+      "document_type": "project-source",
+      "identifier_count": 1,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/history/tooling/eos-py-pre-v0.7-20260812T112645Z.py",
+      "source_sha256": "0c95c7e9ba09e1d221a3e3617ae9722941da97fe3cb50769dcfc48b0086f02f7",
+      "title": "Eos Py Pre V0.7 20260812T112645Z"
+    },
+    {
+      "companion_path": "machine/documents/.eos/history/tooling/execution-v2-pre-v0.7-20260812T112645Z.py.json",
+      "companion_sha256": "63a8ad0c059227880eaaa1aa6cee5a580be3d24649b7a95f2d5f6286fe54fde5",
+      "document_id": "doc:.eos%2Fhistory%2Ftooling%2Fexecution-v2-pre-v0.7-20260812T112645Z.py",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/history/tooling/execution-v2-pre-v0.7-20260812T112645Z.py",
+      "source_sha256": "bd901f13f813c7136977d0ece35fff5969879b47ea67ddbc4bb5381eb6a2cda7",
+      "title": "Execution V2 Pre V0.7 20260812T112645Z"
+    },
+    {
       "companion_path": "machine/documents/.eos/history/tooling/scripts-eos-bootstrap-only.sh.json",
       "companion_sha256": "61219a686310568095321a9850dee083b7ea58c65563025690851625e912f6d7",
       "document_id": "doc:.eos%2Fhistory%2Ftooling%2Fscripts-eos-bootstrap-only.sh",
@@ -455,6 +650,32 @@
       "source_path": ".eos/history/tooling/scripts-eos-pre-v0.5-20260812T090718Z.sh",
       "source_sha256": "f54196e3ae51e879c49dd1c37435adc01bb75cf988eed152faf0410fdf46997a",
       "title": "Scripts Eos Pre V0.5 20260812T090718Z"
+    },
+    {
+      "companion_path": "machine/documents/.eos/history/tooling/scripts-eos-pre-v0.6-20260812T093510Z.sh.json",
+      "companion_sha256": "ea1fc6deddf49b235414541f4761ed6538bf9455c76f4df227897d959213f4bd",
+      "document_id": "doc:.eos%2Fhistory%2Ftooling%2Fscripts-eos-pre-v0.6-20260812T093510Z.sh",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/history/tooling/scripts-eos-pre-v0.6-20260812T093510Z.sh",
+      "source_sha256": "6fe7c189e64a11ebb46769241f456299f8f943c059f44089fad24b39efa5a3e4",
+      "title": "Scripts Eos Pre V0.6 20260812T093510Z"
+    },
+    {
+      "companion_path": "machine/documents/.eos/history/tooling/scripts-eos-pre-v0.7-20260812T112645Z.sh.json",
+      "companion_sha256": "951e5b4343ada5f051b08cb717eb104964f3e3dfa79bfd0d3c1b1c73bf0d2cfb",
+      "document_id": "doc:.eos%2Fhistory%2Ftooling%2Fscripts-eos-pre-v0.7-20260812T112645Z.sh",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/history/tooling/scripts-eos-pre-v0.7-20260812T112645Z.sh",
+      "source_sha256": "99e9175e5f10bd4ec4d8d04701997f4804dfec3fae3af9461d59eff705aa5b2a",
+      "title": "Scripts Eos Pre V0.7 20260812T112645Z"
     },
     {
       "companion_path": "machine/documents/.eos/layers.tsv.json",
@@ -496,6 +717,32 @@
       "title": "Overrides"
     },
     {
+      "companion_path": "machine/documents/.eos/performance-baselines.tsv.json",
+      "companion_sha256": "265908481e0197c0c474997bb937aa0ee9063391228220f17d53654316a13619",
+      "document_id": "doc:.eos%2Fperformance-baselines.tsv",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/performance-baselines.tsv",
+      "source_sha256": "7eb59fe26dff2b558c723b6c686708ab25655a3a1ac0b1247597e7932db49791",
+      "title": "Performance Baselines"
+    },
+    {
+      "companion_path": "machine/documents/.eos/performance.commands.json",
+      "companion_sha256": "8f5997e54bb79bd07e51daf6933c55cc085974dda5863d17ec1044df8be5fca5",
+      "document_id": "doc:.eos%2Fperformance.commands",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/performance.commands",
+      "source_sha256": "4fbdd2e6ce0fde178eb0fb605b71e03b8fccaf6a17fa2325f3e0f1102dc4a138",
+      "title": "Performance"
+    },
+    {
       "companion_path": "machine/documents/.eos/policies/core.json.json",
       "companion_sha256": "306b59c20c7e30f1c345db67c48613c36c6e681d7d0dcd7b94c43feeb22e43c1",
       "document_id": "doc:.eos%2Fpolicies%2Fcore.json",
@@ -510,7 +757,7 @@
     },
     {
       "companion_path": "machine/documents/.eos/program-increments.tsv.json",
-      "companion_sha256": "bd50d0d33b0b46f944ec0d582a987fcdc5b11ee853937f891a108f87d6303ba4",
+      "companion_sha256": "3bbbcc5dc8fa4182a308be279915d69148b056eb865de82a7885893518056247",
       "document_id": "doc:.eos%2Fprogram-increments.tsv",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -518,7 +765,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/program-increments.tsv",
-      "source_sha256": "1255424255aa6270628dca3b5eb39b2add09fb4490ac600a438cae06eb5d7a4d",
+      "source_sha256": "b25929c856bcc00920b7a184cc428e3f333bf2e4c6320f93c4eb0826b768bac8",
       "title": "Program Increments"
     },
     {
@@ -795,6 +1042,19 @@
       "title": "Releases"
     },
     {
+      "companion_path": "machine/documents/.eos/reproducibility.commands.json",
+      "companion_sha256": "cdc4b628923c04502532bd0daa33d2334f561d76f73bffcf22ce3d1ab2eb4b8c",
+      "document_id": "doc:.eos%2Freproducibility.commands",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/reproducibility.commands",
+      "source_sha256": "5bbf0ba4b6e81e9e6b6b50221b582e10f8ee851648b8511a8a57aa4efff14634",
+      "title": "Reproducibility"
+    },
+    {
       "companion_path": "machine/documents/.eos/schemas/artifact.schema.json.json",
       "companion_sha256": "8d774d082920cf2ae231709c05fb7b3e2e687697e23c1fa4ead39e2b6c6607db",
       "document_id": "doc:.eos%2Fschemas%2Fartifact.schema.json",
@@ -806,6 +1066,266 @@
       "source_path": ".eos/schemas/artifact.schema.json",
       "source_sha256": "9a648a852ee7984cfad111fabb020ea25bc486a275dcfcd86cbbb0ae177b2424",
       "title": "Artifact.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/adr.schema.json.json",
+      "companion_sha256": "31b467e4c03533200a3c3333283f333935561e55e354db22db65d261709ec1ea",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fadr.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/adr.schema.json",
+      "source_sha256": "fcd40ba03652f64363c6ddc4dfd00d1d2cb8fa5ac22724af37c308f4353f6e4b",
+      "title": "Adr.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/approval.schema.json.json",
+      "companion_sha256": "8912f07dd29a5ebdf46c25c937221fe41598495e37b394c55ea166dfd1be5614",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fapproval.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/approval.schema.json",
+      "source_sha256": "8657a6aead23153224ec15d05ed28787cd6e272951835129bf4e31f5e21c6dce",
+      "title": "Approval.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/artifact.schema.json.json",
+      "companion_sha256": "be1de51d37747e58ef4085d4c8f85f44f9f68246c72488b38788c69a7d480541",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fartifact.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/artifact.schema.json",
+      "source_sha256": "1c6a7d90bde2d02963d009005ee07110494554855bb3ae9927ac7c6a3941f40f",
+      "title": "Artifact.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/base-entity.schema.json.json",
+      "companion_sha256": "419ee023de815525ecaca2c1684e1e6ed71f13048099ff560a02827509d972c5",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fbase-entity.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/base-entity.schema.json",
+      "source_sha256": "93dee35726e5ba70747785dbfda403294f59b0eba27b57194b912f4e2e832470",
+      "title": "Base Entity.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/capability.schema.json.json",
+      "companion_sha256": "bd031ee9068c4f749533e55e7ad491ec2d48ec04f1cf4bb57d493aec17565838",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fcapability.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/capability.schema.json",
+      "source_sha256": "a632d6f43d7f9d3d9816b349e77db706eb4e3be37dca997674de604ef2c4c187",
+      "title": "Capability.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/change-request.schema.json.json",
+      "companion_sha256": "0ff2772d913b731554274384e316da944a3e53a6e68f77ad4cd1765816b7b60c",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fchange-request.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/change-request.schema.json",
+      "source_sha256": "cbd411d4a1fb7aa16f969caf9cdd5af82800f1562ec576ad5bd646c020e836b7",
+      "title": "Change Request.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/decision.schema.json.json",
+      "companion_sha256": "a33fbe829cfa47c6f6b0173257a71bf7dbf92940e5a58cb4d16eff6ad5928e94",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fdecision.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/decision.schema.json",
+      "source_sha256": "5356f735f106e6c0c7b134050e33b35397ac62dd13e0ffbf55b9f7e1bc0331f4",
+      "title": "Decision.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/dependency.schema.json.json",
+      "companion_sha256": "cf51faebc0032c4cf7168fcac2114639c65c9ec86bbd407ca7adca8c4dfd49be",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fdependency.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/dependency.schema.json",
+      "source_sha256": "4fb26436a146463101796af04310ab64a905e815dd5fd0948d0be02e50c401a0",
+      "title": "Dependency.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/evidence.schema.json.json",
+      "companion_sha256": "f462573c5b1f88d0843da068c4018bc6656fee3034d1e660d0490549ed0d30f2",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fevidence.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/evidence.schema.json",
+      "source_sha256": "5f8295c662ba7b3e72c03d01f96ca9801dac0015155b3e36a1256eff8e7a3d49",
+      "title": "Evidence.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/maintenance-item.schema.json.json",
+      "companion_sha256": "2e4a25aa0ccf9bc684e313f1ec69cfa3af01992ebbc3476f1815e62e28ec0258",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fmaintenance-item.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/maintenance-item.schema.json",
+      "source_sha256": "18e8d50bcd8aa8431cbda6f6c600e76ac058464f8c38f15205a444a33cc3678d",
+      "title": "Maintenance Item.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/pi.schema.json.json",
+      "companion_sha256": "920b4ba5297b5062e0e695ed177a115e1fdced8bb79fc24cd5f6e2f9f8b9483e",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fpi.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/pi.schema.json",
+      "source_sha256": "4c875942508b06fef61adb631ece1c9b155071151c13c171bcfaabb8298cade4",
+      "title": "Pi.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/project.schema.json.json",
+      "companion_sha256": "63fbb6b7a108ff9f0772692b47eb2ba37fcf406763a947aaa42a8ef5caa6d2aa",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fproject.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/project.schema.json",
+      "source_sha256": "482db9154c28964c7cd6040994548b8b619b1b1dfea9835550a5a406c9a9812e",
+      "title": "Project.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/release.schema.json.json",
+      "companion_sha256": "0b516da2898d0957d72a060af7641c64ad830cd95982b592d2fa2e92b5852f52",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Frelease.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/release.schema.json",
+      "source_sha256": "bacab71ad3d92eda448d6a2320f4d6b0d64af3d6008e409b45e4807bcd6fb446",
+      "title": "Release.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/requirement.schema.json.json",
+      "companion_sha256": "804ba45d9cfc60ea9896a4af1ca6f651859c906911c25d303f3ce7eb6798d4e1",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Frequirement.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/requirement.schema.json",
+      "source_sha256": "f07d8308e9520b595590ab67d3b58e74a48a5313fb764b0b30cb9a1e0a8515ff",
+      "title": "Requirement.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/review.schema.json.json",
+      "companion_sha256": "a99104d53d30710260f7cd39b3d66189bc5218e3d4af003f9555d847e5f6e518",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Freview.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/review.schema.json",
+      "source_sha256": "cf5e47068307b8634d69f3f5413462e769ae1735ecc456e788e9985f630e89cf",
+      "title": "Review.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/risk.schema.json.json",
+      "companion_sha256": "ff9e65bd1a3be6e79a44b3befaad131b86c872ffbaa0c0b23aff038823c99cf7",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Frisk.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/risk.schema.json",
+      "source_sha256": "011148b227c566af946f4caffa377730d82e160c6818c550dc542071ed188003",
+      "title": "Risk.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/specification.schema.json.json",
+      "companion_sha256": "456a4024268ad5c5ebcc660e399d3d5b756113470d7c50434b7e2741243435c8",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fspecification.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/specification.schema.json",
+      "source_sha256": "982adfeb98a4a975e751efaad7d4952c284ddce2bb1bbb9b612cf4c9d599ee77",
+      "title": "Specification.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/trace-edge.schema.json.json",
+      "companion_sha256": "c97c033cb4f88bc25dd20a5fef2d0f2265375ee7c17c84164a08f498a2b4c1a8",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Ftrace-edge.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/trace-edge.schema.json",
+      "source_sha256": "fbe4389bb4a203ebfa3e860533f069e091d24191b8f8cc9b28ce0d0bcbdbf179",
+      "title": "Trace Edge.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/wc.schema.json.json",
+      "companion_sha256": "ce94402c11bb35d7bab0d57b1e67222d1345d78c9544f2b87b9b0299644074c0",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fwc.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/wc.schema.json",
+      "source_sha256": "a99b2edb3035b75b650abf85698c12636757773a38463bf8e9ec229211b48f82",
+      "title": "Wc.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/core/wp.schema.json.json",
+      "companion_sha256": "2e038778ad60fc29750a298d84d5ff54924b597b66e528371884fc5165b9315f",
+      "document_id": "doc:.eos%2Fschemas%2Fcore%2Fwp.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/core/wp.schema.json",
+      "source_sha256": "1addf502f80cfb5d58411b7b8becc9dc9e6b97758e3d42f645d313153260d96c",
+      "title": "Wp.Schema"
     },
     {
       "companion_path": "machine/documents/.eos/schemas/cr.schema.json.json",
@@ -832,6 +1352,32 @@
       "source_path": ".eos/schemas/event.schema.json",
       "source_sha256": "dd9f8690e06cfd3b82a3d2c338199b38b74c11286e5b56ddd04e111fd1b98cc4",
       "title": "Event.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/evid.schema.json.json",
+      "companion_sha256": "6b151a81ed6213bb87d51b6f72adab9f368fa47597745836ceb39e55ddffd0a9",
+      "document_id": "doc:.eos%2Fschemas%2Fevid.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/evid.schema.json",
+      "source_sha256": "02352fa251a5c1833e61fb0a48aa8f8edaf87d21ed0d0fa3c7a380700568805b",
+      "title": "Evid.Schema"
+    },
+    {
+      "companion_path": "machine/documents/.eos/schemas/exec.schema.json.json",
+      "companion_sha256": "79453db5e49b8a33618607ddd327567de350d74e4319585128b8e0400b85d2ce",
+      "document_id": "doc:.eos%2Fschemas%2Fexec.schema.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/schemas/exec.schema.json",
+      "source_sha256": "0561ceb702920896a104c9d9fd9ada985d495c7cfbfa3a29adea1855217258e7",
+      "title": "Exec.Schema"
     },
     {
       "companion_path": "machine/documents/.eos/schemas/mnt.schema.json.json",
@@ -861,7 +1407,7 @@
     },
     {
       "companion_path": "machine/documents/.eos/schemas/pi.schema.json.json",
-      "companion_sha256": "06f8c969544da012842af885abdc649688d808edf1363762c7bc05e9226eab42",
+      "companion_sha256": "49fbc6b1ce704d84a416319a961289c5684ac2fe1742773153b9ccf49d8ac9e2",
       "document_id": "doc:.eos%2Fschemas%2Fpi.schema.json",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -869,7 +1415,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/schemas/pi.schema.json",
-      "source_sha256": "eb8cab95113f5a4b20ae4c2cd638f3791bdef8f2c4e98238f1ce9e23ca1d543a",
+      "source_sha256": "0f573dc4b3ecd8990e82d2da4b91451e827ee4be320bbfd83d32acc9fe1099fa",
       "title": "Pi.Schema"
     },
     {
@@ -887,7 +1433,7 @@
     },
     {
       "companion_path": "machine/documents/.eos/schemas/wc.schema.json.json",
-      "companion_sha256": "e6bd532bd024479ce11b4f6afda303a65f92702653005f915510964f084a9cfe",
+      "companion_sha256": "59f97dd6285760c3f5a0a69c9787656fdc832359fc69220be492beecce608057",
       "document_id": "doc:.eos%2Fschemas%2Fwc.schema.json",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -895,12 +1441,12 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/schemas/wc.schema.json",
-      "source_sha256": "3e798947379bbcf24d11f479af116e8d18c8b168fe084f89ea2ea29892a6c9f6",
+      "source_sha256": "f6802385c89f78044a42def7d0e1e271cfca5edcf997e45a9c7339d6bf0e6347",
       "title": "Wc.Schema"
     },
     {
       "companion_path": "machine/documents/.eos/schemas/wp.schema.json.json",
-      "companion_sha256": "68a7a504400c691b91d0fe6889702a5375f59471a14df42410ebe65480035dbd",
+      "companion_sha256": "37aa8d101ee563dcd4b97eacd39a19e08e0c4592294e4d6e9cb641aadf89f3c1",
       "document_id": "doc:.eos%2Fschemas%2Fwp.schema.json",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -908,7 +1454,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/schemas/wp.schema.json",
-      "source_sha256": "7ccad5ff4c7207028b9f00fb374329dc2d1949d785c9204814ff0c11d2d57939",
+      "source_sha256": "8bf906bbdfd97493f8e907791f94f8e3521d752f090796599772b07ff1e670b5",
       "title": "Wp.Schema"
     },
     {
@@ -938,6 +1484,32 @@
       "title": "Cr"
     },
     {
+      "companion_path": "machine/documents/.eos/state-machines/evid.json.json",
+      "companion_sha256": "c55b5db3b054e953e38cc7235cd6c0afc4fda711205bc5d30d88d6747978788b",
+      "document_id": "doc:.eos%2Fstate-machines%2Fevid.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/state-machines/evid.json",
+      "source_sha256": "9acf3f7622198483ee337a9a8c95f3cbc0b43ec2a18a0a8f02142ab22462d45a",
+      "title": "Evid"
+    },
+    {
+      "companion_path": "machine/documents/.eos/state-machines/exec.json.json",
+      "companion_sha256": "df373886e9976bae88b44d85be0b31fdac13974146edb5340d049b67b339e0a4",
+      "document_id": "doc:.eos%2Fstate-machines%2Fexec.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/state-machines/exec.json",
+      "source_sha256": "1d5712f289ed7400c8ae0b73a9567439b3e02474df7ebfa043944fc4b48c718d",
+      "title": "Exec"
+    },
+    {
       "companion_path": "machine/documents/.eos/state-machines/mnt.json.json",
       "companion_sha256": "a91b2b9a29e8a814fce37b8f338e954760ddfad5061334dbb6e2440ac9399529",
       "document_id": "doc:.eos%2Fstate-machines%2Fmnt.json",
@@ -952,7 +1524,7 @@
     },
     {
       "companion_path": "machine/documents/.eos/state-machines/pi.json.json",
-      "companion_sha256": "fd9247b00441306e093344f2ee750d27cad754847841a503f35fed77d7c80986",
+      "companion_sha256": "947e852cf38bcd7cb2cc36860f9a05cc8ae6ed2dbb7a01a28bf82876a162e101",
       "document_id": "doc:.eos%2Fstate-machines%2Fpi.json",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -960,7 +1532,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/state-machines/pi.json",
-      "source_sha256": "f4d49d73da505ff9bfd862baf5311a842f1c67de111c03972bb24a4daa97a222",
+      "source_sha256": "2c735470d1d3c45a40db2d5ee0dd553f207e3285b32c940db868afacb51e16d5",
       "title": "Pi"
     },
     {
@@ -978,7 +1550,7 @@
     },
     {
       "companion_path": "machine/documents/.eos/state-machines/wc.json.json",
-      "companion_sha256": "a85a713ce8e515b882ae3f99e5972f17d601ebc04c462366bc6cc12db7098686",
+      "companion_sha256": "c50214c0a428b91e7bb246de643b1c4ba506ca30936fe474a22e7c79162e1433",
       "document_id": "doc:.eos%2Fstate-machines%2Fwc.json",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -986,12 +1558,12 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/state-machines/wc.json",
-      "source_sha256": "7a61ad02099771ceb4f53d6a6cacdbdb0ab05f8fa4849ee227503a08c0bb5146",
+      "source_sha256": "8b8bd3c2047dc0805c718fc26d32e246ca514a297acba14b9c1e739d9eda153b",
       "title": "Wc"
     },
     {
       "companion_path": "machine/documents/.eos/state-machines/wp.json.json",
-      "companion_sha256": "fc47ce09a463efd65ed023feb1edd374076b50d80058f3f10a8c2052fd50d898",
+      "companion_sha256": "53494315e86709a4be782888994e56241b91bdf2d44e95687e7fbf3f5f654f56",
       "document_id": "doc:.eos%2Fstate-machines%2Fwp.json",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -999,21 +1571,34 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/state-machines/wp.json",
-      "source_sha256": "c3fd5dfe831b8327c81efe59ae77f4fd3b62c818ec5a65586c2c8d358f93346b",
+      "source_sha256": "ce593209fb66c4664f10860a9d5a7d95d4c3579dec851315ba1261157973350e",
       "title": "Wp"
     },
     {
       "companion_path": "machine/documents/.eos/trace-edges.tsv.json",
-      "companion_sha256": "ead3225b605d2417241e00f6448e2e1f6b008698fcb168c38552c0850e6f1a34",
+      "companion_sha256": "2484eb99ac7dd89b74f552afa67574090edcbd194de9734cd491d75c94964c35",
       "document_id": "doc:.eos%2Ftrace-edges.tsv",
       "document_type": "project-source",
-      "identifier_count": 14,
+      "identifier_count": 18,
       "normative": false,
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/trace-edges.tsv",
-      "source_sha256": "4372be40e115f736beb2a74f022846f9710051493c9b2c41c6679e8435abbf9f",
+      "source_sha256": "91ca1b2918cf8d7c0efd624f148a7e384e622c3f6cd087afcb6bb397eec7d42f",
       "title": "Trace Edges"
+    },
+    {
+      "companion_path": "machine/documents/.eos/validation-profiles.json.json",
+      "companion_sha256": "926664c38ab2dea1a49a189c6dbb13ae45acdb2a1e0f26b4914f12b5c637d2ee",
+      "document_id": "doc:.eos%2Fvalidation-profiles.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/validation-profiles.json",
+      "source_sha256": "7b30ce06e7bea4a45755884d463c0003b6580748a38552e850e6afc681b97dbe",
+      "title": "Validation Profiles"
     },
     {
       "companion_path": "machine/documents/.eos/validation.commands.json",
@@ -1029,8 +1614,34 @@
       "title": "Validation"
     },
     {
+      "companion_path": "machine/documents/.eos/validators.json.json",
+      "companion_sha256": "36164bd82d0df746b6b7d0813acb839b11d17cf800ba1296b76087d341a08603",
+      "document_id": "doc:.eos%2Fvalidators.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/validators.json",
+      "source_sha256": "43a159e7e3bd9fd5727cab5c907d73fe9285cf4e885130fa60cca128d1b30703",
+      "title": "Validators"
+    },
+    {
+      "companion_path": "machine/documents/.eos/validators.local.json.json",
+      "companion_sha256": "dde6853b3b1ce308776a9d95fef3c52e01de23c6b4c90a0300b25dc163216cd5",
+      "document_id": "doc:.eos%2Fvalidators.local.json",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".eos/validators.local.json",
+      "source_sha256": "9f450b643356ce91d206ebea2a78156bde913a192ffcdb3153b3cc2b71532db6",
+      "title": "Validators.Local"
+    },
+    {
       "companion_path": "machine/documents/.eos/version.json.json",
-      "companion_sha256": "a230698b2383bbb87c7c44eb1dace3c2fd05ab3c7b65414f30fc2fa4673997e4",
+      "companion_sha256": "64f28c63e110f232b2ed0faff90560cb5ed5e37f5d1f7cb68eb6fce4f664ca8f",
       "document_id": "doc:.eos%2Fversion.json",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -1038,12 +1649,12 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/version.json",
-      "source_sha256": "5f30d9fb554c70e4d9f6f8fbf983ed7a6ead308db459c19f8770326459d82207",
+      "source_sha256": "ae7bc1e8884e5c35f6946789d9c29f7987e0d8a1d13fd5530ceb64b84b64a51c",
       "title": "Version"
     },
     {
       "companion_path": "machine/documents/.eos/work-cycles.tsv.json",
-      "companion_sha256": "eb560e22825b959e52469bcde91bf68e616eca5a3968b236984104102750892f",
+      "companion_sha256": "fb3c330d0ded734f097e0290fb8ced3f6a78c695fcdffbd0fd19e74aebcc8d7e",
       "document_id": "doc:.eos%2Fwork-cycles.tsv",
       "document_type": "project-source",
       "identifier_count": 1,
@@ -1051,12 +1662,12 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/work-cycles.tsv",
-      "source_sha256": "e7f344f42620775e13fad7f486c8ee98f2c2605d4d8078190eed7051dd5ed1f8",
+      "source_sha256": "3445bb2d924bbd905982d2341dc9d719e95df6d18bdd05fe5741e63f5fe6089e",
       "title": "Work Cycles"
     },
     {
       "companion_path": "machine/documents/.eos/work-packets.tsv.json",
-      "companion_sha256": "a123e45899fc65bd629d146eda95051fb6e08572bfa53a7160dd278b5b6c6bfb",
+      "companion_sha256": "cc8c9d112dad0b200c5acb59d1ba8bf1eb567bc3845cd00125f0d29be70ef991",
       "document_id": "doc:.eos%2Fwork-packets.tsv",
       "document_type": "project-source",
       "identifier_count": 2,
@@ -1064,12 +1675,12 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/work-packets.tsv",
-      "source_sha256": "40a01447a905d888b909f1dd72e7a14a8223e81ce526aaa86d8162bcfe65a277",
+      "source_sha256": "bee61c6e37792ff3bf4e52814a2d71a15b0e23d273faf3aca12fe557b4c80f80",
       "title": "Work Packets"
     },
     {
       "companion_path": "machine/documents/.eos/workflow.tsv.json",
-      "companion_sha256": "3bb57c1b6dde238901a85135f12bc8e495f77cbec5c65ced9f887d7a95d9b185",
+      "companion_sha256": "32ccc6efcecbb01ba6056fbf22a7cf45133518d6e49211fafffd93be04594fca",
       "document_id": "doc:.eos%2Fworkflow.tsv",
       "document_type": "project-source",
       "identifier_count": 2,
@@ -1077,7 +1688,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/workflow.tsv",
-      "source_sha256": "c5589ed777e5ac75f7121da756bb497c67e3f08ad02df21823bdb2acb9a407b1",
+      "source_sha256": "82b1c31512a3d09938b8d4a611bfc704a5c0239193496aa11ade94fa82adce37",
       "title": "Workflow"
     },
     {
@@ -1225,7 +1836,7 @@
     },
     {
       "companion_path": "machine/documents/.github/workflows/eos-integrity.yml.json",
-      "companion_sha256": "e86abcd3ce2449f1447b2938d3a1514b4ed84bd5902a4eab1ae6a0428883f275",
+      "companion_sha256": "9f0ddab24bbc67ba40eb4154d08c56583ffd31d94e30906e83f0f2cf58003e67",
       "document_id": "doc:.github%2Fworkflows%2Feos-integrity.yml",
       "document_type": "continuous-integration",
       "identifier_count": 0,
@@ -1233,7 +1844,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".github/workflows/eos-integrity.yml",
-      "source_sha256": "c0e43ccb64c44c4eec5b86467bf043a1b23052d41f05229babef9e7469977c6b",
+      "source_sha256": "8045224c047b69e80f1ce48b731a3e08d0a29afedb3149dbc183dbe395ac6d60",
       "title": "Eos Integrity"
     },
     {
@@ -1248,6 +1859,19 @@
       "source_path": ".github/workflows/github-tracking-sync.yml",
       "source_sha256": "085a08a3383001ad0870b32ccce9818a5d1ba47a1ed0d5364c3c38dfee59d823",
       "title": "Github Tracking Sync"
+    },
+    {
+      "companion_path": "machine/documents/.github/workflows/machine-workflow-projection.yml.json",
+      "companion_sha256": "7ab926c6f5a6d6714f1336a8733283c24ef262f49053cc245d8dc0f00fc4e588",
+      "document_id": "doc:.github%2Fworkflows%2Fmachine-workflow-projection.yml",
+      "document_type": "continuous-integration",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".github/workflows/machine-workflow-projection.yml",
+      "source_sha256": "b3621e884a91a05466ab64119b5c16c185c01273a999702a1c00617b94c350a5",
+      "title": "Machine Workflow Projection"
     },
     {
       "companion_path": "machine/documents/.github/workflows/repository-integrity.yml.json",
@@ -11195,6 +11819,32 @@
       "title": "Bootstrap Engineering Os V0.5 Planning"
     },
     {
+      "companion_path": "machine/documents/bootstrap-engineering-os-v0.6-execution-v2.sh.json",
+      "companion_sha256": "0fa0778ddb058ca839c9e050fe966bb9fe0aa771fc8894c629e1c052b54ab5d8",
+      "document_id": "doc:bootstrap-engineering-os-v0.6-execution-v2.sh",
+      "document_type": "project-record",
+      "identifier_count": 8,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "bootstrap-engineering-os-v0.6-execution-v2.sh",
+      "source_sha256": "08812d93460be69f2905348ef489c69b88b0138adbda9ebf7e46f2e0e7656284",
+      "title": "Bootstrap Engineering Os V0.6 Execution V2"
+    },
+    {
+      "companion_path": "machine/documents/bootstrap-engineering-os-v0.7-verification-v2.sh.json",
+      "companion_sha256": "6086c68178f01de299ddc1a27bb4e3ff60fa9f875f42e868e1f2acb62d002b44",
+      "document_id": "doc:bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "document_type": "project-record",
+      "identifier_count": 9,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "source_sha256": "b1beb3857611866af1bbe46408e2430efe0cdc03aa0f8cc2fd89a72979865bf5",
+      "title": "Bootstrap Engineering Os V0.7 Verification V2"
+    },
+    {
       "companion_path": "machine/documents/bootstrap-engineering-os.sh.json",
       "companion_sha256": "c58a78a311fbed74599e4109356e9999cfd053155eb178de8f20513567ec8a96",
       "document_id": "doc:bootstrap-engineering-os.sh",
@@ -11336,6 +11986,19 @@
       "source_path": "engineering/engineering-plan.md",
       "source_sha256": "5fdb93f28f53b13824bf63f96dffc27a2afcd75d98203235065b49c641c6ece6",
       "title": "Engineering Plan"
+    },
+    {
+      "companion_path": "machine/documents/engineering/eos/EOS-CORE-SCHEMA-AND-DOMAIN-MODEL.md.json",
+      "companion_sha256": "9e8fe9afd2296850c9e852e5d03f4c3a4eb34903c53c339fb8e7402d4e035315",
+      "document_id": "doc:engineering%2Feos%2FEOS-CORE-SCHEMA-AND-DOMAIN-MODEL.md",
+      "document_type": "engineering-control",
+      "identifier_count": 0,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 8,
+      "source_path": "engineering/eos/EOS-CORE-SCHEMA-AND-DOMAIN-MODEL.md",
+      "source_sha256": "e8ed719fd46f73cf4cf3c6647d77b976c96ec4ae179622e99551533e5a49b98a",
+      "title": "EOS Core Schema and Canonical Domain Model"
     },
     {
       "companion_path": "machine/documents/engineering/github/OWNER-ACTIONS.md.json",
@@ -11482,7 +12145,7 @@
     },
     {
       "companion_path": "machine/documents/engineering/increments/PI-001.md.json",
-      "companion_sha256": "2a7e993393a5ff3320b9ccd61cdea5f15e779e02283feb57ddb185b46630cc91",
+      "companion_sha256": "b25c5d93b5f3fbbfcdba0bac6342ded79e496e856c3bf9b43f61a71f08c68e51",
       "document_id": "doc:engineering%2Fincrements%2FPI-001.md",
       "document_type": "engineering-control",
       "identifier_count": 7,
@@ -11490,12 +12153,12 @@
       "relation_count": 0,
       "section_count": 5,
       "source_path": "engineering/increments/PI-001.md",
-      "source_sha256": "6a2b22a219a32b3c5fbe8d9563920af02102fa26ca5d1119f4f28d4a36f93659",
+      "source_sha256": "9e32e747136fc28b978bdad01e320edaf74c12f61ab9745afef2fa373964ecb1",
       "title": "PI-001: Architecture Baseline"
     },
     {
       "companion_path": "machine/documents/engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md.json",
-      "companion_sha256": "42aeb0cbb085d4e91501cc5755a66fec373add1eb6cf3cc1bf7538951aa91b1b",
+      "companion_sha256": "a94e2d1d3541b1263dfdc35674515a87d3103cf7995eea05637efcd08df96f7f",
       "document_id": "doc:engineering%2Fincrements%2FPI-MVP-001-SEMANTIC-FOUNDATION.md",
       "document_type": "engineering-control",
       "identifier_count": 0,
@@ -11503,7 +12166,7 @@
       "relation_count": 0,
       "section_count": 5,
       "source_path": "engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md",
-      "source_sha256": "cea5a99c57e17f111595612753a962bc9813d9225e1cf8f44e98e4599f7acbfc",
+      "source_sha256": "c10291d1bb729804eff077a167bb4a16c987a9f604041ad9fe94f41f73242a7c",
       "title": "PI-MVP-001 — Semantic Foundation"
     },
     {
@@ -11637,6 +12300,19 @@
       "title": "EOSR — Review"
     },
     {
+      "companion_path": "machine/documents/engineering/lifecycle/EOSV-verification-v2.md.json",
+      "companion_sha256": "330ae8aab9dcf3dc7eae50fa7c27709d8270d617c7e73fde6716582fce3ba98b",
+      "document_id": "doc:engineering%2Flifecycle%2FEOSV-verification-v2.md",
+      "document_type": "engineering-control",
+      "identifier_count": 0,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 6,
+      "source_path": "engineering/lifecycle/EOSV-verification-v2.md",
+      "source_sha256": "46388a6887f27f10ac5fdfa5d3835de47c957a1fc982e67743948cf06635ab74",
+      "title": "EOSV — Verification v2"
+    },
+    {
       "companion_path": "machine/documents/engineering/lifecycle/EOSV-verification.md.json",
       "companion_sha256": "99497f80a480f762d8c7c39d69f2c93bbd2eef1e1a11a21a32eb456163c76b4e",
       "document_id": "doc:engineering%2Flifecycle%2FEOSV-verification.md",
@@ -11742,15 +12418,15 @@
     },
     {
       "companion_path": "machine/documents/engineering/project-status.md.json",
-      "companion_sha256": "9f23d6083a1ddb2b67fd13bdaa9cdb55eba5a4b762e4a7c23472c5b40a71061c",
+      "companion_sha256": "b89133fb2a2f9c1112df7addce49803befe1fd4f273ad8773c0f3d7c2c93fdb2",
       "document_id": "doc:engineering%2Fproject-status.md",
       "document_type": "engineering-control",
-      "identifier_count": 3,
+      "identifier_count": 4,
       "normative": true,
       "relation_count": 0,
       "section_count": 6,
       "source_path": "engineering/project-status.md",
-      "source_sha256": "ea3764bffe5e258d07101c2949a72a22ece8baf86ba82bc7ad9a667aac10e503",
+      "source_sha256": "97eaf7a28b1e834f9c653e4820029b11d45b72f60cded0e1b8889877f06b6ff7",
       "title": "Project Status"
     },
     {
@@ -11765,6 +12441,19 @@
       "source_path": "engineering/prompts/README.md",
       "source_sha256": "5badb40aac62b1b1c5bd357238a6b49616c25cf3e22dd4161078ed153585820d",
       "title": "EOS Prompt Catalog"
+    },
+    {
+      "companion_path": "machine/documents/engineering/reviews/EOS-0.8-PROGRAM-ADOPTION-REVIEW.md.json",
+      "companion_sha256": "d1da9418794ee680d333eb0f7b2c8d086ec8f38d87269e7d6d50becf2a17009b",
+      "document_id": "doc:engineering%2Freviews%2FEOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
+      "document_type": "engineering-control",
+      "identifier_count": 2,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 14,
+      "source_path": "engineering/reviews/EOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
+      "source_sha256": "e4d8513ccfc21065659a223baf2f2fd4c4bf84b8a9420331e2e615bd0bf146f0",
+      "title": "EOS 0.8 Program Adoption Review"
     },
     {
       "companion_path": "machine/documents/engineering/reviews/FOUNDATION-STABILIZATION-CLOSURE-2026-08-12.md.json",
@@ -11911,7 +12600,7 @@
     },
     {
       "companion_path": "machine/documents/engineering/work-cycles/WC-0001.md.json",
-      "companion_sha256": "2bc2836d1c30735ec1af6e216962a19384a123f4ade71aef520519ea8415725a",
+      "companion_sha256": "aaf52d00cdb4d9785d9b4c63b2ef8d53e31a37e729e8fcffb2cabc9bebca1994",
       "document_id": "doc:engineering%2Fwork-cycles%2FWC-0001.md",
       "document_type": "engineering-control",
       "identifier_count": 4,
@@ -11919,8 +12608,21 @@
       "relation_count": 0,
       "section_count": 4,
       "source_path": "engineering/work-cycles/WC-0001.md",
-      "source_sha256": "a9836d1521440b6763c0376c3f440114ca51f6c2cecad33c4b2277997ef65b07",
+      "source_sha256": "c360218971242b8b75f04373066418eaf0ab89824f24bab3437dbe80b79a1202",
       "title": "WC-0001: Architecture and Boundaries"
+    },
+    {
+      "companion_path": "machine/documents/engineering/work-cycles/WC-MVP-0001.md.json",
+      "companion_sha256": "b3c876c72e1fc5d9efe84cb7d5d5f7032a3cce61a14f70f55faa630e31aec025",
+      "document_id": "doc:engineering%2Fwork-cycles%2FWC-MVP-0001.md",
+      "document_type": "engineering-control",
+      "identifier_count": 4,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 8,
+      "source_path": "engineering/work-cycles/WC-MVP-0001.md",
+      "source_sha256": "6ce89e032642398da4fe2ac981253c058a630e42feb04a760e7efed318092e87",
+      "title": "WC-MVP-0001 — Workspace, Discovery, and Identity"
     },
     {
       "companion_path": "machine/documents/engineering/work-packets/README.md.json",
@@ -11937,7 +12639,7 @@
     },
     {
       "companion_path": "machine/documents/engineering/work-packets/WP-0001.md.json",
-      "companion_sha256": "d30f72784fb221445b2272f084048d82446e8067bcb9a5b8e61074c42aedb6a5",
+      "companion_sha256": "42b298807a6a2f7412ae2db1334bff37d011c187d094117664e802294f3dddc0",
       "document_id": "doc:engineering%2Fwork-packets%2FWP-0001.md",
       "document_type": "engineering-control",
       "identifier_count": 2,
@@ -11945,12 +12647,12 @@
       "relation_count": 0,
       "section_count": 9,
       "source_path": "engineering/work-packets/WP-0001.md",
-      "source_sha256": "34ea35b47f6b78af6f3220ea16b58b91feed634f0d361334ba8940bd62e84fe9",
+      "source_sha256": "f0f1a66375f72f0c390218f07fb7ba3a9e8e363d0cd465ad1182eb61527b7e4e",
       "title": "WP-0001: Architecture Baseline"
     },
     {
       "companion_path": "machine/documents/engineering/work-packets/WP-MVP-0001.md.json",
-      "companion_sha256": "e39c56600492bb0ba5b733b644ed958b9c6492b3094549cb44ee6e56a257407b",
+      "companion_sha256": "8cf82eca8907c1c2d8827a1f425e406f69c9c1679e9594526d1a91833e42968f",
       "document_id": "doc:engineering%2Fwork-packets%2FWP-MVP-0001.md",
       "document_type": "engineering-control",
       "identifier_count": 7,
@@ -11958,7 +12660,7 @@
       "relation_count": 0,
       "section_count": 10,
       "source_path": "engineering/work-packets/WP-MVP-0001.md",
-      "source_sha256": "cfaf936e7f888692a2682e75b4bd1ad0f43003b9e2844c165a458195a92cd62a",
+      "source_sha256": "ba172e61c8f0bfdad907c6597cdb04611e02482b1af13fea31c4024bab5ea50a",
       "title": "WP-MVP-0001 — Repository identity and effective configuration"
     },
     {
@@ -12521,6 +13223,19 @@
       "title": "EOS Event Ledger Policy"
     },
     {
+      "companion_path": "machine/documents/governance/execution-engine.md.json",
+      "companion_sha256": "2472eaa8263c937eb4e314e9ac5ad39c1f8c3b0b5d9bf1235ce051c57f490f4d",
+      "document_id": "doc:governance%2Fexecution-engine.md",
+      "document_type": "governance",
+      "identifier_count": 0,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 5,
+      "source_path": "governance/execution-engine.md",
+      "source_sha256": "f6b5bd538e3917578e135cd389456fcec1b34e0b0388166e16da1754efb7072a",
+      "title": "EOSE Execution Engine"
+    },
+    {
       "companion_path": "machine/documents/governance/github-integration.md.json",
       "companion_sha256": "ecdbdb9eb04a8f80b543055b0bf0f354f8561290eefb19dea86815b358d98df7",
       "document_id": "doc:governance%2Fgithub-integration.md",
@@ -12990,7 +13705,7 @@
     },
     {
       "companion_path": "machine/documents/scripts/eos.json",
-      "companion_sha256": "4640cb13f56f930c2f477f2020d1f3576ff21d6103a6a53854bfc3e10fa97d29",
+      "companion_sha256": "51eccd3692aaeb6e483a27a1b649b87f1204b631c6096b3eab39742bf5a2b5e3",
       "document_id": "doc:scripts%2Feos",
       "document_type": "automation",
       "identifier_count": 0,
@@ -12998,7 +13713,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "scripts/eos",
-      "source_sha256": "6fe7c189e64a11ebb46769241f456299f8f943c059f44089fad24b39efa5a3e4",
+      "source_sha256": "92e59af2e1ddc0fe239320c6fdf42b36c1b73ed92e095da96aaf98bb47a81b2a",
       "title": "Eos"
     },
     {
@@ -13054,6 +13769,19 @@
       "title": "Setup Github Owner"
     },
     {
+      "companion_path": "machine/documents/scripts/sync-eos-lifecycle-model.py.json",
+      "companion_sha256": "f943889fcc3cfe90643c36591de1b347d535703ba484457f237859c187376fee",
+      "document_id": "doc:scripts%2Fsync-eos-lifecycle-model.py",
+      "document_type": "automation",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "scripts/sync-eos-lifecycle-model.py",
+      "source_sha256": "f3ba0fc0a80627a4d034c929c8cf69a17874b2725928a5f13f943a194cb17d11",
+      "title": "Sync Eos Lifecycle Model"
+    },
+    {
       "companion_path": "machine/documents/scripts/sync-github-tracking.py.json",
       "companion_sha256": "3d4e2005b8ce00b0dfe51f1465099c5ed5648eae61c78800746a424eaae26fb3",
       "document_id": "doc:scripts%2Fsync-github-tracking.py",
@@ -13078,6 +13806,32 @@
       "source_path": "scripts/sync-machine-docs.py",
       "source_sha256": "a7e660cd324f5364044b328441021ce9b97d047fb6a132d6bbc48a503b347702",
       "title": "Sync Machine Docs"
+    },
+    {
+      "companion_path": "machine/documents/scripts/test-eos-0.8-adoption-safety.py.json",
+      "companion_sha256": "968c72a1390d86dd6eebf7b388cee2ce8358003463c9ee9059edd910162c8b3d",
+      "document_id": "doc:scripts%2Ftest-eos-0.8-adoption-safety.py",
+      "document_type": "automation",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "scripts/test-eos-0.8-adoption-safety.py",
+      "source_sha256": "0b3943a31e90aa796ce35a7f29f3525d5a5b1fcc9a1d39d95a836841bb0efa8c",
+      "title": "Test Eos 0.8 Adoption Safety"
+    },
+    {
+      "companion_path": "machine/documents/scripts/test-eos-0.8-program-adoption.py.json",
+      "companion_sha256": "5de8f700acd38bf5186d54ec691cca98e389dc935b70675493f1fa9f46b82897",
+      "document_id": "doc:scripts%2Ftest-eos-0.8-program-adoption.py",
+      "document_type": "automation",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "scripts/test-eos-0.8-program-adoption.py",
+      "source_sha256": "aabcaf8fece558b05883d44acecc9858a5c6b0be96f2df8fdc0542a12d12c72b",
+      "title": "Test Eos 0.8 Program Adoption"
     },
     {
       "companion_path": "machine/documents/security/README.md.json",
@@ -13354,16 +14108,42 @@
     },
     {
       "companion_path": "machine/documents/tools/eos/eos.py.json",
-      "companion_sha256": "a915a9888a8d4bcee86e3c2d2d65e72a6deccd86c6f9e1424c82d82fe005ae87",
+      "companion_sha256": "2144600ef0028dcc472963272c02c694fc9a072f0393f66d01e8ee80dae8f348",
       "document_id": "doc:tools%2Feos%2Feos.py",
       "document_type": "tooling",
-      "identifier_count": 1,
+      "identifier_count": 2,
       "normative": false,
       "relation_count": 0,
       "section_count": 1,
       "source_path": "tools/eos/eos.py",
-      "source_sha256": "f7b19bc87f75ac14ac3ec61cd67a7b6726f434a8789325ee6d82aa30b4adf7ce",
+      "source_sha256": "7a7f1b9ad831ef37bd09d2ffa4eebefd4085c216d85117de034e3837ef477a2d",
       "title": "Eos"
+    },
+    {
+      "companion_path": "machine/documents/tools/eos/execution_v2.py.json",
+      "companion_sha256": "edf96d4f2c75b5cc093161b6ac804df327b34c405ae3f3f051e4592ee4b8e979",
+      "document_id": "doc:tools%2Feos%2Fexecution_v2.py",
+      "document_type": "tooling",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "tools/eos/execution_v2.py",
+      "source_sha256": "bd901f13f813c7136977d0ece35fff5969879b47ea67ddbc4bb5381eb6a2cda7",
+      "title": "Execution V2"
+    },
+    {
+      "companion_path": "machine/documents/tools/eos/verification_v2.py.json",
+      "companion_sha256": "a58c3496e81a08576d4b88049a79fa8f50968a06de742db70cdb7349651dfcda",
+      "document_id": "doc:tools%2Feos%2Fverification_v2.py",
+      "document_type": "tooling",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "tools/eos/verification_v2.py",
+      "source_sha256": "98bd363ca3541f57694b6f4467bc2f801865a32c330a7f1e76ccf0a17c270d4a",
+      "title": "Verification V2"
     },
     {
       "companion_path": "machine/documents/vision/README.md.json",
@@ -13464,7 +14244,7 @@
   },
   "schema": "machine/schemas/manifest.schema.json",
   "schema_version": "1.0.0",
-  "source_count": 1035,
+  "source_count": 1095,
   "source_root": ".",
-  "source_tree_sha256": "2a404ad49150dd4349d49286ecb3f892d8d2ce7550e7ca1b7e026a69d990a22d"
+  "source_tree_sha256": "f011d5b269930f0d02aac35d404a7f44bf1dc4117d15cd94968d356753374a14"
 }

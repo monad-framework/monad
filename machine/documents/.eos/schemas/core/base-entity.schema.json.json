@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/base-entity.schema.json\",\"title\":\"EOS Canonical Entity\",\"description\":\"Common contract required by every first-class EOS entity.\",\"type\":\"object\",\"required\":[\"id\",\"entity_type\",\"schema_version\",\"version\",\"lifecycle_state\",\"created_at\",\"updated_at\",\"relationships\",\"authority_level\",\"provenance\"],\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":1},\"entity_type\":{\"type\":\"string\",\"minLength\":1},\"schema_version\":{\"type\":\"string\",\"pattern\":\"^[0-9]+\\\\.[0-9]+\\\\.[0-9]+$\"},\"version\":{\"type\":\"string\",\"pattern\":\"^[0-9]+\\\\.[0-9]+\\\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$\"},\"lifecycle_state\":{\"type\":\"string\",\"minLength\":1},\"created_at\":{\"type\":\"string\",\"format\":\"date-time\"},\"updated_at\":{\"type\":\"string\",\"format\":\"date-time\"},\"effective_at\":{\"type\":[\"string\",\"null\"],\"format\":\"date-time\"},\"closed_at\":{\"type\":[\"string\",\"null\"],\"format\":\"date-time\"},\"relationships\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/$defs/relationship\"},\"default\":[]},\"authority_level\":{\"$ref\":\"#/$defs/authorityLevel\"},\"provenance\":{\"$ref\":\"#/$defs/provenance\"},\"labels\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"uniqueItems\":true},\"extensions\":{\"type\":\"object\",\"additionalProperties\":true}},\"$defs\":{\"authorityLevel\":{\"type\":\"string\",\"enum\":[\"L0_INFORMATIVE\",\"L1_ADVISORY\",\"L2_NORMATIVE\",\"L3_BINDING\",\"L4_HUMAN_SOVEREIGN\"]},\"relationship\":{\"type\":\"object\",\"required\":[\"type\",\"target_id\"],\"properties\":{\"type\":{\"type\":\"string\",\"enum\":[\"CONTAINS\",\"BELONGS_TO\",\"DERIVES_FROM\",\"SUPERSEDES\",\"SUPERSEDED_BY\",\"IMPLEMENTS\",\"SATISFIES\",\"VERIFIED_BY\",\"EVIDENCES\",\"REVIEWS\",\"APPROVES\",\"DEPENDS_ON\",\"BLOCKS\",\"TRACES_TO\",\"REFERENCES\",\"CONFORMS_TO\",\"CONSTRAINED_BY\",\"AFFECTS\",\"INCLUDES\",\"PRODUCES\",\"CONSUMES\",\"RELEASES\",\"MAINTAINS\",\"GOVERNS\",\"AUTHORIZED_BY\"]},\"target_id\":{\"type\":\"string\",\"minLength\":1},\"target_type\":{\"type\":\"string\"},\"metadata\":{\"type\":\"object\",\"additionalProperties\":true}},\"additionalProperties\":false},\"provenance\":{\"type\":\"object\",\"required\":[\"origin\",\"created_by\",\"source_refs\",\"generation_method\"],\"properties\":{\"origin\":{\"type\":\"string\",\"enum\":[\"HUMAN\",\"CHATGPT\",\"CODEX\",\"AUTOMATION\",\"IMPORT\",\"MIGRATION\",\"GITHUB\",\"EXTERNAL\"]},\"created_by\":{\"type\":\"string\",\"minLength\":1},\"source_refs\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"uniqueItems\":true},\"generation_method\":{\"type\":\"string\",\"minLength\":1},\"commit_sha\":{\"type\":\"string\",\"pattern\":\"^[0-9a-fA-F]{7,64}$\"},\"content_sha256\":{\"type\":\"string\",\"pattern\":\"^[0-9a-fA-F]{64}$\"},\"tool\":{\"type\":\"string\"},\"tool_version\":{\"type\":\"string\"},\"recorded_at\":{\"type\":\"string\",\"format\":\"date-time\"}},\"additionalProperties\":false}}}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Fbase-entity.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/base-entity.schema.json.",
+    "title": "Base Entity.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/base-entity.schema.json\",\"title\":\"EOS Canonical Entity\",\"description\":\"Common contract required by every first-class EOS entity.\",\"type\":\"object\",\"required\":[\"id\",\"entity_type\",\"schema_version\",\"version\",\"lifecycle_state\",\"created_at\",\"updated_at\",\"relationships\",\"authority_level\",\"provenance\"],\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":1},\"entity_type\":{\"type\":\"string\",\"minLength\":1},\"schema_version\":{\"type\":\"string\",\"pattern\":\"^[0-9]+\\\\.[0-9]+\\\\.[0-9]+$\"},\"version\":{\"type\":\"string\",\"pattern\":\"^[0-9]+\\\\.[0-9]+\\\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$\"},\"lifecycle_state\":{\"type\":\"string\",\"minLength\":1},\"created_at\":{\"type\":\"string\",\"format\":\"date-time\"},\"updated_at\":{\"type\":\"string\",\"format\":\"date-time\"},\"effective_at\":{\"type\":[\"string\",\"null\"],\"format\":\"date-time\"},\"closed_at\":{\"type\":[\"string\",\"null\"],\"format\":\"date-time\"},\"relationships\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/$defs/relationship\"},\"default\":[]},\"authority_level\":{\"$ref\":\"#/$defs/authorityLevel\"},\"provenance\":{\"$ref\":\"#/$defs/provenance\"},\"labels\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"uniqueItems\":true},\"extensions\":{\"type\":\"object\",\"additionalProperties\":true}},\"$defs\":{\"authorityLevel\":{\"type\":\"string\",\"enum\":[\"L0_INFORMATIVE\",\"L1_ADVISORY\",\"L2_NORMATIVE\",\"L3_BINDING\",\"L4_HUMAN_SOVEREIGN\"]},\"relationship\":{\"type\":\"object\",\"required\":[\"type\",\"target_id\"],\"properties\":{\"type\":{\"type\":\"string\",\"enum\":[\"CONTAINS\",\"BELONGS_TO\",\"DERIVES_FROM\",\"SUPERSEDES\",\"SUPERSEDED_BY\",\"IMPLEMENTS\",\"SATISFIES\",\"VERIFIED_BY\",\"EVIDENCES\",\"REVIEWS\",\"APPROVES\",\"DEPENDS_ON\",\"BLOCKS\",\"TRACES_TO\",\"REFERENCES\",\"CONFORMS_TO\",\"CONSTRAINED_BY\",\"AFFECTS\",\"INCLUDES\",\"PRODUCES\",\"CONSUMES\",\"RELEASES\",\"MAINTAINS\",\"GOVERNS\",\"AUTHORIZED_BY\"]},\"target_id\":{\"type\":\"string\",\"minLength\":1},\"target_type\":{\"type\":\"string\"},\"metadata\":{\"type\":\"object\",\"additionalProperties\":true}},\"additionalProperties\":false},\"provenance\":{\"type\":\"object\",\"required\":[\"origin\",\"created_by\",\"source_refs\",\"generation_method\"],\"properties\":{\"origin\":{\"type\":\"string\",\"enum\":[\"HUMAN\",\"CHATGPT\",\"CODEX\",\"AUTOMATION\",\"IMPORT\",\"MIGRATION\",\"GITHUB\",\"EXTERNAL\"]},\"created_by\":{\"type\":\"string\",\"minLength\":1},\"source_refs\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"uniqueItems\":true},\"generation_method\":{\"type\":\"string\",\"minLength\":1},\"commit_sha\":{\"type\":\"string\",\"pattern\":\"^[0-9a-fA-F]{7,64}$\"},\"content_sha256\":{\"type\":\"string\",\"pattern\":\"^[0-9a-fA-F]{64}$\"},\"tool\":{\"type\":\"string\"},\"tool_version\":{\"type\":\"string\"},\"recorded_at\":{\"type\":\"string\",\"format\":\"date-time\"}},\"additionalProperties\":false}}}",
+      "title": "Base Entity.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 2629,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/base-entity.schema.json",
+    "sha256": "93dee35726e5ba70747785dbfda403294f59b0eba27b57194b912f4e2e832470"
+  }
+}

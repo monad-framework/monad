@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/evidence.schema.json\",\"title\":\"EOS Evidence\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"evidence_kind\",\"subject_ids\",\"result\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^EVID-[0-9]{4,}$\"},\"entity_type\":{\"const\":\"Evidence\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"CAPTURED\",\"VALIDATED\",\"FAILED\",\"STALE\",\"SUPERSEDED\",\"REVOKED\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"evidence_kind\":{\"type\":\"string\",\"minLength\":1},\"subject_ids\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1},\"minItems\":1,\"uniqueItems\":true},\"result\":{\"type\":\"string\",\"enum\":[\"PASS\",\"FAIL\",\"INCONCLUSIVE\",\"NOT_APPLICABLE\"]},\"content_sha256\":{\"type\":\"string\",\"pattern\":\"^[a-fA-F0-9]{64}$\"},\"environment_fingerprint\":{\"type\":\"string\"},\"source_fingerprint\":{\"type\":\"string\"}},\"unevaluatedProperties\":false}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Fevidence.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/evidence.schema.json.",
+    "title": "Evidence.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/evidence.schema.json\",\"title\":\"EOS Evidence\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"evidence_kind\",\"subject_ids\",\"result\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^EVID-[0-9]{4,}$\"},\"entity_type\":{\"const\":\"Evidence\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"CAPTURED\",\"VALIDATED\",\"FAILED\",\"STALE\",\"SUPERSEDED\",\"REVOKED\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"evidence_kind\":{\"type\":\"string\",\"minLength\":1},\"subject_ids\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1},\"minItems\":1,\"uniqueItems\":true},\"result\":{\"type\":\"string\",\"enum\":[\"PASS\",\"FAIL\",\"INCONCLUSIVE\",\"NOT_APPLICABLE\"]},\"content_sha256\":{\"type\":\"string\",\"pattern\":\"^[a-fA-F0-9]{64}$\"},\"environment_fingerprint\":{\"type\":\"string\"},\"source_fingerprint\":{\"type\":\"string\"}},\"unevaluatedProperties\":false}",
+      "title": "Evidence.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 943,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/evidence.schema.json",
+    "sha256": "5f8295c662ba7b3e72c03d01f96ca9801dac0015155b3e36a1256eff8e7a3d49"
+  }
+}

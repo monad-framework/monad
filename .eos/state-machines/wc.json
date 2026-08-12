@@ -1,16 +1,55 @@
 {
   "kind": "WC",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "initial_state": "DRAFT",
-  "terminal_states": ["CLOSED"],
-  "states": ["DRAFT", "READY", "AUTHORIZED", "ACTIVE", "IN_REVIEW", "BLOCKED", "CLOSED"],
+  "terminal_states": [
+    "CLOSED",
+    "SUPERSEDED"
+  ],
+  "states": [
+    "DRAFT",
+    "READY",
+    "AUTHORIZED",
+    "ACTIVE",
+    "IN_REVIEW",
+    "BLOCKED",
+    "CLOSED",
+    "SUPERSEDED"
+  ],
   "transitions": {
-    "DRAFT": ["READY", "BLOCKED"],
-    "READY": ["AUTHORIZED", "BLOCKED"],
-    "AUTHORIZED": ["ACTIVE", "BLOCKED"],
-    "ACTIVE": ["IN_REVIEW", "BLOCKED"],
-    "IN_REVIEW": ["CLOSED", "BLOCKED"],
-    "BLOCKED": ["READY", "AUTHORIZED", "ACTIVE", "IN_REVIEW"],
-    "CLOSED": []
+    "DRAFT": [
+      "READY",
+      "BLOCKED",
+      "SUPERSEDED"
+    ],
+    "READY": [
+      "AUTHORIZED",
+      "BLOCKED",
+      "SUPERSEDED"
+    ],
+    "AUTHORIZED": [
+      "ACTIVE",
+      "BLOCKED",
+      "SUPERSEDED"
+    ],
+    "ACTIVE": [
+      "IN_REVIEW",
+      "BLOCKED",
+      "SUPERSEDED"
+    ],
+    "IN_REVIEW": [
+      "CLOSED",
+      "BLOCKED",
+      "SUPERSEDED"
+    ],
+    "BLOCKED": [
+      "READY",
+      "AUTHORIZED",
+      "ACTIVE",
+      "IN_REVIEW",
+      "SUPERSEDED"
+    ],
+    "CLOSED": [],
+    "SUPERSEDED": []
   }
 }

@@ -1,5 +1,5 @@
 {
-  "content": "{\n  \"kind\": \"PI\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\"CLOSED\"],\n  \"states\": [\"DRAFT\", \"PLANNED\", \"IN_REVIEW\", \"AUTHORIZED\", \"ACTIVE\", \"BLOCKED\", \"CLOSED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"PLANNED\", \"BLOCKED\"],\n    \"PLANNED\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"IN_REVIEW\": [\"AUTHORIZED\", \"CLOSED\", \"BLOCKED\"],\n    \"AUTHORIZED\": [\"ACTIVE\", \"BLOCKED\"],\n    \"ACTIVE\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"BLOCKED\": [\"PLANNED\", \"IN_REVIEW\", \"AUTHORIZED\", \"ACTIVE\"],\n    \"CLOSED\": []\n  }\n}\n",
+  "content": "{\n  \"kind\": \"PI\",\n  \"version\": \"1.2.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\n    \"CLOSED\",\n    \"SUPERSEDED\"\n  ],\n  \"states\": [\n    \"DRAFT\",\n    \"PLANNED\",\n    \"IN_REVIEW\",\n    \"AUTHORIZED\",\n    \"ACTIVE\",\n    \"BLOCKED\",\n    \"CLOSED\",\n    \"SUPERSEDED\"\n  ],\n  \"transitions\": {\n    \"DRAFT\": [\n      \"PLANNED\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"PLANNED\": [\n      \"IN_REVIEW\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"IN_REVIEW\": [\n      \"AUTHORIZED\",\n      \"CLOSED\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"AUTHORIZED\": [\n      \"ACTIVE\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"ACTIVE\": [\n      \"IN_REVIEW\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"BLOCKED\": [\n      \"PLANNED\",\n      \"IN_REVIEW\",\n      \"AUTHORIZED\",\n      \"ACTIVE\",\n      \"SUPERSEDED\"\n    ],\n    \"CLOSED\": [],\n    \"SUPERSEDED\": []\n  }\n}\n",
   "document_id": "doc:.eos%2Fstate-machines%2Fpi.json",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 16,
+      "line_end": 56,
       "line_start": 1,
       "section_id": "content",
-      "text": "{\n  \"kind\": \"PI\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\"CLOSED\"],\n  \"states\": [\"DRAFT\", \"PLANNED\", \"IN_REVIEW\", \"AUTHORIZED\", \"ACTIVE\", \"BLOCKED\", \"CLOSED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"PLANNED\", \"BLOCKED\"],\n    \"PLANNED\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"IN_REVIEW\": [\"AUTHORIZED\", \"CLOSED\", \"BLOCKED\"],\n    \"AUTHORIZED\": [\"ACTIVE\", \"BLOCKED\"],\n    \"ACTIVE\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"BLOCKED\": [\"PLANNED\", \"IN_REVIEW\", \"AUTHORIZED\", \"ACTIVE\"],\n    \"CLOSED\": []\n  }\n}",
+      "text": "{\n  \"kind\": \"PI\",\n  \"version\": \"1.2.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\n    \"CLOSED\",\n    \"SUPERSEDED\"\n  ],\n  \"states\": [\n    \"DRAFT\",\n    \"PLANNED\",\n    \"IN_REVIEW\",\n    \"AUTHORIZED\",\n    \"ACTIVE\",\n    \"BLOCKED\",\n    \"CLOSED\",\n    \"SUPERSEDED\"\n  ],\n  \"transitions\": {\n    \"DRAFT\": [\n      \"PLANNED\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"PLANNED\": [\n      \"IN_REVIEW\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"IN_REVIEW\": [\n      \"AUTHORIZED\",\n      \"CLOSED\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"AUTHORIZED\": [\n      \"ACTIVE\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"ACTIVE\": [\n      \"IN_REVIEW\",\n      \"BLOCKED\",\n      \"SUPERSEDED\"\n    ],\n    \"BLOCKED\": [\n      \"PLANNED\",\n      \"IN_REVIEW\",\n      \"AUTHORIZED\",\n      \"ACTIVE\",\n      \"SUPERSEDED\"\n    ],\n    \"CLOSED\": [],\n    \"SUPERSEDED\": []\n  }\n}",
       "title": "Pi"
     }
   ],
   "source": {
-    "bytes": 513,
+    "bytes": 857,
     "canonical": true,
     "language": "json",
-    "lines": 16,
+    "lines": 56,
     "media_type": "application/json",
     "path": ".eos/state-machines/pi.json",
-    "sha256": "f4d49d73da505ff9bfd862baf5311a842f1c67de111c03972bb24a4daa97a222"
+    "sha256": "2c735470d1d3c45a40db2d5ee0dd553f207e3285b32c940db868afacb51e16d5"
   }
 }

@@ -1,6 +1,21 @@
 {
   "edges": [
     {
+      "source": "doc:.eos%2Fadoptions%2Fmvp-foundation.json",
+      "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fadoptions%2Fmvp-foundation.json",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fadoptions%2Fmvp-foundation.json",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
       "source": "doc:.eos%2Fartifacts.tsv",
       "target": "identifier:QA-0001",
       "type": "declares"
@@ -13,6 +28,11 @@
     {
       "source": "doc:.eos%2Fartifacts.tsv",
       "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fevents.jsonl",
+      "target": "identifier:ADR-0005",
       "type": "declares"
     },
     {
@@ -96,6 +116,16 @@
       "type": "declares"
     },
     {
+      "source": "doc:.eos%2Fhistory%2Ftooling%2Feos-py-pre-v0.6-20260812T093510Z.py",
+      "target": "identifier:ADR-0000",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fhistory%2Ftooling%2Feos-py-pre-v0.7-20260812T112645Z.py",
+      "target": "identifier:ADR-0000",
+      "type": "declares"
+    },
+    {
       "source": "doc:.eos%2Fprompts%2FEOSB-018.md",
       "target": "identifier:WC-0001",
       "type": "declares"
@@ -122,57 +152,32 @@
     },
     {
       "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:ADR-0002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:ADR-0003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:ADR-0004",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
       "target": "identifier:ADR-0014",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.eos%2Ftrace-edges.tsv",
-      "target": "identifier:QA-01",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.eos%2Ftrace-edges.tsv",
-      "target": "identifier:QA-02",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.eos%2Ftrace-edges.tsv",
-      "target": "identifier:QA-03",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.eos%2Ftrace-edges.tsv",
-      "target": "identifier:QA-04",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.eos%2Ftrace-edges.tsv",
-      "target": "identifier:QA-05",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.eos%2Ftrace-edges.tsv",
-      "target": "identifier:QA-06",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.eos%2Ftrace-edges.tsv",
-      "target": "identifier:QA-07",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.eos%2Ftrace-edges.tsv",
-      "target": "identifier:QA-08",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.eos%2Ftrace-edges.tsv",
-      "target": "identifier:QA-09",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.eos%2Ftrace-edges.tsv",
-      "target": "identifier:QA-10",
       "type": "declares"
     },
     {
@@ -187,7 +192,52 @@
     },
     {
       "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:WC-0003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:WC-0004",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:WC-0005",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:WC-0008",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:WC-0009",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:WC-0012",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
       "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:WP-0002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:WP-0003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:WP-0004",
       "type": "declares"
     },
     {
@@ -566,6 +616,91 @@
       "type": "declares"
     },
     {
+      "source": "doc:bootstrap-engineering-os-v0.6-execution-v2.sh",
+      "target": "identifier:ADR-0000",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.6-execution-v2.sh",
+      "target": "identifier:ADR-0014",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.6-execution-v2.sh",
+      "target": "identifier:QA-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.6-execution-v2.sh",
+      "target": "identifier:RQ-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.6-execution-v2.sh",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.6-execution-v2.sh",
+      "target": "identifier:WC-0002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.6-execution-v2.sh",
+      "target": "identifier:WC-0003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.6-execution-v2.sh",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "target": "identifier:AC-001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "target": "identifier:ADR-0000",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "target": "identifier:ADR-0014",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "target": "identifier:QA-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "target": "identifier:RQ-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "target": "identifier:WC-0002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "target": "identifier:WC-0003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
       "source": "doc:bootstrap-engineering-os.sh",
       "target": "identifier:ADR-0000",
       "type": "declares"
@@ -717,7 +852,22 @@
     },
     {
       "source": "doc:engineering%2Fproject-status.md",
-      "target": "identifier:ADR-0005",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fproject-status.md",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FEOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FEOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
+      "target": "identifier:WP-0001",
       "type": "declares"
     },
     {
@@ -838,6 +988,26 @@
     {
       "source": "doc:engineering%2Fwork-cycles%2FWC-0001.md",
       "target": "identifier:WP-0003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fwork-cycles%2FWC-MVP-0001.md",
+      "target": "identifier:ADR-0002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fwork-cycles%2FWC-MVP-0001.md",
+      "target": "identifier:ADR-0003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fwork-cycles%2FWC-MVP-0001.md",
+      "target": "identifier:ADR-0004",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fwork-cycles%2FWC-MVP-0001.md",
+      "target": "identifier:ADR-0005",
       "type": "declares"
     },
     {
@@ -1632,6 +1802,11 @@
     },
     {
       "source": "doc:tools%2Feos%2Feos.py",
+      "target": "identifier:AC-001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:tools%2Feos%2Feos.py",
       "target": "identifier:ADR-0000",
       "type": "declares"
     },
@@ -1763,6 +1938,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fadoptions%2Fmvp-foundation.json",
+      "normative": false,
+      "source_path": ".eos/adoptions/mvp-foundation.json",
+      "title": "Mvp Foundation",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fartifact-changelog.tsv",
       "normative": false,
       "source_path": ".eos/artifact-changelog.tsv",
@@ -1803,10 +1986,50 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fenvironment.commands",
+      "normative": false,
+      "source_path": ".eos/environment.commands",
+      "title": "Environment",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fevents.jsonl",
       "normative": false,
       "source_path": ".eos/events.jsonl",
       "title": "Events",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence-links.tsv",
+      "normative": false,
+      "source_path": ".eos/evidence-links.tsv",
+      "title": "Evidence Links",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence.tsv",
+      "normative": false,
+      "source_path": ".eos/evidence.tsv",
+      "title": "Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fexecution-policy.json",
+      "normative": false,
+      "source_path": ".eos/execution-policy.json",
+      "title": "Execution Policy",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fexecutions.tsv",
+      "normative": false,
+      "source_path": ".eos/executions.tsv",
+      "title": "Executions",
       "type": "document"
     },
     {
@@ -1883,6 +2106,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Fengineering%2Flifecycle%2FEOSV-verification-v2%2Fv0.1.0.md",
+      "normative": false,
+      "source_path": ".eos/history/engineering/lifecycle/EOSV-verification-v2/v0.1.0.md",
+      "title": "EOSV — Verification v2",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fhistory%2Fengineering%2Flifecycle%2FREADME%2Fv0.1.0.md",
       "normative": false,
       "source_path": ".eos/history/engineering/lifecycle/README/v0.1.0.md",
@@ -1947,6 +2178,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Fgovernance%2Fexecution-engine%2Fv0.1.0.md",
+      "normative": false,
+      "source_path": ".eos/history/governance/execution-engine/v0.1.0.md",
+      "title": "EOSE Execution Engine",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fhistory%2Fgovernance%2Fgithub-integration%2Fv0.1.0.md",
       "normative": false,
       "source_path": ".eos/history/governance/github-integration/v0.1.0.md",
@@ -1987,6 +2226,38 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Fmanaged%2F20260812T093508Z%2F.eos%2Fdomain-model.json",
+      "normative": false,
+      "source_path": ".eos/history/managed/20260812T093508Z/.eos/domain-model.json",
+      "title": "Domain Model",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Fmanaged%2F20260812T093508Z%2F.eos%2Fversion.json",
+      "normative": false,
+      "source_path": ".eos/history/managed/20260812T093508Z/.eos/version.json",
+      "title": "Version",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Fmanaged%2F20260812T112642Z%2F.eos%2Fdomain-model.json",
+      "normative": false,
+      "source_path": ".eos/history/managed/20260812T112642Z/.eos/domain-model.json",
+      "title": "Domain Model",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Fmanaged%2F20260812T112642Z%2F.eos%2Fversion.json",
+      "normative": false,
+      "source_path": ".eos/history/managed/20260812T112642Z/.eos/version.json",
+      "title": "Version",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fhistory%2Fspecifications%2Fbaseline%2Fv0.1.0.md",
       "normative": false,
       "source_path": ".eos/history/specifications/baseline/v0.1.0.md",
@@ -2003,6 +2274,30 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Ftooling%2Feos-py-pre-v0.6-20260812T093510Z.py",
+      "normative": false,
+      "source_path": ".eos/history/tooling/eos-py-pre-v0.6-20260812T093510Z.py",
+      "title": "Eos Py Pre V0.6 20260812T093510Z",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Ftooling%2Feos-py-pre-v0.7-20260812T112645Z.py",
+      "normative": false,
+      "source_path": ".eos/history/tooling/eos-py-pre-v0.7-20260812T112645Z.py",
+      "title": "Eos Py Pre V0.7 20260812T112645Z",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Ftooling%2Fexecution-v2-pre-v0.7-20260812T112645Z.py",
+      "normative": false,
+      "source_path": ".eos/history/tooling/execution-v2-pre-v0.7-20260812T112645Z.py",
+      "title": "Execution V2 Pre V0.7 20260812T112645Z",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fhistory%2Ftooling%2Fscripts-eos-bootstrap-only.sh",
       "normative": false,
       "source_path": ".eos/history/tooling/scripts-eos-bootstrap-only.sh",
@@ -2015,6 +2310,22 @@
       "normative": false,
       "source_path": ".eos/history/tooling/scripts-eos-pre-v0.5-20260812T090718Z.sh",
       "title": "Scripts Eos Pre V0.5 20260812T090718Z",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Ftooling%2Fscripts-eos-pre-v0.6-20260812T093510Z.sh",
+      "normative": false,
+      "source_path": ".eos/history/tooling/scripts-eos-pre-v0.6-20260812T093510Z.sh",
+      "title": "Scripts Eos Pre V0.6 20260812T093510Z",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Ftooling%2Fscripts-eos-pre-v0.7-20260812T112645Z.sh",
+      "normative": false,
+      "source_path": ".eos/history/tooling/scripts-eos-pre-v0.7-20260812T112645Z.sh",
+      "title": "Scripts Eos Pre V0.7 20260812T112645Z",
       "type": "document"
     },
     {
@@ -2039,6 +2350,22 @@
       "normative": false,
       "source_path": ".eos/overrides.tsv",
       "title": "Overrides",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fperformance-baselines.tsv",
+      "normative": false,
+      "source_path": ".eos/performance-baselines.tsv",
+      "title": "Performance Baselines",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fperformance.commands",
+      "normative": false,
+      "source_path": ".eos/performance.commands",
+      "title": "Performance",
       "type": "document"
     },
     {
@@ -2227,10 +2554,178 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Freproducibility.commands",
+      "normative": false,
+      "source_path": ".eos/reproducibility.commands",
+      "title": "Reproducibility",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fschemas%2Fartifact.schema.json",
       "normative": false,
       "source_path": ".eos/schemas/artifact.schema.json",
       "title": "Artifact.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fadr.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/adr.schema.json",
+      "title": "Adr.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fapproval.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/approval.schema.json",
+      "title": "Approval.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fartifact.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/artifact.schema.json",
+      "title": "Artifact.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fbase-entity.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/base-entity.schema.json",
+      "title": "Base Entity.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fcapability.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/capability.schema.json",
+      "title": "Capability.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fchange-request.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/change-request.schema.json",
+      "title": "Change Request.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fdecision.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/decision.schema.json",
+      "title": "Decision.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fdependency.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/dependency.schema.json",
+      "title": "Dependency.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fevidence.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/evidence.schema.json",
+      "title": "Evidence.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fmaintenance-item.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/maintenance-item.schema.json",
+      "title": "Maintenance Item.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fpi.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/pi.schema.json",
+      "title": "Pi.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fproject.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/project.schema.json",
+      "title": "Project.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Frelease.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/release.schema.json",
+      "title": "Release.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Frequirement.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/requirement.schema.json",
+      "title": "Requirement.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Freview.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/review.schema.json",
+      "title": "Review.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Frisk.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/risk.schema.json",
+      "title": "Risk.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fspecification.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/specification.schema.json",
+      "title": "Specification.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Ftrace-edge.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/trace-edge.schema.json",
+      "title": "Trace Edge.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fwc.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/wc.schema.json",
+      "title": "Wc.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fcore%2Fwp.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/core/wp.schema.json",
+      "title": "Wp.Schema",
       "type": "document"
     },
     {
@@ -2247,6 +2742,22 @@
       "normative": false,
       "source_path": ".eos/schemas/event.schema.json",
       "title": "Event.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fevid.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/evid.schema.json",
+      "title": "Evid.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fschemas%2Fexec.schema.json",
+      "normative": false,
+      "source_path": ".eos/schemas/exec.schema.json",
+      "title": "Exec.Schema",
       "type": "document"
     },
     {
@@ -2315,6 +2826,22 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fstate-machines%2Fevid.json",
+      "normative": false,
+      "source_path": ".eos/state-machines/evid.json",
+      "title": "Evid",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fstate-machines%2Fexec.json",
+      "normative": false,
+      "source_path": ".eos/state-machines/exec.json",
+      "title": "Exec",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fstate-machines%2Fmnt.json",
       "normative": false,
       "source_path": ".eos/state-machines/mnt.json",
@@ -2363,10 +2890,34 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fvalidation-profiles.json",
+      "normative": false,
+      "source_path": ".eos/validation-profiles.json",
+      "title": "Validation Profiles",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fvalidation.commands",
       "normative": false,
       "source_path": ".eos/validation.commands",
       "title": "Validation",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fvalidators.json",
+      "normative": false,
+      "source_path": ".eos/validators.json",
+      "title": "Validators",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fvalidators.local.json",
+      "normative": false,
+      "source_path": ".eos/validators.local.json",
+      "title": "Validators.Local",
       "type": "document"
     },
     {
@@ -2503,6 +3054,14 @@
       "normative": false,
       "source_path": ".github/workflows/github-tracking-sync.yml",
       "title": "Github Tracking Sync",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Fmachine-workflow-projection.yml",
+      "normative": false,
+      "source_path": ".github/workflows/machine-workflow-projection.yml",
+      "title": "Machine Workflow Projection",
       "type": "document"
     },
     {
@@ -8627,6 +9186,22 @@
     },
     {
       "document_type": "project-record",
+      "id": "doc:bootstrap-engineering-os-v0.6-execution-v2.sh",
+      "normative": false,
+      "source_path": "bootstrap-engineering-os-v0.6-execution-v2.sh",
+      "title": "Bootstrap Engineering Os V0.6 Execution V2",
+      "type": "document"
+    },
+    {
+      "document_type": "project-record",
+      "id": "doc:bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "normative": false,
+      "source_path": "bootstrap-engineering-os-v0.7-verification-v2.sh",
+      "title": "Bootstrap Engineering Os V0.7 Verification V2",
+      "type": "document"
+    },
+    {
+      "document_type": "project-record",
       "id": "doc:bootstrap-engineering-os.sh",
       "normative": false,
       "source_path": "bootstrap-engineering-os.sh",
@@ -8711,6 +9286,14 @@
       "normative": true,
       "source_path": "engineering/engineering-plan.md",
       "title": "Engineering Plan",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Feos%2FEOS-CORE-SCHEMA-AND-DOMAIN-MODEL.md",
+      "normative": true,
+      "source_path": "engineering/eos/EOS-CORE-SCHEMA-AND-DOMAIN-MODEL.md",
+      "title": "EOS Core Schema and Canonical Domain Model",
       "type": "document"
     },
     {
@@ -8899,6 +9482,14 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Flifecycle%2FEOSV-verification-v2.md",
+      "normative": true,
+      "source_path": "engineering/lifecycle/EOSV-verification-v2.md",
+      "title": "EOSV — Verification v2",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Flifecycle%2FEOSV-verification.md",
       "normative": true,
       "source_path": "engineering/lifecycle/EOSV-verification.md",
@@ -8975,6 +9566,14 @@
       "normative": true,
       "source_path": "engineering/prompts/README.md",
       "title": "EOS Prompt Catalog",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Freviews%2FEOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
+      "normative": true,
+      "source_path": "engineering/reviews/EOS-0.8-PROGRAM-ADOPTION-REVIEW.md",
+      "title": "EOS 0.8 Program Adoption Review",
       "type": "document"
     },
     {
@@ -9071,6 +9670,14 @@
       "normative": true,
       "source_path": "engineering/work-cycles/WC-0001.md",
       "title": "WC-0001: Architecture and Boundaries",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fwork-cycles%2FWC-MVP-0001.md",
+      "normative": true,
+      "source_path": "engineering/work-cycles/WC-MVP-0001.md",
+      "title": "WC-MVP-0001 — Workspace, Discovery, and Identity",
       "type": "document"
     },
     {
@@ -9443,6 +10050,14 @@
     },
     {
       "document_type": "governance",
+      "id": "doc:governance%2Fexecution-engine.md",
+      "normative": true,
+      "source_path": "governance/execution-engine.md",
+      "title": "EOSE Execution Engine",
+      "type": "document"
+    },
+    {
+      "document_type": "governance",
       "id": "doc:governance%2Fgithub-integration.md",
       "normative": true,
       "source_path": "governance/github-integration.md",
@@ -9771,6 +10386,14 @@
     },
     {
       "document_type": "automation",
+      "id": "doc:scripts%2Fsync-eos-lifecycle-model.py",
+      "normative": false,
+      "source_path": "scripts/sync-eos-lifecycle-model.py",
+      "title": "Sync Eos Lifecycle Model",
+      "type": "document"
+    },
+    {
+      "document_type": "automation",
       "id": "doc:scripts%2Fsync-github-tracking.py",
       "normative": false,
       "source_path": "scripts/sync-github-tracking.py",
@@ -9783,6 +10406,22 @@
       "normative": false,
       "source_path": "scripts/sync-machine-docs.py",
       "title": "Sync Machine Docs",
+      "type": "document"
+    },
+    {
+      "document_type": "automation",
+      "id": "doc:scripts%2Ftest-eos-0.8-adoption-safety.py",
+      "normative": false,
+      "source_path": "scripts/test-eos-0.8-adoption-safety.py",
+      "title": "Test Eos 0.8 Adoption Safety",
+      "type": "document"
+    },
+    {
+      "document_type": "automation",
+      "id": "doc:scripts%2Ftest-eos-0.8-program-adoption.py",
+      "normative": false,
+      "source_path": "scripts/test-eos-0.8-program-adoption.py",
+      "title": "Test Eos 0.8 Program Adoption",
       "type": "document"
     },
     {
@@ -9959,6 +10598,22 @@
       "normative": false,
       "source_path": "tools/eos/eos.py",
       "title": "Eos",
+      "type": "document"
+    },
+    {
+      "document_type": "tooling",
+      "id": "doc:tools%2Feos%2Fexecution_v2.py",
+      "normative": false,
+      "source_path": "tools/eos/execution_v2.py",
+      "title": "Execution V2",
+      "type": "document"
+    },
+    {
+      "document_type": "tooling",
+      "id": "doc:tools%2Feos%2Fverification_v2.py",
+      "normative": false,
+      "source_path": "tools/eos/verification_v2.py",
+      "title": "Verification V2",
       "type": "document"
     },
     {
@@ -10348,56 +11003,6 @@
       "value": "QA-0001"
     },
     {
-      "id": "identifier:QA-01",
-      "type": "identifier",
-      "value": "QA-01"
-    },
-    {
-      "id": "identifier:QA-02",
-      "type": "identifier",
-      "value": "QA-02"
-    },
-    {
-      "id": "identifier:QA-03",
-      "type": "identifier",
-      "value": "QA-03"
-    },
-    {
-      "id": "identifier:QA-04",
-      "type": "identifier",
-      "value": "QA-04"
-    },
-    {
-      "id": "identifier:QA-05",
-      "type": "identifier",
-      "value": "QA-05"
-    },
-    {
-      "id": "identifier:QA-06",
-      "type": "identifier",
-      "value": "QA-06"
-    },
-    {
-      "id": "identifier:QA-07",
-      "type": "identifier",
-      "value": "QA-07"
-    },
-    {
-      "id": "identifier:QA-08",
-      "type": "identifier",
-      "value": "QA-08"
-    },
-    {
-      "id": "identifier:QA-09",
-      "type": "identifier",
-      "value": "QA-09"
-    },
-    {
-      "id": "identifier:QA-10",
-      "type": "identifier",
-      "value": "QA-10"
-    },
-    {
       "id": "identifier:QR-001",
       "type": "identifier",
       "value": "QR-001"
@@ -10674,5 +11279,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "2a404ad49150dd4349d49286ecb3f892d8d2ce7550e7ca1b7e026a69d990a22d"
+  "source_tree_sha256": "f011d5b269930f0d02aac35d404a7f44bf1dc4117d15cd94968d356753374a14"
 }

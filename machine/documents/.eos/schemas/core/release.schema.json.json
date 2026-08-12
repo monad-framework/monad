@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/release.schema.json\",\"title\":\"EOS Release\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"release_version\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^REL-[0-9]+\\\\.[0-9]+\\\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$\"},\"entity_type\":{\"const\":\"Release\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"PROPOSED\",\"READY\",\"RELEASED\",\"WITHDRAWN\",\"SUPERSEDED\"]},\"release_version\":{\"type\":\"string\",\"pattern\":\"^[0-9]+\\\\.[0-9]+\\\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$\"},\"title\":{\"type\":\"string\"},\"release_notes\":{\"type\":\"string\"},\"artifact_ids\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"uniqueItems\":true}},\"unevaluatedProperties\":false}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Frelease.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/release.schema.json.",
+    "title": "Release.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/release.schema.json\",\"title\":\"EOS Release\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"release_version\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^REL-[0-9]+\\\\.[0-9]+\\\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$\"},\"entity_type\":{\"const\":\"Release\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"PROPOSED\",\"READY\",\"RELEASED\",\"WITHDRAWN\",\"SUPERSEDED\"]},\"release_version\":{\"type\":\"string\",\"pattern\":\"^[0-9]+\\\\.[0-9]+\\\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$\"},\"title\":{\"type\":\"string\"},\"release_notes\":{\"type\":\"string\"},\"artifact_ids\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"uniqueItems\":true}},\"unevaluatedProperties\":false}",
+      "title": "Release.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 754,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/release.schema.json",
+    "sha256": "bacab71ad3d92eda448d6a2320f4d6b0d64af3d6008e409b45e4807bcd6fb446"
+  }
+}
