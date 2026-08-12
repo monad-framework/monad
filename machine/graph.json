@@ -702,18 +702,48 @@
     },
     {
       "source": "doc:engineering%2Fproject-status.md",
-      "target": "identifier:WP-0001",
+      "target": "identifier:ADR-0001",
       "type": "declares"
     },
     {
       "source": "doc:engineering%2Fproject-status.md",
-      "target": "doc:engineering%2Fstabilization%2FSTABILIZATION-CHARTER.md",
-      "type": "references"
+      "target": "identifier:ADR-0002",
+      "type": "declares"
     },
     {
       "source": "doc:engineering%2Fproject-status.md",
-      "target": "doc:product%2FMVP-RELEASE-1.md",
-      "type": "references"
+      "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fproject-status.md",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FFOUNDATION-STABILIZATION-REVIEW.md",
+      "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FFOUNDATION-STABILIZATION-REVIEW.md",
+      "target": "identifier:ADR-0002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FFOUNDATION-STABILIZATION-REVIEW.md",
+      "target": "identifier:ADR-0003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FFOUNDATION-STABILIZATION-REVIEW.md",
+      "target": "identifier:ADR-0004",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FFOUNDATION-STABILIZATION-REVIEW.md",
+      "target": "identifier:ADR-0005",
+      "type": "declares"
     },
     {
       "source": "doc:engineering%2Freviews%2FPI-001-READINESS-REVIEW.md",
@@ -1018,6 +1048,16 @@
     {
       "source": "doc:engineering%2Fwork-packets%2FWP-MVP-0006.md",
       "target": "identifier:QR-003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fwork-packets%2FWP-STAB-0001.md",
+      "target": "identifier:ADR-0002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fwork-packets%2FWP-STAB-0001.md",
+      "target": "identifier:ADR-0005",
       "type": "declares"
     },
     {
@@ -8939,6 +8979,14 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Freviews%2FFOUNDATION-STABILIZATION-REVIEW.md",
+      "normative": true,
+      "source_path": "engineering/reviews/FOUNDATION-STABILIZATION-REVIEW.md",
+      "title": "Foundation Stabilization Review",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Freviews%2FINCEPTION-REVIEW.md",
       "normative": true,
       "source_path": "engineering/reviews/INCEPTION-REVIEW.md",
@@ -10620,5 +10668,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "55ea80981cbad9d974097ca38ed76bcc3b83116ca3f8027398ef11dc36dcf510"
+  "source_tree_sha256": "54d56e73d4bfa8f10190e00aaa5fa379cb5eebdb3c8856e09c06878cf04d6691"
 }
