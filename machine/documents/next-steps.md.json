@@ -1,0 +1,48 @@
+{
+  "content": "Inspect the complete control plane:\n\n  ./scripts/eos doctor\n  ./scripts/eos layers\n  ./scripts/eos state-machine WP\n  ./scripts/eos policy list\n  ./scripts/eos gate explain WP_AUTHORIZE WP-0001\n  ./scripts/eos planning check PI-001\n  ./scripts/eos planning order PI-001\n  ./scripts/eos trace coverage\n  ./scripts/eos stale list\n  ./scripts/eos events --limit 20\n  ./scripts/eos status\n  ./scripts/eos next\n\nEnable dynamic tab completion (Bash/Zsh/Fish):\n\n  ./scripts/eos completion install\n\nOr inspect/source repository-local completion files under `completions/`.\n\nAfter EOSB-020, continue directly into the permanent lifecycle, for example:\n\n  ./scripts/eos plan PI-002\n  ./scripts/eos create-wc --pi PI-002\n  ./scripts/eos create-wp --wc WC-0002 --domain CORE\n  ./scripts/eos ready WP-CORE-0001\n  ./scripts/eos authorize WP-CORE-0001\n  ./scripts/eos start WP-CORE-0001\n  ./scripts/eos codex WP-CORE-0001\n  ./scripts/eos validate WP-CORE-0001\n  ./scripts/eos review WP-CORE-0001\n  ./scripts/eos close WP-CORE-0001\n  ./scripts/eos trace REQ-0042\n  ./scripts/eos impact ADR-0014\n  ./scripts/eos github-sync\n  ./scripts/eos release 0.1.0\n",
+  "document_id": "doc:next-steps.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0014",
+    "WC-0002",
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-record",
+    "normative": false,
+    "summary": "Inspect the complete control plane:",
+    "title": "Next Steps"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0014",
+        "WC-0002",
+        "WP-0001"
+      ],
+      "level": 1,
+      "line_end": 37,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "Inspect the complete control plane:\n\n  ./scripts/eos doctor\n  ./scripts/eos layers\n  ./scripts/eos state-machine WP\n  ./scripts/eos policy list\n  ./scripts/eos gate explain WP_AUTHORIZE WP-0001\n  ./scripts/eos planning check PI-001\n  ./scripts/eos planning order PI-001\n  ./scripts/eos trace coverage\n  ./scripts/eos stale list\n  ./scripts/eos events --limit 20\n  ./scripts/eos status\n  ./scripts/eos next\n\nEnable dynamic tab completion (Bash/Zsh/Fish):\n\n  ./scripts/eos completion install\n\nOr inspect/source repository-local completion files under `completions/`.\n\nAfter EOSB-020, continue directly into the permanent lifecycle, for example:\n\n  ./scripts/eos plan PI-002\n  ./scripts/eos create-wc --pi PI-002\n  ./scripts/eos create-wp --wc WC-0002 --domain CORE\n  ./scripts/eos ready WP-CORE-0001\n  ./scripts/eos authorize WP-CORE-0001\n  ./scripts/eos start WP-CORE-0001\n  ./scripts/eos codex WP-CORE-0001\n  ./scripts/eos validate WP-CORE-0001\n  ./scripts/eos review WP-CORE-0001\n  ./scripts/eos close WP-CORE-0001\n  ./scripts/eos trace REQ-0042\n  ./scripts/eos impact ADR-0014\n  ./scripts/eos github-sync\n  ./scripts/eos release 0.1.0",
+      "title": "Next Steps"
+    }
+  ],
+  "source": {
+    "bytes": 1137,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 37,
+    "media_type": "text/markdown",
+    "path": "next-steps.md",
+    "sha256": "173e333dc87447f315b9f72203305d3788f07b54f6e0c1ff1308172c20e06988"
+  }
+}

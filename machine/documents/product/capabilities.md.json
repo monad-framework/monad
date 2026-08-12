@@ -1,5 +1,5 @@
 {
-  "content": "# Product Capabilities\n\nCapabilities describe durable abilities independent of a particular interface\nor component. They are the bridge between user outcomes and architecture.\n\n## Capability map\n\n### C-01 — Identity and access\n\nAuthenticate actors, establish session context, authorize actions and evidence,\nand apply least privilege. Initial maturity: one supported identity authority\nwith explicit roles and resource checks.\n\n### C-02 — Intent and input management\n\nCapture the desired outcome and required inputs, preserve drafts, classify\ndata, and explain validation. Initial maturity: the primary workflow's bounded\ninput model and safe import path.\n\n### C-03 — Policy and validation\n\nEvaluate structural, semantic, authorization, and safety rules before effects\nare committed. Rules must be versioned, explainable, and testable.\n\n### C-04 — Workflow coordination\n\nCreate one traceable instance, enforce allowed transitions, coordinate work,\nhandle idempotency, and manage retry, compensation, and cancellation.\n\n### C-05 — Result verification\n\nEvaluate postconditions, distinguish complete and partial outcomes, associate\nevidence, and communicate justified status.\n\n### C-06 — Evidence and audit\n\nRecord minimum necessary actor, action, policy, state, and result facts; enforce\naccess and retention; support authorized reconstruction.\n\n### C-07 — Experience delivery\n\nPresent accessible, responsive, and consistent user interactions across the\nsupported journey, including progress and recovery.\n\n### C-08 — Operations and assurance\n\nMeasure health and cost, manage configuration and releases, detect threats and\nfailures, restore service, and produce quality-gate evidence.\n\n## Capability dependencies\n\nThe primary journey composes all eight capabilities. Workflow coordination may\ndepend on identity, validation, and evidence contracts but should not embed\ntheir policies. Experience delivery consumes stable contracts and does not own\nauthoritative workflow state. Operations observes every critical capability\nwithout becoming a runtime dependency for ordinary success.\n\n## Maturity scale\n\n- **M0 Unproven:** intent exists without tested behavior.\n- **M1 Bounded:** one supported path with manual exceptions.\n- **M2 Reliable:** objectives, recovery, and ownership are demonstrated.\n- **M3 Scalable:** capacity and repeatability are proven across expected load.\n- **M4 Extensible:** controlled variation is supported through stable contracts.\n\nThe first release targets M2 for the primary path and at least M1 for supporting\nadministrative paths. A capability cannot claim maturity when its security,\noperability, or recovery evidence is missing.\n",
+  "content": "# Product Capabilities\n\n**Status:** Proposed stabilization baseline\n\n## C-01 — Repository and workspace discovery\n\nIdentify repository/workspace roots, configuration, packages/modules, canonical artifact locations, toolchains, and supported inputs deterministically.\n\n## C-02 — Canonical knowledge ingestion\n\nRead supported human-authored artifacts, preserve source provenance, normalize metadata/identifiers/references, and reject or diagnose malformed input.\n\n## C-03 — Semantic graph compilation\n\nConstruct stable engineering entities and typed relationships spanning requirements, decisions, specifications, components, dependencies, work, tests, evidence, releases, and provenance.\n\n## C-04 — KIR and canonical interchange\n\nLower validated semantic knowledge into canonical machine representations suitable for deterministic downstream consumption, caching, diff, and compatibility.\n\n## C-05 — Diagnostics and conformance\n\nEvaluate structural/semantic invariants, policies, and specification conformance and return stable actionable diagnostics.\n\n## C-06 — Query, traversal, and explanation\n\nQuery graph state, traverse relationships, explain why/what-governs/what-depends, and retain the evidence path supporting the answer.\n\n## C-07 — Change impact and incrementality\n\nRelate repository changes to semantic entities and eventually derive minimal invalidation/execution scope.\n\n## C-08 — Native tool orchestration\n\nPlan and invoke native compilers, formatters, linters, tests, build tools, infrastructure tools, and other adapters through explicit capability contracts.\n\n## C-09 — AI/agent context and governance\n\nSelect minimal authorized context, express scope/prohibitions/acceptance, record provenance, and support ChatGPT/Codex collaboration without granting unbounded authority.\n\n## C-10 — Policy and governance\n\nRepresent/evaluate engineering rules, ownership, architectural constraints, exceptions, and acceptance gates against semantic state.\n\n## C-11 — Documentation and projection\n\nGenerate or validate machine companions, publication views, status, GitHub projections, and later other derived artifacts from canonical knowledge.\n\n## C-12 — Extensibility and ecosystem\n\nSupport adapters, plugins, registries, SDKs, and multi-repository evolution through stable contracts when scale requires them.\n\n## C-13 — Release and provenance\n\nCreate traceable release evidence linking source, resolved inputs, semantic state, tests, artifacts, compatibility, and signatures/attestations where applicable.\n\n## MVP capability boundary\n\nMVP directly requires C-01, C-02, C-03, foundations of C-04, C-05, C-06, bounded C-09, and enough C-11/C-13 to prove deterministic provenance. C-07/C-08 begin only to the extent needed to demonstrate impact/validation; C-10/C-12 are architected but not broadly implemented.",
   "document_id": "doc:product%2Fcapabilities.md",
   "generation": {
     "deterministic": true,
@@ -14,13 +14,18 @@
     "C-05",
     "C-06",
     "C-07",
-    "C-08"
+    "C-08",
+    "C-09",
+    "C-10",
+    "C-11",
+    "C-12",
+    "C-13"
   ],
   "links": [],
   "metadata": {
     "document_type": "product",
     "normative": true,
-    "summary": "Capabilities describe durable abilities independent of a particular interface or component. They are the bridge between user outcomes and architecture.",
+    "summary": "Status: Proposed stabilization baseline",
     "title": "Product Capabilities"
   },
   "relations": [],
@@ -30,135 +35,186 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 5,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "product-capabilities",
-      "text": "# Product Capabilities\n\nCapabilities describe durable abilities independent of a particular interface\nor component. They are the bridge between user outcomes and architecture.",
+      "text": "# Product Capabilities\n\n**Status:** Proposed stabilization baseline",
       "title": "Product Capabilities"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 7,
-      "line_start": 6,
-      "section_id": "capability-map",
-      "text": "## Capability map",
-      "title": "Capability map"
     },
     {
       "identifiers": [
         "C-01"
       ],
-      "level": 3,
-      "line_end": 13,
-      "line_start": 8,
-      "section_id": "c-01-identity-and-access",
-      "text": "### C-01 — Identity and access\n\nAuthenticate actors, establish session context, authorize actions and evidence,\nand apply least privilege. Initial maturity: one supported identity authority\nwith explicit roles and resource checks.",
-      "title": "C-01 — Identity and access"
+      "level": 2,
+      "line_end": 8,
+      "line_start": 5,
+      "section_id": "c-01-repository-and-workspace-discovery",
+      "text": "## C-01 — Repository and workspace discovery\n\nIdentify repository/workspace roots, configuration, packages/modules, canonical artifact locations, toolchains, and supported inputs deterministically.",
+      "title": "C-01 — Repository and workspace discovery"
     },
     {
       "identifiers": [
         "C-02"
       ],
-      "level": 3,
-      "line_end": 19,
-      "line_start": 14,
-      "section_id": "c-02-intent-and-input-management",
-      "text": "### C-02 — Intent and input management\n\nCapture the desired outcome and required inputs, preserve drafts, classify\ndata, and explain validation. Initial maturity: the primary workflow's bounded\ninput model and safe import path.",
-      "title": "C-02 — Intent and input management"
+      "level": 2,
+      "line_end": 12,
+      "line_start": 9,
+      "section_id": "c-02-canonical-knowledge-ingestion",
+      "text": "## C-02 — Canonical knowledge ingestion\n\nRead supported human-authored artifacts, preserve source provenance, normalize metadata/identifiers/references, and reject or diagnose malformed input.",
+      "title": "C-02 — Canonical knowledge ingestion"
     },
     {
       "identifiers": [
         "C-03"
       ],
-      "level": 3,
-      "line_end": 24,
-      "line_start": 20,
-      "section_id": "c-03-policy-and-validation",
-      "text": "### C-03 — Policy and validation\n\nEvaluate structural, semantic, authorization, and safety rules before effects\nare committed. Rules must be versioned, explainable, and testable.",
-      "title": "C-03 — Policy and validation"
+      "level": 2,
+      "line_end": 16,
+      "line_start": 13,
+      "section_id": "c-03-semantic-graph-compilation",
+      "text": "## C-03 — Semantic graph compilation\n\nConstruct stable engineering entities and typed relationships spanning requirements, decisions, specifications, components, dependencies, work, tests, evidence, releases, and provenance.",
+      "title": "C-03 — Semantic graph compilation"
     },
     {
       "identifiers": [
         "C-04"
       ],
-      "level": 3,
-      "line_end": 29,
-      "line_start": 25,
-      "section_id": "c-04-workflow-coordination",
-      "text": "### C-04 — Workflow coordination\n\nCreate one traceable instance, enforce allowed transitions, coordinate work,\nhandle idempotency, and manage retry, compensation, and cancellation.",
-      "title": "C-04 — Workflow coordination"
+      "level": 2,
+      "line_end": 20,
+      "line_start": 17,
+      "section_id": "c-04-kir-and-canonical-interchange",
+      "text": "## C-04 — KIR and canonical interchange\n\nLower validated semantic knowledge into canonical machine representations suitable for deterministic downstream consumption, caching, diff, and compatibility.",
+      "title": "C-04 — KIR and canonical interchange"
     },
     {
       "identifiers": [
         "C-05"
       ],
-      "level": 3,
-      "line_end": 34,
-      "line_start": 30,
-      "section_id": "c-05-result-verification",
-      "text": "### C-05 — Result verification\n\nEvaluate postconditions, distinguish complete and partial outcomes, associate\nevidence, and communicate justified status.",
-      "title": "C-05 — Result verification"
+      "level": 2,
+      "line_end": 24,
+      "line_start": 21,
+      "section_id": "c-05-diagnostics-and-conformance",
+      "text": "## C-05 — Diagnostics and conformance\n\nEvaluate structural/semantic invariants, policies, and specification conformance and return stable actionable diagnostics.",
+      "title": "C-05 — Diagnostics and conformance"
     },
     {
       "identifiers": [
         "C-06"
       ],
-      "level": 3,
-      "line_end": 39,
-      "line_start": 35,
-      "section_id": "c-06-evidence-and-audit",
-      "text": "### C-06 — Evidence and audit\n\nRecord minimum necessary actor, action, policy, state, and result facts; enforce\naccess and retention; support authorized reconstruction.",
-      "title": "C-06 — Evidence and audit"
+      "level": 2,
+      "line_end": 28,
+      "line_start": 25,
+      "section_id": "c-06-query-traversal-and-explanation",
+      "text": "## C-06 — Query, traversal, and explanation\n\nQuery graph state, traverse relationships, explain why/what-governs/what-depends, and retain the evidence path supporting the answer.",
+      "title": "C-06 — Query, traversal, and explanation"
     },
     {
       "identifiers": [
         "C-07"
       ],
-      "level": 3,
-      "line_end": 44,
-      "line_start": 40,
-      "section_id": "c-07-experience-delivery",
-      "text": "### C-07 — Experience delivery\n\nPresent accessible, responsive, and consistent user interactions across the\nsupported journey, including progress and recovery.",
-      "title": "C-07 — Experience delivery"
+      "level": 2,
+      "line_end": 32,
+      "line_start": 29,
+      "section_id": "c-07-change-impact-and-incrementality",
+      "text": "## C-07 — Change impact and incrementality\n\nRelate repository changes to semantic entities and eventually derive minimal invalidation/execution scope.",
+      "title": "C-07 — Change impact and incrementality"
     },
     {
       "identifiers": [
         "C-08"
       ],
-      "level": 3,
-      "line_end": 49,
+      "level": 2,
+      "line_end": 36,
+      "line_start": 33,
+      "section_id": "c-08-native-tool-orchestration",
+      "text": "## C-08 — Native tool orchestration\n\nPlan and invoke native compilers, formatters, linters, tests, build tools, infrastructure tools, and other adapters through explicit capability contracts.",
+      "title": "C-08 — Native tool orchestration"
+    },
+    {
+      "identifiers": [
+        "C-09"
+      ],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 37,
+      "section_id": "c-09-ai-agent-context-and-governance",
+      "text": "## C-09 — AI/agent context and governance\n\nSelect minimal authorized context, express scope/prohibitions/acceptance, record provenance, and support ChatGPT/Codex collaboration without granting unbounded authority.",
+      "title": "C-09 — AI/agent context and governance"
+    },
+    {
+      "identifiers": [
+        "C-10"
+      ],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 41,
+      "section_id": "c-10-policy-and-governance",
+      "text": "## C-10 — Policy and governance\n\nRepresent/evaluate engineering rules, ownership, architectural constraints, exceptions, and acceptance gates against semantic state.",
+      "title": "C-10 — Policy and governance"
+    },
+    {
+      "identifiers": [
+        "C-11"
+      ],
+      "level": 2,
+      "line_end": 48,
       "line_start": 45,
-      "section_id": "c-08-operations-and-assurance",
-      "text": "### C-08 — Operations and assurance\n\nMeasure health and cost, manage configuration and releases, detect threats and\nfailures, restore service, and produce quality-gate evidence.",
-      "title": "C-08 — Operations and assurance"
+      "section_id": "c-11-documentation-and-projection",
+      "text": "## C-11 — Documentation and projection\n\nGenerate or validate machine companions, publication views, status, GitHub projections, and later other derived artifacts from canonical knowledge.",
+      "title": "C-11 — Documentation and projection"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "C-12"
+      ],
       "level": 2,
-      "line_end": 57,
-      "line_start": 50,
-      "section_id": "capability-dependencies",
-      "text": "## Capability dependencies\n\nThe primary journey composes all eight capabilities. Workflow coordination may\ndepend on identity, validation, and evidence contracts but should not embed\ntheir policies. Experience delivery consumes stable contracts and does not own\nauthoritative workflow state. Operations observes every critical capability\nwithout becoming a runtime dependency for ordinary success.",
-      "title": "Capability dependencies"
+      "line_end": 52,
+      "line_start": 49,
+      "section_id": "c-12-extensibility-and-ecosystem",
+      "text": "## C-12 — Extensibility and ecosystem\n\nSupport adapters, plugins, registries, SDKs, and multi-repository evolution through stable contracts when scale requires them.",
+      "title": "C-12 — Extensibility and ecosystem"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "C-13"
+      ],
       "level": 2,
-      "line_end": 68,
-      "line_start": 58,
-      "section_id": "maturity-scale",
-      "text": "## Maturity scale\n\n- **M0 Unproven:** intent exists without tested behavior.\n- **M1 Bounded:** one supported path with manual exceptions.\n- **M2 Reliable:** objectives, recovery, and ownership are demonstrated.\n- **M3 Scalable:** capacity and repeatability are proven across expected load.\n- **M4 Extensible:** controlled variation is supported through stable contracts.\n\nThe first release targets M2 for the primary path and at least M1 for supporting\nadministrative paths. A capability cannot claim maturity when its security,\noperability, or recovery evidence is missing.",
-      "title": "Maturity scale"
+      "line_end": 56,
+      "line_start": 53,
+      "section_id": "c-13-release-and-provenance",
+      "text": "## C-13 — Release and provenance\n\nCreate traceable release evidence linking source, resolved inputs, semantic state, tests, artifacts, compatibility, and signatures/attestations where applicable.",
+      "title": "C-13 — Release and provenance"
+    },
+    {
+      "identifiers": [
+        "C-01",
+        "C-02",
+        "C-03",
+        "C-04",
+        "C-05",
+        "C-06",
+        "C-07",
+        "C-08",
+        "C-09",
+        "C-10",
+        "C-11",
+        "C-12",
+        "C-13"
+      ],
+      "level": 2,
+      "line_end": 59,
+      "line_start": 57,
+      "section_id": "mvp-capability-boundary",
+      "text": "## MVP capability boundary\n\nMVP directly requires C-01, C-02, C-03, foundations of C-04, C-05, C-06, bounded C-09, and enough C-11/C-13 to prove deterministic provenance. C-07/C-08 begin only to the extent needed to demonstrate impact/validation; C-10/C-12 are architected but not broadly implemented.",
+      "title": "MVP capability boundary"
     }
   ],
   "source": {
-    "bytes": 2674,
+    "bytes": 2839,
     "canonical": true,
     "language": "markdown",
-    "lines": 68,
+    "lines": 59,
     "media_type": "text/markdown",
     "path": "product/capabilities.md",
-    "sha256": "2e876ae65d134dfdb0e116180bb1d485d8fec3697afa7b73340a315e3dca6e74"
+    "sha256": "5ae5a6e1229c1605af9ad892b27832e4b61f5cbe2864d58ac10a305e7ae9180b"
   }
 }

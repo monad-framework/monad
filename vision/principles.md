@@ -1,67 +1,19 @@
-# Product and Project Principles
+# Product and Engineering Principles
 
-Principles are decision rules, not slogans. When two principles conflict, the
-team documents the trade-off and gives priority to user safety, legal and
-ethical obligations, correctness, and recoverability before convenience or
-delivery speed.
+**Status:** Proposed stabilization baseline
 
-## P-01 — Outcomes before output
-
-Measure whether users achieve the intended result. Features, tickets, and code
-volume are inputs, not evidence of value.
-
-## P-02 — Evidence before confidence
-
-Label assumptions and validate the riskiest ones early. Claims about value,
-quality, security, and readiness require observable evidence.
-
-## P-03 — One coherent path before breadth
-
-Complete and harden the primary journey before adding adjacent workflows,
-personas, integrations, or extensive configuration.
-
-## P-04 — Explicit state and ownership
-
-Users and operators should be able to determine what happened, what is true
-now, who owns the next action, and which transition is allowed.
-
-## P-05 — Safe failure and practical recovery
-
-Prevent foreseeable harm, contain failures, preserve diagnostic evidence, and
-provide a tested route to retry, compensate, restore, or escalate.
-
-## P-06 — Least authority and least data
-
-Collect, retain, and expose only what is necessary. Grant the narrowest
-privilege for the shortest useful duration.
-
-## P-07 — Stable contracts, replaceable internals
-
-Protect user and component contracts while allowing implementation choices to
-evolve behind clear boundaries.
-
-## P-08 — Operability is part of design
-
-Health signals, resource budgets, deployment, rollback, and incident response
-are designed with the capability, not added after release.
-
-## P-09 — Accessible by default
-
-The primary workflow must work across supported input modes and assistive
-technologies. Accessibility defects are product defects.
-
-## P-10 — Reversible decisions when uncertain
-
-Prefer low-cost experiments and reversible choices until evidence supports a
-durable commitment. Irreversible choices require greater review and explicit
-rationale.
-
-## P-11 — Automation preserves accountability
-
-Automate repeatable mechanics while keeping consequential authority, review,
-and appeal visible. Automation must not make responsibility disappear.
-
-## P-12 — Documentation is executable governance
-
-Documents name owners, states, inputs, outputs, checks, and change paths. A
-document that cannot guide a decision or test is rewritten or removed.
+1. **Knowledge before automation.** Monad must understand the engineering meaning and authority of work before automating consequential action.
+2. **Canonical source, deterministic projections.** Generated graph, indexes, docs, dashboards, and AI context retain source provenance and can be regenerated.
+3. **Local first.** The core loop works from the repository and local toolchain; cloud services extend rather than own the product.
+4. **Deterministic core, probabilistic assistance.** LLM reasoning sits above or beside deterministic parsing, identity, graph construction, validation, and execution planning.
+5. **Human authority is explicit.** Automation can enforce or propose but cannot silently invent approval.
+6. **Explain every consequential result.** Diagnostics, graph edges, policy findings, execution decisions, and context selection should be traceable to inputs/rules.
+7. **Stable identity over filenames.** Engineering entities need identities and provenance resilient enough for meaningful history and semantic diff.
+8. **Native tools remain native.** Integrate through adapters and capability contracts rather than replacing mature ecosystems without compelling evidence.
+9. **Incrementality follows semantics.** Re-run work because relevant semantic state changed, not simply because some file timestamp changed.
+10. **Fail closed on authority, fail clearly on knowledge.** Missing permission/authority blocks consequential action; unsupported/ambiguous knowledge produces visible diagnostics.
+11. **Security and privacy are structural.** Context minimization, secret boundaries, plugin/agent permissions, supply-chain provenance, and safe execution are architecture concerns.
+12. **Modularize early, split late.** Maintain clean boundaries in one repository until independent lifecycle/distribution/ownership justifies separation.
+13. **Dogfood with evidence.** Monad should increasingly build Monad, but self-hosting claims require deterministic proof rather than symbolism.
+14. **Optimize the whole engineering loop.** A faster command is not success if it increases ambiguity, rework, risk, or maintenance elsewhere.
+15. **Preserve history, supersede meaning.** Decisions and contracts evolve through explicit lifecycle rather than silent rewriting.

@@ -1,0 +1,76 @@
+{
+  "content": "# GitHub Operating Surface\n\n**Status:** Proposed for Foundation Stabilization  \n**Canonical scope:** GitHub projection/configuration for `monad-framework/monad`\n\nGitHub is Monad's durable collaboration, review, and coordination surface. It does not replace canonical product, architectural, specification, governance, or engineering authority stored in Git.\n\n## Projection model\n\n```text\nCanonical Git artifacts\n        ↓\nGitHub synchronization\n        ↓\nIssues / sub-issues / milestones / labels\n        ↓\nOrganization Project views\n        ↓\nPR / CI / acceptance evidence\n```\n\nThe repository automatically projects the MVP backlog into Issues through `scripts/sync-github-tracking.py`. Owner/admin-only surfaces are configured through `scripts/setup-github-owner.sh` and the plans in this directory.\n\n## Canonical documents\n\n- `PROJECT-V2-CONFIGURATION.md` — organization Project model, fields, and views.\n- `WIKI-PLAN.md` — informational Wiki contract and page set.\n- `RULESET-PLAN.md` — intended `main` branch/repository ruleset.\n- `OWNER-ACTIONS.md` — exact one-time owner actions and verification.\n- `wiki/` — canonical source for GitHub Wiki pages.\n- `rulesets/main.json` — staged ruleset payload; do not apply before the stabilization PR is accepted.\n\n## Authority\n\nGitHub Issues, Project fields, milestones, labels, Wiki pages, and automation state are projections. A Project field, Issue body, or Wiki page cannot silently override an Accepted ADR, Approved specification, canonical Work Packet, or explicitly approved engineering plan.\n\n## Synchronization\n\nRepository-scoped tracking is automated by `.github/workflows/github-tracking-sync.yml` and requires only the repository `GITHUB_TOKEN` with Issues write permission. Organization Project, Wiki repository, and repository ruleset mutations require owner/admin authority and therefore remain explicit owner operations.\n",
+  "document_id": "doc:engineering%2Fgithub%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Proposed for Foundation Stabilization Canonical scope: GitHub projection/configuration for monad-framework/monad",
+    "title": "GitHub Operating Surface"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "github-operating-surface",
+      "text": "# GitHub Operating Surface\n\n**Status:** Proposed for Foundation Stabilization  \n**Canonical scope:** GitHub projection/configuration for `monad-framework/monad`\n\nGitHub is Monad's durable collaboration, review, and coordination surface. It does not replace canonical product, architectural, specification, governance, or engineering authority stored in Git.",
+      "title": "GitHub Operating Surface"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 8,
+      "section_id": "projection-model",
+      "text": "## Projection model\n\n```text\nCanonical Git artifacts\n        ↓\nGitHub synchronization\n        ↓\nIssues / sub-issues / milestones / labels\n        ↓\nOrganization Project views\n        ↓\nPR / CI / acceptance evidence\n```\n\nThe repository automatically projects the MVP backlog into Issues through `scripts/sync-github-tracking.py`. Owner/admin-only surfaces are configured through `scripts/setup-github-owner.sh` and the plans in this directory.",
+      "title": "Projection model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 24,
+      "section_id": "canonical-documents",
+      "text": "## Canonical documents\n\n- `PROJECT-V2-CONFIGURATION.md` — organization Project model, fields, and views.\n- `WIKI-PLAN.md` — informational Wiki contract and page set.\n- `RULESET-PLAN.md` — intended `main` branch/repository ruleset.\n- `OWNER-ACTIONS.md` — exact one-time owner actions and verification.\n- `wiki/` — canonical source for GitHub Wiki pages.\n- `rulesets/main.json` — staged ruleset payload; do not apply before the stabilization PR is accepted.",
+      "title": "Canonical documents"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 33,
+      "section_id": "authority",
+      "text": "## Authority\n\nGitHub Issues, Project fields, milestones, labels, Wiki pages, and automation state are projections. A Project field, Issue body, or Wiki page cannot silently override an Accepted ADR, Approved specification, canonical Work Packet, or explicitly approved engineering plan.",
+      "title": "Authority"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 37,
+      "section_id": "synchronization",
+      "text": "## Synchronization\n\nRepository-scoped tracking is automated by `.github/workflows/github-tracking-sync.yml` and requires only the repository `GITHUB_TOKEN` with Issues write permission. Organization Project, Wiki repository, and repository ruleset mutations require owner/admin authority and therefore remain explicit owner operations.",
+      "title": "Synchronization"
+    }
+  ],
+  "source": {
+    "bytes": 1904,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 39,
+    "media_type": "text/markdown",
+    "path": "engineering/github/README.md",
+    "sha256": "88099fa12f82e74798b1d0ac84b407bc8dc72d30b7574d2083c2c4b7629f6d19"
+  }
+}

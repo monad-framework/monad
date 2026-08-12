@@ -1,0 +1,97 @@
+{
+  "content": "# DATA-SOURCE-0001: Stable Source and Document Identity\n\n**Status:** approved  \n**Version:** 1.0.0  \n**Owner:** Monad Core  \n**Related requirements:** FR-002, FR-003, FR-009, QR-001  \n**Governing ADR:** ADR-0003\n\n## Purpose\n\nDefines the canonical identity/provenance fields emitted before semantic graph construction.\n\n## Canonical model\n\nEach source record MUST contain:\n\n- `source_id` — deterministic identity derived from source kind + canonical repository-relative path;\n- `canonical_path` — root-relative `/`-separated path;\n- `source_kind` — declared/supported parser kind;\n- `content_sha256` — lowercase SHA-256 of exact consumed bytes;\n- `byte_length`;\n- `parser_contract` — parser/specification identity/version used to interpret bytes;\n- discovery provenance sufficient to explain selection.\n\nA parsed document additionally contains `document_id`, `document_kind`, and explicit governed identifier when present.\n\n## Normative rules\n\n1. Source IDs MUST be identical across clean clones with equivalent canonical paths/kinds.\n2. Content edits MUST change `content_sha256` but MUST NOT change Source ID solely because bytes changed.\n3. A path move changes Source ID. If the document has an explicit governed ID, its Document ID survives the move while source provenance changes.\n4. Explicit governed identifiers MUST be unique in their namespace for a valid semantic compilation.\n5. Duplicate governed IDs MUST produce a fatal identity-collision diagnostic naming all known source locations; traversal order MUST NOT select a winner.\n6. Path case is preserved in identity. Discovery MUST diagnose cross-platform case-collision risk where two configured canonical paths differ only by case.\n7. IDs MUST NOT include absolute clone path, timestamps, random data, inode/device numbers, Git branch name, or network identity.\n8. Machine serialization MUST preserve original identity components/provenance and use deterministic field/order conventions.\n\n## Security/data\n\nPaths and source bytes are repository-local engineering data. Diagnostics SHOULD use repository-relative paths and MUST NOT leak unrelated absolute host paths when a relative location is sufficient.\n\n## Verification\n\nProperty/golden tests cover clone relocation, content edit, path move, explicit-ID move, duplicate ID, case collision, symlink alias, empty file, and stable serialized records.\n",
+  "document_id": "doc:specifications%2Fdata%2FDATA-SOURCE-0001-stable-source-document-identity.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0003",
+    "FR-002",
+    "FR-003",
+    "FR-009",
+    "QR-001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "specification",
+    "normative": true,
+    "summary": "Status: approved Version: 1.0.0 Owner: Monad Core Related requirements: FR-002, FR-003, FR-009, QR-001 Governing ADR: ADR-0003",
+    "title": "DATA-SOURCE-0001: Stable Source and Document Identity"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0003",
+        "FR-002",
+        "FR-003",
+        "FR-009",
+        "QR-001"
+      ],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "data-source-0001-stable-source-and-document-identity",
+      "text": "# DATA-SOURCE-0001: Stable Source and Document Identity\n\n**Status:** approved  \n**Version:** 1.0.0  \n**Owner:** Monad Core  \n**Related requirements:** FR-002, FR-003, FR-009, QR-001  \n**Governing ADR:** ADR-0003",
+      "title": "DATA-SOURCE-0001: Stable Source and Document Identity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 9,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nDefines the canonical identity/provenance fields emitted before semantic graph construction.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 13,
+      "section_id": "canonical-model",
+      "text": "## Canonical model\n\nEach source record MUST contain:\n\n- `source_id` — deterministic identity derived from source kind + canonical repository-relative path;\n- `canonical_path` — root-relative `/`-separated path;\n- `source_kind` — declared/supported parser kind;\n- `content_sha256` — lowercase SHA-256 of exact consumed bytes;\n- `byte_length`;\n- `parser_contract` — parser/specification identity/version used to interpret bytes;\n- discovery provenance sufficient to explain selection.\n\nA parsed document additionally contains `document_id`, `document_kind`, and explicit governed identifier when present.",
+      "title": "Canonical model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 27,
+      "section_id": "normative-rules",
+      "text": "## Normative rules\n\n1. Source IDs MUST be identical across clean clones with equivalent canonical paths/kinds.\n2. Content edits MUST change `content_sha256` but MUST NOT change Source ID solely because bytes changed.\n3. A path move changes Source ID. If the document has an explicit governed ID, its Document ID survives the move while source provenance changes.\n4. Explicit governed identifiers MUST be unique in their namespace for a valid semantic compilation.\n5. Duplicate governed IDs MUST produce a fatal identity-collision diagnostic naming all known source locations; traversal order MUST NOT select a winner.\n6. Path case is preserved in identity. Discovery MUST diagnose cross-platform case-collision risk where two configured canonical paths differ only by case.\n7. IDs MUST NOT include absolute clone path, timestamps, random data, inode/device numbers, Git branch name, or network identity.\n8. Machine serialization MUST preserve original identity components/provenance and use deterministic field/order conventions.",
+      "title": "Normative rules"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 41,
+      "line_start": 38,
+      "section_id": "security-data",
+      "text": "## Security/data\n\nPaths and source bytes are repository-local engineering data. Diagnostics SHOULD use repository-relative paths and MUST NOT leak unrelated absolute host paths when a relative location is sufficient.",
+      "title": "Security/data"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 42,
+      "section_id": "verification",
+      "text": "## Verification\n\nProperty/golden tests cover clone relocation, content edit, path move, explicit-ID move, duplicate ID, case collision, symlink alias, empty file, and stable serialized records.",
+      "title": "Verification"
+    }
+  ],
+  "source": {
+    "bytes": 2376,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 44,
+    "media_type": "text/markdown",
+    "path": "specifications/data/DATA-SOURCE-0001-stable-source-document-identity.md",
+    "sha256": "410b778766c518a93a739c669ef41c61f4f7a177ba299926ec7828b82aafd248"
+  }
+}

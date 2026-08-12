@@ -1,0 +1,40 @@
+{
+  "content": "name: Stabilization generation\n\non:\n  push:\n    branches:\n      - \"stabilization/**\"\n  workflow_dispatch:\n\npermissions:\n  contents: write\n\njobs:\n  synchronize:\n    name: Migrate planning, populate catalog, and synchronize machine layer\n    runs-on: ubuntu-latest\n    timeout-minutes: 25\n    steps:\n      - name: Check out branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n        with:\n          fetch-depth: 0\n\n      - name: Namespace MVP planning identifiers\n        run: python3 scripts/migrate-mvp-identifiers.py\n\n      - name: Populate forecast MVP Work Packets\n        run: python3 scripts/generate-mvp-work-packets.py\n\n      - name: Populate substantive Draft artifact contracts\n        run: python3 scripts/populate-artifact-system.py --write\n\n      - name: Synchronize deterministic machine documents\n        run: python3 scripts/sync-machine-docs.py --write\n\n      - name: Verify generation contracts\n        run: |\n          python3 scripts/migrate-mvp-identifiers.py\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n          python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit generated stabilization outputs\n        shell: bash\n        run: |\n          if git diff --quiet --exit-code; then\n            exit 0\n          fi\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add scripts engineering product/backlog artifact-system machine\n          git commit -m \"chore(stabilization): namespace MVP planning and synchronize derived layers\"\n          git push origin \"HEAD:${GITHUB_REF_NAME}\"\n\n      - name: Report synchronized state\n        run: |\n          echo \"Planning identifiers, artifact catalog, and machine projection verified.\"\n          git status --short\n",
+  "document_id": "doc:.github%2Fworkflows%2Fstabilization-generation.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/stabilization-generation.yml.",
+    "title": "Stabilization Generation"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 57,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Stabilization generation\n\non:\n  push:\n    branches:\n      - \"stabilization/**\"\n  workflow_dispatch:\n\npermissions:\n  contents: write\n\njobs:\n  synchronize:\n    name: Migrate planning, populate catalog, and synchronize machine layer\n    runs-on: ubuntu-latest\n    timeout-minutes: 25\n    steps:\n      - name: Check out branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n        with:\n          fetch-depth: 0\n\n      - name: Namespace MVP planning identifiers\n        run: python3 scripts/migrate-mvp-identifiers.py\n\n      - name: Populate forecast MVP Work Packets\n        run: python3 scripts/generate-mvp-work-packets.py\n\n      - name: Populate substantive Draft artifact contracts\n        run: python3 scripts/populate-artifact-system.py --write\n\n      - name: Synchronize deterministic machine documents\n        run: python3 scripts/sync-machine-docs.py --write\n\n      - name: Verify generation contracts\n        run: |\n          python3 scripts/migrate-mvp-identifiers.py\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n          python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit generated stabilization outputs\n        shell: bash\n        run: |\n          if git diff --quiet --exit-code; then\n            exit 0\n          fi\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add scripts engineering product/backlog artifact-system machine\n          git commit -m \"chore(stabilization): namespace MVP planning and synchronize derived layers\"\n          git push origin \"HEAD:${GITHUB_REF_NAME}\"\n\n      - name: Report synchronized state\n        run: |\n          echo \"Planning identifiers, artifact catalog, and machine projection verified.\"\n          git status --short",
+      "title": "Stabilization Generation"
+    }
+  ],
+  "source": {
+    "bytes": 1914,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 57,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/stabilization-generation.yml",
+    "sha256": "1b507cafb962ec627497b31418dfd7213e05c87391dab212ed182cb52c923254"
+  }
+}

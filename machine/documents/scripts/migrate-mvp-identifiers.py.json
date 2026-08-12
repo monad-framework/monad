@@ -1,0 +1,40 @@
+{
+  "content": "#!/usr/bin/env python3\n\"\"\"One-way, idempotent migration for MVP planning identifiers.\n\nEOS bootstrap/history owns the unqualified PI-NNN and WC-NNNN namespaces.\nMVP Release 1 planning therefore uses PI-MVP-NNN and WC-MVP-NNNN so the two\nsystems can coexist without ambiguous identity.\n\"\"\"\nfrom __future__ import annotations\n\nimport re\nfrom pathlib import Path\n\nROOT = Path(__file__).resolve().parents[1]\n\nTARGETS = (\n    ROOT / \"scripts\" / \"generate-mvp-work-packets.py\",\n    ROOT / \"product\" / \"backlog\" / \"MVP-BACKLOG.md\",\n    ROOT / \"engineering\" / \"work-cycles\" / \"MVP-SPRINT-SCHEDULE.md\",\n)\n\nPI_RENAMES = {\n    \"PI-001-SEMANTIC-FOUNDATION.md\": \"PI-MVP-001-SEMANTIC-FOUNDATION.md\",\n    \"PI-002-INTELLIGENCE-CONTEXT.md\": \"PI-MVP-002-INTELLIGENCE-CONTEXT.md\",\n    \"PI-003-INTEGRATION-RELEASE.md\": \"PI-MVP-003-INTEGRATION-RELEASE.md\",\n}\n\n\ndef namespace_cycles(text: str) -> str:\n    for number in range(13):\n        old = f\"WC-{number:04d}\"\n        new = f\"WC-MVP-{number:04d}\"\n        text = text.replace(old, new)\n    # Expand shorthand ranges after namespacing, e.g. WC-MVP-0001–0002.\n    text = re.sub(r\"WC-MVP-(\\d{4})–(\\d{4})\", r\"WC-MVP-\\1–WC-MVP-\\2\", text)\n    return text\n\n\ndef migrate_file(path: Path) -> bool:\n    if not path.exists():\n        return False\n    original = path.read_text(encoding=\"utf-8\")\n    migrated = namespace_cycles(original)\n    if migrated == original:\n        return False\n    path.write_text(migrated, encoding=\"utf-8\")\n    return True\n\n\ndef migrate_increment(old_name: str, new_name: str) -> bool:\n    directory = ROOT / \"engineering\" / \"increments\"\n    old_path = directory / old_name\n    new_path = directory / new_name\n    changed = False\n\n    source = new_path if new_path.exists() else old_path\n    if not source.exists():\n        return False\n\n    text = source.read_text(encoding=\"utf-8\")\n    text = namespace_cycles(text)\n    old_id = old_name.split(\"-\", 3)[0] + \"-\" + old_name.split(\"-\", 3)[1]\n    # old_id is PI-001 / PI-002 / PI-003.\n    new_id = old_id.replace(\"PI-\", \"PI-MVP-\")\n    text = text.replace(old_id, new_id)\n\n    if not new_path.exists() or new_path.read_text(encoding=\"utf-8\") != text:\n        new_path.write_text(text, encoding=\"utf-8\")\n        changed = True\n    if old_path.exists() and old_path != new_path:\n        old_path.unlink()\n        changed = True\n    return changed\n\n\ndef main() -> int:\n    changed: list[str] = []\n    for path in TARGETS:\n        if migrate_file(path):\n            changed.append(path.relative_to(ROOT).as_posix())\n\n    for old_name, new_name in PI_RENAMES.items():\n        if migrate_increment(old_name, new_name):\n            changed.append(f\"engineering/increments/{old_name} -> {new_name}\")\n\n    if changed:\n        print(\"Namespaced MVP planning identifiers:\")\n        for item in changed:\n            print(f\"  {item}\")\n    else:\n        print(\"MVP planning identifiers already namespaced.\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+  "document_id": "doc:scripts%2Fmigrate-mvp-identifiers.py",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "automation",
+    "normative": false,
+    "summary": "Canonical python source for scripts/migrate-mvp-identifiers.py.",
+    "title": "Migrate Mvp Identifiers"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 95,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "#!/usr/bin/env python3\n\"\"\"One-way, idempotent migration for MVP planning identifiers.\n\nEOS bootstrap/history owns the unqualified PI-NNN and WC-NNNN namespaces.\nMVP Release 1 planning therefore uses PI-MVP-NNN and WC-MVP-NNNN so the two\nsystems can coexist without ambiguous identity.\n\"\"\"\nfrom __future__ import annotations\n\nimport re\nfrom pathlib import Path\n\nROOT = Path(__file__).resolve().parents[1]\n\nTARGETS = (\n    ROOT / \"scripts\" / \"generate-mvp-work-packets.py\",\n    ROOT / \"product\" / \"backlog\" / \"MVP-BACKLOG.md\",\n    ROOT / \"engineering\" / \"work-cycles\" / \"MVP-SPRINT-SCHEDULE.md\",\n)\n\nPI_RENAMES = {\n    \"PI-001-SEMANTIC-FOUNDATION.md\": \"PI-MVP-001-SEMANTIC-FOUNDATION.md\",\n    \"PI-002-INTELLIGENCE-CONTEXT.md\": \"PI-MVP-002-INTELLIGENCE-CONTEXT.md\",\n    \"PI-003-INTEGRATION-RELEASE.md\": \"PI-MVP-003-INTEGRATION-RELEASE.md\",\n}\n\n\ndef namespace_cycles(text: str) -> str:\n    for number in range(13):\n        old = f\"WC-{number:04d}\"\n        new = f\"WC-MVP-{number:04d}\"\n        text = text.replace(old, new)\n    # Expand shorthand ranges after namespacing, e.g. WC-MVP-0001–0002.\n    text = re.sub(r\"WC-MVP-(\\d{4})–(\\d{4})\", r\"WC-MVP-\\1–WC-MVP-\\2\", text)\n    return text\n\n\ndef migrate_file(path: Path) -> bool:\n    if not path.exists():\n        return False\n    original = path.read_text(encoding=\"utf-8\")\n    migrated = namespace_cycles(original)\n    if migrated == original:\n        return False\n    path.write_text(migrated, encoding=\"utf-8\")\n    return True\n\n\ndef migrate_increment(old_name: str, new_name: str) -> bool:\n    directory = ROOT / \"engineering\" / \"increments\"\n    old_path = directory / old_name\n    new_path = directory / new_name\n    changed = False\n\n    source = new_path if new_path.exists() else old_path\n    if not source.exists():\n        return False\n\n    text = source.read_text(encoding=\"utf-8\")\n    text = namespace_cycles(text)\n    old_id = old_name.split(\"-\", 3)[0] + \"-\" + old_name.split(\"-\", 3)[1]\n    # old_id is PI-001 / PI-002 / PI-003.\n    new_id = old_id.replace(\"PI-\", \"PI-MVP-\")\n    text = text.replace(old_id, new_id)\n\n    if not new_path.exists() or new_path.read_text(encoding=\"utf-8\") != text:\n        new_path.write_text(text, encoding=\"utf-8\")\n        changed = True\n    if old_path.exists() and old_path != new_path:\n        old_path.unlink()\n        changed = True\n    return changed\n\n\ndef main() -> int:\n    changed: list[str] = []\n    for path in TARGETS:\n        if migrate_file(path):\n            changed.append(path.relative_to(ROOT).as_posix())\n\n    for old_name, new_name in PI_RENAMES.items():\n        if migrate_increment(old_name, new_name):\n            changed.append(f\"engineering/increments/{old_name} -> {new_name}\")\n\n    if changed:\n        print(\"Namespaced MVP planning identifiers:\")\n        for item in changed:\n            print(f\"  {item}\")\n    else:\n        print(\"MVP planning identifiers already namespaced.\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())",
+      "title": "Migrate Mvp Identifiers"
+    }
+  ],
+  "source": {
+    "bytes": 2967,
+    "canonical": true,
+    "language": "python",
+    "lines": 95,
+    "media_type": "text/x-python",
+    "path": "scripts/migrate-mvp-identifiers.py",
+    "sha256": "cda784411609e46916816c927541c73254d178996e5cf542e04927376e93df04"
+  }
+}

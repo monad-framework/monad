@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"kind\": \"WP\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\"CLOSED\"],\n  \"states\": [\"DRAFT\", \"READY\", \"AUTHORIZED\", \"IN_PROGRESS\", \"VERIFYING\", \"IN_REVIEW\", \"BLOCKED\", \"CLOSED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"READY\", \"BLOCKED\"],\n    \"READY\": [\"AUTHORIZED\", \"BLOCKED\"],\n    \"AUTHORIZED\": [\"IN_PROGRESS\", \"BLOCKED\"],\n    \"IN_PROGRESS\": [\"VERIFYING\", \"BLOCKED\"],\n    \"VERIFYING\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"IN_REVIEW\": [\"CLOSED\", \"BLOCKED\"],\n    \"BLOCKED\": [\"READY\", \"AUTHORIZED\", \"IN_PROGRESS\", \"VERIFYING\", \"IN_REVIEW\"],\n    \"CLOSED\": []\n  }\n}\n",
+  "document_id": "doc:.eos%2Fstate-machines%2Fwp.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/state-machines/wp.json.",
+    "title": "Wp"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 17,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"kind\": \"WP\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"DRAFT\",\n  \"terminal_states\": [\"CLOSED\"],\n  \"states\": [\"DRAFT\", \"READY\", \"AUTHORIZED\", \"IN_PROGRESS\", \"VERIFYING\", \"IN_REVIEW\", \"BLOCKED\", \"CLOSED\"],\n  \"transitions\": {\n    \"DRAFT\": [\"READY\", \"BLOCKED\"],\n    \"READY\": [\"AUTHORIZED\", \"BLOCKED\"],\n    \"AUTHORIZED\": [\"IN_PROGRESS\", \"BLOCKED\"],\n    \"IN_PROGRESS\": [\"VERIFYING\", \"BLOCKED\"],\n    \"VERIFYING\": [\"IN_REVIEW\", \"BLOCKED\"],\n    \"IN_REVIEW\": [\"CLOSED\", \"BLOCKED\"],\n    \"BLOCKED\": [\"READY\", \"AUTHORIZED\", \"IN_PROGRESS\", \"VERIFYING\", \"IN_REVIEW\"],\n    \"CLOSED\": []\n  }\n}",
+      "title": "Wp"
+    }
+  ],
+  "source": {
+    "bytes": 581,
+    "canonical": true,
+    "language": "json",
+    "lines": 17,
+    "media_type": "application/json",
+    "path": ".eos/state-machines/wp.json",
+    "sha256": "c3fd5dfe831b8327c81efe59ae77f4fd3b62c818ec5a65586c2c8d358f93346b"
+  }
+}

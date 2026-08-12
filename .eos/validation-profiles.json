@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "profiles": {
+    "default": {"required": ["eos-integrity"], "optional": ["repository"]},
+    "wp": {"required": ["eos-integrity"], "optional": ["repository", "execution-acceptance"]},
+    "security": {"required": ["eos-integrity", "secret-scan", "supply-chain"], "optional": []},
+    "release": {"required": ["eos-integrity", "repository", "secret-scan", "supply-chain"], "optional": ["execution-acceptance"]},
+    "reproducibility": {"required": ["eos-integrity", "reproducibility"], "optional": []},
+    "performance": {"required": ["eos-integrity", "performance"], "optional": []}
+  }
+}

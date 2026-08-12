@@ -1,55 +1,47 @@
 # Goals
 
-These goals define the initial twelve-month outcome horizon. Specific numeric
-baselines are established during discovery; targets are then frozen before the
-first production pilot so they cannot be adjusted to manufacture success.
+**Status:** Proposed stabilization baseline
 
-## G-01 — Validate a valuable problem
+## G-001 — Compile engineering knowledge
 
-Demonstrate through interviews, observation, and baseline data that the primary
-persona experiences a recurring problem with material cost and is willing to
-adopt a new workflow. Complete before authorizing broad implementation.
+Transform supported canonical engineering artifacts into stable machine-readable semantic structures with source provenance.
 
-## G-02 — Deliver the primary journey
+## G-002 — Build a trustworthy semantic graph
 
-Enable the primary persona to complete one end-to-end use case from authorized
-input to verifiable outcome, including validation, progress, exception handling,
-and recovery. The journey must pass documented acceptance tests.
+Represent engineering entities and typed relationships so important dependencies, authority, evidence, ownership, and provenance are queryable.
 
-## G-03 — Improve the target outcome
+## G-003 — Explain engineering state
 
-Against the baseline, reduce median completion effort and preventable rework
-without worsening outcome quality, accessibility, privacy, or user control.
-Measure with representative tasks rather than demonstration scenarios.
+Answer useful `what`, `why`, `governed-by`, `depends-on`, `verified-by`, and `affected-by` questions without requiring users to reconstruct the repository manually.
 
-## G-04 — Earn repeated use
+## G-004 — Make validation semantic
 
-Show that pilot users return for the intended job and complete it successfully
-without sustained founder or maintainer assistance. Segment adoption by persona
-and workflow so aggregate activity cannot hide failure in the target group.
+Detect missing, stale, contradictory, invalid, or non-conforming engineering knowledge with actionable diagnostics.
 
-## G-05 — Establish operational confidence
+## G-005 — Coordinate native tools incrementally
 
-Meet the initial service objectives, cost budget, recovery target, deployment
-success rate, and incident-response readiness defined in operations documents.
-All critical failure modes require telemetry and a tested response.
+Derive minimal execution plans from semantic change and dependency state while leaving language/build/test tools authoritative for their own mechanics.
 
-## G-06 — Establish a safe delivery system
+## G-006 — Govern AI-assisted engineering
 
-Require review, automated quality gates, dependency and secret checks,
-traceable releases, rollback evidence, and an owned risk register before the
-first external production use.
+Produce minimal, authorized, provenance-rich context packages and evidence expectations for ChatGPT, Codex, and future agents.
 
-## G-07 — Preserve an evolvable architecture
+## G-007 — Remain local-first and reproducible
 
-Keep public contracts explicit, dependencies directional, and strategic choices
-recorded. Track architectural exceptions and remove or approve them before they
-become undocumented constraints.
+Make the core repository-understanding/validation loop fully useful without mandatory SaaS connectivity and reproduce equivalent outputs from equivalent inputs.
 
-## Goal review
+## G-008 — Keep project knowledge alive
 
-Each goal has one accountable owner, a baseline, target, evidence source,
-review date, and status of `proposed`, `committed`, `at risk`, `achieved`, or
-`retired`. A goal is not achieved when its primary metric passes while a
-guardrail fails. Quarterly reviews record both the result and the decision to
-continue, change, pause, or retire the goal.
+Enable documentation, GitHub projections, status, traceability, and release evidence to derive from canonical engineering reality rather than drift independently.
+
+## G-009 — Scale through stable contracts
+
+Design clear internal boundaries, schemas, adapters, and extension points so additional repositories, languages, plugins, registries, and hosted services can emerge without destabilizing the core.
+
+## G-010 — Dogfood Monad
+
+Use Monad increasingly to understand, validate, plan, and coordinate its own development as the relevant capabilities become trustworthy.
+
+## Prioritization rule
+
+MVP work prioritizes G-001 through G-007. Later goals may shape architecture but may not inflate MVP unless they remove a release-blocking risk.

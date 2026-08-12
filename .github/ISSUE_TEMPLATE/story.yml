@@ -1,0 +1,41 @@
+name: Story or Enabler
+about: Refine a feature into an observable story or engineering enabler.
+title: "[Story] "
+body:
+  - type: input
+    id: identifier
+    attributes:
+      label: Story / enabler identifier
+      placeholder: US-XXX or EN-XXX
+    validations:
+      required: true
+  - type: input
+    id: parent
+    attributes:
+      label: Parent Feature
+      placeholder: F-XXX-XX
+    validations:
+      required: true
+  - type: input
+    id: wp
+    attributes:
+      label: Governing Work Packet
+      placeholder: WP-MVP-XXXX
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Observable acceptance
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Boundary / negative behavior
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification method
+    validations:
+      required: true

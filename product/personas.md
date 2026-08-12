@@ -1,76 +1,37 @@
 # Personas
 
-Personas are behavioral models grounded in research, not demographic
-stereotypes. Names are labels for recurring goals and constraints. Research
-notes must record where evidence supports or contradicts these models.
+**Status:** Proposed stabilization baseline
 
-## Primary: The Responsible Practitioner
+Personas are hypotheses until validated with representative users.
 
-**Context:** performs the core workflow repeatedly and is accountable for the
-quality of each result.
+## P-01 — Software Engineer
 
-**Goals:** finish correctly, understand current state, avoid rework, handle
-exceptions, and retain evidence sufficient for review.
+Needs to understand an unfamiliar or complex repository, make a bounded change, know what the change affects, and prove correctness without manually locating every relevant decision/spec/test.
 
-**Behaviors:** begins with incomplete or uneven inputs, switches between tasks,
-uses personal checks to compensate for unreliable systems, and consults an
-expert when system state is ambiguous.
+Key jobs: inspect, query, explain, validate, impact analysis, run minimal checks.
 
-**Pain points:** duplicated entry, unclear prerequisites, hidden failures,
-fragile handoffs, lost progress, and errors that describe the system rather
-than the remedy.
+## P-02 — AI-Assisted Engineer
 
-**Success:** completes the primary journey without private knowledge, verifies
-the result, and knows exactly what to do when completion is impossible.
+Uses ChatGPT and Codex as collaborators but remains accountable for intent and acceptance. Needs agents to receive only relevant authority/context and return implementation evidence rather than unbounded changes.
 
-## Secondary: The Accountable Owner
+Key jobs: plan work, produce Work Packets, generate context packages, constrain agent scope, verify resulting changes.
 
-**Context:** owns outcomes, risk, budget, policy, or adoption but may not perform
-the daily workflow.
+## P-03 — Technical/Architecture Lead
 
-**Goals:** know whether the process works, ensure controls are applied, identify
-systemic failure, and make evidence-based investment decisions.
+Needs to preserve system boundaries and decisions while enabling teams to change quickly. Wants traceability from architectural intent to implementation/tests and early warning of drift.
 
-**Behaviors:** reviews summaries and exceptions, asks for trend and root cause,
-sets risk thresholds, and needs evidence that can survive audit or leadership
-review.
+Key jobs: architecture query, policy/conformance review, semantic diff, decision impact, release review.
 
-**Pain points:** activity presented as value, inconsistent definitions,
-unexplained exceptions, poor cost attribution, and controls asserted without
-evidence.
+## P-04 — Maintainer / Repository Steward
 
-**Success:** sees trusted outcome, risk, adoption, and cost signals with a path
-from aggregate measures to authorized supporting evidence.
+Needs onboarding, dependency/toolchain state, reliable CI, reproducibility, diagnostics, and clear provenance for why repository artifacts exist.
 
-## Supporting: The Service Operator
+Key jobs: doctor/inspect, dependency understanding, troubleshooting, release evidence, migration.
 
-**Context:** deploys, monitors, supports, and restores the product across its
-supported environments.
+## P-05 — Engineering Organization (later horizon)
 
-**Goals:** detect user impact early, identify the responsible component, limit
-blast radius, restore service, and prevent recurrence.
+Needs cross-repository knowledge, ownership, policy, registries, reusable contexts, and organizational engineering intelligence without centralizing every development action in proprietary SaaS.
 
-**Behaviors:** works from alerts, dashboards, traces, changes, and runbooks;
-coordinates incidents under time pressure; prefers predictable components and
-automated evidence.
+## Persona priority
 
-**Pain points:** missing correlation, noisy alerts, undocumented dependencies,
-unsafe manual repair, environment drift, and releases without rollback proof.
-
-**Success:** moves from symptom to owned action quickly and can restore a safe
-service state using tested procedures.
-
-## Affected stakeholder
-
-Some people may be represented in stored or processed data without operating
-the product. Their needs include lawful and limited use, accuracy, security,
-access or correction where applicable, and protection from opaque high-impact
-decisions. Product reviews must include this perspective even when it does not
-drive adoption metrics.
-
-## Research maintenance
-
-Review personas after each research round. Record evidence strength, segment
-variation, accessibility needs, environmental constraints, and behaviors that
-do not fit. Split a persona only when differences materially change the
-workflow or product decision; merge when distinctions do not affect design.
+MVP prioritizes P-01 and P-02, with enough P-03/P-04 behavior to make the result trustworthy. P-05 shapes extensibility but does not drive MVP scope.

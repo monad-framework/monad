@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"kind\": \"REL\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"PROPOSED\",\n  \"terminal_states\": [\"RELEASED\", \"WITHDRAWN\"],\n  \"states\": [\"PROPOSED\", \"READY\", \"RELEASED\", \"WITHDRAWN\"],\n  \"transitions\": {\n    \"PROPOSED\": [\"READY\", \"WITHDRAWN\"],\n    \"READY\": [\"RELEASED\", \"WITHDRAWN\"],\n    \"RELEASED\": [],\n    \"WITHDRAWN\": []\n  }\n}\n",
+  "document_id": "doc:.eos%2Fstate-machines%2Frel.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/state-machines/rel.json.",
+    "title": "Rel"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"kind\": \"REL\",\n  \"version\": \"1.0.0\",\n  \"initial_state\": \"PROPOSED\",\n  \"terminal_states\": [\"RELEASED\", \"WITHDRAWN\"],\n  \"states\": [\"PROPOSED\", \"READY\", \"RELEASED\", \"WITHDRAWN\"],\n  \"transitions\": {\n    \"PROPOSED\": [\"READY\", \"WITHDRAWN\"],\n    \"READY\": [\"RELEASED\", \"WITHDRAWN\"],\n    \"RELEASED\": [],\n    \"WITHDRAWN\": []\n  }\n}",
+      "title": "Rel"
+    }
+  ],
+  "source": {
+    "bytes": 325,
+    "canonical": true,
+    "language": "json",
+    "lines": 13,
+    "media_type": "application/json",
+    "path": ".eos/state-machines/rel.json",
+    "sha256": "50ee5ac56f75809acb1224c38811b34a749235631ec2560d2f3a6c60abbcc55f"
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "content": "---\nartifact_id: \"GOV-RACI-0001\"\ntitle: \"Human ChatGPT Codex GitHub Responsibility Model\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# Human / ChatGPT / Codex / GitHub Responsibility Model\n\n## Human\n\nThe human is the final project authority.\n\nResponsibilities:\n\n- define intent and values;\n- resolve ambiguous product or business questions;\n- approve or reject major scope and architectural decisions;\n- authorize implementation gates;\n- accept material risk;\n- approve releases or irreversible external actions.\n\nThe human should not be forced to manually perform mechanical consistency work\nthat tools can verify.\n\n## ChatGPT\n\nChatGPT is the primary reasoning, synthesis, planning, and review collaborator.\n\nResponsibilities:\n\n- analyze `idea.md`;\n- extract terminology, assumptions, goals, constraints, and open questions;\n- draft and reconcile project artifacts;\n- identify contradictions and missing decisions;\n- propose architecture based on requirements and quality attributes;\n- maintain cross-artifact traceability;\n- define PIs, WCs, and WPs;\n- review Codex output against governing artifacts;\n- recommend whether gates should pass.\n\nChatGPT may propose decisions, but major decisions remain subject to human\nauthority.\n\n## Codex\n\nCodex is the repository-local implementation and verification agent.\n\nResponsibilities:\n\n- inspect the current repository state before changing files;\n- implement bounded work packets;\n- modify only authorized scope;\n- run tests, formatters, linters, builds, and validation;\n- report exact changed files and verification evidence;\n- prepare commits and pull requests when authorized;\n- surface conflicts instead of inventing new product or architecture policy.\n\nCodex should not silently redefine requirements or architecture to make an\nimplementation easier.\n\n## GitHub\n\nGitHub is the durable collaboration, history, review, and integration system.\n\nResponsibilities:\n\n- canonical Git remote;\n- immutable commit history;\n- branches and pull requests;\n- issue / work packet tracking;\n- project and milestone visibility;\n- review record;\n- CI and policy enforcement;\n- releases and tags;\n- durable audit trail.\n\n## Default Handoff\n\n`Human intent -> ChatGPT definition/review -> Codex implementation -> GitHub\nhistory/CI/review -> ChatGPT conformance review -> Human gate decision`\n\n## Automation Principle\n\nAutomate deterministic mechanics. Preserve explicit human authority over\nmission, risk acceptance, major tradeoffs, and irreversible actions.\n",
+  "document_id": "doc:governance%2Fresponsibility-model.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "governance",
+    "normative": true,
+    "summary": "--- artifactid: \"GOV-RACI-0001\" title: \"Human ChatGPT Codex GitHub Responsibility Model\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "Human / ChatGPT / Codex / GitHub Responsibility Model"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"GOV-RACI-0001\"\ntitle: \"Human ChatGPT Codex GitHub Responsibility Model\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "human-chatgpt-codex-github-responsibility-model",
+      "text": "# Human / ChatGPT / Codex / GitHub Responsibility Model",
+      "title": "Human / ChatGPT / Codex / GitHub Responsibility Model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 14,
+      "section_id": "human",
+      "text": "## Human\n\nThe human is the final project authority.\n\nResponsibilities:\n\n- define intent and values;\n- resolve ambiguous product or business questions;\n- approve or reject major scope and architectural decisions;\n- authorize implementation gates;\n- accept material risk;\n- approve releases or irreversible external actions.\n\nThe human should not be forced to manually perform mechanical consistency work\nthat tools can verify.",
+      "title": "Human"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 30,
+      "section_id": "chatgpt",
+      "text": "## ChatGPT\n\nChatGPT is the primary reasoning, synthesis, planning, and review collaborator.\n\nResponsibilities:\n\n- analyze `idea.md`;\n- extract terminology, assumptions, goals, constraints, and open questions;\n- draft and reconcile project artifacts;\n- identify contradictions and missing decisions;\n- propose architecture based on requirements and quality attributes;\n- maintain cross-artifact traceability;\n- define PIs, WCs, and WPs;\n- review Codex output against governing artifacts;\n- recommend whether gates should pass.\n\nChatGPT may propose decisions, but major decisions remain subject to human\nauthority.",
+      "title": "ChatGPT"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 65,
+      "line_start": 49,
+      "section_id": "codex",
+      "text": "## Codex\n\nCodex is the repository-local implementation and verification agent.\n\nResponsibilities:\n\n- inspect the current repository state before changing files;\n- implement bounded work packets;\n- modify only authorized scope;\n- run tests, formatters, linters, builds, and validation;\n- report exact changed files and verification evidence;\n- prepare commits and pull requests when authorized;\n- surface conflicts instead of inventing new product or architecture policy.\n\nCodex should not silently redefine requirements or architecture to make an\nimplementation easier.",
+      "title": "Codex"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 81,
+      "line_start": 66,
+      "section_id": "github",
+      "text": "## GitHub\n\nGitHub is the durable collaboration, history, review, and integration system.\n\nResponsibilities:\n\n- canonical Git remote;\n- immutable commit history;\n- branches and pull requests;\n- issue / work packet tracking;\n- project and milestone visibility;\n- review record;\n- CI and policy enforcement;\n- releases and tags;\n- durable audit trail.",
+      "title": "GitHub"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 86,
+      "line_start": 82,
+      "section_id": "default-handoff",
+      "text": "## Default Handoff\n\n`Human intent -> ChatGPT definition/review -> Codex implementation -> GitHub\nhistory/CI/review -> ChatGPT conformance review -> Human gate decision`",
+      "title": "Default Handoff"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 90,
+      "line_start": 87,
+      "section_id": "automation-principle",
+      "text": "## Automation Principle\n\nAutomate deterministic mechanics. Preserve explicit human authority over\nmission, risk acceptance, major tradeoffs, and irreversible actions.",
+      "title": "Automation Principle"
+    }
+  ],
+  "source": {
+    "bytes": 2585,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 90,
+    "media_type": "text/markdown",
+    "path": "governance/responsibility-model.md",
+    "sha256": "61b873ba156e8fe6c34ece0eefff2947fa1c09b5271e5a2f0a6e076916034ff8"
+  }
+}

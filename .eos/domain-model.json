@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "description": "Canonical EOS engineering domain model.",
   "identity": {
     "immutable_ids": true,
@@ -11,6 +11,8 @@
       "CR": "^CR-[0-9]{4}$",
       "MNT": "^MNT-[0-9]{4}$",
       "REL": "^REL-[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "EXEC": "^EXEC-[0-9]{4}$",
+      "EVID": "^EVID-[0-9]{4}$",
       "REQ": "^REQ-[A-Z0-9][A-Z0-9-]*$",
       "CAP": "^CAP-[A-Z0-9][A-Z0-9-]*$",
       "QA": "^QA-[A-Z0-9][A-Z0-9-]*$",
@@ -60,6 +62,20 @@
       "registry": ".eos/releases.tsv",
       "schema": ".eos/schemas/rel.schema.json",
       "state_machine": ".eos/state-machines/rel.json",
+      "parent": null
+    },
+    "EXEC": {
+      "name": "Execution Session",
+      "registry": ".eos/executions.tsv",
+      "schema": ".eos/schemas/exec.schema.json",
+      "state_machine": ".eos/state-machines/exec.json",
+      "parent": "WP"
+    ,
+    "EVID": {
+      "name": "Verification Evidence",
+      "registry": ".eos/evidence.tsv",
+      "schema": ".eos/schemas/evid.schema.json",
+      "state_machine": ".eos/state-machines/evid.json",
       "parent": null
     }
   },

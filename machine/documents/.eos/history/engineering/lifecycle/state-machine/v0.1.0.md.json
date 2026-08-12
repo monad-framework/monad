@@ -1,0 +1,112 @@
+{
+  "content": "---\nartifact_id: \"EOS-STATE-0001\"\ntitle: \"EOS Lifecycle State Machine\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOS Lifecycle State Machine\n\n## Program Increment\n\n`DRAFT -> PLANNED -> AUTHORIZED -> ACTIVE -> IN_REVIEW -> CLOSED`\n\nExceptional state: `BLOCKED`.\n\n## Work Cycle\n\n`DRAFT -> READY -> AUTHORIZED -> ACTIVE -> IN_REVIEW -> CLOSED`\n\nExceptional state: `BLOCKED`.\n\n## Work Packet\n\n`DRAFT -> READY -> AUTHORIZED -> IN_PROGRESS -> VERIFYING -> IN_REVIEW -> CLOSED`\n\nExceptional state: `BLOCKED`.\n\n## Change Request\n\n`DRAFT -> PROPOSED -> APPROVED -> APPLIED -> CLOSED`\n\nAlternative terminal state: `REJECTED`.\n\n## Maintenance Item\n\n`OPEN -> PLANNED -> IN_PROGRESS -> VERIFYING -> CLOSED`\n\nAlternative state: `DEFERRED`.\n\n## Release\n\n`PROPOSED -> READY -> RELEASED`\n\nAlternative terminal state: `WITHDRAWN`.\n\n## Gate Principle\n\nTransitions implying authorization, acceptance, closure, release, or risk\nacceptance leave durable evidence and a decision record.\n",
+  "document_id": "doc:.eos%2Fhistory%2Fengineering%2Flifecycle%2Fstate-machine%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"EOS-STATE-0001\" title: \"EOS Lifecycle State Machine\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOS Lifecycle State Machine"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"EOS-STATE-0001\"\ntitle: \"EOS Lifecycle State Machine\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "eos-lifecycle-state-machine",
+      "text": "# EOS Lifecycle State Machine",
+      "title": "EOS Lifecycle State Machine"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 14,
+      "section_id": "program-increment",
+      "text": "## Program Increment\n\n`DRAFT -> PLANNED -> AUTHORIZED -> ACTIVE -> IN_REVIEW -> CLOSED`\n\nExceptional state: `BLOCKED`.",
+      "title": "Program Increment"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 20,
+      "section_id": "work-cycle",
+      "text": "## Work Cycle\n\n`DRAFT -> READY -> AUTHORIZED -> ACTIVE -> IN_REVIEW -> CLOSED`\n\nExceptional state: `BLOCKED`.",
+      "title": "Work Cycle"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 26,
+      "section_id": "work-packet",
+      "text": "## Work Packet\n\n`DRAFT -> READY -> AUTHORIZED -> IN_PROGRESS -> VERIFYING -> IN_REVIEW -> CLOSED`\n\nExceptional state: `BLOCKED`.",
+      "title": "Work Packet"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 32,
+      "section_id": "change-request",
+      "text": "## Change Request\n\n`DRAFT -> PROPOSED -> APPROVED -> APPLIED -> CLOSED`\n\nAlternative terminal state: `REJECTED`.",
+      "title": "Change Request"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 38,
+      "section_id": "maintenance-item",
+      "text": "## Maintenance Item\n\n`OPEN -> PLANNED -> IN_PROGRESS -> VERIFYING -> CLOSED`\n\nAlternative state: `DEFERRED`.",
+      "title": "Maintenance Item"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 44,
+      "section_id": "release",
+      "text": "## Release\n\n`PROPOSED -> READY -> RELEASED`\n\nAlternative terminal state: `WITHDRAWN`.",
+      "title": "Release"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 50,
+      "section_id": "gate-principle",
+      "text": "## Gate Principle\n\nTransitions implying authorization, acceptance, closure, release, or risk\nacceptance leave durable evidence and a decision record.",
+      "title": "Gate Principle"
+    }
+  ],
+  "source": {
+    "bytes": 1063,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 53,
+    "media_type": "text/markdown",
+    "path": ".eos/history/engineering/lifecycle/state-machine/v0.1.0.md",
+    "sha256": "49f238acba8295264ee79347ededac399f632e0ca9aa8d84ce01e3b379bc814f"
+  }
+}

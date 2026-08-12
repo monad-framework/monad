@@ -1,129 +1,102 @@
 # Product Requirements
 
-## Document control
-
-- **Status:** Proposed baseline
-- **Product:** MonadV2
-- **Release focus:** First validated end-to-end journey
-- **Decision owner:** Product owner
-- **Reviewers:** Engineering, design, security, operations, and affected domain
-  stakeholders
+**Status:** Proposed MVP baseline  
+**Release focus:** MVP Release 1
 
 ## Objective
 
-Deliver a narrow product that lets the primary user initiate, complete, verify,
-and recover the core workflow without undocumented expert intervention. The
-release proves the product hypothesis while establishing minimum safety and
-operability needed for real use.
-
-## Users and outcome
-
-The primary practitioner needs to transform a valid intent and required inputs
-into a dependable result. The accountable owner needs evidence that the result
-and controls are valid. The operator needs enough state and telemetry to detect,
-diagnose, and recover failures.
+Deliver the smallest local-first Monad implementation that compiles canonical engineering knowledge into a deterministic semantic model and makes that model useful for repository inspection, validation, query/explanation, and bounded AI-agent context.
 
 ## Functional requirements
 
-### FR-001 — Start an authorized workflow
+### FR-001 — Discover a Monad repository
 
-The system shall allow an authenticated, authorized user to start the primary
-workflow with a clear statement of purpose, required inputs, expected result,
-and applicable constraints.
+Monad MUST identify the repository/workspace root, effective configuration, supported canonical artifacts, and relevant toolchain/workspace structure.
 
-**Acceptance:** valid input creates one traceable workflow instance; missing,
-invalid, or unauthorized input produces an actionable response and no partial
-side effect.
+**Acceptance:** repeated discovery of an unchanged reference repository yields equivalent identities/order; unsupported or malformed configuration produces actionable diagnostics.
 
-### FR-002 — Validate before commitment
+### FR-002 — Ingest canonical engineering artifacts
 
-The system shall validate required data, permissions, compatibility, and known
-safety constraints before committing consequential changes.
+Monad MUST parse supported canonical Markdown and structured configuration without requiring an LLM.
 
-**Acceptance:** validation findings identify the affected field or rule,
-explain the corrective action, and distinguish warnings from blocking errors.
+**Acceptance:** source path/hash, sections, metadata, stable identifiers, and references are preserved; malformed input cannot silently become valid semantic state.
 
-### FR-003 — Expose state and progress
+### FR-003 — Construct the Monad Semantic Graph
 
-The system shall expose the current workflow state, completed steps, responsible
-actor, blocked dependency, and next permitted action.
+Monad MUST represent supported engineering entities and typed relationships with deterministic identity and provenance.
 
-**Acceptance:** refresh, reconnect, and concurrent observation do not create
-contradictory user-visible state.
+**Acceptance:** equivalent input yields equivalent canonical graph; every derived node/edge can identify its source/rule; unresolved relationships remain explicit.
 
-### FR-004 — Produce a verifiable result
+### FR-004 — Validate structural and semantic invariants
 
-The system shall produce a result linked to its workflow instance, relevant
-inputs, applied version or policy, completion time, and verification status.
+Monad MUST evaluate MVP rules for identity uniqueness, required metadata, reference resolution, authority/status consistency, machine-projection freshness, and other approved invariants.
 
-**Acceptance:** the user can distinguish successful, partial, failed, and
-cancelled outcomes and can retrieve the result during the retention window.
+**Acceptance:** findings have stable code, severity, source/entity, explanation, and remediation context; valid repositories pass deterministically.
 
-### FR-005 — Handle interruption and retry
+### FR-005 — Query semantic relationships
 
-The system shall preserve safe progress across supported interruptions and
-provide idempotent retry, compensation, or escalation according to the failure
-class.
+Monad MUST support bounded graph queries needed by MVP, including references, dependents, governing artifacts, unresolved entities, and traceability gaps.
 
-**Acceptance:** repeated requests do not duplicate consequential effects and
-tested recovery paths restore a defined state.
+**Acceptance:** query results are stable for unchanged input and include provenance sufficient to inspect the canonical basis.
 
-### FR-006 — Provide user control
+### FR-006 — Explain engineering meaning
 
-The system shall allow a user to review consequential actions before commitment
-and cancel or reverse them when the underlying operation supports reversal.
+Monad MUST explain why a supported artifact/entity exists or what governs/depends on it by traversing explicit graph relationships rather than inventing undocumented causal claims.
 
-**Acceptance:** confirmation identifies the effect and scope; cancellation has
-a documented terminal state; irreversible actions are labeled before approval.
+**Acceptance:** explanations enumerate the relationship/evidence path and distinguish missing knowledge from negative answers.
 
-### FR-007 — Record accountable evidence
+### FR-007 — Produce bounded agent context
 
-The system shall record security-relevant and outcome-relevant events with a
-stable correlation identifier, actor, action, time, result, and policy context.
+Given a valid authorized Work Packet, Monad MUST produce a context package containing applicable scope, governing artifacts, constraints/prohibitions, relevant graph neighborhood, acceptance criteria, and validation commands while excluding unrelated content by default.
 
-**Acceptance:** authorized reviewers can reconstruct the workflow without logs
-containing secrets or unnecessary sensitive payloads.
+**Acceptance:** context-package membership is deterministic/explainable; excluded secret paths remain excluded; missing authority blocks an implementation-ready package.
 
-### FR-008 — Support accessible operation
+### FR-008 — Expose an MVP CLI
 
-The primary journey shall support keyboard operation, meaningful focus order,
-programmatic labels, non-color status cues, readable errors, and supported
-screen-reader workflows.
+Monad MUST expose a coherent local CLI for repository inspection, validation, graph/query, explanation, and context generation with human-readable and structured output where automation requires it.
 
-**Acceptance:** automated checks and manual assistive-technology testing pass
-the documented accessibility acceptance suite.
+**Acceptance:** commands use documented exit semantics, no-color/CI-safe behavior, stable machine schemas where declared, and actionable diagnostics.
+
+### FR-009 — Preserve reproducibility evidence
+
+Monad MUST record enough version/input/configuration identity to reproduce semantic output and diagnose divergence.
+
+**Acceptance:** clean-clone conformance fixtures reproduce expected semantic snapshots and diagnostics across supported environments.
+
+### FR-010 — Integrate without replacing native tools
+
+Where MVP validation delegates to a native tool, Monad MUST expose the invocation/evidence and preserve the native result rather than reinterpreting a failure as success.
 
 ## Quality requirements
 
-- **QR-001 Reliability:** valid workflow attempts meet the committed success
-  objective and fail safely outside it.
-- **QR-002 Performance:** interactive responses and end-to-end completion stay
-  within approved budgets under the reference load.
-- **QR-003 Security:** authentication, authorization, input validation,
-  encryption, audit, and dependency controls satisfy the security model.
-- **QR-004 Privacy:** collection, purpose, retention, access, export, and
-  deletion rules are explicit and enforced.
-- **QR-005 Operability:** all critical paths emit health, demand, error,
-  saturation, and trace signals with owned response procedures.
-- **QR-006 Maintainability:** public contracts are versioned and component
-  responsibilities remain within approved boundaries.
+### QR-001 Determinism
 
-## Release acceptance
+Ordering, identity, canonical serialization, and diagnostics must not depend on filesystem enumeration order, wall-clock time, randomized IDs, or LLM output.
 
-The release may proceed when all must-have requirements trace to passing tests,
-the primary journey succeeds in representative use, no unaccepted critical or
-high risk remains, recovery and rollback are demonstrated, operations accepts
-the runbook, and the product owner accepts measured outcome evidence.
+### QR-002 Performance
 
-## Dependencies and assumptions
+Reference budgets for startup, parse/graph build, query latency, and memory must be measured before release; regressions above approved thresholds fail the performance gate.
 
-The baseline assumes one supported operating region, one identity authority,
-one primary persona, a bounded data classification, and availability of the
-critical dependencies named by architecture. Changes to these assumptions
-require impact review.
+### QR-003 Security
 
-## Explicit exclusions
+The system follows least privilege/context, defends against path traversal/symlink and untrusted-input hazards, avoids executing repository content during inspection unless explicitly authorized, and produces no secret-bearing diagnostics/context by default.
 
-Universal workflows, autonomous high-impact decisions, extensive customization,
-unvalidated integrations, and multi-region active-active operation are outside
-the first release. See `vision/non-goals.md` for reconsideration triggers.
+### QR-004 Reliability
+
+Partial/corrupt caches or generated state must be detectable and recoverable by rebuilding from canonical inputs.
+
+### QR-005 Compatibility
+
+MVP does not promise a stable public KIR/plugin API until versioning contracts are approved; any declared stable CLI/schema surface follows compatibility policy.
+
+### QR-006 Operability
+
+`doctor`/diagnostic paths must make configuration/toolchain/environment failures distinguishable from semantic repository failures.
+
+### QR-007 Maintainability
+
+Compiler/graph/query/context concerns have explicit boundaries and conformance fixtures so implementations can evolve without changing semantics accidentally.
+
+## Release gate
+
+MVP release requires all Must requirements to trace to approved specification rules and passing evidence; no unaccepted critical/high security or correctness risk; deterministic clean-clone demonstration; installation/usage docs; and Product Owner acceptance against `MVP-RELEASE-1.md`.

@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "validators": {
+    "eos-integrity": {"kind": "integrity", "runner": "builtin", "builtin": "core-verify", "description": "Strict EOS structural and lifecycle integrity."},
+    "repository": {"kind": "repository", "runner": "legacy-lines", "config": ".eos/validation.commands", "description": "Repository-specific build/test/lint/typecheck commands."},
+    "execution-acceptance": {"kind": "acceptance", "runner": "builtin", "builtin": "execution-acceptance", "description": "Structured acceptance-criterion results from the active EXEC session."},
+    "secret-scan": {"kind": "security", "runner": "builtin", "builtin": "secret-scan", "description": "High-confidence repository secret-pattern scan without exposing secret values."},
+    "supply-chain": {"kind": "supply-chain", "runner": "builtin", "builtin": "supply-chain", "description": "Manifest/lockfile inventory and cryptographic fingerprint evidence."},
+    "reproducibility": {"kind": "reproducibility", "runner": "builtin", "builtin": "reproducibility", "description": "Repeat configured deterministic commands and compare normalized outputs."},
+    "performance": {"kind": "performance", "runner": "builtin", "builtin": "performance", "description": "Run configured numeric benchmarks against governed performance baselines."}
+  }
+}

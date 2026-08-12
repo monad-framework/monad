@@ -1,0 +1,40 @@
+{
+  "content": "name: GitHub tracking sync\n\non:\n  push:\n    branches:\n      - \"stabilization/**\"\n    paths:\n      - \"product/backlog/MVP-BACKLOG.md\"\n      - \"engineering/work-packets/**\"\n      - \"scripts/sync-github-tracking.py\"\n      - \".github/workflows/github-tracking-sync.yml\"\n  workflow_dispatch:\n\npermissions:\n  contents: read\n  issues: write\n\nconcurrency:\n  group: github-tracking-sync\n  cancel-in-progress: false\n\njobs:\n  synchronize:\n    runs-on: ubuntu-latest\n    timeout-minutes: 20\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - name: Validate Python\n        run: python3 -m py_compile scripts/sync-github-tracking.py\n      - name: Synchronize labels, milestones, issues, and hierarchy\n        env:\n          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n        run: python3 scripts/sync-github-tracking.py\n",
+  "document_id": "doc:.github%2Fworkflows%2Fgithub-tracking-sync.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/github-tracking-sync.yml.",
+    "title": "Github Tracking Sync"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 36,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: GitHub tracking sync\n\non:\n  push:\n    branches:\n      - \"stabilization/**\"\n    paths:\n      - \"product/backlog/MVP-BACKLOG.md\"\n      - \"engineering/work-packets/**\"\n      - \"scripts/sync-github-tracking.py\"\n      - \".github/workflows/github-tracking-sync.yml\"\n  workflow_dispatch:\n\npermissions:\n  contents: read\n  issues: write\n\nconcurrency:\n  group: github-tracking-sync\n  cancel-in-progress: false\n\njobs:\n  synchronize:\n    runs-on: ubuntu-latest\n    timeout-minutes: 20\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - name: Validate Python\n        run: python3 -m py_compile scripts/sync-github-tracking.py\n      - name: Synchronize labels, milestones, issues, and hierarchy\n        env:\n          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n        run: python3 scripts/sync-github-tracking.py",
+      "title": "Github Tracking Sync"
+    }
+  ],
+  "source": {
+    "bytes": 892,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 36,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/github-tracking-sync.yml",
+    "sha256": "085a08a3383001ad0870b32ccce9818a5d1ba47a1ed0d5364c3c38dfee59d823"
+  }
+}

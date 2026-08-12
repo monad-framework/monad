@@ -1,0 +1,101 @@
+{
+  "content": "# TECH-INGEST-0003: Local Reference Resolution\n\n**Status:** approved  \n**Version:** 1.0.0  \n**Owner:** Monad Core  \n**Related requirements:** FR-002, FR-003, FR-004, QR-001, QR-003  \n**Governing ADRs:** ADR-0003, ADR-0004\n\n## Purpose\n\nDefines deterministic resolution of local reference candidates extracted from supported canonical artifacts. It emits typed relation candidates for semantic graph construction while preserving unresolved/ambiguous references explicitly.\n\n## Reference classes in MVP\n\n- explicit governed artifact identifiers such as ADR, specification, PI/WC/WP, Epic/Feature/Story identifiers;\n- repository-relative Markdown/file links to configured canonical sources;\n- same-document anchors where needed for provenance/explanation;\n- external URLs as external/unresolved reference records, not fetched semantic truth.\n\n## Normative behavior\n\n1. Resolution operates over the complete discovered/parsed MVP source index, never first-match filesystem traversal.\n2. Governed-ID references resolve by exact namespace + identifier. Missing IDs remain unresolved; duplicate target IDs produce ambiguity/collision diagnostics.\n3. File references resolve lexically from the referring source path, normalize `.` segments, reject root escape, and match canonical configured source paths.\n4. References to excluded/noncanonical files may be recorded as noncanonical targets but MUST NOT silently promote those files into canonical semantic sources.\n5. External URLs MUST NOT be fetched during resolution. They remain typed external reference records with source provenance.\n6. Every relation candidate records referring source/document, source range when available, raw reference text, normalized target key, resolution state, relation-hint/rule identifier, and target identity when resolved.\n7. Resolution states are at least `resolved`, `unresolved`, `ambiguous`, `external`, and `noncanonical`.\n8. Candidate/result ordering MUST be deterministic by referring identity, source range, relation/rule key, and normalized target key.\n9. Absence of a resolvable target MUST NOT be rewritten as a negative semantic claim. Later validation determines whether unresolved references are allowed or errors for that artifact contract.\n\n## Security\n\nResolution MUST reject path traversal outside repository root and MUST NOT dereference network locations or execute target content.\n\n## Verification\n\nFixtures cover valid/missing/duplicate governed IDs, relative paths, anchors, excluded targets, `..` traversal, external URLs, duplicate filenames in different directories, case collisions, and randomized input ordering.\n",
+  "document_id": "doc:specifications%2Ftechnical%2FTECH-INGEST-0003-local-reference-resolution.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0003",
+    "ADR-0004",
+    "FR-002",
+    "FR-003",
+    "FR-004",
+    "QR-001",
+    "QR-003"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "specification",
+    "normative": true,
+    "summary": "Status: approved Version: 1.0.0 Owner: Monad Core Related requirements: FR-002, FR-003, FR-004, QR-001, QR-003 Governing ADRs: ADR-0003, ADR-0004",
+    "title": "TECH-INGEST-0003: Local Reference Resolution"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0003",
+        "ADR-0004",
+        "FR-002",
+        "FR-003",
+        "FR-004",
+        "QR-001",
+        "QR-003"
+      ],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "tech-ingest-0003-local-reference-resolution",
+      "text": "# TECH-INGEST-0003: Local Reference Resolution\n\n**Status:** approved  \n**Version:** 1.0.0  \n**Owner:** Monad Core  \n**Related requirements:** FR-002, FR-003, FR-004, QR-001, QR-003  \n**Governing ADRs:** ADR-0003, ADR-0004",
+      "title": "TECH-INGEST-0003: Local Reference Resolution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 9,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nDefines deterministic resolution of local reference candidates extracted from supported canonical artifacts. It emits typed relation candidates for semantic graph construction while preserving unresolved/ambiguous references explicitly.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 13,
+      "section_id": "reference-classes-in-mvp",
+      "text": "## Reference classes in MVP\n\n- explicit governed artifact identifiers such as ADR, specification, PI/WC/WP, Epic/Feature/Story identifiers;\n- repository-relative Markdown/file links to configured canonical sources;\n- same-document anchors where needed for provenance/explanation;\n- external URLs as external/unresolved reference records, not fetched semantic truth.",
+      "title": "Reference classes in MVP"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 20,
+      "section_id": "normative-behavior",
+      "text": "## Normative behavior\n\n1. Resolution operates over the complete discovered/parsed MVP source index, never first-match filesystem traversal.\n2. Governed-ID references resolve by exact namespace + identifier. Missing IDs remain unresolved; duplicate target IDs produce ambiguity/collision diagnostics.\n3. File references resolve lexically from the referring source path, normalize `.` segments, reject root escape, and match canonical configured source paths.\n4. References to excluded/noncanonical files may be recorded as noncanonical targets but MUST NOT silently promote those files into canonical semantic sources.\n5. External URLs MUST NOT be fetched during resolution. They remain typed external reference records with source provenance.\n6. Every relation candidate records referring source/document, source range when available, raw reference text, normalized target key, resolution state, relation-hint/rule identifier, and target identity when resolved.\n7. Resolution states are at least `resolved`, `unresolved`, `ambiguous`, `external`, and `noncanonical`.\n8. Candidate/result ordering MUST be deterministic by referring identity, source range, relation/rule key, and normalized target key.\n9. Absence of a resolvable target MUST NOT be rewritten as a negative semantic claim. Later validation determines whether unresolved references are allowed or errors for that artifact contract.",
+      "title": "Normative behavior"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 32,
+      "section_id": "security",
+      "text": "## Security\n\nResolution MUST reject path traversal outside repository root and MUST NOT dereference network locations or execute target content.",
+      "title": "Security"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 36,
+      "section_id": "verification",
+      "text": "## Verification\n\nFixtures cover valid/missing/duplicate governed IDs, relative paths, anchors, excluded targets, `..` traversal, external URLs, duplicate filenames in different directories, case collisions, and randomized input ordering.",
+      "title": "Verification"
+    }
+  ],
+  "source": {
+    "bytes": 2620,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 38,
+    "media_type": "text/markdown",
+    "path": "specifications/technical/TECH-INGEST-0003-local-reference-resolution.md",
+    "sha256": "e3849a329fa0195c7207a5606681ce5539ef82e82b53ed6847155ff7a7456961"
+  }
+}

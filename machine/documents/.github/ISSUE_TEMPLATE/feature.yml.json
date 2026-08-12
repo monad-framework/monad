@@ -1,0 +1,40 @@
+{
+  "content": "name: Feature\nabout: Track a feature-sized outcome governed by a Work Packet.\ntitle: \"[Feature] \"\nbody:\n  - type: input\n    id: feature\n    attributes:\n      label: Feature identifier\n      placeholder: F-XXX-XX\n    validations:\n      required: true\n  - type: input\n    id: wp\n    attributes:\n      label: Work Packet\n      placeholder: WP-MVP-XXXX\n    validations:\n      required: true\n  - type: input\n    id: parent\n    attributes:\n      label: Parent Epic\n      placeholder: EPIC-XXX\n    validations:\n      required: true\n  - type: textarea\n    id: outcome\n    attributes:\n      label: Outcome and acceptance\n    validations:\n      required: true\n  - type: textarea\n    id: dependencies\n    attributes:\n      label: Dependencies and blockers\n",
+  "document_id": "doc:.github%2FISSUE_TEMPLATE%2Ffeature.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-governance",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/ISSUE_TEMPLATE/feature.yml.",
+    "title": "Feature"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 35,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Feature\nabout: Track a feature-sized outcome governed by a Work Packet.\ntitle: \"[Feature] \"\nbody:\n  - type: input\n    id: feature\n    attributes:\n      label: Feature identifier\n      placeholder: F-XXX-XX\n    validations:\n      required: true\n  - type: input\n    id: wp\n    attributes:\n      label: Work Packet\n      placeholder: WP-MVP-XXXX\n    validations:\n      required: true\n  - type: input\n    id: parent\n    attributes:\n      label: Parent Epic\n      placeholder: EPIC-XXX\n    validations:\n      required: true\n  - type: textarea\n    id: outcome\n    attributes:\n      label: Outcome and acceptance\n    validations:\n      required: true\n  - type: textarea\n    id: dependencies\n    attributes:\n      label: Dependencies and blockers",
+      "title": "Feature"
+    }
+  ],
+  "source": {
+    "bytes": 745,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 35,
+    "media_type": "application/yaml",
+    "path": ".github/ISSUE_TEMPLATE/feature.yml",
+    "sha256": "3b2d98eefce54859a443cd968d6ddd5240ea963ff7a36f0c4827978962a3c830"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "content": "# System Context\n\n## System of interest\n\nMonadV2 is the system of interest. It accepts authorized user intent,\ncoordinates the primary workflow, integrates with bounded external services,\nand returns a verifiable outcome with appropriate evidence.\n\n## Actors\n\n| Actor | Uses the system to | Trust and access considerations |\n| --- | --- | --- |\n| Responsible Practitioner | Complete and recover the primary workflow | Access limited to authorized resources and actions |\n| Accountable Owner | Review outcomes, risk, adoption, and evidence | Aggregate access does not imply unrestricted payload access |\n| Service Operator | Deploy, diagnose, mitigate, and restore | Privileged access is time-bounded, audited, and separated |\n| Maintainer | Change code, configuration, and documentation | Changes require review and protected release paths |\n| Affected Stakeholder | Exercise applicable data or decision rights | May not hold an ordinary product account |\n\n## External systems\n\n### Identity authority\n\nAuthenticates users and supplies stable subject and authentication context. The\nproduct remains responsible for resource authorization. Unavailability blocks\nnew privileged sessions but does not erase established audit context.\n\n### Data store\n\nPersists authoritative domain and workflow state. Encryption, backup, restore,\nschema compatibility, and access isolation are owned operational concerns, not\nassumed provider properties.\n\n### Communication or integration services\n\nDeliver optional notifications or exchange bounded data with the surrounding\nworkflow. Their failures cannot be mistaken for completed domain outcomes.\nOutbound data is minimized and classified before transmission.\n\n### Observability system\n\nReceives metrics, logs, and traces needed to operate the service. It must not\nbecome an uncontrolled secondary store for secrets or business payloads.\n\n### Source and artifact services\n\nHost reviewed source, dependencies, build evidence, and release artifacts.\nProtected branches, immutable provenance, least-privilege automation, and\nartifact verification establish the software supply-chain boundary.\n\n## Trust boundaries\n\n1. Public or user-controlled clients to the application boundary.\n2. Application runtime to privileged data and secret stores.\n3. Product-controlled runtime to third-party services.\n4. Build and release automation to production deployment authority.\n5. Ordinary support access to restricted evidence and administrative actions.\n\nEvery crossing authenticates its peer where feasible, validates input, limits\nauthority, protects data in transit, and produces sufficient security evidence.\n\n## Data flows\n\nUser input enters through a versioned contract, is classified and validated,\nand is stored only by the owning capability. Derived results retain provenance\nneeded for verification. Evidence records identifiers and decisions rather than\nunnecessary payloads. Exports and deletion follow the data lifecycle rather\nthan bypassing it through ad hoc operator access.\n\n## Dependency policy\n\nAn external dependency receives an owner, purpose, data classification,\navailability and latency expectation, failure behavior, cost budget, exit\nstrategy, and review date. The project does not treat a vendor service level as\nan end-to-end guarantee.\n",
+  "content": "# System Context\n\n**Status:** Proposed stabilization baseline\n\n## System of interest\n\nMonad is a local-first Engineering Knowledge Compilation Platform operating against one or more software repositories/workspaces. Its deterministic core discovers canonical engineering artifacts, compiles them into semantic representations, validates them, and serves derived intelligence/execution decisions to humans, AI agents, and native engineering tools.\n\n## Primary actors\n\n| Actor | Goal | Authority boundary |\n| --- | --- | --- |\n| Software Engineer | Understand, validate, and change a repository | May act within repository/project permissions |\n| Project/Product Steward | Define intent, priorities, and acceptance | Human product/governance authority |\n| Architecture/Engineering Owner | Define technical contracts and authorize implementation | Accepted ADR/spec/WP boundaries |\n| ChatGPT | Architecture, planning, specification, decomposition, review assistance | Advisory/generative; no implicit approval |\n| Codex | Repository inspection and bounded implementation | Work Packet/file/tool scope; evidence required |\n| CI/Automation | Deterministic validation and projection | Mechanical enforcement only |\n| Native Tool | Compile/test/build/format/deploy its domain | Native result remains authoritative |\n\n## External systems\n\n### Git and repository hosting\n\nGit stores canonical history; GitHub provides collaboration, Issues/Projects projections, PR review, Actions, releases, and organization governance.\n\n### Native language/build ecosystems\n\nCompilers, package managers, task/build systems, test frameworks, formatters/linters, infrastructure tools, containers, and other integrations are invoked through explicit adapters/capabilities.\n\n### AI model/provider services\n\nOptional AI providers may assist with reasoning/authoring. Core semantic truth and validation cannot depend on a provider being reachable or deterministic.\n\n### Registries and artifact stores\n\nPackage/plugin/Monad registries and caches may distribute trusted artifacts later. Their metadata, signatures, and compatibility become explicit boundaries when activated.\n\n## Trust boundaries\n\n1. repository-controlled data → Monad parser/semantic core;\n2. Monad core → executable native tools/processes;\n3. canonical repository → generated machine/cache state;\n4. Monad → AI provider context boundary;\n5. local engine → optional remote/hosted services;\n6. work authorization → agent implementation authority;\n7. build/release automation → distributable artifacts.\n\n## Core data flow\n\n```text\nCanonical repository\n    ↓\nDiscovery + configuration resolution\n    ↓\nParsing / normalization / identity\n    ↓\nSemantic graph + diagnostics\n    ↓\nKIR / query / explain / context / execution plan\n    ↓\nHuman + agent + native tools\n    ↓\nEvidence and canonical change\n```\n\nEvery derived stage retains provenance sufficient to identify the canonical inputs and rules that produced it.",
   "document_id": "doc:architecture%2Fcontext.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "architecture",
     "normative": true,
-    "summary": "MonadV2 is the system of interest. It accepts authorized user intent, coordinates the primary workflow, integrates with bounded external services, and returns a verifiable outcome with appropriate evidence.",
+    "summary": "Status: Proposed stabilization baseline",
     "title": "System Context"
   },
   "relations": [],
@@ -21,35 +21,35 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 2,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "system-context",
-      "text": "# System Context",
+      "text": "# System Context\n\n**Status:** Proposed stabilization baseline",
       "title": "System Context"
     },
     {
       "identifiers": [],
       "level": 2,
       "line_end": 8,
-      "line_start": 3,
+      "line_start": 5,
       "section_id": "system-of-interest",
-      "text": "## System of interest\n\nMonadV2 is the system of interest. It accepts authorized user intent,\ncoordinates the primary workflow, integrates with bounded external services,\nand returns a verifiable outcome with appropriate evidence.",
+      "text": "## System of interest\n\nMonad is a local-first Engineering Knowledge Compilation Platform operating against one or more software repositories/workspaces. Its deterministic core discovers canonical engineering artifacts, compiles them into semantic representations, validates them, and serves derived intelligence/execution decisions to humans, AI agents, and native engineering tools.",
       "title": "System of interest"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 18,
+      "line_end": 20,
       "line_start": 9,
-      "section_id": "actors",
-      "text": "## Actors\n\n| Actor | Uses the system to | Trust and access considerations |\n| --- | --- | --- |\n| Responsible Practitioner | Complete and recover the primary workflow | Access limited to authorized resources and actions |\n| Accountable Owner | Review outcomes, risk, adoption, and evidence | Aggregate access does not imply unrestricted payload access |\n| Service Operator | Deploy, diagnose, mitigate, and restore | Privileged access is time-bounded, audited, and separated |\n| Maintainer | Change code, configuration, and documentation | Changes require review and protected release paths |\n| Affected Stakeholder | Exercise applicable data or decision rights | May not hold an ordinary product account |",
-      "title": "Actors"
+      "section_id": "primary-actors",
+      "text": "## Primary actors\n\n| Actor | Goal | Authority boundary |\n| --- | --- | --- |\n| Software Engineer | Understand, validate, and change a repository | May act within repository/project permissions |\n| Project/Product Steward | Define intent, priorities, and acceptance | Human product/governance authority |\n| Architecture/Engineering Owner | Define technical contracts and authorize implementation | Accepted ADR/spec/WP boundaries |\n| ChatGPT | Architecture, planning, specification, decomposition, review assistance | Advisory/generative; no implicit approval |\n| Codex | Repository inspection and bounded implementation | Work Packet/file/tool scope; evidence required |\n| CI/Automation | Deterministic validation and projection | Mechanical enforcement only |\n| Native Tool | Compile/test/build/format/deploy its domain | Native result remains authoritative |",
+      "title": "Primary actors"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 20,
-      "line_start": 19,
+      "line_end": 22,
+      "line_start": 21,
       "section_id": "external-systems",
       "text": "## External systems",
       "title": "External systems"
@@ -58,82 +58,64 @@
       "identifiers": [],
       "level": 3,
       "line_end": 26,
-      "line_start": 21,
-      "section_id": "identity-authority",
-      "text": "### Identity authority\n\nAuthenticates users and supplies stable subject and authentication context. The\nproduct remains responsible for resource authorization. Unavailability blocks\nnew privileged sessions but does not erase established audit context.",
-      "title": "Identity authority"
+      "line_start": 23,
+      "section_id": "git-and-repository-hosting",
+      "text": "### Git and repository hosting\n\nGit stores canonical history; GitHub provides collaboration, Issues/Projects projections, PR review, Actions, releases, and organization governance.",
+      "title": "Git and repository hosting"
     },
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 32,
+      "line_end": 30,
       "line_start": 27,
-      "section_id": "data-store",
-      "text": "### Data store\n\nPersists authoritative domain and workflow state. Encryption, backup, restore,\nschema compatibility, and access isolation are owned operational concerns, not\nassumed provider properties.",
-      "title": "Data store"
+      "section_id": "native-language-build-ecosystems",
+      "text": "### Native language/build ecosystems\n\nCompilers, package managers, task/build systems, test frameworks, formatters/linters, infrastructure tools, containers, and other integrations are invoked through explicit adapters/capabilities.",
+      "title": "Native language/build ecosystems"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 34,
+      "line_start": 31,
+      "section_id": "ai-model-provider-services",
+      "text": "### AI model/provider services\n\nOptional AI providers may assist with reasoning/authoring. Core semantic truth and validation cannot depend on a provider being reachable or deterministic.",
+      "title": "AI model/provider services"
     },
     {
       "identifiers": [],
       "level": 3,
       "line_end": 38,
-      "line_start": 33,
-      "section_id": "communication-or-integration-services",
-      "text": "### Communication or integration services\n\nDeliver optional notifications or exchange bounded data with the surrounding\nworkflow. Their failures cannot be mistaken for completed domain outcomes.\nOutbound data is minimized and classified before transmission.",
-      "title": "Communication or integration services"
-    },
-    {
-      "identifiers": [],
-      "level": 3,
-      "line_end": 43,
-      "line_start": 39,
-      "section_id": "observability-system",
-      "text": "### Observability system\n\nReceives metrics, logs, and traces needed to operate the service. It must not\nbecome an uncontrolled secondary store for secrets or business payloads.",
-      "title": "Observability system"
-    },
-    {
-      "identifiers": [],
-      "level": 3,
-      "line_end": 49,
-      "line_start": 44,
-      "section_id": "source-and-artifact-services",
-      "text": "### Source and artifact services\n\nHost reviewed source, dependencies, build evidence, and release artifacts.\nProtected branches, immutable provenance, least-privilege automation, and\nartifact verification establish the software supply-chain boundary.",
-      "title": "Source and artifact services"
+      "line_start": 35,
+      "section_id": "registries-and-artifact-stores",
+      "text": "### Registries and artifact stores\n\nPackage/plugin/Monad registries and caches may distribute trusted artifacts later. Their metadata, signatures, and compatibility become explicit boundaries when activated.",
+      "title": "Registries and artifact stores"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 60,
-      "line_start": 50,
+      "line_end": 48,
+      "line_start": 39,
       "section_id": "trust-boundaries",
-      "text": "## Trust boundaries\n\n1. Public or user-controlled clients to the application boundary.\n2. Application runtime to privileged data and secret stores.\n3. Product-controlled runtime to third-party services.\n4. Build and release automation to production deployment authority.\n5. Ordinary support access to restricted evidence and administrative actions.\n\nEvery crossing authenticates its peer where feasible, validates input, limits\nauthority, protects data in transit, and produces sufficient security evidence.",
+      "text": "## Trust boundaries\n\n1. repository-controlled data → Monad parser/semantic core;\n2. Monad core → executable native tools/processes;\n3. canonical repository → generated machine/cache state;\n4. Monad → AI provider context boundary;\n5. local engine → optional remote/hosted services;\n6. work authorization → agent implementation authority;\n7. build/release automation → distributable artifacts.",
       "title": "Trust boundaries"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 68,
-      "line_start": 61,
-      "section_id": "data-flows",
-      "text": "## Data flows\n\nUser input enters through a versioned contract, is classified and validated,\nand is stored only by the owning capability. Derived results retain provenance\nneeded for verification. Evidence records identifiers and decisions rather than\nunnecessary payloads. Exports and deletion follow the data lifecycle rather\nthan bypassing it through ad hoc operator access.",
-      "title": "Data flows"
-    },
-    {
-      "identifiers": [],
-      "level": 2,
-      "line_end": 74,
-      "line_start": 69,
-      "section_id": "dependency-policy",
-      "text": "## Dependency policy\n\nAn external dependency receives an owner, purpose, data classification,\navailability and latency expectation, failure behavior, cost budget, exit\nstrategy, and review date. The project does not treat a vendor service level as\nan end-to-end guarantee.",
-      "title": "Dependency policy"
+      "line_end": 67,
+      "line_start": 49,
+      "section_id": "core-data-flow",
+      "text": "## Core data flow\n\n```text\nCanonical repository\n    ↓\nDiscovery + configuration resolution\n    ↓\nParsing / normalization / identity\n    ↓\nSemantic graph + diagnostics\n    ↓\nKIR / query / explain / context / execution plan\n    ↓\nHuman + agent + native tools\n    ↓\nEvidence and canonical change\n```\n\nEvery derived stage retains provenance sufficient to identify the canonical inputs and rules that produced it.",
+      "title": "Core data flow"
     }
   ],
   "source": {
-    "bytes": 3284,
+    "bytes": 2972,
     "canonical": true,
     "language": "markdown",
-    "lines": 74,
+    "lines": 67,
     "media_type": "text/markdown",
     "path": "architecture/context.md",
-    "sha256": "393050aa5ad2f4e666b5cb7c9b220559144f8c0eb4338319c857aaf1f2f0a7e1"
+    "sha256": "3d4bd82e2b1280573f46b946070c633f1f5d21bdaaf938ee2a372762e1bfb8e7"
   }
 }

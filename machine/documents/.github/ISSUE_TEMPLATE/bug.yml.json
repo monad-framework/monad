@@ -1,0 +1,40 @@
+{
+  "content": "name: Bug / Defect\nabout: Report behavior that violates an accepted contract or expected result.\ntitle: \"[Bug] \"\nlabels: [\"bug\"]\nbody:\n  - type: textarea\n    id: observed\n    attributes:\n      label: Observed behavior\n    validations:\n      required: true\n  - type: textarea\n    id: expected\n    attributes:\n      label: Expected behavior / governing contract\n    validations:\n      required: true\n  - type: textarea\n    id: reproduce\n    attributes:\n      label: Reproduction and evidence\n    validations:\n      required: true\n  - type: input\n    id: version\n    attributes:\n      label: Monad version / commit\n",
+  "document_id": "doc:.github%2FISSUE_TEMPLATE%2Fbug.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "repository-governance",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/ISSUE_TEMPLATE/bug.yml.",
+    "title": "Bug"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 27,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Bug / Defect\nabout: Report behavior that violates an accepted contract or expected result.\ntitle: \"[Bug] \"\nlabels: [\"bug\"]\nbody:\n  - type: textarea\n    id: observed\n    attributes:\n      label: Observed behavior\n    validations:\n      required: true\n  - type: textarea\n    id: expected\n    attributes:\n      label: Expected behavior / governing contract\n    validations:\n      required: true\n  - type: textarea\n    id: reproduce\n    attributes:\n      label: Reproduction and evidence\n    validations:\n      required: true\n  - type: input\n    id: version\n    attributes:\n      label: Monad version / commit",
+      "title": "Bug"
+    }
+  ],
+  "source": {
+    "bytes": 612,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 27,
+    "media_type": "application/yaml",
+    "path": ".github/ISSUE_TEMPLATE/bug.yml",
+    "sha256": "a52f12a0e84788c9710f8dad3a9c91b6805615c3ed3a4c98c762a96ef666a00a"
+  }
+}

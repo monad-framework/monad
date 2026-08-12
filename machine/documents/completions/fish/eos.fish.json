@@ -1,0 +1,40 @@
+{
+  "content": "# Fish completion for repository-local EOS.\nfunction __eos_dynamic_complete\n    set -l tokens (commandline -opc)\n    set -l current (commandline -ct)\n    if test (count $tokens) -eq 0\n        return\n    end\n    set -l cmd $tokens[1]\n    set -e tokens[1]\n    command $cmd completion candidates -- $tokens $current 2>/dev/null\nend\ncomplete -c eos -f -a '(__eos_dynamic_complete)'\n",
+  "document_id": "doc:completions%2Ffish%2Feos.fish",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical plain-text source for completions/fish/eos.fish.",
+    "title": "Eos"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 12,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "# Fish completion for repository-local EOS.\nfunction __eos_dynamic_complete\n    set -l tokens (commandline -opc)\n    set -l current (commandline -ct)\n    if test (count $tokens) -eq 0\n        return\n    end\n    set -l cmd $tokens[1]\n    set -e tokens[1]\n    command $cmd completion candidates -- $tokens $current 2>/dev/null\nend\ncomplete -c eos -f -a '(__eos_dynamic_complete)'",
+      "title": "Eos"
+    }
+  ],
+  "source": {
+    "bytes": 378,
+    "canonical": true,
+    "language": "plain-text",
+    "lines": 12,
+    "media_type": "text/plain",
+    "path": "completions/fish/eos.fish",
+    "sha256": "347d3407f5408f4b1573aa8300608d1756b5f01490fd3f748250f0d0d8fa4e58"
+  }
+}

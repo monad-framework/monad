@@ -1,0 +1,36 @@
+name: GitHub tracking sync
+
+on:
+  push:
+    branches:
+      - "stabilization/**"
+    paths:
+      - "product/backlog/MVP-BACKLOG.md"
+      - "engineering/work-packets/**"
+      - "scripts/sync-github-tracking.py"
+      - ".github/workflows/github-tracking-sync.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: github-tracking-sync
+  cancel-in-progress: false
+
+jobs:
+  synchronize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate Python
+        run: python3 -m py_compile scripts/sync-github-tracking.py
+      - name: Synchronize labels, milestones, issues, and hierarchy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/sync-github-tracking.py

@@ -1,0 +1,30 @@
+name: Change Request / RFC
+about: Propose a controlled change to an accepted baseline or architecture.
+title: "[Change] "
+body:
+  - type: textarea
+    id: pressure
+    attributes:
+      label: Change pressure
+      description: Why does the accepted baseline need reconsideration?
+    validations:
+      required: true
+  - type: textarea
+    id: authority
+    attributes:
+      label: Affected authority
+      description: List affected ADRs, specifications, product contracts, or EOS policies.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact, migration, and risk
+    validations:
+      required: true

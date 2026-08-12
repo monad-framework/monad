@@ -1,0 +1,40 @@
+{
+  "content": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || (cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd))\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\nexec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"\n",
+  "document_id": "doc:.eos%2Fhistory%2Ftooling%2Fscripts-eos-pre-v0.5-20260812T090718Z.sh",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical bash source for .eos/history/tooling/scripts-eos-pre-v0.5-20260812T090718Z.sh.",
+    "title": "Scripts Eos Pre V0.5 20260812T090718Z"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || (cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd))\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\nexec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"",
+      "title": "Scripts Eos Pre V0.5 20260812T090718Z"
+    }
+  ],
+  "source": {
+    "bytes": 337,
+    "canonical": true,
+    "language": "bash",
+    "lines": 11,
+    "media_type": "text/x-sh",
+    "path": ".eos/history/tooling/scripts-eos-pre-v0.5-20260812T090718Z.sh",
+    "sha256": "f54196e3ae51e879c49dd1c37435adc01bb75cf988eed152faf0410fdf46997a"
+  }
+}

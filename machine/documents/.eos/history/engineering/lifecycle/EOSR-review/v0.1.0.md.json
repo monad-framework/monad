@@ -1,0 +1,80 @@
+{
+  "content": "---\nartifact_id: \"EOSR\"\ntitle: \"EOSR Review\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSR — Review\n\n## Purpose\n\nDetermine whether work conforms to its governing intent and whether it may\nadvance, close, release, or must return to planning/change control.\n\n## Review Levels\n\n- work packet;\n- work cycle;\n- program increment;\n- architecture/change;\n- release readiness;\n- maintenance closure.\n\n## Primary Commands\n\n```bash\n./scripts/eos review WP-CORE-0001\n./scripts/eos close WP-CORE-0001\n./scripts/eos close-cycle WC-0003\n./scripts/eos close-pi PI-002\n```\n\nDeterministic checks are automated. Human authority is retained for final gates\nthat require risk acceptance or material tradeoffs.\n",
+  "document_id": "doc:.eos%2Fhistory%2Fengineering%2Flifecycle%2FEOSR-review%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WC-0003"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"EOSR\" title: \"EOSR Review\" type: \"lifecycle-layer\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOSR — Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"EOSR\"\ntitle: \"EOSR Review\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "eosr-review",
+      "text": "# EOSR — Review",
+      "title": "EOSR — Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 14,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nDetermine whether work conforms to its governing intent and whether it may\nadvance, close, release, or must return to planning/change control.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 19,
+      "section_id": "review-levels",
+      "text": "## Review Levels\n\n- work packet;\n- work cycle;\n- program increment;\n- architecture/change;\n- release readiness;\n- maintenance closure.",
+      "title": "Review Levels"
+    },
+    {
+      "identifiers": [
+        "WC-0003"
+      ],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 28,
+      "section_id": "primary-commands",
+      "text": "## Primary Commands\n\n```bash\n./scripts/eos review WP-CORE-0001\n./scripts/eos close WP-CORE-0001\n./scripts/eos close-cycle WC-0003\n./scripts/eos close-pi PI-002\n```\n\nDeterministic checks are automated. Human authority is retained for final gates\nthat require risk acceptance or material tradeoffs.",
+      "title": "Primary Commands"
+    }
+  ],
+  "source": {
+    "bytes": 797,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 38,
+    "media_type": "text/markdown",
+    "path": ".eos/history/engineering/lifecycle/EOSR-review/v0.1.0.md",
+    "sha256": "1763b6ede4deed06b37a0ed3d86227ef9c3384bc73abd44804018d90a2d16d2e"
+  }
+}

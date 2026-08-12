@@ -1,7 +1,10 @@
+# Legacy bootstrap compatibility metadata.
+# Canonical human-authored repository configuration is ../monad.toml.
+# Do not add new semantic configuration here.
 project:
   id: monad
   name: Monad
-  type: software-development-operating-system
+  type: engineering-knowledge-compilation-platform
 
 version:
   schema: "1.0"
@@ -10,22 +13,15 @@ knowledge:
   enabled: true
 
 artifacts:
-
   specifications:
     path: specifications/
-
   decisions:
-    path: adrs/
-
+    path: architecture/decisions/
   publications:
     path: journal/
-
   research:
     path: research/
-
   architecture:
     path: architecture/
-
   engineering:
     path: engineering/
-

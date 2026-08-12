@@ -1,0 +1,85 @@
+{
+  "content": "---\nartifact_id: \"GOV-STATE-0001\"\ntitle: \"Canonical EOS State Model\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# Canonical EOS State Model\n\n## Rule\n\nEOS lifecycle state is changed through **append-only events** and projected into\nhuman- and machine-readable representations.\n\n## Representations\n\n1. `.eos/events.jsonl` — append-only lifecycle/audit event ledger.\n2. `.eos/*.tsv` lifecycle registries — current operational projections.\n3. governed Markdown artifacts — human-readable projection with front-matter\n   status and a visible `**State:**` line where applicable.\n4. Git — authoritative repository version history.\n5. GitHub — synchronized collaboration projection, never a silent replacement\n   for EOS engineering meaning.\n\n## Mutation Invariant\n\nA lifecycle command must:\n\n1. validate the requested transition against the declarative state machine;\n2. append an event describing the mutation;\n3. update the current registry projection;\n4. update the governed artifact projection;\n5. leave the repository in a state that `./scripts/eos verify --strict` can\n   validate.\n\nDirect manual edits to operational registries are discouraged because they\nbypass the audit ledger.\n\n## Reconstruction\n\n`./scripts/eos rebuild-state` replays lifecycle events and compares the derived\nstate with current registries. `--apply` is an explicit repair operation.\n",
+  "document_id": "doc:.eos%2Fhistory%2Fgovernance%2Fcanonical-state-model%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"GOV-STATE-0001\" title: \"Canonical EOS State Model\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "Canonical EOS State Model"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"GOV-STATE-0001\"\ntitle: \"Canonical EOS State Model\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "canonical-eos-state-model",
+      "text": "# Canonical EOS State Model",
+      "title": "Canonical EOS State Model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 14,
+      "section_id": "rule",
+      "text": "## Rule\n\nEOS lifecycle state is changed through **append-only events** and projected into\nhuman- and machine-readable representations.",
+      "title": "Rule"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 28,
+      "line_start": 19,
+      "section_id": "representations",
+      "text": "## Representations\n\n1. `.eos/events.jsonl` — append-only lifecycle/audit event ledger.\n2. `.eos/*.tsv` lifecycle registries — current operational projections.\n3. governed Markdown artifacts — human-readable projection with front-matter\n   status and a visible `**State:**` line where applicable.\n4. Git — authoritative repository version history.\n5. GitHub — synchronized collaboration projection, never a silent replacement\n   for EOS engineering meaning.",
+      "title": "Representations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 29,
+      "section_id": "mutation-invariant",
+      "text": "## Mutation Invariant\n\nA lifecycle command must:\n\n1. validate the requested transition against the declarative state machine;\n2. append an event describing the mutation;\n3. update the current registry projection;\n4. update the governed artifact projection;\n5. leave the repository in a state that `./scripts/eos verify --strict` can\n   validate.\n\nDirect manual edits to operational registries are discouraged because they\nbypass the audit ledger.",
+      "title": "Mutation Invariant"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 43,
+      "section_id": "reconstruction",
+      "text": "## Reconstruction\n\n`./scripts/eos rebuild-state` replays lifecycle events and compares the derived\nstate with current registries. `--apply` is an explicit repair operation.",
+      "title": "Reconstruction"
+    }
+  ],
+  "source": {
+    "bytes": 1462,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 46,
+    "media_type": "text/markdown",
+    "path": ".eos/history/governance/canonical-state-model/v0.1.0.md",
+    "sha256": "d6273cc50aea7f23b165b435ea130305b8fa0a35cf8e6fd64f7ec64abdeb0386"
+  }
+}

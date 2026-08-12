@@ -1,0 +1,14 @@
+{
+  "kind": "EVID",
+  "version": "1.0.0",
+  "initial_state": "CAPTURED",
+  "terminal_states": ["FAILED", "SUPERSEDED"],
+  "states": ["CAPTURED", "VALIDATED", "FAILED", "STALE", "SUPERSEDED"],
+  "transitions": {
+    "CAPTURED": ["VALIDATED", "FAILED"],
+    "VALIDATED": ["STALE", "SUPERSEDED"],
+    "FAILED": ["SUPERSEDED"],
+    "STALE": ["SUPERSEDED"],
+    "SUPERSEDED": []
+  }
+}

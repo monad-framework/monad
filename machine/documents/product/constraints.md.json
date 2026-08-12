@@ -1,5 +1,5 @@
 {
-  "content": "# Product Constraints\n\nConstraints are facts or commitments that bound acceptable solutions. Each\nconstraint should have an owner and be revisited when its underlying condition\nchanges.\n\n## User and experience constraints\n\n- The primary journey must remain understandable without internal technical\n  knowledge.\n- Supported accessibility modes are part of release acceptance.\n- Consequential actions require visible effect, authority, and confirmation.\n- Interruption and low-confidence states must not be presented as success.\n\n## Scope constraints\n\n- The first release supports one primary persona and one end-to-end journey.\n- Unsupported workflows stop explicitly rather than being approximated.\n- New integrations require measured outcome or adoption evidence.\n- Administrative breadth follows operational need, not speculative completeness.\n\n## Data constraints\n\n- Collect only data required for a declared purpose.\n- Classify inputs and outputs before production use.\n- Define residency, retention, deletion, export, and backup behavior.\n- Never use production personal or confidential data in development or tests\n  without an approved protected process.\n\n## Security and compliance constraints\n\n- All access is authenticated and authorized at the protected resource.\n- Secrets are managed outside source code and ordinary configuration files.\n- Critical dependencies and release artifacts require provenance and integrity\n  checks.\n- Compliance claims require mapped obligations and control evidence; the\n  repository does not imply certification.\n\n## Technical constraints\n\n- Public interfaces are explicitly versioned and compatibility-tested.\n- Components expose health and correlation signals for critical journeys.\n- State-changing operations are idempotent or have a documented compensation.\n- Deployment and rollback are automated and produce reviewable evidence.\n\n## Delivery constraints\n\n- The project favors a small team and low coordination overhead.\n- Work is sliced vertically so each increment can demonstrate user or risk\n  value.\n- A strategic dependency must have an exit, containment, or continuity plan.\n- Cost is measured per successful outcome and must remain within an approved\n  budget.\n\n## Constraint review\n\nReview constraints at product-baseline, architecture, and release-readiness\ngates. A proposed exception names the affected scope, duration, risk, controls,\nowner, and removal date. Permanent exceptions become explicit decisions rather\nthan lingering waivers.\n",
+  "content": "# Product Constraints\n\n**Status:** Proposed stabilization baseline\n\n## PC-001 — Local-first core\n\nRepository discovery, semantic compilation, validation, query/explain, and MVP context generation must operate without mandatory hosted services.\n\n## PC-002 — Deterministic semantic core\n\nEquivalent supported inputs/configuration/Monad version must produce equivalent canonical semantic identity and output. Probabilistic AI output cannot define core graph truth.\n\n## PC-003 — Human-readable canonical source\n\nMVP assumes human-readable Git artifacts are canonical. Machine companions are generated derivatives with source hashes/provenance.\n\n## PC-004 — Git-native history\n\nMonad does not replace Git history/branching/PR review. It may enrich and validate them.\n\n## PC-005 — Native-tool authority\n\nLanguage compilers, package managers, test runners, formatters, and other domain tools remain authoritative for their native semantics unless an accepted adapter contract says otherwise.\n\n## PC-006 — Bounded AI authority\n\nAgents must receive explicit scope and may not silently accept architecture, specifications, risk, or releases.\n\n## PC-007 — Explainability\n\nConsequential diagnostics, graph relationships, context selections, and policy/execution decisions must retain enough provenance to explain their basis.\n\n## PC-008 — Security and secret minimization\n\nRepository ingestion and context generation must honor exclusions, data classification, and least-context principles; secrets are never considered ordinary engineering context.\n\n## PC-009 — Polyglot evolution\n\nThe architecture must not hard-code one implementation language/toolchain as the product model. MVP implementation may choose a narrow stack while interfaces remain explicit.\n\n## PC-010 — Bootstrap resource discipline\n\nThe project should prefer best-of-breed open-source dependencies and avoid unnecessary paid infrastructure/API requirements for the local core.\n\n## PC-011 — Backward-compatible evolution\n\nPublic schemas, KIR, configuration, CLI structured output, plugin APIs, and registry protocols must establish explicit versioning before external stability is promised.\n\n## PC-012 — No false completeness\n\nUnsupported constructs, incomplete graph knowledge, and uncertain relationships must be visible rather than guessed into a complete-looking model.",
   "document_id": "doc:product%2Fconstraints.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "product",
     "normative": true,
-    "summary": "Constraints are facts or commitments that bound acceptable solutions. Each constraint should have an owner and be revisited when its underlying condition changes.",
+    "summary": "Status: Proposed stabilization baseline",
     "title": "Product Constraints"
   },
   "relations": [],
@@ -21,83 +21,128 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 6,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "product-constraints",
-      "text": "# Product Constraints\n\nConstraints are facts or commitments that bound acceptable solutions. Each\nconstraint should have an owner and be revisited when its underlying condition\nchanges.",
+      "text": "# Product Constraints\n\n**Status:** Proposed stabilization baseline",
       "title": "Product Constraints"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 14,
-      "line_start": 7,
-      "section_id": "user-and-experience-constraints",
-      "text": "## User and experience constraints\n\n- The primary journey must remain understandable without internal technical\n  knowledge.\n- Supported accessibility modes are part of release acceptance.\n- Consequential actions require visible effect, authority, and confirmation.\n- Interruption and low-confidence states must not be presented as success.",
-      "title": "User and experience constraints"
+      "line_end": 8,
+      "line_start": 5,
+      "section_id": "pc-001-local-first-core",
+      "text": "## PC-001 — Local-first core\n\nRepository discovery, semantic compilation, validation, query/explain, and MVP context generation must operate without mandatory hosted services.",
+      "title": "PC-001 — Local-first core"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 21,
-      "line_start": 15,
-      "section_id": "scope-constraints",
-      "text": "## Scope constraints\n\n- The first release supports one primary persona and one end-to-end journey.\n- Unsupported workflows stop explicitly rather than being approximated.\n- New integrations require measured outcome or adoption evidence.\n- Administrative breadth follows operational need, not speculative completeness.",
-      "title": "Scope constraints"
+      "line_end": 12,
+      "line_start": 9,
+      "section_id": "pc-002-deterministic-semantic-core",
+      "text": "## PC-002 — Deterministic semantic core\n\nEquivalent supported inputs/configuration/Monad version must produce equivalent canonical semantic identity and output. Probabilistic AI output cannot define core graph truth.",
+      "title": "PC-002 — Deterministic semantic core"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 29,
-      "line_start": 22,
-      "section_id": "data-constraints",
-      "text": "## Data constraints\n\n- Collect only data required for a declared purpose.\n- Classify inputs and outputs before production use.\n- Define residency, retention, deletion, export, and backup behavior.\n- Never use production personal or confidential data in development or tests\n  without an approved protected process.",
-      "title": "Data constraints"
+      "line_end": 16,
+      "line_start": 13,
+      "section_id": "pc-003-human-readable-canonical-source",
+      "text": "## PC-003 — Human-readable canonical source\n\nMVP assumes human-readable Git artifacts are canonical. Machine companions are generated derivatives with source hashes/provenance.",
+      "title": "PC-003 — Human-readable canonical source"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 38,
-      "line_start": 30,
-      "section_id": "security-and-compliance-constraints",
-      "text": "## Security and compliance constraints\n\n- All access is authenticated and authorized at the protected resource.\n- Secrets are managed outside source code and ordinary configuration files.\n- Critical dependencies and release artifacts require provenance and integrity\n  checks.\n- Compliance claims require mapped obligations and control evidence; the\n  repository does not imply certification.",
-      "title": "Security and compliance constraints"
+      "line_end": 20,
+      "line_start": 17,
+      "section_id": "pc-004-git-native-history",
+      "text": "## PC-004 — Git-native history\n\nMonad does not replace Git history/branching/PR review. It may enrich and validate them.",
+      "title": "PC-004 — Git-native history"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 45,
-      "line_start": 39,
-      "section_id": "technical-constraints",
-      "text": "## Technical constraints\n\n- Public interfaces are explicitly versioned and compatibility-tested.\n- Components expose health and correlation signals for critical journeys.\n- State-changing operations are idempotent or have a documented compensation.\n- Deployment and rollback are automated and produce reviewable evidence.",
-      "title": "Technical constraints"
+      "line_end": 24,
+      "line_start": 21,
+      "section_id": "pc-005-native-tool-authority",
+      "text": "## PC-005 — Native-tool authority\n\nLanguage compilers, package managers, test runners, formatters, and other domain tools remain authoritative for their native semantics unless an accepted adapter contract says otherwise.",
+      "title": "PC-005 — Native-tool authority"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 54,
-      "line_start": 46,
-      "section_id": "delivery-constraints",
-      "text": "## Delivery constraints\n\n- The project favors a small team and low coordination overhead.\n- Work is sliced vertically so each increment can demonstrate user or risk\n  value.\n- A strategic dependency must have an exit, containment, or continuity plan.\n- Cost is measured per successful outcome and must remain within an approved\n  budget.",
-      "title": "Delivery constraints"
+      "line_end": 28,
+      "line_start": 25,
+      "section_id": "pc-006-bounded-ai-authority",
+      "text": "## PC-006 — Bounded AI authority\n\nAgents must receive explicit scope and may not silently accept architecture, specifications, risk, or releases.",
+      "title": "PC-006 — Bounded AI authority"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 60,
-      "line_start": 55,
-      "section_id": "constraint-review",
-      "text": "## Constraint review\n\nReview constraints at product-baseline, architecture, and release-readiness\ngates. A proposed exception names the affected scope, duration, risk, controls,\nowner, and removal date. Permanent exceptions become explicit decisions rather\nthan lingering waivers.",
-      "title": "Constraint review"
+      "line_end": 32,
+      "line_start": 29,
+      "section_id": "pc-007-explainability",
+      "text": "## PC-007 — Explainability\n\nConsequential diagnostics, graph relationships, context selections, and policy/execution decisions must retain enough provenance to explain their basis.",
+      "title": "PC-007 — Explainability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 33,
+      "section_id": "pc-008-security-and-secret-minimization",
+      "text": "## PC-008 — Security and secret minimization\n\nRepository ingestion and context generation must honor exclusions, data classification, and least-context principles; secrets are never considered ordinary engineering context.",
+      "title": "PC-008 — Security and secret minimization"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 37,
+      "section_id": "pc-009-polyglot-evolution",
+      "text": "## PC-009 — Polyglot evolution\n\nThe architecture must not hard-code one implementation language/toolchain as the product model. MVP implementation may choose a narrow stack while interfaces remain explicit.",
+      "title": "PC-009 — Polyglot evolution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 41,
+      "section_id": "pc-010-bootstrap-resource-discipline",
+      "text": "## PC-010 — Bootstrap resource discipline\n\nThe project should prefer best-of-breed open-source dependencies and avoid unnecessary paid infrastructure/API requirements for the local core.",
+      "title": "PC-010 — Bootstrap resource discipline"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 45,
+      "section_id": "pc-011-backward-compatible-evolution",
+      "text": "## PC-011 — Backward-compatible evolution\n\nPublic schemas, KIR, configuration, CLI structured output, plugin APIs, and registry protocols must establish explicit versioning before external stability is promised.",
+      "title": "PC-011 — Backward-compatible evolution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 51,
+      "line_start": 49,
+      "section_id": "pc-012-no-false-completeness",
+      "text": "## PC-012 — No false completeness\n\nUnsupported constructs, incomplete graph knowledge, and uncertain relationships must be visible rather than guessed into a complete-looking model.",
+      "title": "PC-012 — No false completeness"
     }
   ],
   "source": {
-    "bytes": 2501,
+    "bytes": 2353,
     "canonical": true,
     "language": "markdown",
-    "lines": 60,
+    "lines": 51,
     "media_type": "text/markdown",
     "path": "product/constraints.md",
-    "sha256": "58904e9737f3810f33bc7454318e1c9d434108670500cd3febfff542fafbd7ee"
+    "sha256": "a373d3297ecdac1743c98f6d8f228532f99a3f9e2eee1570a18212e41d60c6b9"
   }
 }

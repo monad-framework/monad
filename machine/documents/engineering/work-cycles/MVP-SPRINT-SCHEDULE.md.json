@@ -1,0 +1,67 @@
+{
+  "content": "# MVP Work Cycle / Sprint Schedule\n\n**Cadence:** one week, Monday–Sunday after stabilization  \n**Rule:** Work Cycle == Sprint for MVP; there is no second execution cadence.\n\n| Work Cycle | Dates | Sprint Goal | Forecast packets |\n| --- | --- | --- | --- |\n| WC-MVP-0000 | Aug 12–16 | Stabilize foundation and operating surface | WP-STAB-0001 |\n| WC-MVP-0001 | Aug 17–23 | Discover repository/workspace knowledge with stable identity | WP-MVP-0001–0003 |\n| WC-MVP-0002 | Aug 24–30 | Parse and resolve canonical engineering artifacts | WP-MVP-0004–0006 |\n| WC-MVP-0003 | Aug 31–Sep 6 | Construct deterministic provenance-rich semantic graph | WP-MVP-0007–0009 |\n| WC-MVP-0004 | Sep 7–13 | Lower canonical KIR and emit semantic diagnostics | WP-MVP-0010–0012 |\n| WC-MVP-0005 | Sep 14–20 | Query and explain semantic engineering relationships | WP-MVP-0013–0014 |\n| WC-MVP-0006 | Sep 21–27 | Generate bounded Work Packet context for Codex | WP-MVP-0015–0017 |\n| WC-MVP-0007 | Sep 28–Oct 4 | Expose MVP capabilities through coherent CLI/DX | WP-MVP-0018–0020 |\n| WC-MVP-0008 | Oct 5–11 | Prove determinism, security, and reference performance | WP-MVP-0021–0023 |\n| WC-MVP-0009 | Oct 12–18 | Add semantic impact and native validation evidence | WP-MVP-0024–0025 |\n| WC-MVP-0010 | Oct 19–25 | Dogfood Monad and project useful GitHub engineering state | WP-MVP-0026–0027 |\n| WC-MVP-0011 | Oct 26–Nov 1 | Package, document, and provenance the release candidate | WP-MVP-0028–0030 |\n| WC-MVP-0012 | Nov 2–8 | Pass end-to-end/security/release acceptance and cut MVP | WP-MVP-0031–0033 |\n\n## Sprint events\n\n- **Planning:** select only Ready packets that support the Sprint Goal and fit demonstrated capacity.\n- **Daily inspection:** reconcile completed/active/blocked/decision-required/next work; no status theater.\n- **Refinement:** keep at least two future Sprints sufficiently decomposed.\n- **Review:** demonstrate integrated evidence against the Sprint Goal.\n- **Retrospective:** record one or more actionable process/system improvements.\n\n## Capacity\n\nDo not commit 100% of theoretical capacity. Target at most ~80% planned work to preserve review, debugging, evidence, discovery, and correction. Scope is the primary lever when the forecast slips; quality/security/determinism gates do not silently shrink.\n\n## Release forecast\n\nNovember 8, 2026 is an aggressive planning target, not a promise. If evidence requires more work, the release moves rather than relabeling incomplete behavior as MVP.",
+  "document_id": "doc:engineering%2Fwork-cycles%2FMVP-SPRINT-SCHEDULE.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Cadence: one week, Monday–Sunday after stabilization Rule: Work Cycle == Sprint for MVP; there is no second execution cadence.",
+    "title": "MVP Work Cycle / Sprint Schedule"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 21,
+      "line_start": 1,
+      "section_id": "mvp-work-cycle-sprint-schedule",
+      "text": "# MVP Work Cycle / Sprint Schedule\n\n**Cadence:** one week, Monday–Sunday after stabilization  \n**Rule:** Work Cycle == Sprint for MVP; there is no second execution cadence.\n\n| Work Cycle | Dates | Sprint Goal | Forecast packets |\n| --- | --- | --- | --- |\n| WC-MVP-0000 | Aug 12–16 | Stabilize foundation and operating surface | WP-STAB-0001 |\n| WC-MVP-0001 | Aug 17–23 | Discover repository/workspace knowledge with stable identity | WP-MVP-0001–0003 |\n| WC-MVP-0002 | Aug 24–30 | Parse and resolve canonical engineering artifacts | WP-MVP-0004–0006 |\n| WC-MVP-0003 | Aug 31–Sep 6 | Construct deterministic provenance-rich semantic graph | WP-MVP-0007–0009 |\n| WC-MVP-0004 | Sep 7–13 | Lower canonical KIR and emit semantic diagnostics | WP-MVP-0010–0012 |\n| WC-MVP-0005 | Sep 14–20 | Query and explain semantic engineering relationships | WP-MVP-0013–0014 |\n| WC-MVP-0006 | Sep 21–27 | Generate bounded Work Packet context for Codex | WP-MVP-0015–0017 |\n| WC-MVP-0007 | Sep 28–Oct 4 | Expose MVP capabilities through coherent CLI/DX | WP-MVP-0018–0020 |\n| WC-MVP-0008 | Oct 5–11 | Prove determinism, security, and reference performance | WP-MVP-0021–0023 |\n| WC-MVP-0009 | Oct 12–18 | Add semantic impact and native validation evidence | WP-MVP-0024–0025 |\n| WC-MVP-0010 | Oct 19–25 | Dogfood Monad and project useful GitHub engineering state | WP-MVP-0026–0027 |\n| WC-MVP-0011 | Oct 26–Nov 1 | Package, document, and provenance the release candidate | WP-MVP-0028–0030 |\n| WC-MVP-0012 | Nov 2–8 | Pass end-to-end/security/release acceptance and cut MVP | WP-MVP-0031–0033 |",
+      "title": "MVP Work Cycle / Sprint Schedule"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 22,
+      "section_id": "sprint-events",
+      "text": "## Sprint events\n\n- **Planning:** select only Ready packets that support the Sprint Goal and fit demonstrated capacity.\n- **Daily inspection:** reconcile completed/active/blocked/decision-required/next work; no status theater.\n- **Refinement:** keep at least two future Sprints sufficiently decomposed.\n- **Review:** demonstrate integrated evidence against the Sprint Goal.\n- **Retrospective:** record one or more actionable process/system improvements.",
+      "title": "Sprint events"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 30,
+      "section_id": "capacity",
+      "text": "## Capacity\n\nDo not commit 100% of theoretical capacity. Target at most ~80% planned work to preserve review, debugging, evidence, discovery, and correction. Scope is the primary lever when the forecast slips; quality/security/determinism gates do not silently shrink.",
+      "title": "Capacity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 34,
+      "section_id": "release-forecast",
+      "text": "## Release forecast\n\nNovember 8, 2026 is an aggressive planning target, not a promise. If evidence requires more work, the release moves rather than relabeling incomplete behavior as MVP.",
+      "title": "Release forecast"
+    }
+  ],
+  "source": {
+    "bytes": 2542,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 36,
+    "media_type": "text/markdown",
+    "path": "engineering/work-cycles/MVP-SPRINT-SCHEDULE.md",
+    "sha256": "8e38d4cd665aadfceb051cc671579e413a906d7438188f14e17647b63f74d6c3"
+  }
+}

@@ -1,67 +1,45 @@
 # Non-Goals
 
-Non-goals protect the first product from accidental expansion. They are not
-claims that these ideas lack value; they state what the current strategy will
-not optimize or promise.
+**Status:** Proposed stabilization baseline
 
-## NG-01 — Universal workflow coverage
+Monad is intentionally not the following, especially for MVP Release 1.
 
-The initial product will not model every adjacent process or edge case. It
-supports one primary journey and escalates unsupported cases clearly.
+## NG-001 — Replace Git
 
-**Reconsider when:** the primary journey meets success and reliability targets
-and evidence identifies a repeated adjacent need.
+Git remains the version-control and source-history substrate. Monad models and reasons over engineering knowledge stored around it.
 
-## NG-02 — Unbounded customization
+## NG-002 — Replace native compilers/build/test tools
 
-The product will not expose configuration for every internal choice. Supported
-variation must have a clear user need, validation, documentation, and test
-strategy.
+Monad coordinates tools such as language compilers, test runners, package managers, formatters, linters, and infrastructure tools; it does not reimplement every ecosystem.
 
-**Reconsider when:** multiple validated segments need the same controlled
-extension point.
+## NG-003 — Become a generic ticketing/project-management product
 
-## NG-03 — Autonomous consequential decisions
+GitHub Issues/Projects or other systems remain collaboration surfaces. Monad may project engineering state into them and validate traceability.
 
-The system will not silently make high-impact legal, financial, employment,
-medical, safety, or access decisions on a person's behalf.
+## NG-004 — Make an LLM the semantic compiler
 
-**Reconsider when:** never without domain governance, explainability, review,
-appeal, and demonstrated legal and ethical fitness.
+AI may interpret, draft, summarize, and propose. Canonical semantic compilation and validation must remain deterministic and reviewable for the same inputs.
 
-## NG-04 — Premature platform construction
+## NG-005 — Autonomous high-impact engineering authority
 
-The first increments will not build a general platform, marketplace, plugin
-ecosystem, or multi-product control plane before one product workflow is proven.
+Agents do not silently approve architecture, specifications, risk acceptance, release gates, or destructive operations.
 
-**Reconsider when:** repeated product needs demonstrate stable shared
-capabilities and platform ownership is funded.
+## NG-006 — Universal platform completeness in MVP
 
-## NG-05 — Every integration
+Remote execution, hosted control planes, enterprise administration, marketplaces, every language, every IDE, and every integration are post-MVP unless proven necessary for the core value test.
 
-Only integrations required by the validated primary journey are in scope.
-Manual import or export is acceptable during validation when safe.
+## NG-007 — Premature microservices or repository fragmentation
 
-**Reconsider when:** integration absence is a measured adoption or outcome
-barrier.
+Strong module boundaries are encouraged; independent deployment/repository boundaries require evidence of lifecycle, security, distribution, scale, or ownership need.
 
-## NG-06 — Global deployment and compliance coverage
+## NG-008 — Duplicate canonical sources
 
-The initial release supports one declared operating region and a bounded set of
-regulatory obligations. It will not claim compliance by implication.
+Machine companions, published documentation, Wiki pages, Issues, dashboards, and AI summaries must not become competing editable authorities when canonical Git artifacts exist.
 
-**Reconsider when:** expansion has an accountable owner, legal analysis, data
-map, control plan, and operational capacity.
+## NG-009 — Hide uncertainty behind automation
 
-## NG-07 — Optimization before correctness
+Monad must surface ambiguity, unsupported constructs, missing provenance, and contradictions rather than manufacture certainty.
 
-The project will not trade correctness, accessibility, recovery, or essential
-telemetry for superficial speed. Performance work follows budgets and measured
-bottlenecks.
+## NG-010 — Optimize feature count
 
-## Scope test
-
-A proposal is out of scope when the primary journey can meet its committed
-outcome without it and delaying the proposal does not create unacceptable
-safety, legal, security, or architectural risk. Deferred proposals belong in
-the roadmap or backlog with their reconsideration trigger.
+Success is measured by trustworthy engineering outcomes—understanding, validation, bounded context, deterministic execution—not by the number of commands, integrations, or artifacts supported.

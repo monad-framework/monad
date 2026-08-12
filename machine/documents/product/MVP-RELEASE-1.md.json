@@ -1,0 +1,166 @@
+{
+  "content": "# MVP Release 1\n\n**ID:** REL-MVP-0001  \n**Status:** Proposed  \n**Product:** Monad  \n**Owner:** Product Owner\n\n## Product goal\n\nProve that Monad can deterministically transform canonical engineering knowledge in a real repository into a stable semantic representation that a human or bounded AI agent can validate, query, explain, and use to obtain minimal trustworthy engineering context.\n\n## User outcome\n\nA software engineer can point Monad at a supported repository and answer, with provenance:\n\n- what engineering artifacts exist;\n- what they mean and how they relate;\n- which requirements, decisions, specifications, and work records govern a target;\n- what changed semantically;\n- what context an implementation agent is authorized to use; and\n- whether the repository satisfies the MVP's structural and semantic invariants.\n\n## Required MVP capabilities\n\n### MVP-C01 — Repository discovery\n\nDiscover supported canonical engineering artifacts deterministically and identify them with stable IDs.\n\n### MVP-C02 — Knowledge parsing and normalization\n\nParse supported Markdown/YAML configuration and normalize metadata, references, identifiers, and sections without opaque model inference.\n\n### MVP-C03 — Semantic graph\n\nConstruct a deterministic graph of artifacts, identifiers, and typed relationships with source provenance.\n\n### MVP-C04 — Validation and diagnostics\n\nEvaluate structural and semantic invariants and emit stable, actionable, machine-readable diagnostics.\n\n### MVP-C05 — Query and explanation\n\nSupport bounded queries such as governing artifacts, references, dependents, unresolved identifiers, and \"why does this artifact exist?\" with provenance.\n\n### MVP-C06 — Agent context package\n\nProduce a minimal, deterministic context package for a bounded Work Packet or engineering target, including authority, constraints, relevant graph neighborhood, and validation commands.\n\n### MVP-C07 — CLI vertical slice\n\nExpose the MVP through a coherent local CLI capable of inspect, validate, graph/query, explain, and context operations.\n\n### MVP-C08 — Reproducibility and evidence\n\nGiven the same canonical inputs, Monad version, and configuration, produce equivalent semantic outputs and validation evidence.\n\n## Explicit exclusions\n\nMVP Release 1 does not require:\n\n- hosted SaaS or multi-tenant control plane;\n- remote execution;\n- a public plugin marketplace;\n- broad IDE integrations;\n- multi-agent autonomous orchestration;\n- enterprise SSO/RBAC beyond what is needed for local repository governance;\n- universal language/build-system support;\n- general-purpose project management replacement; or\n- automatic implementation without human authorization.\n\n## Release acceptance\n\nMVP Release 1 is accepted only when:\n\n1. a clean reference repository can be inspected end-to-end;\n2. identical inputs produce deterministic semantic outputs;\n3. graph relationships retain canonical-source provenance;\n4. malformed or contradictory inputs produce actionable diagnostics;\n5. query/explain responses can cite the governing canonical artifacts;\n6. a Work Packet context package excludes unrelated repository material by default;\n7. unit, integration, conformance, determinism, security, and end-to-end tests pass;\n8. installation and first-run documentation are executable by a new user;\n9. release artifacts are versioned, checksummed, and reproducibly traceable to source; and\n10. the Product Owner accepts the demonstrated outcome against this goal.\n\n## Scope control\n\nA proposed capability enters MVP only if it is necessary to prove the product goal or retire a release-blocking correctness, security, operability, or adoption risk. Everything else is ordered into post-MVP backlog.",
+  "document_id": "doc:product%2FMVP-RELEASE-1.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "product",
+    "normative": true,
+    "summary": "ID: REL-MVP-0001 Status: Proposed Product: Monad Owner: Product Owner",
+    "title": "MVP Release 1"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "mvp-release-1",
+      "text": "# MVP Release 1\n\n**ID:** REL-MVP-0001  \n**Status:** Proposed  \n**Product:** Monad  \n**Owner:** Product Owner",
+      "title": "MVP Release 1"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 8,
+      "section_id": "product-goal",
+      "text": "## Product goal\n\nProve that Monad can deterministically transform canonical engineering knowledge in a real repository into a stable semantic representation that a human or bounded AI agent can validate, query, explain, and use to obtain minimal trustworthy engineering context.",
+      "title": "Product goal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 12,
+      "section_id": "user-outcome",
+      "text": "## User outcome\n\nA software engineer can point Monad at a supported repository and answer, with provenance:\n\n- what engineering artifacts exist;\n- what they mean and how they relate;\n- which requirements, decisions, specifications, and work records govern a target;\n- what changed semantically;\n- what context an implementation agent is authorized to use; and\n- whether the repository satisfies the MVP's structural and semantic invariants.",
+      "title": "User outcome"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 23,
+      "section_id": "required-mvp-capabilities",
+      "text": "## Required MVP capabilities",
+      "title": "Required MVP capabilities"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 28,
+      "line_start": 25,
+      "section_id": "mvp-c01-repository-discovery",
+      "text": "### MVP-C01 — Repository discovery\n\nDiscover supported canonical engineering artifacts deterministically and identify them with stable IDs.",
+      "title": "MVP-C01 — Repository discovery"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 32,
+      "line_start": 29,
+      "section_id": "mvp-c02-knowledge-parsing-and-normalization",
+      "text": "### MVP-C02 — Knowledge parsing and normalization\n\nParse supported Markdown/YAML configuration and normalize metadata, references, identifiers, and sections without opaque model inference.",
+      "title": "MVP-C02 — Knowledge parsing and normalization"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 36,
+      "line_start": 33,
+      "section_id": "mvp-c03-semantic-graph",
+      "text": "### MVP-C03 — Semantic graph\n\nConstruct a deterministic graph of artifacts, identifiers, and typed relationships with source provenance.",
+      "title": "MVP-C03 — Semantic graph"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 40,
+      "line_start": 37,
+      "section_id": "mvp-c04-validation-and-diagnostics",
+      "text": "### MVP-C04 — Validation and diagnostics\n\nEvaluate structural and semantic invariants and emit stable, actionable, machine-readable diagnostics.",
+      "title": "MVP-C04 — Validation and diagnostics"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 44,
+      "line_start": 41,
+      "section_id": "mvp-c05-query-and-explanation",
+      "text": "### MVP-C05 — Query and explanation\n\nSupport bounded queries such as governing artifacts, references, dependents, unresolved identifiers, and \"why does this artifact exist?\" with provenance.",
+      "title": "MVP-C05 — Query and explanation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 48,
+      "line_start": 45,
+      "section_id": "mvp-c06-agent-context-package",
+      "text": "### MVP-C06 — Agent context package\n\nProduce a minimal, deterministic context package for a bounded Work Packet or engineering target, including authority, constraints, relevant graph neighborhood, and validation commands.",
+      "title": "MVP-C06 — Agent context package"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 52,
+      "line_start": 49,
+      "section_id": "mvp-c07-cli-vertical-slice",
+      "text": "### MVP-C07 — CLI vertical slice\n\nExpose the MVP through a coherent local CLI capable of inspect, validate, graph/query, explain, and context operations.",
+      "title": "MVP-C07 — CLI vertical slice"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 56,
+      "line_start": 53,
+      "section_id": "mvp-c08-reproducibility-and-evidence",
+      "text": "### MVP-C08 — Reproducibility and evidence\n\nGiven the same canonical inputs, Monad version, and configuration, produce equivalent semantic outputs and validation evidence.",
+      "title": "MVP-C08 — Reproducibility and evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 70,
+      "line_start": 57,
+      "section_id": "explicit-exclusions",
+      "text": "## Explicit exclusions\n\nMVP Release 1 does not require:\n\n- hosted SaaS or multi-tenant control plane;\n- remote execution;\n- a public plugin marketplace;\n- broad IDE integrations;\n- multi-agent autonomous orchestration;\n- enterprise SSO/RBAC beyond what is needed for local repository governance;\n- universal language/build-system support;\n- general-purpose project management replacement; or\n- automatic implementation without human authorization.",
+      "title": "Explicit exclusions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 85,
+      "line_start": 71,
+      "section_id": "release-acceptance",
+      "text": "## Release acceptance\n\nMVP Release 1 is accepted only when:\n\n1. a clean reference repository can be inspected end-to-end;\n2. identical inputs produce deterministic semantic outputs;\n3. graph relationships retain canonical-source provenance;\n4. malformed or contradictory inputs produce actionable diagnostics;\n5. query/explain responses can cite the governing canonical artifacts;\n6. a Work Packet context package excludes unrelated repository material by default;\n7. unit, integration, conformance, determinism, security, and end-to-end tests pass;\n8. installation and first-run documentation are executable by a new user;\n9. release artifacts are versioned, checksummed, and reproducibly traceable to source; and\n10. the Product Owner accepts the demonstrated outcome against this goal.",
+      "title": "Release acceptance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 88,
+      "line_start": 86,
+      "section_id": "scope-control",
+      "text": "## Scope control\n\nA proposed capability enters MVP only if it is necessary to prove the product goal or retire a release-blocking correctness, security, operability, or adoption risk. Everything else is ordered into post-MVP backlog.",
+      "title": "Scope control"
+    }
+  ],
+  "source": {
+    "bytes": 3709,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 88,
+    "media_type": "text/markdown",
+    "path": "product/MVP-RELEASE-1.md",
+    "sha256": "26015c1275bd93f7937023ab1f6e3f5d9697b0234ff707928f891adef725f773"
+  }
+}

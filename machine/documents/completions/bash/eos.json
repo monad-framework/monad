@@ -1,0 +1,40 @@
+{
+  "content": "# Bash completion for repository-local EOS.\n_eos_complete() {\n  local cmd=\"${COMP_WORDS[0]}\"\n  local -a args\n  local line\n  COMPREPLY=()\n  args=(\"${COMP_WORDS[@]:1}\")\n  while IFS= read -r line; do\n    [[ -n \"$line\" ]] && COMPREPLY+=(\"$line\")\n  done < <(\"$cmd\" completion candidates -- \"${args[@]}\" 2>/dev/null)\n  if type compopt >/dev/null 2>&1; then\n    compopt -o nosort 2>/dev/null || true\n  fi\n}\ncomplete -o default -F _eos_complete eos ./scripts/eos scripts/eos\n",
+  "document_id": "doc:completions%2Fbash%2Feos",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical plain-text source for completions/bash/eos.",
+    "title": "Eos"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "# Bash completion for repository-local EOS.\n_eos_complete() {\n  local cmd=\"${COMP_WORDS[0]}\"\n  local -a args\n  local line\n  COMPREPLY=()\n  args=(\"${COMP_WORDS[@]:1}\")\n  while IFS= read -r line; do\n    [[ -n \"$line\" ]] && COMPREPLY+=(\"$line\")\n  done < <(\"$cmd\" completion candidates -- \"${args[@]}\" 2>/dev/null)\n  if type compopt >/dev/null 2>&1; then\n    compopt -o nosort 2>/dev/null || true\n  fi\n}\ncomplete -o default -F _eos_complete eos ./scripts/eos scripts/eos",
+      "title": "Eos"
+    }
+  ],
+  "source": {
+    "bytes": 467,
+    "canonical": true,
+    "language": "plain-text",
+    "lines": 15,
+    "media_type": "text/plain",
+    "path": "completions/bash/eos",
+    "sha256": "ba46288a2ee5ef8be3d7eb8d09edbfa85e0d494fbf78a170809cdff790a7be8c"
+  }
+}

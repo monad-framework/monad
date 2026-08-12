@@ -1,0 +1,27 @@
+name: Bug / Defect
+about: Report behavior that violates an accepted contract or expected result.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior / governing contract
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction and evidence
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Monad version / commit

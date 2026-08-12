@@ -1,0 +1,29 @@
+schema_version = 1
+
+[project]
+id = "monad"
+name = "Monad"
+type = "engineering-knowledge-compilation-platform"
+
+[artifacts]
+vision = ["vision/**/*.md"]
+product = ["product/**/*.md"]
+architecture = ["architecture/**/*.md"]
+decisions = ["architecture/decisions/ADR-*.md"]
+specifications = ["specifications/**/*.md"]
+engineering = ["engineering/**/*.md"]
+governance = ["governance/**/*.md"]
+research = ["research/**/*.md"]
+security = ["security/**/*.md"]
+testing = ["testing/**/*.md"]
+operations = ["operations/**/*.md"]
+journal = ["journal/**/*.md"]
+
+[ingestion]
+encoding = "utf-8"
+follow_symlinks = false
+network = false
+execute_repository_code = false
+
+[exclude]
+paths = [".git/**", ".eos/**", "machine/**", "target/**"]

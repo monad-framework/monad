@@ -1,0 +1,76 @@
+{
+  "content": "---\nartifact_id: \"EOS-LIFECYCLE-0001\"\ntitle: \"Engineering Operating System Lifecycle\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# Engineering Operating System Lifecycle\n\nEOSB is the bootstrap layer, not the entire system.\n\nAfter EOSB-020, the Engineering Operating System remains active for the lifetime\nof the project through eight permanent, interlocking operating layers:\n\n1. **EOSB — Bootstrap**\n2. **EOSP — Planning**\n3. **EOSE — Execution**\n4. **EOSV — Verification**\n5. **EOSR — Review**\n6. **EOSC — Change Control**\n7. **EOSL — Release Lifecycle**\n8. **EOSM — Maintenance**\n\nThese layers are not a rigid waterfall. Work can move between them when evidence\nrequires replanning, controlled change, renewed verification, or maintenance.\n\n## Normal Delivery Loop\n\n`EOSP -> EOSE -> EOSV -> EOSR`\n\nSuccessful review can close a WP/WC/PI or feed the next planning cycle.\n\n## Controlled Evolution Loop\n\n`EOSE/EOSV/EOSR -> EOSC -> EOSP/EOSE -> EOSV -> EOSR`\n\nA discovered contradiction or required requirement/architecture/specification\nchange is governed rather than silently absorbed into implementation.\n\n## Delivery / Operations Loop\n\n`EOSR -> EOSL -> EOSM -> EOSC/EOSP as needed`\n",
+  "document_id": "doc:.eos%2Fhistory%2Fengineering%2Flifecycle%2FREADME%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"EOS-LIFECYCLE-0001\" title: \"Engineering Operating System Lifecycle\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "Engineering Operating System Lifecycle"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"EOS-LIFECYCLE-0001\"\ntitle: \"Engineering Operating System Lifecycle\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 30,
+      "line_start": 12,
+      "section_id": "engineering-operating-system-lifecycle",
+      "text": "# Engineering Operating System Lifecycle\n\nEOSB is the bootstrap layer, not the entire system.\n\nAfter EOSB-020, the Engineering Operating System remains active for the lifetime\nof the project through eight permanent, interlocking operating layers:\n\n1. **EOSB — Bootstrap**\n2. **EOSP — Planning**\n3. **EOSE — Execution**\n4. **EOSV — Verification**\n5. **EOSR — Review**\n6. **EOSC — Change Control**\n7. **EOSL — Release Lifecycle**\n8. **EOSM — Maintenance**\n\nThese layers are not a rigid waterfall. Work can move between them when evidence\nrequires replanning, controlled change, renewed verification, or maintenance.",
+      "title": "Engineering Operating System Lifecycle"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 31,
+      "section_id": "normal-delivery-loop",
+      "text": "## Normal Delivery Loop\n\n`EOSP -> EOSE -> EOSV -> EOSR`\n\nSuccessful review can close a WP/WC/PI or feed the next planning cycle.",
+      "title": "Normal Delivery Loop"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 37,
+      "section_id": "controlled-evolution-loop",
+      "text": "## Controlled Evolution Loop\n\n`EOSE/EOSV/EOSR -> EOSC -> EOSP/EOSE -> EOSV -> EOSR`\n\nA discovered contradiction or required requirement/architecture/specification\nchange is governed rather than silently absorbed into implementation.",
+      "title": "Controlled Evolution Loop"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 44,
+      "section_id": "delivery-operations-loop",
+      "text": "## Delivery / Operations Loop\n\n`EOSR -> EOSL -> EOSM -> EOSC/EOSP as needed`",
+      "title": "Delivery / Operations Loop"
+    }
+  ],
+  "source": {
+    "bytes": 1297,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 46,
+    "media_type": "text/markdown",
+    "path": ".eos/history/engineering/lifecycle/README/v0.1.0.md",
+    "sha256": "5388e2dc2821a8b36f686ce7d64af699be89e0a439dc70af9d936c5d5d43063d"
+  }
+}

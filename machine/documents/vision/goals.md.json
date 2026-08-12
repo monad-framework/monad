@@ -1,5 +1,5 @@
 {
-  "content": "# Goals\n\nThese goals define the initial twelve-month outcome horizon. Specific numeric\nbaselines are established during discovery; targets are then frozen before the\nfirst production pilot so they cannot be adjusted to manufacture success.\n\n## G-01 — Validate a valuable problem\n\nDemonstrate through interviews, observation, and baseline data that the primary\npersona experiences a recurring problem with material cost and is willing to\nadopt a new workflow. Complete before authorizing broad implementation.\n\n## G-02 — Deliver the primary journey\n\nEnable the primary persona to complete one end-to-end use case from authorized\ninput to verifiable outcome, including validation, progress, exception handling,\nand recovery. The journey must pass documented acceptance tests.\n\n## G-03 — Improve the target outcome\n\nAgainst the baseline, reduce median completion effort and preventable rework\nwithout worsening outcome quality, accessibility, privacy, or user control.\nMeasure with representative tasks rather than demonstration scenarios.\n\n## G-04 — Earn repeated use\n\nShow that pilot users return for the intended job and complete it successfully\nwithout sustained founder or maintainer assistance. Segment adoption by persona\nand workflow so aggregate activity cannot hide failure in the target group.\n\n## G-05 — Establish operational confidence\n\nMeet the initial service objectives, cost budget, recovery target, deployment\nsuccess rate, and incident-response readiness defined in operations documents.\nAll critical failure modes require telemetry and a tested response.\n\n## G-06 — Establish a safe delivery system\n\nRequire review, automated quality gates, dependency and secret checks,\ntraceable releases, rollback evidence, and an owned risk register before the\nfirst external production use.\n\n## G-07 — Preserve an evolvable architecture\n\nKeep public contracts explicit, dependencies directional, and strategic choices\nrecorded. Track architectural exceptions and remove or approve them before they\nbecome undocumented constraints.\n\n## Goal review\n\nEach goal has one accountable owner, a baseline, target, evidence source,\nreview date, and status of `proposed`, `committed`, `at risk`, `achieved`, or\n`retired`. A goal is not achieved when its primary metric passes while a\nguardrail fails. Quarterly reviews record both the result and the decision to\ncontinue, change, pause, or retire the goal.\n",
+  "content": "# Goals\n\n**Status:** Proposed stabilization baseline\n\n## G-001 — Compile engineering knowledge\n\nTransform supported canonical engineering artifacts into stable machine-readable semantic structures with source provenance.\n\n## G-002 — Build a trustworthy semantic graph\n\nRepresent engineering entities and typed relationships so important dependencies, authority, evidence, ownership, and provenance are queryable.\n\n## G-003 — Explain engineering state\n\nAnswer useful `what`, `why`, `governed-by`, `depends-on`, `verified-by`, and `affected-by` questions without requiring users to reconstruct the repository manually.\n\n## G-004 — Make validation semantic\n\nDetect missing, stale, contradictory, invalid, or non-conforming engineering knowledge with actionable diagnostics.\n\n## G-005 — Coordinate native tools incrementally\n\nDerive minimal execution plans from semantic change and dependency state while leaving language/build/test tools authoritative for their own mechanics.\n\n## G-006 — Govern AI-assisted engineering\n\nProduce minimal, authorized, provenance-rich context packages and evidence expectations for ChatGPT, Codex, and future agents.\n\n## G-007 — Remain local-first and reproducible\n\nMake the core repository-understanding/validation loop fully useful without mandatory SaaS connectivity and reproduce equivalent outputs from equivalent inputs.\n\n## G-008 — Keep project knowledge alive\n\nEnable documentation, GitHub projections, status, traceability, and release evidence to derive from canonical engineering reality rather than drift independently.\n\n## G-009 — Scale through stable contracts\n\nDesign clear internal boundaries, schemas, adapters, and extension points so additional repositories, languages, plugins, registries, and hosted services can emerge without destabilizing the core.\n\n## G-010 — Dogfood Monad\n\nUse Monad increasingly to understand, validate, plan, and coordinate its own development as the relevant capabilities become trustworthy.\n\n## Prioritization rule\n\nMVP work prioritizes G-001 through G-007. Later goals may shape architecture but may not inflate MVP unless they remove a release-blocking risk.",
   "document_id": "doc:vision%2Fgoals.md",
   "generation": {
     "deterministic": true,
@@ -7,19 +7,22 @@
     "version": "1.0.0"
   },
   "identifiers": [
-    "G-01",
-    "G-02",
-    "G-03",
-    "G-04",
-    "G-05",
-    "G-06",
-    "G-07"
+    "G-001",
+    "G-002",
+    "G-003",
+    "G-004",
+    "G-005",
+    "G-006",
+    "G-007",
+    "G-008",
+    "G-009",
+    "G-010"
   ],
   "links": [],
   "metadata": {
     "document_type": "vision",
     "normative": true,
-    "summary": "These goals define the initial twelve-month outcome horizon. Specific numeric baselines are established during discovery; targets are then frozen before the first production pilot so they cannot be adjusted to manufacture success.",
+    "summary": "Status: Proposed stabilization baseline",
     "title": "Goals"
   },
   "relations": [],
@@ -29,106 +32,142 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 6,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "goals",
-      "text": "# Goals\n\nThese goals define the initial twelve-month outcome horizon. Specific numeric\nbaselines are established during discovery; targets are then frozen before the\nfirst production pilot so they cannot be adjusted to manufacture success.",
+      "text": "# Goals\n\n**Status:** Proposed stabilization baseline",
       "title": "Goals"
     },
     {
       "identifiers": [
-        "G-01"
+        "G-001"
+      ],
+      "level": 2,
+      "line_end": 8,
+      "line_start": 5,
+      "section_id": "g-001-compile-engineering-knowledge",
+      "text": "## G-001 — Compile engineering knowledge\n\nTransform supported canonical engineering artifacts into stable machine-readable semantic structures with source provenance.",
+      "title": "G-001 — Compile engineering knowledge"
+    },
+    {
+      "identifiers": [
+        "G-002"
       ],
       "level": 2,
       "line_end": 12,
-      "line_start": 7,
-      "section_id": "g-01-validate-a-valuable-problem",
-      "text": "## G-01 — Validate a valuable problem\n\nDemonstrate through interviews, observation, and baseline data that the primary\npersona experiences a recurring problem with material cost and is willing to\nadopt a new workflow. Complete before authorizing broad implementation.",
-      "title": "G-01 — Validate a valuable problem"
+      "line_start": 9,
+      "section_id": "g-002-build-a-trustworthy-semantic-graph",
+      "text": "## G-002 — Build a trustworthy semantic graph\n\nRepresent engineering entities and typed relationships so important dependencies, authority, evidence, ownership, and provenance are queryable.",
+      "title": "G-002 — Build a trustworthy semantic graph"
     },
     {
       "identifiers": [
-        "G-02"
+        "G-003"
       ],
       "level": 2,
-      "line_end": 18,
+      "line_end": 16,
       "line_start": 13,
-      "section_id": "g-02-deliver-the-primary-journey",
-      "text": "## G-02 — Deliver the primary journey\n\nEnable the primary persona to complete one end-to-end use case from authorized\ninput to verifiable outcome, including validation, progress, exception handling,\nand recovery. The journey must pass documented acceptance tests.",
-      "title": "G-02 — Deliver the primary journey"
+      "section_id": "g-003-explain-engineering-state",
+      "text": "## G-003 — Explain engineering state\n\nAnswer useful `what`, `why`, `governed-by`, `depends-on`, `verified-by`, and `affected-by` questions without requiring users to reconstruct the repository manually.",
+      "title": "G-003 — Explain engineering state"
     },
     {
       "identifiers": [
-        "G-03"
+        "G-004"
+      ],
+      "level": 2,
+      "line_end": 20,
+      "line_start": 17,
+      "section_id": "g-004-make-validation-semantic",
+      "text": "## G-004 — Make validation semantic\n\nDetect missing, stale, contradictory, invalid, or non-conforming engineering knowledge with actionable diagnostics.",
+      "title": "G-004 — Make validation semantic"
+    },
+    {
+      "identifiers": [
+        "G-005"
       ],
       "level": 2,
       "line_end": 24,
-      "line_start": 19,
-      "section_id": "g-03-improve-the-target-outcome",
-      "text": "## G-03 — Improve the target outcome\n\nAgainst the baseline, reduce median completion effort and preventable rework\nwithout worsening outcome quality, accessibility, privacy, or user control.\nMeasure with representative tasks rather than demonstration scenarios.",
-      "title": "G-03 — Improve the target outcome"
+      "line_start": 21,
+      "section_id": "g-005-coordinate-native-tools-incrementally",
+      "text": "## G-005 — Coordinate native tools incrementally\n\nDerive minimal execution plans from semantic change and dependency state while leaving language/build/test tools authoritative for their own mechanics.",
+      "title": "G-005 — Coordinate native tools incrementally"
     },
     {
       "identifiers": [
-        "G-04"
+        "G-006"
       ],
       "level": 2,
-      "line_end": 30,
+      "line_end": 28,
       "line_start": 25,
-      "section_id": "g-04-earn-repeated-use",
-      "text": "## G-04 — Earn repeated use\n\nShow that pilot users return for the intended job and complete it successfully\nwithout sustained founder or maintainer assistance. Segment adoption by persona\nand workflow so aggregate activity cannot hide failure in the target group.",
-      "title": "G-04 — Earn repeated use"
+      "section_id": "g-006-govern-ai-assisted-engineering",
+      "text": "## G-006 — Govern AI-assisted engineering\n\nProduce minimal, authorized, provenance-rich context packages and evidence expectations for ChatGPT, Codex, and future agents.",
+      "title": "G-006 — Govern AI-assisted engineering"
     },
     {
       "identifiers": [
-        "G-05"
+        "G-007"
+      ],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 29,
+      "section_id": "g-007-remain-local-first-and-reproducible",
+      "text": "## G-007 — Remain local-first and reproducible\n\nMake the core repository-understanding/validation loop fully useful without mandatory SaaS connectivity and reproduce equivalent outputs from equivalent inputs.",
+      "title": "G-007 — Remain local-first and reproducible"
+    },
+    {
+      "identifiers": [
+        "G-008"
       ],
       "level": 2,
       "line_end": 36,
-      "line_start": 31,
-      "section_id": "g-05-establish-operational-confidence",
-      "text": "## G-05 — Establish operational confidence\n\nMeet the initial service objectives, cost budget, recovery target, deployment\nsuccess rate, and incident-response readiness defined in operations documents.\nAll critical failure modes require telemetry and a tested response.",
-      "title": "G-05 — Establish operational confidence"
+      "line_start": 33,
+      "section_id": "g-008-keep-project-knowledge-alive",
+      "text": "## G-008 — Keep project knowledge alive\n\nEnable documentation, GitHub projections, status, traceability, and release evidence to derive from canonical engineering reality rather than drift independently.",
+      "title": "G-008 — Keep project knowledge alive"
     },
     {
       "identifiers": [
-        "G-06"
+        "G-009"
       ],
       "level": 2,
-      "line_end": 42,
+      "line_end": 40,
       "line_start": 37,
-      "section_id": "g-06-establish-a-safe-delivery-system",
-      "text": "## G-06 — Establish a safe delivery system\n\nRequire review, automated quality gates, dependency and secret checks,\ntraceable releases, rollback evidence, and an owned risk register before the\nfirst external production use.",
-      "title": "G-06 — Establish a safe delivery system"
+      "section_id": "g-009-scale-through-stable-contracts",
+      "text": "## G-009 — Scale through stable contracts\n\nDesign clear internal boundaries, schemas, adapters, and extension points so additional repositories, languages, plugins, registries, and hosted services can emerge without destabilizing the core.",
+      "title": "G-009 — Scale through stable contracts"
     },
     {
       "identifiers": [
-        "G-07"
+        "G-010"
       ],
       "level": 2,
-      "line_end": 48,
-      "line_start": 43,
-      "section_id": "g-07-preserve-an-evolvable-architecture",
-      "text": "## G-07 — Preserve an evolvable architecture\n\nKeep public contracts explicit, dependencies directional, and strategic choices\nrecorded. Track architectural exceptions and remove or approve them before they\nbecome undocumented constraints.",
-      "title": "G-07 — Preserve an evolvable architecture"
+      "line_end": 44,
+      "line_start": 41,
+      "section_id": "g-010-dogfood-monad",
+      "text": "## G-010 — Dogfood Monad\n\nUse Monad increasingly to understand, validate, plan, and coordinate its own development as the relevant capabilities become trustworthy.",
+      "title": "G-010 — Dogfood Monad"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "G-001",
+        "G-007"
+      ],
       "level": 2,
-      "line_end": 55,
-      "line_start": 49,
-      "section_id": "goal-review",
-      "text": "## Goal review\n\nEach goal has one accountable owner, a baseline, target, evidence source,\nreview date, and status of `proposed`, `committed`, `at risk`, `achieved`, or\n`retired`. A goal is not achieved when its primary metric passes while a\nguardrail fails. Quarterly reviews record both the result and the decision to\ncontinue, change, pause, or retire the goal.",
-      "title": "Goal review"
+      "line_end": 47,
+      "line_start": 45,
+      "section_id": "prioritization-rule",
+      "text": "## Prioritization rule\n\nMVP work prioritizes G-001 through G-007. Later goals may shape architecture but may not inflate MVP unless they remove a release-blocking risk.",
+      "title": "Prioritization rule"
     }
   ],
   "source": {
-    "bytes": 2415,
+    "bytes": 2155,
     "canonical": true,
     "language": "markdown",
-    "lines": 55,
+    "lines": 47,
     "media_type": "text/markdown",
     "path": "vision/goals.md",
-    "sha256": "ba9da410ea06d7ed8e43aed86988afb76182f3c68f56c7c0fa93319025caa810"
+    "sha256": "19917be3f505a916d8df70e7ccd133ed7a31b9772a872c942931eaa3fe9c3127"
   }
 }

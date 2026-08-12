@@ -1,0 +1,76 @@
+{
+  "content": "---\nartifact_id: \"EOSE\"\ntitle: \"EOSE Execution\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSE — Execution\n\n## Purpose\n\nExecute authorized work without allowing implementation convenience to redefine\nproduct or architecture policy.\n\n## Work Packet Contract\n\n```bash\n./scripts/eos start WP-CORE-0001\n./scripts/eos codex WP-CORE-0001\n```\n\nThe Codex contract includes the authorized work packet, related governing\nartifacts, repository state, scope constraints, validation requirements, and the\nrequired completion report.\n\n## Escalation Rule\n\nIf implementation requires changing a governing requirement, specification,\nADR, security constraint, or authorized scope, execution stops and enters EOSC.\n",
+  "document_id": "doc:.eos%2Fhistory%2Fengineering%2Flifecycle%2FEOSE-execution%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"EOSE\" title: \"EOSE Execution\" type: \"lifecycle-layer\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOSE — Execution"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"EOSE\"\ntitle: \"EOSE Execution\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "eose-execution",
+      "text": "# EOSE — Execution",
+      "title": "EOSE — Execution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 14,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nExecute authorized work without allowing implementation convenience to redefine\nproduct or architecture policy.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 29,
+      "line_start": 19,
+      "section_id": "work-packet-contract",
+      "text": "## Work Packet Contract\n\n```bash\n./scripts/eos start WP-CORE-0001\n./scripts/eos codex WP-CORE-0001\n```\n\nThe Codex contract includes the authorized work packet, related governing\nartifacts, repository state, scope constraints, validation requirements, and the\nrequired completion report.",
+      "title": "Work Packet Contract"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 30,
+      "section_id": "escalation-rule",
+      "text": "## Escalation Rule\n\nIf implementation requires changing a governing requirement, specification,\nADR, security constraint, or authorized scope, execution stops and enters EOSC.",
+      "title": "Escalation Rule"
+    }
+  ],
+  "source": {
+    "bytes": 803,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 33,
+    "media_type": "text/markdown",
+    "path": ".eos/history/engineering/lifecycle/EOSE-execution/v0.1.0.md",
+    "sha256": "ff50ea05de7d730ee966fad45c005d3114251e0f57704fc42471c5dbce94ff79"
+  }
+}

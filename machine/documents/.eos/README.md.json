@@ -1,0 +1,49 @@
+{
+  "content": "# .eos\n\nInternal Engineering Operating System state.\n\n- `workflow.tsv` — ordered bootstrap workflow\n- `artifacts.tsv` — governed artifact registry\n- `artifact-changelog.tsv` — semantic artifact version changes\n- `history/` — retained prior governed artifact bodies\n- `checkpoints/` — checkpoint metadata\n- `prompts/` — generated prompt material\n\nThis directory is intentionally committed to Git except for ephemeral files.\n\n## Permanent Lifecycle State\n\n- `layers.tsv` — EOSB/EOSP/EOSE/EOSV/EOSR/EOSC/EOSL/EOSM;\n- `program-increments.tsv` — PI state;\n- `work-cycles.tsv` — WC state;\n- `work-packets.tsv` — WP state;\n- `change-requests.tsv` — EOSC state;\n- `maintenance.tsv` — EOSM state;\n- `releases.tsv` — EOSL state;\n- `decisions.tsv` — gate/closure decision log;\n- `trace-edges.tsv` — generated traceability graph;\n- `contracts/` — Codex and ChatGPT review contracts;\n- `evidence/` — verification/review evidence;\n- `sync/` — GitHub sync records.\n",
+  "document_id": "doc:.eos%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Internal Engineering Operating System state.",
+    "title": ".eos"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 1,
+      "section_id": "eos",
+      "text": "# .eos\n\nInternal Engineering Operating System state.\n\n- `workflow.tsv` — ordered bootstrap workflow\n- `artifacts.tsv` — governed artifact registry\n- `artifact-changelog.tsv` — semantic artifact version changes\n- `history/` — retained prior governed artifact bodies\n- `checkpoints/` — checkpoint metadata\n- `prompts/` — generated prompt material\n\nThis directory is intentionally committed to Git except for ephemeral files.",
+      "title": ".eos"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 14,
+      "section_id": "permanent-lifecycle-state",
+      "text": "## Permanent Lifecycle State\n\n- `layers.tsv` — EOSB/EOSP/EOSE/EOSV/EOSR/EOSC/EOSL/EOSM;\n- `program-increments.tsv` — PI state;\n- `work-cycles.tsv` — WC state;\n- `work-packets.tsv` — WP state;\n- `change-requests.tsv` — EOSC state;\n- `maintenance.tsv` — EOSM state;\n- `releases.tsv` — EOSL state;\n- `decisions.tsv` — gate/closure decision log;\n- `trace-edges.tsv` — generated traceability graph;\n- `contracts/` — Codex and ChatGPT review contracts;\n- `evidence/` — verification/review evidence;\n- `sync/` — GitHub sync records.",
+      "title": "Permanent Lifecycle State"
+    }
+  ],
+  "source": {
+    "bytes": 986,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 27,
+    "media_type": "text/markdown",
+    "path": ".eos/README.md",
+    "sha256": "9172db4f9ef815c1f5db0b991d659eb8d4bd2f7876e01bf08b0282bca3182b94"
+  }
+}

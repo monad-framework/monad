@@ -1,0 +1,40 @@
+{
+  "content": "#compdef eos\n# Zsh completion for repository-local EOS.\n_eos() {\n  local cmd=\"${words[1]}\"\n  local -a candidates argv_words\n  argv_words=(\"${words[@]:1}\")\n  candidates=(\"${(@f)$(\"$cmd\" completion candidates -- \"${argv_words[@]}\" 2>/dev/null)}\")\n  compadd -Q -- \"${candidates[@]}\"\n}\ncompdef _eos eos\n",
+  "document_id": "doc:completions%2Fzsh%2F_eos",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical plain-text source for completions/zsh/_eos.",
+    "title": "Eos"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 10,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "#compdef eos\n# Zsh completion for repository-local EOS.\n_eos() {\n  local cmd=\"${words[1]}\"\n  local -a candidates argv_words\n  argv_words=(\"${words[@]:1}\")\n  candidates=(\"${(@f)$(\"$cmd\" completion candidates -- \"${argv_words[@]}\" 2>/dev/null)}\")\n  compadd -Q -- \"${candidates[@]}\"\n}\ncompdef _eos eos",
+      "title": "Eos"
+    }
+  ],
+  "source": {
+    "bytes": 299,
+    "canonical": true,
+    "language": "plain-text",
+    "lines": 10,
+    "media_type": "text/plain",
+    "path": "completions/zsh/_eos",
+    "sha256": "7d22eebc53eeb08042cd570dfb7e7a56b80bfed678533e3a8363d96601f49d42"
+  }
+}

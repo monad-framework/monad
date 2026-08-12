@@ -1,0 +1,49 @@
+{
+  "content": "---\nartifact_id: \"GOV-POLICY-0001\"\ntitle: \"EOS Policy-as-Code and Gate Model\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOS Policy-as-Code and Gate Model\n\nEOS lifecycle decisions are governed by **named gates** defined in\n`.eos/policies/core.json`.\n\nA gate consists of deterministic predicates such as:\n\n- current lifecycle state;\n- artifact completeness;\n- parent authorization state;\n- accepted review evidence;\n- child closure state;\n- unchecked acceptance items.\n\nUse:\n\n```bash\n./scripts/eos policy list\n./scripts/eos policy show WP_AUTHORIZE\n./scripts/eos gate check WP_AUTHORIZE WP-CORE-0007\n./scripts/eos gate explain WP_AUTHORIZE WP-CORE-0007\n```\n\nGate failures must identify the exact failed predicate and evidence.\n\nPolicy files are versioned repository content. EOS does not evaluate arbitrary\ncode from policy definitions; policies reference a constrained built-in\npredicate vocabulary.\n",
+  "document_id": "doc:.eos%2Fhistory%2Fgovernance%2Fpolicy-engine%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"GOV-POLICY-0001\" title: \"EOS Policy-as-Code and Gate Model\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOS Policy-as-Code and Gate Model"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"GOV-POLICY-0001\"\ntitle: \"EOS Policy-as-Code and Gate Model\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 39,
+      "line_start": 12,
+      "section_id": "eos-policy-as-code-and-gate-model",
+      "text": "# EOS Policy-as-Code and Gate Model\n\nEOS lifecycle decisions are governed by **named gates** defined in\n`.eos/policies/core.json`.\n\nA gate consists of deterministic predicates such as:\n\n- current lifecycle state;\n- artifact completeness;\n- parent authorization state;\n- accepted review evidence;\n- child closure state;\n- unchecked acceptance items.\n\nUse:\n\n```bash\n./scripts/eos policy list\n./scripts/eos policy show WP_AUTHORIZE\n./scripts/eos gate check WP_AUTHORIZE WP-CORE-0007\n./scripts/eos gate explain WP_AUTHORIZE WP-CORE-0007\n```\n\nGate failures must identify the exact failed predicate and evidence.\n\nPolicy files are versioned repository content. EOS does not evaluate arbitrary\ncode from policy definitions; policies reference a constrained built-in\npredicate vocabulary.",
+      "title": "EOS Policy-as-Code and Gate Model"
+    }
+  ],
+  "source": {
+    "bytes": 998,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 39,
+    "media_type": "text/markdown",
+    "path": ".eos/history/governance/policy-engine/v0.1.0.md",
+    "sha256": "6a6f8fb0ef08ea81ab143c5ea4f36e23b78710850a61911e792891ddcdd43929"
+  }
+}
