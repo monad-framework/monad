@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/wc.schema.json\",\"title\":\"EOS WC\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"objective\",\"pi_id\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^WC(?:-[A-Z][A-Z0-9]*)?-[0-9]{4}$\"},\"entity_type\":{\"const\":\"WC\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"DRAFT\",\"READY\",\"AUTHORIZED\",\"ACTIVE\",\"IN_REVIEW\",\"CLOSED\",\"BLOCKED\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"objective\":{\"type\":\"string\",\"minLength\":1},\"pi_id\":{\"type\":\"string\",\"pattern\":\"^PI(?:-[A-Z][A-Z0-9]*)?-[0-9]{3}$\"}},\"unevaluatedProperties\":false}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Fwc.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/wc.schema.json.",
+    "title": "Wc.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/wc.schema.json\",\"title\":\"EOS WC\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"objective\",\"pi_id\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^WC(?:-[A-Z][A-Z0-9]*)?-[0-9]{4}$\"},\"entity_type\":{\"const\":\"WC\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"DRAFT\",\"READY\",\"AUTHORIZED\",\"ACTIVE\",\"IN_REVIEW\",\"CLOSED\",\"BLOCKED\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"objective\":{\"type\":\"string\",\"minLength\":1},\"pi_id\":{\"type\":\"string\",\"pattern\":\"^PI(?:-[A-Z][A-Z0-9]*)?-[0-9]{3}$\"}},\"unevaluatedProperties\":false}",
+      "title": "Wc.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 664,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/wc.schema.json",
+    "sha256": "72c08f57a3969ae227624845dd9a4cd5c636e534e04d8543e92f653f59c4a541"
+  }
+}

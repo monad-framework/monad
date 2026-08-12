@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/review.schema.json\",\"title\":\"EOS Review\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"review_kind\",\"subject_ids\",\"disposition\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^REV-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"Review\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"DRAFT\",\"IN_PROGRESS\",\"COMPLETED\",\"SUPERSEDED\",\"VOID\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"review_kind\":{\"type\":\"string\",\"minLength\":1},\"subject_ids\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1},\"minItems\":1,\"uniqueItems\":true},\"disposition\":{\"type\":\"string\",\"enum\":[\"PENDING\",\"ACCEPT\",\"ACCEPT_WITH_CONDITIONS\",\"REJECT\",\"NO_DECISION\"]},\"findings\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"unevaluatedProperties\":false}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Freview.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/review.schema.json.",
+    "title": "Review.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/review.schema.json\",\"title\":\"EOS Review\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"review_kind\",\"subject_ids\",\"disposition\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^REV-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"Review\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"DRAFT\",\"IN_PROGRESS\",\"COMPLETED\",\"SUPERSEDED\",\"VOID\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"review_kind\":{\"type\":\"string\",\"minLength\":1},\"subject_ids\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1},\"minItems\":1,\"uniqueItems\":true},\"disposition\":{\"type\":\"string\",\"enum\":[\"PENDING\",\"ACCEPT\",\"ACCEPT_WITH_CONDITIONS\",\"REJECT\",\"NO_DECISION\"]},\"findings\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"unevaluatedProperties\":false}",
+      "title": "Review.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 869,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/review.schema.json",
+    "sha256": "cf5e47068307b8634d69f3f5413462e769ae1735ecc456e788e9985f630e89cf"
+  }
+}
