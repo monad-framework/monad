@@ -2,7 +2,7 @@
 
 **Status:** Proposed implementation plan
 **Date:** 2026-08-13
-**Governing proposal:** ADR-0006
+**Governing decision:** ADR-0006 (Accepted)
 **Change request:** CR-0001
 **Design:** `engineering/eos/EOS-0.9-DECISION-READINESS-DESIGN.md`
 **Planning rule:** Logical packet names below are provisional; canonical IDs are allocated only after state reconciliation and explicit CR approval.

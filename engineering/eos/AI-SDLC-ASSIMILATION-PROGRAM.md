@@ -3,7 +3,7 @@
 **Status:** Proposed  
 **Date:** 2026-08-13  
 **Target:** EOS evolution beginning with 0.9  
-**Governing decision:** ADR-0006 (Proposed)
+**Governing decision:** ADR-0006 (Accepted)
 
 ## Purpose
 

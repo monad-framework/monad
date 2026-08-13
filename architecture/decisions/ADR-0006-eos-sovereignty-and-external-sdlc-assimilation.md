@@ -1,12 +1,13 @@
 # ADR-0006: EOS Sovereignty and External SDLC Assimilation
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-08-13
 - **Decision owners:** Architecture Owner, Engineering Owner
 - **Reviewers:** Product Owner, Security Owner, Operations Owner as affected
 - **Related:** ADR-0001, ADR-0005, `governance/authority.md`, `governance/canonical-state-model.md`, `governance/planning-engine.md`, `governance/policy-engine.md`, `governance/execution-engine.md`
 - **Supersedes:** none
 - **Superseded by:** none
+- **Acceptance evidence:** `engineering/reviews/DECISION-0001-2026-08-13-adr-0006-acceptance.md`
 
 ## Decision summary
 
