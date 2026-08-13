@@ -227,6 +227,12 @@ def is_excluded(relative: PurePosixPath) -> bool:
         return True
     if relative.parts[0] == "machine":
         return True
+    # In a linked Git worktree, the repository-root `.git` entry is a regular
+    # text file containing a local `gitdir:` pointer. It is Git metadata, not a
+    # canonical project document, and may disclose machine-local paths if
+    # projected. Directory exclusion alone does not catch this root file.
+    if relative.name == ".git":
+        return True
     if any(part in EXCLUDED_DIRECTORY_NAMES for part in relative.parts[:-1]):
         return True
     return is_sensitive(relative)

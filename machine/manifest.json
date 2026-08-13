@@ -1770,19 +1770,6 @@
       "title": "Workflow"
     },
     {
-      "companion_path": "machine/documents/.git.json",
-      "companion_sha256": "7ef40c520e4d97dc87de407b84b96b0ccaa90a2f750402a269b5725315e59600",
-      "document_id": "doc:.git",
-      "document_type": "repository-configuration",
-      "identifier_count": 0,
-      "normative": false,
-      "relation_count": 0,
-      "section_count": 1,
-      "source_path": ".git",
-      "source_sha256": "eb762c06cff6c0dddd5e39021a89c23fca89bdfc4610b9d11630a910a29f220b",
-      "title": "Git"
-    },
-    {
       "companion_path": "machine/documents/.gitattributes.json",
       "companion_sha256": "d2426bec76b529a6ff0948163b83d0b9f252d3c1f23c168ae74eca0423d79387",
       "document_id": "doc:.gitattributes",
@@ -14004,7 +13991,7 @@
     },
     {
       "companion_path": "machine/documents/scripts/sync-machine-docs.py.json",
-      "companion_sha256": "e53ea171d4cc3e3df85c48e11eb38654c1242e7c47863075b29cd0be5f291d63",
+      "companion_sha256": "d4f0a30ded590fd94db1fb7bf50e15858de0aed1b4ded807237e433e6e7255f7",
       "document_id": "doc:scripts%2Fsync-machine-docs.py",
       "document_type": "automation",
       "identifier_count": 0,
@@ -14012,7 +13999,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "scripts/sync-machine-docs.py",
-      "source_sha256": "a7e660cd324f5364044b328441021ce9b97d047fb6a132d6bbc48a503b347702",
+      "source_sha256": "9a23ac6b3a755a497d79152217dff7b852a46281e318f27256151726fc8c0a9b",
       "title": "Sync Machine Docs"
     },
     {
@@ -14040,6 +14027,19 @@
       "source_path": "scripts/test-eos-0.8-program-adoption.py",
       "source_sha256": "aabcaf8fece558b05883d44acecc9858a5c6b0be96f2df8fdc0542a12d12c72b",
       "title": "Test Eos 0.8 Program Adoption"
+    },
+    {
+      "companion_path": "machine/documents/scripts/test-sync-machine-docs-worktree.py.json",
+      "companion_sha256": "7abc19b0a5f75f47e4091e6171b483635ee2039203cf51079846fc0f5e9fb0ff",
+      "document_id": "doc:scripts%2Ftest-sync-machine-docs-worktree.py",
+      "document_type": "automation",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "scripts/test-sync-machine-docs-worktree.py",
+      "source_sha256": "2431430842e9a4f1c3c732cd4ed4d0f12f0a02dbaef907e3dcf8f666c0fb98a7",
+      "title": "Test Sync Machine Docs Worktree"
     },
     {
       "companion_path": "machine/documents/security/README.md.json",
@@ -14519,5 +14519,5 @@
   "schema_version": "1.0.0",
   "source_count": 1116,
   "source_root": ".",
-  "source_tree_sha256": "58eefb06a3f440d89cd82769c4f14ca0e453f8a7413a8e86c1f4d17871e51f03"
+  "source_tree_sha256": "8bcd78411e59052f4d85ae07a589344a8562e4fac94d98db89333cb2f7ee2d57"
 }
