@@ -17,6 +17,23 @@ class Failure(RuntimeError):
     pass
 
 
+def project_fixture_from_canonical(root: Path) -> None:
+    env = os.environ.copy()
+    env["EOS_ROOT"] = str(root)
+    proc = subprocess.run(
+        [sys.executable, str(root / "tools" / "eos" / "canonical_state.py"), "project", "--apply"],
+        cwd=root,
+        env=env,
+        text=True,
+        capture_output=True,
+    )
+    if proc.returncode != 0:
+        raise Failure(
+            "failed to initialize isolated safety fixture from canonical state\n"
+            f"stdout:\n{proc.stdout}\nstderr:\n{proc.stderr}"
+        )
+
+
 def copy_repo(target: Path) -> None:
     shutil.copytree(
         ROOT,
@@ -24,6 +41,11 @@ def copy_repo(target: Path) -> None:
         ignore=shutil.ignore_patterns(".git", "machine", "__pycache__", "*.pyc"),
         dirs_exist_ok=True,
     )
+    # Safety cases exercise the full canonical wrapper. Seed every isolated
+    # fixture from canonical authority so stale/mutable compatibility
+    # projections inherited from the source checkout cannot mask the intended
+    # negative adoption assertion.
+    project_fixture_from_canonical(target)
 
 
 def eos(root: Path, *args: str, expect: int = 0) -> subprocess.CompletedProcess[str]:
