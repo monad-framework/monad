@@ -31,8 +31,18 @@
       "type": "declares"
     },
     {
+      "source": "doc:.eos%2Fchange-requests.tsv",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
       "source": "doc:.eos%2Fevents.jsonl",
       "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fevents.jsonl",
+      "target": "identifier:ADR-0006",
       "type": "declares"
     },
     {
@@ -43,6 +53,11 @@
     {
       "source": "doc:.eos%2Fevents.jsonl",
       "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fhistory%2Fengineering%2Fchanges%2FCR-0001%2Fv0.1.0.md",
+      "target": "identifier:ADR-0006",
       "type": "declares"
     },
     {
@@ -152,6 +167,11 @@
     },
     {
       "source": "doc:.eos%2Fstate%2Fcurrent.json",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fstate%2Fcurrent.json",
       "target": "identifier:WC-0001",
       "type": "declares"
     },
@@ -193,6 +213,11 @@
     {
       "source": "doc:.eos%2Ftrace-edges.tsv",
       "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:ADR-0006",
       "type": "declares"
     },
     {
@@ -456,6 +481,21 @@
       "type": "declares"
     },
     {
+      "source": "doc:architecture%2Fdecisions%2FADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md",
+      "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:architecture%2Fdecisions%2FADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md",
+      "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
+      "source": "doc:architecture%2Fdecisions%2FADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
       "source": "doc:architecture%2Fdecisions%2FREADME.md",
       "target": "identifier:ADR-0000",
       "type": "declares"
@@ -487,6 +527,11 @@
     },
     {
       "source": "doc:architecture%2Fdecisions%2FREADME.md",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
+      "source": "doc:architecture%2Fdecisions%2FREADME.md",
       "target": "doc:architecture%2Fdecisions%2FADR-0001-knowledge-engine-core.md",
       "type": "references"
     },
@@ -508,6 +553,11 @@
     {
       "source": "doc:architecture%2Fdecisions%2FREADME.md",
       "target": "doc:architecture%2Fdecisions%2FADR-0005-mvp-core-implementation-topology.md",
+      "type": "references"
+    },
+    {
+      "source": "doc:architecture%2Fdecisions%2FREADME.md",
+      "target": "doc:architecture%2Fdecisions%2FADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md",
       "type": "references"
     },
     {
@@ -763,6 +813,36 @@
     {
       "source": "doc:bootstrap-project.sh",
       "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0001.md",
+      "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0001.md",
+      "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0001.md",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Feos%2FAI-SDLC-ASSIMILATION-PROGRAM.md",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Feos%2FAI-SDLC-CAPABILITY-ASSIMILATION-MATRIX.md",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Feos%2FEOS-0.9-DECISION-READINESS-DESIGN.md",
+      "target": "identifier:ADR-0006",
       "type": "declares"
     },
     {
@@ -2099,6 +2179,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Fengineering%2Fchanges%2FCR-0001%2Fv0.1.0.md",
+      "normative": false,
+      "source_path": ".eos/history/engineering/changes/CR-0001/v0.1.0.md",
+      "title": "CR-0001 — Assimilate selected AI-SDLC capabilities into Monad EOS",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fhistory%2Fengineering%2Fincrements%2FPI-001%2Fv0.1.0.md",
       "normative": false,
       "source_path": ".eos/history/engineering/increments/PI-001/v0.1.0.md",
@@ -3059,6 +3147,14 @@
     },
     {
       "document_type": "repository-configuration",
+      "id": "doc:.git",
+      "normative": false,
+      "source_path": ".git",
+      "title": "Git",
+      "type": "document"
+    },
+    {
+      "document_type": "repository-configuration",
       "id": "doc:.gitattributes",
       "normative": true,
       "source_path": ".gitattributes",
@@ -3327,6 +3423,14 @@
       "normative": true,
       "source_path": "architecture/decisions/ADR-0005-mvp-core-implementation-topology.md",
       "title": "ADR-0005: MVP Core Implementation Topology",
+      "type": "document"
+    },
+    {
+      "document_type": "architecture",
+      "id": "doc:architecture%2Fdecisions%2FADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md",
+      "normative": true,
+      "source_path": "architecture/decisions/ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md",
+      "title": "ADR-0006: EOS Sovereignty and External SDLC Assimilation",
       "type": "document"
     },
     {
@@ -9371,6 +9475,14 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Fchanges%2FCR-0001.md",
+      "normative": true,
+      "source_path": "engineering/changes/CR-0001.md",
+      "title": "CR-0001 — Assimilate selected AI-SDLC capabilities into Monad EOS",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Fdefinition-of-done.md",
       "normative": true,
       "source_path": "engineering/definition-of-done.md",
@@ -9391,6 +9503,30 @@
       "normative": true,
       "source_path": "engineering/engineering-plan.md",
       "title": "Engineering Plan",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Feos%2FAI-SDLC-ASSIMILATION-PROGRAM.md",
+      "normative": true,
+      "source_path": "engineering/eos/AI-SDLC-ASSIMILATION-PROGRAM.md",
+      "title": "AI-SDLC Capability Assimilation Program",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Feos%2FAI-SDLC-CAPABILITY-ASSIMILATION-MATRIX.md",
+      "normative": true,
+      "source_path": "engineering/eos/AI-SDLC-CAPABILITY-ASSIMILATION-MATRIX.md",
+      "title": "AI-SDLC → Monad Capability Assimilation Matrix",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Feos%2FEOS-0.9-DECISION-READINESS-DESIGN.md",
+      "normative": true,
+      "source_path": "engineering/eos/EOS-0.9-DECISION-READINESS-DESIGN.md",
+      "title": "EOS 0.9 — Decision and Readiness Engine",
       "type": "document"
     },
     {
@@ -10930,6 +11066,11 @@
       "value": "ADR-0005"
     },
     {
+      "id": "identifier:ADR-0006",
+      "type": "identifier",
+      "value": "ADR-0006"
+    },
+    {
       "id": "identifier:ADR-0014",
       "type": "identifier",
       "value": "ADR-0014"
@@ -11456,5 +11597,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "3981d6aab25bd2008af2d83051e88f4c37a9a5c3a451b5fd40f5c8a266b06104"
+  "source_tree_sha256": "58eefb06a3f440d89cd82769c4f14ca0e453f8a7413a8e86c1f4d17871e51f03"
 }

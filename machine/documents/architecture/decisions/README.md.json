@@ -1,5 +1,5 @@
 {
-  "content": "# Architecture Decision Records\n\n`architecture/decisions/` is the **canonical Architecture Decision Record (ADR) root for Monad**. The former root-level `adrs/` directory is retired and MUST NOT be recreated.\n\nArchitecture Decision Records preserve the context and consequences of significant choices. An ADR explains why the accepted option was reasonable at the time; it is not a retrospective claim that alternatives had no merit.\n\n## Authority\n\nAccepted ADRs are normative architectural authority subject to higher-order constitutional, legal, security, and explicitly governing project constraints. Lower-authority implementation, planning, generated material, GitHub metadata, EOS machine state, or agent output MUST NOT silently contradict an accepted ADR.\n\nMoving an ADR into this directory changes its canonical repository location, not its historical identity, acceptance state, or decision meaning. Git history preserves prior locations and provenance.\n\n## Naming and lifecycle\n\nUse `ADR-NNNN-short-kebab-title.md` with monotonically increasing numbers. Stable ADR identifiers MUST NOT be reused for a different decision.\n\nStatuses are Proposed, Accepted, Rejected, Deprecated, and Superseded. Accepted records are immutable in decision meaning. Factual corrections, metadata normalization, location migration, and explicit status/supersession links may be added without rewriting the historical decision. A materially changed decision receives a new ADR that supersedes the old one.\n\n## Process\n\n1. Copy `ADR-0000-template.md` and assign the next available number.\n2. State decision pressure, constraints, and governing authority.\n3. Compare credible alternatives, including retaining the current state when relevant.\n4. Describe operational, security, compatibility, migration, and reversibility consequences.\n5. Identify evidence needed to validate uncertain claims.\n6. Record the decision authority and effective status.\n7. Link downstream specifications, Work Packets, implementation, validation, migration, and supersession work.\n8. Update this index in the same change that changes ADR lifecycle state.\n\n## Decision index\n\n| ADR | Title | Status | Date | Supersedes |\n| --- | --- | --- | --- | --- |\n| [`ADR-0001`](ADR-0001-knowledge-engine-core.md) | The Knowledge Engine Is the Core of Monad | Accepted | 2026-08-03 | — |\n| [`ADR-0002`](ADR-0002-repository-root-and-configuration.md) | Canonical Repository Root and Configuration | Accepted | 2026-08-12 | — |\n| [`ADR-0003`](ADR-0003-stable-source-and-document-identity.md) | Stable Source and Document Identity | Accepted | 2026-08-12 | — |\n| [`ADR-0004`](ADR-0004-safe-deterministic-ingestion-boundary.md) | Safe Deterministic Canonical Ingestion Boundary | Accepted | 2026-08-12 | — |\n| [`ADR-0005`](ADR-0005-mvp-core-implementation-topology.md) | MVP Core Implementation Topology | Accepted | 2026-08-12 | — |\n\n## Machine and EOS projections\n\nMachine companions, semantic-graph nodes, `.eos/` records, GitHub Issues/Projects, and generated indexes MAY reference ADRs by stable identifier and canonical path. Those projections MUST retain provenance to the canonical ADR and MUST NOT become a competing editable source of decision truth.\n\nIf a projection references the retired `adrs/` path, the reference should be migrated to `architecture/decisions/` while preserving the ADR identifier. A stale projection has no authority over canonical source.\n",
+  "content": "# Architecture Decision Records\n\n`architecture/decisions/` is the **canonical Architecture Decision Record (ADR) root for Monad**. The former root-level `adrs/` directory is retired and MUST NOT be recreated.\n\nArchitecture Decision Records preserve the context and consequences of significant choices. An ADR explains why the accepted option was reasonable at the time; it is not a retrospective claim that alternatives had no merit.\n\n## Authority\n\nAccepted ADRs are normative architectural authority subject to higher-order constitutional, legal, security, and explicitly governing project constraints. Lower-authority implementation, planning, generated material, GitHub metadata, EOS machine state, or agent output MUST NOT silently contradict an accepted ADR.\n\nMoving an ADR into this directory changes its canonical repository location, not its historical identity, acceptance state, or decision meaning. Git history preserves prior locations and provenance.\n\n## Naming and lifecycle\n\nUse `ADR-NNNN-short-kebab-title.md` with monotonically increasing numbers. Stable ADR identifiers MUST NOT be reused for a different decision.\n\nStatuses are Proposed, Accepted, Rejected, Deprecated, and Superseded. Accepted records are immutable in decision meaning. Factual corrections, metadata normalization, location migration, and explicit status/supersession links may be added without rewriting the historical decision. A materially changed decision receives a new ADR that supersedes the old one.\n\n## Process\n\n1. Copy `ADR-0000-template.md` and assign the next available number.\n2. State decision pressure, constraints, and governing authority.\n3. Compare credible alternatives, including retaining the current state when relevant.\n4. Describe operational, security, compatibility, migration, and reversibility consequences.\n5. Identify evidence needed to validate uncertain claims.\n6. Record the decision authority and effective status.\n7. Link downstream specifications, Work Packets, implementation, validation, migration, and supersession work.\n8. Update this index in the same change that changes ADR lifecycle state.\n\n## Decision index\n\n| ADR | Title | Status | Date | Supersedes |\n| --- | --- | --- | --- | --- |\n| [`ADR-0001`](ADR-0001-knowledge-engine-core.md) | The Knowledge Engine Is the Core of Monad | Accepted | 2026-08-03 | — |\n| [`ADR-0002`](ADR-0002-repository-root-and-configuration.md) | Canonical Repository Root and Configuration | Accepted | 2026-08-12 | — |\n| [`ADR-0003`](ADR-0003-stable-source-and-document-identity.md) | Stable Source and Document Identity | Accepted | 2026-08-12 | — |\n| [`ADR-0004`](ADR-0004-safe-deterministic-ingestion-boundary.md) | Safe Deterministic Canonical Ingestion Boundary | Accepted | 2026-08-12 | — |\n| [`ADR-0005`](ADR-0005-mvp-core-implementation-topology.md) | MVP Core Implementation Topology | Accepted | 2026-08-12 | — |\n| [`ADR-0006`](ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md) | EOS Sovereignty and External SDLC Assimilation | Proposed | 2026-08-13 | — |\n\n## Machine and EOS projections\n\nMachine companions, semantic-graph nodes, `.eos/` records, GitHub Issues/Projects, and generated indexes MAY reference ADRs by stable identifier and canonical path. Those projections MUST retain provenance to the canonical ADR and MUST NOT become a competing editable source of decision truth.\n\nIf a projection references the retired `adrs/` path, the reference should be migrated to `architecture/decisions/` while preserving the ADR identifier. A stale projection has no authority over canonical source.\n",
   "document_id": "doc:architecture%2Fdecisions%2FREADME.md",
   "generation": {
     "deterministic": true,
@@ -12,7 +12,8 @@
     "ADR-0002",
     "ADR-0003",
     "ADR-0004",
-    "ADR-0005"
+    "ADR-0005",
+    "ADR-0006"
   ],
   "links": [
     {
@@ -39,6 +40,11 @@
       "kind": "local",
       "resolved_source": "architecture/decisions/ADR-0005-mvp-core-implementation-topology.md",
       "target": "ADR-0005-mvp-core-implementation-topology.md"
+    },
+    {
+      "kind": "local",
+      "resolved_source": "architecture/decisions/ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md",
+      "target": "ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md"
     }
   ],
   "metadata": {
@@ -71,6 +77,11 @@
     {
       "target_document_id": "doc:architecture%2Fdecisions%2FADR-0005-mvp-core-implementation-topology.md",
       "target_source": "architecture/decisions/ADR-0005-mvp-core-implementation-topology.md",
+      "type": "references"
+    },
+    {
+      "target_document_id": "doc:architecture%2Fdecisions%2FADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md",
+      "target_source": "architecture/decisions/ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md",
       "type": "references"
     }
   ],
@@ -121,32 +132,33 @@
         "ADR-0002",
         "ADR-0003",
         "ADR-0004",
-        "ADR-0005"
+        "ADR-0005",
+        "ADR-0006"
       ],
       "level": 2,
-      "line_end": 39,
+      "line_end": 40,
       "line_start": 30,
       "section_id": "decision-index",
-      "text": "## Decision index\n\n| ADR | Title | Status | Date | Supersedes |\n| --- | --- | --- | --- | --- |\n| [`ADR-0001`](ADR-0001-knowledge-engine-core.md) | The Knowledge Engine Is the Core of Monad | Accepted | 2026-08-03 | — |\n| [`ADR-0002`](ADR-0002-repository-root-and-configuration.md) | Canonical Repository Root and Configuration | Accepted | 2026-08-12 | — |\n| [`ADR-0003`](ADR-0003-stable-source-and-document-identity.md) | Stable Source and Document Identity | Accepted | 2026-08-12 | — |\n| [`ADR-0004`](ADR-0004-safe-deterministic-ingestion-boundary.md) | Safe Deterministic Canonical Ingestion Boundary | Accepted | 2026-08-12 | — |\n| [`ADR-0005`](ADR-0005-mvp-core-implementation-topology.md) | MVP Core Implementation Topology | Accepted | 2026-08-12 | — |",
+      "text": "## Decision index\n\n| ADR | Title | Status | Date | Supersedes |\n| --- | --- | --- | --- | --- |\n| [`ADR-0001`](ADR-0001-knowledge-engine-core.md) | The Knowledge Engine Is the Core of Monad | Accepted | 2026-08-03 | — |\n| [`ADR-0002`](ADR-0002-repository-root-and-configuration.md) | Canonical Repository Root and Configuration | Accepted | 2026-08-12 | — |\n| [`ADR-0003`](ADR-0003-stable-source-and-document-identity.md) | Stable Source and Document Identity | Accepted | 2026-08-12 | — |\n| [`ADR-0004`](ADR-0004-safe-deterministic-ingestion-boundary.md) | Safe Deterministic Canonical Ingestion Boundary | Accepted | 2026-08-12 | — |\n| [`ADR-0005`](ADR-0005-mvp-core-implementation-topology.md) | MVP Core Implementation Topology | Accepted | 2026-08-12 | — |\n| [`ADR-0006`](ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md) | EOS Sovereignty and External SDLC Assimilation | Proposed | 2026-08-13 | — |",
       "title": "Decision index"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 44,
-      "line_start": 40,
+      "line_end": 45,
+      "line_start": 41,
       "section_id": "machine-and-eos-projections",
       "text": "## Machine and EOS projections\n\nMachine companions, semantic-graph nodes, `.eos/` records, GitHub Issues/Projects, and generated indexes MAY reference ADRs by stable identifier and canonical path. Those projections MUST retain provenance to the canonical ADR and MUST NOT become a competing editable source of decision truth.\n\nIf a projection references the retired `adrs/` path, the reference should be migrated to `architecture/decisions/` while preserving the ADR identifier. A stale projection has no authority over canonical source.",
       "title": "Machine and EOS projections"
     }
   ],
   "source": {
-    "bytes": 3433,
+    "bytes": 3589,
     "canonical": true,
     "language": "markdown",
-    "lines": 44,
+    "lines": 45,
     "media_type": "text/markdown",
     "path": "architecture/decisions/README.md",
-    "sha256": "c605b988b08ff8bb8e64a0df26b1d12418d7d0458a162bf1bcdbb3198cdb7d73"
+    "sha256": "e876fcd652e27ceb4bb1b2b124f4e3543416be5b60927ebf95e51c23bd7badbb"
   }
 }
