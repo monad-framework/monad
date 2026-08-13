@@ -846,6 +846,11 @@
       "type": "declares"
     },
     {
+      "source": "doc:engineering%2Feos%2FEOS-0.9-IMPLEMENTATION-DECOMPOSITION.md",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
       "source": "doc:engineering%2Feos%2FEOS-SINGLE-CANONICAL-STATE-MODEL.md",
       "target": "identifier:WC-0001",
       "type": "declares"
@@ -963,6 +968,36 @@
     {
       "source": "doc:engineering%2Fproject-status.md",
       "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FDESIGN-0001-2026-08-13-eos-0.9-assimilation.md",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FDESIGN-0001-2026-08-13-eos-0.9-assimilation.md",
+      "target": "identifier:C-001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FDESIGN-0001-2026-08-13-eos-0.9-assimilation.md",
+      "target": "identifier:C-002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FDESIGN-0001-2026-08-13-eos-0.9-assimilation.md",
+      "target": "identifier:C-003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FDESIGN-0001-2026-08-13-eos-0.9-assimilation.md",
+      "target": "identifier:C-004",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Freviews%2FDESIGN-0001-2026-08-13-eos-0.9-assimilation.md",
+      "target": "identifier:C-005",
       "type": "declares"
     },
     {
@@ -9523,6 +9558,14 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Feos%2FEOS-0.9-IMPLEMENTATION-DECOMPOSITION.md",
+      "normative": true,
+      "source_path": "engineering/eos/EOS-0.9-IMPLEMENTATION-DECOMPOSITION.md",
+      "title": "EOS 0.9 — Implementation Decomposition",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Feos%2FEOS-CORE-SCHEMA-AND-DOMAIN-MODEL.md",
       "normative": true,
       "source_path": "engineering/eos/EOS-CORE-SCHEMA-AND-DOMAIN-MODEL.md",
@@ -9807,6 +9850,14 @@
       "normative": true,
       "source_path": "engineering/prompts/README.md",
       "title": "EOS Prompt Catalog",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Freviews%2FDESIGN-0001-2026-08-13-eos-0.9-assimilation.md",
+      "normative": true,
+      "source_path": "engineering/reviews/DESIGN-0001-2026-08-13-eos-0.9-assimilation.md",
+      "title": "DESIGN-0001-2026-08-13 — EOS 0.9 Assimilation Authority Review",
       "type": "document"
     },
     {
@@ -11076,6 +11127,31 @@
       "value": "ADR-0014"
     },
     {
+      "id": "identifier:C-001",
+      "type": "identifier",
+      "value": "C-001"
+    },
+    {
+      "id": "identifier:C-002",
+      "type": "identifier",
+      "value": "C-002"
+    },
+    {
+      "id": "identifier:C-003",
+      "type": "identifier",
+      "value": "C-003"
+    },
+    {
+      "id": "identifier:C-004",
+      "type": "identifier",
+      "value": "C-004"
+    },
+    {
+      "id": "identifier:C-005",
+      "type": "identifier",
+      "value": "C-005"
+    },
+    {
       "id": "identifier:C-01",
       "type": "identifier",
       "value": "C-01"
@@ -11597,5 +11673,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "8bcd78411e59052f4d85ae07a589344a8562e4fac94d98db89333cb2f7ee2d57"
+  "source_tree_sha256": "0c426ec8240feca1d2aef9c465e3718ef45e5c46a0c98d7781c3d226ff39e761"
 }
