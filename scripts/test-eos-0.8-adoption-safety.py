@@ -130,8 +130,24 @@ def test_schema_preflight(root: Path) -> None:
         },
     )
     proc = eos(root, "adopt", manifest, "--apply", expect=2)
-    if "schema validation failed" not in (proc.stdout + proc.stderr).lower():
-        raise Failure("missing-title adoption was not rejected by lifecycle schema validation")
+    output = proc.stdout + proc.stderr
+    lowered = output.lower()
+    title_schema_failure = (
+        "title" in lowered
+        and any(
+            marker in lowered
+            for marker in (
+                "schema validation failed",
+                "shorter than minlength",
+                "missing required field",
+            )
+        )
+    )
+    if not title_schema_failure:
+        raise Failure(
+            "missing-title adoption was not rejected for a title schema violation\n"
+            f"stdout:\n{proc.stdout}\nstderr:\n{proc.stderr}"
+        )
     assert_unchanged(root, before, "schema preflight")
 
 
