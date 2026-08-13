@@ -1,7 +1,11 @@
 source_id	target_id	edge_type	source_path	evidence
 ADR-0003	ADR-0001	references	architecture/decisions/ADR-0003-stable-source-and-document-identity.md	inferred-reference
 ADR-0003	WP-MVP-0001	references	architecture/decisions/ADR-0003-stable-source-and-document-identity.md	inferred-reference
+ADR-0006	ADR-0001	references	architecture/decisions/ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md	inferred-reference
+ADR-0006	ADR-0005	references	architecture/decisions/ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md	inferred-reference
+CR-0001	ADR-0006	affects	engineering/changes/CR-0001.md	inferred-reference
 FILE:.github/workflows/repository-integrity.yml	ADR-0001	references	.github/workflows/repository-integrity.yml	inferred-reference
+FILE:engineering/eos/AI-SDLC-ASSIMILATION-PROGRAM.md	ADR-0006	references	engineering/eos/AI-SDLC-ASSIMILATION-PROGRAM.md	inferred-reference
 FILE:engineering/eos/EOS-SINGLE-CANONICAL-STATE-MODEL.md	PI-001	references	engineering/eos/EOS-SINGLE-CANONICAL-STATE-MODEL.md	inferred-reference
 FILE:engineering/eos/EOS-SINGLE-CANONICAL-STATE-MODEL.md	WC-0001	references	engineering/eos/EOS-SINGLE-CANONICAL-STATE-MODEL.md	inferred-reference
 FILE:engineering/github/PROJECT-V2-CONFIGURATION.md	PI-MVP-001	references	engineering/github/PROJECT-V2-CONFIGURATION.md	inferred-reference
