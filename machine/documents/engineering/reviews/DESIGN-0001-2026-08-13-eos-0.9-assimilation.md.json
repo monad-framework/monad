@@ -1,0 +1,238 @@
+{
+  "content": "# DESIGN-0001-2026-08-13 — EOS 0.9 Assimilation Authority Review\n\n**Review type:** Design / change-readiness review\n**Review date:** 2026-08-13\n**Branch:** `eosp/ai-sdlc-assimilation`\n**Subjects:** ADR-0006, CR-0001, EOS 0.9 Decision & Readiness Engine\n**Prepared by:** ChatGPT — advisory architecture/engineering review\n**Acceptance authority:** Human Project Steward / Architecture Owner and other required affected owners\n**Disposition:** **PASS WITH CONDITIONS — RECOMMEND AUTHORITY ACCEPTANCE**\n\n## Scope\n\nDetermine whether the proposed AI-SDLC capability assimilation architecture and the EOS 0.9 Decision & Readiness design are coherent, bounded, compatible with Monad's existing authority/canonical-state model, and sufficiently developed to move into explicit human acceptance and governed implementation planning.\n\nThis review does not itself accept ADR-0006, approve CR-0001, authorize implementation, or create PI/WC/WP lifecycle state.\n\n## Evidence reviewed\n\n- `architecture/decisions/ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md`\n- `engineering/changes/CR-0001.md`\n- `engineering/eos/AI-SDLC-ASSIMILATION-PROGRAM.md`\n- `engineering/eos/AI-SDLC-CAPABILITY-ASSIMILATION-MATRIX.md`\n- `engineering/eos/EOS-0.9-DECISION-READINESS-DESIGN.md`\n- `engineering/definition-of-ready.md`\n- `governance/authority.md`\n- `governance/canonical-state-model.md`\n- `governance/planning-engine.md`\n- `governance/policy-engine.md`\n- `governance/execution-engine.md`\n- `.eos/state-model.json`\n- `.eos/policies/core.json`\n- `.eos/schemas/core/decision.schema.json`\n- `.eos/schemas/core/approval.schema.json`\n- `.eos/schemas/core/dependency.schema.json`\n- current trace projection\n- current branch deltas for `eosp/ai-sdlc-assimilation` and `eosp/start-pi-mvp-001`\n\n## Review conclusions\n\n### C-001 — Single-control-plane architecture is correct\n\n**Severity:** Advisory / positive finding\n\nADR-0006 correctly rejects a parallel authoritative AI-SDLC control plane and instead places adopted concepts behind Monad-native EOS/domain/semantic-graph boundaries.\n\nThis is consistent with the existing canonical-state model and avoids duplicate task, decision, dependency, evidence, and authorization authorities.\n\n### C-002 — EOS 0.9 is the correct first tranche\n\n**Severity:** Advisory / positive finding\n\nDecision closure and readiness are prerequisites for materially stronger autonomy. Improving dispatch or worker concurrency first would increase execution power before strengthening the contract that constrains execution.\n\nThe selected sequence—readiness/decision semantics before harness abstraction, independent review, dispatch, and proof-of-execution—is therefore sound.\n\n### C-003 — Current Decision schema contains a real semantic defect\n\n**Severity:** Required follow-up\n\nThe current Decision schema requires `outcome` for every Decision, including `PROPOSED`. That makes a truly unresolved decision impossible to represent without inventing an answer.\n\nEOS 0.9 must correct this before Decision records are used as readiness blockers.\n\n### C-004 — DEC/APR/DEP must become operational through canonical transactions\n\n**Severity:** Required follow-up\n\nThe domain model already recognizes Decision, Approval, and Dependency, but they are not yet equivalent operational participants in the single canonical current-state model.\n\nEOS 0.9 must extend canonical state transactionally. A side registry or second state store would violate the architecture under review.\n\n### C-005 — Current WP readiness gate is materially weaker than the human DoR\n\n**Severity:** Required follow-up\n\nThe current `WP_READY` policy checks only lifecycle state plus generic artifact completeness. The human Definition of Ready requires significantly more: bounded scope, linked governing artifacts, known dependencies, resolved or bounded unknowns, testability, operational/security impact, and absence of hidden approvals.\n\nEOS 0.9 should close this policy/intent gap with named deterministic predicates and explainable failures.\n\n## Conditions\n\n### COND-001 — Serialize canonical-state mutations until reconciliation\n\n**Severity:** Blocking for lifecycle mutation; non-blocking for design acceptance\n\nTwo active branches currently contain independent changes to `.eos/state/current.json`:\n\n- `eosp/start-pi-mvp-001` advances the MVP Program Increment state;\n- `eosp/ai-sdlc-assimilation` introduces CR-0001.\n\nBoth were based on the same earlier `main` state. Continuing independent lifecycle transitions would produce competing descendants of the repository's sole operational state.\n\nTherefore:\n\n1. no additional EOS lifecycle mutation is permitted on this branch while the other state-mutating branch remains unreconciled;\n2. ADR/design/review/tooling work that does not mutate canonical state may continue;\n3. after the PI-start workstream is merged, this branch must rebase/merge from the new canonical baseline and run canonical reconciliation/integrity checks;\n4. only after successful reconciliation may CR-0001 be approved and planning entities registered.\n\nThis is an operational safety condition, not a rejection of ADR-0006.\n\n### COND-002 — Human authority must explicitly accept ADR-0006\n\n**Severity:** Blocking for change approval\n\nADR-0006 changes durable engineering governance boundaries. Advisory analysis cannot self-promote it to Accepted.\n\nThe Project Steward / Architecture Owner, with affected-owner review as required, must explicitly accept it.\n\n### COND-003 — CR-0001 approval remains a separate governed event\n\n**Severity:** Blocking for implementation authorization\n\nEven after ADR-0006 is accepted, CR-0001 remains `PROPOSED` until the required human decision and `CR_APPROVE` gate are satisfied through EOS.\n\nNo document-level recommendation substitutes for `./scripts/eos change approve CR-0001 ...`.\n\n## Accepted risks if authority proceeds\n\n1. EOS 0.9 will increase control-plane complexity.\n2. Stronger readiness may initially surface more blockers than the current workflow.\n3. Canonical-state schema evolution requires careful migration and rollback testing.\n4. Semantic/model-assisted checks, if later introduced, require strict authority/provenance boundaries.\n5. Parallel workstream ergonomics remain constrained until canonical-state concurrency handling is improved.\n\nThese risks are acceptable if the implementation decomposition and migration requirements are followed.\n\n## Dissent\n\nNone recorded in this advisory review.\n\n## Required follow-up\n\n1. Human acceptance decision for ADR-0006.\n2. Merge/reconcile the active `eosp/start-pi-mvp-001` state transition before further state mutation here.\n3. Rebase/reconcile `eosp/ai-sdlc-assimilation`.\n4. Human approval of CR-0001 through EOS.\n5. Register an EOS 0.9 planning horizon through canonical state.\n6. Implement the ordered packets in `engineering/eos/EOS-0.9-IMPLEMENTATION-DECOMPOSITION.md`.\n7. Require independent verification/review before EOS 0.9 integration.\n\n## Recommendation\n\n**RECOMMEND ACCEPTING ADR-0006.**\n\n**RECOMMEND APPROVING CR-0001 only after COND-001 and COND-002 are satisfied.**\n\nThe architecture is coherent, the first tranche is correctly chosen, the known risks are bounded, and the design is sufficiently mature to move from proposal into explicit human authority and governed planning. Implementation is not yet authorized.\n\n## Authority update — 2026-08-13\n\nCOND-002 is **SATISFIED**. Human Project Steward / Architecture Owner explicitly accepted ADR-0006. Durable acceptance evidence is recorded in `engineering/reviews/DECISION-0001-2026-08-13-adr-0006-acceptance.md`.\n\nCOND-001 remains open, so CR-0001 approval and new lifecycle registration remain deferred pending canonical-state reconciliation.\n\n## Serialized canonical-state reconciliation — 2026-08-14\n\nCOND-001 is **SATISFIED** against authoritative product baseline `1f377fa8e86e11a7e2920e9a0c3b7cbea1437990`.\n\nAt reconciliation start, canonical operational state was revision 7: `PI-MVP-001` `ACTIVE`, `WC-MVP-0001` `ACTIVE`, and `WP-MVP-0001` `IN_PROGRESS`. The original CR-0001 registry row, append-only creation event, governed Markdown, and history evidence were reconciled through `scripts/reconcile-eos-canonical-state.py`.\n\nEvidence consensus identified exactly one canonical entity change, CR-0001, and advanced canonical state from revision 7 to revision 8. Product lifecycle state was preserved exactly. CR-0001 remains `PROPOSED`.\n\nThis supersedes earlier local-only reconciliation attempts made against product baselines that advanced before publication.\n\n",
+  "document_id": "doc:engineering%2Freviews%2FDESIGN-0001-2026-08-13-eos-0.9-assimilation.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006",
+    "C-001",
+    "C-002",
+    "C-003",
+    "C-004",
+    "C-005"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Review type: Design / change-readiness review Review date: 2026-08-13 Branch: eosp/ai-sdlc-assimilation Subjects: ADR-0006, CR-0001, EOS 0.9 Decision & Readiness Engine Prepared by: ChatGPT — advisory architecture/engineering review Acceptance authority: Human Project Steward / Architecture Owner and other required affected owners Disposition: PASS WITH CONDITIONS — RECOMMEND AUTHORITY ACCEPTANCE",
+    "title": "DESIGN-0001-2026-08-13 — EOS 0.9 Assimilation Authority Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 1,
+      "line_end": 10,
+      "line_start": 1,
+      "section_id": "design-0001-2026-08-13-eos-0-9-assimilation-authority-review",
+      "text": "# DESIGN-0001-2026-08-13 — EOS 0.9 Assimilation Authority Review\n\n**Review type:** Design / change-readiness review\n**Review date:** 2026-08-13\n**Branch:** `eosp/ai-sdlc-assimilation`\n**Subjects:** ADR-0006, CR-0001, EOS 0.9 Decision & Readiness Engine\n**Prepared by:** ChatGPT — advisory architecture/engineering review\n**Acceptance authority:** Human Project Steward / Architecture Owner and other required affected owners\n**Disposition:** **PASS WITH CONDITIONS — RECOMMEND AUTHORITY ACCEPTANCE**",
+      "title": "DESIGN-0001-2026-08-13 — EOS 0.9 Assimilation Authority Review"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 16,
+      "line_start": 11,
+      "section_id": "scope",
+      "text": "## Scope\n\nDetermine whether the proposed AI-SDLC capability assimilation architecture and the EOS 0.9 Decision & Readiness design are coherent, bounded, compatible with Monad's existing authority/canonical-state model, and sufficiently developed to move into explicit human acceptance and governed implementation planning.\n\nThis review does not itself accept ADR-0006, approve CR-0001, authorize implementation, or create PI/WC/WP lifecycle state.",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 17,
+      "section_id": "evidence-reviewed",
+      "text": "## Evidence reviewed\n\n- `architecture/decisions/ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md`\n- `engineering/changes/CR-0001.md`\n- `engineering/eos/AI-SDLC-ASSIMILATION-PROGRAM.md`\n- `engineering/eos/AI-SDLC-CAPABILITY-ASSIMILATION-MATRIX.md`\n- `engineering/eos/EOS-0.9-DECISION-READINESS-DESIGN.md`\n- `engineering/definition-of-ready.md`\n- `governance/authority.md`\n- `governance/canonical-state-model.md`\n- `governance/planning-engine.md`\n- `governance/policy-engine.md`\n- `governance/execution-engine.md`\n- `.eos/state-model.json`\n- `.eos/policies/core.json`\n- `.eos/schemas/core/decision.schema.json`\n- `.eos/schemas/core/approval.schema.json`\n- `.eos/schemas/core/dependency.schema.json`\n- current trace projection\n- current branch deltas for `eosp/ai-sdlc-assimilation` and `eosp/start-pi-mvp-001`",
+      "title": "Evidence reviewed"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 38,
+      "section_id": "review-conclusions",
+      "text": "## Review conclusions",
+      "title": "Review conclusions"
+    },
+    {
+      "identifiers": [
+        "ADR-0006",
+        "C-001"
+      ],
+      "level": 3,
+      "line_end": 47,
+      "line_start": 40,
+      "section_id": "c-001-single-control-plane-architecture-is-correct",
+      "text": "### C-001 — Single-control-plane architecture is correct\n\n**Severity:** Advisory / positive finding\n\nADR-0006 correctly rejects a parallel authoritative AI-SDLC control plane and instead places adopted concepts behind Monad-native EOS/domain/semantic-graph boundaries.\n\nThis is consistent with the existing canonical-state model and avoids duplicate task, decision, dependency, evidence, and authorization authorities.",
+      "title": "C-001 — Single-control-plane architecture is correct"
+    },
+    {
+      "identifiers": [
+        "C-002"
+      ],
+      "level": 3,
+      "line_end": 55,
+      "line_start": 48,
+      "section_id": "c-002-eos-0-9-is-the-correct-first-tranche",
+      "text": "### C-002 — EOS 0.9 is the correct first tranche\n\n**Severity:** Advisory / positive finding\n\nDecision closure and readiness are prerequisites for materially stronger autonomy. Improving dispatch or worker concurrency first would increase execution power before strengthening the contract that constrains execution.\n\nThe selected sequence—readiness/decision semantics before harness abstraction, independent review, dispatch, and proof-of-execution—is therefore sound.",
+      "title": "C-002 — EOS 0.9 is the correct first tranche"
+    },
+    {
+      "identifiers": [
+        "C-003"
+      ],
+      "level": 3,
+      "line_end": 63,
+      "line_start": 56,
+      "section_id": "c-003-current-decision-schema-contains-a-real-semantic-defect",
+      "text": "### C-003 — Current Decision schema contains a real semantic defect\n\n**Severity:** Required follow-up\n\nThe current Decision schema requires `outcome` for every Decision, including `PROPOSED`. That makes a truly unresolved decision impossible to represent without inventing an answer.\n\nEOS 0.9 must correct this before Decision records are used as readiness blockers.",
+      "title": "C-003 — Current Decision schema contains a real semantic defect"
+    },
+    {
+      "identifiers": [
+        "C-004"
+      ],
+      "level": 3,
+      "line_end": 71,
+      "line_start": 64,
+      "section_id": "c-004-dec-apr-dep-must-become-operational-through-canonical-transactions",
+      "text": "### C-004 — DEC/APR/DEP must become operational through canonical transactions\n\n**Severity:** Required follow-up\n\nThe domain model already recognizes Decision, Approval, and Dependency, but they are not yet equivalent operational participants in the single canonical current-state model.\n\nEOS 0.9 must extend canonical state transactionally. A side registry or second state store would violate the architecture under review.",
+      "title": "C-004 — DEC/APR/DEP must become operational through canonical transactions"
+    },
+    {
+      "identifiers": [
+        "C-005"
+      ],
+      "level": 3,
+      "line_end": 79,
+      "line_start": 72,
+      "section_id": "c-005-current-wp-readiness-gate-is-materially-weaker-than-the-human-dor",
+      "text": "### C-005 — Current WP readiness gate is materially weaker than the human DoR\n\n**Severity:** Required follow-up\n\nThe current `WP_READY` policy checks only lifecycle state plus generic artifact completeness. The human Definition of Ready requires significantly more: bounded scope, linked governing artifacts, known dependencies, resolved or bounded unknowns, testability, operational/security impact, and absence of hidden approvals.\n\nEOS 0.9 should close this policy/intent gap with named deterministic predicates and explainable failures.",
+      "title": "C-005 — Current WP readiness gate is materially weaker than the human DoR"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 81,
+      "line_start": 80,
+      "section_id": "conditions",
+      "text": "## Conditions",
+      "title": "Conditions"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 3,
+      "line_end": 101,
+      "line_start": 82,
+      "section_id": "cond-001-serialize-canonical-state-mutations-until-reconciliation",
+      "text": "### COND-001 — Serialize canonical-state mutations until reconciliation\n\n**Severity:** Blocking for lifecycle mutation; non-blocking for design acceptance\n\nTwo active branches currently contain independent changes to `.eos/state/current.json`:\n\n- `eosp/start-pi-mvp-001` advances the MVP Program Increment state;\n- `eosp/ai-sdlc-assimilation` introduces CR-0001.\n\nBoth were based on the same earlier `main` state. Continuing independent lifecycle transitions would produce competing descendants of the repository's sole operational state.\n\nTherefore:\n\n1. no additional EOS lifecycle mutation is permitted on this branch while the other state-mutating branch remains unreconciled;\n2. ADR/design/review/tooling work that does not mutate canonical state may continue;\n3. after the PI-start workstream is merged, this branch must rebase/merge from the new canonical baseline and run canonical reconciliation/integrity checks;\n4. only after successful reconciliation may CR-0001 be approved and planning entities registered.\n\nThis is an operational safety condition, not a rejection of ADR-0006.",
+      "title": "COND-001 — Serialize canonical-state mutations until reconciliation"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 3,
+      "line_end": 109,
+      "line_start": 102,
+      "section_id": "cond-002-human-authority-must-explicitly-accept-adr-0006",
+      "text": "### COND-002 — Human authority must explicitly accept ADR-0006\n\n**Severity:** Blocking for change approval\n\nADR-0006 changes durable engineering governance boundaries. Advisory analysis cannot self-promote it to Accepted.\n\nThe Project Steward / Architecture Owner, with affected-owner review as required, must explicitly accept it.",
+      "title": "COND-002 — Human authority must explicitly accept ADR-0006"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 3,
+      "line_end": 117,
+      "line_start": 110,
+      "section_id": "cond-003-cr-0001-approval-remains-a-separate-governed-event",
+      "text": "### COND-003 — CR-0001 approval remains a separate governed event\n\n**Severity:** Blocking for implementation authorization\n\nEven after ADR-0006 is accepted, CR-0001 remains `PROPOSED` until the required human decision and `CR_APPROVE` gate are satisfied through EOS.\n\nNo document-level recommendation substitutes for `./scripts/eos change approve CR-0001 ...`.",
+      "title": "COND-003 — CR-0001 approval remains a separate governed event"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 127,
+      "line_start": 118,
+      "section_id": "accepted-risks-if-authority-proceeds",
+      "text": "## Accepted risks if authority proceeds\n\n1. EOS 0.9 will increase control-plane complexity.\n2. Stronger readiness may initially surface more blockers than the current workflow.\n3. Canonical-state schema evolution requires careful migration and rollback testing.\n4. Semantic/model-assisted checks, if later introduced, require strict authority/provenance boundaries.\n5. Parallel workstream ergonomics remain constrained until canonical-state concurrency handling is improved.\n\nThese risks are acceptable if the implementation decomposition and migration requirements are followed.",
+      "title": "Accepted risks if authority proceeds"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 131,
+      "line_start": 128,
+      "section_id": "dissent",
+      "text": "## Dissent\n\nNone recorded in this advisory review.",
+      "title": "Dissent"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 141,
+      "line_start": 132,
+      "section_id": "required-follow-up",
+      "text": "## Required follow-up\n\n1. Human acceptance decision for ADR-0006.\n2. Merge/reconcile the active `eosp/start-pi-mvp-001` state transition before further state mutation here.\n3. Rebase/reconcile `eosp/ai-sdlc-assimilation`.\n4. Human approval of CR-0001 through EOS.\n5. Register an EOS 0.9 planning horizon through canonical state.\n6. Implement the ordered packets in `engineering/eos/EOS-0.9-IMPLEMENTATION-DECOMPOSITION.md`.\n7. Require independent verification/review before EOS 0.9 integration.",
+      "title": "Required follow-up"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 149,
+      "line_start": 142,
+      "section_id": "recommendation",
+      "text": "## Recommendation\n\n**RECOMMEND ACCEPTING ADR-0006.**\n\n**RECOMMEND APPROVING CR-0001 only after COND-001 and COND-002 are satisfied.**\n\nThe architecture is coherent, the first tranche is correctly chosen, the known risks are bounded, and the design is sufficiently mature to move from proposal into explicit human authority and governed planning. Implementation is not yet authorized.",
+      "title": "Recommendation"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 155,
+      "line_start": 150,
+      "section_id": "authority-update-2026-08-13",
+      "text": "## Authority update — 2026-08-13\n\nCOND-002 is **SATISFIED**. Human Project Steward / Architecture Owner explicitly accepted ADR-0006. Durable acceptance evidence is recorded in `engineering/reviews/DECISION-0001-2026-08-13-adr-0006-acceptance.md`.\n\nCOND-001 remains open, so CR-0001 approval and new lifecycle registration remain deferred pending canonical-state reconciliation.",
+      "title": "Authority update — 2026-08-13"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 165,
+      "line_start": 156,
+      "section_id": "serialized-canonical-state-reconciliation-2026-08-14",
+      "text": "## Serialized canonical-state reconciliation — 2026-08-14\n\nCOND-001 is **SATISFIED** against authoritative product baseline `1f377fa8e86e11a7e2920e9a0c3b7cbea1437990`.\n\nAt reconciliation start, canonical operational state was revision 7: `PI-MVP-001` `ACTIVE`, `WC-MVP-0001` `ACTIVE`, and `WP-MVP-0001` `IN_PROGRESS`. The original CR-0001 registry row, append-only creation event, governed Markdown, and history evidence were reconciled through `scripts/reconcile-eos-canonical-state.py`.\n\nEvidence consensus identified exactly one canonical entity change, CR-0001, and advanced canonical state from revision 7 to revision 8. Product lifecycle state was preserved exactly. CR-0001 remains `PROPOSED`.\n\nThis supersedes earlier local-only reconciliation attempts made against product baselines that advanced before publication.",
+      "title": "Serialized canonical-state reconciliation — 2026-08-14"
+    }
+  ],
+  "source": {
+    "bytes": 8570,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 165,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/DESIGN-0001-2026-08-13-eos-0.9-assimilation.md",
+    "sha256": "efa0ef454f8afb2603122d2c49826816bb574883493b3b753ed58f80bc140a64"
+  }
+}
