@@ -732,4 +732,81 @@ mod tests {
         );
         assert!(!root.join("should-not-run").exists());
     }
+    #[test]
+    fn canonical_json_output_is_byte_equivalent_with_ordered_maps_and_provenance() {
+        let root = temp_dir("canonical-json");
+        write_config(
+            &root,
+            "schema_version = 1\n[project]\nid = \"example\"\nname = \"Example\"\n[artifacts]\nzeta = [\"z/**/*.md\"]\nalpha = [\"a/**/*.md\"]\n",
+        );
+        let overrides = CliOverrides {
+            project_name: Some("CLI Example".to_owned()),
+            ..CliOverrides::default()
+        };
+
+        let first = serde_json::to_string(
+            &bootstrap(Some(&root), &overrides).expect("bootstrap configuration"),
+        )
+        .expect("canonical JSON");
+        for _ in 0..4 {
+            let repeated = serde_json::to_string(
+                &bootstrap(Some(&root), &overrides).expect("bootstrap configuration"),
+            )
+            .expect("canonical JSON");
+            assert_eq!(repeated, first);
+        }
+
+        assert!(
+            first.find("\"alpha\"").expect("alpha artifact")
+                < first.find("\"zeta\"").expect("zeta artifact")
+        );
+        assert!(first.contains("\"source\":\"monad.toml:artifacts.alpha\""));
+        assert!(first.contains("\"source\":\"cli\""));
+        assert!(first.contains("\"source\":\"default\""));
+    }
+    #[test]
+    fn network_enabled_configuration_is_rejected_at_network() {
+        let root = temp_dir("network-enabled");
+        write_config(
+            &root,
+            &format!(
+                "{}\n[ingestion]\nnetwork = true\n",
+                config("network-enabled")
+            ),
+        );
+
+        let error = bootstrap(Some(&root), &CliOverrides::default()).expect_err("network rejected");
+        assert_eq!(
+            error.diagnostics()[0].code,
+            DiagnosticCode::InvalidConfiguration
+        );
+        assert_eq!(
+            error.diagnostics()[0].location.as_deref(),
+            Some("ingestion.network")
+        );
+        assert_eq!(
+            error.diagnostics()[0].message,
+            "ingestion.network must be false during MVP bootstrap"
+        );
+    }
+    #[test]
+    fn invalid_project_id_is_rejected_at_project_id() {
+        let root = temp_dir("invalid-project-id");
+        write_config(&root, &config("Invalid Project"));
+
+        let error =
+            bootstrap(Some(&root), &CliOverrides::default()).expect_err("invalid project ID");
+        assert_eq!(
+            error.diagnostics()[0].code,
+            DiagnosticCode::InvalidConfiguration
+        );
+        assert_eq!(
+            error.diagnostics()[0].location.as_deref(),
+            Some("project.id")
+        );
+        assert_eq!(
+            error.diagnostics()[0].message,
+            "project.id must match ^[a-z0-9][a-z0-9._-]*$"
+        );
+    }
 }
