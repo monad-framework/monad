@@ -1,0 +1,184 @@
+{
+  "agent_result": {
+    "acceptance_criteria": [
+      {
+        "criterion": "US-002: invocation at root/descendant detects the nearest valid Monad root.",
+        "evidence": "monad-core workspace tests finds_root_from_root_and_descendant and nearest_nested_root_wins passed.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-003: schema-v1 configuration resolves with documented precedence.",
+        "evidence": "defaults_file_cli_and_provenance_are_explicit passed; implementation applies defaults < monad.toml < CLI.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-004: effective configuration is explainable with value provenance.",
+        "evidence": "EffectiveValue serialization and provenance assertions for file, CLI, and default sources passed.",
+        "status": "passed"
+      },
+      {
+        "criterion": "No monad.toml yields a stable repository-not-found diagnostic.",
+        "evidence": "missing_root_is_stable passed and asserts DiagnosticCode::RepositoryNotFound.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Malformed, unsupported, or unknown semantic config cannot become valid silently.",
+        "evidence": "validates_malformed_unsupported_and_unknown passed.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Environment differences do not change semantic configuration in conformance tests.",
+        "evidence": "paths_cannot_escape_and_environment_is_ignored passed; the semantic bootstrap API accepts only explicit path and CLI overrides.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Nested Monad-root fixtures bind to the nearest root.",
+        "evidence": "nearest_nested_root_wins passed.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Repository code/network is never executed during bootstrap.",
+        "evidence": "parsing_never_executes_configuration_text passed; configuration rejects true execution/network settings and bootstrap performs local file reads only.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Repeated structured output for identical inputs is byte-equivalent where declared canonical.",
+        "evidence": "The effective model uses BTreeMap for artifact ordering; paths_cannot_escape_and_environment_is_ignored establishes identical repeated configuration results, and JSON output is serialized from that deterministic model.",
+        "status": "passed"
+      }
+    ],
+    "changed_files": [
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/monad-cli/Cargo.toml",
+      "crates/monad-cli/src/main.rs",
+      "crates/monad-core/Cargo.toml",
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/workspace.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/Cargo.lock.json",
+      "machine/documents/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/src/main.rs.json",
+      "machine/documents/crates/monad-core/Cargo.toml.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/documents/crates/monad-core/src/workspace.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "execution_id": "EXEC-0002",
+    "proposed_commit_message": "feat(core): add deterministic workspace bootstrap configuration",
+    "risks": [
+      "EOSE issue #175: live execution-control records are not currently visible to ./scripts/eos when invoked from the isolated execution worktree. Canonical-checkout verification succeeds; this does not block WP-MVP-0001 product implementation."
+    ],
+    "status": "completed",
+    "summary": "WP-MVP-0001 implementation was restored onto the corrected EXEC-0002 baseline, reviewed against current governing authority, and all required product, EOS, machine-document, and linked-worktree validations passed. The live EXEC-0002 contract was independently verified from the canonical control checkout.",
+    "target": "WP-MVP-0001",
+    "unresolved_issues": [],
+    "validation": [
+      {
+        "command": "cargo fmt --all -- --check",
+        "exit_code": 0,
+        "summary": "Passed."
+      },
+      {
+        "command": "cargo clippy --workspace --all-targets --all-features -- -D warnings",
+        "exit_code": 0,
+        "summary": "Passed with warnings denied."
+      },
+      {
+        "command": "cargo test --workspace --all-targets --all-features",
+        "exit_code": 0,
+        "summary": "Passed: 8 unit tests (1 monad-cli, 7 monad-core)."
+      },
+      {
+        "command": "python3 scripts/sync-machine-docs.py --check",
+        "exit_code": 0,
+        "summary": "Passed: machine documentation is synchronized (1132 sources)."
+      },
+      {
+        "command": "python3 scripts/test-sync-machine-docs-worktree.py",
+        "exit_code": 0,
+        "summary": "Passed: linked-worktree .git metadata is excluded from machine-doc discovery."
+      },
+      {
+        "command": "./scripts/eos verify --strict",
+        "exit_code": 0,
+        "summary": "Passed: EOS verification and canonical projection consistency passed; existing front-matter warnings were non-fatal."
+      },
+      {
+        "command": "git diff --check",
+        "exit_code": 0,
+        "summary": "Passed."
+      },
+      {
+        "command": "test ! -e machine/documents/.git.json",
+        "exit_code": 0,
+        "summary": "Passed: machine/documents/.git.json does not exist."
+      },
+      {
+        "command": "cd /data/MONAD/monad && ./scripts/eos contract verify EXEC-0002",
+        "exit_code": 0,
+        "summary": "Passed from canonical checkout: contract hash, worktree and canonical governing fingerprints, baseline ancestry, and expected execution branch all verified."
+      }
+    ]
+  },
+  "eos_observation": {
+    "actual_changed_files": [
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/monad-cli/Cargo.toml",
+      "crates/monad-cli/src/main.rs",
+      "crates/monad-core/Cargo.toml",
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/workspace.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/.eos-result-EXEC-0002.json.json",
+      "machine/documents/Cargo.lock.json",
+      "machine/documents/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/src/main.rs.json",
+      "machine/documents/crates/monad-core/Cargo.toml.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/documents/crates/monad-core/src/workspace.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "declared_but_not_actual": [],
+    "declared_changed_files": [
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/monad-cli/Cargo.toml",
+      "crates/monad-cli/src/main.rs",
+      "crates/monad-core/Cargo.toml",
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/workspace.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/Cargo.lock.json",
+      "machine/documents/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/src/main.rs.json",
+      "machine/documents/crates/monad-core/Cargo.toml.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/documents/crates/monad-core/src/workspace.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "scope": {
+      "directives": {
+        "allowed": [
+          "*",
+          "**/*"
+        ],
+        "allowed_governed": [],
+        "forbidden": []
+      },
+      "passed": true,
+      "violations": []
+    },
+    "undeclared_actual": [
+      "machine/documents/.eos-result-EXEC-0002.json.json"
+    ]
+  },
+  "ingested": "2026-08-14T11:43:28Z"
+}

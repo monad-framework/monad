@@ -1,0 +1,191 @@
+{
+  "agent_result": {
+    "acceptance_criteria": [
+      {
+        "criterion": "US-002: invocation at root/descendant detects the nearest valid Monad root.",
+        "evidence": "monad-core workspace tests finds_root_from_root_and_descendant and nearest_nested_root_wins passed.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-003: schema-v1 configuration resolves with documented precedence.",
+        "evidence": "defaults_file_cli_and_provenance_are_explicit passed; implementation applies defaults < monad.toml < CLI.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-004: effective configuration is explainable with value provenance.",
+        "evidence": "EffectiveValue serialization and provenance assertions for file, CLI, and default sources passed.",
+        "status": "passed"
+      },
+      {
+        "criterion": "No monad.toml yields a stable repository-not-found diagnostic.",
+        "evidence": "missing_root_is_stable passed and asserts DiagnosticCode::RepositoryNotFound.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Malformed, unsupported, or unknown semantic config cannot become valid silently.",
+        "evidence": "validates_malformed_unsupported_and_unknown passed.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Environment differences do not change semantic configuration in conformance tests.",
+        "evidence": "paths_cannot_escape_and_environment_is_ignored passed; the semantic bootstrap API accepts only explicit path and CLI overrides.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Nested Monad-root fixtures bind to the nearest root.",
+        "evidence": "nearest_nested_root_wins passed.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Repository code/network is never executed during bootstrap.",
+        "evidence": "parsing_never_executes_configuration_text passed; configuration rejects true execution/network settings and bootstrap performs local file reads only.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Repeated structured output for identical inputs is byte-equivalent where declared canonical.",
+        "evidence": "The effective model uses BTreeMap for artifact ordering; paths_cannot_escape_and_environment_is_ignored establishes identical repeated configuration results, and JSON output is serialized from that deterministic model.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Deterministic structured output",
+        "evidence": "Focused monad-core test serializes identical BootstrapResult values to the declared serde_json representation five times, asserts byte equality, BTreeMap artifact ordering, and default/file/CLI provenance strings.",
+        "status": "passed"
+      },
+      {
+        "criterion": "No-network bootstrap boundary",
+        "evidence": "Focused fixture with [ingestion] network = true is rejected by bootstrap with InvalidConfiguration at ingestion.network and the specified diagnostic message.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Invalid project ID rejection",
+        "evidence": "Focused fixture with an invalid project.id is rejected by bootstrap with InvalidConfiguration at project.id and the specified diagnostic message.",
+        "status": "passed"
+      }
+    ],
+    "changed_files": [
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/monad-cli/Cargo.toml",
+      "crates/monad-cli/src/main.rs",
+      "crates/monad-core/Cargo.toml",
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/workspace.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/Cargo.lock.json",
+      "machine/documents/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/src/main.rs.json",
+      "machine/documents/crates/monad-core/Cargo.toml.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/documents/crates/monad-core/src/workspace.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "execution_id": "EXEC-0003",
+    "proposed_commit_message": "test(core): add workspace bootstrap conformance fixtures",
+    "risks": [
+      "EOSE issue #178 causes --base to position the execution worktree correctly while recording canonical checkout HEAD as baseline. EXEC-0003 therefore intentionally reports and verifies the complete WP-MVP-0001 branch relative to its recorded baseline."
+    ],
+    "status": "completed",
+    "summary": "EXEC-0003 performs a complete re-verification of the finished WP-MVP-0001 implementation relative to its recorded EOSE baseline 449f66e0ce5d18fdd6c18d9b8422f3db26aa671a. The branch includes the previously verified repository identity/effective-configuration implementation plus the human-review-requested deterministic-output, no-network, and invalid-project-ID conformance fixtures.",
+    "target": "WP-MVP-0001",
+    "unresolved_issues": [],
+    "validation": [
+      {
+        "command": "cargo fmt --all -- --check",
+        "exit_code": 0,
+        "summary": "Formatting check passed."
+      },
+      {
+        "command": "cargo clippy --workspace --all-targets --all-features -- -D warnings",
+        "exit_code": 0,
+        "summary": "Clippy passed with warnings denied."
+      },
+      {
+        "command": "cargo test --workspace --all-targets --all-features",
+        "exit_code": 0,
+        "summary": "All workspace tests passed: 10 monad-core tests and 1 monad-cli test."
+      },
+      {
+        "command": "python3 scripts/sync-machine-docs.py --check",
+        "exit_code": 0,
+        "summary": "Machine documentation projections were synchronized before the root-only execution result was created."
+      },
+      {
+        "command": "python3 scripts/test-sync-machine-docs-worktree.py",
+        "exit_code": 0,
+        "summary": "Linked-worktree .git metadata exclusion test passed."
+      },
+      {
+        "command": "./scripts/eos verify --strict",
+        "exit_code": 0,
+        "summary": "Strict EOS verification passed."
+      },
+      {
+        "command": "git diff --check",
+        "exit_code": 0,
+        "summary": "No whitespace errors."
+      },
+      {
+        "command": "cd /data/MONAD/monad && ./scripts/eos contract verify EXEC-0003",
+        "exit_code": 0,
+        "summary": "Passed: contract hash, governing-input fingerprints, baseline ancestry, and expected branch verified from the canonical EOS control checkout."
+      }
+    ]
+  },
+  "eos_observation": {
+    "actual_changed_files": [
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/monad-cli/Cargo.toml",
+      "crates/monad-cli/src/main.rs",
+      "crates/monad-core/Cargo.toml",
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/workspace.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/Cargo.lock.json",
+      "machine/documents/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/src/main.rs.json",
+      "machine/documents/crates/monad-core/Cargo.toml.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/documents/crates/monad-core/src/workspace.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "declared_but_not_actual": [],
+    "declared_changed_files": [
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/monad-cli/Cargo.toml",
+      "crates/monad-cli/src/main.rs",
+      "crates/monad-core/Cargo.toml",
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/workspace.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/Cargo.lock.json",
+      "machine/documents/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/src/main.rs.json",
+      "machine/documents/crates/monad-core/Cargo.toml.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/documents/crates/monad-core/src/workspace.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "scope": {
+      "directives": {
+        "allowed": [
+          "*",
+          "**/*"
+        ],
+        "allowed_governed": [],
+        "forbidden": []
+      },
+      "passed": true,
+      "violations": []
+    },
+    "undeclared_actual": []
+  },
+  "ingested": "2026-08-14T12:26:29Z"
+}
