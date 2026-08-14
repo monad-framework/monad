@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"actor\": \"codex\",\n  \"baseline_commit\": \"449f66e0ce5d18fdd6c18d9b8422f3db26aa671a\",\n  \"branch\": \"wp/mvp-0001\",\n  \"contract_hash\": \"14534d222ef71281003a624c0d93a129360b6f7030895667175690eb72ddc2d0\",\n  \"environment\": {\n    \"branch\": \"wp/mvp-0001\",\n    \"captured\": \"2026-08-14T11:28:43Z\",\n    \"custom\": [],\n    \"head\": \"449f66e0ce5d18fdd6c18d9b8422f3db26aa671a\",\n    \"host\": \"oss\",\n    \"lockfiles\": [],\n    \"platform\": \"Linux-7.0.0-28-generic-x86_64-with-glibc2.39\",\n    \"python\": \"3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]\",\n    \"shell\": \"/usr/bin/zsh\",\n    \"tools\": {\n      \"bash\": \"GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)\",\n      \"bun\": \"1.3.14\",\n      \"cargo\": \"cargo 1.95.0 (f2d3ce0bd 2026-03-21)\",\n      \"git\": \"git version 2.43.0\",\n      \"go\": \"go version go1.26.3 linux/amd64\",\n      \"node\": \"v24.14.0\",\n      \"python3\": \"Python 3.12.3\",\n      \"rustc\": \"rustc 1.95.0 (59807616e 2026-04-14)\"\n    }\n  },\n  \"execution_id\": \"EXEC-0002\",\n  \"generated\": \"2026-08-14T11:28:39Z\",\n  \"governed_paths\": [\n    \"idea.md\",\n    \"vision/**\",\n    \"product/**\",\n    \"architecture/**\",\n    \"specifications/**\",\n    \"governance/**\",\n    \"engineering/increments/**\",\n    \"engineering/work-cycles/**\",\n    \"engineering/work-packets/**\"\n  ],\n  \"governing_hash\": \"35ada1da5aafd4f5c1c2c20e0ee3cc2c6d6628d15b6ac87ec3e33f8bdaeb6bfa\",\n  \"governing_inputs\": [\n    {\n      \"path\": \"engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md\",\n      \"sha256\": \"bece83dc3997145b356fec00b224ea72ba8791cba0b03ab2563716fc252a34df\"\n    },\n    {\n      \"path\": \"engineering/work-cycles/WC-MVP-0001.md\",\n      \"sha256\": \"42f4366d3b4e15c8ad60299e2a518ba028fd0c18d66a3b66ab544b8939a10a96\"\n    },\n    {\n      \"path\": \"engineering/work-packets/WP-MVP-0001.md\",\n      \"sha256\": \"260d579fffbe8e7e8ca2f795f617557d259588a0fbc02920935ac9051169addd\"\n    }\n  ],\n  \"repository\": \"/data/MONAD/monad\",\n  \"required_result_schema\": {\n    \"acceptance_criteria\": [\n      {\n        \"criterion\": \"string\",\n        \"evidence\": \"string\",\n        \"status\": \"passed|failed|not-run\"\n      }\n    ],\n    \"changed_files\": [\n      \"path\"\n    ],\n    \"execution_id\": \"EXEC-0002\",\n    \"proposed_commit_message\": \"string\",\n    \"risks\": [\n      \"string\"\n    ],\n    \"status\": \"completed|blocked|failed\",\n    \"summary\": \"string\",\n    \"target\": \"WP-MVP-0001\",\n    \"unresolved_issues\": [\n      \"string\"\n    ],\n    \"validation\": [\n      {\n        \"command\": \"string\",\n        \"exit_code\": 0,\n        \"summary\": \"string\"\n      }\n    ]\n  },\n  \"schema_version\": \"2.0.0\",\n  \"scope\": {\n    \"allowed\": [\n      \"*\",\n      \"**/*\"\n    ],\n    \"allowed_governed\": [],\n    \"forbidden\": []\n  },\n  \"system_forbidden_paths\": [\n    \".git\",\n    \".git/**\",\n    \".eos\",\n    \".eos/**\"\n  ],\n  \"target\": \"WP-MVP-0001\",\n  \"worktree\": \"/data/MONAD/.monad-worktrees/wp-mvp-0001\"\n}\n",
+  "document_id": "doc:.eos%2Fcontracts%2FEXEC-0002-WP-MVP-0001.codex.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/contracts/EXEC-0002-WP-MVP-0001.codex.json.",
+    "title": "Exec 0002 Wp Mvp 0001.Codex"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 103,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"actor\": \"codex\",\n  \"baseline_commit\": \"449f66e0ce5d18fdd6c18d9b8422f3db26aa671a\",\n  \"branch\": \"wp/mvp-0001\",\n  \"contract_hash\": \"14534d222ef71281003a624c0d93a129360b6f7030895667175690eb72ddc2d0\",\n  \"environment\": {\n    \"branch\": \"wp/mvp-0001\",\n    \"captured\": \"2026-08-14T11:28:43Z\",\n    \"custom\": [],\n    \"head\": \"449f66e0ce5d18fdd6c18d9b8422f3db26aa671a\",\n    \"host\": \"oss\",\n    \"lockfiles\": [],\n    \"platform\": \"Linux-7.0.0-28-generic-x86_64-with-glibc2.39\",\n    \"python\": \"3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]\",\n    \"shell\": \"/usr/bin/zsh\",\n    \"tools\": {\n      \"bash\": \"GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)\",\n      \"bun\": \"1.3.14\",\n      \"cargo\": \"cargo 1.95.0 (f2d3ce0bd 2026-03-21)\",\n      \"git\": \"git version 2.43.0\",\n      \"go\": \"go version go1.26.3 linux/amd64\",\n      \"node\": \"v24.14.0\",\n      \"python3\": \"Python 3.12.3\",\n      \"rustc\": \"rustc 1.95.0 (59807616e 2026-04-14)\"\n    }\n  },\n  \"execution_id\": \"EXEC-0002\",\n  \"generated\": \"2026-08-14T11:28:39Z\",\n  \"governed_paths\": [\n    \"idea.md\",\n    \"vision/**\",\n    \"product/**\",\n    \"architecture/**\",\n    \"specifications/**\",\n    \"governance/**\",\n    \"engineering/increments/**\",\n    \"engineering/work-cycles/**\",\n    \"engineering/work-packets/**\"\n  ],\n  \"governing_hash\": \"35ada1da5aafd4f5c1c2c20e0ee3cc2c6d6628d15b6ac87ec3e33f8bdaeb6bfa\",\n  \"governing_inputs\": [\n    {\n      \"path\": \"engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md\",\n      \"sha256\": \"bece83dc3997145b356fec00b224ea72ba8791cba0b03ab2563716fc252a34df\"\n    },\n    {\n      \"path\": \"engineering/work-cycles/WC-MVP-0001.md\",\n      \"sha256\": \"42f4366d3b4e15c8ad60299e2a518ba028fd0c18d66a3b66ab544b8939a10a96\"\n    },\n    {\n      \"path\": \"engineering/work-packets/WP-MVP-0001.md\",\n      \"sha256\": \"260d579fffbe8e7e8ca2f795f617557d259588a0fbc02920935ac9051169addd\"\n    }\n  ],\n  \"repository\": \"/data/MONAD/monad\",\n  \"required_result_schema\": {\n    \"acceptance_criteria\": [\n      {\n        \"criterion\": \"string\",\n        \"evidence\": \"string\",\n        \"status\": \"passed|failed|not-run\"\n      }\n    ],\n    \"changed_files\": [\n      \"path\"\n    ],\n    \"execution_id\": \"EXEC-0002\",\n    \"proposed_commit_message\": \"string\",\n    \"risks\": [\n      \"string\"\n    ],\n    \"status\": \"completed|blocked|failed\",\n    \"summary\": \"string\",\n    \"target\": \"WP-MVP-0001\",\n    \"unresolved_issues\": [\n      \"string\"\n    ],\n    \"validation\": [\n      {\n        \"command\": \"string\",\n        \"exit_code\": 0,\n        \"summary\": \"string\"\n      }\n    ]\n  },\n  \"schema_version\": \"2.0.0\",\n  \"scope\": {\n    \"allowed\": [\n      \"*\",\n      \"**/*\"\n    ],\n    \"allowed_governed\": [],\n    \"forbidden\": []\n  },\n  \"system_forbidden_paths\": [\n    \".git\",\n    \".git/**\",\n    \".eos\",\n    \".eos/**\"\n  ],\n  \"target\": \"WP-MVP-0001\",\n  \"worktree\": \"/data/MONAD/.monad-worktrees/wp-mvp-0001\"\n}",
+      "title": "Exec 0002 Wp Mvp 0001.Codex"
+    }
+  ],
+  "source": {
+    "bytes": 2810,
+    "canonical": true,
+    "language": "json",
+    "lines": 103,
+    "media_type": "application/json",
+    "path": ".eos/contracts/EXEC-0002-WP-MVP-0001.codex.json",
+    "sha256": "3a440a01bb8edca6174197b400444102f2a71d810b1a9f85e81f24e3370522f6"
+  }
+}
