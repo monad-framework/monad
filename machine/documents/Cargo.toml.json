@@ -1,0 +1,40 @@
+{
+  "content": "[workspace]\nmembers = [\"crates/monad-core\", \"crates/monad-cli\"]\nresolver = \"2\"\n\n[workspace.package]\nedition = \"2024\"\nrust-version = \"1.95\"\nlicense = \"Apache-2.0\"\n\n[workspace.dependencies]\nserde = { version = \"1\", features = [\"derive\"] }\nserde_json = \"1\"\ntoml = \"0.9\"\n",
+  "document_id": "doc:Cargo.toml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-record",
+    "normative": false,
+    "summary": "Canonical toml source for Cargo.toml.",
+    "title": "Cargo"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "[workspace]\nmembers = [\"crates/monad-core\", \"crates/monad-cli\"]\nresolver = \"2\"\n\n[workspace.package]\nedition = \"2024\"\nrust-version = \"1.95\"\nlicense = \"Apache-2.0\"\n\n[workspace.dependencies]\nserde = { version = \"1\", features = [\"derive\"] }\nserde_json = \"1\"\ntoml = \"0.9\"",
+      "title": "Cargo"
+    }
+  ],
+  "source": {
+    "bytes": 267,
+    "canonical": true,
+    "language": "toml",
+    "lines": 13,
+    "media_type": "application/toml",
+    "path": "Cargo.toml",
+    "sha256": "305e43689dd58342d75144bf4ee7f1cbff3663fde3a2d9f44601baf3b8c17f62"
+  }
+}
