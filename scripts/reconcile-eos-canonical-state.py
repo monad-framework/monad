@@ -114,7 +114,7 @@ def build_candidate(cs):
 def apply_candidate(cs, new_state: dict) -> None:
     cs.write_json_atomic(cs.CANONICAL_PATH, new_state)
     for kind in cs.KINDS:
-        cs.write_bytes_atomic(ROOT / cs.REGISTRY_PATHS[kind], cs.expected_tsv(new_state, kind))
+        cs.write_bytes_atomic(cs.ROOT / cs.REGISTRY_PATHS[kind], cs.expected_tsv(new_state, kind))
 
     old_manifest = cs.load_json(cs.PROJECTIONS_PATH) if cs.PROJECTIONS_PATH.exists() else {}
     receipts = old_manifest.get("github", {}).get("receipts", {})
