@@ -180,7 +180,7 @@
         "entity_type": "WP",
         "id": "WP-MVP-0001",
         "kind": "WP",
-        "lifecycle_state": "READY",
+        "lifecycle_state": "AUTHORIZED",
         "operational_metadata": {
           "domain": "CORE",
           "github_url": "",
@@ -190,14 +190,13 @@
           "wc": "WC-MVP-0001"
         },
         "provenance": {
-          "created_by": "EOS evidence-consensus reconciler",
-          "generation_method": "explicit evidence-consensus reconciliation from accepted TSV, Markdown, and append-only EOS event history",
-          "origin": "MIGRATION",
+          "created_by": "EOS canonical-state adapter",
+          "generation_method": "EOS canonical-state capture",
+          "origin": "AUTOMATION",
           "source_refs": [
             ".eos/work-packets.tsv",
             "engineering/work-packets/WP-MVP-0001.md",
-            ".eos/events.jsonl",
-            "engineering/reviews/EOS-0.8-CANONICAL-STATE-RECONCILIATION.md"
+            ".eos/events.jsonl"
           ]
         },
         "relationships": [
@@ -213,13 +212,13 @@
           }
         ],
         "schema_version": "2.0.0",
-        "updated_at": "2026-08-12T00:00:00Z",
-        "version": "1.0.0"
+        "updated_at": "2026-08-14T10:13:36Z",
+        "version": "1.0.1"
       }
     }
   },
   "model": "EOS-SINGLE-CANONICAL-STATE-1",
-  "revision": 5,
+  "revision": 6,
   "schema_version": "1.0.0",
-  "updated_at": "2026-08-14T10:01:55Z"
+  "updated_at": "2026-08-14T10:13:36Z"
 }
