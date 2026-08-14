@@ -1,0 +1,151 @@
+{
+  "agent_result": {
+    "acceptance_criteria": [
+      {
+        "criterion": "Nearest valid Monad root discovery",
+        "evidence": "workspace tests cover root, descendant, and nested-root selection.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Schema-v1 validation and stable diagnostics",
+        "evidence": "workspace tests cover missing root, malformed TOML, unsupported version, unknown keys, and escaping paths.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Precedence and explainable provenance",
+        "evidence": "workspace tests and monad bootstrap JSON demonstrate defaults, file values, CLI overrides, and canonical source strings.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Safe deterministic bootstrap",
+        "evidence": "bootstrap uses local filesystem reads and TOML parsing only; test verifies command-looking configuration text is not executed.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Deterministic structured output",
+        "evidence": "BTreeMap-backed output and repeated bootstrap invocation produce canonical JSON ordering.",
+        "status": "passed"
+      }
+    ],
+    "changed_files": [
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/monad-cli/Cargo.toml",
+      "crates/monad-cli/src/main.rs",
+      "crates/monad-core/Cargo.toml",
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/workspace.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/.git.json",
+      "machine/documents/Cargo.lock.json",
+      "machine/documents/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/src/main.rs.json",
+      "machine/documents/crates/monad-core/Cargo.toml.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/documents/crates/monad-core/src/workspace.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "execution_id": "EXEC-0001",
+    "proposed_commit_message": "feat(core): implement repository identity and effective configuration",
+    "risks": [
+      "The repository documentation generator includes the required root-level control artifact as source input."
+    ],
+    "status": "completed",
+    "summary": "Implemented the Rust Monad workspace bootstrap boundary with deterministic repository discovery, schema-v1 configuration validation, precedence, provenance, canonical JSON output, and safe local-only behavior.",
+    "target": "WP-MVP-0001",
+    "unresolved_issues": [
+      "After creating .eos-result-EXEC-0001.json, python3 scripts/sync-machine-docs.py --check reports its missing generated companion. The same check passed immediately before creation; resolving the self-reference requires an out-of-scope generator exclusion or governing instruction."
+    ],
+    "validation": [
+      {
+        "command": "cargo fmt --all -- --check",
+        "exit_code": 0,
+        "summary": "Formatting check passed."
+      },
+      {
+        "command": "cargo clippy --workspace --all-targets --all-features -- -D warnings",
+        "exit_code": 0,
+        "summary": "Clippy passed with warnings denied."
+      },
+      {
+        "command": "cargo test --workspace --all-targets --all-features",
+        "exit_code": 0,
+        "summary": "8 focused core and CLI tests passed."
+      },
+      {
+        "command": "python3 scripts/sync-machine-docs.py --check",
+        "exit_code": 0,
+        "summary": "Machine documentation projections are synchronized."
+      },
+      {
+        "command": "./scripts/eos verify --strict",
+        "exit_code": 0,
+        "summary": "EOS strict verification passed."
+      },
+      {
+        "command": "git diff --check",
+        "exit_code": 0,
+        "summary": "No whitespace errors."
+      }
+    ]
+  },
+  "eos_observation": {
+    "actual_changed_files": [
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/monad-cli/Cargo.toml",
+      "crates/monad-cli/src/main.rs",
+      "crates/monad-core/Cargo.toml",
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/workspace.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/.git.json",
+      "machine/documents/Cargo.lock.json",
+      "machine/documents/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/src/main.rs.json",
+      "machine/documents/crates/monad-core/Cargo.toml.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/documents/crates/monad-core/src/workspace.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "declared_but_not_actual": [],
+    "declared_changed_files": [
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/monad-cli/Cargo.toml",
+      "crates/monad-cli/src/main.rs",
+      "crates/monad-core/Cargo.toml",
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/workspace.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/.git.json",
+      "machine/documents/Cargo.lock.json",
+      "machine/documents/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/Cargo.toml.json",
+      "machine/documents/crates/monad-cli/src/main.rs.json",
+      "machine/documents/crates/monad-core/Cargo.toml.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/documents/crates/monad-core/src/workspace.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "scope": {
+      "directives": {
+        "allowed": [
+          "*",
+          "**/*"
+        ],
+        "allowed_governed": [],
+        "forbidden": []
+      },
+      "passed": true,
+      "violations": []
+    },
+    "undeclared_actual": []
+  },
+  "ingested": "2026-08-14T11:07:20Z"
+}
