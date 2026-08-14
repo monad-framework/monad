@@ -1,0 +1,40 @@
+{
+  "content": "#!/usr/bin/env python3\n\"\"\"Regression test: machine-doc discovery must ignore a linked-worktree .git file.\"\"\"\n\nfrom __future__ import annotations\n\nimport importlib.util\nimport sys\nimport tempfile\nfrom pathlib import Path\n\n\nROOT = Path(__file__).resolve().parents[1]\nMODULE_PATH = ROOT / \"scripts\" / \"sync-machine-docs.py\"\n\n\ndef load_module():\n    spec = importlib.util.spec_from_file_location(\"sync_machine_docs\", MODULE_PATH)\n    if spec is None or spec.loader is None:\n        raise RuntimeError(f\"cannot load {MODULE_PATH}\")\n    module = importlib.util.module_from_spec(spec)\n    sys.modules[spec.name] = module\n    spec.loader.exec_module(module)\n    return module\n\n\ndef main() -> int:\n    module = load_module()\n    with tempfile.TemporaryDirectory() as tmp:\n        root = Path(tmp)\n        (root / \".git\").write_text(\n            \"gitdir: /private/example/.git/worktrees/feature\\n\",\n            encoding=\"utf-8\",\n        )\n        (root / \"README.md\").write_text(\"# Fixture\\n\", encoding=\"utf-8\")\n        (root / \".gitignore\").write_text(\"target/\\n\", encoding=\"utf-8\")\n\n        sources = module.discover_sources(root)\n        paths = {source.relative_path for source in sources}\n\n        assert \".git\" not in paths, paths\n        assert \"README.md\" in paths, paths\n        assert \".gitignore\" in paths, paths\n\n    print(\"PASS: linked-worktree .git metadata is excluded from machine-doc discovery\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+  "document_id": "doc:scripts%2Ftest-sync-machine-docs-worktree.py",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "automation",
+    "normative": false,
+    "summary": "Canonical python source for scripts/test-sync-machine-docs-worktree.py.",
+    "title": "Test Sync Machine Docs Worktree"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 49,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "#!/usr/bin/env python3\n\"\"\"Regression test: machine-doc discovery must ignore a linked-worktree .git file.\"\"\"\n\nfrom __future__ import annotations\n\nimport importlib.util\nimport sys\nimport tempfile\nfrom pathlib import Path\n\n\nROOT = Path(__file__).resolve().parents[1]\nMODULE_PATH = ROOT / \"scripts\" / \"sync-machine-docs.py\"\n\n\ndef load_module():\n    spec = importlib.util.spec_from_file_location(\"sync_machine_docs\", MODULE_PATH)\n    if spec is None or spec.loader is None:\n        raise RuntimeError(f\"cannot load {MODULE_PATH}\")\n    module = importlib.util.module_from_spec(spec)\n    sys.modules[spec.name] = module\n    spec.loader.exec_module(module)\n    return module\n\n\ndef main() -> int:\n    module = load_module()\n    with tempfile.TemporaryDirectory() as tmp:\n        root = Path(tmp)\n        (root / \".git\").write_text(\n            \"gitdir: /private/example/.git/worktrees/feature\\n\",\n            encoding=\"utf-8\",\n        )\n        (root / \"README.md\").write_text(\"# Fixture\\n\", encoding=\"utf-8\")\n        (root / \".gitignore\").write_text(\"target/\\n\", encoding=\"utf-8\")\n\n        sources = module.discover_sources(root)\n        paths = {source.relative_path for source in sources}\n\n        assert \".git\" not in paths, paths\n        assert \"README.md\" in paths, paths\n        assert \".gitignore\" in paths, paths\n\n    print(\"PASS: linked-worktree .git metadata is excluded from machine-doc discovery\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())",
+      "title": "Test Sync Machine Docs Worktree"
+    }
+  ],
+  "source": {
+    "bytes": 1474,
+    "canonical": true,
+    "language": "python",
+    "lines": 49,
+    "media_type": "text/x-python",
+    "path": "scripts/test-sync-machine-docs-worktree.py",
+    "sha256": "2431430842e9a4f1c3c732cd4ed4d0f12f0a02dbaef907e3dcf8f666c0fb98a7"
+  }
+}

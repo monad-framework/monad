@@ -1,0 +1,53 @@
+{
+  "content": "# AI-SDLC → Monad Capability Assimilation Matrix\n\n**Status:** Proposed\n**Date:** 2026-08-13\n**Governing:** ADR-0006, CR-0001\n\nClassification meanings:\n\n- **Adopt** — concept fits Monad substantially as-is.\n- **Adapt** — valuable concept, implemented with Monad-native semantics.\n- **Interoperate** — retain as an external compatibility boundary.\n- **Defer** — useful, but depends on earlier EOS capabilities.\n- **Reject** — conflicts with Monad authority or architecture.\n\n| AI-SDLC capability | Disposition | Monad destination | Notes |\n| --- | --- | --- | --- |\n| Deterministic Definition of Ready | Adapt | EOSP / policy gates | Strengthen with authority, staleness, graph, decision, and evidence checks. |\n| Decision Catalog | Adapt | DEC/APR + canonical state | Preserve explicit authority; affected work may block while unrelated work continues. |\n| Dependency graph composition | Adapt | DEP + semantic trace graph | Do not create a second dependency graph. |\n| Pipeline orchestrator | Defer/Adapt | EOSE dispatch frontier | Implement after readiness, provenance, verification, and review are strong enough. |\n| Worktree pooling | Adapt | EOSE | Build on existing isolated execution/worktree controls. |\n| Agent roles | Adapt | EOSE/EOSR role profiles | Role is independent of any particular harness/provider. |\n| Typed handoff contracts | Adopt/Adapt | execution/review contracts | Versioned structured payloads with validation and provenance. |\n| Cross-harness review | Adapt | EOSR | Enforce independence through policy rather than convention. |\n| QualityGate resources | Adapt | EOS policy/validators | Keep policy-as-code constrained and deterministic-first. |\n| AutonomyPolicy | Adapt | EOS authority/risk/evidence policy | Use bounded permission envelopes rather than seniority labels. |\n| AdapterBinding | Adopt/Adapt | integration registry | External tools remain replaceable adapters. |\n| Proof of execution | Adapt | EXEC/EVID/REV/APR provenance | Prefer hashes/manifests; raw transcripts separately governed. |\n| Emergent issue capture | Adapt | EOSC/EOSP capture flow | Route findings without silent scope expansion. |\n| Exploration workstream | Adapt | EOSP readiness profiles | Different readiness contract; explicit budget and crystallization. |\n| Operator TUI | Defer | EOS operator surface | Build after decision/frontier/evidence data models stabilize. |\n| Conformance suite | Adopt | EOS conformance fixtures | Valid fixtures must pass; invalid fixtures must fail. |\n| Cost governance | Defer | EOS governance/analytics | Add after execution identity and accounting are stable. |\n| Compliance/audit reporting | Defer/Adapt | EOSV/EOSL/governance | Derive from canonical evidence and authority. |\n| Zero-trust external PR verification | Defer/Adapt | EOSR/security | Requires isolated untrusted execution and explicit policy. |\n| Progressive autonomy | Adapt | EOS risk/authority/evidence | Least autonomy; promote permissions only from evidence and explicit policy. |\n| Signal ingestion / priority algorithms | Defer | product planning analytics | Useful later; must not replace product authority. |\n| Kubernetes-style declarative resource envelope | Interoperate/Selective | adapters/schemas | Borrow versioning/spec-status ideas only where they improve Monad. |\n| AI-SDLC task model | Reject as authority | WP/WC/PI remain canonical | Compatibility mapping may exist later. |\n| AI-SDLC control-state directory | Reject | `.eos/` remains sole control plane | Parallel operational state is prohibited. |\n| AI-SDLC dependency graph as authority | Reject | Monad graph remains canonical | Import/export only if needed. |\n| AI-SDLC attestations as canonical evidence | Reject as replacement | EOS Evidence remains canonical | Selected proof techniques may be adapted. |\n| AI-SDLC RFC system replacing Monad ADR/specs | Reject | Monad ADR/spec system | Concepts may inform process; authority remains Monad-native. |\n| Direct codebase embedding | Reject by default | optional adapter later | Direct reuse requires explicit provenance/license handling. |\n\n## Release placement\n\n- EOS 0.9: DoR, Decision Catalog, operational DEC/APR/DEP.\n- EOS 0.10: role/harness abstraction and typed handoffs.\n- EOS 0.11: independent review.\n- EOS 0.12: dispatch frontier and worker pool.\n- EOS 0.13: failure/recovery playbook.\n- EOS 0.14: proof-of-execution provenance.\n- EOS 0.15: emergent capture and exploration.\n- EOS 0.16: operator surface.\n- EOS 0.17: conformance.\n- EOS 0.18+: cost, compliance, zero-trust, advanced autonomy.\n- Later: AI-SDLC compatibility adapter.\n",
+  "document_id": "doc:engineering%2Feos%2FAI-SDLC-CAPABILITY-ASSIMILATION-MATRIX.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Proposed Date: 2026-08-13 Governing: ADR-0006, CR-0001",
+    "title": "AI-SDLC → Monad Capability Assimilation Matrix"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 1,
+      "line_end": 45,
+      "line_start": 1,
+      "section_id": "ai-sdlc-monad-capability-assimilation-matrix",
+      "text": "# AI-SDLC → Monad Capability Assimilation Matrix\n\n**Status:** Proposed\n**Date:** 2026-08-13\n**Governing:** ADR-0006, CR-0001\n\nClassification meanings:\n\n- **Adopt** — concept fits Monad substantially as-is.\n- **Adapt** — valuable concept, implemented with Monad-native semantics.\n- **Interoperate** — retain as an external compatibility boundary.\n- **Defer** — useful, but depends on earlier EOS capabilities.\n- **Reject** — conflicts with Monad authority or architecture.\n\n| AI-SDLC capability | Disposition | Monad destination | Notes |\n| --- | --- | --- | --- |\n| Deterministic Definition of Ready | Adapt | EOSP / policy gates | Strengthen with authority, staleness, graph, decision, and evidence checks. |\n| Decision Catalog | Adapt | DEC/APR + canonical state | Preserve explicit authority; affected work may block while unrelated work continues. |\n| Dependency graph composition | Adapt | DEP + semantic trace graph | Do not create a second dependency graph. |\n| Pipeline orchestrator | Defer/Adapt | EOSE dispatch frontier | Implement after readiness, provenance, verification, and review are strong enough. |\n| Worktree pooling | Adapt | EOSE | Build on existing isolated execution/worktree controls. |\n| Agent roles | Adapt | EOSE/EOSR role profiles | Role is independent of any particular harness/provider. |\n| Typed handoff contracts | Adopt/Adapt | execution/review contracts | Versioned structured payloads with validation and provenance. |\n| Cross-harness review | Adapt | EOSR | Enforce independence through policy rather than convention. |\n| QualityGate resources | Adapt | EOS policy/validators | Keep policy-as-code constrained and deterministic-first. |\n| AutonomyPolicy | Adapt | EOS authority/risk/evidence policy | Use bounded permission envelopes rather than seniority labels. |\n| AdapterBinding | Adopt/Adapt | integration registry | External tools remain replaceable adapters. |\n| Proof of execution | Adapt | EXEC/EVID/REV/APR provenance | Prefer hashes/manifests; raw transcripts separately governed. |\n| Emergent issue capture | Adapt | EOSC/EOSP capture flow | Route findings without silent scope expansion. |\n| Exploration workstream | Adapt | EOSP readiness profiles | Different readiness contract; explicit budget and crystallization. |\n| Operator TUI | Defer | EOS operator surface | Build after decision/frontier/evidence data models stabilize. |\n| Conformance suite | Adopt | EOS conformance fixtures | Valid fixtures must pass; invalid fixtures must fail. |\n| Cost governance | Defer | EOS governance/analytics | Add after execution identity and accounting are stable. |\n| Compliance/audit reporting | Defer/Adapt | EOSV/EOSL/governance | Derive from canonical evidence and authority. |\n| Zero-trust external PR verification | Defer/Adapt | EOSR/security | Requires isolated untrusted execution and explicit policy. |\n| Progressive autonomy | Adapt | EOS risk/authority/evidence | Least autonomy; promote permissions only from evidence and explicit policy. |\n| Signal ingestion / priority algorithms | Defer | product planning analytics | Useful later; must not replace product authority. |\n| Kubernetes-style declarative resource envelope | Interoperate/Selective | adapters/schemas | Borrow versioning/spec-status ideas only where they improve Monad. |\n| AI-SDLC task model | Reject as authority | WP/WC/PI remain canonical | Compatibility mapping may exist later. |\n| AI-SDLC control-state directory | Reject | `.eos/` remains sole control plane | Parallel operational state is prohibited. |\n| AI-SDLC dependency graph as authority | Reject | Monad graph remains canonical | Import/export only if needed. |\n| AI-SDLC attestations as canonical evidence | Reject as replacement | EOS Evidence remains canonical | Selected proof techniques may be adapted. |\n| AI-SDLC RFC system replacing Monad ADR/specs | Reject | Monad ADR/spec system | Concepts may inform process; authority remains Monad-native. |\n| Direct codebase embedding | Reject by default | optional adapter later | Direct reuse requires explicit provenance/license handling. |",
+      "title": "AI-SDLC → Monad Capability Assimilation Matrix"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 46,
+      "section_id": "release-placement",
+      "text": "## Release placement\n\n- EOS 0.9: DoR, Decision Catalog, operational DEC/APR/DEP.\n- EOS 0.10: role/harness abstraction and typed handoffs.\n- EOS 0.11: independent review.\n- EOS 0.12: dispatch frontier and worker pool.\n- EOS 0.13: failure/recovery playbook.\n- EOS 0.14: proof-of-execution provenance.\n- EOS 0.15: emergent capture and exploration.\n- EOS 0.16: operator surface.\n- EOS 0.17: conformance.\n- EOS 0.18+: cost, compliance, zero-trust, advanced autonomy.\n- Later: AI-SDLC compatibility adapter.",
+      "title": "Release placement"
+    }
+  ],
+  "source": {
+    "bytes": 4591,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 58,
+    "media_type": "text/markdown",
+    "path": "engineering/eos/AI-SDLC-CAPABILITY-ASSIMILATION-MATRIX.md",
+    "sha256": "ad5222cacc1940789ae55d81158c5b477f8a31130c26aa59b3f8d7a043794f19"
+  }
+}

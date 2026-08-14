@@ -1,0 +1,507 @@
+{
+  "content": "# EOS 0.9 — Implementation Decomposition\n\n**Status:** Proposed implementation plan\n**Date:** 2026-08-13\n**Governing decision:** ADR-0006 (Accepted)\n**Change request:** CR-0001\n**Design:** `engineering/eos/EOS-0.9-DECISION-READINESS-DESIGN.md`\n**Planning rule:** Logical packet names below are provisional; canonical IDs are allocated only after state reconciliation and explicit CR approval.\n\n## Objective\n\nImplement EOS 0.9 as a sequence of bounded, independently verifiable changes that turn planning/readiness from a mostly document-completeness gate into an explainable decision-, dependency-, authority-, and evidence-aware execution boundary.\n\nNo packet may broaden the Monad product-runtime MVP scope.\n\n## Pre-implementation gate\n\nBefore any implementation packet is authorized:\n\n- [ ] ADR-0006 is explicitly Accepted by human authority.\n- [ ] `eosp/start-pi-mvp-001` is integrated or otherwise reconciled into the canonical baseline.\n- [ ] this branch is rebased/merged onto that baseline.\n- [ ] `./scripts/eos state status` passes.\n- [ ] `./scripts/eos verify --strict` passes.\n- [ ] CR-0001 is approved through EOS.\n- [ ] the EOS 0.9 planning horizon is created through EOS transactions.\n- [ ] each implementation packet has explicit allowed/forbidden paths and validation requirements.\n\n## Dependency graph\n\n```text\nP0 canonical-state mutation concurrency guard\n |\n +--> P1 decision/approval/dependency domain contract\n       |\n       +--> P2 canonical operational-state promotion\n             |\n             +--> P3 lifecycle + CLI operations\n                   |\n                   +--> P4 deterministic readiness predicates\n                         |\n                         +--> P5 readiness explainability/operator surface\n                               |\n                               +--> P7 integration/release review\n\nP2 --------------------+\n                       +--> P6 migration/conformance/regression\nP3 --------------------+\nP4 --------------------+\nP5 --------------------+\n```\n\nP6 evolves alongside implementation and becomes a hard dependency of final integration.\n\n## P0 — Canonical-State Mutation Concurrency Guard\n\n### Purpose\n\nPrevent two independently advancing branches from silently creating incompatible descendants of the sole canonical operational state.\n\n### Required behavior\n\n- capture the canonical-state revision/fingerprint at the branch/control-operation baseline;\n- before an ordinary state mutation, detect whether the authoritative integration baseline has advanced incompatibly;\n- fail closed rather than auto-merging operational authority;\n- provide an actionable reconciliation message;\n- preserve an explicit escape path only through governed reconciliation, never silent projection-wins behavior.\n\n### Minimum acceptance\n\n- stale branch mutation is rejected deterministically;\n- clean current-baseline mutation remains allowed;\n- read-only commands remain usable when safe;\n- no automatic Git/GitHub state adoption occurs;\n- fixture covers two branches derived from the same canonical revision.\n\n### Why first\n\nThe current parallel workstreams exposed this gap in real operation. EOS 0.9 should not add more first-class state without first making stale-state mutation detectable.\n\n## P1 — Decision, Approval, and Dependency Domain Contract\n\n### Purpose\n\nCorrect and stabilize the semantic contracts that readiness will consume.\n\n### Scope\n\n- Decision lifecycle and conditional outcome requirements;\n- Approval validity/disposition semantics;\n- Dependency kinds and blocking semantics;\n- authority/provenance expectations;\n- state-machine definitions;\n- schema/domain-model versioning.\n\n### Decision invariant\n\nAn unresolved Decision is a valid object. A decided Decision has a non-empty outcome and rationale sufficient for audit.\n\n### Approval invariant\n\nOnly a current Approval whose disposition and authority satisfy policy can discharge an approval requirement.\n\n### Dependency invariant\n\nA relationship becomes a readiness blocker only when its typed semantics and lifecycle say it is blocking; references and optional dependencies must not accidentally halt work.\n\n### Minimum acceptance\n\nPositive and negative fixtures cover every lifecycle transition and conditional field rule.\n\n## P2 — Canonical Operational-State Promotion\n\n### Purpose\n\nMake DEC/APR/DEP operational participants without creating another state authority.\n\n### Scope\n\n- canonical-state schema support;\n- state-model registration;\n- transaction load/validate/mutate/project support;\n- event representation;\n- projection generation;\n- migration from existing state with zero semantic change to current PI/WC/WP/CR/MNT/REL records.\n\n### Migration requirements\n\n- old canonical state validates/migrates predictably;\n- failed migration leaves prior state authoritative;\n- migration is deterministic and repeatable;\n- projection drift fails closed;\n- history is appended, not rewritten.\n\n### Minimum acceptance\n\nA migrated copy of the current repository state is semantically equivalent for all pre-existing entities, with only the expected schema/revision changes.\n\n## P3 — Decision/Approval/Dependency Lifecycle and CLI\n\n### Purpose\n\nGive operators deterministic ways to create, inspect, transition, and relate the new operational entities.\n\n### Candidate command surface\n\n```text\neos decision create|list|show|open|decide|defer|supersede|revoke\neos approval request|list|show|grant|deny|revoke|expire\neos dependency create|list|show|satisfy|block|waive|retire\n```\n\nExact command names remain implementation details until packet authorization.\n\n### Requirements\n\n- every mutation uses canonical transactions;\n- actor/reason/authority/provenance are recorded;\n- invalid transitions fail before write;\n- tab completion discovers current IDs;\n- read commands do not mutate projections.\n\n## P4 — Deterministic Readiness Predicate Engine\n\n### Purpose\n\nBring machine-enforced readiness into alignment with `engineering/definition-of-ready.md`.\n\n### Predicate families\n\n#### Structure\n\n- required fields/sections present;\n- no unauthorized unresolved markers;\n- valid parent/identity metadata.\n\n#### Governing references\n\n- references resolve;\n- governing artifacts are current enough for the requested transition;\n- superseded/stale authority fails where policy requires current authority.\n\n#### Dependency closure\n\n- graph valid and acyclic;\n- required blocking predecessors satisfy policy;\n- unrelated unresolved work is ignored.\n\n#### Decision/approval closure\n\n- governing blocking decisions are resolved;\n- required approvals are current and sufficient;\n- authority level is adequate.\n\n#### Scope\n\n- bounded implementation surface;\n- explicit exclusions;\n- oversize signal requires decomposition or governed exception.\n\n#### Acceptance/verification\n\n- acceptance criteria are testable enough for delivery profile;\n- validation/evidence expectations are declared;\n- required security/operations checks are present when thresholds apply.\n\n### Evaluation rule\n\nDeterministic checks always run before any semantic/model-assisted evaluator.\n\nA model-assisted result may contribute attributed evidence but cannot silently override a deterministic failure or create binding authority.\n\n## P5 — Readiness Explainability and Operator Surface\n\n### Purpose\n\nTurn a gate failure into a concrete next action rather than a generic rejection.\n\n### Result contract\n\nEvery predicate result should expose:\n\n```text\ngate/predicate\nPASS | FAIL | NOT_APPLICABLE\nreason\nsource/evidence\nblocking entity\nrequired authority when applicable\nsmallest corrective action when determinable\n```\n\n### Candidate UX\n\nPreserve and enrich:\n\n```text\neos gate check\neos gate explain\n```\n\nOptionally add:\n\n```text\neos readiness check <target>\neos readiness explain <target>\n```\n\nif that improves discoverability without duplicating policy authority.\n\n### Minimum acceptance\n\nIdentical canonical input produces byte/logically stable deterministic explanations.\n\n## P6 — Migration, Conformance, and Regression Contract\n\n### Purpose\n\nProve EOS 0.9 is safe, deterministic, backward-compatible where promised, and hostile to malformed state.\n\n### Required fixture classes\n\n- Decision open/decided conditional-field cases;\n- Approval valid/invalid/expired/revoked cases;\n- Dependency satisfied/blocked/optional/cyclic cases;\n- unrelated unresolved decision does not block a packet;\n- governing unresolved decision does block its affected packet;\n- stale governing artifact behavior;\n- current MVP state migration;\n- stale-branch mutation rejection;\n- projection-drift rejection;\n- event/projection/canonical convergence;\n- repeatability/idempotence;\n- deterministic readiness explanation.\n\n### Existing validations retained\n\n- machine-document synchronization;\n- trace projection integrity;\n- repository integrity;\n- `./scripts/eos state status`;\n- `./scripts/eos verify --strict`.\n\n## P7 — Integration, Documentation, and EOS 0.9 Release Review\n\n### Purpose\n\nIntegrate the completed tranche only after contract, migration, policy, tooling, and regression evidence agree.\n\n### Required work\n\n- version EOS tool/schema/state-machine contracts intentionally;\n- update governance/operator documentation;\n- update shell completion;\n- update machine projections;\n- produce EOS 0.9 verification evidence;\n- conduct independent review;\n- record residual risks;\n- prepare release/integration decision.\n\n### Exit criteria\n\n- all authorized EOS 0.9 packets closed;\n- no unresolved blocking findings;\n- canonical state and projections converge;\n- migration evidence accepted;\n- strict verification passes from a clean checkout/worktree;\n- product MVP state remains historically and semantically coherent;\n- human integration authority explicitly approves merge/release.\n\n## Proposed planning shape after reconciliation\n\nThe recommended planning hierarchy is a dedicated EOS evolution horizon rather than placing EOS implementation inside `PI-MVP-001`.\n\nConceptually:\n\n```text\nPI-EOS-001 — EOS 0.9 Decision & Readiness\n  Work Cycle — State and domain foundation\n    P0 Canonical-state mutation concurrency guard\n    P1 DEC/APR/DEP domain contract\n    P2 Canonical operational-state promotion\n\n  Work Cycle — Readiness behavior\n    P3 Lifecycle + CLI operations\n    P4 Deterministic readiness predicates\n    P5 Explainability/operator surface\n\n  Work Cycle — Qualification\n    P6 Migration/conformance/regression\n    P7 Integration/release review\n```\n\n`PI-EOS-001` is a proposed identifier because `eos plan` supports namespaced Program Increment IDs. Work Cycle and Work Packet identifiers must be allocated by the actual EOS creation commands at planning time rather than invented in this document.\n\n## Parallelism\n\nAfter P2 is stable:\n\n- CLI work and fixture expansion may proceed partly in parallel;\n- predicate fixture development can begin before all predicates are implemented;\n- documentation can evolve continuously.\n\nHowever:\n\n- P4 cannot be considered complete before P1-P3 semantics stabilize;\n- P5 depends on P4 result semantics;\n- P7 depends on all implementation plus P6 qualification.\n\n## Explicit non-goals\n\nEOS 0.9 does not implement:\n\n- multi-harness execution abstraction;\n- cross-harness independent reviewer policy;\n- autonomous dispatch frontier/worker pool;\n- deterministic failure playbook;\n- transcript/Merkle proof-of-execution;\n- emergent finding capture;\n- exploration readiness profile;\n- TUI;\n- cost/compliance governance;\n- AI-SDLC import/export adapter.\n\nThose remain later tranches in the assimilation program.\n\n## Next authority sequence\n\nOnce the competing canonical-state branch is integrated:\n\n1. reconcile/rebase this branch;\n2. run state/strict verification;\n3. human accepts ADR-0006;\n4. human approves CR-0001 through EOS;\n5. create the EOS evolution PI/work cycles/work packets through EOS;\n6. make P0 the first authorized implementation packet.\n\n",
+  "document_id": "doc:engineering%2Feos%2FEOS-0.9-IMPLEMENTATION-DECOMPOSITION.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Proposed implementation plan Date: 2026-08-13 Governing decision: ADR-0006 (Accepted) Change request: CR-0001 Design: engineering/eos/EOS-0.9-DECISION-READINESS-DESIGN.md Planning rule: Logical packet names below are provisional; canonical IDs are allocated only after state reconciliation and explicit CR approval.",
+    "title": "EOS 0.9 — Implementation Decomposition"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "eos-0-9-implementation-decomposition",
+      "text": "# EOS 0.9 — Implementation Decomposition\n\n**Status:** Proposed implementation plan\n**Date:** 2026-08-13\n**Governing decision:** ADR-0006 (Accepted)\n**Change request:** CR-0001\n**Design:** `engineering/eos/EOS-0.9-DECISION-READINESS-DESIGN.md`\n**Planning rule:** Logical packet names below are provisional; canonical IDs are allocated only after state reconciliation and explicit CR approval.",
+      "title": "EOS 0.9 — Implementation Decomposition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 10,
+      "section_id": "objective",
+      "text": "## Objective\n\nImplement EOS 0.9 as a sequence of bounded, independently verifiable changes that turn planning/readiness from a mostly document-completeness gate into an explainable decision-, dependency-, authority-, and evidence-aware execution boundary.\n\nNo packet may broaden the Monad product-runtime MVP scope.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 28,
+      "line_start": 16,
+      "section_id": "pre-implementation-gate",
+      "text": "## Pre-implementation gate\n\nBefore any implementation packet is authorized:\n\n- [ ] ADR-0006 is explicitly Accepted by human authority.\n- [ ] `eosp/start-pi-mvp-001` is integrated or otherwise reconciled into the canonical baseline.\n- [ ] this branch is rebased/merged onto that baseline.\n- [ ] `./scripts/eos state status` passes.\n- [ ] `./scripts/eos verify --strict` passes.\n- [ ] CR-0001 is approved through EOS.\n- [ ] the EOS 0.9 planning horizon is created through EOS transactions.\n- [ ] each implementation packet has explicit allowed/forbidden paths and validation requirements.",
+      "title": "Pre-implementation gate"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 29,
+      "section_id": "dependency-graph",
+      "text": "## Dependency graph\n\n```text\nP0 canonical-state mutation concurrency guard\n |\n +--> P1 decision/approval/dependency domain contract\n       |\n       +--> P2 canonical operational-state promotion\n             |\n             +--> P3 lifecycle + CLI operations\n                   |\n                   +--> P4 deterministic readiness predicates\n                         |\n                         +--> P5 readiness explainability/operator surface\n                               |\n                               +--> P7 integration/release review\n\nP2 --------------------+\n                       +--> P6 migration/conformance/regression\nP3 --------------------+\nP4 --------------------+\nP5 --------------------+\n```\n\nP6 evolves alongside implementation and becomes a hard dependency of final integration.",
+      "title": "Dependency graph"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 55,
+      "section_id": "p0-canonical-state-mutation-concurrency-guard",
+      "text": "## P0 — Canonical-State Mutation Concurrency Guard",
+      "title": "P0 — Canonical-State Mutation Concurrency Guard"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 60,
+      "line_start": 57,
+      "section_id": "purpose",
+      "text": "### Purpose\n\nPrevent two independently advancing branches from silently creating incompatible descendants of the sole canonical operational state.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 68,
+      "line_start": 61,
+      "section_id": "required-behavior",
+      "text": "### Required behavior\n\n- capture the canonical-state revision/fingerprint at the branch/control-operation baseline;\n- before an ordinary state mutation, detect whether the authoritative integration baseline has advanced incompatibly;\n- fail closed rather than auto-merging operational authority;\n- provide an actionable reconciliation message;\n- preserve an explicit escape path only through governed reconciliation, never silent projection-wins behavior.",
+      "title": "Required behavior"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 76,
+      "line_start": 69,
+      "section_id": "minimum-acceptance",
+      "text": "### Minimum acceptance\n\n- stale branch mutation is rejected deterministically;\n- clean current-baseline mutation remains allowed;\n- read-only commands remain usable when safe;\n- no automatic Git/GitHub state adoption occurs;\n- fixture covers two branches derived from the same canonical revision.",
+      "title": "Minimum acceptance"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 80,
+      "line_start": 77,
+      "section_id": "why-first",
+      "text": "### Why first\n\nThe current parallel workstreams exposed this gap in real operation. EOS 0.9 should not add more first-class state without first making stale-state mutation detectable.",
+      "title": "Why first"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 82,
+      "line_start": 81,
+      "section_id": "p1-decision-approval-and-dependency-domain-contract",
+      "text": "## P1 — Decision, Approval, and Dependency Domain Contract",
+      "title": "P1 — Decision, Approval, and Dependency Domain Contract"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 86,
+      "line_start": 83,
+      "section_id": "purpose-2",
+      "text": "### Purpose\n\nCorrect and stabilize the semantic contracts that readiness will consume.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 95,
+      "line_start": 87,
+      "section_id": "scope",
+      "text": "### Scope\n\n- Decision lifecycle and conditional outcome requirements;\n- Approval validity/disposition semantics;\n- Dependency kinds and blocking semantics;\n- authority/provenance expectations;\n- state-machine definitions;\n- schema/domain-model versioning.",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 99,
+      "line_start": 96,
+      "section_id": "decision-invariant",
+      "text": "### Decision invariant\n\nAn unresolved Decision is a valid object. A decided Decision has a non-empty outcome and rationale sufficient for audit.",
+      "title": "Decision invariant"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 103,
+      "line_start": 100,
+      "section_id": "approval-invariant",
+      "text": "### Approval invariant\n\nOnly a current Approval whose disposition and authority satisfy policy can discharge an approval requirement.",
+      "title": "Approval invariant"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 107,
+      "line_start": 104,
+      "section_id": "dependency-invariant",
+      "text": "### Dependency invariant\n\nA relationship becomes a readiness blocker only when its typed semantics and lifecycle say it is blocking; references and optional dependencies must not accidentally halt work.",
+      "title": "Dependency invariant"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 111,
+      "line_start": 108,
+      "section_id": "minimum-acceptance-2",
+      "text": "### Minimum acceptance\n\nPositive and negative fixtures cover every lifecycle transition and conditional field rule.",
+      "title": "Minimum acceptance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 113,
+      "line_start": 112,
+      "section_id": "p2-canonical-operational-state-promotion",
+      "text": "## P2 — Canonical Operational-State Promotion",
+      "title": "P2 — Canonical Operational-State Promotion"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 117,
+      "line_start": 114,
+      "section_id": "purpose-3",
+      "text": "### Purpose\n\nMake DEC/APR/DEP operational participants without creating another state authority.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 126,
+      "line_start": 118,
+      "section_id": "scope-2",
+      "text": "### Scope\n\n- canonical-state schema support;\n- state-model registration;\n- transaction load/validate/mutate/project support;\n- event representation;\n- projection generation;\n- migration from existing state with zero semantic change to current PI/WC/WP/CR/MNT/REL records.",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 134,
+      "line_start": 127,
+      "section_id": "migration-requirements",
+      "text": "### Migration requirements\n\n- old canonical state validates/migrates predictably;\n- failed migration leaves prior state authoritative;\n- migration is deterministic and repeatable;\n- projection drift fails closed;\n- history is appended, not rewritten.",
+      "title": "Migration requirements"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 138,
+      "line_start": 135,
+      "section_id": "minimum-acceptance-3",
+      "text": "### Minimum acceptance\n\nA migrated copy of the current repository state is semantically equivalent for all pre-existing entities, with only the expected schema/revision changes.",
+      "title": "Minimum acceptance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 140,
+      "line_start": 139,
+      "section_id": "p3-decision-approval-dependency-lifecycle-and-cli",
+      "text": "## P3 — Decision/Approval/Dependency Lifecycle and CLI",
+      "title": "P3 — Decision/Approval/Dependency Lifecycle and CLI"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 144,
+      "line_start": 141,
+      "section_id": "purpose-4",
+      "text": "### Purpose\n\nGive operators deterministic ways to create, inspect, transition, and relate the new operational entities.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 154,
+      "line_start": 145,
+      "section_id": "candidate-command-surface",
+      "text": "### Candidate command surface\n\n```text\neos decision create|list|show|open|decide|defer|supersede|revoke\neos approval request|list|show|grant|deny|revoke|expire\neos dependency create|list|show|satisfy|block|waive|retire\n```\n\nExact command names remain implementation details until packet authorization.",
+      "title": "Candidate command surface"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 162,
+      "line_start": 155,
+      "section_id": "requirements",
+      "text": "### Requirements\n\n- every mutation uses canonical transactions;\n- actor/reason/authority/provenance are recorded;\n- invalid transitions fail before write;\n- tab completion discovers current IDs;\n- read commands do not mutate projections.",
+      "title": "Requirements"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 164,
+      "line_start": 163,
+      "section_id": "p4-deterministic-readiness-predicate-engine",
+      "text": "## P4 — Deterministic Readiness Predicate Engine",
+      "title": "P4 — Deterministic Readiness Predicate Engine"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 168,
+      "line_start": 165,
+      "section_id": "purpose-5",
+      "text": "### Purpose\n\nBring machine-enforced readiness into alignment with `engineering/definition-of-ready.md`.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 170,
+      "line_start": 169,
+      "section_id": "predicate-families",
+      "text": "### Predicate families",
+      "title": "Predicate families"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 176,
+      "line_start": 171,
+      "section_id": "structure",
+      "text": "#### Structure\n\n- required fields/sections present;\n- no unauthorized unresolved markers;\n- valid parent/identity metadata.",
+      "title": "Structure"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 182,
+      "line_start": 177,
+      "section_id": "governing-references",
+      "text": "#### Governing references\n\n- references resolve;\n- governing artifacts are current enough for the requested transition;\n- superseded/stale authority fails where policy requires current authority.",
+      "title": "Governing references"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 188,
+      "line_start": 183,
+      "section_id": "dependency-closure",
+      "text": "#### Dependency closure\n\n- graph valid and acyclic;\n- required blocking predecessors satisfy policy;\n- unrelated unresolved work is ignored.",
+      "title": "Dependency closure"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 194,
+      "line_start": 189,
+      "section_id": "decision-approval-closure",
+      "text": "#### Decision/approval closure\n\n- governing blocking decisions are resolved;\n- required approvals are current and sufficient;\n- authority level is adequate.",
+      "title": "Decision/approval closure"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 200,
+      "line_start": 195,
+      "section_id": "scope-3",
+      "text": "#### Scope\n\n- bounded implementation surface;\n- explicit exclusions;\n- oversize signal requires decomposition or governed exception.",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 206,
+      "line_start": 201,
+      "section_id": "acceptance-verification",
+      "text": "#### Acceptance/verification\n\n- acceptance criteria are testable enough for delivery profile;\n- validation/evidence expectations are declared;\n- required security/operations checks are present when thresholds apply.",
+      "title": "Acceptance/verification"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 212,
+      "line_start": 207,
+      "section_id": "evaluation-rule",
+      "text": "### Evaluation rule\n\nDeterministic checks always run before any semantic/model-assisted evaluator.\n\nA model-assisted result may contribute attributed evidence but cannot silently override a deterministic failure or create binding authority.",
+      "title": "Evaluation rule"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 214,
+      "line_start": 213,
+      "section_id": "p5-readiness-explainability-and-operator-surface",
+      "text": "## P5 — Readiness Explainability and Operator Surface",
+      "title": "P5 — Readiness Explainability and Operator Surface"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 218,
+      "line_start": 215,
+      "section_id": "purpose-6",
+      "text": "### Purpose\n\nTurn a gate failure into a concrete next action rather than a generic rejection.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 232,
+      "line_start": 219,
+      "section_id": "result-contract",
+      "text": "### Result contract\n\nEvery predicate result should expose:\n\n```text\ngate/predicate\nPASS | FAIL | NOT_APPLICABLE\nreason\nsource/evidence\nblocking entity\nrequired authority when applicable\nsmallest corrective action when determinable\n```",
+      "title": "Result contract"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 250,
+      "line_start": 233,
+      "section_id": "candidate-ux",
+      "text": "### Candidate UX\n\nPreserve and enrich:\n\n```text\neos gate check\neos gate explain\n```\n\nOptionally add:\n\n```text\neos readiness check <target>\neos readiness explain <target>\n```\n\nif that improves discoverability without duplicating policy authority.",
+      "title": "Candidate UX"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 254,
+      "line_start": 251,
+      "section_id": "minimum-acceptance-4",
+      "text": "### Minimum acceptance\n\nIdentical canonical input produces byte/logically stable deterministic explanations.",
+      "title": "Minimum acceptance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 256,
+      "line_start": 255,
+      "section_id": "p6-migration-conformance-and-regression-contract",
+      "text": "## P6 — Migration, Conformance, and Regression Contract",
+      "title": "P6 — Migration, Conformance, and Regression Contract"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 260,
+      "line_start": 257,
+      "section_id": "purpose-7",
+      "text": "### Purpose\n\nProve EOS 0.9 is safe, deterministic, backward-compatible where promised, and hostile to malformed state.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 275,
+      "line_start": 261,
+      "section_id": "required-fixture-classes",
+      "text": "### Required fixture classes\n\n- Decision open/decided conditional-field cases;\n- Approval valid/invalid/expired/revoked cases;\n- Dependency satisfied/blocked/optional/cyclic cases;\n- unrelated unresolved decision does not block a packet;\n- governing unresolved decision does block its affected packet;\n- stale governing artifact behavior;\n- current MVP state migration;\n- stale-branch mutation rejection;\n- projection-drift rejection;\n- event/projection/canonical convergence;\n- repeatability/idempotence;\n- deterministic readiness explanation.",
+      "title": "Required fixture classes"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 283,
+      "line_start": 276,
+      "section_id": "existing-validations-retained",
+      "text": "### Existing validations retained\n\n- machine-document synchronization;\n- trace projection integrity;\n- repository integrity;\n- `./scripts/eos state status`;\n- `./scripts/eos verify --strict`.",
+      "title": "Existing validations retained"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 285,
+      "line_start": 284,
+      "section_id": "p7-integration-documentation-and-eos-0-9-release-review",
+      "text": "## P7 — Integration, Documentation, and EOS 0.9 Release Review",
+      "title": "P7 — Integration, Documentation, and EOS 0.9 Release Review"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 289,
+      "line_start": 286,
+      "section_id": "purpose-8",
+      "text": "### Purpose\n\nIntegrate the completed tranche only after contract, migration, policy, tooling, and regression evidence agree.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 300,
+      "line_start": 290,
+      "section_id": "required-work",
+      "text": "### Required work\n\n- version EOS tool/schema/state-machine contracts intentionally;\n- update governance/operator documentation;\n- update shell completion;\n- update machine projections;\n- produce EOS 0.9 verification evidence;\n- conduct independent review;\n- record residual risks;\n- prepare release/integration decision.",
+      "title": "Required work"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 310,
+      "line_start": 301,
+      "section_id": "exit-criteria",
+      "text": "### Exit criteria\n\n- all authorized EOS 0.9 packets closed;\n- no unresolved blocking findings;\n- canonical state and projections converge;\n- migration evidence accepted;\n- strict verification passes from a clean checkout/worktree;\n- product MVP state remains historically and semantically coherent;\n- human integration authority explicitly approves merge/release.",
+      "title": "Exit criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 335,
+      "line_start": 311,
+      "section_id": "proposed-planning-shape-after-reconciliation",
+      "text": "## Proposed planning shape after reconciliation\n\nThe recommended planning hierarchy is a dedicated EOS evolution horizon rather than placing EOS implementation inside `PI-MVP-001`.\n\nConceptually:\n\n```text\nPI-EOS-001 — EOS 0.9 Decision & Readiness\n  Work Cycle — State and domain foundation\n    P0 Canonical-state mutation concurrency guard\n    P1 DEC/APR/DEP domain contract\n    P2 Canonical operational-state promotion\n\n  Work Cycle — Readiness behavior\n    P3 Lifecycle + CLI operations\n    P4 Deterministic readiness predicates\n    P5 Explainability/operator surface\n\n  Work Cycle — Qualification\n    P6 Migration/conformance/regression\n    P7 Integration/release review\n```\n\n`PI-EOS-001` is a proposed identifier because `eos plan` supports namespaced Program Increment IDs. Work Cycle and Work Packet identifiers must be allocated by the actual EOS creation commands at planning time rather than invented in this document.",
+      "title": "Proposed planning shape after reconciliation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 349,
+      "line_start": 336,
+      "section_id": "parallelism",
+      "text": "## Parallelism\n\nAfter P2 is stable:\n\n- CLI work and fixture expansion may proceed partly in parallel;\n- predicate fixture development can begin before all predicates are implemented;\n- documentation can evolve continuously.\n\nHowever:\n\n- P4 cannot be considered complete before P1-P3 semantics stabilize;\n- P5 depends on P4 result semantics;\n- P7 depends on all implementation plus P6 qualification.",
+      "title": "Parallelism"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 366,
+      "line_start": 350,
+      "section_id": "explicit-non-goals",
+      "text": "## Explicit non-goals\n\nEOS 0.9 does not implement:\n\n- multi-harness execution abstraction;\n- cross-harness independent reviewer policy;\n- autonomous dispatch frontier/worker pool;\n- deterministic failure playbook;\n- transcript/Merkle proof-of-execution;\n- emergent finding capture;\n- exploration readiness profile;\n- TUI;\n- cost/compliance governance;\n- AI-SDLC import/export adapter.\n\nThose remain later tranches in the assimilation program.",
+      "title": "Explicit non-goals"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 377,
+      "line_start": 367,
+      "section_id": "next-authority-sequence",
+      "text": "## Next authority sequence\n\nOnce the competing canonical-state branch is integrated:\n\n1. reconcile/rebase this branch;\n2. run state/strict verification;\n3. human accepts ADR-0006;\n4. human approves CR-0001 through EOS;\n5. create the EOS evolution PI/work cycles/work packets through EOS;\n6. make P0 the first authorized implementation packet.",
+      "title": "Next authority sequence"
+    }
+  ],
+  "source": {
+    "bytes": 11886,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 377,
+    "media_type": "text/markdown",
+    "path": "engineering/eos/EOS-0.9-IMPLEMENTATION-DECOMPOSITION.md",
+    "sha256": "ce3a01dc6b14da394b39e07e615f379d97f7430cd8f72821380da8ff31e245a6"
+  }
+}

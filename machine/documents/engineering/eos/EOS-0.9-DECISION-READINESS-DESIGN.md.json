@@ -1,0 +1,197 @@
+{
+  "content": "# EOS 0.9 — Decision and Readiness Engine\n\n**Status:** Proposed\n**Date:** 2026-08-13\n**Related:** ADR-0006, CR-0001, `engineering/eos/AI-SDLC-ASSIMILATION-PROGRAM.md`\n\n## Objective\n\nStrengthen EOS planning so a Work Packet reaches readiness only when EOS can explain why its contract is sufficiently bounded, decided, traceable, and verifiable for the requested lifecycle transition.\n\nEOS 0.9 is an engineering-control-plane change. It does not change Monad product-runtime architecture or broaden any existing MVP Work Packet.\n\n## Required outcomes\n\n1. Unresolved Decisions can exist as first-class records without requiring a fictitious outcome.\n2. Decision, Approval, and Dependency records can participate in canonical operational state through the existing EOS transaction model.\n3. Work Packet readiness evaluates deterministic structural, reference, dependency, decision, authority, staleness, scope, acceptance, and verification predicates.\n4. Gate results are explainable and identify the smallest unmet condition.\n5. A blocked decision or dependency affects only graph-related work.\n6. Existing PI/WC/WP/CR/MNT/REL behavior remains compatible unless an explicit migration says otherwise.\n\n## Decision lifecycle correction\n\nCurrent Decision schema requires `outcome` even in the `PROPOSED` state. EOS 0.9 should permit an unresolved lifecycle such as:\n\n```text\nPROPOSED -> OPEN -> DECIDED -> SUPERSEDED\n                 \\-> DEFERRED -> OPEN\n```\n\n`outcome` and final rationale become required when the record is decided, not while the question is still open.\n\nThe exact state names may be adjusted during implementation review, but the invariant is fixed: unresolved decisions must be representable without inventing an answer.\n\n## Canonical-state extension\n\nEOS 0.9 should admit `DEC`, `APR`, and `DEP` as operational entity kinds under `.eos/state/current.json`.\n\nThe migration must preserve the single-authority rule:\n\n- canonical state is written only through EOS transactions;\n- event history remains append-only evidence;\n- TSV/Markdown/GitHub representations are projections;\n- migration failure leaves prior canonical state authoritative;\n- successful migration increments canonical state revision and regenerates projections.\n\nNo parallel decision database or external control-state directory is introduced.\n\n## Readiness dimensions\n\n### Structural\n\n- registered identity and parent links are valid;\n- required sections/fields exist;\n- unresolved placeholders are absent except where policy permits them.\n\n### Governing references\n\n- referenced requirements/specifications/ADRs exist;\n- governing artifacts are not known stale or superseded for the requested transition;\n- required authority level is sufficient.\n\n### Dependencies\n\n- dependency references resolve;\n- dependency graph is acyclic;\n- blocking prerequisites have the required lifecycle disposition;\n- optional/reference-only relationships do not become accidental blockers.\n\n### Decision closure\n\n- decisions that govern or block the packet are resolved at the required authority level;\n- required approvals are present and current;\n- unresolved decisions unrelated to the packet do not block it.\n\n### Scope\n\n- implementation surface is bounded;\n- exclusions are explicit;\n- oversized work requires decomposition or an accepted exception.\n\n### Acceptance and verification\n\n- acceptance criteria are observable/testable enough for delivery work;\n- required validation/evidence expectations are declared;\n- security/operations/release checks apply when their thresholds are crossed.\n\n## Deterministic-first rule\n\nSchema checks, reference resolution, lifecycle checks, graph traversal, policy evaluation, and unresolved-marker checks run before semantic/model-assisted evaluation.\n\nIf a semantic evaluator is later used, its output is attributed evidence. It cannot silently create binding/sovereign authority or override a deterministic gate failure.\n\n## Candidate policy predicates\n\n`WP_READY` and, where appropriate, `WP_AUTHORIZE` should compose named predicates such as:\n\n- `artifact_complete`\n- `no_unresolved_markers`\n- `governing_refs_resolve`\n- `governing_refs_current`\n- `dependencies_valid`\n- `blocking_dependencies_satisfied`\n- `blocking_decisions_resolved`\n- `required_approvals_present`\n- `scope_bounded`\n- `acceptance_testable`\n- `verification_contract_present`\n\nNames remain implementation details until authorized.\n\n## Explainability contract\n\nFor every readiness predicate, EOS should be able to report:\n\n```text\npredicate\nresult\nreason\nevidence/source\nblocking entity when applicable\nsmallest corrective action when determinable\n```\n\nThe existing `gate check` and `gate explain` surfaces remain the primary operator interface unless a later decision changes that boundary.\n\n## Migration sequence\n\n1. accept governing architecture;\n2. add versioned schemas and lifecycle definitions;\n3. extend canonical-state schema/model and transaction support;\n4. prove migration and rollback on fixtures;\n5. add projections and CLI operations for DEC/APR/DEP;\n6. add readiness predicates and explainability;\n7. validate positive/negative fixtures;\n8. verify existing lifecycle compatibility;\n9. enable strengthened gates only after migration verification passes.\n\n## Validation expectations\n\nThe implementation tranche must prove at least:\n\n- open Decision without outcome is valid;\n- decided Decision without outcome is invalid;\n- invalid/revoked approval cannot satisfy required approval;\n- unresolved blocking dependency prevents readiness;\n- unrelated unresolved decision does not prevent readiness;\n- stale governing authority prevents readiness where required;\n- deterministic gate explanation is stable for identical state;\n- canonical-state migration is repeatable and rejects drift;\n- existing MVP state is semantically unchanged by migration;\n- `./scripts/eos state status` passes;\n- `./scripts/eos verify --strict` passes.\n\n## Explicitly deferred\n\nEOS 0.9 does not implement worker pools, dispatch expansion, multi-harness review, proof-of-execution Merkle structures, TUI, cost governance, or an AI-SDLC compatibility adapter. Those remain later program tranches.\n",
+  "document_id": "doc:engineering%2Feos%2FEOS-0.9-DECISION-READINESS-DESIGN.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Proposed Date: 2026-08-13 Related: ADR-0006, CR-0001, engineering/eos/AI-SDLC-ASSIMILATION-PROGRAM.md",
+    "title": "EOS 0.9 — Decision and Readiness Engine"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 1,
+      "line_end": 6,
+      "line_start": 1,
+      "section_id": "eos-0-9-decision-and-readiness-engine",
+      "text": "# EOS 0.9 — Decision and Readiness Engine\n\n**Status:** Proposed\n**Date:** 2026-08-13\n**Related:** ADR-0006, CR-0001, `engineering/eos/AI-SDLC-ASSIMILATION-PROGRAM.md`",
+      "title": "EOS 0.9 — Decision and Readiness Engine"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 7,
+      "section_id": "objective",
+      "text": "## Objective\n\nStrengthen EOS planning so a Work Packet reaches readiness only when EOS can explain why its contract is sufficiently bounded, decided, traceable, and verifiable for the requested lifecycle transition.\n\nEOS 0.9 is an engineering-control-plane change. It does not change Monad product-runtime architecture or broaden any existing MVP Work Packet.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 13,
+      "section_id": "required-outcomes",
+      "text": "## Required outcomes\n\n1. Unresolved Decisions can exist as first-class records without requiring a fictitious outcome.\n2. Decision, Approval, and Dependency records can participate in canonical operational state through the existing EOS transaction model.\n3. Work Packet readiness evaluates deterministic structural, reference, dependency, decision, authority, staleness, scope, acceptance, and verification predicates.\n4. Gate results are explainable and identify the smallest unmet condition.\n5. A blocked decision or dependency affects only graph-related work.\n6. Existing PI/WC/WP/CR/MNT/REL behavior remains compatible unless an explicit migration says otherwise.",
+      "title": "Required outcomes"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 22,
+      "section_id": "decision-lifecycle-correction",
+      "text": "## Decision lifecycle correction\n\nCurrent Decision schema requires `outcome` even in the `PROPOSED` state. EOS 0.9 should permit an unresolved lifecycle such as:\n\n```text\nPROPOSED -> OPEN -> DECIDED -> SUPERSEDED\n                 \\-> DEFERRED -> OPEN\n```\n\n`outcome` and final rationale become required when the record is decided, not while the question is still open.\n\nThe exact state names may be adjusted during implementation review, but the invariant is fixed: unresolved decisions must be representable without inventing an answer.",
+      "title": "Decision lifecycle correction"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 35,
+      "section_id": "canonical-state-extension",
+      "text": "## Canonical-state extension\n\nEOS 0.9 should admit `DEC`, `APR`, and `DEP` as operational entity kinds under `.eos/state/current.json`.\n\nThe migration must preserve the single-authority rule:\n\n- canonical state is written only through EOS transactions;\n- event history remains append-only evidence;\n- TSV/Markdown/GitHub representations are projections;\n- migration failure leaves prior canonical state authoritative;\n- successful migration increments canonical state revision and regenerates projections.\n\nNo parallel decision database or external control-state directory is introduced.",
+      "title": "Canonical-state extension"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 49,
+      "section_id": "readiness-dimensions",
+      "text": "## Readiness dimensions",
+      "title": "Readiness dimensions"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 56,
+      "line_start": 51,
+      "section_id": "structural",
+      "text": "### Structural\n\n- registered identity and parent links are valid;\n- required sections/fields exist;\n- unresolved placeholders are absent except where policy permits them.",
+      "title": "Structural"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 62,
+      "line_start": 57,
+      "section_id": "governing-references",
+      "text": "### Governing references\n\n- referenced requirements/specifications/ADRs exist;\n- governing artifacts are not known stale or superseded for the requested transition;\n- required authority level is sufficient.",
+      "title": "Governing references"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 69,
+      "line_start": 63,
+      "section_id": "dependencies",
+      "text": "### Dependencies\n\n- dependency references resolve;\n- dependency graph is acyclic;\n- blocking prerequisites have the required lifecycle disposition;\n- optional/reference-only relationships do not become accidental blockers.",
+      "title": "Dependencies"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 75,
+      "line_start": 70,
+      "section_id": "decision-closure",
+      "text": "### Decision closure\n\n- decisions that govern or block the packet are resolved at the required authority level;\n- required approvals are present and current;\n- unresolved decisions unrelated to the packet do not block it.",
+      "title": "Decision closure"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 81,
+      "line_start": 76,
+      "section_id": "scope",
+      "text": "### Scope\n\n- implementation surface is bounded;\n- exclusions are explicit;\n- oversized work requires decomposition or an accepted exception.",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 87,
+      "line_start": 82,
+      "section_id": "acceptance-and-verification",
+      "text": "### Acceptance and verification\n\n- acceptance criteria are observable/testable enough for delivery work;\n- required validation/evidence expectations are declared;\n- security/operations/release checks apply when their thresholds are crossed.",
+      "title": "Acceptance and verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 93,
+      "line_start": 88,
+      "section_id": "deterministic-first-rule",
+      "text": "## Deterministic-first rule\n\nSchema checks, reference resolution, lifecycle checks, graph traversal, policy evaluation, and unresolved-marker checks run before semantic/model-assisted evaluation.\n\nIf a semantic evaluator is later used, its output is attributed evidence. It cannot silently create binding/sovereign authority or override a deterministic gate failure.",
+      "title": "Deterministic-first rule"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 111,
+      "line_start": 94,
+      "section_id": "candidate-policy-predicates",
+      "text": "## Candidate policy predicates\n\n`WP_READY` and, where appropriate, `WP_AUTHORIZE` should compose named predicates such as:\n\n- `artifact_complete`\n- `no_unresolved_markers`\n- `governing_refs_resolve`\n- `governing_refs_current`\n- `dependencies_valid`\n- `blocking_dependencies_satisfied`\n- `blocking_decisions_resolved`\n- `required_approvals_present`\n- `scope_bounded`\n- `acceptance_testable`\n- `verification_contract_present`\n\nNames remain implementation details until authorized.",
+      "title": "Candidate policy predicates"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 126,
+      "line_start": 112,
+      "section_id": "explainability-contract",
+      "text": "## Explainability contract\n\nFor every readiness predicate, EOS should be able to report:\n\n```text\npredicate\nresult\nreason\nevidence/source\nblocking entity when applicable\nsmallest corrective action when determinable\n```\n\nThe existing `gate check` and `gate explain` surfaces remain the primary operator interface unless a later decision changes that boundary.",
+      "title": "Explainability contract"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 138,
+      "line_start": 127,
+      "section_id": "migration-sequence",
+      "text": "## Migration sequence\n\n1. accept governing architecture;\n2. add versioned schemas and lifecycle definitions;\n3. extend canonical-state schema/model and transaction support;\n4. prove migration and rollback on fixtures;\n5. add projections and CLI operations for DEC/APR/DEP;\n6. add readiness predicates and explainability;\n7. validate positive/negative fixtures;\n8. verify existing lifecycle compatibility;\n9. enable strengthened gates only after migration verification passes.",
+      "title": "Migration sequence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 154,
+      "line_start": 139,
+      "section_id": "validation-expectations",
+      "text": "## Validation expectations\n\nThe implementation tranche must prove at least:\n\n- open Decision without outcome is valid;\n- decided Decision without outcome is invalid;\n- invalid/revoked approval cannot satisfy required approval;\n- unresolved blocking dependency prevents readiness;\n- unrelated unresolved decision does not prevent readiness;\n- stale governing authority prevents readiness where required;\n- deterministic gate explanation is stable for identical state;\n- canonical-state migration is repeatable and rejects drift;\n- existing MVP state is semantically unchanged by migration;\n- `./scripts/eos state status` passes;\n- `./scripts/eos verify --strict` passes.",
+      "title": "Validation expectations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 157,
+      "line_start": 155,
+      "section_id": "explicitly-deferred",
+      "text": "## Explicitly deferred\n\nEOS 0.9 does not implement worker pools, dispatch expansion, multi-harness review, proof-of-execution Merkle structures, TUI, cost governance, or an AI-SDLC compatibility adapter. Those remain later program tranches.",
+      "title": "Explicitly deferred"
+    }
+  ],
+  "source": {
+    "bytes": 6161,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 157,
+    "media_type": "text/markdown",
+    "path": "engineering/eos/EOS-0.9-DECISION-READINESS-DESIGN.md",
+    "sha256": "a70df3dd1f2c4e97c7500295c3f89aa347afc53b96ad8624be42b921182cfb54"
+  }
+}
