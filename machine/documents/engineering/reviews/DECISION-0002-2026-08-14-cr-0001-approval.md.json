@@ -1,0 +1,100 @@
+{
+  "content": "---\nartifact_id: \"DECISION-0002\"\ntitle: \"CR-0001 Approval\"\ntype: \"authority-decision\"\nversion: \"1.0.0\"\nstatus: \"Accepted\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-14\"\nupdated: \"2026-08-14\"\n---\n\n# DECISION-0002 — CR-0001 Approval\n\n## Record\n\n- **Date:** 2026-08-14\n- **Subject:** CR-0001 — Assimilate selected AI-SDLC capabilities into Monad EOS\n- **Authority:** Human Project Steward / Architecture Owner\n- **Disposition:** APPROVED\n- **Governing architecture:** ADR-0006 — EOS Sovereignty and External SDLC Assimilation\n- **Canonical state before approval:** revision 8\n- **Canonical state after approval:** revision 9\n\n## Authority Statement\n\n> I approve CR-0001 — Assimilate selected AI-SDLC capabilities into Monad EOS.\n\n## Effect\n\nThis decision authorizes CR-0001 as the governed change envelope for the staged Monad-native assimilation program described by ADR-0006 and the EOS 0.9 design/decomposition artifacts.\n\nThe approval permits the next planning step: creation and governance of a dedicated EOS evolution planning horizon and bounded implementation packets.\n\n## Non-Effect\n\nThis decision does **not** directly authorize implementation outside a separately authorized Work Packet, alter active MVP product scope, authorize later EOS tranches automatically, authorize direct donor-code copying, bypass verification/review/migration/release gates, or authorize autonomous dispatch beyond separately governed policy.\n\n## Immediate Sequencing\n\nThe first implementation packet remains P0 — Canonical-State Mutation Concurrency Guard. P0 must be represented by governed EOS planning entities and pass its own authorization gate before implementation begins.\n",
+  "document_id": "doc:engineering%2Freviews%2FDECISION-0002-2026-08-14-cr-0001-approval.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"DECISION-0002\" title: \"CR-0001 Approval\" type: \"authority-decision\" version: \"1.0.0\" status: \"Accepted\" authority: \"governance-authoritative\" created: \"2026-08-14\" updated: \"2026-08-14\" ---",
+    "title": "DECISION-0002 — CR-0001 Approval"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"DECISION-0002\"\ntitle: \"CR-0001 Approval\"\ntype: \"authority-decision\"\nversion: \"1.0.0\"\nstatus: \"Accepted\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-14\"\nupdated: \"2026-08-14\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "decision-0002-cr-0001-approval",
+      "text": "# DECISION-0002 — CR-0001 Approval",
+      "title": "DECISION-0002 — CR-0001 Approval"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 14,
+      "section_id": "record",
+      "text": "## Record\n\n- **Date:** 2026-08-14\n- **Subject:** CR-0001 — Assimilate selected AI-SDLC capabilities into Monad EOS\n- **Authority:** Human Project Steward / Architecture Owner\n- **Disposition:** APPROVED\n- **Governing architecture:** ADR-0006 — EOS Sovereignty and External SDLC Assimilation\n- **Canonical state before approval:** revision 8\n- **Canonical state after approval:** revision 9",
+      "title": "Record"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 24,
+      "section_id": "authority-statement",
+      "text": "## Authority Statement\n\n> I approve CR-0001 — Assimilate selected AI-SDLC capabilities into Monad EOS.",
+      "title": "Authority Statement"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 28,
+      "section_id": "effect",
+      "text": "## Effect\n\nThis decision authorizes CR-0001 as the governed change envelope for the staged Monad-native assimilation program described by ADR-0006 and the EOS 0.9 design/decomposition artifacts.\n\nThe approval permits the next planning step: creation and governance of a dedicated EOS evolution planning horizon and bounded implementation packets.",
+      "title": "Effect"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 34,
+      "section_id": "non-effect",
+      "text": "## Non-Effect\n\nThis decision does **not** directly authorize implementation outside a separately authorized Work Packet, alter active MVP product scope, authorize later EOS tranches automatically, authorize direct donor-code copying, bypass verification/review/migration/release gates, or authorize autonomous dispatch beyond separately governed policy.",
+      "title": "Non-Effect"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 38,
+      "section_id": "immediate-sequencing",
+      "text": "## Immediate Sequencing\n\nThe first implementation packet remains P0 — Canonical-State Mutation Concurrency Guard. P0 must be represented by governed EOS planning entities and pass its own authorization gate before implementation begins.",
+      "title": "Immediate Sequencing"
+    }
+  ],
+  "source": {
+    "bytes": 1690,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 40,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/DECISION-0002-2026-08-14-cr-0001-approval.md",
+    "sha256": "525d123c6db38c4ba54a27f137e6a3b7d2800d75aaba52c69af8ff11dbd2eb1f"
+  }
+}
