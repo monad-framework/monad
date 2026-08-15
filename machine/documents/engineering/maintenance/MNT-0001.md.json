@@ -1,0 +1,121 @@
+{
+  "content": "---\nartifact_id: \"MNT-0001\"\ntitle: \"EOSV evidence freshness is not commit-stable\"\ntype: \"maintenance\"\nversion: \"0.1.0\"\nstatus: \"VERIFYING\"\nauthority: \"planning-authoritative\"\ncreated: \"2026-08-15\"\nupdated: \"2026-08-15\"\n---\n\n# MNT-0001 — EOSV evidence freshness is not commit-stable\n\n**State:** VERIFYING\n\n## Type\n\nbug\n\n## Summary\n\nEOSV evidence freshness is not commit-stable\n\n## Context\n\nGitHub issue #180; blocks WP-MVP-0001 EOSV verification\n\n## Affected Artifacts / Components\n\n- `tools/eos/verification_v2.py`: `source_fingerprint()` currently applies\n  `workspace_hash(cwd, baseline)` and the raw `git_head(cwd)` baseline to\n  ordinary WP validation as well as EOSE execution validation.\n- EOSV evidence freshness checks, whose source hash is persisted in evidence\n  records and compared during verification.\n- Control-plane and generated artifacts under `.eos/`, `machine/`,\n  `engineering/evidence/`, and `engineering/reviews/`, which must not stale\n  ordinary WP evidence.\n\n## Risk if Deferred\n\nAn `IN_PROGRESS` to `VERIFYING` transition, machine-document synchronization,\nor committing EOSV evidence can change the current commit or working-tree diff\nwithout changing verified source. EOSV then marks otherwise valid non-execution\nevidence stale, blocking verification and encouraging unnecessary reruns. The\nsame instability makes freshness dependent on repository lifecycle mechanics\nrather than the source and governing content actually evaluated.\n\n## Proposed Resolution\n\nKeep execution-bound evidence on its existing EOSE immutable-baseline and\nbaseline-diff fingerprint path. For non-execution WP evidence, replace the\ncurrent-HEAD/diff determinant with a deterministic content-addressed hash of\nrelevant tracked and untracked files. Sort canonical relative paths and hash\neach path with semantic Markdown hashing (which ignores lifecycle `status`,\n`updated`, and visible State/Status fields) or byte hashing for other files. Exclude\nEOS control data, machine projections, evidence/review artifacts, and normal\nVCS/build/cache directories. Continue including semantic hashes of governing\nartifacts in the fingerprint payload.\n\n## Validation\n\nRun a focused regression script that creates a temporary Git fixture and\ndemonstrates that non-execution fingerprints remain stable across excluded\ncontrol/projection changes, lifecycle-only governing Markdown edits, and an\nexcluded-only commit with a new `HEAD`. The same script must demonstrate\nchanges for implementation source and semantic governing-content edits,\ndeterminism for identical states, and retained execution baseline/diff drift\ndetection. Also run the required compile, EOS synchronization, strict\nverification, and diff checks.\n\n## Closure Evidence\n\nClosure requires the code change, the focused regression result, successful\nEOS synchronization and strict verification results, and a review confirming\nthat execution-bound EOSE semantics are unchanged. Capture the validation\noutputs as MNT-0001 evidence through the normal EOS workflow; this maintenance\nrecord remains `VERIFYING` until integration is confirmed and the authorized lifecycle owner closes it.\n",
+  "document_id": "doc:engineering%2Fmaintenance%2FMNT-0001.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"MNT-0001\" title: \"EOSV evidence freshness is not commit-stable\" type: \"maintenance\" version: \"0.1.0\" status: \"VERIFYING\" authority: \"planning-authoritative\" created: \"2026-08-15\" updated: \"2026-08-15\" ---",
+    "title": "MNT-0001 — EOSV evidence freshness is not commit-stable"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"MNT-0001\"\ntitle: \"EOSV evidence freshness is not commit-stable\"\ntype: \"maintenance\"\nversion: \"0.1.0\"\nstatus: \"VERIFYING\"\nauthority: \"planning-authoritative\"\ncreated: \"2026-08-15\"\nupdated: \"2026-08-15\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "mnt-0001-eosv-evidence-freshness-is-not-commit-stable",
+      "text": "# MNT-0001 — EOSV evidence freshness is not commit-stable\n\n**State:** VERIFYING",
+      "title": "MNT-0001 — EOSV evidence freshness is not commit-stable"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 16,
+      "section_id": "type",
+      "text": "## Type\n\nbug",
+      "title": "Type"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 20,
+      "section_id": "summary",
+      "text": "## Summary\n\nEOSV evidence freshness is not commit-stable",
+      "title": "Summary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 24,
+      "section_id": "context",
+      "text": "## Context\n\nGitHub issue #180; blocks WP-MVP-0001 EOSV verification",
+      "title": "Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 28,
+      "section_id": "affected-artifacts-components",
+      "text": "## Affected Artifacts / Components\n\n- `tools/eos/verification_v2.py`: `source_fingerprint()` currently applies\n  `workspace_hash(cwd, baseline)` and the raw `git_head(cwd)` baseline to\n  ordinary WP validation as well as EOSE execution validation.\n- EOSV evidence freshness checks, whose source hash is persisted in evidence\n  records and compared during verification.\n- Control-plane and generated artifacts under `.eos/`, `machine/`,\n  `engineering/evidence/`, and `engineering/reviews/`, which must not stale\n  ordinary WP evidence.",
+      "title": "Affected Artifacts / Components"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 39,
+      "section_id": "risk-if-deferred",
+      "text": "## Risk if Deferred\n\nAn `IN_PROGRESS` to `VERIFYING` transition, machine-document synchronization,\nor committing EOSV evidence can change the current commit or working-tree diff\nwithout changing verified source. EOSV then marks otherwise valid non-execution\nevidence stale, blocking verification and encouraging unnecessary reruns. The\nsame instability makes freshness dependent on repository lifecycle mechanics\nrather than the source and governing content actually evaluated.",
+      "title": "Risk if Deferred"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 59,
+      "line_start": 48,
+      "section_id": "proposed-resolution",
+      "text": "## Proposed Resolution\n\nKeep execution-bound evidence on its existing EOSE immutable-baseline and\nbaseline-diff fingerprint path. For non-execution WP evidence, replace the\ncurrent-HEAD/diff determinant with a deterministic content-addressed hash of\nrelevant tracked and untracked files. Sort canonical relative paths and hash\neach path with semantic Markdown hashing (which ignores lifecycle `status`,\n`updated`, and visible State/Status fields) or byte hashing for other files. Exclude\nEOS control data, machine projections, evidence/review artifacts, and normal\nVCS/build/cache directories. Continue including semantic hashes of governing\nartifacts in the fingerprint payload.",
+      "title": "Proposed Resolution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 70,
+      "line_start": 60,
+      "section_id": "validation",
+      "text": "## Validation\n\nRun a focused regression script that creates a temporary Git fixture and\ndemonstrates that non-execution fingerprints remain stable across excluded\ncontrol/projection changes, lifecycle-only governing Markdown edits, and an\nexcluded-only commit with a new `HEAD`. The same script must demonstrate\nchanges for implementation source and semantic governing-content edits,\ndeterminism for identical states, and retained execution baseline/diff drift\ndetection. Also run the required compile, EOS synchronization, strict\nverification, and diff checks.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 77,
+      "line_start": 71,
+      "section_id": "closure-evidence",
+      "text": "## Closure Evidence\n\nClosure requires the code change, the focused regression result, successful\nEOS synchronization and strict verification results, and a review confirming\nthat execution-bound EOSE semantics are unchanged. Capture the validation\noutputs as MNT-0001 evidence through the normal EOS workflow; this maintenance\nrecord remains `VERIFYING` until integration is confirmed and the authorized lifecycle owner closes it.",
+      "title": "Closure Evidence"
+    }
+  ],
+  "source": {
+    "bytes": 3139,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 77,
+    "media_type": "text/markdown",
+    "path": "engineering/maintenance/MNT-0001.md",
+    "sha256": "7892cc4af4aaeaedbc6e1d61ec56195869d4cf2ab0581c2718b01a73d4f9e5c0"
+  }
+}

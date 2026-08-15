@@ -139,21 +139,42 @@ def git_head(cwd: Path) -> str:
 def git_root(cwd: Path) -> Path:
     p=run(["git","rev-parse","--show-toplevel"],cwd=cwd); return Path(p.stdout.strip()).resolve() if p.returncode==0 else cwd
 
-
 def semantic_file_hash(path: Path) -> str:
-    if path.suffix.lower() != ".md": return file_hash(path)
-    text=path.read_text(encoding="utf-8",errors="strict"); lines=text.splitlines(); out=[]
-    in_fm=bool(lines and lines[0].strip()=="---"); closed=not in_fm
-    for i,line in enumerate(lines):
-        if in_fm and i==0: out.append(line); continue
-        if in_fm and not closed:
-            if line.strip()=="---": closed=True; out.append(line); continue
-            if re.match(r"^(status|updated):\s*", line): continue
-            out.append(line); continue
-        if re.match(r"^\*\*State:\*\*\s*", line): continue
-        out.append(line)
-    return sha256_bytes(("\n".join(out).rstrip()+"\n").encode())
+    if path.suffix.lower() != ".md":
+        return file_hash(path)
 
+    text = path.read_text(encoding="utf-8", errors="strict")
+    lines = text.splitlines()
+    out = []
+
+    in_fm = bool(lines and lines[0].strip() == "---")
+    closed = not in_fm
+
+    for i, line in enumerate(lines):
+        if in_fm and i == 0:
+            out.append(line)
+            continue
+
+        if in_fm and not closed:
+            if line.strip() == "---":
+                closed = True
+                out.append(line)
+                continue
+
+            if re.match(r"^(status|updated):\s*", line):
+                continue
+
+            out.append(line)
+            continue
+
+        if re.match(r"^\*\*(?:State|Status):\*\*\s*", line):
+            continue
+
+        out.append(line)
+
+    return sha256_bytes(
+        ("\n".join(out).rstrip() + "\n").encode()
+    )
 
 def artifact_path(target: str) -> Path | None:
     tables=("program-increments.tsv","work-cycles.tsv","work-packets.tsv","change-requests.tsv","maintenance.tsv","releases.tsv","executions.tsv","evidence.tsv")
@@ -215,6 +236,48 @@ def workspace_hash(cwd: Path, baseline: str) -> str:
     return sha256_bytes("\n".join(pieces).encode())
 
 
+SOURCE_EXCLUDED_PATHS = (
+    ".eos/",
+    "machine/",
+    "engineering/evidence/",
+    "engineering/reviews/",
+)
+SOURCE_EXCLUDED_PARTS = {
+    ".git", ".hg", ".svn", "__pycache__", ".pytest_cache", ".mypy_cache",
+    ".ruff_cache", ".tox", ".venv", "venv", "node_modules", "target", "build",
+    "dist", "vendor",
+}
+
+
+def is_source_path(path: Path, cwd: Path) -> bool:
+    try:
+        relative = path.relative_to(cwd).as_posix()
+    except ValueError:
+        return False
+    return not (
+        relative.startswith(SOURCE_EXCLUDED_PATHS)
+        or any(part in SOURCE_EXCLUDED_PARTS for part in Path(relative).parts)
+    )
+
+
+def source_content_hash(cwd: Path) -> str:
+    """Hash relevant tracked and untracked content for non-execution evidence."""
+    paths: set[Path] = set()
+    if (cwd / ".git").exists() or run(["git", "rev-parse", "--git-dir"], cwd=cwd).returncode == 0:
+        listed = run(["git", "ls-files", "--cached", "--others", "--exclude-standard"], cwd=cwd)
+        for item in listed.stdout.splitlines():
+            candidate = cwd / item
+            if item and candidate.is_file() and is_source_path(candidate, cwd): paths.add(candidate)
+    else:
+        for candidate in cwd.rglob("*"):
+            if candidate.is_file() and is_source_path(candidate, cwd): paths.add(candidate)
+    pieces = [
+        f"{path.relative_to(cwd).as_posix()}:{semantic_file_hash(path)}"
+        for path in sorted(paths, key=lambda p: p.relative_to(cwd).as_posix())
+    ]
+    return sha256_bytes("\n".join(pieces).encode())
+
+
 def source_fingerprint(target: str, execution: str="") -> tuple[str, dict]:
     wp, exec_id, cwd, baseline=context_for_target(target,execution)
     paths=[]; ids=[]
@@ -228,7 +291,12 @@ def source_fingerprint(target: str, execution: str="") -> tuple[str, dict]:
         p=artifact_path(rid)
         if p and p.exists(): paths.append(p)
     semantic={rel(p):semantic_file_hash(p) for p in sorted(set(paths),key=lambda p:rel(p))}
-    payload={"target":target,"work_packet":wp,"execution":exec_id,"governing":semantic,"workspace_hash":workspace_hash(cwd,baseline),"baseline":baseline}
+    payload={"target":target,"work_packet":wp,"execution":exec_id,"governing":semantic}
+    if exec_id:
+        # Execution evidence remains bound to its immutable EOSE baseline.
+        payload.update({"workspace_hash":workspace_hash(cwd,baseline),"baseline":baseline})
+    else:
+        payload["source_content_hash"] = source_content_hash(cwd)
     return canonical_hash(payload), payload
 
 

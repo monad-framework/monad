@@ -35,7 +35,36 @@
         "version": "1.0.1"
       }
     },
-    "MNT": {},
+    "MNT": {
+      "MNT-0001": {
+        "authority_level": "L3_BINDING",
+        "created_at": "2026-08-15T10:30:02Z",
+        "entity_type": "MaintenanceItem",
+        "id": "MNT-0001",
+        "kind": "MNT",
+        "lifecycle_state": "VERIFYING",
+        "operational_metadata": {
+          "github_url": "",
+          "path": "engineering/maintenance/MNT-0001.md",
+          "summary": "EOSV evidence freshness is not commit-stable",
+          "type": "bug"
+        },
+        "provenance": {
+          "created_by": "EOS canonical-state adapter",
+          "generation_method": "EOS canonical-state capture",
+          "origin": "AUTOMATION",
+          "source_refs": [
+            ".eos/maintenance.tsv",
+            "engineering/maintenance/MNT-0001.md",
+            ".eos/events.jsonl"
+          ]
+        },
+        "relationships": [],
+        "schema_version": "2.0.0",
+        "updated_at": "2026-08-15T11:50:25Z",
+        "version": "1.0.3"
+      }
+    },
     "PI": {
       "PI-001": {
         "authority_level": "L3_BINDING",
@@ -252,7 +281,7 @@
     }
   },
   "model": "EOS-SINGLE-CANONICAL-STATE-1",
-  "revision": 9,
+  "revision": 13,
   "schema_version": "1.0.0",
-  "updated_at": "2026-08-14T10:34:08Z"
+  "updated_at": "2026-08-15T11:50:25Z"
 }
