@@ -161,6 +161,26 @@
       "type": "declares"
     },
     {
+      "source": "doc:.eos%2Fevidence%2FEVID-0001.json",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fevidence%2FEVID-0001.json",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fevidence%2FEVID-0004.json",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fevidence%2FEVID-0004.json",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
       "source": "doc:.eos%2Fhistory%2Fengineering%2Fchanges%2FCR-0001%2Fv0.1.0.md",
       "target": "identifier:ADR-0006",
       "type": "declares"
@@ -2351,6 +2371,54 @@
       "normative": false,
       "source_path": ".eos/events.jsonl",
       "title": "Events",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0001.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0001.json",
+      "title": "Evid 0001",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0002.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0002.json",
+      "title": "Evid 0002",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0003.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0003.json",
+      "title": "Evid 0003",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0004.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0004.json",
+      "title": "Evid 0004",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0005.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0005.json",
+      "title": "Evid 0005",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0006.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0006.json",
+      "title": "Evid 0006",
       "type": "document"
     },
     {
@@ -9891,6 +9959,54 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0001.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0001.md",
+      "title": "EVID-0001 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0002.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0002.md",
+      "title": "EVID-0002 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0003.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0003.md",
+      "title": "EVID-0003 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0004.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0004.md",
+      "title": "EVID-0004 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0005.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0005.md",
+      "title": "EVID-0005 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0006.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0006.md",
+      "title": "EVID-0006 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Fgithub%2FOWNER-ACTIONS.md",
       "normative": true,
       "source_path": "engineering/github/OWNER-ACTIONS.md",
@@ -12014,5 +12130,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "013dacf11bc43613bcbb497f7c5774641d41cfa0fff3772bc49b205fcc8f3a89"
+  "source_tree_sha256": "2acaf9961c6b68c9dfcc9df8dc8b1962ddd9089e1a59f615a8385ab60fe42e76"
 }

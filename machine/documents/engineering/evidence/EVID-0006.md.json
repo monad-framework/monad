@@ -1,0 +1,67 @@
+{
+  "content": "---\nartifact_id: \"EVID-0006\"\ntitle: \"Verification Evidence EVID-0006\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"VALIDATED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-08-15\"\nupdated: \"2026-08-15\"\n---\n\n# EVID-0006 — Verification Evidence\n\n- Target: WP-MVP-0001\n- Execution: (none)\n- Profile: wp\n- Validator: execution-acceptance\n- Kind: acceptance\n- Result: SKIPPED\n- Exit code: 0\n- Source fingerprint: `520b1c52308a7d9c247b3dfd078df7a6c7038a2ce462a6f34a69ddf12b49d78e`\n- Environment fingerprint: `047c5f7438eb3c0f2a48c42a41baf9cc2bbfd8272a130296df6d153e87a1a3fd`\n- Machine evidence: `.eos/evidence/EVID-0006.json`\n- Machine evidence SHA-256: `8302899b536f9125c5dbd140b5986c21436b7914efe8543135339dfb1a07ae58`\n- Covers: (not explicitly mapped)\n\n## Command\n\n`builtin:execution-acceptance`\n\n## Output Digest\n\n`260f92be78902edc92e93c329c1c4a915c31ee205954dd69264743d39f37887e`\n\nThe full bounded output and structured details are retained in the machine evidence artifact.\n",
+  "document_id": "doc:engineering%2Fevidence%2FEVID-0006.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"EVID-0006\" title: \"Verification Evidence EVID-0006\" type: \"verification-evidence\" version: \"1.0.0\" status: \"VALIDATED\" authority: \"evidence-authoritative\" created: \"2026-08-15\" updated: \"2026-08-15\" ---",
+    "title": "EVID-0006 — Verification Evidence"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"EVID-0006\"\ntitle: \"Verification Evidence EVID-0006\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"VALIDATED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-08-15\"\nupdated: \"2026-08-15\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 26,
+      "line_start": 12,
+      "section_id": "evid-0006-verification-evidence",
+      "text": "# EVID-0006 — Verification Evidence\n\n- Target: WP-MVP-0001\n- Execution: (none)\n- Profile: wp\n- Validator: execution-acceptance\n- Kind: acceptance\n- Result: SKIPPED\n- Exit code: 0\n- Source fingerprint: `520b1c52308a7d9c247b3dfd078df7a6c7038a2ce462a6f34a69ddf12b49d78e`\n- Environment fingerprint: `047c5f7438eb3c0f2a48c42a41baf9cc2bbfd8272a130296df6d153e87a1a3fd`\n- Machine evidence: `.eos/evidence/EVID-0006.json`\n- Machine evidence SHA-256: `8302899b536f9125c5dbd140b5986c21436b7914efe8543135339dfb1a07ae58`\n- Covers: (not explicitly mapped)",
+      "title": "EVID-0006 — Verification Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 27,
+      "section_id": "command",
+      "text": "## Command\n\n`builtin:execution-acceptance`",
+      "title": "Command"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 31,
+      "section_id": "output-digest",
+      "text": "## Output Digest\n\n`260f92be78902edc92e93c329c1c4a915c31ee205954dd69264743d39f37887e`\n\nThe full bounded output and structured details are retained in the machine evidence artifact.",
+      "title": "Output Digest"
+    }
+  ],
+  "source": {
+    "bytes": 991,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 35,
+    "media_type": "text/markdown",
+    "path": "engineering/evidence/EVID-0006.md",
+    "sha256": "b708da70cf144a1bce08a0ec05bab9f7957a34f6af841b008e8797808e002904"
+  }
+}
