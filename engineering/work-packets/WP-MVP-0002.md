@@ -1,6 +1,6 @@
 # WP-MVP-0002 — Deterministic workspace discovery
 
-**Status:** AUTHORIZED
+**Status:** IN_PROGRESS
 **Epic:** EPIC-002  
 **Feature:** F-002-02  
 **Program Increment:** PI-MVP-001  
