@@ -1,0 +1,134 @@
+name: EOSP WP-MVP-0003 Authorization Bootstrap
+
+on:
+  push:
+    branches:
+      - eosp/authorize-wp-mvp-0003-bootstrap
+
+permissions:
+  contents: write
+
+jobs:
+  authorize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Reconcile, adopt, ready, and authorize WP-MVP-0003
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git switch -c eosp/authorize-wp-mvp-0003
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+
+          p = Path('engineering/work-packets/WP-MVP-0003.md')
+          text = p.read_text()
+          text = text.replace(
+              '**Status:** Refined — blocked from Ready by workspace bootstrap and ADR-0005  ',
+              '**Status:** Refined — prerequisites satisfied; pending EOS adoption/readiness evaluation  '
+          )
+          text = text.replace('- proposed ADR-0005', '- ADR-0005')
+          text = text.replace(
+              'WP-MVP-0001 root semantics and WP-MVP-0002 canonical discovery output must be stable. ADR-0005 must be accepted before implementation authorization.',
+              '- WP-MVP-0001 is CLOSED and provides stable repository root/effective configuration semantics.\n- WP-MVP-0002 is CLOSED and provides stable canonical discovery output.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.'
+          )
+          p.write_text(text)
+
+          manifest = {
+              'schema_version': '1.0.0',
+              'adoption_id': 'ADOPT-WP-MVP-0003-2026-08-16',
+              'reason': 'Adopt the pre-existing WP-MVP-0003 planning artifact into canonical EOS lifecycle control after closure of WP-MVP-0001 and WP-MVP-0002 and acceptance of ADR-0005.',
+              'evidence': [
+                  'engineering/work-packets/WP-MVP-0001.md',
+                  'engineering/work-packets/WP-MVP-0002.md',
+                  'architecture/decisions/ADR-0003-stable-source-and-document-identity.md',
+                  'architecture/decisions/ADR-0005-mvp-core-implementation-topology.md',
+                  'specifications/data/DATA-SOURCE-0001-stable-source-and-document-identity.md',
+                  'specifications/technical/TECH-WORKSPACE-0001-deterministic-workspace-discovery.md'
+              ],
+              'work_packets': [{
+                  'id': 'WP-MVP-0003',
+                  'path': 'engineering/work-packets/WP-MVP-0003.md',
+                  'title': 'Stable source and document identity',
+                  'status': 'DRAFT',
+                  'pi': 'PI-MVP-001',
+                  'wc': 'WC-MVP-0001',
+                  'domain': 'CORE',
+                  'created': '2026-08-12T00:00:00Z',
+                  'updated': '2026-08-12T00:00:00Z',
+                  'github_url': ''
+              }]
+          }
+          out = Path('.eos/adoptions/wp-mvp-0003.json')
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(json.dumps(manifest, indent=2) + '\n')
+          PY
+
+          ./scripts/eos adopt .eos/adoptions/wp-mvp-0003.json --apply \
+            --by 'Thomas Carter' \
+            --reason 'Adopt WP-MVP-0003 after closure of its WP-MVP-0001 and WP-MVP-0002 dependencies and acceptance of ADR-0005.'
+
+          ./scripts/eos gate explain WP_READY WP-MVP-0003
+          ./scripts/eos ready WP-MVP-0003 \
+            --by 'Thomas Carter' \
+            --reason 'WP-MVP-0003 prerequisites and governing contracts are satisfied following closure of WP-MVP-0002.'
+
+          ./scripts/eos gate explain WP_AUTHORIZE WP-MVP-0003
+          ./scripts/eos authorize WP-MVP-0003 \
+            --by 'Thomas Carter' \
+            --reason 'Explicit human authorization to proceed with WP-MVP-0003 following closure of WP-MVP-0002.'
+
+          # Refresh current evidence for already governed packets whose semantic source fingerprint changed.
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, csv
+          state = json.loads(Path('.eos/state/current.json').read_text())
+          assert state['entities']['WP']['WP-MVP-0001']['lifecycle_state'] == 'CLOSED'
+          assert state['entities']['WP']['WP-MVP-0002']['lifecycle_state'] == 'CLOSED'
+          assert state['entities']['WP']['WP-MVP-0003']['lifecycle_state'] == 'AUTHORIZED'
+          assert state['entities']['WC']['WC-MVP-0001']['lifecycle_state'] == 'ACTIVE'
+          wp = Path('engineering/work-packets/WP-MVP-0003.md').read_text()
+          assert '**Status:** AUTHORIZED' in wp
+          assert 'proposed ADR-0005' not in wp
+          assert 'WP-MVP-0002 is CLOSED' in wp
+          PY
+
+          git status --short
+          git diff --stat
+          git diff -- engineering/work-packets/WP-MVP-0003.md
+          git diff -- .eos/work-packets.tsv
+
+      - name: Commit authorization transaction
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git config user.name 'PMB CI'
+          git config user.email 'ci@pmb.test'
+          git add -A
+          git commit -m 'chore(eosp): authorize WP-MVP-0003'
+
+      - name: Post-commit stability proof and push
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          git push origin HEAD:refs/heads/eosp/authorize-wp-mvp-0003
