@@ -143,7 +143,7 @@ jobs:
 
           with Path('.eos/decisions.tsv').open(newline='') as fh:
               decisions = list(csv.DictReader(fh, delimiter='\t'))
-          assert any(d.get('target') == 'WP-MVP-0002' and d.get('action') == 'authorize' and d.get('decision') == 'AUTHORIZED' for d in decisions)
+          assert any(d.get('target') == 'WP-MVP-0002' and d.get('action') == 'authorize' and d.get('outcome') == 'AUTHORIZED' for d in decisions)
 
           with Path('.eos/evidence.tsv').open(newline='') as fh:
               evidence = list(csv.DictReader(fh, delimiter='\t'))
