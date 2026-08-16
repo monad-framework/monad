@@ -98,6 +98,12 @@ jobs:
           ./scripts/eos status
           ./scripts/eos next
 
+      - name: Refresh WP-MVP-0001 evidence for changed semantic source set
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+
       - name: EOS verification and projection stabilization
         shell: bash
         run: |
@@ -138,6 +144,14 @@ jobs:
           with Path('.eos/decisions.tsv').open(newline='') as fh:
               decisions = list(csv.DictReader(fh, delimiter='\t'))
           assert any(d.get('target') == 'WP-MVP-0002' and d.get('action') == 'authorize' and d.get('decision') == 'AUTHORIZED' for d in decisions)
+
+          with Path('.eos/evidence.tsv').open(newline='') as fh:
+              evidence = list(csv.DictReader(fh, delimiter='\t'))
+          current = [r for r in evidence if r.get('target') == 'WP-MVP-0001' and r.get('status') != 'SUPERSEDED']
+          assert len(current) == 3, current
+          assert {r['validator'] for r in current} == {'eos-integrity', 'repository', 'execution-acceptance'}, current
+          assert all(r['status'] == 'VALIDATED' for r in current), current
+          assert all(r['result'] in {'PASSED', 'SKIPPED'} for r in current), current
           PY
 
           if git diff --name-only | grep -E '^(crates/|src/|.*\.rs$|engineering/work-cycles/WC-MVP-0001\.md$)'; then
@@ -148,6 +162,7 @@ jobs:
           git diff --stat
           git diff -- engineering/work-packets/WP-MVP-0002.md
           git diff -- .eos/work-packets.tsv
+          git diff -- .eos/evidence.tsv
 
       - name: Collapse bootstrap history into canonical EOSP transaction
         shell: bash
