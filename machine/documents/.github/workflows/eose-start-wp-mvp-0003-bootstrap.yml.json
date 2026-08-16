@@ -1,0 +1,40 @@
+{
+  "content": "name: EOSE WP-MVP-0003 Start Bootstrap\n\non:\n  push:\n    branches:\n      - eose/start-wp-mvp-0003-bootstrap\n\npermissions:\n  contents: write\n\njobs:\n  start:\n    runs-on: ubuntu-latest\n    timeout-minutes: 30\n    steps:\n      - name: Checkout current main\n        uses: actions/checkout@v4\n        with:\n          ref: main\n          fetch-depth: 0\n\n      - name: Start WP-MVP-0003 and stabilize projections\n        shell: bash\n        run: |\n          set -Eeuo pipefail\n          git switch -c eose/start-wp-mvp-0003\n\n          ./scripts/eos gate explain WP_START WP-MVP-0003\n          ./scripts/eos start WP-MVP-0003 \\\n            --by 'Thomas Carter' \\\n            --reason 'Begin governed EOSE execution of WP-MVP-0003 after EOSP authorization merged through PR #202.'\n\n          ./scripts/eos validate WP-MVP-0001 --profile wp\n          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004\n\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 scripts/sync-machine-docs.py --write\n          python3 scripts/sync-machine-docs.py --check\n\n          python3 - <<'PY'\n          from pathlib import Path\n          import json\n          state = json.loads(Path('.eos/state/current.json').read_text())\n          assert state['entities']['WP']['WP-MVP-0001']['lifecycle_state'] == 'CLOSED'\n          assert state['entities']['WP']['WP-MVP-0002']['lifecycle_state'] == 'CLOSED'\n          assert state['entities']['WP']['WP-MVP-0003']['lifecycle_state'] == 'IN_PROGRESS'\n          assert state['entities']['WC']['WC-MVP-0001']['lifecycle_state'] == 'ACTIVE'\n          wp = Path('engineering/work-packets/WP-MVP-0003.md').read_text()\n          assert '**Status:** IN_PROGRESS' in wp\n          PY\n\n          git status --short\n          git diff --stat\n          git diff -- engineering/work-packets/WP-MVP-0003.md\n          git diff -- .eos/work-packets.tsv\n\n      - name: Commit start transaction\n        shell: bash\n        run: |\n          set -Eeuo pipefail\n          git config user.name 'PMB CI'\n          git config user.email 'ci@pmb.test'\n          git add -A\n          git commit -m 'chore(eose): start WP-MVP-0003'\n\n      - name: Post-commit stability proof and push\n        shell: bash\n        run: |\n          set -Eeuo pipefail\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 scripts/sync-machine-docs.py --check\n          test -z \"$(git status --porcelain)\"\n          git push origin HEAD:refs/heads/eose/start-wp-mvp-0003\n",
+  "document_id": "doc:.github%2Fworkflows%2Feose-start-wp-mvp-0003-bootstrap.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/eose-start-wp-mvp-0003-bootstrap.yml.",
+    "title": "Eose Start Wp Mvp 0003 Bootstrap"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 75,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: EOSE WP-MVP-0003 Start Bootstrap\n\non:\n  push:\n    branches:\n      - eose/start-wp-mvp-0003-bootstrap\n\npermissions:\n  contents: write\n\njobs:\n  start:\n    runs-on: ubuntu-latest\n    timeout-minutes: 30\n    steps:\n      - name: Checkout current main\n        uses: actions/checkout@v4\n        with:\n          ref: main\n          fetch-depth: 0\n\n      - name: Start WP-MVP-0003 and stabilize projections\n        shell: bash\n        run: |\n          set -Eeuo pipefail\n          git switch -c eose/start-wp-mvp-0003\n\n          ./scripts/eos gate explain WP_START WP-MVP-0003\n          ./scripts/eos start WP-MVP-0003 \\\n            --by 'Thomas Carter' \\\n            --reason 'Begin governed EOSE execution of WP-MVP-0003 after EOSP authorization merged through PR #202.'\n\n          ./scripts/eos validate WP-MVP-0001 --profile wp\n          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004\n\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 scripts/sync-machine-docs.py --write\n          python3 scripts/sync-machine-docs.py --check\n\n          python3 - <<'PY'\n          from pathlib import Path\n          import json\n          state = json.loads(Path('.eos/state/current.json').read_text())\n          assert state['entities']['WP']['WP-MVP-0001']['lifecycle_state'] == 'CLOSED'\n          assert state['entities']['WP']['WP-MVP-0002']['lifecycle_state'] == 'CLOSED'\n          assert state['entities']['WP']['WP-MVP-0003']['lifecycle_state'] == 'IN_PROGRESS'\n          assert state['entities']['WC']['WC-MVP-0001']['lifecycle_state'] == 'ACTIVE'\n          wp = Path('engineering/work-packets/WP-MVP-0003.md').read_text()\n          assert '**Status:** IN_PROGRESS' in wp\n          PY\n\n          git status --short\n          git diff --stat\n          git diff -- engineering/work-packets/WP-MVP-0003.md\n          git diff -- .eos/work-packets.tsv\n\n      - name: Commit start transaction\n        shell: bash\n        run: |\n          set -Eeuo pipefail\n          git config user.name 'PMB CI'\n          git config user.email 'ci@pmb.test'\n          git add -A\n          git commit -m 'chore(eose): start WP-MVP-0003'\n\n      - name: Post-commit stability proof and push\n        shell: bash\n        run: |\n          set -Eeuo pipefail\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 scripts/sync-machine-docs.py --check\n          test -z \"$(git status --porcelain)\"\n          git push origin HEAD:refs/heads/eose/start-wp-mvp-0003",
+      "title": "Eose Start Wp Mvp 0003 Bootstrap"
+    }
+  ],
+  "source": {
+    "bytes": 2536,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 75,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/eose-start-wp-mvp-0003-bootstrap.yml",
+    "sha256": "4e415efe5aa4cb0917dfdb43bb6522e77d8a80aa9bcf963534f069ba96a78894"
+  }
+}
