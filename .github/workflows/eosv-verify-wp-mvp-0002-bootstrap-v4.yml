@@ -1,0 +1,130 @@
+name: EOSV WP-MVP-0002 Final Verification Bootstrap
+
+on:
+  push:
+    branches:
+      - eosv/verify-wp-mvp-0002-bootstrap-v4
+
+permissions:
+  contents: write
+
+env:
+  EOS_ACTOR: chatgpt
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enter exact corrected-verifier baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="12f6afa239bcb6a44909902ec8469dd74f7b0ba6"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test ! -e .github/workflows/eosv-verify-wp-mvp-0002-bootstrap-v4.yml
+          test -z "$(git status --porcelain)"
+
+      - name: Fresh merged-main Rust verification
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          rustup toolchain install 1.95.0 --profile minimal --component rustfmt --component clippy
+          rustup override set 1.95.0
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+
+      - name: Enter VERIFYING and capture initial EXEC-0004 evidence
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv
+          assert '**Status:** VERIFYING' in Path('engineering/work-packets/WP-MVP-0002.md').read_text()
+          rows=list(csv.DictReader(open('.eos/evidence.tsv'),delimiter='\t'))
+          cur=[r for r in rows if r['target']=='WP-MVP-0002' and r['status']!='SUPERSEDED']
+          assert [r['id'] for r in cur]==['EVID-0028','EVID-0029','EVID-0030'], cur
+          assert all(r['execution']=='EXEC-0004' and r['status']=='VALIDATED' for r in cur), cur
+          assert next(r for r in cur if r['validator']=='eos-integrity')['result']=='PASSED'
+          assert next(r for r in cur if r['validator']=='repository')['result'] in {'PASSED','SKIPPED'}
+          assert next(r for r in cur if r['validator']=='execution-acceptance')['result']=='PASSED'
+          PY
+
+      - name: Commit semantic VERIFYING transition
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git config user.name 'PMB CI'
+          git config user.email 'ci@pmb.test'
+          git add -A
+          if git diff --cached --name-only | grep -E '^(crates/|src/|.*\.rs$|tools/eos/|scripts/test-eosv-evidence-freshness\.py$|product/|architecture/|specifications/|engineering/work-cycles/|engineering/increments/|engineering/maintenance/MNT-0002\.md$|\.github/workflows/)'; then
+            echo 'Unexpected out-of-scope change in verification transition.' >&2; exit 1
+          fi
+          git commit -m 'chore(eosv): enter WP-MVP-0002 verification'
+          test "$(git rev-parse HEAD^)" = "12f6afa239bcb6a44909902ec8469dd74f7b0ba6"
+
+      - name: Refresh evidence against committed VERIFYING state
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+          python3 - <<'PY'
+          import csv
+          rows=list(csv.DictReader(open('.eos/evidence.tsv'),delimiter='\t'))
+          old={r['id']:r for r in rows if r['id'] in {'EVID-0028','EVID-0029','EVID-0030'}}
+          assert len(old)==3 and all(r['status']=='SUPERSEDED' for r in old.values()), old
+          cur=[r for r in rows if r['target']=='WP-MVP-0002' and r['status']!='SUPERSEDED']
+          assert [r['id'] for r in cur]==['EVID-0031','EVID-0032','EVID-0033'], cur
+          assert all(r['execution']=='EXEC-0004' and r['status']=='VALIDATED' for r in cur), cur
+          assert next(r for r in cur if r['validator']=='eos-integrity')['result']=='PASSED'
+          assert next(r for r in cur if r['validator']=='repository')['result'] in {'PASSED','SKIPPED'}
+          assert next(r for r in cur if r['validator']=='execution-acceptance')['result']=='PASSED'
+          PY
+
+      - name: Commit evidence refresh and prove final stability
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          FINAL_BRANCH="eosv/verify-wp-mvp-0002"
+          git add -A
+          if git diff --cached --name-only | grep -E '^(crates/|src/|.*\.rs$|tools/eos/|scripts/test-eosv-evidence-freshness\.py$|product/|architecture/|specifications/|engineering/work-cycles/|engineering/increments/|engineering/maintenance/MNT-0002\.md$|\.github/workflows/)'; then
+            echo 'Unexpected out-of-scope change in evidence refresh.' >&2; exit 1
+          fi
+          git commit -m 'chore(eosv): refresh WP-MVP-0002 verification evidence'
+
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          test "$(git rev-list --count 12f6afa239bcb6a44909902ec8469dd74f7b0ba6..HEAD)" = "2"
+
+          python3 - <<'PY'
+          import csv
+          rows=list(csv.DictReader(open('.eos/evidence.tsv'),delimiter='\t'))
+          cur=[r for r in rows if r['target']=='WP-MVP-0002' and r['status']!='SUPERSEDED']
+          assert [r['id'] for r in cur]==['EVID-0031','EVID-0032','EVID-0033'], cur
+          assert all(r['status']=='VALIDATED' for r in cur), cur
+          PY
+
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then
+            echo "Final EOSV branch already exists" >&2; exit 1
+          fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
