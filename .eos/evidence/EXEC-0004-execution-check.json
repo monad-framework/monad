@@ -1,0 +1,90 @@
+{
+  "actual_changed_files": [
+    "crates/monad-core/src/discovery.rs",
+    "crates/monad-core/src/lib.rs",
+    "machine/corpus.jsonl",
+    "machine/documents/crates/monad-core/src/discovery.rs.json",
+    "machine/documents/crates/monad-core/src/lib.rs.json",
+    "machine/graph.json",
+    "machine/manifest.json"
+  ],
+  "checked": "2026-08-16T16:05:16Z",
+  "checks": {
+    "contract_valid": true,
+    "declared_diff_matches_actual": true,
+    "result_ingested": true,
+    "scope_passed": true
+  },
+  "contract": {
+    "canonical_governing_hash": "8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142",
+    "checks": [
+      {
+        "check": "contract_hash",
+        "detail": "expected=bc8a277c3599ee885d7d02134de5e5882adf84f2e16d8e2fd578811949f746fd calculated=bc8a277c3599ee885d7d02134de5e5882adf84f2e16d8e2fd578811949f746fd",
+        "passed": true
+      },
+      {
+        "check": "worktree_governing_inputs_unchanged",
+        "detail": "expected=8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142 worktree=8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142",
+        "passed": true
+      },
+      {
+        "check": "canonical_governing_inputs_unchanged",
+        "detail": "expected=8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142 canonical=8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142",
+        "passed": true
+      },
+      {
+        "check": "baseline_is_ancestor",
+        "detail": "baseline=5dc6ad47759dbd7e315d23627feef5086eb64099 head=5dc6ad47759dbd7e315d23627feef5086eb64099",
+        "passed": true
+      },
+      {
+        "check": "expected_branch",
+        "detail": "expected=wp/mvp-0002 actual=wp/mvp-0002",
+        "passed": true
+      }
+    ],
+    "execution_id": "EXEC-0004",
+    "passed": true,
+    "target": "WP-MVP-0002",
+    "worktree_governing_hash": "8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142"
+  },
+  "declared_changed_files": [
+    "crates/monad-core/src/discovery.rs",
+    "crates/monad-core/src/lib.rs",
+    "machine/corpus.jsonl",
+    "machine/documents/crates/monad-core/src/discovery.rs.json",
+    "machine/documents/crates/monad-core/src/lib.rs.json",
+    "machine/graph.json",
+    "machine/manifest.json"
+  ],
+  "environment_drift": {
+    "head_changed": false,
+    "lockfiles_changed": false,
+    "tool_changes": {
+      "cargo": {
+        "after": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)",
+        "before": "cargo 1.97.1 (c980f4866 2026-06-30)"
+      },
+      "rustc": {
+        "after": "rustc 1.95.0 (59807616e 2026-04-14)",
+        "before": "rustc 1.97.1 (8bab26f4f 2026-07-14)"
+      }
+    }
+  },
+  "execution_id": "EXEC-0004",
+  "passed": true,
+  "scope": {
+    "directives": {
+      "allowed": [
+        "*",
+        "**/*"
+      ],
+      "allowed_governed": [],
+      "forbidden": []
+    },
+    "passed": true,
+    "violations": []
+  },
+  "target": "WP-MVP-0002"
+}
