@@ -1,0 +1,131 @@
+name: EOSE WP-MVP-0002 Start Bootstrap
+
+on:
+  push:
+    branches:
+      - eose/start-wp-mvp-0002-bootstrap
+
+permissions:
+  contents: write
+
+env:
+  EOS_ACTOR: thomascarter613
+
+jobs:
+  start:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout bootstrap branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enter exact final-tree baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="3c48a6ac5e3fc994b83cde39799faed138e6c036"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test "$(git rev-parse HEAD)" = "$BASE_SHA"
+          test ! -e .github/workflows/eose-start-wp-mvp-0002-bootstrap.yml
+          test -z "$(git status --porcelain)"
+
+      - name: Start WP-MVP-0002
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos start WP-MVP-0002
+          ./scripts/eos status
+          ./scripts/eos next
+
+      - name: Refresh WP-MVP-0001 evidence for final semantic source set
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+
+      - name: EOS verification and projection stabilization
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Assert start invariants and scope
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+
+          wp = Path('engineering/work-packets/WP-MVP-0002.md').read_text()
+          assert '**Status:** IN_PROGRESS' in wp, wp.splitlines()[:8]
+
+          with Path('.eos/work-packets.tsv').open(newline='') as fh:
+              rows = {row['id']: row for row in csv.DictReader(fh, delimiter='\t')}
+          row = rows['WP-MVP-0002']
+          assert row['status'] == 'IN_PROGRESS', row
+          assert row['pi'] == 'PI-MVP-001', row
+          assert row['wc'] == 'WC-MVP-0001', row
+
+          events = [json.loads(line) for line in Path('.eos/events.jsonl').read_text().splitlines() if line.strip()]
+          starts = [e for e in events if e.get('target') == 'WP-MVP-0002' and e.get('action') == 'start' and e.get('event_type') == 'STATE_TRANSITION']
+          assert len(starts) == 1, starts
+          start = starts[0]
+          assert start['from_state'] == 'AUTHORIZED' and start['to_state'] == 'IN_PROGRESS', start
+          assert start['commit'] == '3c48a6ac5e3fc994b83cde39799faed138e6c036', start
+          assert start['reason'] == 'authorized execution started', start
+
+          with Path('.eos/evidence.tsv').open(newline='') as fh:
+              evidence = list(csv.DictReader(fh, delimiter='\t'))
+          current = [r for r in evidence if r.get('target') == 'WP-MVP-0001' and r.get('status') != 'SUPERSEDED']
+          assert len(current) == 3, current
+          assert {r['validator'] for r in current} == {'eos-integrity', 'repository', 'execution-acceptance'}, current
+          assert all(r['status'] == 'VALIDATED' for r in current), current
+          assert all(r['result'] in {'PASSED', 'SKIPPED'} for r in current), current
+          assert all(int(r['id'].split('-')[1]) > 15 for r in current), current
+          PY
+
+          if git diff --name-only | grep -E '^(crates/|src/|.*\.rs$|engineering/work-cycles/WC-MVP-0001\.md$|\.github/workflows/)'; then
+            echo 'Unexpected implementation, parent-cycle, or workflow change detected.' >&2
+            exit 1
+          fi
+          git status --short
+          git diff --stat
+          git diff -- engineering/work-packets/WP-MVP-0002.md
+          git diff -- .eos/work-packets.tsv
+          git diff -- .eos/evidence.tsv
+
+      - name: Commit, prove stable, and publish isolated final ref
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          FINAL_BRANCH="eose/start-wp-mvp-0002"
+          git config user.name 'PMB CI'
+          git config user.email 'ci@pmb.test'
+          git add -A
+          if git diff --cached --name-only | grep -E '^(crates/|src/|.*\.rs$|engineering/work-cycles/WC-MVP-0001\.md$|\.github/workflows/)'; then
+            echo 'Unexpected out-of-scope changes staged.' >&2
+            exit 1
+          fi
+          git diff --cached --stat
+          git commit -m 'chore(eose): start WP-MVP-0002'
+
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          test "$(git rev-parse HEAD^)" = "3c48a6ac5e3fc994b83cde39799faed138e6c036"
+
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then
+            echo "Final publication branch already exists: $FINAL_BRANCH" >&2
+            exit 1
+          fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
