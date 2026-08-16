@@ -47,7 +47,7 @@ jobs:
         shell: bash
         run: |
           set -Eeuo pipefail
-          ./scripts/eos validate WP-MVP-0002 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
           ./scripts/eos verify --strict
           ./scripts/eos state status
           python3 scripts/sync-machine-docs.py --write
@@ -73,6 +73,7 @@ jobs:
           current = [r for r in evidence if r.get('target') == 'WP-MVP-0002' and r.get('status') != 'SUPERSEDED']
           assert len(current) == 3, current
           assert {r['validator'] for r in current} == {'eos-integrity','repository','execution-acceptance'}, current
+          assert all(r['execution'] == 'EXEC-0004' for r in current), current
           assert next(r for r in current if r['validator']=='eos-integrity')['result'] == 'PASSED', current
           assert next(r for r in current if r['validator']=='repository')['result'] in {'PASSED','SKIPPED'}, current
           acceptance = next(r for r in current if r['validator']=='execution-acceptance')
