@@ -26,7 +26,7 @@ jobs:
           git fetch origin main
           test "$(git rev-parse origin/main)" = "67cbc23acf872440c03c964eb3b4d9fe946ec806"
 
-      - name: Reconcile WP-MVP-0002 planning artifact and adoption manifest
+      - name: Reconcile WP-MVP-0002 and create adoption manifest
         shell: bash
         run: |
           set -Eeuo pipefail
@@ -37,7 +37,7 @@ jobs:
           wp_path = Path('engineering/work-packets/WP-MVP-0002.md')
           text = wp_path.read_text()
           old_status = '**Status:** Refined — blocked from Ready by WP-MVP-0001 implementation and ADR-0005'
-          assert old_status in text, 'expected stale WP-MVP-0002 status line not found'
+          assert old_status in text
           text = text.replace(old_status, '**Status:** DRAFT', 1)
           text = text.replace('- proposed ADR-0005', '- ADR-0005')
           text = text.replace(
@@ -45,18 +45,6 @@ jobs:
               '- WP-MVP-0001 is CLOSED and provides the required valid root/effective configuration boundary.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.'
           )
           wp_path.write_text(text)
-
-          wc_path = Path('engineering/work-cycles/WC-MVP-0001.md')
-          wc = wc_path.read_text()
-          wc = wc.replace(
-              '- `WP-MVP-0001` — Repository identity and effective configuration — **Ready**.',
-              '- `WP-MVP-0001` — Repository identity and effective configuration — **Closed**.'
-          )
-          wc = wc.replace(
-              '- `WP-MVP-0002` — Deterministic workspace discovery — Refined; becomes Ready only after its dependency and governing-contract gates pass.',
-              '- `WP-MVP-0002` — Deterministic workspace discovery — **Authorized**.'
-          )
-          wc_path.write_text(wc)
 
           manifest = {
               'schema_version': '1.0.0',
@@ -68,27 +56,25 @@ jobs:
                   'specifications/interfaces/IFC-WORKSPACE-0001-repository-root-and-effective-configuration.md',
                   'specifications/technical/TECH-WORKSPACE-0001-deterministic-workspace-discovery.md'
               ],
-              'work_packets': [
-                  {
-                      'id': 'WP-MVP-0002',
-                      'path': 'engineering/work-packets/WP-MVP-0002.md',
-                      'title': 'Deterministic workspace discovery',
-                      'status': 'DRAFT',
-                      'pi': 'PI-MVP-001',
-                      'wc': 'WC-MVP-0001',
-                      'domain': 'CORE',
-                      'created': '2026-08-12T00:00:00Z',
-                      'updated': '2026-08-12T00:00:00Z',
-                      'github_url': ''
-                  }
-              ]
+              'work_packets': [{
+                  'id': 'WP-MVP-0002',
+                  'path': 'engineering/work-packets/WP-MVP-0002.md',
+                  'title': 'Deterministic workspace discovery',
+                  'status': 'DRAFT',
+                  'pi': 'PI-MVP-001',
+                  'wc': 'WC-MVP-0001',
+                  'domain': 'CORE',
+                  'created': '2026-08-12T00:00:00Z',
+                  'updated': '2026-08-12T00:00:00Z',
+                  'github_url': ''
+              }]
           }
           path = Path('.eos/adoptions/wp-mvp-0002.json')
           path.parent.mkdir(parents=True, exist_ok=True)
           path.write_text(json.dumps(manifest, indent=2) + '\n')
           PY
 
-      - name: Adopt existing WP-MVP-0002 into EOS control
+      - name: Adopt WP-MVP-0002 and pass readiness gate
         shell: bash
         run: |
           set -Eeuo pipefail
@@ -97,11 +83,6 @@ jobs:
             --by thomascarter613 \
             --reason "Adopt existing WP-MVP-0002 planning artifact after WP-MVP-0001 closure and resolved ADR-0005 dependency."
           ./scripts/eos gate explain WP_READY WP-MVP-0002
-
-      - name: Advance WP-MVP-0002 to READY
-        shell: bash
-        run: |
-          set -Eeuo pipefail
           ./scripts/eos ready WP-MVP-0002 \
             --by thomascarter613 \
             --reason "WP-MVP-0002 dependency and governing-contract gates are resolved following WP-MVP-0001 closure and accepted ADR-0005."
@@ -140,10 +121,6 @@ jobs:
           assert 'proposed ADR-0005' not in wp
           assert 'ADR-0005 is Accepted' in wp
 
-          wc = Path('engineering/work-cycles/WC-MVP-0001.md').read_text()
-          assert '`WP-MVP-0001` — Repository identity and effective configuration — **Closed**.' in wc
-          assert '`WP-MVP-0002` — Deterministic workspace discovery — **Authorized**.' in wc
-
           with Path('.eos/work-packets.tsv').open(newline='') as fh:
               rows = {row['id']: row for row in csv.DictReader(fh, delimiter='\t')}
           row = rows['WP-MVP-0002']
@@ -154,20 +131,19 @@ jobs:
 
           events = [json.loads(line) for line in Path('.eos/events.jsonl').read_text().splitlines() if line.strip()]
           wp_events = [e for e in events if e.get('target') == 'WP-MVP-0002']
-          assert any(e.get('action') == 'adopt' and e.get('to_state') == 'DRAFT' for e in wp_events), wp_events
-          assert any(e.get('action') == 'ready' and e.get('to_state') == 'READY' for e in wp_events), wp_events
-          assert any(e.get('action') == 'authorize' and e.get('to_state') == 'AUTHORIZED' for e in wp_events), wp_events
+          assert any(e.get('action') == 'adopt' and e.get('to_state') == 'DRAFT' for e in wp_events)
+          assert any(e.get('action') == 'ready' and e.get('to_state') == 'READY' for e in wp_events)
+          assert any(e.get('action') == 'authorize' and e.get('to_state') == 'AUTHORIZED' for e in wp_events)
 
           with Path('.eos/decisions.tsv').open(newline='') as fh:
               decisions = list(csv.DictReader(fh, delimiter='\t'))
-          assert any(d.get('target') == 'WP-MVP-0002' and d.get('action') == 'authorize' and d.get('decision') == 'AUTHORIZED' for d in decisions), decisions[-10:]
+          assert any(d.get('target') == 'WP-MVP-0002' and d.get('action') == 'authorize' and d.get('decision') == 'AUTHORIZED' for d in decisions)
           PY
 
-          if git diff --name-only | grep -E '^(crates/|src/|.*\.rs$)'; then
-            echo 'Unexpected product implementation changes detected.' >&2
+          if git diff --name-only | grep -E '^(crates/|src/|.*\.rs$|engineering/work-cycles/WC-MVP-0001\.md$)'; then
+            echo 'Unexpected out-of-scope implementation or parent-cycle change detected.' >&2
             exit 1
           fi
-
           git status --short
           git diff --stat
           git diff -- engineering/work-packets/WP-MVP-0002.md
@@ -184,8 +160,8 @@ jobs:
           git config user.email 'ci@pmb.test'
           git reset "$BASE_SHA"
           git add -A
-          if git diff --cached --name-only | grep -E '^(crates/|src/|.*\.rs$)'; then
-            echo 'Unexpected product implementation changes staged.' >&2
+          if git diff --cached --name-only | grep -E '^(crates/|src/|.*\.rs$|engineering/work-cycles/WC-MVP-0001\.md$)'; then
+            echo 'Unexpected out-of-scope changes staged.' >&2
             exit 1
           fi
           git diff --cached --stat
