@@ -1,0 +1,187 @@
+{
+  "content": "---\nartifact_id: \"REV-WP-MVP-0001\"\ntitle: \"WP-MVP-0001 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"In Review\"\nauthority: \"review-authoritative\"\ncreated: \"2026-08-16\"\nupdated: \"2026-08-16\"\n---\n\n# WP-MVP-0001 — Engineering Review\n\n**Decision:** ACCEPTED\n\n## Target\n\n- Artifact: `engineering/work-packets/WP-MVP-0001.md`\n- State at review start: VERIFYING\n- Review generated: 2026-08-16T10:59:23Z\n- Git HEAD: e25ed4acbb29aa2d012f9c1e1203b70eeca9be1f\n\n## Deterministic Verification\n\n**Result:** PASS\n\n```text\nregistered artifacts: 52\nevents: 83\noverrides: 0\ntrace edges: 314\nprogram increments: 2\nwork cycles: 2\nwork packets: 2\nopen stale records: 0\ntrace coverage: 25.0%\nwarnings:\n  WARN registered Markdown artifact has no EOS front matter: governance/terminology.md\n  WARN registered Markdown artifact has no EOS front matter: vision/problem-statement.md\n  WARN registered Markdown artifact has no EOS front matter: vision/product-vision.md\n  WARN registered Markdown artifact has no EOS front matter: vision/principles.md\n  WARN registered Markdown artifact has no EOS front matter: vision/goals.md\n  WARN registered Markdown artifact has no EOS front matter: vision/non-goals.md\n  WARN registered Markdown artifact has no EOS front matter: product/personas.md\n  WARN registered Markdown artifact has no EOS front matter: product/use-cases.md\n  WARN registered Markdown artifact has no EOS front matter: product/user-journeys.md\n  WARN registered Markdown artifact has no EOS front matter: product/capabilities.md\n  WARN registered Markdown artifact has no EOS front matter: product/product-requirements.md\n  WARN registered Markdown artifact has no EOS front matter: product/constraints.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/quality-attributes.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/context.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/system-boundaries.md\n  WARN registered Markdown artifact has no EOS front matter: research/questions.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/overview.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/increments/PI-001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-cycles/WC-0001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-packets/WP-0001.md\nRESULT: PASS\n```\n\n## Scope Conformance\n\nPASS.\n\nThe implementation remained within the authorized WP-MVP-0001 boundary:\nthe root Cargo workspace, `crates/monad-core/**`, minimal\n`crates/monad-cli/**`, focused conformance tests, EOS evidence, and generated\nmachine projections. No unrelated service, plugin, crate boundary, EOS runtime\nimplementation, or product refactor was introduced.\n\nThe EOSR corrective PR #185 was test-only at the product layer and did not\nchange semantic implementation behavior.\n\n## Requirements / Specification Conformance\n\nPASS.\n\nThe implementation conforms to FR-001 and the applicable QR-001, QR-003, and\nQR-006 requirements and to IFC-WORKSPACE-0001.\n\nVerified behavior includes:\n\n- nearest-ancestor `monad.toml` repository discovery;\n- nested Monad-root selection;\n- schema version 1 validation;\n- defaults < file < explicit CLI precedence;\n- effective-value provenance;\n- stable repository-not-found diagnostics;\n- malformed, unsupported, unknown, duplicate, and invalid semantic\n  configuration rejection;\n- repository-relative path confinement;\n- environment non-interference;\n- deterministic structured output.\n\n## Architecture Conformance\n\nPASS.\n\nThe implementation conforms to ADR-0002, ADR-0004, and ADR-0005:\n\n- `monad.toml` is the canonical root/configuration marker;\n- semantic bootstrap is local, deterministic, and does not execute repository\n  code;\n- network-enabled bootstrap configuration is rejected;\n- semantic behavior resides in `monad-core`;\n- the CLI remains a minimal presentation/argument boundary;\n- the MVP topology remains the two-crate Rust workspace authorized by\n  ADR-0005.\n\n## Acceptance Criteria Evidence\n\nPASS.\n\n- US-002: root and descendant invocation select the nearest Monad root.\n- US-003: schema-v1 configuration resolves with documented precedence.\n- US-004: effective values expose default/file/CLI provenance.\n- Missing `monad.toml` produces the repository-not-found diagnostic.\n- Malformed, unsupported, unknown, duplicate, and invalid configuration cannot\n  silently become valid semantic state.\n- Environment-variable changes do not alter semantic configuration.\n- Nested roots bind to the nearest root.\n- Repository code and network access are not executed during bootstrap.\n- Repeated canonical structured output is byte-equivalent for identical input.\n\n## Test / Validation Evidence\n\nPASS.\n\nThe final integrated revision was validated with:\n\n- `cargo fmt --all -- --check`;\n- `cargo clippy --workspace --all-targets --all-features -- -D warnings`;\n- `cargo test --workspace --all-targets --all-features`;\n- `python3 scripts/sync-machine-docs.py --check`;\n- `./scripts/eos verify --strict`;\n- canonical EOS state consistency checks.\n\nEOSV evidence EVID-0007 through EVID-0009 is the current evidence batch.\nEarlier WP-MVP-0001 evidence is retained as superseded audit history.\n\nPR #185 subsequently passed Machine document synchronization, Repository\nintegrity, and EOS Integrity before merge.\n\n## Security / Reliability Findings\n\nNo blocking findings.\n\nThe bootstrap boundary rejects path traversal, repository-code execution, and\nnetwork-enabled configuration. Semantic configuration is independent of\nambient `MONAD_*` environment variables. Deterministic ordered structures and\nfocused repeatability fixtures reduce reproducibility risk.\n\n## Traceability Findings\n\nPASS for the WP-MVP-0001 boundary.\n\nThe implementation is traceable to FR-001; QR-001, QR-003, QR-006;\nADR-0002, ADR-0004, ADR-0005; and IFC-WORKSPACE-0001. EOS execution,\nverification, corrective conformance evidence, and GitHub integration history\nremain preserved.\n\nRepository-wide trace coverage warnings remain broader program concerns and\nare not WP-MVP-0001 closure blockers.\n\n## Blocking Findings\n\nNone.\n\nThe two EOSR conformance-evidence gaps identified during the initial review\nwere corrected and merged through PR #185:\n\n1. explicit duplicate-key rejection coverage;\n2. real CLI-level environment non-interference coverage.\n\n## Non-Blocking Findings\n\nExisting EOS/tooling issues tracked independently of WP-MVP-0001 remain\noutside this product packet, including the previously separated EOSE and TSV\nvalidation ergonomics findings. None changes the correctness or acceptance of\nthe implemented repository/bootstrap boundary.\n\n## Decision\n\nSet the top-level `**Decision:**` to one of:\n\n- ACCEPTED\n- ACCEPTED_WITH_FOLLOW_UP\n- REJECTED\n- BLOCKED\n",
+  "document_id": "doc:engineering%2Freviews%2FWP-MVP-0001-REVIEW.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0002",
+    "ADR-0004",
+    "ADR-0005",
+    "FR-001",
+    "QR-001",
+    "QR-003",
+    "QR-006",
+    "WC-0001",
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"REV-WP-MVP-0001\" title: \"WP-MVP-0001 Engineering Review\" type: \"review\" version: \"0.1.0\" status: \"In Review\" authority: \"review-authoritative\" created: \"2026-08-16\" updated: \"2026-08-16\" ---",
+    "title": "WP-MVP-0001 — Engineering Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"REV-WP-MVP-0001\"\ntitle: \"WP-MVP-0001 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"In Review\"\nauthority: \"review-authoritative\"\ncreated: \"2026-08-16\"\nupdated: \"2026-08-16\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "wp-mvp-0001-engineering-review",
+      "text": "# WP-MVP-0001 — Engineering Review\n\n**Decision:** ACCEPTED",
+      "title": "WP-MVP-0001 — Engineering Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 16,
+      "section_id": "target",
+      "text": "## Target\n\n- Artifact: `engineering/work-packets/WP-MVP-0001.md`\n- State at review start: VERIFYING\n- Review generated: 2026-08-16T10:59:23Z\n- Git HEAD: e25ed4acbb29aa2d012f9c1e1203b70eeca9be1f",
+      "title": "Target"
+    },
+    {
+      "identifiers": [
+        "WC-0001",
+        "WP-0001"
+      ],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 23,
+      "section_id": "deterministic-verification",
+      "text": "## Deterministic Verification\n\n**Result:** PASS\n\n```text\nregistered artifacts: 52\nevents: 83\noverrides: 0\ntrace edges: 314\nprogram increments: 2\nwork cycles: 2\nwork packets: 2\nopen stale records: 0\ntrace coverage: 25.0%\nwarnings:\n  WARN registered Markdown artifact has no EOS front matter: governance/terminology.md\n  WARN registered Markdown artifact has no EOS front matter: vision/problem-statement.md\n  WARN registered Markdown artifact has no EOS front matter: vision/product-vision.md\n  WARN registered Markdown artifact has no EOS front matter: vision/principles.md\n  WARN registered Markdown artifact has no EOS front matter: vision/goals.md\n  WARN registered Markdown artifact has no EOS front matter: vision/non-goals.md\n  WARN registered Markdown artifact has no EOS front matter: product/personas.md\n  WARN registered Markdown artifact has no EOS front matter: product/use-cases.md\n  WARN registered Markdown artifact has no EOS front matter: product/user-journeys.md\n  WARN registered Markdown artifact has no EOS front matter: product/capabilities.md\n  WARN registered Markdown artifact has no EOS front matter: product/product-requirements.md\n  WARN registered Markdown artifact has no EOS front matter: product/constraints.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/quality-attributes.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/context.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/system-boundaries.md\n  WARN registered Markdown artifact has no EOS front matter: research/questions.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/overview.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/increments/PI-001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-cycles/WC-0001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-packets/WP-0001.md\nRESULT: PASS\n```",
+      "title": "Deterministic Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 73,
+      "line_start": 61,
+      "section_id": "scope-conformance",
+      "text": "## Scope Conformance\n\nPASS.\n\nThe implementation remained within the authorized WP-MVP-0001 boundary:\nthe root Cargo workspace, `crates/monad-core/**`, minimal\n`crates/monad-cli/**`, focused conformance tests, EOS evidence, and generated\nmachine projections. No unrelated service, plugin, crate boundary, EOS runtime\nimplementation, or product refactor was introduced.\n\nThe EOSR corrective PR #185 was test-only at the product layer and did not\nchange semantic implementation behavior.",
+      "title": "Scope Conformance"
+    },
+    {
+      "identifiers": [
+        "FR-001",
+        "QR-001",
+        "QR-003",
+        "QR-006"
+      ],
+      "level": 2,
+      "line_end": 94,
+      "line_start": 74,
+      "section_id": "requirements-specification-conformance",
+      "text": "## Requirements / Specification Conformance\n\nPASS.\n\nThe implementation conforms to FR-001 and the applicable QR-001, QR-003, and\nQR-006 requirements and to IFC-WORKSPACE-0001.\n\nVerified behavior includes:\n\n- nearest-ancestor `monad.toml` repository discovery;\n- nested Monad-root selection;\n- schema version 1 validation;\n- defaults < file < explicit CLI precedence;\n- effective-value provenance;\n- stable repository-not-found diagnostics;\n- malformed, unsupported, unknown, duplicate, and invalid semantic\n  configuration rejection;\n- repository-relative path confinement;\n- environment non-interference;\n- deterministic structured output.",
+      "title": "Requirements / Specification Conformance"
+    },
+    {
+      "identifiers": [
+        "ADR-0002",
+        "ADR-0004",
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 109,
+      "line_start": 95,
+      "section_id": "architecture-conformance",
+      "text": "## Architecture Conformance\n\nPASS.\n\nThe implementation conforms to ADR-0002, ADR-0004, and ADR-0005:\n\n- `monad.toml` is the canonical root/configuration marker;\n- semantic bootstrap is local, deterministic, and does not execute repository\n  code;\n- network-enabled bootstrap configuration is rejected;\n- semantic behavior resides in `monad-core`;\n- the CLI remains a minimal presentation/argument boundary;\n- the MVP topology remains the two-crate Rust workspace authorized by\n  ADR-0005.",
+      "title": "Architecture Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 124,
+      "line_start": 110,
+      "section_id": "acceptance-criteria-evidence",
+      "text": "## Acceptance Criteria Evidence\n\nPASS.\n\n- US-002: root and descendant invocation select the nearest Monad root.\n- US-003: schema-v1 configuration resolves with documented precedence.\n- US-004: effective values expose default/file/CLI provenance.\n- Missing `monad.toml` produces the repository-not-found diagnostic.\n- Malformed, unsupported, unknown, duplicate, and invalid configuration cannot\n  silently become valid semantic state.\n- Environment-variable changes do not alter semantic configuration.\n- Nested roots bind to the nearest root.\n- Repository code and network access are not executed during bootstrap.\n- Repeated canonical structured output is byte-equivalent for identical input.",
+      "title": "Acceptance Criteria Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 143,
+      "line_start": 125,
+      "section_id": "test-validation-evidence",
+      "text": "## Test / Validation Evidence\n\nPASS.\n\nThe final integrated revision was validated with:\n\n- `cargo fmt --all -- --check`;\n- `cargo clippy --workspace --all-targets --all-features -- -D warnings`;\n- `cargo test --workspace --all-targets --all-features`;\n- `python3 scripts/sync-machine-docs.py --check`;\n- `./scripts/eos verify --strict`;\n- canonical EOS state consistency checks.\n\nEOSV evidence EVID-0007 through EVID-0009 is the current evidence batch.\nEarlier WP-MVP-0001 evidence is retained as superseded audit history.\n\nPR #185 subsequently passed Machine document synchronization, Repository\nintegrity, and EOS Integrity before merge.",
+      "title": "Test / Validation Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 152,
+      "line_start": 144,
+      "section_id": "security-reliability-findings",
+      "text": "## Security / Reliability Findings\n\nNo blocking findings.\n\nThe bootstrap boundary rejects path traversal, repository-code execution, and\nnetwork-enabled configuration. Semantic configuration is independent of\nambient `MONAD_*` environment variables. Deterministic ordered structures and\nfocused repeatability fixtures reduce reproducibility risk.",
+      "title": "Security / Reliability Findings"
+    },
+    {
+      "identifiers": [
+        "ADR-0002",
+        "ADR-0004",
+        "ADR-0005",
+        "FR-001",
+        "QR-001",
+        "QR-003",
+        "QR-006"
+      ],
+      "level": 2,
+      "line_end": 164,
+      "line_start": 153,
+      "section_id": "traceability-findings",
+      "text": "## Traceability Findings\n\nPASS for the WP-MVP-0001 boundary.\n\nThe implementation is traceable to FR-001; QR-001, QR-003, QR-006;\nADR-0002, ADR-0004, ADR-0005; and IFC-WORKSPACE-0001. EOS execution,\nverification, corrective conformance evidence, and GitHub integration history\nremain preserved.\n\nRepository-wide trace coverage warnings remain broader program concerns and\nare not WP-MVP-0001 closure blockers.",
+      "title": "Traceability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 174,
+      "line_start": 165,
+      "section_id": "blocking-findings",
+      "text": "## Blocking Findings\n\nNone.\n\nThe two EOSR conformance-evidence gaps identified during the initial review\nwere corrected and merged through PR #185:\n\n1. explicit duplicate-key rejection coverage;\n2. real CLI-level environment non-interference coverage.",
+      "title": "Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 181,
+      "line_start": 175,
+      "section_id": "non-blocking-findings",
+      "text": "## Non-Blocking Findings\n\nExisting EOS/tooling issues tracked independently of WP-MVP-0001 remain\noutside this product packet, including the previously separated EOSE and TSV\nvalidation ergonomics findings. None changes the correctness or acceptance of\nthe implemented repository/bootstrap boundary.",
+      "title": "Non-Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 189,
+      "line_start": 182,
+      "section_id": "decision",
+      "text": "## Decision\n\nSet the top-level `**Decision:**` to one of:\n\n- ACCEPTED\n- ACCEPTED_WITH_FOLLOW_UP\n- REJECTED\n- BLOCKED",
+      "title": "Decision"
+    }
+  ],
+  "source": {
+    "bytes": 6843,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 189,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/WP-MVP-0001-REVIEW.md",
+    "sha256": "978358d43cf5917c7a3a7d5cab82713cf7356296f0d43a3005905fa45bb25e58"
+  }
+}
