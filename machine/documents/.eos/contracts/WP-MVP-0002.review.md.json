@@ -1,0 +1,157 @@
+{
+  "content": "# ChatGPT Review Contract — WP-MVP-0002\n\nReview the target against all applicable accepted higher-authority artifacts.\n\n## Target\n\n# WP-MVP-0002 — Deterministic workspace discovery\n\n**Status:** IN_REVIEW\n**Epic:** EPIC-002  \n**Feature:** F-002-02  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0001  \n**Product Goal:** PG-001\n\n## Objective\n\nEnumerate the configured canonical workspace deterministically and safely, with stable ordering, containment checks, exclusions, and discovery provenance.\n\n## Governing authority\n\n- FR-001; QR-001, QR-003\n- ADR-0002, ADR-0004\n- IFC-WORKSPACE-0001\n- TECH-WORKSPACE-0001\n- ADR-0005\n\n## Dependencies\n\n- WP-MVP-0001 is CLOSED and provides the required valid root/effective configuration boundary.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.\n\n## In scope\n\nconfigured include/exclude matching; canonical relative paths; stable candidate ordering; overlapping-pattern de-duplication; symlink containment/cycle handling; unsupported-source diagnostics; discovery provenance; fixtures.\n\n## Out of scope\n\nparsing document content; source/document ID allocation beyond the canonical-path inputs needed by WP-MVP-0003; graph construction; package-manager/native-tool discovery requiring execution; network access.\n\n## Acceptance criteria\n\n- [ ] US-005 supported configured workspace candidates are discovered.\n- [ ] US-006 ordering is stable under randomized filesystem enumeration.\n- [ ] US-007 unsupported/unsafe structures produce actionable diagnostics.\n- [ ] exclusions prevent `.git/`, `.eos/`, `machine/`, and configured build output from canonical ingestion by default.\n- [ ] overlapping patterns produce one canonical candidate.\n- [ ] external/cyclic symlinks cannot escape root or create duplicate semantic sources.\n- [ ] no repository code/network executes.\n\n## Implementation boundary\n\nUnder accepted ADR-0005, changes belong in the workspace/discovery module and its focused fixtures/tests in `monad-core`; CLI changes are limited to exposing already-defined discovery results/diagnostics.\n\n## Validation\n\nFocused unit/property/golden discovery tests, randomized-order test harness, symlink/security fixtures where the platform supports them, and machine-document freshness check.\n\n\n## Required Review Dimensions\n\n- scope conformance;\n- requirements and specification conformance;\n- architecture conformance;\n- acceptance criteria;\n- deterministic validation evidence;\n- security/reliability risk;\n- traceability completeness;\n- unresolved findings;\n- recommendation: ACCEPTED / ACCEPTED_WITH_FOLLOW_UP / REJECTED / BLOCKED.\n\nDo not impersonate final human authorization where the governance model reserves\nthat decision to the human.\n",
+  "document_id": "doc:.eos%2Fcontracts%2FWP-MVP-0002.review.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0002",
+    "ADR-0004",
+    "ADR-0005",
+    "FR-001",
+    "QR-001",
+    "QR-003"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Review the target against all applicable accepted higher-authority artifacts.",
+    "title": "ChatGPT Review Contract — WP-MVP-0002"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 4,
+      "line_start": 1,
+      "section_id": "chatgpt-review-contract-wp-mvp-0002",
+      "text": "# ChatGPT Review Contract — WP-MVP-0002\n\nReview the target against all applicable accepted higher-authority artifacts.",
+      "title": "ChatGPT Review Contract — WP-MVP-0002"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 6,
+      "line_start": 5,
+      "section_id": "target",
+      "text": "## Target",
+      "title": "Target"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 7,
+      "section_id": "wp-mvp-0002-deterministic-workspace-discovery",
+      "text": "# WP-MVP-0002 — Deterministic workspace discovery\n\n**Status:** IN_REVIEW\n**Epic:** EPIC-002  \n**Feature:** F-002-02  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0001  \n**Product Goal:** PG-001",
+      "title": "WP-MVP-0002 — Deterministic workspace discovery"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 16,
+      "section_id": "objective",
+      "text": "## Objective\n\nEnumerate the configured canonical workspace deterministically and safely, with stable ordering, containment checks, exclusions, and discovery provenance.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [
+        "ADR-0002",
+        "ADR-0004",
+        "ADR-0005",
+        "FR-001",
+        "QR-001",
+        "QR-003"
+      ],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 20,
+      "section_id": "governing-authority",
+      "text": "## Governing authority\n\n- FR-001; QR-001, QR-003\n- ADR-0002, ADR-0004\n- IFC-WORKSPACE-0001\n- TECH-WORKSPACE-0001\n- ADR-0005",
+      "title": "Governing authority"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 28,
+      "section_id": "dependencies",
+      "text": "## Dependencies\n\n- WP-MVP-0001 is CLOSED and provides the required valid root/effective configuration boundary.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.",
+      "title": "Dependencies"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 33,
+      "section_id": "in-scope",
+      "text": "## In scope\n\nconfigured include/exclude matching; canonical relative paths; stable candidate ordering; overlapping-pattern de-duplication; symlink containment/cycle handling; unsupported-source diagnostics; discovery provenance; fixtures.",
+      "title": "In scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 37,
+      "section_id": "out-of-scope",
+      "text": "## Out of scope\n\nparsing document content; source/document ID allocation beyond the canonical-path inputs needed by WP-MVP-0003; graph construction; package-manager/native-tool discovery requiring execution; network access.",
+      "title": "Out of scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 41,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] US-005 supported configured workspace candidates are discovered.\n- [ ] US-006 ordering is stable under randomized filesystem enumeration.\n- [ ] US-007 unsupported/unsafe structures produce actionable diagnostics.\n- [ ] exclusions prevent `.git/`, `.eos/`, `machine/`, and configured build output from canonical ingestion by default.\n- [ ] overlapping patterns produce one canonical candidate.\n- [ ] external/cyclic symlinks cannot escape root or create duplicate semantic sources.\n- [ ] no repository code/network executes.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 51,
+      "section_id": "implementation-boundary",
+      "text": "## Implementation boundary\n\nUnder accepted ADR-0005, changes belong in the workspace/discovery module and its focused fixtures/tests in `monad-core`; CLI changes are limited to exposing already-defined discovery results/diagnostics.",
+      "title": "Implementation boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 59,
+      "line_start": 55,
+      "section_id": "validation",
+      "text": "## Validation\n\nFocused unit/property/golden discovery tests, randomized-order test harness, symlink/security fixtures where the platform supports them, and machine-document freshness check.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 73,
+      "line_start": 60,
+      "section_id": "required-review-dimensions",
+      "text": "## Required Review Dimensions\n\n- scope conformance;\n- requirements and specification conformance;\n- architecture conformance;\n- acceptance criteria;\n- deterministic validation evidence;\n- security/reliability risk;\n- traceability completeness;\n- unresolved findings;\n- recommendation: ACCEPTED / ACCEPTED_WITH_FOLLOW_UP / REJECTED / BLOCKED.\n\nDo not impersonate final human authorization where the governance model reserves\nthat decision to the human.",
+      "title": "Required Review Dimensions"
+    }
+  ],
+  "source": {
+    "bytes": 2734,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 73,
+    "media_type": "text/markdown",
+    "path": ".eos/contracts/WP-MVP-0002.review.md",
+    "sha256": "d397e4d385bb889270cb4f1a554ba11e973ed442352f9ca63a65fd13d2cbe12f"
+  }
+}
