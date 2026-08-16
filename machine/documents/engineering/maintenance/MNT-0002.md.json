@@ -1,5 +1,5 @@
 {
-  "content": "# MNT-0002 — EOSV execution-bound evidence audit fingerprint mismatch\n\n**State:** VERIFYING\n**Type:** bug\n**Area:** EOSV evidence freshness\n**GitHub Issue:** #191\n**Blocked Work:** WP-MVP-0002 EOSV verification\n\n## Summary\n\nExecution-bound EOSV evidence captured with `--execution` becomes stale immediately during the next evidence audit even when no governed, implementation, baseline, or workspace input has changed.\n\n## Context\n\nWP-MVP-0002 implementation merged through PR #190. Fresh Rust verification on merged `main` passes, and `./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004` produces required integrity PASS plus execution-acceptance PASS. The immediately following strict evidence audit nevertheless marks the new execution-bound evidence stale.\n\n## Root cause\n\n`run_profile()` captures with `source_fingerprint(target, execution)`. `audit_evidence()` reconstructs with `source_fingerprint(row.get(\"execution\") or row.get(\"target\"))`, substituting the execution identifier into the fingerprint target field. The hashes therefore differ even when real source state is unchanged.\n\n## Resolution\n\nAudit with the same target/execution pair used at capture: `source_fingerprint(row.get(\"target\", \"\"), row.get(\"execution\", \"\"))`. Extend the EOSV freshness regression to exercise immediate execution-bound evidence audit parity and retained real-drift detection.\n\n## Scope\n\nIn scope: `tools/eos/verification_v2.py`, `scripts/test-eosv-evidence-freshness.py`, this maintenance artifact, EOS control state, dependent evidence refresh, and machine projections.\n\nOut of scope: WP-MVP-0002 product implementation, EOSE baseline semantics, #175, #176, #178, #181, and unrelated EOS refactoring.\n\n## Verification checklist\n\n- [x] Existing non-execution freshness regression remains green.\n- [x] Execution-bound capture/audit parity remains fresh without source drift.\n- [x] Real execution workspace drift is still detected.\n- [x] Modified Python files compile.\n- [x] Strict EOS verification reports zero current stale evidence after dependent evidence refresh.\n- [x] Canonical EOS state is consistent.\n- [x] Machine documents are synchronized.\n\n## Additional root cause discovered during real-workflow verification\n\nAfter PR #192 corrected target/execution reconstruction, the real WP-MVP-0002 EOSV workflow exposed a second self-reference in the same freshness defect: `workspace_hash()` excluded EOS control/evidence outputs but still included generated `machine/**` projections. EOSV captures evidence before machine-document synchronization, so the subsequent projection rewrite changed the execution workspace hash even though executable and governing source state was unchanged.\n\nThe execution workspace fingerprint must therefore exclude `machine/**`, consistent with non-execution source freshness, while retaining substantive source/workspace drift detection.\n\n## Additional verification\n\n- [x] A committed machine-projection-only refresh leaves execution-bound evidence fresh while a real implementation-source change still stales it.\n\n## Closure criterion\n\nClose only after the fix is merged and verified on `main`, then demonstrate that WP-MVP-0002 execution-bound EOSV evidence remains fresh.\n",
+  "content": "# MNT-0002 — EOSV execution-bound evidence audit fingerprint mismatch\n\n**State:** VERIFYING\n**Type:** bug\n**Area:** EOSV evidence freshness\n**GitHub Issue:** #191\n**Blocked Work:** WP-MVP-0002 EOSV verification\n\n## Summary\n\nExecution-bound EOSV evidence captured with `--execution` becomes stale immediately during the next evidence audit even when no governed, implementation, baseline, or workspace input has changed.\n\n## Context\n\nWP-MVP-0002 implementation merged through PR #190. Fresh Rust verification on merged `main` passes, and `./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004` produces required integrity PASS plus execution-acceptance PASS. The immediately following strict evidence audit nevertheless marks the new execution-bound evidence stale.\n\n## Root cause\n\n`run_profile()` captures with `source_fingerprint(target, execution)`. `audit_evidence()` reconstructs with `source_fingerprint(row.get(\"execution\") or row.get(\"target\"))`, substituting the execution identifier into the fingerprint target field. The hashes therefore differ even when real source state is unchanged.\n\n## Resolution\n\nAudit with the same target/execution pair used at capture: `source_fingerprint(row.get(\"target\", \"\"), row.get(\"execution\", \"\"))`. Extend the EOSV freshness regression to exercise immediate execution-bound evidence audit parity and retained real-drift detection.\n\n## Scope\n\nIn scope: `tools/eos/verification_v2.py`, `scripts/test-eosv-evidence-freshness.py`, this maintenance artifact, EOS control state, dependent evidence refresh, and machine projections.\n\nOut of scope: WP-MVP-0002 product implementation, EOSE baseline semantics, #175, #176, #178, #181, and unrelated EOS refactoring.\n\n## Verification checklist\n\n- [x] Existing non-execution freshness regression remains green.\n- [x] Execution-bound capture/audit parity remains fresh without source drift.\n- [x] Real execution workspace drift is still detected.\n- [x] Modified Python files compile.\n- [x] Strict EOS verification reports zero current stale evidence after dependent evidence refresh.\n- [x] Canonical EOS state is consistent.\n- [x] Machine documents are synchronized.\n\n## Additional root cause discovered during real-workflow verification\n\nAfter PR #192 corrected target/execution reconstruction, the real WP-MVP-0002 EOSV workflow exposed a second self-reference in the same freshness defect: `workspace_hash()` excluded EOS control/evidence outputs but still included generated `machine/**` projections. EOSV captures evidence before machine-document synchronization, so the subsequent projection rewrite changed the execution workspace hash even though executable and governing source state was unchanged.\n\nThe execution workspace fingerprint must therefore exclude `machine/**`, consistent with non-execution source freshness, while retaining substantive source/workspace drift detection.\n\n## Additional verification\n\n- [x] A committed machine-projection-only refresh leaves execution-bound evidence fresh while a real implementation-source change still stales it.\n\n## Third root cause discovered in pull-request CI\n\nPR #194 proved the execution evidence fresh on a full-history checkout but stale in GitHub's depth-1 synthetic merge checkout. `workspace_hash()` depended on `git diff <execution-baseline>` and silently hashed a failed diff when that historical commit object was unavailable. Freshness therefore depended on clone history depth.\n\nExecution freshness must be derived from the current execution-relevant source tree while the immutable execution baseline remains separately bound in the fingerprint payload.\n\n## Shallow-clone verification\n\n- [x] A depth-1 clone without the execution baseline object produces the same execution-bound fingerprint as a full-history clone of the same source tree, while real implementation drift still stales evidence.\n\n## Closure criterion\n\nClose only after the fix is merged and verified on `main`, then demonstrate that WP-MVP-0002 execution-bound EOSV evidence remains fresh.\n",
   "document_id": "doc:engineering%2Fmaintenance%2FMNT-0002.md",
   "generation": {
     "deterministic": true,
@@ -102,20 +102,38 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 53,
+      "line_end": 56,
       "line_start": 51,
+      "section_id": "third-root-cause-discovered-in-pull-request-ci",
+      "text": "## Third root cause discovered in pull-request CI\n\nPR #194 proved the execution evidence fresh on a full-history checkout but stale in GitHub's depth-1 synthetic merge checkout. `workspace_hash()` depended on `git diff <execution-baseline>` and silently hashed a failed diff when that historical commit object was unavailable. Freshness therefore depended on clone history depth.\n\nExecution freshness must be derived from the current execution-relevant source tree while the immutable execution baseline remains separately bound in the fingerprint payload.",
+      "title": "Third root cause discovered in pull-request CI"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 57,
+      "section_id": "shallow-clone-verification",
+      "text": "## Shallow-clone verification\n\n- [x] A depth-1 clone without the execution baseline object produces the same execution-bound fingerprint as a full-history clone of the same source tree, while real implementation drift still stales evidence.",
+      "title": "Shallow-clone verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 63,
+      "line_start": 61,
       "section_id": "closure-criterion",
       "text": "## Closure criterion\n\nClose only after the fix is merged and verified on `main`, then demonstrate that WP-MVP-0002 execution-bound EOSV evidence remains fresh.",
       "title": "Closure criterion"
     }
   ],
   "source": {
-    "bytes": 3229,
+    "bytes": 4029,
     "canonical": true,
     "language": "markdown",
-    "lines": 53,
+    "lines": 63,
     "media_type": "text/markdown",
     "path": "engineering/maintenance/MNT-0002.md",
-    "sha256": "22b3490020d0f96a4b4bb7b1e1804f93381a114597ec2ad66f507728feab5307"
+    "sha256": "93aa1de9329fac327de6bb502c4dd1f52618a736d21a499c18e0a1acb43293cc"
   }
 }

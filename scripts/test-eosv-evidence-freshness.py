@@ -562,6 +562,44 @@ def main() -> int:
             "source fingerprint changed" not in projection_row["issues"]
         ), projection_row
 
+        # A depth-1 clone can lack the immutable execution baseline object.
+        # Materialize the same untracked execution metadata and require the
+        # same fingerprint without depending on local history availability.
+        shallow = root.parent / f"{root.name}-shallow"
+        run(
+            "git",
+            "clone",
+            "--depth",
+            "1",
+            f"file://{root}",
+            str(shallow),
+            cwd=root.parent,
+        )
+        absent = subprocess.run(
+            ["git", "cat-file", "-e", f"{baseline}^{{commit}}"],
+            cwd=shallow,
+            check=False,
+            text=True,
+            capture_output=True,
+        )
+        assert absent.returncode != 0
+        write_tsv(
+            shallow / ".eos" / "executions.tsv",
+            ["id", "target", "worktree", "baseline_commit"],
+            [{
+                "id": "EXEC-TEST-0001",
+                "target": "WP-TEST-0001",
+                "worktree": "",
+                "baseline_commit": baseline,
+            }],
+        )
+        shallow_module = load_module(shallow)
+        shallow_hash, shallow_payload = shallow_module.source_fingerprint(
+            "WP-TEST-0001", "EXEC-TEST-0001"
+        )
+        assert shallow_hash == execution_initial, shallow_payload
+        assert shallow_payload["baseline"] == baseline
+
         # Real execution-source drift must still be detected relative to
         # the immutable EOSE baseline.
         source.write_text(
