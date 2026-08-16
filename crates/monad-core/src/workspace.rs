@@ -809,4 +809,20 @@ mod tests {
             "project.id must match ^[a-z0-9][a-z0-9._-]*$"
         );
     }
+    #[test]
+    fn duplicate_semantic_keys_are_rejected() {
+        let text = r#"
+schema_version = 1
+schema_version = 1
+
+[project]
+id = "duplicate"
+name = "Duplicate"
+"#;
+
+        let error = parse_effective_configuration(text, &CliOverrides::default())
+            .expect_err("duplicate key must be rejected");
+
+        assert_eq!(error.diagnostics()[0].code, DiagnosticCode::MalformedToml);
+    }
 }

@@ -1,0 +1,40 @@
+{
+  "content": "use std::{\n    fs,\n    path::{Path, PathBuf},\n    process::Command,\n    time::{SystemTime, UNIX_EPOCH},\n};\n\nfn temp_dir(name: &str) -> PathBuf {\n    let path = std::env::temp_dir().join(format!(\n        \"monad-cli-{name}-{}-{}\",\n        std::process::id(),\n        SystemTime::now()\n            .duration_since(UNIX_EPOCH)\n            .expect(\"clock\")\n            .as_nanos()\n    ));\n\n    fs::create_dir_all(&path).expect(\"create temporary repository\");\n    path\n}\n\nfn write_config(root: &Path) {\n    fs::write(\n        root.join(\"monad.toml\"),\n        r#\"schema_version = 1\n\n[project]\nid = \"fixture\"\nname = \"Fixture\"\n\n[artifacts]\nproduct = [\"product/**/*.md\"]\n\n[ingestion]\nnetwork = false\nexecute_repository_code = false\n\"#,\n    )\n    .expect(\"write monad.toml\");\n}\n\nfn bootstrap_with_environment(root: &Path, environment_value: &str) -> Vec<u8> {\n    let output = Command::new(env!(\"CARGO_BIN_EXE_monad\"))\n        .arg(\"bootstrap\")\n        .arg(\"--root\")\n        .arg(root)\n        .arg(\"--format\")\n        .arg(\"json\")\n        .env_clear()\n        .env(\"MONAD_PROJECT_ID\", environment_value)\n        .env(\"MONAD_PROJECT_NAME\", environment_value)\n        .env(\"MONAD_EXCLUDE_PATHS\", environment_value)\n        .env(\"MONAD_INGESTION_NETWORK\", environment_value)\n        .output()\n        .expect(\"run monad bootstrap\");\n\n    assert!(\n        output.status.success(),\n        \"bootstrap failed:\\nstdout:\\n{}\\nstderr:\\n{}\",\n        String::from_utf8_lossy(&output.stdout),\n        String::from_utf8_lossy(&output.stderr),\n    );\n\n    output.stdout\n}\n\n#[test]\nfn semantic_configuration_is_independent_of_environment_variables() {\n    let root = temp_dir(\"environment-non-interference\");\n    write_config(&root);\n\n    let first = bootstrap_with_environment(&root, \"environment-one\");\n    let second = bootstrap_with_environment(&root, \"environment-two\");\n\n    assert_eq!(\n        first, second,\n        \"semantic bootstrap output changed with ambient environment\"\n    );\n\n    let text = String::from_utf8(first).expect(\"UTF-8 bootstrap output\");\n\n    assert!(text.contains(\"\\\"value\\\": \\\"fixture\\\"\"));\n    assert!(text.contains(\"\\\"source\\\": \\\"monad.toml:project.id\\\"\"));\n\n    fs::remove_dir_all(root).expect(\"remove temporary repository\");\n}\n",
+  "document_id": "doc:crates%2Fmonad-cli%2Ftests%2Fenvironment_non_interference.rs",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical rust source for crates/monad-cli/tests/environment_non_interference.rs.",
+    "title": "Environment Non Interference"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 86,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "use std::{\n    fs,\n    path::{Path, PathBuf},\n    process::Command,\n    time::{SystemTime, UNIX_EPOCH},\n};\n\nfn temp_dir(name: &str) -> PathBuf {\n    let path = std::env::temp_dir().join(format!(\n        \"monad-cli-{name}-{}-{}\",\n        std::process::id(),\n        SystemTime::now()\n            .duration_since(UNIX_EPOCH)\n            .expect(\"clock\")\n            .as_nanos()\n    ));\n\n    fs::create_dir_all(&path).expect(\"create temporary repository\");\n    path\n}\n\nfn write_config(root: &Path) {\n    fs::write(\n        root.join(\"monad.toml\"),\n        r#\"schema_version = 1\n\n[project]\nid = \"fixture\"\nname = \"Fixture\"\n\n[artifacts]\nproduct = [\"product/**/*.md\"]\n\n[ingestion]\nnetwork = false\nexecute_repository_code = false\n\"#,\n    )\n    .expect(\"write monad.toml\");\n}\n\nfn bootstrap_with_environment(root: &Path, environment_value: &str) -> Vec<u8> {\n    let output = Command::new(env!(\"CARGO_BIN_EXE_monad\"))\n        .arg(\"bootstrap\")\n        .arg(\"--root\")\n        .arg(root)\n        .arg(\"--format\")\n        .arg(\"json\")\n        .env_clear()\n        .env(\"MONAD_PROJECT_ID\", environment_value)\n        .env(\"MONAD_PROJECT_NAME\", environment_value)\n        .env(\"MONAD_EXCLUDE_PATHS\", environment_value)\n        .env(\"MONAD_INGESTION_NETWORK\", environment_value)\n        .output()\n        .expect(\"run monad bootstrap\");\n\n    assert!(\n        output.status.success(),\n        \"bootstrap failed:\\nstdout:\\n{}\\nstderr:\\n{}\",\n        String::from_utf8_lossy(&output.stdout),\n        String::from_utf8_lossy(&output.stderr),\n    );\n\n    output.stdout\n}\n\n#[test]\nfn semantic_configuration_is_independent_of_environment_variables() {\n    let root = temp_dir(\"environment-non-interference\");\n    write_config(&root);\n\n    let first = bootstrap_with_environment(&root, \"environment-one\");\n    let second = bootstrap_with_environment(&root, \"environment-two\");\n\n    assert_eq!(\n        first, second,\n        \"semantic bootstrap output changed with ambient environment\"\n    );\n\n    let text = String::from_utf8(first).expect(\"UTF-8 bootstrap output\");\n\n    assert!(text.contains(\"\\\"value\\\": \\\"fixture\\\"\"));\n    assert!(text.contains(\"\\\"source\\\": \\\"monad.toml:project.id\\\"\"));\n\n    fs::remove_dir_all(root).expect(\"remove temporary repository\");\n}",
+      "title": "Environment Non Interference"
+    }
+  ],
+  "source": {
+    "bytes": 2238,
+    "canonical": true,
+    "language": "rust",
+    "lines": 86,
+    "media_type": "text/plain",
+    "path": "crates/monad-cli/tests/environment_non_interference.rs",
+    "sha256": "016deedff1ae58021c5dabe7942820ff7826e4a62f99e65d1416dac5ac57f295"
+  }
+}
