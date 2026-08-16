@@ -1,6 +1,7 @@
 use std::{
     collections::{BTreeMap, BTreeSet, HashMap},
-    fmt, fs,
+    ffi::OsString,
+    fmt, fs, io,
     path::{Path, PathBuf},
 };
 
@@ -143,6 +144,22 @@ pub fn discover_workspace(
     })
 }
 
+fn collect_directory_entries<I>(entries: I) -> (Vec<(OsString, PathBuf)>, Vec<io::Error>)
+where
+    I: IntoIterator<Item = io::Result<(OsString, PathBuf)>>,
+{
+    let mut valid = Vec::new();
+    let mut errors = Vec::new();
+    for entry in entries {
+        match entry {
+            Ok(entry) => valid.push(entry),
+            Err(error) => errors.push(error),
+        }
+    }
+    valid.sort_by(|left, right| left.0.cmp(&right.0));
+    (valid, errors)
+}
+
 struct Walker<'a> {
     root: &'a Path,
     canonical_root: &'a Path,
@@ -167,10 +184,19 @@ impl Walker<'_> {
                 return;
             }
         };
-        let mut entries = entries.filter_map(Result::ok).collect::<Vec<_>>();
-        entries.sort_by_key(|entry| entry.file_name());
-        for entry in entries {
-            self.walk_entry(&entry.path(), ancestors);
+        let (entries, errors) = collect_directory_entries(
+            entries.map(|entry| entry.map(|entry| (entry.file_name(), entry.path()))),
+        );
+        let location = relative_utf8(self.root, directory);
+        for error in errors {
+            self.diagnostic(
+                DiscoveryDiagnosticCode::UnreadableSource,
+                format!("cannot enumerate directory entry: {error}"),
+                location.clone(),
+            );
+        }
+        for (_, path) in entries {
+            self.walk_entry(&path, ancestors);
         }
     }
 
@@ -480,6 +506,27 @@ mod tests {
         let path = root.join(relative);
         fs::create_dir_all(path.parent().expect("parent")).expect("create parents");
         fs::write(path, "content\n").expect("write source");
+    }
+
+    #[test]
+    fn directory_entry_errors_are_preserved_while_valid_entries_sort() {
+        let input = vec![
+            Ok((OsString::from("z.md"), PathBuf::from("z.md"))),
+            Err(io::Error::new(
+                io::ErrorKind::PermissionDenied,
+                "simulated directory entry failure",
+            )),
+            Ok((OsString::from("a.md"), PathBuf::from("a.md"))),
+        ];
+        let (entries, errors) = collect_directory_entries(input);
+        let names = entries
+            .iter()
+            .map(|(name, _)| name.to_string_lossy().into_owned())
+            .collect::<Vec<_>>();
+        assert_eq!(names, ["a.md", "z.md"]);
+        assert_eq!(errors.len(), 1);
+        assert_eq!(errors[0].kind(), io::ErrorKind::PermissionDenied);
+        assert_eq!(errors[0].to_string(), "simulated directory entry failure");
     }
 
     #[test]
