@@ -1,0 +1,112 @@
+name: EOSM MNT-0002 Corrected Shallow Freshness Follow-up
+
+on:
+  push:
+    branches:
+      - eosm/fix-eosv-shallow-execution-freshness-bootstrap-v2
+
+permissions:
+  contents: write
+
+env:
+  EOS_ACTOR: chatgpt
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enter exact maintenance baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="12f6afa239bcb6a44909902ec8469dd74f7b0ba6"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test ! -e .github/workflows/eosm-shallow-execution-freshness-bootstrap-v2.yml
+
+      - name: Make execution freshness independent of local history depth
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          verifier=Path('tools/eos/verification_v2.py')
+          text=verifier.read_text()
+          start=text.index('def workspace_hash(cwd: Path, baseline: str) -> str:\n')
+          end=text.index('\n\nSOURCE_EXCLUDED_PATHS = (',start)
+          replacement='''def workspace_hash(cwd: Path, baseline: str) -> str:\n    """Hash execution-relevant current source independently of Git history depth.\n\n    The immutable execution baseline remains separately bound in source_fingerprint().\n    Generated EOS/evidence/machine outputs are excluded by source_content_hash().\n    """\n    _ = baseline\n    return source_content_hash(cwd)\n'''
+          verifier.write_text(text[:start]+replacement+text[end:])
+
+          test=Path('scripts/test-eosv-evidence-freshness.py')
+          text=test.read_text()
+          anchor='''        assert (\n            "source fingerprint changed" not in projection_row["issues"]\n        ), projection_row\n\n        # Real execution-source drift must still be detected relative to\n'''
+          insert='''        assert (\n            "source fingerprint changed" not in projection_row["issues"]\n        ), projection_row\n\n        # A depth-1 clone can lack the immutable execution baseline object.\n        # Freshness must still depend only on the current source tree plus the\n        # separately recorded baseline identifier, not on local Git history.\n        shallow = root.parent / "shallow"\n        run(\n            "git",\n            "clone",\n            "--depth",\n            "1",\n            f"file://{root}",\n            str(shallow),\n            cwd=root.parent,\n        )\n        absent = subprocess.run(\n            ["git", "cat-file", "-e", f"{baseline}^{{commit}}"],\n            cwd=shallow,\n            check=False,\n            text=True,\n            capture_output=True,\n        )\n        assert absent.returncode != 0\n        shallow_exec = shallow / ".eos" / "executions.tsv"\n        shallow_rows = list(csv.DictReader(shallow_exec.open(), delimiter="\\t"))\n        shallow_rows[0]["worktree"] = ""\n        write_tsv(shallow_exec, module.EXEC_FIELDS, shallow_rows)\n        shallow_module = load_module(shallow)\n        shallow_hash, shallow_payload = shallow_module.source_fingerprint(\n            "WP-TEST-0001", "EXEC-TEST-0001"\n        )\n        assert shallow_hash == execution_initial, shallow_payload\n        assert shallow_payload["baseline"] == baseline\n\n        # Real execution-source drift must still be detected relative to\n'''
+          assert text.count(anchor)==1
+          test.write_text(text.replace(anchor,insert,1))
+
+          mnt=Path('engineering/maintenance/MNT-0002.md')
+          text=mnt.read_text()
+          marker='## Closure criterion\n'
+          addition='''## Third root cause discovered in pull-request CI\n\nPR #194 proved the execution evidence fresh on a full-history checkout but stale in GitHub's depth-1 synthetic merge checkout. `workspace_hash()` depended on `git diff <execution-baseline>` and silently hashed a failed diff when that historical commit object was unavailable. Freshness therefore depended on clone history depth.\n\nExecution freshness must be derived from the current execution-relevant source tree while the immutable execution baseline remains separately bound in the fingerprint payload.\n\n## Shallow-clone verification\n\n- [ ] A depth-1 clone without the execution baseline object produces the same execution-bound fingerprint as a full-history clone of the same source tree, while real implementation drift still stales evidence.\n\n'''
+          assert marker in text and 'Third root cause discovered in pull-request CI' not in text
+          mnt.write_text(text.replace(marker,addition+marker,1))
+          PY
+
+      - name: Verify and stabilize maintenance follow-up
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 -m py_compile tools/eos/verification_v2.py scripts/test-eosv-evidence-freshness.py
+          python3 scripts/test-eosv-evidence-freshness.py
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('engineering/maintenance/MNT-0002.md')
+          text=p.read_text()
+          item='- [ ] A depth-1 clone without the execution baseline object produces the same execution-bound fingerprint as a full-history clone of the same source tree, while real implementation drift still stales evidence.'
+          assert item in text
+          p.write_text(text.replace(item,item.replace('[ ]','[x]'),1))
+          PY
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Commit prove stable and publish
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          FINAL_BRANCH="eosm/fix-eosv-shallow-execution-freshness-final"
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv
+          assert 'return source_content_hash(cwd)' in Path('tools/eos/verification_v2.py').read_text()
+          mnt=Path('engineering/maintenance/MNT-0002.md').read_text()
+          assert '**State:** VERIFYING' in mnt
+          assert '- [x] A depth-1 clone without the execution baseline object' in mnt
+          row=next(r for r in csv.DictReader(open('.eos/maintenance.tsv'),delimiter='\t') if r['id']=='MNT-0002')
+          assert row['status']=='VERIFYING',row
+          PY
+          allowed='^(tools/eos/verification_v2\.py|scripts/test-eosv-evidence-freshness\.py|engineering/maintenance/MNT-0002\.md|\.eos/|machine/|engineering/evidence/)'
+          unexpected="$(git diff --name-only | grep -Ev "$allowed" || true)"
+          test -z "$unexpected" || { printf 'Unexpected scope:\n%s\n' "$unexpected" >&2; exit 1; }
+          git config user.name 'PMB CI'
+          git config user.email 'ci@pmb.test'
+          git add -A
+          git commit -m 'fix(eosv): make execution freshness history-independent'
+          python3 scripts/test-eosv-evidence-freshness.py
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          test "$(git rev-parse HEAD^)" = "12f6afa239bcb6a44909902ec8469dd74f7b0ba6"
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then echo 'Final branch exists' >&2; exit 1; fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
