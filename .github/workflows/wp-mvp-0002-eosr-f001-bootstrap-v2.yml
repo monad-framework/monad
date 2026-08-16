@@ -1,0 +1,124 @@
+name: WP-MVP-0002 EOSR F001 Correction Bootstrap v2
+
+on:
+  push:
+    branches:
+      - wp/mvp-0002-eosr-f001-bootstrap-v2
+
+permissions:
+  contents: write
+
+env:
+  EOS_ACTOR: chatgpt
+
+jobs:
+  correct:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+
+      - name: Enter exact rejected-review baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="656257b5c6b5f7179297bba038b47eaebecddbdd"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test ! -e .github/workflows/wp-mvp-0002-eosr-f001-bootstrap-v2.yml
+
+      - name: Apply F001 correction and focused regression
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('crates/monad-core/src/discovery.rs')
+          text=p.read_text()
+          old='''use std::{\n    collections::{BTreeMap, BTreeSet, HashMap},\n    fmt, fs,\n    path::{Path, PathBuf},\n};\n'''
+          new='''use std::{\n    collections::{BTreeMap, BTreeSet, HashMap},\n    ffi::OsString,\n    fmt, fs, io,\n    path::{Path, PathBuf},\n};\n'''
+          assert old in text
+          text=text.replace(old,new,1)
+
+          old='''        let mut entries = entries.filter_map(Result::ok).collect::<Vec<_>>();\n        entries.sort_by_key(|entry| entry.file_name());\n        for entry in entries {\n            self.walk_entry(&entry.path(), ancestors);\n        }\n'''
+          new='''        let (entries, errors) = collect_directory_entries(\n            entries.map(|entry| entry.map(|entry| (entry.file_name(), entry.path()))),\n        );\n        let location = relative_utf8(self.root, directory);\n        for error in errors {\n            self.diagnostic(\n                DiscoveryDiagnosticCode::UnreadableSource,\n                format!("cannot enumerate directory entry: {error}"),\n                location.clone(),\n            );\n        }\n        for (_, path) in entries {\n            self.walk_entry(&path, ancestors);\n        }\n'''
+          assert old in text
+          text=text.replace(old,new,1)
+
+          anchor='''struct Walker<'a> {\n'''
+          helper='''fn collect_directory_entries<I>(\n    entries: I,\n) -> (Vec<(OsString, PathBuf)>, Vec<io::Error>)\nwhere\n    I: IntoIterator<Item = io::Result<(OsString, PathBuf)>>,\n{\n    let mut valid = Vec::new();\n    let mut errors = Vec::new();\n    for entry in entries {\n        match entry {\n            Ok(entry) => valid.push(entry),\n            Err(error) => errors.push(error),\n        }\n    }\n    valid.sort_by(|left, right| left.0.cmp(&right.0));\n    (valid, errors)\n}\n\n'''
+          assert text.count(anchor)==1
+          text=text.replace(anchor,helper+anchor,1)
+
+          anchor='''    #[test]\n    fn discovery_is_sorted_and_merges_overlapping_pattern_provenance() {\n'''
+          regression='''    #[test]\n    fn directory_entry_errors_are_preserved_while_valid_entries_sort() {\n        let input = vec![\n            Ok((OsString::from("z.md"), PathBuf::from("z.md"))),\n            Err(io::Error::new(\n                io::ErrorKind::PermissionDenied,\n                "simulated directory entry failure",\n            )),\n            Ok((OsString::from("a.md"), PathBuf::from("a.md"))),\n        ];\n        let (entries, errors) = collect_directory_entries(input);\n        let names = entries\n            .iter()\n            .map(|(name, _)| name.to_string_lossy().into_owned())\n            .collect::<Vec<_>>();\n        assert_eq!(names, ["a.md", "z.md"]);\n        assert_eq!(errors.len(), 1);\n        assert_eq!(errors[0].kind(), io::ErrorKind::PermissionDenied);\n        assert_eq!(errors[0].to_string(), "simulated directory entry failure");\n    }\n\n'''
+          assert text.count(anchor)==1
+          p.write_text(text.replace(anchor,regression+anchor,1))
+          PY
+
+      - name: Run full product validation
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          rustup toolchain install 1.95.0 --profile minimal --component rustfmt --component clippy
+          rustup override set 1.95.0
+          cargo fmt --all
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+          python3 - <<'PY'
+          from pathlib import Path
+          text=Path('crates/monad-core/src/discovery.rs').read_text()
+          assert 'filter_map(Result::ok)' not in text
+          assert 'cannot enumerate directory entry: {error}' in text
+          assert 'directory_entry_errors_are_preserved_while_valid_entries_sort' in text
+          PY
+
+      - name: Commit corrective product change
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          allowed='^(crates/monad-core/src/discovery\.rs|machine/)'
+          unexpected="$(git diff --name-only | grep -Ev "$allowed" || true)"
+          test -z "$unexpected" || { printf 'Unexpected correction scope:\n%s\n' "$unexpected" >&2; exit 1; }
+          git config user.name 'ChatGPT'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'fix(workspace): diagnose directory entry errors'
+
+      - name: Refresh WP1 and WP2 evidence
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Commit evidence and publish final correction
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          FINAL_BRANCH="wp/mvp-0002-eosr-f001"
+          git add -A
+          if git diff --cached --name-only | grep -E '^(crates/|src/|.*\.rs$|product/|architecture/|specifications/|engineering/work-packets/|engineering/work-cycles/|engineering/reviews/)'; then
+            echo 'Unexpected semantic/product change in evidence refresh.' >&2; exit 1
+          fi
+          git commit -m 'chore(eosv): refresh evidence after WP-MVP-0002 review correction'
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          test "$(git rev-list --count 656257b5c6b5f7179297bba038b47eaebecddbdd..HEAD)" = "2"
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then echo 'Final correction branch exists' >&2; exit 1; fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
