@@ -2,8 +2,8 @@
 artifact_id: "REV-WP-MVP-0002"
 title: "WP-MVP-0002 Engineering Review"
 type: "review"
-version: "0.1.0"
-status: "In Review"
+version: "1.0.0"
+status: "Accepted"
 authority: "review-authoritative"
 created: "2026-08-16"
 updated: "2026-08-16"
@@ -11,99 +11,98 @@ updated: "2026-08-16"
 
 # WP-MVP-0002 — Engineering Review
 
-**Decision:** REJECTED
+**Decision:** ACCEPTED
 
 ## Target
 
-- Artifact: `engineering/work-packets/WP-MVP-0002.md`
-- State at review start: VERIFYING
-- Governed execution: `EXEC-0004`
+- Work Packet: `WP-MVP-0002 — Deterministic workspace discovery`
+- Lifecycle state: IN_REVIEW
+- Governed execution: `EXEC-0004` — CLOSED
 - Implementation merge: PR #190
 - EOSV verification merge: PR #196
-- Review baseline: `cb80c2f4599768f144d1cf94e7b95607b30098ff`
+- Initial rejected EOSR: PR #198
+- EOSR corrective conformance merge: PR #199
+- Final review baseline: `1d7446308e4f2e2efa6ee57aa52747b938232ec0`
 
 ## Deterministic Verification
 
-**Result:** PASS before review.
+PASS.
 
-WP-MVP-0002 entered EOSR with current EXEC-0004-bound EOSV evidence, zero current stale evidence, canonical-state consistency, synchronized machine projections, and all required PR checks green. MNT-0002 / issue #191 is CLOSED and no longer blocks product review.
+The corrected implementation passes `cargo fmt --all -- --check`, Clippy for all workspace targets/features with warnings denied, the full workspace test suite, strict EOS integrity verification, canonical-state consistency, and machine-document synchronization.
+
+WP-MVP-0002 has current first-class EOSV evidence bound to EXEC-0004. Execution acceptance is PASS and current stale evidence is zero.
 
 ## Scope Conformance
 
 PASS.
 
-The agent-authored product implementation is confined to `crates/monad-core/src/discovery.rs`, the `monad-core` module export, and generated machine projections. The implementation introduces no service/plugin boundary, network dependency, repository-code execution path, or unrelated product refactor.
+Product behavior remains bounded to deterministic workspace discovery in `monad-core`. The EOSR correction is narrowly confined to explicit `ReadDir` item-error handling plus its focused regression. No network access, repository-code execution, service/plugin boundary, or unrelated refactor was introduced.
 
 ## Requirements / Specification Conformance
 
-**REJECTED due to one blocking failure-recovery defect.**
+PASS.
 
-The implementation otherwise conforms to the central TECH-WORKSPACE-0001 behaviors: configured include/exclude selection, default `.git`/`.eos`/`machine`/`target` exclusions, canonical repository-relative paths, stable ordering, overlapping-pattern de-duplication with provenance, root-containment enforcement, symlink diagnostics, supported Markdown/YAML classification, unsupported-source diagnostics, and deterministic equivalent-clone output.
+Review against FR-001; QR-001 and QR-003; ADR-0002, ADR-0004, ADR-0005; IFC-WORKSPACE-0001; and TECH-WORKSPACE-0001 confirms:
 
-However, `Walker::walk_directory()` currently collects directory entries with:
-
-```rust
-let mut entries = entries.filter_map(Result::ok).collect::<Vec<_>>();
-```
-
-Any per-entry error yielded by `std::fs::ReadDir` is therefore silently discarded. TECH-WORKSPACE-0001 requires unreadable files/inputs to produce diagnostics, and US-007 requires unsupported/unsafe structures to produce actionable diagnostics. A transient or permission-related enumeration failure can currently omit an otherwise configured candidate without any diagnostic, creating silent incompleteness and potentially filesystem-timing-dependent discovery output.
+- configured include patterns are applied after exclusions;
+- `.git/`, `.eos/`, `machine/`, `target/`, and configured exclusions are pruned;
+- canonical source paths are repository-relative `/`-separated paths;
+- root escape and unsafe symlink targets are rejected diagnostically;
+- overlapping matches yield one canonical source with merged provenance;
+- final source ordering is stable by canonical path/source kind;
+- unsupported broad-pattern source kinds produce deterministic diagnostics;
+- Markdown/YAML MVP source candidates are classified without parsing/execution;
+- per-entry filesystem enumeration errors now produce `UnreadableSource` diagnostics rather than silent omission;
+- discovery executes no repository code, package-manager command, plugin, or network operation.
 
 ## Architecture Conformance
 
-PASS subject to the blocking failure-recovery correction.
+PASS.
 
-Discovery remains local and deterministic in `monad-core`, does not execute repository code, does not invoke package managers/plugins, performs no network access, and enforces root containment consistent with ADR-0002, ADR-0004, and ADR-0005.
+Discovery semantics live in `monad-core`; configuration/root semantics remain shared with WP-MVP-0001; the implementation preserves the local-first single-runtime topology and safe deterministic ingestion boundary established by ADR-0002, ADR-0004, and ADR-0005.
 
 ## Acceptance Criteria Evidence
 
-PASS for six criteria; US-007 is not fully satisfied.
+All seven WP-MVP-0002 acceptance criteria are satisfied:
 
-- US-005: supported configured candidates are discovered — PASS.
-- US-006: ordering is stable across differing filesystem creation/enumeration order — PASS.
-- US-007: unsupported/unsafe structures produce actionable diagnostics — **FAIL for per-entry directory enumeration errors**.
-- Default/configured exclusions prevent canonical ingestion — PASS.
-- Overlapping patterns produce one canonical candidate with merged provenance — PASS.
-- External/cyclic symlinks cannot escape root or create duplicate semantic sources — PASS.
-- Repository code/network is never executed — PASS.
+1. US-005 configured supported workspace candidates are discovered — PASS.
+2. US-006 ordering is stable across differing filesystem creation/enumeration order — PASS.
+3. US-007 unsupported/unsafe structures produce actionable diagnostics — PASS after EOSR-WP-MVP-0002-F001 correction.
+4. Default/configured exclusions prevent canonical ingestion — PASS.
+5. Overlapping patterns yield one canonical candidate — PASS.
+6. External/cyclic symlinks cannot escape root or create duplicate semantic sources — PASS.
+7. Repository code/network is never executed — PASS.
 
 ## Test / Validation Evidence
 
-PASS for the implemented test set, but the test set does not cover the blocking `ReadDir` item-error path.
+PASS.
 
-Existing verification includes formatting, Clippy with warnings denied, all workspace tests, machine-document synchronization, governed EOSE execution/result checking, current EOSV evidence, and repository PR CI.
+Focused coverage includes stable ordering/equivalent clones, overlapping provenance, default/configured exclusions, unsupported source kinds, inert repository content, globstar behavior, symlink aliases/external targets/cycles, invalid UTF-8 paths on Unix, and the EOSR regression proving directory-entry errors are preserved while valid entries retain stable order.
 
 ## Security / Reliability Findings
 
-One blocking reliability finding:
+**EOSR-WP-MVP-0002-F001 — RESOLVED.**
 
-**EOSR-WP-MVP-0002-F001 — Silent `ReadDir` item errors.**
+Initial review found that `ReadDir` item failures were silently dropped. PR #199 replaced that behavior with explicit error retention and deterministic `UnreadableSource` diagnostics anchored to the containing repository-relative directory, while preserving sorted traversal of valid entries. The focused regression and full validation suite pass.
 
-Severity: blocking conformance / reliability.
-
-Required correction:
-
-1. replace silent `filter_map(Result::ok)` handling with explicit per-entry error handling;
-2. emit a deterministic `UnreadableSource` discovery diagnostic for enumeration errors, anchored to the containing repository-relative directory (or another stable location available at that failure boundary);
-3. retain stable ordering of all successfully enumerated entries and diagnostics;
-4. add focused regression coverage for the error-handling helper/path without weakening existing deterministic discovery tests;
-5. rerun full Rust validation and refresh EOSV evidence after the product/test correction.
+No blocking security or reliability finding remains.
 
 ## Traceability Findings
 
-PASS except for EOSR-WP-MVP-0002-F001.
+PASS.
 
-The implementation is traceable to FR-001; QR-001 and QR-003; ADR-0002, ADR-0004, ADR-0005; IFC-WORKSPACE-0001; TECH-WORKSPACE-0001; WP-MVP-0002; EXEC-0004; and current EOSV evidence.
+Traceability is complete across the Work Packet, governing requirements/ADRs/specifications, EXEC-0004, EOSV evidence, initial EOSR finding, correction PR #199, and this final review disposition.
 
 ## Blocking Findings
 
-1. **EOSR-WP-MVP-0002-F001 — `ReadDir` item failures are silently dropped instead of diagnosed.**
-
-No other blocking finding was identified in this review pass.
+None.
 
 ## Non-Blocking Findings
 
-None specific to WP-MVP-0002 at this review stage. Separate EOS issues #175, #176, #178, and #181 remain outside this packet.
+None specific to WP-MVP-0002. Existing separate EOS issues #175, #176, #178, and #181 remain outside this packet.
 
 ## Decision
 
-**REJECTED** pending correction and re-verification of EOSR-WP-MVP-0002-F001.
+**ACCEPTED.**
+
+WP-MVP-0002 is technically acceptable for governed closure after its acceptance checklist is reconciled and evidence is refreshed for that semantic artifact change.
