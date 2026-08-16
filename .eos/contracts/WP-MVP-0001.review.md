@@ -1,3 +1,9 @@
+# ChatGPT Review Contract — WP-MVP-0001
+
+Review the target against all applicable accepted higher-authority artifacts.
+
+## Target
+
 # WP-MVP-0001 — Repository identity and effective configuration
 
 **Status:** IN_REVIEW
@@ -88,3 +94,19 @@ Focused tests/fixtures MUST additionally cover root discovery, nested roots, pre
 This packet satisfies its current Definition-of-Ready boundary: governing ADR/specification authority is explicit, implementation scope is bounded, acceptance behavior is testable, and exact validation commands are defined.
 
 **Do not begin implementation until `./scripts/eos authorize WP-MVP-0001` succeeds after PR #158 is merged and the post-merge repository ruleset has been applied/verified.**
+
+
+## Required Review Dimensions
+
+- scope conformance;
+- requirements and specification conformance;
+- architecture conformance;
+- acceptance criteria;
+- deterministic validation evidence;
+- security/reliability risk;
+- traceability completeness;
+- unresolved findings;
+- recommendation: ACCEPTED / ACCEPTED_WITH_FOLLOW_UP / REJECTED / BLOCKED.
+
+Do not impersonate final human authorization where the governance model reserves
+that decision to the human.
