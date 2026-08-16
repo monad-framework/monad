@@ -1,6 +1,6 @@
 # WP-MVP-0002 — Deterministic workspace discovery
 
-**Status:** IN_REVIEW
+**Status:** CLOSED
 **Epic:** EPIC-002  
 **Feature:** F-002-02  
 **Program Increment:** PI-MVP-001  
@@ -34,13 +34,13 @@ parsing document content; source/document ID allocation beyond the canonical-pat
 
 ## Acceptance criteria
 
-- [ ] US-005 supported configured workspace candidates are discovered.
-- [ ] US-006 ordering is stable under randomized filesystem enumeration.
-- [ ] US-007 unsupported/unsafe structures produce actionable diagnostics.
-- [ ] exclusions prevent `.git/`, `.eos/`, `machine/`, and configured build output from canonical ingestion by default.
-- [ ] overlapping patterns produce one canonical candidate.
-- [ ] external/cyclic symlinks cannot escape root or create duplicate semantic sources.
-- [ ] no repository code/network executes.
+- [x] US-005 supported configured workspace candidates are discovered.
+- [x] US-006 ordering is stable under randomized filesystem enumeration.
+- [x] US-007 unsupported/unsafe structures produce actionable diagnostics.
+- [x] exclusions prevent `.git/`, `.eos/`, `machine/`, and configured build output from canonical ingestion by default.
+- [x] overlapping patterns produce one canonical candidate.
+- [x] external/cyclic symlinks cannot escape root or create duplicate semantic sources.
+- [x] no repository code/network executes.
 
 ## Implementation boundary
 
