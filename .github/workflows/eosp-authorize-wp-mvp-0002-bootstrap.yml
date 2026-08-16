@@ -1,0 +1,201 @@
+name: EOSP WP-MVP-0002 Authorization Bootstrap
+
+on:
+  push:
+    branches:
+      - eosp/authorize-wp-mvp-0002
+
+permissions:
+  contents: write
+
+jobs:
+  authorize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout authorization branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assert exact baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "67cbc23acf872440c03c964eb3b4d9fe946ec806"
+
+      - name: Reconcile WP-MVP-0002 planning artifact and adoption manifest
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+
+          wp_path = Path('engineering/work-packets/WP-MVP-0002.md')
+          text = wp_path.read_text()
+          old_status = '**Status:** Refined — blocked from Ready by WP-MVP-0001 implementation and ADR-0005'
+          assert old_status in text, 'expected stale WP-MVP-0002 status line not found'
+          text = text.replace(old_status, '**Status:** DRAFT', 1)
+          text = text.replace('- proposed ADR-0005', '- ADR-0005')
+          text = text.replace(
+              '- WP-MVP-0001 must provide valid root/effective configuration.\n- ADR-0005 must establish implementation topology before authorization.',
+              '- WP-MVP-0001 is CLOSED and provides the required valid root/effective configuration boundary.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.'
+          )
+          wp_path.write_text(text)
+
+          wc_path = Path('engineering/work-cycles/WC-MVP-0001.md')
+          wc = wc_path.read_text()
+          wc = wc.replace(
+              '- `WP-MVP-0001` — Repository identity and effective configuration — **Ready**.',
+              '- `WP-MVP-0001` — Repository identity and effective configuration — **Closed**.'
+          )
+          wc = wc.replace(
+              '- `WP-MVP-0002` — Deterministic workspace discovery — Refined; becomes Ready only after its dependency and governing-contract gates pass.',
+              '- `WP-MVP-0002` — Deterministic workspace discovery — **Authorized**.'
+          )
+          wc_path.write_text(wc)
+
+          manifest = {
+              'schema_version': '1.0.0',
+              'adoption_id': 'ADOPT-WP-MVP-0002-2026-08-16',
+              'reason': 'Adopt the pre-existing WP-MVP-0002 planning artifact into canonical EOS lifecycle control after WP-MVP-0001 closure and acceptance of ADR-0005.',
+              'evidence': [
+                  'engineering/work-packets/WP-MVP-0001.md',
+                  'architecture/decisions/ADR-0005-mvp-core-implementation-topology.md',
+                  'specifications/interfaces/IFC-WORKSPACE-0001-repository-root-and-effective-configuration.md',
+                  'specifications/technical/TECH-WORKSPACE-0001-deterministic-workspace-discovery.md'
+              ],
+              'work_packets': [
+                  {
+                      'id': 'WP-MVP-0002',
+                      'path': 'engineering/work-packets/WP-MVP-0002.md',
+                      'title': 'Deterministic workspace discovery',
+                      'status': 'DRAFT',
+                      'pi': 'PI-MVP-001',
+                      'wc': 'WC-MVP-0001',
+                      'domain': 'CORE',
+                      'created': '2026-08-12T00:00:00Z',
+                      'updated': '2026-08-12T00:00:00Z',
+                      'github_url': ''
+                  }
+              ]
+          }
+          path = Path('.eos/adoptions/wp-mvp-0002.json')
+          path.parent.mkdir(parents=True, exist_ok=True)
+          path.write_text(json.dumps(manifest, indent=2) + '\n')
+          PY
+
+      - name: Adopt existing WP-MVP-0002 into EOS control
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos adopt .eos/adoptions/wp-mvp-0002.json \
+            --apply \
+            --by thomascarter613 \
+            --reason "Adopt existing WP-MVP-0002 planning artifact after WP-MVP-0001 closure and resolved ADR-0005 dependency."
+          ./scripts/eos gate explain WP_READY WP-MVP-0002
+
+      - name: Advance WP-MVP-0002 to READY
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos ready WP-MVP-0002 \
+            --by thomascarter613 \
+            --reason "WP-MVP-0002 dependency and governing-contract gates are resolved following WP-MVP-0001 closure and accepted ADR-0005."
+          ./scripts/eos gate explain WP_AUTHORIZE WP-MVP-0002
+
+      - name: Authorize WP-MVP-0002
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos authorize WP-MVP-0002 \
+            --by thomascarter613 \
+            --reason "Human authorization to proceed with WP-MVP-0002 after successful readiness evaluation; conveyed by the project authority on 2026-08-16."
+          ./scripts/eos status
+          ./scripts/eos next
+
+      - name: EOS verification and projection stabilization
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Assert authorization invariants and scope
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+
+          wp = Path('engineering/work-packets/WP-MVP-0002.md').read_text()
+          assert '**Status:** AUTHORIZED' in wp
+          assert 'blocked from Ready' not in wp
+          assert 'proposed ADR-0005' not in wp
+          assert 'ADR-0005 is Accepted' in wp
+
+          wc = Path('engineering/work-cycles/WC-MVP-0001.md').read_text()
+          assert '`WP-MVP-0001` — Repository identity and effective configuration — **Closed**.' in wc
+          assert '`WP-MVP-0002` — Deterministic workspace discovery — **Authorized**.' in wc
+
+          with Path('.eos/work-packets.tsv').open(newline='') as fh:
+              rows = {row['id']: row for row in csv.DictReader(fh, delimiter='\t')}
+          row = rows['WP-MVP-0002']
+          assert row['status'] == 'AUTHORIZED', row
+          assert row['pi'] == 'PI-MVP-001', row
+          assert row['wc'] == 'WC-MVP-0001', row
+          assert row['domain'] == 'CORE', row
+
+          events = [json.loads(line) for line in Path('.eos/events.jsonl').read_text().splitlines() if line.strip()]
+          wp_events = [e for e in events if e.get('target') == 'WP-MVP-0002']
+          assert any(e.get('action') == 'adopt' and e.get('to_state') == 'DRAFT' for e in wp_events), wp_events
+          assert any(e.get('action') == 'ready' and e.get('to_state') == 'READY' for e in wp_events), wp_events
+          assert any(e.get('action') == 'authorize' and e.get('to_state') == 'AUTHORIZED' for e in wp_events), wp_events
+
+          with Path('.eos/decisions.tsv').open(newline='') as fh:
+              decisions = list(csv.DictReader(fh, delimiter='\t'))
+          assert any(d.get('target') == 'WP-MVP-0002' and d.get('action') == 'authorize' and d.get('decision') == 'AUTHORIZED' for d in decisions), decisions[-10:]
+          PY
+
+          if git diff --name-only | grep -E '^(crates/|src/|.*\.rs$)'; then
+            echo 'Unexpected product implementation changes detected.' >&2
+            exit 1
+          fi
+
+          git status --short
+          git diff --stat
+          git diff -- engineering/work-packets/WP-MVP-0002.md
+          git diff -- .eos/work-packets.tsv
+
+      - name: Collapse bootstrap history into canonical EOSP transaction
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="67cbc23acf872440c03c964eb3b4d9fe946ec806"
+          BOOTSTRAP_SHA="$GITHUB_SHA"
+          rm -f .github/workflows/eosp-authorize-wp-mvp-0002-bootstrap.yml
+          git config user.name 'PMB CI'
+          git config user.email 'ci@pmb.test'
+          git reset "$BASE_SHA"
+          git add -A
+          if git diff --cached --name-only | grep -E '^(crates/|src/|.*\.rs$)'; then
+            echo 'Unexpected product implementation changes staged.' >&2
+            exit 1
+          fi
+          git diff --cached --stat
+          git commit -m 'chore(eosp): authorize WP-MVP-0002'
+
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+
+          git push \
+            --force-with-lease=refs/heads/eosp/authorize-wp-mvp-0002:${BOOTSTRAP_SHA} \
+            origin HEAD:eosp/authorize-wp-mvp-0002
