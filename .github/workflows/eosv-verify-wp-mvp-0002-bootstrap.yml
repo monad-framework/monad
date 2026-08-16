@@ -1,0 +1,123 @@
+name: EOSV WP-MVP-0002 Verification Bootstrap
+
+on:
+  push:
+    branches:
+      - eosv/verify-wp-mvp-0002-bootstrap
+
+permissions:
+  contents: write
+
+env:
+  EOS_ACTOR: chatgpt
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout bootstrap branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enter exact final-tree baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="8d93a6ee04ab8bc06d35b5b07e83d51c2b328f40"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test ! -e .github/workflows/eosv-verify-wp-mvp-0002-bootstrap.yml
+          test -z "$(git status --porcelain)"
+
+      - name: Fresh Rust verification on merged implementation
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          rustup toolchain install 1.95.0 --profile minimal --component rustfmt --component clippy
+          rustup override set 1.95.0
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+
+      - name: Capture first-class EOSV WP evidence
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0002 --profile wp
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Assert EOSV invariants
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+
+          wp = Path('engineering/work-packets/WP-MVP-0002.md').read_text()
+          assert '**Status:** VERIFYING' in wp, wp.splitlines()[:10]
+
+          with Path('.eos/work-packets.tsv').open(newline='') as fh:
+              rows = {row['id']: row for row in csv.DictReader(fh, delimiter='\t')}
+          assert rows['WP-MVP-0002']['status'] == 'VERIFYING', rows['WP-MVP-0002']
+
+          with Path('.eos/evidence.tsv').open(newline='') as fh:
+              evidence = list(csv.DictReader(fh, delimiter='\t'))
+          current = [r for r in evidence if r.get('target') == 'WP-MVP-0002' and r.get('status') != 'SUPERSEDED']
+          assert len(current) == 3, current
+          assert {r['validator'] for r in current} == {'eos-integrity','repository','execution-acceptance'}, current
+          assert next(r for r in current if r['validator']=='eos-integrity')['result'] == 'PASSED', current
+          assert next(r for r in current if r['validator']=='repository')['result'] in {'PASSED','SKIPPED'}, current
+          acceptance = next(r for r in current if r['validator']=='execution-acceptance')
+          assert acceptance['result'] == 'PASSED', acceptance
+          assert all(r['status'] == 'VALIDATED' for r in current), current
+
+          events = [json.loads(line) for line in Path('.eos/events.jsonl').read_text().splitlines() if line.strip()]
+          transitions = [e for e in events if e.get('target')=='WP-MVP-0002' and e.get('action')=='validate' and e.get('event_type')=='STATE_TRANSITION']
+          assert transitions, 'missing WP-MVP-0002 validation lifecycle transition'
+          assert transitions[-1]['from_state']=='IN_PROGRESS' and transitions[-1]['to_state']=='VERIFYING', transitions[-1]
+          assert transitions[-1]['commit']=='8d93a6ee04ab8bc06d35b5b07e83d51c2b328f40', transitions[-1]
+          PY
+
+          if git diff --name-only | grep -E '^(crates/|src/|.*\.rs$|product/|architecture/|specifications/|engineering/work-cycles/|engineering/increments/|\.github/workflows/)'; then
+            echo 'Unexpected product or governing-authority change detected.' >&2
+            exit 1
+          fi
+          git status --short
+          git diff --stat
+          git diff -- engineering/work-packets/WP-MVP-0002.md
+          git diff -- .eos/evidence.tsv
+
+      - name: Commit prove stable and publish isolated EOSV ref
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          FINAL_BRANCH="eosv/verify-wp-mvp-0002"
+          git config user.name 'PMB CI'
+          git config user.email 'ci@pmb.test'
+          git add -A
+          if git diff --cached --name-only | grep -E '^(crates/|src/|.*\.rs$|product/|architecture/|specifications/|engineering/work-cycles/|engineering/increments/|\.github/workflows/)'; then
+            echo 'Unexpected out-of-scope staged change detected.' >&2
+            exit 1
+          fi
+          git diff --cached --stat
+          git commit -m 'chore(eosv): verify WP-MVP-0002'
+
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          test "$(git rev-parse HEAD^)" = "8d93a6ee04ab8bc06d35b5b07e83d51c2b328f40"
+
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then
+            echo "Final publication branch already exists: $FINAL_BRANCH" >&2
+            exit 1
+          fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
