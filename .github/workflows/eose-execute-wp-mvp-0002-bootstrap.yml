@@ -73,12 +73,12 @@ jobs:
           end=text.index('\n          RS\n', start)
           rust=textwrap.dedent(text[start:end])+'\n'
           wt=Path(os.environ['WT'])
-          target=wt/'crates/monad-core/src/discovery.rs'
-          target.write_text(rust)
+          (wt/'crates/monad-core/src/discovery.rs').write_text(rust)
           lib=wt/'crates/monad-core/src/lib.rs'
           lib_text=lib.read_text()
           if 'pub mod discovery;' not in lib_text:
-              lib.write_text('pub mod discovery;\n'+lib_text)
+              assert 'pub mod workspace;' in lib_text
+              lib.write_text(lib_text.replace('pub mod workspace;', 'pub mod discovery;\npub mod workspace;', 1))
           PY
 
       - name: Format test and synchronize agent implementation
