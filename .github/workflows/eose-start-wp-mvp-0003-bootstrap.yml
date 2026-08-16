@@ -25,9 +25,7 @@ jobs:
           set -Eeuo pipefail
           git switch -c eose/start-wp-mvp-0003
 
-          ./scripts/eos start WP-MVP-0003 \
-            --by 'Thomas Carter' \
-            --reason 'Begin governed EOSE execution of WP-MVP-0003 after EOSP authorization merged through PR #202.'
+          ./scripts/eos start WP-MVP-0003
 
           ./scripts/eos validate WP-MVP-0001 --profile wp
           ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
