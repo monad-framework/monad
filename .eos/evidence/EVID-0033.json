@@ -1,0 +1,77 @@
+{
+  "command": "builtin:execution-acceptance",
+  "covers": [],
+  "created": "2026-08-16T16:41:38Z",
+  "details": {
+    "criteria": [
+      {
+        "criterion": "US-005 supported configured workspace candidates are discovered",
+        "evidence": "configured-pattern and source-kind tests",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-006 ordering is stable under randomized filesystem enumeration",
+        "evidence": "equivalent clones created in different orders serialize byte-equivalently",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-007 unsupported/unsafe structures produce actionable diagnostics",
+        "evidence": "unsupported source, external symlink, cycle, and invalid UTF-8 fixtures",
+        "status": "passed"
+      },
+      {
+        "criterion": "default and configured exclusions prevent canonical ingestion",
+        "evidence": "default_and_configured_exclusions_are_pruned",
+        "status": "passed"
+      },
+      {
+        "criterion": "overlapping patterns produce one canonical candidate",
+        "evidence": "overlap provenance merges into one sorted source",
+        "status": "passed"
+      },
+      {
+        "criterion": "external/cyclic symlinks cannot escape root or duplicate semantic sources",
+        "evidence": "Unix symlink containment and alias de-duplication fixture",
+        "status": "passed"
+      },
+      {
+        "criterion": "no repository code/network executes",
+        "evidence": "filesystem-only discovery and inert execution-payload fixture",
+        "status": "passed"
+      }
+    ],
+    "failed": []
+  },
+  "environment": {
+    "bash": "GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)",
+    "bun": "",
+    "cargo": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)",
+    "git": "git version 2.54.0",
+    "go": "go version go1.24.13 linux/amd64",
+    "hostname": "runnervmzvulz",
+    "lockfiles": {
+      "Cargo.lock": "fc30babed7abccc14611ec8347f19cd0e9a5d2468d5d42bde9119f86c6c79892"
+    },
+    "machine": "x86_64",
+    "node": "v22.23.2",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)"
+  },
+  "environment_hash": "1f619c8788d05b02af26901cd93786098c58be61972d2c97a7ba4d17bef0922b",
+  "execution": "EXEC-0004",
+  "exit_code": 0,
+  "id": "EVID-0033",
+  "kind": "acceptance",
+  "output": "[\n  {\n    \"criterion\": \"US-005 supported configured workspace candidates are discovered\",\n    \"evidence\": \"configured-pattern and source-kind tests\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"US-006 ordering is stable under randomized filesystem enumeration\",\n    \"evidence\": \"equivalent clones created in different orders serialize byte-equivalently\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"US-007 unsupported/unsafe structures produce actionable diagnostics\",\n    \"evidence\": \"unsupported source, external symlink, cycle, and invalid UTF-8 fixtures\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"default and configured exclusions prevent canonical ingestion\",\n    \"evidence\": \"default_and_configured_exclusions_are_pruned\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"overlapping patterns produce one canonical candidate\",\n    \"evidence\": \"overlap provenance merges into one sorted source\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"external/cyclic symlinks cannot escape root or duplicate semantic sources\",\n    \"evidence\": \"Unix symlink containment and alias de-duplication fixture\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"no repository code/network executes\",\n    \"evidence\": \"filesystem-only discovery and inert execution-payload fixture\",\n    \"status\": \"passed\"\n  }\n]",
+  "output_hash": "0c5d8ec159a84f4a32d86b3c6204ca149d766a1621de9aa35b44d27cc697f5f7",
+  "producer": {
+    "actor": "chatgpt",
+    "commit": "5ef0b9838b0ebff2df9cae8c579f71fb725fd4f5"
+  },
+  "profile": "wp",
+  "result": "PASSED",
+  "source_hash": "8869775c414f2cd3e9595fc577e035c0986ed5cc085437f3c55743a129e9469d",
+  "target": "WP-MVP-0002",
+  "validator": "execution-acceptance"
+}
