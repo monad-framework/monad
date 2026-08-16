@@ -277,11 +277,52 @@
         "schema_version": "2.0.0",
         "updated_at": "2026-08-16T14:31:27Z",
         "version": "1.0.5"
+      },
+      "WP-MVP-0002": {
+        "authority_level": "L3_BINDING",
+        "created_at": "2026-08-12T00:00:00Z",
+        "entity_type": "WP",
+        "id": "WP-MVP-0002",
+        "kind": "WP",
+        "lifecycle_state": "AUTHORIZED",
+        "operational_metadata": {
+          "domain": "CORE",
+          "github_url": "",
+          "path": "engineering/work-packets/WP-MVP-0002.md",
+          "pi": "PI-MVP-001",
+          "title": "Deterministic workspace discovery",
+          "wc": "WC-MVP-0001"
+        },
+        "provenance": {
+          "created_by": "EOS canonical-state adapter",
+          "generation_method": "EOS canonical-state capture",
+          "origin": "AUTOMATION",
+          "source_refs": [
+            ".eos/work-packets.tsv",
+            "engineering/work-packets/WP-MVP-0002.md",
+            ".eos/events.jsonl"
+          ]
+        },
+        "relationships": [
+          {
+            "target_id": "PI-MVP-001",
+            "target_type": "PI",
+            "type": "BELONGS_TO"
+          },
+          {
+            "target_id": "WC-MVP-0001",
+            "target_type": "WC",
+            "type": "BELONGS_TO"
+          }
+        ],
+        "schema_version": "2.0.0",
+        "updated_at": "2026-08-16T15:45:16Z",
+        "version": "1.0.2"
       }
     }
   },
   "model": "EOS-SINGLE-CANONICAL-STATE-1",
-  "revision": 17,
+  "revision": 20,
   "schema_version": "1.0.0",
-  "updated_at": "2026-08-16T14:31:27Z"
+  "updated_at": "2026-08-16T15:45:16Z"
 }
