@@ -222,18 +222,13 @@ def references_from(path: Path) -> list[str]:
 
 
 def workspace_hash(cwd: Path, baseline: str) -> str:
-    pieces=[]
-    excluded=(".eos/","machine/","engineering/evidence/","engineering/reviews/")
-    if (cwd/".git").exists() or run(["git","rev-parse","--git-dir"],cwd=cwd).returncode==0:
-        pathspec=[".",":(exclude).eos/**",":(exclude)machine/**",":(exclude)engineering/evidence/**",":(exclude)engineering/reviews/**"]
-        if baseline:
-            p=run(["git","diff","--binary",baseline,"--",*pathspec],cwd=cwd); pieces.append(p.stdout)
-        p=run(["git","diff","--cached","--binary","--",*pathspec],cwd=cwd); pieces.append(p.stdout)
-        p=run(["git","ls-files","--others","--exclude-standard"],cwd=cwd)
-        for item in sorted(x for x in p.stdout.splitlines() if x and not x.startswith(excluded)):
-            fp=cwd/item
-            if fp.is_file(): pieces.append(item+":"+file_hash(fp))
-    return sha256_bytes("\n".join(pieces).encode())
+    """Hash execution-relevant current source independently of Git history depth.
+
+    The immutable execution baseline remains separately bound in source_fingerprint().
+    Generated EOS/evidence/machine outputs are excluded by source_content_hash().
+    """
+    _ = baseline
+    return source_content_hash(cwd)
 
 
 SOURCE_EXCLUDED_PATHS = (
