@@ -1,0 +1,40 @@
+{
+  "content": "name: EOSE Bootstrap Fixer\n\non:\n  push:\n    branches:\n      - eose/execute-wp-mvp-0002-bootstrap\n\npermissions:\n  contents: write\n\njobs:\n  fix:\n    if: github.event.head_commit.message == 'chore(eose): add one-shot execution bootstrap fixer'\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n      - name: Patch bootstrap and remove fixer\n        shell: bash\n        run: |\n          set -Eeuo pipefail\n          python3 - <<'PY'\n          from pathlib import Path\n          p=Path('.github/workflows/eose-execute-wp-mvp-0002-bootstrap.yml')\n          text=p.read_text()\n          old=\"c=json.load(open('/tmp/exec-contract.json'))\"\n          new=\"raw=open('/tmp/exec-contract.json').read().lstrip(); c=json.JSONDecoder().raw_decode(raw)[0]\"\n          assert old in text\n          text=text.replace(old,new,1)\n          old=\"p=Path('$WT/crates/monad-core/src/lib.rs')\"\n          new=\"p=Path(os.environ['WT']) / 'crates/monad-core/src/lib.rs'\"\n          assert old in text\n          text=text.replace(old,new,1)\n          old=\"from pathlib import Path\\n          p=Path(os.environ['WT']) / 'crates/monad-core/src/lib.rs'\"\n          new=\"from pathlib import Path\\n          import os\\n          p=Path(os.environ['WT']) / 'crates/monad-core/src/lib.rs'\"\n          assert old in text\n          text=text.replace(old,new,1)\n          p.write_text(text)\n          Path('.github/workflows/eose-bootstrap-fixer.yml').unlink()\n          PY\n          git config user.name 'PMB CI'\n          git config user.email 'ci@pmb.test'\n          git add -A\n          git commit -m 'chore(eose): fix execution bootstrap plumbing'\n          git push origin HEAD:eose/execute-wp-mvp-0002-bootstrap\n",
+  "document_id": "doc:.github%2Fworkflows%2Feose-bootstrap-fixer.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/eose-bootstrap-fixer.yml.",
+    "title": "Eose Bootstrap Fixer"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 46,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: EOSE Bootstrap Fixer\n\non:\n  push:\n    branches:\n      - eose/execute-wp-mvp-0002-bootstrap\n\npermissions:\n  contents: write\n\njobs:\n  fix:\n    if: github.event.head_commit.message == 'chore(eose): add one-shot execution bootstrap fixer'\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n      - name: Patch bootstrap and remove fixer\n        shell: bash\n        run: |\n          set -Eeuo pipefail\n          python3 - <<'PY'\n          from pathlib import Path\n          p=Path('.github/workflows/eose-execute-wp-mvp-0002-bootstrap.yml')\n          text=p.read_text()\n          old=\"c=json.load(open('/tmp/exec-contract.json'))\"\n          new=\"raw=open('/tmp/exec-contract.json').read().lstrip(); c=json.JSONDecoder().raw_decode(raw)[0]\"\n          assert old in text\n          text=text.replace(old,new,1)\n          old=\"p=Path('$WT/crates/monad-core/src/lib.rs')\"\n          new=\"p=Path(os.environ['WT']) / 'crates/monad-core/src/lib.rs'\"\n          assert old in text\n          text=text.replace(old,new,1)\n          old=\"from pathlib import Path\\n          p=Path(os.environ['WT']) / 'crates/monad-core/src/lib.rs'\"\n          new=\"from pathlib import Path\\n          import os\\n          p=Path(os.environ['WT']) / 'crates/monad-core/src/lib.rs'\"\n          assert old in text\n          text=text.replace(old,new,1)\n          p.write_text(text)\n          Path('.github/workflows/eose-bootstrap-fixer.yml').unlink()\n          PY\n          git config user.name 'PMB CI'\n          git config user.email 'ci@pmb.test'\n          git add -A\n          git commit -m 'chore(eose): fix execution bootstrap plumbing'\n          git push origin HEAD:eose/execute-wp-mvp-0002-bootstrap",
+      "title": "Eose Bootstrap Fixer"
+    }
+  ],
+  "source": {
+    "bytes": 1736,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 46,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/eose-bootstrap-fixer.yml",
+    "sha256": "6e052c4829520373ae9100342c44cf67c39d5c40d25d14a53375572e75ecb9d5"
+  }
+}
