@@ -1,0 +1,118 @@
+name: EOSR WP-MVP-0002 Closure Bootstrap
+
+on:
+  push:
+    branches:
+      - eosr/close-wp-mvp-0002-bootstrap
+
+permissions:
+  contents: write
+
+env:
+  EOS_ACTOR: thomascarter613
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+
+      - name: Enter exact accepted-review baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="d8f687a5665ea4551de63ba4a17d14bde5167ddc"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test ! -e .github/workflows/eosr-close-wp-mvp-0002-bootstrap.yml
+          test -z "$(git status --porcelain)"
+
+      - name: Reconcile exactly seven accepted criteria
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('engineering/work-packets/WP-MVP-0002.md')
+          text=p.read_text()
+          before=text.count('- [ ]')
+          assert before == 7, before
+          text=text.replace('- [ ]','- [x]')
+          assert text.count('- [x]') == 7
+          assert '- [ ]' not in text
+          p.write_text(text)
+          PY
+
+      - name: Refresh evidence while WP remains IN_REVIEW
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+          ./scripts/eos gate explain WP_CLOSE WP-MVP-0002
+
+      - name: Close WP-MVP-0002
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos close WP-MVP-0002 \
+            --reason "Human closure authorization following accepted EOSR engineering review merged through PR #200 at d8f687a5665ea4551de63ba4a17d14bde5167ddc."
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Assert closure invariants
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+          wp=Path('engineering/work-packets/WP-MVP-0002.md').read_text()
+          assert '**Status:** CLOSED' in wp
+          section=wp.split('## Acceptance criteria',1)[1].split('## Implementation boundary',1)[0]
+          assert section.count('- [x]')==7 and '- [ ]' not in section
+          review=Path('engineering/reviews/WP-MVP-0002-REVIEW.md').read_text()
+          assert '**Decision:** ACCEPTED' in review
+          rows={r['id']:r for r in csv.DictReader(open('.eos/work-packets.tsv'),delimiter='\t')}
+          assert rows['WP-MVP-0002']['status']=='CLOSED', rows['WP-MVP-0002']
+          events=[json.loads(line) for line in Path('.eos/events.jsonl').read_text().splitlines() if line.strip()]
+          closes=[e for e in events if e.get('target')=='WP-MVP-0002' and e.get('action')=='close' and e.get('event_type')=='STATE_TRANSITION']
+          assert len(closes)==1, closes
+          assert closes[0]['from_state']=='IN_REVIEW' and closes[0]['to_state']=='CLOSED', closes[0]
+          evidence=list(csv.DictReader(open('.eos/evidence.tsv'),delimiter='\t'))
+          wp2=[r for r in evidence if r['target']=='WP-MVP-0002' and r['status']!='SUPERSEDED']
+          assert len(wp2)==3 and all(r['status']=='VALIDATED' and r['execution']=='EXEC-0004' for r in wp2), wp2
+          assert next(r for r in wp2 if r['validator']=='execution-acceptance')['result']=='PASSED'
+          PY
+          if git diff --name-only | grep -E '^(crates/|src/|.*\.rs$|tools/eos/|product/|architecture/|specifications/|engineering/work-cycles/|engineering/increments/)'; then
+            echo 'Unexpected product/governing change in closure.' >&2; exit 1
+          fi
+          git status --short
+          git diff --stat
+
+      - name: Commit prove stable and publish closure
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          FINAL_BRANCH="eosr/close-wp-mvp-0002"
+          git config user.name 'PMB CI'
+          git config user.email 'ci@pmb.test'
+          git add -A
+          git commit -m 'chore(eosr): close WP-MVP-0002'
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          test "$(git rev-parse HEAD^)" = "d8f687a5665ea4551de63ba4a17d14bde5167ddc"
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then echo 'Final closure branch exists' >&2; exit 1; fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
