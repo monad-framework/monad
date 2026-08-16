@@ -51,7 +51,7 @@ jobs:
                   'engineering/work-packets/WP-MVP-0002.md',
                   'architecture/decisions/ADR-0003-stable-source-and-document-identity.md',
                   'architecture/decisions/ADR-0005-mvp-core-implementation-topology.md',
-                  'specifications/data/DATA-SOURCE-0001-stable-source-and-document-identity.md',
+                  'specifications/data/DATA-SOURCE-0001-stable-source-document-identity.md',
                   'specifications/technical/TECH-WORKSPACE-0001-deterministic-workspace-discovery.md'
               ],
               'work_packets': [{
@@ -86,7 +86,6 @@ jobs:
             --by 'Thomas Carter' \
             --reason 'Explicit human authorization to proceed with WP-MVP-0003 following closure of WP-MVP-0002.'
 
-          # Refresh current evidence for already governed packets whose semantic source fingerprint changed.
           ./scripts/eos validate WP-MVP-0001 --profile wp
           ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
 
@@ -97,7 +96,7 @@ jobs:
 
           python3 - <<'PY'
           from pathlib import Path
-          import json, csv
+          import json
           state = json.loads(Path('.eos/state/current.json').read_text())
           assert state['entities']['WP']['WP-MVP-0001']['lifecycle_state'] == 'CLOSED'
           assert state['entities']['WP']['WP-MVP-0002']['lifecycle_state'] == 'CLOSED'
