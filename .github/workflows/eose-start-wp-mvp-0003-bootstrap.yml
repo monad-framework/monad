@@ -1,0 +1,75 @@
+name: EOSE WP-MVP-0003 Start Bootstrap
+
+on:
+  push:
+    branches:
+      - eose/start-wp-mvp-0003-bootstrap
+
+permissions:
+  contents: write
+
+jobs:
+  start:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Start WP-MVP-0003 and stabilize projections
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git switch -c eose/start-wp-mvp-0003
+
+          ./scripts/eos gate explain WP_START WP-MVP-0003
+          ./scripts/eos start WP-MVP-0003 \
+            --by 'Thomas Carter' \
+            --reason 'Begin governed EOSE execution of WP-MVP-0003 after EOSP authorization merged through PR #202.'
+
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          state = json.loads(Path('.eos/state/current.json').read_text())
+          assert state['entities']['WP']['WP-MVP-0001']['lifecycle_state'] == 'CLOSED'
+          assert state['entities']['WP']['WP-MVP-0002']['lifecycle_state'] == 'CLOSED'
+          assert state['entities']['WP']['WP-MVP-0003']['lifecycle_state'] == 'IN_PROGRESS'
+          assert state['entities']['WC']['WC-MVP-0001']['lifecycle_state'] == 'ACTIVE'
+          wp = Path('engineering/work-packets/WP-MVP-0003.md').read_text()
+          assert '**Status:** IN_PROGRESS' in wp
+          PY
+
+          git status --short
+          git diff --stat
+          git diff -- engineering/work-packets/WP-MVP-0003.md
+          git diff -- .eos/work-packets.tsv
+
+      - name: Commit start transaction
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git config user.name 'PMB CI'
+          git config user.email 'ci@pmb.test'
+          git add -A
+          git commit -m 'chore(eose): start WP-MVP-0003'
+
+      - name: Post-commit stability proof and push
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          git push origin HEAD:refs/heads/eose/start-wp-mvp-0003
