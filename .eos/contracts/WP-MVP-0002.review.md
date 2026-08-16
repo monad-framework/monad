@@ -1,3 +1,9 @@
+# ChatGPT Review Contract — WP-MVP-0002
+
+Review the target against all applicable accepted higher-authority artifacts.
+
+## Target
+
 # WP-MVP-0002 — Deterministic workspace discovery
 
 **Status:** IN_REVIEW
@@ -49,3 +55,19 @@ Under accepted ADR-0005, changes belong in the workspace/discovery module and it
 ## Validation
 
 Focused unit/property/golden discovery tests, randomized-order test harness, symlink/security fixtures where the platform supports them, and machine-document freshness check.
+
+
+## Required Review Dimensions
+
+- scope conformance;
+- requirements and specification conformance;
+- architecture conformance;
+- acceptance criteria;
+- deterministic validation evidence;
+- security/reliability risk;
+- traceability completeness;
+- unresolved findings;
+- recommendation: ACCEPTED / ACCEPTED_WITH_FOLLOW_UP / REJECTED / BLOCKED.
+
+Do not impersonate final human authorization where the governance model reserves
+that decision to the human.
