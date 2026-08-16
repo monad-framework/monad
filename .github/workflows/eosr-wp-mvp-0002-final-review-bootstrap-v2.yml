@@ -1,0 +1,109 @@
+name: EOSR WP-MVP-0002 Stable Final Review
+
+on:
+  push:
+    branches:
+      - eosr/review-wp-mvp-0002-final-bootstrap-v2
+
+permissions:
+  contents: write
+
+env:
+  EOS_ACTOR: chatgpt
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+
+      - name: Enter exact corrective baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="1d7446308e4f2e2efa6ee57aa52747b938232ec0"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main eosr/review-wp-mvp-0002-final-bootstrap
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test ! -e .github/workflows/eosr-wp-mvp-0002-final-review-bootstrap-v2.yml
+          test -z "$(git status --porcelain)"
+
+      - name: Fresh corrected implementation verification
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          rustup toolchain install 1.95.0 --profile minimal --component rustfmt --component clippy
+          rustup override set 1.95.0
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+          python3 - <<'PY'
+          from pathlib import Path
+          text=Path('crates/monad-core/src/discovery.rs').read_text()
+          assert 'filter_map(Result::ok)' not in text
+          assert 'cannot enumerate directory entry: {error}' in text
+          assert 'directory_entry_errors_are_preserved_while_valid_entries_sort' in text
+          assert '**Status:** IN_REVIEW' in Path('engineering/work-packets/WP-MVP-0002.md').read_text()
+          PY
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Materialize accepted final review from reviewed bootstrap
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git show origin/eosr/review-wp-mvp-0002-final-bootstrap:.github/workflows/eosr-wp-mvp-0002-final-review-bootstrap.yml > /tmp/original-review-bootstrap.yml
+          python3 - <<'PY'
+          from pathlib import Path
+          import textwrap
+          text=Path('/tmp/original-review-bootstrap.yml').read_text()
+          marker="          cat > engineering/reviews/WP-MVP-0002-REVIEW.md <<'EOF'\n"
+          start=text.index(marker)+len(marker)
+          end=text.index('\n          EOF\n',start)
+          review=textwrap.dedent(text[start:end])+'\n'
+          Path('engineering/reviews/WP-MVP-0002-REVIEW.md').write_text(review)
+          assert '**Decision:** ACCEPTED' in review
+          assert 'EOSR-WP-MVP-0002-F001 — RESOLVED' in review
+          assert '## Blocking Findings\n\nNone.' in review
+          PY
+
+      - name: Stabilize EOS trace and machine projections
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+          python3 - <<'PY'
+          from pathlib import Path
+          review=Path('engineering/reviews/WP-MVP-0002-REVIEW.md').read_text()
+          assert '**Decision:** ACCEPTED' in review
+          assert '**Status:** IN_REVIEW' in Path('engineering/work-packets/WP-MVP-0002.md').read_text()
+          PY
+          git status --short
+          git diff --stat
+
+      - name: Commit accepted review and prove final stability
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          FINAL_BRANCH="eosr/review-wp-mvp-0002-final"
+          allowed='^(engineering/reviews/WP-MVP-0002-REVIEW\.md|\.eos/trace-edges\.tsv|machine/)'
+          unexpected="$(git diff --name-only | grep -Ev "$allowed" || true)"
+          test -z "$unexpected" || { printf 'Unexpected final review scope:\n%s\n' "$unexpected" >&2; exit 1; }
+          git config user.name 'ChatGPT'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'docs(eosr): accept WP-MVP-0002 engineering review'
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          test "$(git rev-parse HEAD^)" = "1d7446308e4f2e2efa6ee57aa52747b938232ec0"
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then echo 'Final review branch exists' >&2; exit 1; fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
