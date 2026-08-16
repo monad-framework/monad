@@ -223,9 +223,9 @@ def references_from(path: Path) -> list[str]:
 
 def workspace_hash(cwd: Path, baseline: str) -> str:
     pieces=[]
-    excluded=(".eos/","engineering/evidence/","engineering/reviews/")
+    excluded=(".eos/","machine/","engineering/evidence/","engineering/reviews/")
     if (cwd/".git").exists() or run(["git","rev-parse","--git-dir"],cwd=cwd).returncode==0:
-        pathspec=[".",":(exclude).eos/**",":(exclude)engineering/evidence/**",":(exclude)engineering/reviews/**"]
+        pathspec=[".",":(exclude).eos/**",":(exclude)machine/**",":(exclude)engineering/evidence/**",":(exclude)engineering/reviews/**"]
         if baseline:
             p=run(["git","diff","--binary",baseline,"--",*pathspec],cwd=cwd); pieces.append(p.stdout)
         p=run(["git","diff","--cached","--binary","--",*pathspec],cwd=cwd); pieces.append(p.stdout)

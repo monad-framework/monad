@@ -533,6 +533,35 @@ def main() -> int:
         )
         assert "source fingerprint changed" not in audited["issues"], audited
 
+        # EOSV machine projections are generated outputs, not execution
+        # source. Rewriting and committing them after evidence capture must
+        # not stale execution-bound evidence. This reproduces the real
+        # capture -> machine sync -> commit sequence that blocked WP-MVP-0002.
+        projection = root / "machine" / "projection.json"
+        projection.write_text(
+            '{"projection": "refreshed"}\n',
+            encoding="utf-8",
+        )
+        run("git", "add", "machine/projection.json", cwd=root)
+        run("git", "commit", "-qm", "machine projection refresh", cwd=root)
+
+        execution_after_projection, projection_payload = (
+            module.source_fingerprint(
+                "WP-TEST-0001",
+                "EXEC-TEST-0001",
+            )
+        )
+        assert execution_after_projection == execution_initial, projection_payload
+
+        projection_audit, failures = module.audit_evidence(mutate=False)
+        assert not failures, failures
+        projection_row = next(
+            row for row in projection_audit if row["id"] == "EVID-TEST-0001"
+        )
+        assert (
+            "source fingerprint changed" not in projection_row["issues"]
+        ), projection_row
+
         # Real execution-source drift must still be detected relative to
         # the immutable EOSE baseline.
         source.write_text(
