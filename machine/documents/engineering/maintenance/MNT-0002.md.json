@@ -1,0 +1,103 @@
+{
+  "content": "# MNT-0002 — EOSV execution-bound evidence audit fingerprint mismatch\n\n**State:** VERIFYING\n**Type:** bug\n**Area:** EOSV evidence freshness\n**GitHub Issue:** #191\n**Blocked Work:** WP-MVP-0002 EOSV verification\n\n## Summary\n\nExecution-bound EOSV evidence captured with `--execution` becomes stale immediately during the next evidence audit even when no governed, implementation, baseline, or workspace input has changed.\n\n## Context\n\nWP-MVP-0002 implementation merged through PR #190. Fresh Rust verification on merged `main` passes, and `./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004` produces required integrity PASS plus execution-acceptance PASS. The immediately following strict evidence audit nevertheless marks the new execution-bound evidence stale.\n\n## Root cause\n\n`run_profile()` captures with `source_fingerprint(target, execution)`. `audit_evidence()` reconstructs with `source_fingerprint(row.get(\"execution\") or row.get(\"target\"))`, substituting the execution identifier into the fingerprint target field. The hashes therefore differ even when real source state is unchanged.\n\n## Resolution\n\nAudit with the same target/execution pair used at capture: `source_fingerprint(row.get(\"target\", \"\"), row.get(\"execution\", \"\"))`. Extend the EOSV freshness regression to exercise immediate execution-bound evidence audit parity and retained real-drift detection.\n\n## Scope\n\nIn scope: `tools/eos/verification_v2.py`, `scripts/test-eosv-evidence-freshness.py`, this maintenance artifact, EOS control state, dependent evidence refresh, and machine projections.\n\nOut of scope: WP-MVP-0002 product implementation, EOSE baseline semantics, #175, #176, #178, #181, and unrelated EOS refactoring.\n\n## Verification checklist\n\n- [x] Existing non-execution freshness regression remains green.\n- [x] Execution-bound capture/audit parity remains fresh without source drift.\n- [x] Real execution workspace drift is still detected.\n- [x] Modified Python files compile.\n- [x] Strict EOS verification reports zero current stale evidence after dependent evidence refresh.\n- [x] Canonical EOS state is consistent.\n- [x] Machine documents are synchronized.\n\n## Closure criterion\n\nClose only after the fix is merged and verified on `main`, then demonstrate that WP-MVP-0002 execution-bound EOSV evidence remains fresh.\n",
+  "document_id": "doc:engineering%2Fmaintenance%2FMNT-0002.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "State: VERIFYING Type: bug Area: EOSV evidence freshness GitHub Issue: #191 Blocked Work: WP-MVP-0002 EOSV verification",
+    "title": "MNT-0002 — EOSV execution-bound evidence audit fingerprint mismatch"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "mnt-0002-eosv-execution-bound-evidence-audit-fingerprint-mismatch",
+      "text": "# MNT-0002 — EOSV execution-bound evidence audit fingerprint mismatch\n\n**State:** VERIFYING\n**Type:** bug\n**Area:** EOSV evidence freshness\n**GitHub Issue:** #191\n**Blocked Work:** WP-MVP-0002 EOSV verification",
+      "title": "MNT-0002 — EOSV execution-bound evidence audit fingerprint mismatch"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 12,
+      "line_start": 9,
+      "section_id": "summary",
+      "text": "## Summary\n\nExecution-bound EOSV evidence captured with `--execution` becomes stale immediately during the next evidence audit even when no governed, implementation, baseline, or workspace input has changed.",
+      "title": "Summary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 16,
+      "line_start": 13,
+      "section_id": "context",
+      "text": "## Context\n\nWP-MVP-0002 implementation merged through PR #190. Fresh Rust verification on merged `main` passes, and `./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004` produces required integrity PASS plus execution-acceptance PASS. The immediately following strict evidence audit nevertheless marks the new execution-bound evidence stale.",
+      "title": "Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 20,
+      "line_start": 17,
+      "section_id": "root-cause",
+      "text": "## Root cause\n\n`run_profile()` captures with `source_fingerprint(target, execution)`. `audit_evidence()` reconstructs with `source_fingerprint(row.get(\"execution\") or row.get(\"target\"))`, substituting the execution identifier into the fingerprint target field. The hashes therefore differ even when real source state is unchanged.",
+      "title": "Root cause"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 21,
+      "section_id": "resolution",
+      "text": "## Resolution\n\nAudit with the same target/execution pair used at capture: `source_fingerprint(row.get(\"target\", \"\"), row.get(\"execution\", \"\"))`. Extend the EOSV freshness regression to exercise immediate execution-bound evidence audit parity and retained real-drift detection.",
+      "title": "Resolution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 25,
+      "section_id": "scope",
+      "text": "## Scope\n\nIn scope: `tools/eos/verification_v2.py`, `scripts/test-eosv-evidence-freshness.py`, this maintenance artifact, EOS control state, dependent evidence refresh, and machine projections.\n\nOut of scope: WP-MVP-0002 product implementation, EOSE baseline semantics, #175, #176, #178, #181, and unrelated EOS refactoring.",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 31,
+      "section_id": "verification-checklist",
+      "text": "## Verification checklist\n\n- [x] Existing non-execution freshness regression remains green.\n- [x] Execution-bound capture/audit parity remains fresh without source drift.\n- [x] Real execution workspace drift is still detected.\n- [x] Modified Python files compile.\n- [x] Strict EOS verification reports zero current stale evidence after dependent evidence refresh.\n- [x] Canonical EOS state is consistent.\n- [x] Machine documents are synchronized.",
+      "title": "Verification checklist"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 41,
+      "section_id": "closure-criterion",
+      "text": "## Closure criterion\n\nClose only after the fix is merged and verified on `main`, then demonstrate that WP-MVP-0002 execution-bound EOSV evidence remains fresh.",
+      "title": "Closure criterion"
+    }
+  ],
+  "source": {
+    "bytes": 2328,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 43,
+    "media_type": "text/markdown",
+    "path": "engineering/maintenance/MNT-0002.md",
+    "sha256": "5744d09d5b56caac6cf4e3ee5e947c8166aa38e2e465a44624d54faebb69fcd2"
+  }
+}

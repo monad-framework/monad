@@ -63,6 +63,34 @@
         "schema_version": "2.0.0",
         "updated_at": "2026-08-15T12:00:55Z",
         "version": "1.0.4"
+      },
+      "MNT-0002": {
+        "authority_level": "L3_BINDING",
+        "created_at": "2026-08-16T16:20:27Z",
+        "entity_type": "MaintenanceItem",
+        "id": "MNT-0002",
+        "kind": "MNT",
+        "lifecycle_state": "VERIFYING",
+        "operational_metadata": {
+          "github_url": "",
+          "path": "engineering/maintenance/MNT-0002.md",
+          "summary": "EOSV execution-bound evidence audit fingerprint mismatch",
+          "type": "bug"
+        },
+        "provenance": {
+          "created_by": "EOS canonical-state adapter",
+          "generation_method": "EOS canonical-state capture",
+          "origin": "AUTOMATION",
+          "source_refs": [
+            ".eos/maintenance.tsv",
+            "engineering/maintenance/MNT-0002.md",
+            ".eos/events.jsonl"
+          ]
+        },
+        "relationships": [],
+        "schema_version": "2.0.0",
+        "updated_at": "2026-08-16T16:20:28Z",
+        "version": "1.0.3"
       }
     },
     "PI": {
@@ -322,7 +350,7 @@
     }
   },
   "model": "EOS-SINGLE-CANONICAL-STATE-1",
-  "revision": 21,
+  "revision": 25,
   "schema_version": "1.0.0",
-  "updated_at": "2026-08-16T15:49:13Z"
+  "updated_at": "2026-08-16T16:20:28Z"
 }

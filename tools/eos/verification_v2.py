@@ -605,7 +605,7 @@ def audit_evidence(*, mutate: bool=True) -> tuple[list[dict],list[str]]:
         if not machine.exists(): issues.append("machine evidence missing")
         elif row.get("artifact_hash")!=file_hash(machine): issues.append("machine evidence hash mismatch")
         if row.get("status") in {"VALIDATED","STALE"}:
-            try: current,_=source_fingerprint(row.get("execution") or row.get("target"))
+            try: current,_=source_fingerprint(row.get("target", ""), row.get("execution", ""))
             except Exception as exc: current=""; issues.append(f"source fingerprint unavailable: {exc}")
             if current and current!=row.get("source_hash"):
                 issues.append("source fingerprint changed")

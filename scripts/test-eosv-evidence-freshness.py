@@ -57,6 +57,8 @@ def load_module(root: Path):
     # Redirect EOSV's repository globals into the isolated fixture.
     module.ROOT = root
     module.EOS = root / ".eos"
+    module.EVID_REG = module.EOS / "evidence.tsv"
+    module.LINK_REG = module.EOS / "evidence-links.tsv"
 
     return module
 
@@ -507,6 +509,30 @@ def main() -> int:
         assert execution_repeated == execution_initial
         assert execution_repeated_payload == execution_payload
 
+        # Execution-bound evidence audit must reconstruct the exact same
+        # target/execution fingerprint pair used during capture.
+        evidence_row = {field: "" for field in module.EVID_FIELDS}
+        evidence_row.update(
+            {
+                "id": "EVID-TEST-0001",
+                "target": "WP-TEST-0001",
+                "execution": "EXEC-TEST-0001",
+                "status": "VALIDATED",
+                "source_hash": execution_initial,
+            }
+        )
+        write_tsv(
+            root / ".eos" / "evidence.tsv",
+            module.EVID_FIELDS,
+            [evidence_row],
+        )
+        audit, failures = module.audit_evidence(mutate=False)
+        assert not failures, failures
+        audited = next(
+            row for row in audit if row["id"] == "EVID-TEST-0001"
+        )
+        assert "source fingerprint changed" not in audited["issues"], audited
+
         # Real execution-source drift must still be detected relative to
         # the immutable EOSE baseline.
         source.write_text(
@@ -523,6 +549,13 @@ def main() -> int:
 
         assert execution_changed != execution_initial
         assert execution_changed_payload["baseline"] == baseline
+
+        drift_audit, failures = module.audit_evidence(mutate=False)
+        assert not failures, failures
+        drifted = next(
+            row for row in drift_audit if row["id"] == "EVID-TEST-0001"
+        )
+        assert "source fingerprint changed" in drifted["issues"], drifted
 
         # The immutable execution baseline itself must not move because the
         # working source changed.
