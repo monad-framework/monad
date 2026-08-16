@@ -1,0 +1,122 @@
+name: EOSM MNT-0002 Closure Bootstrap
+
+on:
+  push:
+    branches:
+      - eosm/close-mnt-0002-bootstrap
+
+permissions:
+  contents: write
+
+env:
+  EOS_ACTOR: chatgpt
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enter exact closure baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="61f87636ca22d9d9c69f56c04ea5f86d21a9a39e"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test ! -e .github/workflows/eosm-close-mnt-0002-bootstrap.yml
+          test -z "$(git status --porcelain)"
+
+      - name: Record concrete MNT-0002 closure evidence
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('engineering/maintenance/MNT-0002.md')
+          text=p.read_text()
+          old='''## Closure criterion\n\nClose only after the fix is merged and verified on `main`, then demonstrate that WP-MVP-0002 execution-bound EOSV evidence remains fresh.\n'''
+          new='''## Closure Evidence\n\n- Target/execution fingerprint reconstruction fix merged through PR #192.\n- Generated `machine/**` projection self-reference fix merged through PR #193.\n- History-independent execution workspace fingerprint fix merged through PR #195.\n- PR #195 passed Repository integrity, EOS Integrity, and Machine document synchronization on GitHub's depth-1 synthetic merge checkout.\n- The real blocked WP-MVP-0002 EOSV transaction passed end-to-end and merged through PR #196.\n- PR #196 passed Repository integrity, EOS Integrity, and Machine document synchronization on the shallow synthetic merge ref.\n- WP-MVP-0002 is now `VERIFYING` with current EXEC-0004-bound EOSV evidence EVID-0034–EVID-0036; integrity and execution acceptance are PASS and repository validation is optional/SKIPPED.\n- `./scripts/eos verify --strict` reports zero current stale evidence on the merged verification state.\n- GitHub issue #191 is closed as completed.\n- MNT-0002's nine verification conditions are complete; real source drift remains detectable while lifecycle/control, generated projections, and shallow-history availability no longer create false staleness.\n'''
+          assert old in text
+          p.write_text(text.replace(old,new,1))
+          PY
+
+      - name: Pass MNT_CLOSE gate and close maintenance lifecycle
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos gate explain MNT_CLOSE MNT-0002
+          ./scripts/eos maintain close MNT-0002
+          ./scripts/eos state status
+
+      - name: Refresh dependent WP evidence against final maintenance text
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Assert closure invariants and scope
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+
+          mnt=Path('engineering/maintenance/MNT-0002.md').read_text()
+          assert '**State:** CLOSED' in mnt
+          assert '- [ ]' not in mnt
+          assert mnt.count('- [x]') == 9, mnt.count('- [x]')
+          for token in ['PR #192','PR #193','PR #195','PR #196','#191','EVID-0034–EVID-0036']:
+              assert token in mnt, token
+
+          rows={r['id']:r for r in csv.DictReader(open('.eos/maintenance.tsv'),delimiter='\t')}
+          assert rows['MNT-0002']['status']=='CLOSED', rows['MNT-0002']
+
+          events=[json.loads(line) for line in Path('.eos/events.jsonl').read_text().splitlines() if line.strip()]
+          closes=[e for e in events if e.get('target')=='MNT-0002' and e.get('action')=='maintenance-close' and e.get('event_type')=='STATE_TRANSITION']
+          assert len(closes)==1, closes
+          assert closes[0]['from_state']=='VERIFYING' and closes[0]['to_state']=='CLOSED', closes[0]
+          assert closes[0]['commit']=='61f87636ca22d9d9c69f56c04ea5f86d21a9a39e', closes[0]
+
+          evidence=list(csv.DictReader(open('.eos/evidence.tsv'),delimiter='\t'))
+          wp1=[r for r in evidence if r['target']=='WP-MVP-0001' and r['status']!='SUPERSEDED']
+          wp2=[r for r in evidence if r['target']=='WP-MVP-0002' and r['status']!='SUPERSEDED']
+          assert len(wp1)==3 and all(r['status']=='VALIDATED' for r in wp1), wp1
+          assert len(wp2)==3 and all(r['status']=='VALIDATED' and r['execution']=='EXEC-0004' for r in wp2), wp2
+          assert next(r for r in wp2 if r['validator']=='eos-integrity')['result']=='PASSED'
+          assert next(r for r in wp2 if r['validator']=='repository')['result'] in {'PASSED','SKIPPED'}
+          assert next(r for r in wp2 if r['validator']=='execution-acceptance')['result']=='PASSED'
+          PY
+
+          allowed='^(engineering/maintenance/MNT-0002\.md|engineering/evidence/|\.eos/|machine/)'
+          unexpected="$(git diff --name-only | grep -Ev "$allowed" || true)"
+          test -z "$unexpected" || { printf 'Unexpected closure scope:\n%s\n' "$unexpected" >&2; exit 1; }
+          git diff --stat
+
+      - name: Commit prove stable and publish closure ref
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          FINAL_BRANCH="eosm/close-mnt-0002"
+          git config user.name 'PMB CI'
+          git config user.email 'ci@pmb.test'
+          git add -A
+          git commit -m 'chore(eosm): close MNT-0002'
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          test "$(git rev-parse HEAD^)" = "61f87636ca22d9d9c69f56c04ea5f86d21a9a39e"
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then echo 'Final MNT closure branch exists' >&2; exit 1; fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
