@@ -1,0 +1,111 @@
+{
+  "actor": "chatgpt",
+  "baseline_commit": "5dc6ad47759dbd7e315d23627feef5086eb64099",
+  "branch": "wp/mvp-0002",
+  "contract_hash": "bc8a277c3599ee885d7d02134de5e5882adf84f2e16d8e2fd578811949f746fd",
+  "environment": {
+    "branch": "wp/mvp-0002",
+    "captured": "2026-08-16T16:05:01Z",
+    "custom": [],
+    "head": "5dc6ad47759dbd7e315d23627feef5086eb64099",
+    "host": "runnervmzvulz",
+    "lockfiles": [
+      {
+        "path": "Cargo.lock",
+        "sha256": "fc30babed7abccc14611ec8347f19cd0e9a5d2468d5d42bde9119f86c6c79892"
+      }
+    ],
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]",
+    "shell": "/bin/bash",
+    "tools": {
+      "bash": "GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)",
+      "cargo": "cargo 1.97.1 (c980f4866 2026-06-30)",
+      "git": "git version 2.54.0",
+      "go": "go version go1.24.13 linux/amd64",
+      "node": "v22.23.2",
+      "python3": "Python 3.12.3",
+      "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)"
+    }
+  },
+  "execution_id": "EXEC-0004",
+  "generated": "2026-08-16T16:05:00Z",
+  "governed_paths": [
+    "idea.md",
+    "vision/**",
+    "product/**",
+    "architecture/**",
+    "specifications/**",
+    "governance/**",
+    "engineering/increments/**",
+    "engineering/work-cycles/**",
+    "engineering/work-packets/**"
+  ],
+  "governing_hash": "8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142",
+  "governing_inputs": [
+    {
+      "path": "engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md",
+      "sha256": "bece83dc3997145b356fec00b224ea72ba8791cba0b03ab2563716fc252a34df"
+    },
+    {
+      "path": "engineering/work-cycles/WC-MVP-0001.md",
+      "sha256": "42f4366d3b4e15c8ad60299e2a518ba028fd0c18d66a3b66ab544b8939a10a96"
+    },
+    {
+      "path": "engineering/work-packets/WP-MVP-0001.md",
+      "sha256": "4a47380500b943435851542f9727b603b257fb903d9269e10cd6d57522f97aa4"
+    },
+    {
+      "path": "engineering/work-packets/WP-MVP-0002.md",
+      "sha256": "75aa7cc03ee92053e66aba6b79da99613cc4024e50a691270c3ecedb802286ff"
+    }
+  ],
+  "repository": "/home/runner/work/monad/monad",
+  "required_result_schema": {
+    "acceptance_criteria": [
+      {
+        "criterion": "string",
+        "evidence": "string",
+        "status": "passed|failed|not-run"
+      }
+    ],
+    "changed_files": [
+      "path"
+    ],
+    "execution_id": "EXEC-0004",
+    "proposed_commit_message": "string",
+    "risks": [
+      "string"
+    ],
+    "status": "completed|blocked|failed",
+    "summary": "string",
+    "target": "WP-MVP-0002",
+    "unresolved_issues": [
+      "string"
+    ],
+    "validation": [
+      {
+        "command": "string",
+        "exit_code": 0,
+        "summary": "string"
+      }
+    ]
+  },
+  "schema_version": "2.0.0",
+  "scope": {
+    "allowed": [
+      "*",
+      "**/*"
+    ],
+    "allowed_governed": [],
+    "forbidden": []
+  },
+  "system_forbidden_paths": [
+    ".git",
+    ".git/**",
+    ".eos",
+    ".eos/**"
+  ],
+  "target": "WP-MVP-0002",
+  "worktree": "/home/runner/work/monad/.monad-worktrees/wp-mvp-0002"
+}
