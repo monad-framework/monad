@@ -1,6 +1,6 @@
 # WP-MVP-0002 — Deterministic workspace discovery
 
-**Status:** Refined — blocked from Ready by WP-MVP-0001 implementation and ADR-0005  
+**Status:** AUTHORIZED
 **Epic:** EPIC-002  
 **Feature:** F-002-02  
 **Program Increment:** PI-MVP-001  
@@ -17,12 +17,12 @@ Enumerate the configured canonical workspace deterministically and safely, with 
 - ADR-0002, ADR-0004
 - IFC-WORKSPACE-0001
 - TECH-WORKSPACE-0001
-- proposed ADR-0005
+- ADR-0005
 
 ## Dependencies
 
-- WP-MVP-0001 must provide valid root/effective configuration.
-- ADR-0005 must establish implementation topology before authorization.
+- WP-MVP-0001 is CLOSED and provides the required valid root/effective configuration boundary.
+- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.
 
 ## In scope
 
