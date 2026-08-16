@@ -72,6 +72,7 @@ jobs:
           start=text.index(marker)+len(marker)
           end=text.index('\n          RS\n', start)
           rust=textwrap.dedent(text[start:end])+'\n'
+          rust=rust.replace('ancestors.insert(canonical_root);', 'ancestors.insert(canonical_root.clone());', 1)
           wt=Path(os.environ['WT'])
           (wt/'crates/monad-core/src/discovery.rs').write_text(rust)
           lib=wt/'crates/monad-core/src/lib.rs'
