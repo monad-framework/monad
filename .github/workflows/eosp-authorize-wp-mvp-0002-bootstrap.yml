@@ -18,13 +18,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Assert exact baseline
+      - name: Enter exact final-tree baseline
         shell: bash
         run: |
           set -Eeuo pipefail
+          BASE_SHA="67cbc23acf872440c03c964eb3b4d9fe946ec806"
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
           git fetch origin main
-          test "$(git rev-parse origin/main)" = "67cbc23acf872440c03c964eb3b4d9fe946ec806"
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test "$(git rev-parse HEAD)" = "$BASE_SHA"
+          test ! -e .github/workflows/eosp-authorize-wp-mvp-0002-bootstrap.yml
+          test -z "$(git status --porcelain)"
 
       - name: Reconcile WP-MVP-0002 and create adoption manifest
         shell: bash
@@ -98,7 +103,7 @@ jobs:
           ./scripts/eos status
           ./scripts/eos next
 
-      - name: Refresh WP-MVP-0001 evidence for changed semantic source set
+      - name: Refresh WP-MVP-0001 evidence for final semantic source set
         shell: bash
         run: |
           set -Eeuo pipefail
@@ -140,6 +145,7 @@ jobs:
           assert any(e.get('action') == 'adopt' and e.get('to_state') == 'DRAFT' for e in wp_events)
           assert any(e.get('action') == 'ready' and e.get('to_state') == 'READY' for e in wp_events)
           assert any(e.get('action') == 'authorize' and e.get('to_state') == 'AUTHORIZED' for e in wp_events)
+          assert all(e.get('commit') == '67cbc23acf872440c03c964eb3b4d9fe946ec806' for e in wp_events if e.get('action') in {'adopt','ready','authorize'}), wp_events
 
           with Path('.eos/decisions.tsv').open(newline='') as fh:
               decisions = list(csv.DictReader(fh, delimiter='\t'))
@@ -154,8 +160,8 @@ jobs:
           assert all(r['result'] in {'PASSED', 'SKIPPED'} for r in current), current
           PY
 
-          if git diff --name-only | grep -E '^(crates/|src/|.*\.rs$|engineering/work-cycles/WC-MVP-0001\.md$)'; then
-            echo 'Unexpected out-of-scope implementation or parent-cycle change detected.' >&2
+          if git diff --name-only | grep -E '^(crates/|src/|.*\.rs$|engineering/work-cycles/WC-MVP-0001\.md$|\.github/workflows/)'; then
+            echo 'Unexpected out-of-scope implementation, parent-cycle, or workflow change detected.' >&2
             exit 1
           fi
           git status --short
@@ -164,18 +170,15 @@ jobs:
           git diff -- .eos/work-packets.tsv
           git diff -- .eos/evidence.tsv
 
-      - name: Collapse bootstrap history into canonical EOSP transaction
+      - name: Commit and prove stable final EOSP transaction
         shell: bash
         run: |
           set -Eeuo pipefail
-          BASE_SHA="67cbc23acf872440c03c964eb3b4d9fe946ec806"
           BOOTSTRAP_SHA="$GITHUB_SHA"
-          rm -f .github/workflows/eosp-authorize-wp-mvp-0002-bootstrap.yml
           git config user.name 'PMB CI'
           git config user.email 'ci@pmb.test'
-          git reset "$BASE_SHA"
           git add -A
-          if git diff --cached --name-only | grep -E '^(crates/|src/|.*\.rs$|engineering/work-cycles/WC-MVP-0001\.md$)'; then
+          if git diff --cached --name-only | grep -E '^(crates/|src/|.*\.rs$|engineering/work-cycles/WC-MVP-0001\.md$|\.github/workflows/)'; then
             echo 'Unexpected out-of-scope changes staged.' >&2
             exit 1
           fi
@@ -186,6 +189,7 @@ jobs:
           ./scripts/eos state status
           python3 scripts/sync-machine-docs.py --check
           test -z "$(git status --porcelain)"
+          test "$(git rev-parse HEAD^)" = "67cbc23acf872440c03c964eb3b4d9fe946ec806"
 
           git push \
             --force-with-lease=refs/heads/eosp/authorize-wp-mvp-0002:${BOOTSTRAP_SHA} \
