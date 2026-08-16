@@ -1,6 +1,6 @@
 # WP-MVP-0003 — Stable source and document identity
 
-**Status:** Refined — blocked from Ready by workspace bootstrap and ADR-0005  
+**Status:** AUTHORIZED
 **Epic:** EPIC-003  
 **Feature:** F-003-01  
 **Program Increment:** PI-MVP-001  
@@ -17,11 +17,13 @@ Create clone-independent source/document identities and content provenance that 
 - ADR-0003
 - DATA-SOURCE-0001
 - TECH-WORKSPACE-0001
-- proposed ADR-0005
+- ADR-0005
 
 ## Dependencies
 
-WP-MVP-0001 root semantics and WP-MVP-0002 canonical discovery output must be stable. ADR-0005 must be accepted before implementation authorization.
+- WP-MVP-0001 is CLOSED and provides stable repository root/effective configuration semantics.
+- WP-MVP-0002 is CLOSED and provides stable canonical discovery output.
+- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.
 
 ## Acceptance criteria
 
