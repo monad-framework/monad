@@ -21,6 +21,16 @@
       "type": "declares"
     },
     {
+      "source": "doc:.eos%2Fadoptions%2Fwp-mvp-0003.json",
+      "target": "identifier:ADR-0003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fadoptions%2Fwp-mvp-0003.json",
+      "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
       "source": "doc:.eos%2Fartifacts.tsv",
       "target": "identifier:QA-0001",
       "type": "declares"
@@ -242,6 +252,11 @@
     },
     {
       "source": "doc:.eos%2Fevents.jsonl",
+      "target": "identifier:ADR-0003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fevents.jsonl",
       "target": "identifier:ADR-0005",
       "type": "declares"
     },
@@ -457,6 +472,26 @@
     },
     {
       "source": "doc:.eos%2Fevidence%2FEVID-0058.json",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fevidence%2FEVID-0061.json",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fevidence%2FEVID-0061.json",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fevidence%2FEVID-0064.json",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fevidence%2FEVID-0064.json",
       "target": "identifier:WP-0001",
       "type": "declares"
     },
@@ -2654,6 +2689,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fadoptions%2Fwp-mvp-0003.json",
+      "normative": false,
+      "source_path": ".eos/adoptions/wp-mvp-0003.json",
+      "title": "Wp Mvp 0003",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fartifact-changelog.tsv",
       "normative": false,
       "source_path": ".eos/artifact-changelog.tsv",
@@ -3266,6 +3309,54 @@
       "normative": false,
       "source_path": ".eos/evidence/EVID-0060.json",
       "title": "Evid 0060",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0061.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0061.json",
+      "title": "Evid 0061",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0062.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0062.json",
+      "title": "Evid 0062",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0063.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0063.json",
+      "title": "Evid 0063",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0064.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0064.json",
+      "title": "Evid 0064",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0065.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0065.json",
+      "title": "Evid 0065",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0066.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0066.json",
+      "title": "Evid 0066",
       "type": "document"
     },
     {
@@ -11350,6 +11441,54 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0061.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0061.md",
+      "title": "EVID-0061 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0062.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0062.md",
+      "title": "EVID-0062 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0063.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0063.md",
+      "title": "EVID-0063 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0064.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0064.md",
+      "title": "EVID-0064 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0065.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0065.md",
+      "title": "EVID-0065 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0066.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0066.md",
+      "title": "EVID-0066 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Fgithub%2FOWNER-ACTIONS.md",
       "normative": true,
       "source_path": "engineering/github/OWNER-ACTIONS.md",
@@ -13497,5 +13636,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "5b98448b32ca2b9b9a664664760723f059ad4b973c23d258465b564f2f4f354c"
+  "source_tree_sha256": "2868d85add186815fe28c80f95dda52ad5e4517f4967bd8e17f01bfc902b3706"
 }
