@@ -170,11 +170,11 @@ jobs:
           git diff -- .eos/work-packets.tsv
           git diff -- .eos/evidence.tsv
 
-      - name: Commit and prove stable final EOSP transaction
+      - name: Commit, prove stable, and publish isolated final ref
         shell: bash
         run: |
           set -Eeuo pipefail
-          BOOTSTRAP_SHA="$GITHUB_SHA"
+          FINAL_BRANCH="eosp/authorize-wp-mvp-0002-final"
           git config user.name 'PMB CI'
           git config user.email 'ci@pmb.test'
           git add -A
@@ -191,6 +191,8 @@ jobs:
           test -z "$(git status --porcelain)"
           test "$(git rev-parse HEAD^)" = "67cbc23acf872440c03c964eb3b4d9fe946ec806"
 
-          git push \
-            --force-with-lease=refs/heads/eosp/authorize-wp-mvp-0002:${BOOTSTRAP_SHA} \
-            origin HEAD:eosp/authorize-wp-mvp-0002
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then
+            echo "Final publication branch already exists: $FINAL_BRANCH" >&2
+            exit 1
+          fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
