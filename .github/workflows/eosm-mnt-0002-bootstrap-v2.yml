@@ -1,0 +1,186 @@
+name: EOSM MNT-0002 Corrected Repair Bootstrap
+
+on:
+  push:
+    branches:
+      - eosm/fix-eosv-execution-evidence-freshness-bootstrap-v2
+
+permissions:
+  contents: write
+
+env:
+  EOS_ACTOR: chatgpt
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enter exact maintenance baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="8d93a6ee04ab8bc06d35b5b07e83d51c2b328f40"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test ! -e .github/workflows/eosm-mnt-0002-bootstrap-v2.yml
+          test -z "$(git status --porcelain)"
+
+      - name: Create and start MNT-0002
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos maintain create bug \
+            "EOSV execution-bound evidence audit fingerprint mismatch" \
+            --context "GitHub issue #191 blocks WP-MVP-0002 EOSV because execution-bound evidence captures and audits source fingerprints with inconsistent target/execution inputs."
+          cat > engineering/maintenance/MNT-0002.md <<'EOF'
+          # MNT-0002 — EOSV execution-bound evidence audit fingerprint mismatch
+
+          **State:** OPEN
+          **Type:** bug
+          **Area:** EOSV evidence freshness
+          **GitHub Issue:** #191
+          **Blocked Work:** WP-MVP-0002 EOSV verification
+
+          ## Summary
+
+          Execution-bound EOSV evidence captured with `--execution` becomes stale immediately during the next evidence audit even when no governed, implementation, baseline, or workspace input has changed.
+
+          ## Context
+
+          WP-MVP-0002 implementation merged through PR #190. Fresh Rust verification on merged `main` passes, and `./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004` produces required integrity PASS plus execution-acceptance PASS. The immediately following strict evidence audit nevertheless marks the new execution-bound evidence stale.
+
+          ## Root cause
+
+          `run_profile()` captures with `source_fingerprint(target, execution)`. `audit_evidence()` reconstructs with `source_fingerprint(row.get("execution") or row.get("target"))`, substituting the execution identifier into the fingerprint target field. The hashes therefore differ even when real source state is unchanged.
+
+          ## Resolution
+
+          Audit with the same target/execution pair used at capture: `source_fingerprint(row.get("target", ""), row.get("execution", ""))`. Extend the EOSV freshness regression to exercise immediate execution-bound evidence audit parity and retained real-drift detection.
+
+          ## Scope
+
+          In scope: `tools/eos/verification_v2.py`, `scripts/test-eosv-evidence-freshness.py`, this maintenance artifact, EOS control state, dependent evidence refresh, and machine projections.
+
+          Out of scope: WP-MVP-0002 product implementation, EOSE baseline semantics, #175, #176, #178, #181, and unrelated EOS refactoring.
+
+          ## Verification checklist
+
+          - [ ] Existing non-execution freshness regression remains green.
+          - [ ] Execution-bound capture/audit parity remains fresh without source drift.
+          - [ ] Real execution workspace drift is still detected.
+          - [ ] Modified Python files compile.
+          - [ ] Strict EOS verification reports zero current stale evidence after dependent evidence refresh.
+          - [ ] Canonical EOS state is consistent.
+          - [ ] Machine documents are synchronized.
+
+          ## Closure criterion
+
+          Close only after the fix is merged and verified on `main`, then demonstrate that WP-MVP-0002 execution-bound EOSV evidence remains fresh.
+          EOF
+          sed -i 's/^          //' engineering/maintenance/MNT-0002.md
+          ./scripts/eos maintain plan MNT-0002
+          ./scripts/eos maintain start MNT-0002
+
+      - name: Apply one-line fix and regression coverage
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          verifier = Path('tools/eos/verification_v2.py')
+          text = verifier.read_text()
+          old = 'current,_=source_fingerprint(row.get("execution") or row.get("target"))'
+          new = 'current,_=source_fingerprint(row.get("target", ""), row.get("execution", ""))'
+          assert text.count(old) == 1
+          verifier.write_text(text.replace(old, new, 1))
+
+          test = Path('scripts/test-eosv-evidence-freshness.py')
+          text = test.read_text()
+          root_anchor = '''    module.ROOT = root\n    module.EOS = root / ".eos"\n\n    return module\n'''
+          root_replacement = '''    module.ROOT = root\n    module.EOS = root / ".eos"\n    module.EVID_REG = module.EOS / "evidence.tsv"\n    module.LINK_REG = module.EOS / "evidence-links.tsv"\n\n    return module\n'''
+          assert text.count(root_anchor) == 1
+          text = text.replace(root_anchor, root_replacement, 1)
+
+          parity_anchor = '''        assert execution_repeated == execution_initial\n        assert execution_repeated_payload == execution_payload\n\n        # Real execution-source drift must still be detected relative to\n'''
+          parity_insert = '''        assert execution_repeated == execution_initial\n        assert execution_repeated_payload == execution_payload\n\n        # Execution-bound evidence audit must reconstruct the exact same\n        # target/execution fingerprint pair used during capture.\n        evidence_row = {field: "" for field in module.EVID_FIELDS}\n        evidence_row.update(\n            {\n                "id": "EVID-TEST-0001",\n                "target": "WP-TEST-0001",\n                "execution": "EXEC-TEST-0001",\n                "status": "VALIDATED",\n                "source_hash": execution_initial,\n            }\n        )\n        write_tsv(\n            root / ".eos" / "evidence.tsv",\n            module.EVID_FIELDS,\n            [evidence_row],\n        )\n        audit, failures = module.audit_evidence(mutate=False)\n        assert not failures, failures\n        audited = next(\n            row for row in audit if row["id"] == "EVID-TEST-0001"\n        )\n        assert "source fingerprint changed" not in audited["issues"], audited\n\n        # Real execution-source drift must still be detected relative to\n'''
+          assert text.count(parity_anchor) == 1
+          text = text.replace(parity_anchor, parity_insert, 1)
+
+          drift_anchor = '''        assert execution_changed != execution_initial\n        assert execution_changed_payload["baseline"] == baseline\n\n        # The immutable execution baseline itself must not move because the\n'''
+          drift_insert = '''        assert execution_changed != execution_initial\n        assert execution_changed_payload["baseline"] == baseline\n\n        drift_audit, failures = module.audit_evidence(mutate=False)\n        assert not failures, failures\n        drifted = next(\n            row for row in drift_audit if row["id"] == "EVID-TEST-0001"\n        )\n        assert "source fingerprint changed" in drifted["issues"], drifted\n\n        # The immutable execution baseline itself must not move because the\n'''
+          assert text.count(drift_anchor) == 1
+          test.write_text(text.replace(drift_anchor, drift_insert, 1))
+          PY
+
+      - name: Verify fix and advance maintenance to VERIFYING
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 -m py_compile tools/eos/verification_v2.py scripts/test-eosv-evidence-freshness.py
+          python3 scripts/test-eosv-evidence-freshness.py
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('engineering/maintenance/MNT-0002.md')
+          text=p.read_text()
+          assert text.count('- [ ]') == 7
+          p.write_text(text.replace('- [ ]','- [x]'))
+          PY
+          ./scripts/eos maintain verify MNT-0002
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Assert maintenance invariants
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv
+          mnt=Path('engineering/maintenance/MNT-0002.md').read_text()
+          assert '**State:** VERIFYING' in mnt
+          assert mnt.count('- [x]') == 7 and '- [ ]' not in mnt
+          row=next(r for r in csv.DictReader(open('.eos/maintenance.tsv'),delimiter='\t') if r['id']=='MNT-0002')
+          assert row['status']=='VERIFYING', row
+          verifier=Path('tools/eos/verification_v2.py').read_text()
+          assert 'source_fingerprint(row.get("target", ""), row.get("execution", ""))' in verifier
+          test=Path('scripts/test-eosv-evidence-freshness.py').read_text()
+          assert 'module.EVID_REG = module.EOS / "evidence.tsv"' in test
+          evidence=list(csv.DictReader(open('.eos/evidence.tsv'),delimiter='\t'))
+          current=[r for r in evidence if r.get('target')=='WP-MVP-0001' and r.get('status')!='SUPERSEDED']
+          assert len(current)==3 and all(r['status']=='VALIDATED' for r in current), current
+          PY
+          allowed='^(tools/eos/verification_v2\.py|scripts/test-eosv-evidence-freshness\.py|engineering/maintenance/MNT-0002\.md|\.eos/|machine/|engineering/evidence/)'
+          unexpected="$(git diff --name-only | grep -Ev "$allowed" || true)"
+          test -z "$unexpected" || { printf 'Unexpected maintenance scope:\n%s\n' "$unexpected" >&2; exit 1; }
+          git diff --stat
+
+      - name: Commit prove stable and publish final maintenance ref
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          FINAL_BRANCH="eosm/fix-eosv-execution-evidence-freshness"
+          git config user.name 'PMB CI'
+          git config user.email 'ci@pmb.test'
+          git add -A
+          git commit -m 'fix(eosv): preserve execution-bound evidence freshness'
+          python3 scripts/test-eosv-evidence-freshness.py
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          test "$(git rev-parse HEAD^)" = "8d93a6ee04ab8bc06d35b5b07e83d51c2b328f40"
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then
+            echo "Final branch already exists" >&2; exit 1
+          fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
