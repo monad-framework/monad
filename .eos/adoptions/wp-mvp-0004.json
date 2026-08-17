@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "adoption_id": "ADOPT-WP-MVP-0004-2026-08-17",
+  "reason": "Adopt WP-MVP-0004 after closure of WP-MVP-0003, activation of WC-MVP-0002, and acceptance of ADR-0005.",
+  "evidence": [
+    "engineering/work-cycles/WC-MVP-0002.md",
+    "engineering/work-packets/WP-MVP-0003.md",
+    "architecture/decisions/ADR-0003-stable-source-and-document-identity.md",
+    "architecture/decisions/ADR-0004-safe-deterministic-ingestion-boundary.md",
+    "architecture/decisions/ADR-0005-mvp-core-implementation-topology.md",
+    "specifications/data/DATA-SOURCE-0001-stable-source-document-identity.md",
+    "specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md"
+  ],
+  "work_packets": [
+    {
+      "id": "WP-MVP-0004",
+      "path": "engineering/work-packets/WP-MVP-0004.md",
+      "title": "Markdown engineering artifact parser",
+      "status": "DRAFT",
+      "pi": "PI-MVP-001",
+      "wc": "WC-MVP-0002",
+      "domain": "CORE",
+      "created": "2026-08-17T00:00:00Z",
+      "updated": "2026-08-17T00:00:00Z",
+      "github_url": ""
+    }
+  ]
+}
