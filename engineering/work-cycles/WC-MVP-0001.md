@@ -1,6 +1,6 @@
 # WC-MVP-0001 — Workspace, Discovery, and Identity
 
-**Status:** ACTIVE
+**Status:** IN_REVIEW
 **Program Increment:** PI-MVP-001  
 **Forecast:** 2026-08-17 through 2026-08-23  
 **Sprint Goal:** Discover repository/workspace knowledge with stable identity.
@@ -11,9 +11,9 @@ Establish the deterministic repository bootstrap boundary for Monad MVP Release 
 
 ## Included Work Packets
 
-- `WP-MVP-0001` — Repository identity and effective configuration — **Ready**.
-- `WP-MVP-0002` — Deterministic workspace discovery — Refined; becomes Ready only after its dependency and governing-contract gates pass.
-- `WP-MVP-0003` — Stable source/document identity — Refined; becomes Ready only after its dependency and governing-contract gates pass.
+- `WP-MVP-0001` — Repository identity and effective configuration — **CLOSED**.
+- `WP-MVP-0002` — Deterministic workspace discovery — **CLOSED**.
+- `WP-MVP-0003` — Stable source/document identity — **CLOSED**.
 
 Only one Work Packet is authorized at a time unless an explicit EOS WIP exception is approved.
 
