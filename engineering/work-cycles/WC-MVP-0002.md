@@ -1,6 +1,6 @@
 # WC-MVP-0002 — Parsing and Reference Resolution
 
-**Status:** AUTHORIZED
+**Status:** ACTIVE
 **Program Increment:** PI-MVP-001  
 **Forecast:** 2026-08-24 through 2026-08-30  
 **Sprint Goal:** Parse canonical repository inputs into deterministic provenance-rich records and resolve local references without execution, network access, or semantic inference.
