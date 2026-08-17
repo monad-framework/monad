@@ -1,0 +1,73 @@
+name: EOSE WC-MVP-0002 Start Bootstrap
+
+on:
+  push:
+    branches:
+      - eose/start-wc-mvp-0002-bootstrap
+
+permissions:
+  contents: write
+
+jobs:
+  start:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enter exact authorized Work Cycle baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "f1bceec9ee39309367203156581964a822cde612"
+          git checkout --detach f1bceec9ee39309367203156581964a822cde612
+          git switch -c eose/start-wc-mvp-0002
+          git config user.name "ChatGPT"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Start WC-MVP-0002
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./scripts/eos start WC-MVP-0002
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+          ./scripts/eos validate WP-MVP-0003 --profile wp --execution EXEC-0005
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+
+          def rows(path):
+              with Path(path).open(newline='', encoding='utf-8') as f:
+                  return list(csv.DictReader(f, delimiter='\t'))
+
+          wc = {r['id']: r for r in rows('.eos/work-cycles.tsv')}
+          wp = {r['id']: r for r in rows('.eos/work-packets.tsv')}
+          pi = {r['id']: r for r in rows('.eos/program-increments.tsv')}
+          assert pi['PI-MVP-001']['status'] == 'ACTIVE'
+          assert wc['WC-MVP-0001']['status'] == 'CLOSED'
+          assert wc['WC-MVP-0002']['status'] == 'ACTIVE'
+          assert wp['WP-MVP-0001']['status'] == 'CLOSED'
+          assert wp['WP-MVP-0002']['status'] == 'CLOSED'
+          assert wp['WP-MVP-0003']['status'] == 'CLOSED'
+          text = Path('engineering/work-cycles/WC-MVP-0002.md').read_text(encoding='utf-8')
+          assert '**Status:** ACTIVE' in text
+          PY
+
+      - name: Commit activation and prove stability
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -A
+          git commit -m 'chore(eose): start WC-MVP-0002'
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          git push origin HEAD:refs/heads/eose/start-wc-mvp-0002
