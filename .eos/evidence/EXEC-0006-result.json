@@ -1,0 +1,104 @@
+{
+  "agent_result": {
+    "acceptance_criteria": [
+      {
+        "criterion": "US-011 section/heading/metadata structure and source ranges are extracted deterministically.",
+        "evidence": "Typed headings, metadata, status, and byte/line source spans are covered by parser tests, including nested Unicode headings and visible content immediately after multiline comment closure.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-012 governed identifiers/status metadata are extracted according to artifact contracts.",
+        "evidence": "Explicit governed IDs establish DocumentIdentity and status metadata is extracted with duplicate-field diagnostics.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-013 links and identifier references are emitted as unresolved candidates with provenance.",
+        "evidence": "LinkCandidate and IdentifierReferenceCandidate preserve deterministic source ranges without resolution behavior.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-014 malformed/ambiguous governed constructs produce source-located diagnostics; partial recovery is not silently valid semantic state.",
+        "evidence": "Invalid UTF-8, malformed metadata/links, duplicate metadata, and unclosed fences produce typed diagnostics while invalid metadata is not accepted; unterminated comments safely suppress remaining candidate extraction.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Code fences containing fake IDs/links are not treated as ordinary governed references.",
+        "evidence": "Regression coverage proves single-line and multiline comments, adjacent comments, code-fence-looking comment content, actual fenced content, and multiline inline code cannot emit false candidates; visible content resumes with exact spans after comment closure.",
+        "status": "passed"
+      },
+      {
+        "criterion": "HTML/scripts/macros are never executed.",
+        "evidence": "The parser is pure byte/string analysis with no process, network, macro, or resolver calls; executable-looking fixture input and syntax inside HTML comments are treated only as inert data.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Repeat-run normalized output is equivalent/byte-stable where declared canonical.",
+        "evidence": "Repeat-serialization regression tests assert byte-identical normalized output for ordinary CRLF input and CRLF/Unicode multiline-comment input.",
+        "status": "passed"
+      }
+    ],
+    "changed_files": [
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/markdown.rs"
+    ],
+    "execution_id": "EXEC-0006",
+    "proposed_commit_message": "feat(monad-core): parse markdown engineering artifacts",
+    "risks": [],
+    "status": "completed",
+    "summary": "Implemented and independently re-reviewed a deterministic, side-effect-free Markdown engineering-artifact parser in monad-core. It preserves source/document identity, structural headings and byte ranges, metadata/status fields, unresolved link and governed-identifier candidates, and source-located diagnostics without reference resolution or executable semantics. Stateful byte-preserving suppression now covers multiline HTML comments and multiline inline code.",
+    "target": "WP-MVP-0004",
+    "unresolved_issues": [],
+    "validation": [
+      {
+        "command": "cargo fmt --all --check",
+        "exit_code": 0,
+        "summary": "Formatting is clean."
+      },
+      {
+        "command": "cargo test --workspace",
+        "exit_code": 0,
+        "summary": "38 monad-core tests plus 2 monad-cli tests passed."
+      },
+      {
+        "command": "cargo clippy --workspace --all-targets --all-features -- -D warnings",
+        "exit_code": 0,
+        "summary": "Strict Clippy completed without warnings."
+      },
+      {
+        "command": "./scripts/eos contract verify EXEC-0006",
+        "exit_code": 0,
+        "summary": "Contract hash, governing inputs, baseline ancestry, and execution branch all verified."
+      },
+      {
+        "command": "git diff --check",
+        "exit_code": 0,
+        "summary": "Tracked and new implementation changes are whitespace-clean."
+      }
+    ]
+  },
+  "eos_observation": {
+    "actual_changed_files": [
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/markdown.rs"
+    ],
+    "declared_but_not_actual": [],
+    "declared_changed_files": [
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/markdown.rs"
+    ],
+    "scope": {
+      "directives": {
+        "allowed": [
+          "*",
+          "**/*"
+        ],
+        "allowed_governed": [],
+        "forbidden": []
+      },
+      "passed": true,
+      "violations": []
+    },
+    "undeclared_actual": []
+  },
+  "ingested": "2026-08-17T02:59:04Z"
+}
