@@ -59,13 +59,18 @@
     "governing_hash": "4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816",
     "id": "EXEC-0007",
     "path": ".eos/executions/EXEC-0007.json",
-    "result_path": "",
-    "status": "RUNNING",
+    "result_path": ".eos/evidence/EXEC-0007-result.json",
+    "status": "CLOSED",
     "target": "WP-MVP-0004",
-    "updated": "2026-08-17T03:25:23Z",
+    "updated": "2026-08-17T03:36:04Z",
     "worktree": "/data/MONAD/.monad-worktrees/wp-mvp-0004"
   },
-  "result": null,
+  "result": {
+    "agent_status": "completed",
+    "ingested": "2026-08-17T03:35:32Z",
+    "path": ".eos/evidence/EXEC-0007-result.json",
+    "scope_passed": true
+  },
   "schema_version": "1.0.0",
   "scope": {
     "allowed": [
