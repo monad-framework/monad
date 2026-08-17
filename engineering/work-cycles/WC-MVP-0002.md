@@ -27,8 +27,8 @@ Only one Work Packet is authorized at a time unless an explicit EOS WIP exceptio
 - `architecture/decisions/ADR-0005-mvp-core-implementation-topology.md`
 - `specifications/interfaces/IFC-WORKSPACE-0001-repository-root-and-effective-configuration.md`
 - `specifications/data/DATA-SOURCE-0001-stable-source-and-document-identity.md`
-- `specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parser.md`
-- `specifications/technical/TECH-INGEST-0002-structured-monad-configuration-parser.md`
+- `specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md`
+- `specifications/technical/TECH-INGEST-0002-structured-monad-configuration-parsing.md`
 - `specifications/technical/TECH-INGEST-0003-local-reference-resolution.md`
 
 ## Entry Criteria
