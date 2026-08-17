@@ -1,0 +1,40 @@
+{
+  "content": "name: EOSP WC-MVP-0002 Spec Path Correction Bootstrap\n\non:\n  push:\n    branches:\n      - eosp/fix-wc-mvp-0002-spec-paths-bootstrap\n\npermissions:\n  contents: write\n\njobs:\n  correct:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n\n      - name: Enter exact WC-MVP-0002 authorization head\n        shell: bash\n        run: |\n          set -euo pipefail\n          git fetch origin eosp/authorize-wc-mvp-0002\n          test \"$(git rev-parse origin/eosp/authorize-wc-mvp-0002)\" = \"5225b1241f6f23d8e8b26919d019f8f0adffa6a5\"\n          git checkout --detach 5225b1241f6f23d8e8b26919d019f8f0adffa6a5\n          git switch -c eosp/wc-mvp-0002-spec-path-correction\n          git config user.name \"ChatGPT\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n\n      - name: Correct canonical TECH-INGEST paths\n        shell: bash\n        run: |\n          set -euo pipefail\n          python3 - <<'PY'\n          from pathlib import Path\n          path = Path('engineering/work-cycles/WC-MVP-0002.md')\n          text = path.read_text(encoding='utf-8')\n          replacements = {\n              'specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parser.md':\n                  'specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md',\n              'specifications/technical/TECH-INGEST-0002-structured-monad-configuration-parser.md':\n                  'specifications/technical/TECH-INGEST-0002-structured-monad-configuration-parsing.md',\n          }\n          for old, new in replacements.items():\n              if old not in text:\n                  raise SystemExit(f'missing expected stale path: {old}')\n              text = text.replace(old, new)\n          path.write_text(text, encoding='utf-8')\n          for p in (\n              'specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md',\n              'specifications/technical/TECH-INGEST-0002-structured-monad-configuration-parsing.md',\n              'specifications/technical/TECH-INGEST-0003-local-reference-resolution.md',\n          ):\n              if not Path(p).is_file():\n                  raise SystemExit(f'missing canonical governing contract: {p}')\n          PY\n\n          ./scripts/eos validate WP-MVP-0001 --profile wp\n          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004\n          ./scripts/eos validate WP-MVP-0003 --profile wp --execution EXEC-0005\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 scripts/sync-machine-docs.py --write\n          python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit correction and publish to authorization branch\n        shell: bash\n        run: |\n          set -euo pipefail\n          git add -A\n          git commit -m 'docs(eosp): correct WC-MVP-0002 governing contract paths'\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 scripts/sync-machine-docs.py --check\n          test -z \"$(git status --porcelain)\"\n          git push origin HEAD:refs/heads/eosp/authorize-wc-mvp-0002\n",
+  "document_id": "doc:.github%2Fworkflows%2Feosp-fix-wc-mvp-0002-spec-paths-bootstrap.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/eosp-fix-wc-mvp-0002-spec-paths-bootstrap.yml.",
+    "title": "Eosp Fix Wc Mvp 0002 Spec Paths Bootstrap"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 76,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: EOSP WC-MVP-0002 Spec Path Correction Bootstrap\n\non:\n  push:\n    branches:\n      - eosp/fix-wc-mvp-0002-spec-paths-bootstrap\n\npermissions:\n  contents: write\n\njobs:\n  correct:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n\n      - name: Enter exact WC-MVP-0002 authorization head\n        shell: bash\n        run: |\n          set -euo pipefail\n          git fetch origin eosp/authorize-wc-mvp-0002\n          test \"$(git rev-parse origin/eosp/authorize-wc-mvp-0002)\" = \"5225b1241f6f23d8e8b26919d019f8f0adffa6a5\"\n          git checkout --detach 5225b1241f6f23d8e8b26919d019f8f0adffa6a5\n          git switch -c eosp/wc-mvp-0002-spec-path-correction\n          git config user.name \"ChatGPT\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n\n      - name: Correct canonical TECH-INGEST paths\n        shell: bash\n        run: |\n          set -euo pipefail\n          python3 - <<'PY'\n          from pathlib import Path\n          path = Path('engineering/work-cycles/WC-MVP-0002.md')\n          text = path.read_text(encoding='utf-8')\n          replacements = {\n              'specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parser.md':\n                  'specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md',\n              'specifications/technical/TECH-INGEST-0002-structured-monad-configuration-parser.md':\n                  'specifications/technical/TECH-INGEST-0002-structured-monad-configuration-parsing.md',\n          }\n          for old, new in replacements.items():\n              if old not in text:\n                  raise SystemExit(f'missing expected stale path: {old}')\n              text = text.replace(old, new)\n          path.write_text(text, encoding='utf-8')\n          for p in (\n              'specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md',\n              'specifications/technical/TECH-INGEST-0002-structured-monad-configuration-parsing.md',\n              'specifications/technical/TECH-INGEST-0003-local-reference-resolution.md',\n          ):\n              if not Path(p).is_file():\n                  raise SystemExit(f'missing canonical governing contract: {p}')\n          PY\n\n          ./scripts/eos validate WP-MVP-0001 --profile wp\n          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004\n          ./scripts/eos validate WP-MVP-0003 --profile wp --execution EXEC-0005\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 scripts/sync-machine-docs.py --write\n          python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit correction and publish to authorization branch\n        shell: bash\n        run: |\n          set -euo pipefail\n          git add -A\n          git commit -m 'docs(eosp): correct WC-MVP-0002 governing contract paths'\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 scripts/sync-machine-docs.py --check\n          test -z \"$(git status --porcelain)\"\n          git push origin HEAD:refs/heads/eosp/authorize-wc-mvp-0002",
+      "title": "Eosp Fix Wc Mvp 0002 Spec Paths Bootstrap"
+    }
+  ],
+  "source": {
+    "bytes": 3178,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 76,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/eosp-fix-wc-mvp-0002-spec-paths-bootstrap.yml",
+    "sha256": "f0e14d7daed78aec64487cdc3857b61b6874a8de34077d07d3ef18ebd3447736"
+  }
+}
