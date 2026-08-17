@@ -1,6 +1,6 @@
 # WP-MVP-0004 — Markdown engineering artifact parser
 
-**Status:** Refined — blocked from Ready by WP-MVP-0003 and ADR-0005  
+**Status:** AUTHORIZED
 **Epic:** EPIC-003  
 **Feature:** F-003-02  
 **Program Increment:** PI-MVP-001  
@@ -17,11 +17,13 @@ Parse canonical Markdown artifacts into deterministic provenance-rich structural
 - ADR-0003, ADR-0004
 - DATA-SOURCE-0001
 - TECH-INGEST-0001
-- proposed ADR-0005
+- ADR-0005
 
 ## Dependencies
 
-WP-MVP-0003 provides stable source/document identity. ADR-0005 establishes implementation topology.
+- WP-MVP-0003 is CLOSED and provides stable source/document identity.
+- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.
+- WC-MVP-0002 is ACTIVE and provides the current Parsing and Reference Resolution cycle context.
 
 ## Acceptance criteria
 
