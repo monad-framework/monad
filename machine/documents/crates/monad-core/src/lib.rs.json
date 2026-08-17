@@ -1,5 +1,5 @@
 {
-  "content": "//! Deterministic, side-effect-free Monad workspace bootstrap semantics.\n\npub mod discovery;\npub mod workspace;\n",
+  "content": "//! Deterministic, side-effect-free Monad workspace bootstrap semantics.\n\npub mod discovery;\npub mod identity;\npub mod workspace;\n",
   "document_id": "doc:crates%2Fmonad-core%2Fsrc%2Flib.rs",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 4,
+      "line_end": 5,
       "line_start": 1,
       "section_id": "content",
-      "text": "//! Deterministic, side-effect-free Monad workspace bootstrap semantics.\n\npub mod discovery;\npub mod workspace;",
+      "text": "//! Deterministic, side-effect-free Monad workspace bootstrap semantics.\n\npub mod discovery;\npub mod identity;\npub mod workspace;",
       "title": "Lib"
     }
   ],
   "source": {
-    "bytes": 112,
+    "bytes": 130,
     "canonical": true,
     "language": "rust",
-    "lines": 4,
+    "lines": 5,
     "media_type": "text/plain",
     "path": "crates/monad-core/src/lib.rs",
-    "sha256": "93a8101ed0a3c54df64cfc5dab4d3f5de4b3da2945c388a19c9d55a990eed3f3"
+    "sha256": "42c8a49e680beaf1d62d672fd5e8a913232bb9f47df1d02fcbf5c5383c7948b0"
   }
 }

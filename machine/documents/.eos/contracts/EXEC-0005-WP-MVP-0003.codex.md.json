@@ -1,0 +1,186 @@
+{
+  "content": "# Codex Execution Contract v2 — WP-MVP-0003\n\nExecution: EXEC-0005\nGenerated: 2026-08-16T19:48:36Z\nBranch: `wp/mvp-0003`\nWorktree: `/data/MONAD/.monad-worktrees/wp-mvp-0003`\nBaseline: `d7cdaa7f97bdd443052284c73a18fc7bd14d3586`\nGoverning hash: `e07d122864570be67a476a8a970683b43fa548517e211bd006e4688efd5bfae5`\nContract hash: `315ad5b045c99272f0d78717ed4fe98d65d1a8029cf7d7f59da38aee4bb63a2d`\n\n## Authority\n\nThis contract authorizes bounded implementation only. It does not authorize changes to product/architecture/specification policy unless the work packet explicitly lists the exact governed path with `allowed-governed-path`.\n\n## Concurrency / Freshness\n\nBefore finalizing work, verify this contract with `./scripts/eos contract verify EXEC-0005`. If governing inputs drift, stop: the execution contract is invalid.\n\n## Execution Scope\n\n- allowed-path: `*`\n- allowed-path: `**/*`\n\n## Work Packet\n\n# WP-MVP-0003 — Stable source and document identity\n\n**Status:** IN_PROGRESS\n**Epic:** EPIC-003  \n**Feature:** F-003-01  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0001  \n**Product Goal:** PG-001\n\n## Objective\n\nCreate clone-independent source/document identities and content provenance that downstream parsers, graph construction, diagnostics, KIR, queries, and agent context can rely on.\n\n## Governing authority\n\n- FR-002, FR-003, FR-009; QR-001, QR-005\n- ADR-0003\n- DATA-SOURCE-0001\n- TECH-WORKSPACE-0001\n- ADR-0005\n\n## Dependencies\n\n- WP-MVP-0001 is CLOSED and provides stable repository root/effective configuration semantics.\n- WP-MVP-0002 is CLOSED and provides stable canonical discovery output.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.\n\n## Acceptance criteria\n\n- [ ] US-008 stable Source IDs are equal across equivalent clean clones.\n- [ ] US-009 SHA-256/source/parser provenance is recorded and changes when consumed bytes change.\n- [ ] US-010 duplicate governed identifiers produce collision diagnostics naming all sources.\n- [ ] content edits do not change Source ID solely because content changed.\n- [ ] explicit governed Document IDs survive source-path moves; path-only Source IDs do not.\n- [ ] absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity.\n- [ ] case-collision and symlink-alias fixtures are deterministic.\n\n## Implementation boundary\n\nUnder ADR-0005, identity/provenance types and algorithms live in `monad-core`; no CLI-specific identity rules are permitted. Hashing/serialization dependencies must be locked and covered by golden vectors.\n\n## Validation\n\nProperty tests plus golden identity vectors covering clone relocation, edits, moves, duplicates, case ambiguity, aliases, empty sources, and deterministic machine serialization.\n\n\n## Governing Input Fingerprints\n\n- `engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md` — `bece83dc3997145b356fec00b224ea72ba8791cba0b03ab2563716fc252a34df`\n- `engineering/work-cycles/WC-MVP-0001.md` — `42f4366d3b4e15c8ad60299e2a518ba028fd0c18d66a3b66ab544b8939a10a96`\n- `engineering/work-packets/WP-MVP-0001.md` — `4a47380500b943435851542f9727b603b257fb903d9269e10cd6d57522f97aa4`\n- `engineering/work-packets/WP-MVP-0002.md` — `72e50275688b966af5d0dd145452a3ce7b1985c1871c3cd30789040f180b2f6c`\n- `engineering/work-packets/WP-MVP-0003.md` — `354f749bf713aefb71698f9b6329a44e42a7b417df97e0e8e8ee60651131a4a1`\n\n## Required Operating Procedure\n\n1. Work only inside the assigned worktree and branch.\n2. Do not edit `.eos/` or Git internals.\n3. Do not expand product/architecture/specification scope to make implementation easier.\n4. Preserve stable IDs and traceability references.\n5. Run repository-prescribed validation and WP-specific validation.\n6. Compare actual Git changes against execution scope.\n7. Produce the structured JSON completion result described below.\n8. Stop and report BLOCKED if a governing decision must change.\n\n## Required Completion Result\n\nWrite JSON matching the contract to `.eos-result-EXEC-0005.json` in the worktree, then ingest it from the main repository:\n\n`./scripts/eos execution ingest EXEC-0005 <path-to-result.json>`\n\nThe result is a claim. EOS independently compares it with the real Git diff and contract fingerprint.\n\n",
+  "document_id": "doc:.eos%2Fcontracts%2FEXEC-0005-WP-MVP-0003.codex.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0003",
+    "ADR-0005",
+    "FR-002",
+    "FR-003",
+    "FR-009",
+    "QR-001",
+    "QR-005"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Execution: EXEC-0005 Generated: 2026-08-16T19:48:36Z Branch: wp/mvp-0003 Worktree: /data/MONAD/.monad-worktrees/wp-mvp-0003 Baseline: d7cdaa7f97bdd443052284c73a18fc7bd14d3586 Governing hash: e07d122864570be67a476a8a970683b43fa548517e211bd006e4688efd5bfae5 Contract hash: 315ad5b045c99272f0d78717ed4fe98d65d1a8029cf7d7f59da38aee4bb63a2d",
+    "title": "Codex Execution Contract v2 — WP-MVP-0003"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 10,
+      "line_start": 1,
+      "section_id": "codex-execution-contract-v2-wp-mvp-0003",
+      "text": "# Codex Execution Contract v2 — WP-MVP-0003\n\nExecution: EXEC-0005\nGenerated: 2026-08-16T19:48:36Z\nBranch: `wp/mvp-0003`\nWorktree: `/data/MONAD/.monad-worktrees/wp-mvp-0003`\nBaseline: `d7cdaa7f97bdd443052284c73a18fc7bd14d3586`\nGoverning hash: `e07d122864570be67a476a8a970683b43fa548517e211bd006e4688efd5bfae5`\nContract hash: `315ad5b045c99272f0d78717ed4fe98d65d1a8029cf7d7f59da38aee4bb63a2d`",
+      "title": "Codex Execution Contract v2 — WP-MVP-0003"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 11,
+      "section_id": "authority",
+      "text": "## Authority\n\nThis contract authorizes bounded implementation only. It does not authorize changes to product/architecture/specification policy unless the work packet explicitly lists the exact governed path with `allowed-governed-path`.",
+      "title": "Authority"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "concurrency-freshness",
+      "text": "## Concurrency / Freshness\n\nBefore finalizing work, verify this contract with `./scripts/eos contract verify EXEC-0005`. If governing inputs drift, stop: the execution contract is invalid.",
+      "title": "Concurrency / Freshness"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 19,
+      "section_id": "execution-scope",
+      "text": "## Execution Scope\n\n- allowed-path: `*`\n- allowed-path: `**/*`",
+      "title": "Execution Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 24,
+      "section_id": "work-packet",
+      "text": "## Work Packet",
+      "title": "Work Packet"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 34,
+      "line_start": 26,
+      "section_id": "wp-mvp-0003-stable-source-and-document-identity",
+      "text": "# WP-MVP-0003 — Stable source and document identity\n\n**Status:** IN_PROGRESS\n**Epic:** EPIC-003  \n**Feature:** F-003-01  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0001  \n**Product Goal:** PG-001",
+      "title": "WP-MVP-0003 — Stable source and document identity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 35,
+      "section_id": "objective",
+      "text": "## Objective\n\nCreate clone-independent source/document identities and content provenance that downstream parsers, graph construction, diagnostics, KIR, queries, and agent context can rely on.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [
+        "ADR-0003",
+        "ADR-0005",
+        "FR-002",
+        "FR-003",
+        "FR-009",
+        "QR-001",
+        "QR-005"
+      ],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 39,
+      "section_id": "governing-authority",
+      "text": "## Governing authority\n\n- FR-002, FR-003, FR-009; QR-001, QR-005\n- ADR-0003\n- DATA-SOURCE-0001\n- TECH-WORKSPACE-0001\n- ADR-0005",
+      "title": "Governing authority"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 47,
+      "section_id": "dependencies",
+      "text": "## Dependencies\n\n- WP-MVP-0001 is CLOSED and provides stable repository root/effective configuration semantics.\n- WP-MVP-0002 is CLOSED and provides stable canonical discovery output.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.",
+      "title": "Dependencies"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 62,
+      "line_start": 53,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] US-008 stable Source IDs are equal across equivalent clean clones.\n- [ ] US-009 SHA-256/source/parser provenance is recorded and changes when consumed bytes change.\n- [ ] US-010 duplicate governed identifiers produce collision diagnostics naming all sources.\n- [ ] content edits do not change Source ID solely because content changed.\n- [ ] explicit governed Document IDs survive source-path moves; path-only Source IDs do not.\n- [ ] absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity.\n- [ ] case-collision and symlink-alias fixtures are deterministic.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 66,
+      "line_start": 63,
+      "section_id": "implementation-boundary",
+      "text": "## Implementation boundary\n\nUnder ADR-0005, identity/provenance types and algorithms live in `monad-core`; no CLI-specific identity rules are permitted. Hashing/serialization dependencies must be locked and covered by golden vectors.",
+      "title": "Implementation boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 71,
+      "line_start": 67,
+      "section_id": "validation",
+      "text": "## Validation\n\nProperty tests plus golden identity vectors covering clone relocation, edits, moves, duplicates, case ambiguity, aliases, empty sources, and deterministic machine serialization.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 79,
+      "line_start": 72,
+      "section_id": "governing-input-fingerprints",
+      "text": "## Governing Input Fingerprints\n\n- `engineering/increments/PI-MVP-001-SEMANTIC-FOUNDATION.md` — `bece83dc3997145b356fec00b224ea72ba8791cba0b03ab2563716fc252a34df`\n- `engineering/work-cycles/WC-MVP-0001.md` — `42f4366d3b4e15c8ad60299e2a518ba028fd0c18d66a3b66ab544b8939a10a96`\n- `engineering/work-packets/WP-MVP-0001.md` — `4a47380500b943435851542f9727b603b257fb903d9269e10cd6d57522f97aa4`\n- `engineering/work-packets/WP-MVP-0002.md` — `72e50275688b966af5d0dd145452a3ce7b1985c1871c3cd30789040f180b2f6c`\n- `engineering/work-packets/WP-MVP-0003.md` — `354f749bf713aefb71698f9b6329a44e42a7b417df97e0e8e8ee60651131a4a1`",
+      "title": "Governing Input Fingerprints"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 90,
+      "line_start": 80,
+      "section_id": "required-operating-procedure",
+      "text": "## Required Operating Procedure\n\n1. Work only inside the assigned worktree and branch.\n2. Do not edit `.eos/` or Git internals.\n3. Do not expand product/architecture/specification scope to make implementation easier.\n4. Preserve stable IDs and traceability references.\n5. Run repository-prescribed validation and WP-specific validation.\n6. Compare actual Git changes against execution scope.\n7. Produce the structured JSON completion result described below.\n8. Stop and report BLOCKED if a governing decision must change.",
+      "title": "Required Operating Procedure"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 98,
+      "line_start": 91,
+      "section_id": "required-completion-result",
+      "text": "## Required Completion Result\n\nWrite JSON matching the contract to `.eos-result-EXEC-0005.json` in the worktree, then ingest it from the main repository:\n\n`./scripts/eos execution ingest EXEC-0005 <path-to-result.json>`\n\nThe result is a claim. EOS independently compares it with the real Git diff and contract fingerprint.",
+      "title": "Required Completion Result"
+    }
+  ],
+  "source": {
+    "bytes": 4238,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 98,
+    "media_type": "text/markdown",
+    "path": ".eos/contracts/EXEC-0005-WP-MVP-0003.codex.md",
+    "sha256": "3b5b45e959df54600a446a82e55ad457512b0f169664e7cf6ff27a7be92234f6"
+  }
+}
