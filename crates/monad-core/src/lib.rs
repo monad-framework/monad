@@ -2,4 +2,5 @@
 
 pub mod discovery;
 pub mod identity;
+pub mod markdown;
 pub mod workspace;
