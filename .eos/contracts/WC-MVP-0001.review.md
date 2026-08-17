@@ -1,3 +1,9 @@
+# ChatGPT Review Contract — WC-MVP-0001
+
+Review the target against all applicable accepted higher-authority artifacts.
+
+## Target
+
 # WC-MVP-0001 — Workspace, Discovery, and Identity
 
 **Status:** IN_REVIEW
@@ -11,9 +17,9 @@ Establish the deterministic repository bootstrap boundary for Monad MVP Release 
 
 ## Included Work Packets
 
-- `WP-MVP-0001` — Repository identity and effective configuration — **CLOSED**.
-- `WP-MVP-0002` — Deterministic workspace discovery — **CLOSED**.
-- `WP-MVP-0003` — Stable source/document identity — **CLOSED**.
+- `WP-MVP-0001` — Repository identity and effective configuration — **Ready**.
+- `WP-MVP-0002` — Deterministic workspace discovery — Refined; becomes Ready only after its dependency and governing-contract gates pass.
+- `WP-MVP-0003` — Stable source/document identity — Refined; becomes Ready only after its dependency and governing-contract gates pass.
 
 Only one Work Packet is authorized at a time unless an explicit EOS WIP exception is approved.
 
@@ -54,3 +60,19 @@ Only one Work Packet is authorized at a time unless an explicit EOS WIP exceptio
 ## Review Evidence
 
 Closure evidence belongs in `engineering/reviews/WC-MVP-0001-REVIEW.md` and first-class EOSV evidence records. Scheduling alone is never closure evidence.
+
+
+## Required Review Dimensions
+
+- scope conformance;
+- requirements and specification conformance;
+- architecture conformance;
+- acceptance criteria;
+- deterministic validation evidence;
+- security/reliability risk;
+- traceability completeness;
+- unresolved findings;
+- recommendation: ACCEPTED / ACCEPTED_WITH_FOLLOW_UP / REJECTED / BLOCKED.
+
+Do not impersonate final human authorization where the governance model reserves
+that decision to the human.
