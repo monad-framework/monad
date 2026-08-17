@@ -1,0 +1,256 @@
+name: EOSR WP-MVP-0003 Engineering Review Bootstrap
+
+on:
+  push:
+    branches:
+      - eosr/review-wp-mvp-0003-bootstrap
+
+permissions:
+  contents: write
+
+env:
+  EOS_ACTOR: chatgpt
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enter exact EOSV-merged review baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="d7a420ce6b78836e2ada408dca50282c88de518f"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test ! -e .github/workflows/eosr-wp-mvp-0003-review-bootstrap.yml
+          test -z "$(git status --porcelain)"
+
+      - name: Fresh independent implementation validation
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          rustup toolchain install 1.95.0 --profile minimal --component rustfmt --component clippy
+          rustup override set 1.95.0
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv
+          rows=list(csv.DictReader(open('.eos/evidence.tsv'), delimiter='\t'))
+          current=[r for r in rows if r['target']=='WP-MVP-0003' and r['status']!='SUPERSEDED']
+          assert len(current)==3, current
+          assert all(r['execution']=='EXEC-0005' and r['status']=='VALIDATED' for r in current), current
+          assert next(r for r in current if r['validator']=='eos-integrity')['result']=='PASSED'
+          assert next(r for r in current if r['validator']=='repository')['result'] in {'PASSED','SKIPPED'}
+          assert next(r for r in current if r['validator']=='execution-acceptance')['result']=='PASSED'
+          assert '**Status:** VERIFYING' in Path('engineering/work-packets/WP-MVP-0003.md').read_text()
+          PY
+
+      - name: Enter EOSR review state
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos review WP-MVP-0003
+          test -f engineering/reviews/WP-MVP-0003-REVIEW.md
+
+      - name: Record independent accepted engineering review
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cat > engineering/reviews/WP-MVP-0003-REVIEW.md <<'EOF'
+          ---
+          artifact_id: "REV-WP-MVP-0003"
+          title: "WP-MVP-0003 Engineering Review"
+          type: "review"
+          version: "0.1.0"
+          status: "In Review"
+          authority: "review-authoritative"
+          created: "2026-08-17"
+          updated: "2026-08-17"
+          ---
+
+          # WP-MVP-0003 — Engineering Review
+
+          **Decision:** ACCEPTED
+
+          ## Target
+
+          - Artifact: `engineering/work-packets/WP-MVP-0003.md`
+          - State at review start: VERIFYING
+          - Governed execution: `EXEC-0005`
+          - Implementation merge: PR #204
+          - EOSV verification merge: PR #205
+          - Review baseline: `d7a420ce6b78836e2ada408dca50282c88de518f`
+
+          ## Deterministic Verification
+
+          **Result:** PASS before review.
+
+          The merged implementation was freshly revalidated with Rust 1.95.0 using formatting checks, Clippy with warnings denied, and the complete workspace test suite. EOS strict verification, canonical-state consistency, and machine-document synchronization also pass. WP-MVP-0003 enters EOSR with current EVID-0082–EVID-0084 bound to EXEC-0005; EOS integrity and execution acceptance are PASS and the optional repository validator is SKIPPED by configuration.
+
+          ## Scope Conformance
+
+          PASS.
+
+          Product changes are limited to the Rust workspace dependency/lock metadata, `crates/monad-core` identity/discovery implementation, the module export, and generated machine projections. The implementation introduces no CLI-specific identity rules, service/plugin boundary, network behavior, repository-code execution, or unrelated product refactor. The minimal discovery extension for case-collision diagnostics is directly required by ADR-0003 and WP-MVP-0003 acceptance coverage.
+
+          ## Requirements / Specification Conformance
+
+          PASS.
+
+          The implementation conforms to the identity/provenance rules established by ADR-0003 and DATA-SOURCE-0001:
+
+          - Source IDs are versioned/domain-separated SHA-256 identities over unambiguous length-framed canonical repository-relative path and source-kind inputs only.
+          - Source content is excluded from Source ID derivation, so ordinary byte edits preserve source identity at a stable path.
+          - `SourceRecord` retains the original canonical path and source kind alongside exact-byte lowercase SHA-256, byte length, parser contract, and deterministic discovery provenance; the digest representation therefore does not lose authoritative identity components.
+          - Path-derived Document IDs depend on Source ID plus document kind, so a source move changes a path-only document identity.
+          - Explicit governed Document IDs depend on document kind plus governed namespace/value, not source path, so they survive source moves.
+          - Duplicate governed identifiers are grouped by explicit namespace/value, produce deterministic diagnostics naming all unique conflicting repository-relative locations in sorted order, and do not select a traversal-order winner.
+          - Path case is preserved in Source IDs. Discovery separately emits deterministic `CaseCollisionRisk` diagnostics for canonical paths differing only by case.
+          - Symlink aliases remain governed by deterministic discovery containment/de-duplication and therefore do not create additional semantic source identities.
+          - Exact consumed bytes, including empty and binary content, are hashed without text normalization.
+
+          ## Architecture Conformance
+
+          PASS.
+
+          Identity/provenance types and algorithms live in `monad-core` as required by ADR-0005. Discovery remains the canonical source of repository-relative path, source kind, and discovery provenance. No identity behavior is duplicated in the CLI. The only new runtime dependency is the established `sha2` crate, locked through Cargo, which is appropriate for the required SHA-256 behavior.
+
+          ## Acceptance Criteria Evidence
+
+          PASS for all seven WP-MVP-0003 criteria.
+
+          - US-008: stable Source IDs are equal across equivalent clean clones — PASS. The derivation has no clone-root input and equivalent canonical path/kind inputs produce identical IDs.
+          - US-009: SHA-256/source/parser provenance is recorded and changes when consumed bytes change — PASS. Exact-byte content vectors, byte lengths, parser contract, and discovery provenance are represented in `SourceRecord`.
+          - US-010: duplicate governed identifiers produce collision diagnostics naming all sources — PASS. Namespace-aware BTreeMap grouping plus sorted/de-duplicated repository-relative locations makes output traversal-order independent.
+          - Content edits do not change Source ID solely because content changed — PASS. Content is absent from Source ID framing; tests verify equal IDs with differing bytes and differing content digests.
+          - Explicit governed Document IDs survive source-path moves; path-only identities do not — PASS. Tests cover both move behaviors.
+          - Absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity — PASS. Those values are absent from the derivation inputs and serialized source model.
+          - Case-collision and symlink-alias fixtures are deterministic — PASS. Discovery preserves distinct case-sensitive canonical paths while emitting a sorted collision-risk diagnostic, and symlink alias fixtures yield one canonical source/identity.
+
+          ## Test / Validation Evidence
+
+          PASS.
+
+          The workspace suite contains 29 passing tests after WP-MVP-0003. Identity coverage includes exact SHA-256 vectors for ordinary, empty, and binary bytes; versioned Source-ID golden vectors; source-kind separation; Unicode/spaces/punctuation framing; content-edit stability; path-only and explicit-ID moves; duplicate governed-ID ordering and namespace isolation; deterministic serialization; case-collision behavior; and symlink alias de-duplication. The merged implementation also passes formatting, Clippy with `-D warnings`, repository PR integrity checks, machine-document synchronization, governed EXEC-0005 checking, and first-class EOSV.
+
+          ## Security / Reliability Findings
+
+          No blocking security or reliability finding was identified.
+
+          SHA-256 uses the maintained Rust `sha2` implementation rather than bespoke cryptography. Identity inputs exclude nondeterministic host/process metadata. Collision and case-risk diagnostics use repository-relative paths and deterministic ordering. Discovery root-containment and symlink-cycle protections remain intact.
+
+          ## API Boundary Observation
+
+          Non-blocking: low-level public derivation helpers accept canonical path/document strings as caller preconditions rather than introducing validated newtypes for every component. The integrated construction path (`SourceRecord::from_discovered`) receives canonical paths from deterministic discovery, so the governed MVP path satisfies the invariant. If these helpers later become a broader external compatibility surface, typed validation can be considered without changing this packet's accepted semantics.
+
+          ## Traceability Findings
+
+          PASS.
+
+          The implementation is traceable to FR-002, FR-003, FR-009; QR-001 and QR-005; ADR-0003; DATA-SOURCE-0001; TECH-WORKSPACE-0001; ADR-0005; WP-MVP-0003; EXEC-0005; implementation PR #204; and current EOSV evidence EVID-0082–EVID-0084.
+
+          ## Blocking Findings
+
+          None.
+
+          ## Non-Blocking Findings
+
+          No packet-specific defect requires correction before closure. The API-boundary observation above is future hardening, not an acceptance failure. Separate EOS issues #175, #176, #178, and #181 remain outside this Work Packet.
+
+          ## Decision
+
+          **ACCEPTED.** WP-MVP-0003 satisfies its authorized scope and acceptance criteria and may proceed to the separate governed checklist-reconciliation and closure transaction.
+          EOF
+          sed -i 's/^          //' engineering/reviews/WP-MVP-0003-REVIEW.md
+
+      - name: Commit semantic review transition and decision
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+          wp=Path('engineering/work-packets/WP-MVP-0003.md').read_text()
+          assert '**Status:** IN_REVIEW' in wp, wp.splitlines()[:10]
+          review=Path('engineering/reviews/WP-MVP-0003-REVIEW.md').read_text()
+          assert '**Decision:** ACCEPTED' in review
+          assert '## Blocking Findings\n\nNone.' in review
+          rows={r['id']:r for r in csv.DictReader(open('.eos/work-packets.tsv'), delimiter='\t')}
+          assert rows['WP-MVP-0003']['status']=='IN_REVIEW', rows['WP-MVP-0003']
+          events=[json.loads(line) for line in Path('.eos/events.jsonl').read_text().splitlines() if line.strip()]
+          transitions=[e for e in events if e.get('target')=='WP-MVP-0003' and e.get('event_type')=='STATE_TRANSITION' and e.get('action')=='review']
+          assert transitions and transitions[-1]['from_state']=='VERIFYING' and transitions[-1]['to_state']=='IN_REVIEW', transitions[-1] if transitions else transitions
+          assert transitions[-1]['commit']=='d7a420ce6b78836e2ada408dca50282c88de518f', transitions[-1]
+          PY
+          git config user.name 'ChatGPT'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --name-only | grep -E '^(Cargo|crates/|src/|.*\.rs$|tools/eos/|product/|architecture/|specifications/|engineering/work-cycles/|engineering/increments/|engineering/maintenance/|\.github/workflows/)'; then
+            echo 'Unexpected product/governing change in EOSR transition.' >&2; exit 1
+          fi
+          git commit -m 'docs(eosr): accept WP-MVP-0003 engineering review'
+
+      - name: Refresh WP evidence against committed IN_REVIEW state
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+          ./scripts/eos validate WP-MVP-0003 --profile wp --execution EXEC-0005
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Commit evidence refresh, prove stable, and publish
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          FINAL_BRANCH="eosr/review-wp-mvp-0003-final"
+          git add -A
+          if git diff --cached --name-only | grep -E '^(Cargo|crates/|src/|.*\.rs$|tools/eos/|product/|architecture/|specifications/|engineering/work-cycles/|engineering/increments/|engineering/maintenance/|\.github/workflows/)'; then
+            echo 'Unexpected product/governing change in EOSR evidence refresh.' >&2; exit 1
+          fi
+          git commit -m 'chore(eosv): refresh evidence for WP-MVP-0003 review state'
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+          test -z "$(git status --porcelain)"
+          test "$(git rev-list --count d7a420ce6b78836e2ada408dca50282c88de518f..HEAD)" = "2"
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+          rows={r['id']:r for r in csv.DictReader(open('.eos/work-packets.tsv'), delimiter='\t')}
+          assert rows['WP-MVP-0003']['status']=='IN_REVIEW'
+          review=Path('engineering/reviews/WP-MVP-0003-REVIEW.md').read_text()
+          assert '**Decision:** ACCEPTED' in review
+          evidence=list(csv.DictReader(open('.eos/evidence.tsv'), delimiter='\t'))
+          current=[r for r in evidence if r['target']=='WP-MVP-0003' and r['status']!='SUPERSEDED']
+          assert len(current)==3, current
+          assert all(r['execution']=='EXEC-0005' and r['status']=='VALIDATED' for r in current), current
+          assert next(r for r in current if r['validator']=='eos-integrity')['result']=='PASSED'
+          assert next(r for r in current if r['validator']=='repository')['result'] in {'PASSED','SKIPPED'}
+          assert next(r for r in current if r['validator']=='execution-acceptance')['result']=='PASSED'
+          state=json.loads(Path('.eos/state/current.json').read_text())
+          assert state['entities']['WP']['WP-MVP-0001']['lifecycle_state']=='CLOSED'
+          assert state['entities']['WP']['WP-MVP-0002']['lifecycle_state']=='CLOSED'
+          assert state['entities']['WP']['WP-MVP-0003']['lifecycle_state']=='IN_REVIEW'
+          assert state['entities']['WC']['WC-MVP-0001']['lifecycle_state']=='ACTIVE'
+          PY
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then echo 'Final review branch exists' >&2; exit 1; fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
