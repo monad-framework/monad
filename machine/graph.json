@@ -581,6 +581,16 @@
       "type": "declares"
     },
     {
+      "source": "doc:.eos%2Fevidence%2FEVID-0082.json",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fevidence%2FEVID-0082.json",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
       "source": "doc:.eos%2Fhistory%2Fengineering%2Fchanges%2FCR-0001%2Fv0.1.0.md",
       "target": "identifier:ADR-0006",
       "type": "declares"
@@ -3583,6 +3593,30 @@
       "normative": false,
       "source_path": ".eos/evidence/EVID-0081.json",
       "title": "Evid 0081",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0082.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0082.json",
+      "title": "Evid 0082",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0083.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0083.json",
+      "title": "Evid 0083",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fevidence%2FEVID-0084.json",
+      "normative": false,
+      "source_path": ".eos/evidence/EVID-0084.json",
+      "title": "Evid 0084",
       "type": "document"
     },
     {
@@ -11867,6 +11901,30 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0082.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0082.md",
+      "title": "EVID-0082 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0083.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0083.md",
+      "title": "EVID-0083 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
+      "id": "doc:engineering%2Fevidence%2FEVID-0084.md",
+      "normative": true,
+      "source_path": "engineering/evidence/EVID-0084.md",
+      "title": "EVID-0084 — Verification Evidence",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Fgithub%2FOWNER-ACTIONS.md",
       "normative": true,
       "source_path": "engineering/github/OWNER-ACTIONS.md",
@@ -14014,5 +14072,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "659447296619515e680f42a25ff79b1e3134e86f8fbbb43c1241600ac4742dff"
+  "source_tree_sha256": "1d8aa1328376b1b8b6518e2dd03fd2151a7f6a14f04690535576ddc600b3db7c"
 }
