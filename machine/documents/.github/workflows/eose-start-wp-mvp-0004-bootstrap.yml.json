@@ -1,0 +1,40 @@
+{
+  "content": "name: EOSE WP-MVP-0004 Start Bootstrap\n\non:\n  push:\n    branches:\n      - eose/start-wp-mvp-0004-bootstrap\n\npermissions:\n  contents: write\n\njobs:\n  start:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n\n      - name: Enter exact WP-MVP-0004 authorized baseline\n        shell: bash\n        run: |\n          set -euo pipefail\n          git fetch origin main\n          test \"$(git rev-parse origin/main)\" = \"edfd95e03b6adf6310481bfbcdba92d03efa2197\"\n          git checkout --detach edfd95e03b6adf6310481bfbcdba92d03efa2197\n          git switch -c eose/start-wp-mvp-0004\n          git config user.name \"ChatGPT\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n\n      - name: Start WP-MVP-0004\n        shell: bash\n        run: |\n          set -euo pipefail\n          ./scripts/eos start WP-MVP-0004\n          ./scripts/eos validate WP-MVP-0001 --profile wp\n          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004\n          ./scripts/eos validate WP-MVP-0003 --profile wp --execution EXEC-0005\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 scripts/sync-machine-docs.py --write\n          python3 scripts/sync-machine-docs.py --check\n          python3 - <<'PY'\n          import csv\n          from pathlib import Path\n\n          def rows(path):\n              with Path(path).open(newline='', encoding='utf-8') as f:\n                  return list(csv.DictReader(f, delimiter='\\t'))\n\n          pi = {r['id']: r for r in rows('.eos/program-increments.tsv')}\n          wc = {r['id']: r for r in rows('.eos/work-cycles.tsv')}\n          wp = {r['id']: r for r in rows('.eos/work-packets.tsv')}\n          assert pi['PI-MVP-001']['status'] == 'ACTIVE'\n          assert wc['WC-MVP-0001']['status'] == 'CLOSED'\n          assert wc['WC-MVP-0002']['status'] == 'ACTIVE'\n          assert wp['WP-MVP-0001']['status'] == 'CLOSED'\n          assert wp['WP-MVP-0002']['status'] == 'CLOSED'\n          assert wp['WP-MVP-0003']['status'] == 'CLOSED'\n          assert wp['WP-MVP-0004']['status'] == 'IN_PROGRESS'\n          text = Path('engineering/work-packets/WP-MVP-0004.md').read_text(encoding='utf-8')\n          assert '**Status:** IN_PROGRESS' in text\n          PY\n\n      - name: Commit start and prove stability\n        shell: bash\n        run: |\n          set -euo pipefail\n          git add -A\n          git commit -m 'chore(eose): start WP-MVP-0004'\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 scripts/sync-machine-docs.py --check\n          test -z \"$(git status --porcelain)\"\n          git push origin HEAD:refs/heads/eose/start-wp-mvp-0004\n",
+  "document_id": "doc:.github%2Fworkflows%2Feose-start-wp-mvp-0004-bootstrap.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/eose-start-wp-mvp-0004-bootstrap.yml.",
+    "title": "Eose Start Wp Mvp 0004 Bootstrap"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 74,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: EOSE WP-MVP-0004 Start Bootstrap\n\non:\n  push:\n    branches:\n      - eose/start-wp-mvp-0004-bootstrap\n\npermissions:\n  contents: write\n\njobs:\n  start:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n\n      - name: Enter exact WP-MVP-0004 authorized baseline\n        shell: bash\n        run: |\n          set -euo pipefail\n          git fetch origin main\n          test \"$(git rev-parse origin/main)\" = \"edfd95e03b6adf6310481bfbcdba92d03efa2197\"\n          git checkout --detach edfd95e03b6adf6310481bfbcdba92d03efa2197\n          git switch -c eose/start-wp-mvp-0004\n          git config user.name \"ChatGPT\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n\n      - name: Start WP-MVP-0004\n        shell: bash\n        run: |\n          set -euo pipefail\n          ./scripts/eos start WP-MVP-0004\n          ./scripts/eos validate WP-MVP-0001 --profile wp\n          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004\n          ./scripts/eos validate WP-MVP-0003 --profile wp --execution EXEC-0005\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 scripts/sync-machine-docs.py --write\n          python3 scripts/sync-machine-docs.py --check\n          python3 - <<'PY'\n          import csv\n          from pathlib import Path\n\n          def rows(path):\n              with Path(path).open(newline='', encoding='utf-8') as f:\n                  return list(csv.DictReader(f, delimiter='\\t'))\n\n          pi = {r['id']: r for r in rows('.eos/program-increments.tsv')}\n          wc = {r['id']: r for r in rows('.eos/work-cycles.tsv')}\n          wp = {r['id']: r for r in rows('.eos/work-packets.tsv')}\n          assert pi['PI-MVP-001']['status'] == 'ACTIVE'\n          assert wc['WC-MVP-0001']['status'] == 'CLOSED'\n          assert wc['WC-MVP-0002']['status'] == 'ACTIVE'\n          assert wp['WP-MVP-0001']['status'] == 'CLOSED'\n          assert wp['WP-MVP-0002']['status'] == 'CLOSED'\n          assert wp['WP-MVP-0003']['status'] == 'CLOSED'\n          assert wp['WP-MVP-0004']['status'] == 'IN_PROGRESS'\n          text = Path('engineering/work-packets/WP-MVP-0004.md').read_text(encoding='utf-8')\n          assert '**Status:** IN_PROGRESS' in text\n          PY\n\n      - name: Commit start and prove stability\n        shell: bash\n        run: |\n          set -euo pipefail\n          git add -A\n          git commit -m 'chore(eose): start WP-MVP-0004'\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 scripts/sync-machine-docs.py --check\n          test -z \"$(git status --porcelain)\"\n          git push origin HEAD:refs/heads/eose/start-wp-mvp-0004",
+      "title": "Eose Start Wp Mvp 0004 Bootstrap"
+    }
+  ],
+  "source": {
+    "bytes": 2748,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 74,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/eose-start-wp-mvp-0004-bootstrap.yml",
+    "sha256": "27710925e6abdf188172ca86d09bda1819075d20bf4b9799089fe3d8b99644ee"
+  }
+}
