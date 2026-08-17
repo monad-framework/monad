@@ -1,6 +1,6 @@
 # WP-MVP-0004 — Markdown engineering artifact parser
 
-**Status:** AUTHORIZED
+**Status:** IN_PROGRESS
 **Epic:** EPIC-003  
 **Feature:** F-003-02  
 **Program Increment:** PI-MVP-001  
