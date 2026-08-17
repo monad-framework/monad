@@ -1,5 +1,5 @@
 {
-  "content": "# WP-MVP-0003 — Stable source and document identity\n\n**Status:** IN_PROGRESS\n**Epic:** EPIC-003  \n**Feature:** F-003-01  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0001  \n**Product Goal:** PG-001\n\n## Objective\n\nCreate clone-independent source/document identities and content provenance that downstream parsers, graph construction, diagnostics, KIR, queries, and agent context can rely on.\n\n## Governing authority\n\n- FR-002, FR-003, FR-009; QR-001, QR-005\n- ADR-0003\n- DATA-SOURCE-0001\n- TECH-WORKSPACE-0001\n- ADR-0005\n\n## Dependencies\n\n- WP-MVP-0001 is CLOSED and provides stable repository root/effective configuration semantics.\n- WP-MVP-0002 is CLOSED and provides stable canonical discovery output.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.\n\n## Acceptance criteria\n\n- [ ] US-008 stable Source IDs are equal across equivalent clean clones.\n- [ ] US-009 SHA-256/source/parser provenance is recorded and changes when consumed bytes change.\n- [ ] US-010 duplicate governed identifiers produce collision diagnostics naming all sources.\n- [ ] content edits do not change Source ID solely because content changed.\n- [ ] explicit governed Document IDs survive source-path moves; path-only Source IDs do not.\n- [ ] absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity.\n- [ ] case-collision and symlink-alias fixtures are deterministic.\n\n## Implementation boundary\n\nUnder ADR-0005, identity/provenance types and algorithms live in `monad-core`; no CLI-specific identity rules are permitted. Hashing/serialization dependencies must be locked and covered by golden vectors.\n\n## Validation\n\nProperty tests plus golden identity vectors covering clone relocation, edits, moves, duplicates, case ambiguity, aliases, empty sources, and deterministic machine serialization.\n",
+  "content": "# WP-MVP-0003 — Stable source and document identity\n\n**Status:** VERIFYING\n**Epic:** EPIC-003  \n**Feature:** F-003-01  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0001  \n**Product Goal:** PG-001\n\n## Objective\n\nCreate clone-independent source/document identities and content provenance that downstream parsers, graph construction, diagnostics, KIR, queries, and agent context can rely on.\n\n## Governing authority\n\n- FR-002, FR-003, FR-009; QR-001, QR-005\n- ADR-0003\n- DATA-SOURCE-0001\n- TECH-WORKSPACE-0001\n- ADR-0005\n\n## Dependencies\n\n- WP-MVP-0001 is CLOSED and provides stable repository root/effective configuration semantics.\n- WP-MVP-0002 is CLOSED and provides stable canonical discovery output.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.\n\n## Acceptance criteria\n\n- [ ] US-008 stable Source IDs are equal across equivalent clean clones.\n- [ ] US-009 SHA-256/source/parser provenance is recorded and changes when consumed bytes change.\n- [ ] US-010 duplicate governed identifiers produce collision diagnostics naming all sources.\n- [ ] content edits do not change Source ID solely because content changed.\n- [ ] explicit governed Document IDs survive source-path moves; path-only Source IDs do not.\n- [ ] absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity.\n- [ ] case-collision and symlink-alias fixtures are deterministic.\n\n## Implementation boundary\n\nUnder ADR-0005, identity/provenance types and algorithms live in `monad-core`; no CLI-specific identity rules are permitted. Hashing/serialization dependencies must be locked and covered by golden vectors.\n\n## Validation\n\nProperty tests plus golden identity vectors covering clone relocation, edits, moves, duplicates, case ambiguity, aliases, empty sources, and deterministic machine serialization.\n",
   "document_id": "doc:engineering%2Fwork-packets%2FWP-MVP-0003.md",
   "generation": {
     "deterministic": true,
@@ -19,7 +19,7 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "Status: INPROGRESS Epic: EPIC-003 Feature: F-003-01 Program Increment: PI-MVP-001 Work Cycle: WC-MVP-0001 Product Goal: PG-001",
+    "summary": "Status: VERIFYING Epic: EPIC-003 Feature: F-003-01 Program Increment: PI-MVP-001 Work Cycle: WC-MVP-0001 Product Goal: PG-001",
     "title": "WP-MVP-0003 — Stable source and document identity"
   },
   "relations": [],
@@ -32,7 +32,7 @@
       "line_end": 9,
       "line_start": 1,
       "section_id": "wp-mvp-0003-stable-source-and-document-identity",
-      "text": "# WP-MVP-0003 — Stable source and document identity\n\n**Status:** IN_PROGRESS\n**Epic:** EPIC-003  \n**Feature:** F-003-01  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0001  \n**Product Goal:** PG-001",
+      "text": "# WP-MVP-0003 — Stable source and document identity\n\n**Status:** VERIFYING\n**Epic:** EPIC-003  \n**Feature:** F-003-01  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0001  \n**Product Goal:** PG-001",
       "title": "WP-MVP-0003 — Stable source and document identity"
     },
     {
@@ -103,12 +103,12 @@
     }
   ],
   "source": {
-    "bytes": 1862,
+    "bytes": 1860,
     "canonical": true,
     "language": "markdown",
     "lines": 44,
     "media_type": "text/markdown",
     "path": "engineering/work-packets/WP-MVP-0003.md",
-    "sha256": "354f749bf713aefb71698f9b6329a44e42a7b417df97e0e8e8ee60651131a4a1"
+    "sha256": "070dffb50ccb482d362d2ca34966b60f3f25b4e568569c68c5a980a18e60a4ff"
   }
 }
