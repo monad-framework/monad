@@ -1,0 +1,117 @@
+name: EOSR WC-MVP-0001 Closure Bootstrap
+
+on:
+  push:
+    branches:
+      - eosr/close-wc-mvp-0001-bootstrap
+
+permissions:
+  contents: write
+
+env:
+  EOS_ACTOR: chatgpt
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enter exact accepted Work Cycle review baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="da624372d2d4b7776c521ec789b06dc584c4b3d6"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test ! -e .github/workflows/eosr-close-wc-mvp-0001-bootstrap.yml
+          test -z "$(git status --porcelain)"
+
+      - name: Prove WC_CLOSE gate and close cycle
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          ./scripts/eos gate explain WC_CLOSE WC-MVP-0001
+          ./scripts/eos close-cycle WC-MVP-0001 \
+            --by 'Thomas Carter' \
+            --reason 'Human-authorized governed closure after all planned Work Packets closed and the accepted Work Cycle review merged through PR #208.'
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+          state=json.loads(Path('.eos/state/current.json').read_text())
+          assert state['entities']['WC']['WC-MVP-0001']['lifecycle_state']=='CLOSED'
+          assert state['entities']['PI']['PI-MVP-001']['lifecycle_state']=='ACTIVE'
+          for wp in ('WP-MVP-0001','WP-MVP-0002','WP-MVP-0003'):
+              assert state['entities']['WP'][wp]['lifecycle_state']=='CLOSED'
+          rows={r['id']:r for r in csv.DictReader(open('.eos/work-cycles.tsv'), delimiter='\t')}
+          assert rows['WC-MVP-0001']['status']=='CLOSED'
+          wc=Path('engineering/work-cycles/WC-MVP-0001.md').read_text()
+          assert '**Status:** CLOSED' in wc
+          review=Path('engineering/reviews/WC-MVP-0001-REVIEW.md').read_text()
+          assert '**Decision:** ACCEPTED' in review
+          assert '**ACHIEVED.**' in review
+          PY
+
+      - name: Refresh closed packet evidence and synchronize projections
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+          ./scripts/eos validate WP-MVP-0003 --profile wp --execution EXEC-0005
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+          state=json.loads(Path('.eos/state/current.json').read_text())
+          assert state['entities']['WC']['WC-MVP-0001']['lifecycle_state']=='CLOSED'
+          assert state['entities']['PI']['PI-MVP-001']['lifecycle_state']=='ACTIVE'
+          rows=list(csv.DictReader(open('.eos/evidence.tsv'), delimiter='\t'))
+          for wp, execution in [('WP-MVP-0002','EXEC-0004'),('WP-MVP-0003','EXEC-0005')]:
+              current=[r for r in rows if r['target']==wp and r['status']!='SUPERSEDED']
+              assert len(current)==3, (wp,current)
+              assert all(r['status']=='VALIDATED' and r['execution']==execution for r in current), current
+              assert next(r for r in current if r['validator']=='eos-integrity')['result']=='PASSED'
+              assert next(r for r in current if r['validator']=='execution-acceptance')['result']=='PASSED'
+          PY
+
+      - name: Commit closure, prove stability, and publish
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          FINAL_BRANCH="eosr/close-wc-mvp-0001"
+          git config user.name 'ChatGPT'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --name-only | grep -E '^(Cargo|crates/|src/|.*\.rs$|tools/eos/|product/|architecture/|specifications/|engineering/increments/|engineering/maintenance/|\.github/workflows/)'; then
+            echo 'Unexpected product/governing change in Work Cycle closure.' >&2; exit 1
+          fi
+          git commit -m 'chore(eosr): close WC-MVP-0001'
+          test "$(git rev-parse HEAD^)" = "da624372d2d4b7776c521ec789b06dc584c4b3d6"
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+          test -z "$(git status --porcelain)"
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          state=json.loads(Path('.eos/state/current.json').read_text())
+          assert state['entities']['WC']['WC-MVP-0001']['lifecycle_state']=='CLOSED'
+          assert state['entities']['PI']['PI-MVP-001']['lifecycle_state']=='ACTIVE'
+          PY
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then echo 'Final Work Cycle closure branch exists' >&2; exit 1; fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
