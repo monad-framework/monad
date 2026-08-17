@@ -1,3 +1,9 @@
+# ChatGPT Review Contract — WP-MVP-0003
+
+Review the target against all applicable accepted higher-authority artifacts.
+
+## Target
+
 # WP-MVP-0003 — Stable source and document identity
 
 **Status:** IN_REVIEW
@@ -42,3 +48,19 @@ Under ADR-0005, identity/provenance types and algorithms live in `monad-core`; n
 ## Validation
 
 Property tests plus golden identity vectors covering clone relocation, edits, moves, duplicates, case ambiguity, aliases, empty sources, and deterministic machine serialization.
+
+
+## Required Review Dimensions
+
+- scope conformance;
+- requirements and specification conformance;
+- architecture conformance;
+- acceptance criteria;
+- deterministic validation evidence;
+- security/reliability risk;
+- traceability completeness;
+- unresolved findings;
+- recommendation: ACCEPTED / ACCEPTED_WITH_FOLLOW_UP / REJECTED / BLOCKED.
+
+Do not impersonate final human authorization where the governance model reserves
+that decision to the human.
