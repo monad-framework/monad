@@ -59,7 +59,7 @@ jobs:
             architecture/decisions/ADR-0003-stable-source-and-document-identity.md \
             architecture/decisions/ADR-0004-safe-deterministic-ingestion-boundary.md \
             architecture/decisions/ADR-0005-mvp-core-implementation-topology.md \
-            specifications/data/DATA-SOURCE-0001-stable-source-and-document-identity.md \
+            specifications/data/DATA-SOURCE-0001-stable-source-document-identity.md \
             specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md; do
             test -f "$p"
           done
@@ -75,7 +75,7 @@ jobs:
               "architecture/decisions/ADR-0003-stable-source-and-document-identity.md",
               "architecture/decisions/ADR-0004-safe-deterministic-ingestion-boundary.md",
               "architecture/decisions/ADR-0005-mvp-core-implementation-topology.md",
-              "specifications/data/DATA-SOURCE-0001-stable-source-and-document-identity.md",
+              "specifications/data/DATA-SOURCE-0001-stable-source-document-identity.md",
               "specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md"
             ],
             "work_packets": [
