@@ -40,6 +40,7 @@ pub enum DiscoveryDiagnosticCode {
     InvalidSymlink,
     RootEscape,
     UnsupportedSourceKind,
+    CaseCollisionRisk,
 }
 
 #[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
@@ -137,7 +138,27 @@ pub fn discover_workspace(
                 provenance: provenance.into_iter().collect(),
             },
         )
-        .collect();
+        .collect::<Vec<_>>();
+    let mut case_groups = BTreeMap::<String, BTreeSet<String>>::new();
+    for source in &sources {
+        case_groups
+            .entry(source.canonical_path.to_lowercase())
+            .or_default()
+            .insert(source.canonical_path.clone());
+    }
+    for paths in case_groups.values().filter(|paths| paths.len() > 1) {
+        let paths = paths.iter().cloned().collect::<Vec<_>>();
+        walker.diagnostics.push(DiscoveryDiagnostic {
+            code: DiscoveryDiagnosticCode::CaseCollisionRisk,
+            message: format!(
+                "canonical paths collide on case-insensitive filesystems: {}",
+                paths.join(", ")
+            ),
+            location: None,
+        });
+    }
+    walker.diagnostics.sort();
+    walker.diagnostics.dedup();
     Ok(DiscoveryResult {
         sources,
         diagnostics: walker.diagnostics,
@@ -611,6 +632,32 @@ mod tests {
         assert_eq!(
             serde_json::to_vec(&first_result).expect("serialize first"),
             serde_json::to_vec(&second_result).expect("serialize second")
+        );
+    }
+
+    #[test]
+    fn case_collisions_are_diagnosed_without_changing_canonical_paths() {
+        let root = temp_dir("case-collision");
+        write(&root, "docs/A.md");
+        write(&root, "docs/a.md");
+        let configuration = write_config(&root, "docs = [\"docs/**/*.md\"]", "");
+        let result = discover_workspace(&root, &configuration).expect("discovery");
+        assert_eq!(
+            result
+                .sources
+                .iter()
+                .map(|source| source.canonical_path.as_str())
+                .collect::<Vec<_>>(),
+            ["docs/A.md", "docs/a.md"]
+        );
+        assert_eq!(
+            result
+                .diagnostics
+                .iter()
+                .filter(|diagnostic| diagnostic.code == DiscoveryDiagnosticCode::CaseCollisionRisk)
+                .map(|diagnostic| diagnostic.message.as_str())
+                .collect::<Vec<_>>(),
+            ["canonical paths collide on case-insensitive filesystems: docs/A.md, docs/a.md"]
         );
     }
 
