@@ -1,6 +1,6 @@
 # WC-MVP-0001 — Workspace, Discovery, and Identity
 
-**Status:** IN_REVIEW
+**Status:** CLOSED
 **Program Increment:** PI-MVP-001  
 **Forecast:** 2026-08-17 through 2026-08-23  
 **Sprint Goal:** Discover repository/workspace knowledge with stable identity.
