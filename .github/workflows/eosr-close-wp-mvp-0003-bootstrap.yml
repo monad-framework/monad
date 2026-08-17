@@ -1,0 +1,151 @@
+name: EOSR WP-MVP-0003 Closure Bootstrap
+
+on:
+  push:
+    branches:
+      - eosr/close-wp-mvp-0003-bootstrap
+
+permissions:
+  contents: write
+
+env:
+  EOS_ACTOR: chatgpt
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enter exact accepted-review baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          BASE_SHA="d80cb125c92dd80b07317e96acde1a568258a880"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_SHA"
+          git reset --hard "$BASE_SHA"
+          test ! -e .github/workflows/eosr-close-wp-mvp-0003-bootstrap.yml
+          test -z "$(git status --porcelain)"
+
+      - name: Prove pre-closure review state
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv
+          wp=Path('engineering/work-packets/WP-MVP-0003.md').read_text()
+          assert '**Status:** IN_REVIEW' in wp
+          assert wp.count('- [ ] ') == 7, wp
+          review=Path('engineering/reviews/WP-MVP-0003-REVIEW.md').read_text()
+          assert '**Decision:** ACCEPTED' in review
+          rows={r['id']:r for r in csv.DictReader(open('.eos/work-packets.tsv'), delimiter='\t')}
+          assert rows['WP-MVP-0003']['status']=='IN_REVIEW'
+          PY
+
+      - name: Reconcile accepted criteria and refresh evidence
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          path=Path('engineering/work-packets/WP-MVP-0003.md')
+          text=path.read_text()
+          expected=[
+            'US-008 stable Source IDs are equal across equivalent clean clones.',
+            'US-009 SHA-256/source/parser provenance is recorded and changes when consumed bytes change.',
+            'US-010 duplicate governed identifiers produce collision diagnostics naming all sources.',
+            'content edits do not change Source ID solely because content changed.',
+            'explicit governed Document IDs survive source-path moves; path-only Source IDs do not.',
+            'absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity.',
+            'case-collision and symlink-alias fixtures are deterministic.',
+          ]
+          for criterion in expected:
+            old=f'- [ ] {criterion}'
+            new=f'- [x] {criterion}'
+            assert text.count(old)==1, (criterion, text.count(old))
+            text=text.replace(old,new)
+          assert '- [ ] ' not in text
+          assert text.count('- [x] ') == 7
+          path.write_text(text)
+          PY
+
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+          ./scripts/eos validate WP-MVP-0003 --profile wp --execution EXEC-0005
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv
+          wp=Path('engineering/work-packets/WP-MVP-0003.md').read_text()
+          assert '**Status:** IN_REVIEW' in wp
+          assert wp.count('- [x] ') == 7
+          assert '- [ ] ' not in wp
+          rows=list(csv.DictReader(open('.eos/evidence.tsv'), delimiter='\t'))
+          current=[r for r in rows if r['target']=='WP-MVP-0003' and r['status']!='SUPERSEDED']
+          assert len(current)==3, current
+          assert all(r['execution']=='EXEC-0005' and r['status']=='VALIDATED' for r in current), current
+          assert next(r for r in current if r['validator']=='eos-integrity')['result']=='PASSED'
+          assert next(r for r in current if r['validator']=='repository')['result'] in {'PASSED','SKIPPED'}
+          assert next(r for r in current if r['validator']=='execution-acceptance')['result']=='PASSED'
+          PY
+
+      - name: Require WP_CLOSE gate and close packet
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos gate explain WP_CLOSE WP-MVP-0003
+          ./scripts/eos close WP-MVP-0003 \
+            --reason 'Human-authorized governed closure following accepted EOSR review merged through PR #206 and complete verified acceptance criteria.'
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+          wp=Path('engineering/work-packets/WP-MVP-0003.md').read_text()
+          assert '**Status:** CLOSED' in wp
+          assert wp.count('- [x] ') == 7
+          rows={r['id']:r for r in csv.DictReader(open('.eos/work-packets.tsv'), delimiter='\t')}
+          assert rows['WP-MVP-0003']['status']=='CLOSED'
+          state=json.loads(Path('.eos/state/current.json').read_text())
+          assert state['entities']['WP']['WP-MVP-0001']['lifecycle_state']=='CLOSED'
+          assert state['entities']['WP']['WP-MVP-0002']['lifecycle_state']=='CLOSED'
+          assert state['entities']['WP']['WP-MVP-0003']['lifecycle_state']=='CLOSED'
+          assert state['entities']['WC']['WC-MVP-0001']['lifecycle_state']=='ACTIVE'
+          PY
+
+      - name: Commit closure and prove post-commit stability
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          FINAL_BRANCH="eosr/close-wp-mvp-0003"
+          git config user.name 'ChatGPT'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --name-only | grep -E '^(Cargo|crates/|src/|.*\.rs$|tools/eos/|product/|architecture/|specifications/|engineering/work-cycles/|engineering/increments/|engineering/maintenance/|\.github/workflows/)'; then
+            echo 'Unexpected product/governing change in WP closure.' >&2; exit 1
+          fi
+          git commit -m 'chore(eosr): close WP-MVP-0003'
+          test "$(git rev-parse HEAD^)" = "d80cb125c92dd80b07317e96acde1a568258a880"
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+          test -z "$(git status --porcelain)"
+          if git ls-remote --exit-code --heads origin "$FINAL_BRANCH" >/dev/null 2>&1; then echo 'Final closure branch exists' >&2; exit 1; fi
+          git push origin "HEAD:refs/heads/$FINAL_BRANCH"
