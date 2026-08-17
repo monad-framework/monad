@@ -1,0 +1,151 @@
+{
+  "agent_result": {
+    "acceptance_criteria": [
+      {
+        "criterion": "US-008 stable Source IDs are equal across equivalent clean clones.",
+        "evidence": "identity::tests::source_identity_is_clone_independent_and_content_provenance_is_exact derives equal IDs from equal canonical path and kind.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-009 SHA-256/source/parser provenance is recorded and changes when consumed bytes change.",
+        "evidence": "SourceRecord::from_discovered records exact bytes, length, parser contract, discovery provenance, and SHA-256 golden vectors.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-010 duplicate governed identifiers produce collision diagnostics naming all sources.",
+        "evidence": "detect_duplicate_governed_identifiers deterministically returns sorted repository-relative locations; coverage verifies reordered input and namespace separation.",
+        "status": "passed"
+      },
+      {
+        "criterion": "content edits do not change Source ID solely because content changed.",
+        "evidence": "Identity test verifies changed content hashes with an unchanged SourceId.",
+        "status": "passed"
+      },
+      {
+        "criterion": "explicit governed Document IDs survive source-path moves; path-only Source IDs do not.",
+        "evidence": "document_ids_follow_explicit_and_path_only_rules covers both move cases.",
+        "status": "passed"
+      },
+      {
+        "criterion": "absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity.",
+        "evidence": "Identity derivation accepts only canonical path/source kind or explicit identity components; serialization test checks no host-state fields.",
+        "status": "passed"
+      },
+      {
+        "criterion": "case-collision and symlink-alias fixtures are deterministic.",
+        "evidence": "Discovery case-collision test preserves case-sensitive paths and emits a sorted diagnostic; symlink identity test confirms one discovered semantic source.",
+        "status": "passed"
+      }
+    ],
+    "changed_files": [
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/monad-core/Cargo.toml",
+      "crates/monad-core/src/discovery.rs",
+      "crates/monad-core/src/identity.rs",
+      "crates/monad-core/src/lib.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/.eos-result-EXEC-0005.json.json",
+      "machine/documents/Cargo.lock.json",
+      "machine/documents/Cargo.toml.json",
+      "machine/documents/crates/monad-core/Cargo.toml.json",
+      "machine/documents/crates/monad-core/src/discovery.rs.json",
+      "machine/documents/crates/monad-core/src/identity.rs.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "execution_id": "EXEC-0005",
+    "proposed_commit_message": "feat(identity): add stable source and document identity",
+    "risks": [],
+    "status": "completed",
+    "summary": "Added deterministic, domain-separated source and document identity APIs with exact-byte SHA-256 provenance, governed-ID collision diagnostics, case-collision discovery diagnostics, and machine projections.",
+    "target": "WP-MVP-0003",
+    "unresolved_issues": [],
+    "validation": [
+      {
+        "command": "cargo fmt --all -- --check",
+        "exit_code": 0,
+        "summary": "Workspace formatting check passed."
+      },
+      {
+        "command": "cargo clippy --workspace --all-targets --all-features -- -D warnings",
+        "exit_code": 0,
+        "summary": "Workspace linting passed with warnings denied."
+      },
+      {
+        "command": "cargo test --workspace --all-targets --all-features",
+        "exit_code": 0,
+        "summary": "All 29 workspace tests passed, including 6 identity tests and discovery case-collision coverage."
+      },
+      {
+        "command": "git diff --check",
+        "exit_code": 0,
+        "summary": "No whitespace errors."
+      },
+      {
+        "command": "python3 scripts/sync-machine-docs.py --write",
+        "exit_code": 0,
+        "summary": "Required machine projections regenerated."
+      },
+      {
+        "command": "python3 scripts/sync-machine-docs.py --check",
+        "exit_code": 0,
+        "summary": "Machine projections verified synchronized."
+      }
+    ]
+  },
+  "eos_observation": {
+    "actual_changed_files": [
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/monad-core/Cargo.toml",
+      "crates/monad-core/src/discovery.rs",
+      "crates/monad-core/src/identity.rs",
+      "crates/monad-core/src/lib.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/.eos-result-EXEC-0005.json.json",
+      "machine/documents/Cargo.lock.json",
+      "machine/documents/Cargo.toml.json",
+      "machine/documents/crates/monad-core/Cargo.toml.json",
+      "machine/documents/crates/monad-core/src/discovery.rs.json",
+      "machine/documents/crates/monad-core/src/identity.rs.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "declared_but_not_actual": [],
+    "declared_changed_files": [
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/monad-core/Cargo.toml",
+      "crates/monad-core/src/discovery.rs",
+      "crates/monad-core/src/identity.rs",
+      "crates/monad-core/src/lib.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/.eos-result-EXEC-0005.json.json",
+      "machine/documents/Cargo.lock.json",
+      "machine/documents/Cargo.toml.json",
+      "machine/documents/crates/monad-core/Cargo.toml.json",
+      "machine/documents/crates/monad-core/src/discovery.rs.json",
+      "machine/documents/crates/monad-core/src/identity.rs.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "scope": {
+      "directives": {
+        "allowed": [
+          "*",
+          "**/*"
+        ],
+        "allowed_governed": [],
+        "forbidden": []
+      },
+      "passed": true,
+      "violations": []
+    },
+    "undeclared_actual": []
+  },
+  "ingested": "2026-08-17T00:15:58Z"
+}
