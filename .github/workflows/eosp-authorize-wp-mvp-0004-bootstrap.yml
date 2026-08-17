@@ -1,0 +1,161 @@
+name: EOSP WP-MVP-0004 Authorization Bootstrap
+
+on:
+  push:
+    branches:
+      - eosp/authorize-wp-mvp-0004-bootstrap
+
+permissions:
+  contents: write
+
+jobs:
+  authorize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enter exact active Work Cycle baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "b901cd852637e56f474e75b14dc2271d6867f04b"
+          git checkout --detach b901cd852637e56f474e75b14dc2271d6867f04b
+          git switch -c eosp/authorize-wp-mvp-0004
+          git config user.name "ChatGPT"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Reconcile and adopt WP-MVP-0004
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('engineering/work-packets/WP-MVP-0004.md')
+          text = path.read_text(encoding='utf-8')
+          old_status = '**Status:** Refined — blocked from Ready by WP-MVP-0003 and ADR-0005  '
+          if old_status not in text:
+              raise SystemExit('expected stale WP-MVP-0004 status line not found')
+          text = text.replace(old_status, '**Status:** DRAFT  ', 1)
+          if '- proposed ADR-0005' not in text:
+              raise SystemExit('expected proposed ADR-0005 authority line not found')
+          text = text.replace('- proposed ADR-0005', '- ADR-0005', 1)
+          old_deps = 'WP-MVP-0003 provides stable source/document identity. ADR-0005 establishes implementation topology.'
+          new_deps = ('- WP-MVP-0003 is CLOSED and provides stable source/document identity.\n'
+                      '- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.\n'
+                      '- WC-MVP-0002 is ACTIVE and provides the current Parsing and Reference Resolution cycle context.')
+          if old_deps not in text:
+              raise SystemExit('expected stale dependency paragraph not found')
+          text = text.replace(old_deps, new_deps, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+
+          for p in \
+            engineering/work-cycles/WC-MVP-0002.md \
+            engineering/work-packets/WP-MVP-0003.md \
+            architecture/decisions/ADR-0003-stable-source-and-document-identity.md \
+            architecture/decisions/ADR-0004-safe-deterministic-ingestion-boundary.md \
+            architecture/decisions/ADR-0005-mvp-core-implementation-topology.md \
+            specifications/data/DATA-SOURCE-0001-stable-source-and-document-identity.md \
+            specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md; do
+            test -f "$p"
+          done
+
+          cat > .eos/adoptions/wp-mvp-0004.json <<'EOF'
+          {
+            "schema_version": "1.0.0",
+            "adoption_id": "ADOPT-WP-MVP-0004-2026-08-17",
+            "reason": "Adopt WP-MVP-0004 after closure of WP-MVP-0003, activation of WC-MVP-0002, and acceptance of ADR-0005.",
+            "evidence": [
+              "engineering/work-cycles/WC-MVP-0002.md",
+              "engineering/work-packets/WP-MVP-0003.md",
+              "architecture/decisions/ADR-0003-stable-source-and-document-identity.md",
+              "architecture/decisions/ADR-0004-safe-deterministic-ingestion-boundary.md",
+              "architecture/decisions/ADR-0005-mvp-core-implementation-topology.md",
+              "specifications/data/DATA-SOURCE-0001-stable-source-and-document-identity.md",
+              "specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md"
+            ],
+            "work_packets": [
+              {
+                "id": "WP-MVP-0004",
+                "path": "engineering/work-packets/WP-MVP-0004.md",
+                "title": "Markdown engineering artifact parser",
+                "status": "DRAFT",
+                "pi": "PI-MVP-001",
+                "wc": "WC-MVP-0002",
+                "domain": "CORE",
+                "created": "2026-08-17T00:00:00Z",
+                "updated": "2026-08-17T00:00:00Z",
+                "github_url": ""
+              }
+            ]
+          }
+          EOF
+
+          ./scripts/eos adopt .eos/adoptions/wp-mvp-0004.json --apply \
+            --by 'Thomas Carter' \
+            --reason 'Adopt WP-MVP-0004 after closure of WP-MVP-0003, activation of WC-MVP-0002, and acceptance of ADR-0005.'
+
+      - name: Ready and authorize WP-MVP-0004
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./scripts/eos gate explain WP_READY WP-MVP-0004
+          ./scripts/eos ready WP-MVP-0004 \
+            --by 'Thomas Carter' \
+            --reason 'WP-MVP-0004 prerequisites and governing contracts are satisfied under active WC-MVP-0002.'
+          ./scripts/eos gate explain WP_AUTHORIZE WP-MVP-0004
+          ./scripts/eos authorize WP-MVP-0004 \
+            --by 'Thomas Carter' \
+            --reason 'Explicit human authorization to proceed with WP-MVP-0004 Markdown engineering artifact parser under WC-MVP-0002.'
+
+      - name: Refresh completed-packet evidence and synchronize
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+          ./scripts/eos validate WP-MVP-0003 --profile wp --execution EXEC-0005
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+
+          def rows(path):
+              with Path(path).open(newline='', encoding='utf-8') as f:
+                  return list(csv.DictReader(f, delimiter='\t'))
+
+          pi = {r['id']: r for r in rows('.eos/program-increments.tsv')}
+          wc = {r['id']: r for r in rows('.eos/work-cycles.tsv')}
+          wp = {r['id']: r for r in rows('.eos/work-packets.tsv')}
+          assert pi['PI-MVP-001']['status'] == 'ACTIVE'
+          assert wc['WC-MVP-0001']['status'] == 'CLOSED'
+          assert wc['WC-MVP-0002']['status'] == 'ACTIVE'
+          assert wp['WP-MVP-0001']['status'] == 'CLOSED'
+          assert wp['WP-MVP-0002']['status'] == 'CLOSED'
+          assert wp['WP-MVP-0003']['status'] == 'CLOSED'
+          assert wp['WP-MVP-0004']['status'] == 'AUTHORIZED'
+          text = Path('engineering/work-packets/WP-MVP-0004.md').read_text(encoding='utf-8')
+          assert '**Status:** AUTHORIZED' in text
+          assert 'proposed ADR-0005' not in text
+          assert 'WP-MVP-0003 is CLOSED' in text
+          assert 'WC-MVP-0002 is ACTIVE' in text
+          PY
+
+      - name: Commit authorization and prove stability
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -A
+          git commit -m 'chore(eosp): authorize WP-MVP-0004'
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
+          git push origin HEAD:refs/heads/eosp/authorize-wp-mvp-0004
