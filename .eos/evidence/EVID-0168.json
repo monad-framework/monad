@@ -1,0 +1,38 @@
+{
+  "command": "builtin:execution-acceptance",
+  "covers": [],
+  "created": "2026-08-17T15:01:37Z",
+  "details": {},
+  "environment": {
+    "bash": "GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)",
+    "bun": "",
+    "cargo": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)",
+    "git": "git version 2.43.0",
+    "go": "",
+    "hostname": "oss",
+    "lockfiles": {
+      "Cargo.lock": "114034aebf82078124f42fc902668688c2a18a2d0aba67342a9b34793d141968"
+    },
+    "machine": "x86_64",
+    "node": "v24.18.1",
+    "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)"
+  },
+  "environment_hash": "d2368bb9fb8de901aa63074dbdc86527cd84c20add9b7b333e2190c0004a109b",
+  "execution": "",
+  "exit_code": 0,
+  "id": "EVID-0168",
+  "kind": "acceptance",
+  "output": "No EXEC session selected.",
+  "output_hash": "260f92be78902edc92e93c329c1c4a915c31ee205954dd69264743d39f37887e",
+  "producer": {
+    "actor": "oss",
+    "commit": "beaa02c2d520fc5d3a4c6c1ed0cf37aa42b138d6"
+  },
+  "profile": "wp",
+  "result": "SKIPPED",
+  "source_hash": "a5015aceb098fab64024063edd81ab4602585a0c3056e4d24bc4db00f17f4485",
+  "target": "WP-MVP-0001",
+  "validator": "execution-acceptance"
+}
