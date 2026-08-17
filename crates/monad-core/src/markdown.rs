@@ -86,7 +86,7 @@ pub fn parse_markdown(source: SourceRecord, bytes: &[u8]) -> ParsedMarkdownDocum
     let fallback_identity = DocumentIdentity::new(source, document_kind, None);
     let text = match std::str::from_utf8(bytes) {
         Ok(text) => text,
-        Err(error) => return invalid_utf8(fallback_identity, bytes.len(), error.valid_up_to()),
+        Err(error) => return invalid_utf8(fallback_identity, bytes, error.valid_up_to()),
     };
 
     let mut headings = Vec::new();
@@ -97,7 +97,7 @@ pub fn parse_markdown(source: SourceRecord, bytes: &[u8]) -> ParsedMarkdownDocum
     let mut explicit_identifier = None;
     let mut in_fence: Option<(char, usize, SourceSpan)> = None;
     let mut in_html_comment = false;
-    let mut in_inline_code = false;
+    let mut in_inline_code = None;
     let mut byte_offset = 0usize;
 
     for (index, line_with_ending) in text
@@ -131,7 +131,7 @@ pub fn parse_markdown(source: SourceRecord, bytes: &[u8]) -> ParsedMarkdownDocum
         }
         if let Some((level, text_start, heading_text)) = heading(&visible) {
             let heading_span = line_span(line_start + text_start, heading_text.len(), line_number);
-            if explicit_identifier.is_none() {
+            if level == 1 && explicit_identifier.is_none() {
                 explicit_identifier =
                     governed_identifier(heading_text).map(|(identifier, _)| identifier);
             }
@@ -212,7 +212,7 @@ pub fn parse_markdown(source: SourceRecord, bytes: &[u8]) -> ParsedMarkdownDocum
 
 fn invalid_utf8(
     identity: DocumentIdentity,
-    byte_length: usize,
+    bytes: &[u8],
     valid_up_to: usize,
 ) -> ParsedMarkdownDocument {
     ParsedMarkdownDocument {
@@ -227,12 +227,19 @@ fn invalid_utf8(
             "Markdown source is not valid UTF-8",
             SourceSpan {
                 byte_start: valid_up_to as u64,
-                byte_end: byte_length as u64,
-                line_start: 1,
-                line_end: 1,
+                byte_end: bytes.len() as u64,
+                line_start: bytes_before_invalid(bytes, valid_up_to) as u64,
+                line_end: bytes_before_invalid(bytes, valid_up_to) as u64,
             },
         )],
     }
+}
+fn bytes_before_invalid(bytes: &[u8], valid_up_to: usize) -> usize {
+    bytes[..valid_up_to]
+        .iter()
+        .filter(|byte| **byte == b'\n')
+        .count()
+        + 1
 }
 
 fn line_span(start: usize, length: usize, line: u64) -> SourceSpan {
@@ -255,7 +262,11 @@ fn diagnostic(
     }
 }
 fn fence_open(line: &str) -> Option<(char, usize)> {
-    let trimmed = line.trim_start();
+    let indentation = line.len() - line.trim_start_matches([' ', '\t']).len();
+    if indentation > 3 {
+        return None;
+    }
+    let trimmed = &line[indentation..];
     let marker = trimmed.chars().next()?;
     if !matches!(marker, '`' | '~') {
         return None;
@@ -267,12 +278,16 @@ fn fence_open(line: &str) -> Option<(char, usize)> {
     (width >= 3).then_some((marker, width))
 }
 fn is_fence_close(line: &str, marker: char, width: usize) -> bool {
-    let trimmed = line.trim_start();
-    trimmed
+    let indentation = line.len() - line.trim_start_matches([' ', '\t']).len();
+    if indentation > 3 {
+        return false;
+    }
+    let trimmed = &line[indentation..];
+    let run = trimmed
         .chars()
         .take_while(|character| *character == marker)
-        .count()
-        >= width
+        .count();
+    run >= width && trimmed[run..].trim().is_empty()
 }
 fn heading(line: &str) -> Option<(u8, usize, &str)> {
     let count = line
@@ -290,7 +305,10 @@ fn heading(line: &str) -> Option<(u8, usize, &str)> {
     ))
 }
 fn metadata_field(line: &str) -> Option<Result<ParsedMetadataField<'_>, usize>> {
-    let start = line.find("**")?;
+    let start = line.len() - line.trim_start().len();
+    if !line[start..].starts_with("**") {
+        return None;
+    }
     let remaining = &line[start + 2..];
     let end = remaining.find(":**");
     match end {
@@ -303,7 +321,18 @@ fn metadata_field(line: &str) -> Option<Result<ParsedMetadataField<'_>, usize>> 
                 value: line[value_start..].trim(),
             }))
         }
-        _ => Some(Err(start)),
+        _ if remaining
+            .trim_start()
+            .to_ascii_lowercase()
+            .starts_with("status")
+            || remaining
+                .trim_start()
+                .to_ascii_lowercase()
+                .starts_with("id") =>
+        {
+            Some(Err(start))
+        }
+        _ => None,
     }
 }
 fn mask_html_comments(line: &str, in_comment: &mut bool) -> String {
@@ -329,14 +358,26 @@ fn mask_html_comments(line: &str, in_comment: &mut bool) -> String {
     }
     String::from_utf8(output).expect("only valid UTF-8 bytes were replaced")
 }
-fn remove_inline_code(line: &str, in_code: &mut bool) -> String {
+fn remove_inline_code(line: &str, in_code: &mut Option<usize>) -> String {
     let mut output = line.as_bytes().to_vec();
-    for byte in &mut output {
-        if *byte == b'`' {
-            *in_code = !*in_code;
-            *byte = b' ';
-        } else if *in_code {
-            *byte = b' ';
+    let mut index = 0;
+    while index < output.len() {
+        if output[index] == b'`' {
+            let width = output[index..]
+                .iter()
+                .take_while(|byte| **byte == b'`')
+                .count();
+            let closes = in_code.is_some_and(|open| open == width);
+            if in_code.is_none() || closes {
+                *in_code = if closes { None } else { Some(width) };
+            }
+            output[index..index + width].fill(b' ');
+            index += width;
+        } else {
+            if in_code.is_some() {
+                output[index] = b' ';
+            }
+            index += 1;
         }
     }
     String::from_utf8(output).expect("only valid UTF-8 bytes were replaced")
@@ -668,5 +709,44 @@ mod tests {
                 .collect::<Vec<_>>(),
             ["WP-MVP-0001", "WP-MVP-0002"]
         );
+    }
+
+    #[test]
+    fn section_ids_and_bold_prose_do_not_become_document_metadata() {
+        let parsed =
+            parse("# Journeys\n## Journey J-01 — Understand\n**engineering knowledge compiler**\n");
+        assert!(parsed.identity.explicit_governed_identifier.is_none());
+        assert!(parsed.diagnostics.is_empty());
+        assert_eq!(parsed.identifier_references[0].identifier.value, "J-01");
+    }
+
+    #[test]
+    fn fence_closers_and_inline_runs_require_valid_matching_delimiters() {
+        let parsed = parse(
+            "```md\n```not-a-close\n# ADR-9999\n[fake](x)\n```\n``WP-MVP-9999 [fake](x)`` [real](y) WP-MVP-0004\n",
+        );
+        assert_eq!(
+            parsed
+                .links
+                .iter()
+                .map(|link| link.destination.as_str())
+                .collect::<Vec<_>>(),
+            ["y"]
+        );
+        assert_eq!(
+            parsed
+                .identifier_references
+                .iter()
+                .map(|id| id.identifier.value.as_str())
+                .collect::<Vec<_>>(),
+            ["WP-MVP-0004"]
+        );
+    }
+
+    #[test]
+    fn invalid_utf8_diagnostic_uses_the_invalid_byte_line() {
+        let parsed = parse_markdown(source(), b"ok\n\xff");
+        assert_eq!(parsed.diagnostics[0].source_range.byte_start, 3);
+        assert_eq!(parsed.diagnostics[0].source_range.line_start, 2);
     }
 }
