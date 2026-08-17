@@ -1,0 +1,80 @@
+{
+  "actual_changed_files": [
+    "crates/monad-core/src/lib.rs",
+    "crates/monad-core/src/markdown.rs"
+  ],
+  "checked": "2026-08-17T03:36:04Z",
+  "checks": {
+    "contract_valid": true,
+    "declared_diff_matches_actual": true,
+    "result_ingested": true,
+    "scope_passed": true
+  },
+  "contract": {
+    "canonical_governing_hash": "4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816",
+    "checks": [
+      {
+        "check": "contract_hash",
+        "detail": "expected=0f3bf85f3df8b088ec4b441ba5fe7d4c0efa3f0afb044c9fd89cc845f21a4966 calculated=0f3bf85f3df8b088ec4b441ba5fe7d4c0efa3f0afb044c9fd89cc845f21a4966",
+        "passed": true
+      },
+      {
+        "check": "worktree_governing_inputs_unchanged",
+        "detail": "expected=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816 worktree=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816",
+        "passed": true
+      },
+      {
+        "check": "canonical_governing_inputs_unchanged",
+        "detail": "expected=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816 canonical=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816",
+        "passed": true
+      },
+      {
+        "check": "baseline_is_ancestor",
+        "detail": "baseline=9487abbfbbf60231a89072b4dc34faa9add8caca head=83edadd45f90f27686e2cbb8333298610c8d2bc4",
+        "passed": true
+      },
+      {
+        "check": "expected_branch",
+        "detail": "expected=wp/mvp-0004 actual=wp/mvp-0004",
+        "passed": true
+      }
+    ],
+    "execution_id": "EXEC-0007",
+    "passed": true,
+    "target": "WP-MVP-0004",
+    "worktree_governing_hash": "4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816"
+  },
+  "declared_changed_files": [
+    "crates/monad-core/src/lib.rs",
+    "crates/monad-core/src/markdown.rs"
+  ],
+  "environment_drift": {
+    "head_changed": true,
+    "lockfiles_changed": false,
+    "tool_changes": {
+      "go": {
+        "after": "go version go1.26.3 linux/amd64",
+        "before": "{\"type\":\"message\",\"message\":\"Detected an AI agent environment, printing as NDJSON. Trace logs are written to stderr, while user-facing logs are written to stdout.\"}"
+      },
+      "node": {
+        "after": "v24.14.0",
+        "before": "{\"type\":\"message\",\"message\":\"Detected an AI agent environment, printing as NDJSON. Trace logs are written to stderr, while user-facing logs are written to stdout.\"}"
+      }
+    }
+  },
+  "execution_id": "EXEC-0007",
+  "passed": true,
+  "scope": {
+    "directives": {
+      "allowed": [
+        "*",
+        "**/*"
+      ],
+      "allowed_governed": [],
+      "forbidden": []
+    },
+    "passed": true,
+    "violations": []
+  },
+  "target": "WP-MVP-0004"
+}
