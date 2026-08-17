@@ -1,6 +1,6 @@
 # WP-MVP-0003 — Stable source and document identity
 
-**Status:** VERIFYING
+**Status:** IN_REVIEW
 **Epic:** EPIC-003  
 **Feature:** F-003-01  
 **Program Increment:** PI-MVP-001  
