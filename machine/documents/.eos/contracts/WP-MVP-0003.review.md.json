@@ -1,0 +1,141 @@
+{
+  "content": "# ChatGPT Review Contract — WP-MVP-0003\n\nReview the target against all applicable accepted higher-authority artifacts.\n\n## Target\n\n# WP-MVP-0003 — Stable source and document identity\n\n**Status:** IN_REVIEW\n**Epic:** EPIC-003  \n**Feature:** F-003-01  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0001  \n**Product Goal:** PG-001\n\n## Objective\n\nCreate clone-independent source/document identities and content provenance that downstream parsers, graph construction, diagnostics, KIR, queries, and agent context can rely on.\n\n## Governing authority\n\n- FR-002, FR-003, FR-009; QR-001, QR-005\n- ADR-0003\n- DATA-SOURCE-0001\n- TECH-WORKSPACE-0001\n- ADR-0005\n\n## Dependencies\n\n- WP-MVP-0001 is CLOSED and provides stable repository root/effective configuration semantics.\n- WP-MVP-0002 is CLOSED and provides stable canonical discovery output.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.\n\n## Acceptance criteria\n\n- [ ] US-008 stable Source IDs are equal across equivalent clean clones.\n- [ ] US-009 SHA-256/source/parser provenance is recorded and changes when consumed bytes change.\n- [ ] US-010 duplicate governed identifiers produce collision diagnostics naming all sources.\n- [ ] content edits do not change Source ID solely because content changed.\n- [ ] explicit governed Document IDs survive source-path moves; path-only Source IDs do not.\n- [ ] absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity.\n- [ ] case-collision and symlink-alias fixtures are deterministic.\n\n## Implementation boundary\n\nUnder ADR-0005, identity/provenance types and algorithms live in `monad-core`; no CLI-specific identity rules are permitted. Hashing/serialization dependencies must be locked and covered by golden vectors.\n\n## Validation\n\nProperty tests plus golden identity vectors covering clone relocation, edits, moves, duplicates, case ambiguity, aliases, empty sources, and deterministic machine serialization.\n\n\n## Required Review Dimensions\n\n- scope conformance;\n- requirements and specification conformance;\n- architecture conformance;\n- acceptance criteria;\n- deterministic validation evidence;\n- security/reliability risk;\n- traceability completeness;\n- unresolved findings;\n- recommendation: ACCEPTED / ACCEPTED_WITH_FOLLOW_UP / REJECTED / BLOCKED.\n\nDo not impersonate final human authorization where the governance model reserves\nthat decision to the human.\n",
+  "document_id": "doc:.eos%2Fcontracts%2FWP-MVP-0003.review.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0003",
+    "ADR-0005",
+    "FR-002",
+    "FR-003",
+    "FR-009",
+    "QR-001",
+    "QR-005"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Review the target against all applicable accepted higher-authority artifacts.",
+    "title": "ChatGPT Review Contract — WP-MVP-0003"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 4,
+      "line_start": 1,
+      "section_id": "chatgpt-review-contract-wp-mvp-0003",
+      "text": "# ChatGPT Review Contract — WP-MVP-0003\n\nReview the target against all applicable accepted higher-authority artifacts.",
+      "title": "ChatGPT Review Contract — WP-MVP-0003"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 6,
+      "line_start": 5,
+      "section_id": "target",
+      "text": "## Target",
+      "title": "Target"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 7,
+      "section_id": "wp-mvp-0003-stable-source-and-document-identity",
+      "text": "# WP-MVP-0003 — Stable source and document identity\n\n**Status:** IN_REVIEW\n**Epic:** EPIC-003  \n**Feature:** F-003-01  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0001  \n**Product Goal:** PG-001",
+      "title": "WP-MVP-0003 — Stable source and document identity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 16,
+      "section_id": "objective",
+      "text": "## Objective\n\nCreate clone-independent source/document identities and content provenance that downstream parsers, graph construction, diagnostics, KIR, queries, and agent context can rely on.",
+      "title": "Objective"
+    },
+    {
+      "identifiers": [
+        "ADR-0003",
+        "ADR-0005",
+        "FR-002",
+        "FR-003",
+        "FR-009",
+        "QR-001",
+        "QR-005"
+      ],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 20,
+      "section_id": "governing-authority",
+      "text": "## Governing authority\n\n- FR-002, FR-003, FR-009; QR-001, QR-005\n- ADR-0003\n- DATA-SOURCE-0001\n- TECH-WORKSPACE-0001\n- ADR-0005",
+      "title": "Governing authority"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 28,
+      "section_id": "dependencies",
+      "text": "## Dependencies\n\n- WP-MVP-0001 is CLOSED and provides stable repository root/effective configuration semantics.\n- WP-MVP-0002 is CLOSED and provides stable canonical discovery output.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.",
+      "title": "Dependencies"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 34,
+      "section_id": "acceptance-criteria",
+      "text": "## Acceptance criteria\n\n- [ ] US-008 stable Source IDs are equal across equivalent clean clones.\n- [ ] US-009 SHA-256/source/parser provenance is recorded and changes when consumed bytes change.\n- [ ] US-010 duplicate governed identifiers produce collision diagnostics naming all sources.\n- [ ] content edits do not change Source ID solely because content changed.\n- [ ] explicit governed Document IDs survive source-path moves; path-only Source IDs do not.\n- [ ] absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity.\n- [ ] case-collision and symlink-alias fixtures are deterministic.",
+      "title": "Acceptance criteria"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 44,
+      "section_id": "implementation-boundary",
+      "text": "## Implementation boundary\n\nUnder ADR-0005, identity/provenance types and algorithms live in `monad-core`; no CLI-specific identity rules are permitted. Hashing/serialization dependencies must be locked and covered by golden vectors.",
+      "title": "Implementation boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 48,
+      "section_id": "validation",
+      "text": "## Validation\n\nProperty tests plus golden identity vectors covering clone relocation, edits, moves, duplicates, case ambiguity, aliases, empty sources, and deterministic machine serialization.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 66,
+      "line_start": 53,
+      "section_id": "required-review-dimensions",
+      "text": "## Required Review Dimensions\n\n- scope conformance;\n- requirements and specification conformance;\n- architecture conformance;\n- acceptance criteria;\n- deterministic validation evidence;\n- security/reliability risk;\n- traceability completeness;\n- unresolved findings;\n- recommendation: ACCEPTED / ACCEPTED_WITH_FOLLOW_UP / REJECTED / BLOCKED.\n\nDo not impersonate final human authorization where the governance model reserves\nthat decision to the human.",
+      "title": "Required Review Dimensions"
+    }
+  ],
+  "source": {
+    "bytes": 2447,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 66,
+    "media_type": "text/markdown",
+    "path": ".eos/contracts/WP-MVP-0003.review.md",
+    "sha256": "8bac0565f66aeb85d986a2a068fc55ca93390ab1a91e8c8690a97fb8721e17db"
+  }
+}

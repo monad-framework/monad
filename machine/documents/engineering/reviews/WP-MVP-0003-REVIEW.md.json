@@ -1,0 +1,188 @@
+{
+  "content": "---\nartifact_id: \"REV-WP-MVP-0003\"\ntitle: \"WP-MVP-0003 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"In Review\"\nauthority: \"review-authoritative\"\ncreated: \"2026-08-17\"\nupdated: \"2026-08-17\"\n---\n\n# WP-MVP-0003 — Engineering Review\n\n**Decision:** ACCEPTED\n\n## Target\n\n- Artifact: `engineering/work-packets/WP-MVP-0003.md`\n- State at review start: VERIFYING\n- Governed execution: `EXEC-0005`\n- Implementation merge: PR #204\n- EOSV verification merge: PR #205\n- Review baseline: `d7a420ce6b78836e2ada408dca50282c88de518f`\n\n## Deterministic Verification\n\n**Result:** PASS before review.\n\nThe merged implementation was freshly revalidated with Rust 1.95.0 using formatting checks, Clippy with warnings denied, and the complete workspace test suite. EOS strict verification, canonical-state consistency, and machine-document synchronization also pass. WP-MVP-0003 enters EOSR with current EVID-0082–EVID-0084 bound to EXEC-0005; EOS integrity and execution acceptance are PASS and the optional repository validator is SKIPPED by configuration.\n\n## Scope Conformance\n\nPASS.\n\nProduct changes are limited to the Rust workspace dependency/lock metadata, `crates/monad-core` identity/discovery implementation, the module export, and generated machine projections. The implementation introduces no CLI-specific identity rules, service/plugin boundary, network behavior, repository-code execution, or unrelated product refactor. The minimal discovery extension for case-collision diagnostics is directly required by ADR-0003 and WP-MVP-0003 acceptance coverage.\n\n## Requirements / Specification Conformance\n\nPASS.\n\nThe implementation conforms to the identity/provenance rules established by ADR-0003 and DATA-SOURCE-0001:\n\n- Source IDs are versioned/domain-separated SHA-256 identities over unambiguous length-framed canonical repository-relative path and source-kind inputs only.\n- Source content is excluded from Source ID derivation, so ordinary byte edits preserve source identity at a stable path.\n- `SourceRecord` retains the original canonical path and source kind alongside exact-byte lowercase SHA-256, byte length, parser contract, and deterministic discovery provenance; the digest representation therefore does not lose authoritative identity components.\n- Path-derived Document IDs depend on Source ID plus document kind, so a source move changes a path-only document identity.\n- Explicit governed Document IDs depend on document kind plus governed namespace/value, not source path, so they survive source moves.\n- Duplicate governed identifiers are grouped by explicit namespace/value, produce deterministic diagnostics naming all unique conflicting repository-relative locations in sorted order, and do not select a traversal-order winner.\n- Path case is preserved in Source IDs. Discovery separately emits deterministic `CaseCollisionRisk` diagnostics for canonical paths differing only by case.\n- Symlink aliases remain governed by deterministic discovery containment/de-duplication and therefore do not create additional semantic source identities.\n- Exact consumed bytes, including empty and binary content, are hashed without text normalization.\n\n## Architecture Conformance\n\nPASS.\n\nIdentity/provenance types and algorithms live in `monad-core` as required by ADR-0005. Discovery remains the canonical source of repository-relative path, source kind, and discovery provenance. No identity behavior is duplicated in the CLI. The only new runtime dependency is the established `sha2` crate, locked through Cargo, which is appropriate for the required SHA-256 behavior.\n\n## Acceptance Criteria Evidence\n\nPASS for all seven WP-MVP-0003 criteria.\n\n- US-008: stable Source IDs are equal across equivalent clean clones — PASS. The derivation has no clone-root input and equivalent canonical path/kind inputs produce identical IDs.\n- US-009: SHA-256/source/parser provenance is recorded and changes when consumed bytes change — PASS. Exact-byte content vectors, byte lengths, parser contract, and discovery provenance are represented in `SourceRecord`.\n- US-010: duplicate governed identifiers produce collision diagnostics naming all sources — PASS. Namespace-aware BTreeMap grouping plus sorted/de-duplicated repository-relative locations makes output traversal-order independent.\n- Content edits do not change Source ID solely because content changed — PASS. Content is absent from Source ID framing; tests verify equal IDs with differing bytes and differing content digests.\n- Explicit governed Document IDs survive source-path moves; path-only identities do not — PASS. Tests cover both move behaviors.\n- Absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity — PASS. Those values are absent from the derivation inputs and serialized source model.\n- Case-collision and symlink-alias fixtures are deterministic — PASS. Discovery preserves distinct case-sensitive canonical paths while emitting a sorted collision-risk diagnostic, and symlink alias fixtures yield one canonical source/identity.\n\n## Test / Validation Evidence\n\nPASS.\n\nThe workspace suite contains 29 passing tests after WP-MVP-0003. Identity coverage includes exact SHA-256 vectors for ordinary, empty, and binary bytes; versioned Source-ID golden vectors; source-kind separation; Unicode/spaces/punctuation framing; content-edit stability; path-only and explicit-ID moves; duplicate governed-ID ordering and namespace isolation; deterministic serialization; case-collision behavior; and symlink alias de-duplication. The merged implementation also passes formatting, Clippy with `-D warnings`, repository PR integrity checks, machine-document synchronization, governed EXEC-0005 checking, and first-class EOSV.\n\n## Security / Reliability Findings\n\nNo blocking security or reliability finding was identified.\n\nSHA-256 uses the maintained Rust `sha2` implementation rather than bespoke cryptography. Identity inputs exclude nondeterministic host/process metadata. Collision and case-risk diagnostics use repository-relative paths and deterministic ordering. Discovery root-containment and symlink-cycle protections remain intact.\n\n## API Boundary Observation\n\nNon-blocking: low-level public derivation helpers accept canonical path/document strings as caller preconditions rather than introducing validated newtypes for every component. The integrated construction path (`SourceRecord::from_discovered`) receives canonical paths from deterministic discovery, so the governed MVP path satisfies the invariant. If these helpers later become a broader external compatibility surface, typed validation can be considered without changing this packet's accepted semantics.\n\n## Traceability Findings\n\nPASS.\n\nThe implementation is traceable to FR-002, FR-003, FR-009; QR-001 and QR-005; ADR-0003; DATA-SOURCE-0001; TECH-WORKSPACE-0001; ADR-0005; WP-MVP-0003; EXEC-0005; implementation PR #204; and current EOSV evidence EVID-0082–EVID-0084.\n\n## Blocking Findings\n\nNone.\n\n## Non-Blocking Findings\n\nNo packet-specific defect requires correction before closure. The API-boundary observation above is future hardening, not an acceptance failure. Separate EOS issues #175, #176, #178, and #181 remain outside this Work Packet.\n\n## Decision\n\n**ACCEPTED.** WP-MVP-0003 satisfies its authorized scope and acceptance criteria and may proceed to the separate governed checklist-reconciliation and closure transaction.\n",
+  "document_id": "doc:engineering%2Freviews%2FWP-MVP-0003-REVIEW.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0003",
+    "ADR-0005",
+    "FR-002",
+    "FR-003",
+    "FR-009",
+    "QR-001",
+    "QR-005"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"REV-WP-MVP-0003\" title: \"WP-MVP-0003 Engineering Review\" type: \"review\" version: \"0.1.0\" status: \"In Review\" authority: \"review-authoritative\" created: \"2026-08-17\" updated: \"2026-08-17\" ---",
+    "title": "WP-MVP-0003 — Engineering Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"REV-WP-MVP-0003\"\ntitle: \"WP-MVP-0003 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"In Review\"\nauthority: \"review-authoritative\"\ncreated: \"2026-08-17\"\nupdated: \"2026-08-17\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "wp-mvp-0003-engineering-review",
+      "text": "# WP-MVP-0003 — Engineering Review\n\n**Decision:** ACCEPTED",
+      "title": "WP-MVP-0003 — Engineering Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 16,
+      "section_id": "target",
+      "text": "## Target\n\n- Artifact: `engineering/work-packets/WP-MVP-0003.md`\n- State at review start: VERIFYING\n- Governed execution: `EXEC-0005`\n- Implementation merge: PR #204\n- EOSV verification merge: PR #205\n- Review baseline: `d7a420ce6b78836e2ada408dca50282c88de518f`",
+      "title": "Target"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 25,
+      "section_id": "deterministic-verification",
+      "text": "## Deterministic Verification\n\n**Result:** PASS before review.\n\nThe merged implementation was freshly revalidated with Rust 1.95.0 using formatting checks, Clippy with warnings denied, and the complete workspace test suite. EOS strict verification, canonical-state consistency, and machine-document synchronization also pass. WP-MVP-0003 enters EOSR with current EVID-0082–EVID-0084 bound to EXEC-0005; EOS integrity and execution acceptance are PASS and the optional repository validator is SKIPPED by configuration.",
+      "title": "Deterministic Verification"
+    },
+    {
+      "identifiers": [
+        "ADR-0003"
+      ],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 31,
+      "section_id": "scope-conformance",
+      "text": "## Scope Conformance\n\nPASS.\n\nProduct changes are limited to the Rust workspace dependency/lock metadata, `crates/monad-core` identity/discovery implementation, the module export, and generated machine projections. The implementation introduces no CLI-specific identity rules, service/plugin boundary, network behavior, repository-code execution, or unrelated product refactor. The minimal discovery extension for case-collision diagnostics is directly required by ADR-0003 and WP-MVP-0003 acceptance coverage.",
+      "title": "Scope Conformance"
+    },
+    {
+      "identifiers": [
+        "ADR-0003"
+      ],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 37,
+      "section_id": "requirements-specification-conformance",
+      "text": "## Requirements / Specification Conformance\n\nPASS.\n\nThe implementation conforms to the identity/provenance rules established by ADR-0003 and DATA-SOURCE-0001:\n\n- Source IDs are versioned/domain-separated SHA-256 identities over unambiguous length-framed canonical repository-relative path and source-kind inputs only.\n- Source content is excluded from Source ID derivation, so ordinary byte edits preserve source identity at a stable path.\n- `SourceRecord` retains the original canonical path and source kind alongside exact-byte lowercase SHA-256, byte length, parser contract, and deterministic discovery provenance; the digest representation therefore does not lose authoritative identity components.\n- Path-derived Document IDs depend on Source ID plus document kind, so a source move changes a path-only document identity.\n- Explicit governed Document IDs depend on document kind plus governed namespace/value, not source path, so they survive source moves.\n- Duplicate governed identifiers are grouped by explicit namespace/value, produce deterministic diagnostics naming all unique conflicting repository-relative locations in sorted order, and do not select a traversal-order winner.\n- Path case is preserved in Source IDs. Discovery separately emits deterministic `CaseCollisionRisk` diagnostics for canonical paths differing only by case.\n- Symlink aliases remain governed by deterministic discovery containment/de-duplication and therefore do not create additional semantic source identities.\n- Exact consumed bytes, including empty and binary content, are hashed without text normalization.",
+      "title": "Requirements / Specification Conformance"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 53,
+      "section_id": "architecture-conformance",
+      "text": "## Architecture Conformance\n\nPASS.\n\nIdentity/provenance types and algorithms live in `monad-core` as required by ADR-0005. Discovery remains the canonical source of repository-relative path, source kind, and discovery provenance. No identity behavior is duplicated in the CLI. The only new runtime dependency is the established `sha2` crate, locked through Cargo, which is appropriate for the required SHA-256 behavior.",
+      "title": "Architecture Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 70,
+      "line_start": 59,
+      "section_id": "acceptance-criteria-evidence",
+      "text": "## Acceptance Criteria Evidence\n\nPASS for all seven WP-MVP-0003 criteria.\n\n- US-008: stable Source IDs are equal across equivalent clean clones — PASS. The derivation has no clone-root input and equivalent canonical path/kind inputs produce identical IDs.\n- US-009: SHA-256/source/parser provenance is recorded and changes when consumed bytes change — PASS. Exact-byte content vectors, byte lengths, parser contract, and discovery provenance are represented in `SourceRecord`.\n- US-010: duplicate governed identifiers produce collision diagnostics naming all sources — PASS. Namespace-aware BTreeMap grouping plus sorted/de-duplicated repository-relative locations makes output traversal-order independent.\n- Content edits do not change Source ID solely because content changed — PASS. Content is absent from Source ID framing; tests verify equal IDs with differing bytes and differing content digests.\n- Explicit governed Document IDs survive source-path moves; path-only identities do not — PASS. Tests cover both move behaviors.\n- Absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity — PASS. Those values are absent from the derivation inputs and serialized source model.\n- Case-collision and symlink-alias fixtures are deterministic — PASS. Discovery preserves distinct case-sensitive canonical paths while emitting a sorted collision-risk diagnostic, and symlink alias fixtures yield one canonical source/identity.",
+      "title": "Acceptance Criteria Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 76,
+      "line_start": 71,
+      "section_id": "test-validation-evidence",
+      "text": "## Test / Validation Evidence\n\nPASS.\n\nThe workspace suite contains 29 passing tests after WP-MVP-0003. Identity coverage includes exact SHA-256 vectors for ordinary, empty, and binary bytes; versioned Source-ID golden vectors; source-kind separation; Unicode/spaces/punctuation framing; content-edit stability; path-only and explicit-ID moves; duplicate governed-ID ordering and namespace isolation; deterministic serialization; case-collision behavior; and symlink alias de-duplication. The merged implementation also passes formatting, Clippy with `-D warnings`, repository PR integrity checks, machine-document synchronization, governed EXEC-0005 checking, and first-class EOSV.",
+      "title": "Test / Validation Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 82,
+      "line_start": 77,
+      "section_id": "security-reliability-findings",
+      "text": "## Security / Reliability Findings\n\nNo blocking security or reliability finding was identified.\n\nSHA-256 uses the maintained Rust `sha2` implementation rather than bespoke cryptography. Identity inputs exclude nondeterministic host/process metadata. Collision and case-risk diagnostics use repository-relative paths and deterministic ordering. Discovery root-containment and symlink-cycle protections remain intact.",
+      "title": "Security / Reliability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 86,
+      "line_start": 83,
+      "section_id": "api-boundary-observation",
+      "text": "## API Boundary Observation\n\nNon-blocking: low-level public derivation helpers accept canonical path/document strings as caller preconditions rather than introducing validated newtypes for every component. The integrated construction path (`SourceRecord::from_discovered`) receives canonical paths from deterministic discovery, so the governed MVP path satisfies the invariant. If these helpers later become a broader external compatibility surface, typed validation can be considered without changing this packet's accepted semantics.",
+      "title": "API Boundary Observation"
+    },
+    {
+      "identifiers": [
+        "ADR-0003",
+        "ADR-0005",
+        "FR-002",
+        "FR-003",
+        "FR-009",
+        "QR-001",
+        "QR-005"
+      ],
+      "level": 2,
+      "line_end": 92,
+      "line_start": 87,
+      "section_id": "traceability-findings",
+      "text": "## Traceability Findings\n\nPASS.\n\nThe implementation is traceable to FR-002, FR-003, FR-009; QR-001 and QR-005; ADR-0003; DATA-SOURCE-0001; TECH-WORKSPACE-0001; ADR-0005; WP-MVP-0003; EXEC-0005; implementation PR #204; and current EOSV evidence EVID-0082–EVID-0084.",
+      "title": "Traceability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 96,
+      "line_start": 93,
+      "section_id": "blocking-findings",
+      "text": "## Blocking Findings\n\nNone.",
+      "title": "Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 100,
+      "line_start": 97,
+      "section_id": "non-blocking-findings",
+      "text": "## Non-Blocking Findings\n\nNo packet-specific defect requires correction before closure. The API-boundary observation above is future hardening, not an acceptance failure. Separate EOS issues #175, #176, #178, and #181 remain outside this Work Packet.",
+      "title": "Non-Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 103,
+      "line_start": 101,
+      "section_id": "decision",
+      "text": "## Decision\n\n**ACCEPTED.** WP-MVP-0003 satisfies its authorized scope and acceptance criteria and may proceed to the separate governed checklist-reconciliation and closure transaction.",
+      "title": "Decision"
+    }
+  ],
+  "source": {
+    "bytes": 7441,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 103,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/WP-MVP-0003-REVIEW.md",
+    "sha256": "e8652ef65409d76ab5f9313bf7b27c1e97d4e01040a6e3336cc86885d044cf57"
+  }
+}
