@@ -86,7 +86,14 @@ pub fn parse_markdown(source: SourceRecord, bytes: &[u8]) -> ParsedMarkdownDocum
     let fallback_identity = DocumentIdentity::new(source, document_kind, None);
     let text = match std::str::from_utf8(bytes) {
         Ok(text) => text,
-        Err(error) => return invalid_utf8(fallback_identity, bytes, error.valid_up_to()),
+        Err(error) => {
+            return invalid_utf8(
+                fallback_identity,
+                bytes,
+                error.valid_up_to(),
+                error.error_len(),
+            );
+        }
     };
 
     let mut headings = Vec::new();
@@ -121,16 +128,22 @@ pub fn parse_markdown(source: SourceRecord, bytes: &[u8]) -> ParsedMarkdownDocum
             }
             continue;
         }
-        if !in_html_comment && let Some((marker, width)) = fence_open(line) {
+        if in_inline_code.is_none()
+            && !in_html_comment
+            && let Some((marker, width)) = fence_open(line)
+        {
             in_fence = Some((marker, width, span));
             continue;
         }
         let visible = mask_html_comments(line, &mut in_html_comment);
-        if let Some((marker, width)) = fence_open(&visible) {
+        if in_inline_code.is_none()
+            && let Some((marker, width)) = fence_open(&visible)
+        {
             in_fence = Some((marker, width, span));
             continue;
         }
-        if let Some((level, text_start, heading_text)) = heading(&visible) {
+        let plain = remove_inline_code(&visible, &text[byte_offset..], &mut in_inline_code);
+        if let Some((level, text_start, heading_text)) = heading(&plain) {
             let heading_span = line_span(line_start + text_start, heading_text.len(), line_number);
             if level == 1 {
                 record_explicit_identifier(
@@ -147,7 +160,7 @@ pub fn parse_markdown(source: SourceRecord, bytes: &[u8]) -> ParsedMarkdownDocum
                 source_range: heading_span,
             });
         }
-        if let Some(metadata_result) = metadata_field(&visible) {
+        if let Some(metadata_result) = metadata_field(&plain) {
             match metadata_result {
                 Ok(field) => {
                     let field_span = line_span(
@@ -155,29 +168,42 @@ pub fn parse_markdown(source: SourceRecord, bytes: &[u8]) -> ParsedMarkdownDocum
                         line.len() - field.key_offset,
                         line_number,
                     );
+                    let mut accept_field = true;
                     if field.key.eq_ignore_ascii_case("id") {
-                        record_explicit_identifier(
-                            &mut explicit_identifier,
-                            &mut explicit_identifier_conflicted,
-                            governed_identifier(field.value).map(|(identifier, _)| identifier),
-                            field_span.clone(),
-                            &mut diagnostics,
-                        );
+                        match exact_governed_identifier(field.value) {
+                            Some(identifier) => record_explicit_identifier(
+                                &mut explicit_identifier,
+                                &mut explicit_identifier_conflicted,
+                                Some(identifier),
+                                field_span.clone(),
+                                &mut diagnostics,
+                            ),
+                            None => {
+                                diagnostics.push(diagnostic(
+                                    MarkdownDiagnosticCode::MalformedMetadata,
+                                    "invalid explicit document identifier",
+                                    field_span.clone(),
+                                ));
+                                accept_field = false;
+                            }
+                        }
                     }
-                    if metadata.iter().any(|metadata: &MetadataField| {
-                        metadata.key.eq_ignore_ascii_case(field.key)
-                    }) {
-                        diagnostics.push(diagnostic(
-                            MarkdownDiagnosticCode::DuplicateMetadata,
-                            format!("duplicate metadata field: {}", field.key),
-                            field_span,
-                        ));
-                    } else {
-                        metadata.push(MetadataField {
-                            key: field.key.to_owned(),
-                            value: field.value.to_owned(),
-                            source_range: field_span,
-                        });
+                    if accept_field {
+                        if metadata.iter().any(|metadata: &MetadataField| {
+                            metadata.key.eq_ignore_ascii_case(field.key)
+                        }) {
+                            diagnostics.push(diagnostic(
+                                MarkdownDiagnosticCode::DuplicateMetadata,
+                                format!("duplicate metadata field: {}", field.key),
+                                field_span,
+                            ));
+                        } else {
+                            metadata.push(MetadataField {
+                                key: field.key.to_owned(),
+                                value: field.value.to_owned(),
+                                source_range: field_span,
+                            });
+                        }
                     }
                 }
                 Err(offset) => diagnostics.push(diagnostic(
@@ -187,7 +213,6 @@ pub fn parse_markdown(source: SourceRecord, bytes: &[u8]) -> ParsedMarkdownDocum
                 )),
             }
         }
-        let plain = remove_inline_code(&visible, &text[byte_offset..], &mut in_inline_code);
         extract_links(
             &plain,
             line_start,
@@ -225,7 +250,12 @@ fn invalid_utf8(
     identity: DocumentIdentity,
     bytes: &[u8],
     valid_up_to: usize,
+    error_len: Option<usize>,
 ) -> ParsedMarkdownDocument {
+    let byte_end = error_len
+        .map(|length| valid_up_to.saturating_add(length))
+        .unwrap_or(bytes.len())
+        .min(bytes.len());
     ParsedMarkdownDocument {
         identity,
         headings: Vec::new(),
@@ -238,7 +268,7 @@ fn invalid_utf8(
             "Markdown source is not valid UTF-8",
             SourceSpan {
                 byte_start: valid_up_to as u64,
-                byte_end: bytes.len() as u64,
+                byte_end: byte_end as u64,
                 line_start: bytes_before_invalid(bytes, valid_up_to) as u64,
                 line_end: bytes_before_invalid(bytes, valid_up_to) as u64,
             },
@@ -332,20 +362,27 @@ fn metadata_field(line: &str) -> Option<Result<ParsedMetadataField<'_>, usize>> 
                 value: line[value_start..].trim(),
             }))
         }
-        _ if remaining
-            .trim_start()
-            .to_ascii_lowercase()
-            .starts_with("status")
-            || remaining
-                .trim_start()
-                .to_ascii_lowercase()
-                .starts_with("id") =>
-        {
-            Some(Err(start))
-        }
+        _ if malformed_metadata_prefix(remaining) => Some(Err(start)),
         _ => None,
     }
 }
+fn malformed_metadata_prefix(remaining: &str) -> bool {
+    let trimmed = remaining.trim_start();
+    ["status", "id"].into_iter().any(|key| {
+        let Some(prefix) = trimmed.get(..key.len()) else {
+            return false;
+        };
+        if !prefix.eq_ignore_ascii_case(key) {
+            return false;
+        }
+        let suffix = &trimmed[key.len()..];
+        let has_key_boundary = suffix.chars().next().is_none_or(|character| {
+            !character.is_alphanumeric() && !matches!(character, '_' | '-')
+        });
+        has_key_boundary && (suffix.trim_start().starts_with(':') || !trimmed.contains("**"))
+    })
+}
+
 fn mask_html_comments(line: &str, in_comment: &mut bool) -> String {
     let mut output = line.as_bytes().to_vec();
     let mut index = 0;
@@ -477,7 +514,7 @@ fn extract_links(
             continue;
         }
         let destination_start = label_end + 2;
-        let Some(destination_end_relative) = line[destination_start..].find(')') else {
+        let Some(destination_end) = link_destination_end(line, destination_start) else {
             diagnostics.push(diagnostic(
                 MarkdownDiagnosticCode::MalformedLink,
                 "unclosed link destination",
@@ -485,8 +522,8 @@ fn extract_links(
             ));
             break;
         };
-        let destination_end = destination_start + destination_end_relative;
-        if destination_end == destination_start {
+        let destination = link_destination(&line[destination_start..destination_end]);
+        if destination.is_empty() {
             diagnostics.push(diagnostic(
                 MarkdownDiagnosticCode::MalformedLink,
                 "empty link destination",
@@ -495,13 +532,73 @@ fn extract_links(
         } else {
             links.push(LinkCandidate {
                 label: line[index + 1..label_end].to_owned(),
-                destination: line[destination_start..destination_end].to_owned(),
+                destination: destination.to_owned(),
                 source_range: line_span(base + index, destination_end + 1 - index, line_number),
             });
         }
         index = destination_end + 1;
     }
 }
+fn link_destination_end(line: &str, start: usize) -> Option<usize> {
+    let bytes = line.as_bytes();
+    let mut depth = 0usize;
+    let mut quote = None;
+    let mut escaped = false;
+
+    for (offset, byte) in bytes[start..].iter().copied().enumerate() {
+        let index = start + offset;
+        if escaped {
+            escaped = false;
+            continue;
+        }
+        if byte == b'\\' {
+            escaped = true;
+            continue;
+        }
+        if let Some(open_quote) = quote {
+            if byte == open_quote {
+                quote = None;
+            }
+            continue;
+        }
+        match byte {
+            b'"' | b'\'' => quote = Some(byte),
+            b'(' => depth += 1,
+            b')' if depth == 0 => return Some(index),
+            b')' => depth -= 1,
+            _ => {}
+        }
+    }
+    None
+}
+
+fn link_destination(raw: &str) -> &str {
+    let trimmed = raw.trim();
+    let Some(split) = trimmed
+        .char_indices()
+        .find_map(|(index, character)| character.is_whitespace().then_some(index))
+    else {
+        return trimmed;
+    };
+    let destination = &trimmed[..split];
+    let title = trimmed[split..].trim();
+    if !destination.is_empty() && is_link_title(title) {
+        destination
+    } else {
+        trimmed
+    }
+}
+
+fn is_link_title(title: &str) -> bool {
+    let Some(first) = title.chars().next() else {
+        return false;
+    };
+    let Some(last) = title.chars().next_back() else {
+        return false;
+    };
+    title.len() >= 2 && matches!((first, last), ('"', '"') | ('\'', '\'') | ('(', ')'))
+}
+
 fn governed_identifier(text: &str) -> Option<(GovernedIdentifier, usize)> {
     let bytes = text.as_bytes();
     for start in 0..bytes.len() {
@@ -520,12 +617,61 @@ fn governed_identifier(text: &str) -> Option<(GovernedIdentifier, usize)> {
             && candidate.split('-').all(valid_identifier_part)
             && candidate.split('-').count() >= 2
             && candidate.as_bytes()[0].is_ascii_uppercase()
+            && approved_governed_identifier(candidate)
         {
             let namespace = candidate.split('-').next()?.to_ascii_lowercase();
             return Some((GovernedIdentifier::new(namespace, candidate), start));
         }
     }
     None
+}
+
+fn exact_governed_identifier(text: &str) -> Option<GovernedIdentifier> {
+    let value = text.trim();
+    let (identifier, start) = governed_identifier(value)?;
+    (start == 0 && identifier.value.len() == value.len()).then_some(identifier)
+}
+
+fn approved_governed_identifier(candidate: &str) -> bool {
+    let namespace = candidate.split('-').next().unwrap_or_default();
+    matches!(
+        namespace,
+        "ADR"
+            | "ARCH"
+            | "CR"
+            | "DATA"
+            | "EOS"
+            | "EOSB"
+            | "EOSP"
+            | "EOSE"
+            | "EOSV"
+            | "EOSR"
+            | "EOSC"
+            | "EOSL"
+            | "EOSM"
+            | "EPIC"
+            | "EVID"
+            | "EXEC"
+            | "F"
+            | "FR"
+            | "GOV"
+            | "INCEPT"
+            | "J"
+            | "MNT"
+            | "MVP"
+            | "PG"
+            | "PI"
+            | "PROD"
+            | "QR"
+            | "REV"
+            | "RSRCH"
+            | "SPEC"
+            | "TECH"
+            | "US"
+            | "VIS"
+            | "WC"
+            | "WP"
+    )
 }
 
 fn is_identifier_boundary(character: Option<char>) -> bool {
@@ -908,5 +1054,93 @@ mod tests {
         let parsed = parse_markdown(source(), b"ok\n\xff");
         assert_eq!(parsed.diagnostics[0].source_range.byte_start, 3);
         assert_eq!(parsed.diagnostics[0].source_range.line_start, 2);
+    }
+
+    #[test]
+    fn multiline_inline_code_masks_structural_markdown() {
+        let parsed = parse("`code\n# ADR-9999\n**Status:** fake\n` after WP-MVP-0004\n");
+        assert!(parsed.headings.is_empty());
+        assert!(parsed.metadata.is_empty());
+        assert!(parsed.identity.explicit_governed_identifier.is_none());
+        assert_eq!(
+            parsed
+                .identifier_references
+                .iter()
+                .map(|candidate| candidate.identifier.value.as_str())
+                .collect::<Vec<_>>(),
+            ["WP-MVP-0004"]
+        );
+    }
+
+    #[test]
+    fn explicit_id_requires_the_complete_field_value() {
+        let invalid = parse("**ID:** pending ADR-0002 replacement\n");
+        assert!(invalid.identity.explicit_governed_identifier.is_none());
+        assert!(invalid.metadata.is_empty());
+        assert!(invalid.diagnostics.iter().any(|diagnostic| {
+            diagnostic.code == MarkdownDiagnosticCode::MalformedMetadata
+                && diagnostic.message == "invalid explicit document identifier"
+        }));
+
+        let valid = parse("**ID:** ADR-0002\n");
+        assert_eq!(
+            valid
+                .identity
+                .explicit_governed_identifier
+                .as_ref()
+                .map(|identifier| identifier.value.as_str()),
+            Some("ADR-0002")
+        );
+    }
+
+    #[test]
+    fn optional_link_titles_are_not_part_of_destinations() {
+        let parsed = parse("[spec](doc.md \"canonical\") [other](other.md 'secondary')\n");
+        assert_eq!(
+            parsed
+                .links
+                .iter()
+                .map(|link| link.destination.as_str())
+                .collect::<Vec<_>>(),
+            ["doc.md", "other.md"]
+        );
+    }
+
+    #[test]
+    fn malformed_metadata_detection_requires_a_governed_key_shape() {
+        let parsed = parse("**Status quo**\n**identity matters**\n**Status Broken\n");
+        assert_eq!(
+            parsed
+                .diagnostics
+                .iter()
+                .filter(|diagnostic| {
+                    diagnostic.code == MarkdownDiagnosticCode::MalformedMetadata
+                })
+                .count(),
+            1
+        );
+    }
+
+    #[test]
+    fn invalid_utf8_span_is_limited_to_the_invalid_sequence() {
+        let parsed = parse_markdown(source(), b"ok\n\xff\nrest");
+        let span = &parsed.diagnostics[0].source_range;
+        assert_eq!(span.byte_start, 3);
+        assert_eq!(span.byte_end, 4);
+        assert_eq!(span.line_start, 2);
+        assert_eq!(span.line_end, 2);
+    }
+
+    #[test]
+    fn only_approved_namespaces_become_governed_references() {
+        let parsed = parse("UTF-8 SHA-256 ADR-0001 DATA-SOURCE-0001 WP-MVP-0004 J-01\n");
+        assert_eq!(
+            parsed
+                .identifier_references
+                .iter()
+                .map(|candidate| candidate.identifier.value.as_str())
+                .collect::<Vec<_>>(),
+            ["ADR-0001", "DATA-SOURCE-0001", "WP-MVP-0004", "J-01"]
+        );
     }
 }
