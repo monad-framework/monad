@@ -1,0 +1,108 @@
+{
+  "agent_result": {
+    "acceptance_criteria": [
+      {
+        "criterion": "US-011 section/heading/metadata structure and source ranges are extracted deterministically.",
+        "evidence": "Workspace parser tests pass; multiline inline code is masked before structural extraction and source-range behavior remains covered.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-012 governed identifiers/status metadata are extracted according to artifact contracts.",
+        "evidence": "Explicit ID values now require one complete valid governed identifier; malformed values are diagnosed and not promoted to accepted metadata.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-013 links and identifier references are emitted as unresolved candidates with provenance.",
+        "evidence": "Link destinations now exclude optional Markdown titles while identifier candidates retain exact source spans and approved governed namespaces.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-014 malformed/ambiguous governed constructs produce source-located diagnostics; partial recovery is not silently valid semantic state.",
+        "evidence": "Invalid explicit IDs, malformed metadata shapes, and invalid UTF-8 sequences produce bounded diagnostics without promotion to valid semantic facts.",
+        "status": "passed"
+      },
+      {
+        "criterion": "code fences containing fake IDs/links are not treated as ordinary governed references.",
+        "evidence": "Existing fence tests and new multiline inline-code structural masking tests pass.",
+        "status": "passed"
+      },
+      {
+        "criterion": "HTML/scripts/macros are never executed.",
+        "evidence": "Existing executable-looking-content and HTML-comment safety tests pass; parser behavior remains side-effect free.",
+        "status": "passed"
+      },
+      {
+        "criterion": "repeat-run normalized output is equivalent/byte-stable where declared canonical.",
+        "evidence": "Existing normalized-output and comment-mask repeatability tests pass.",
+        "status": "passed"
+      }
+    ],
+    "changed_files": [
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/markdown.rs"
+    ],
+    "execution_id": "EXEC-0009",
+    "proposed_commit_message": "fix(monad-core): address third markdown parser review findings",
+    "risks": [
+      "Governed identifier recognition now uses an explicit approved namespace allowlist; future newly governed namespaces require an intentional parser update and regression fixture."
+    ],
+    "status": "completed",
+    "summary": "Corrected all six third-review Markdown parser defects: multiline inline-code structural masking, exact explicit-ID validation, Markdown link title separation, metadata-key boundary recognition, bounded invalid UTF-8 spans, and approved governed-identifier namespace recognition.",
+    "target": "WP-MVP-0004",
+    "unresolved_issues": [
+      "The six PR #217 review threads remain open pending closure integration and the planned fourth exact-head review."
+    ],
+    "validation": [
+      {
+        "command": "cargo fmt --all -- --check",
+        "exit_code": 0,
+        "summary": "Formatting check passed."
+      },
+      {
+        "command": "cargo test --workspace",
+        "exit_code": 0,
+        "summary": "All workspace tests passed, including six new EXEC-0009 Markdown parser regression tests."
+      },
+      {
+        "command": "cargo clippy --workspace --all-targets --all-features -- -D warnings",
+        "exit_code": 0,
+        "summary": "Strict workspace Clippy passed with warnings denied."
+      },
+      {
+        "command": "git diff --check",
+        "exit_code": 0,
+        "summary": "Git whitespace/error check passed."
+      },
+      {
+        "command": "./scripts/eos contract verify EXEC-0009",
+        "exit_code": 0,
+        "summary": "Execution contract, baseline ancestry, branch, and governing-input freshness all passed."
+      }
+    ]
+  },
+  "eos_observation": {
+    "actual_changed_files": [
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/markdown.rs"
+    ],
+    "declared_but_not_actual": [],
+    "declared_changed_files": [
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/markdown.rs"
+    ],
+    "scope": {
+      "directives": {
+        "allowed": [
+          "*",
+          "**/*"
+        ],
+        "allowed_governed": [],
+        "forbidden": []
+      },
+      "passed": true,
+      "violations": []
+    },
+    "undeclared_actual": []
+  },
+  "ingested": "2026-08-20T05:13:39Z"
+}
