@@ -1,0 +1,71 @@
+{
+  "actual_changed_files": [
+    "crates/monad-core/src/lib.rs",
+    "crates/monad-core/src/markdown.rs"
+  ],
+  "checked": "2026-08-20T05:14:33Z",
+  "checks": {
+    "contract_valid": true,
+    "declared_diff_matches_actual": true,
+    "result_ingested": true,
+    "scope_passed": true
+  },
+  "contract": {
+    "canonical_governing_hash": "4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816",
+    "checks": [
+      {
+        "check": "contract_hash",
+        "detail": "expected=2705f9b14f62d1713d73805b249ffebb9f0f602762deb0a91a51b3ee22651bfe calculated=2705f9b14f62d1713d73805b249ffebb9f0f602762deb0a91a51b3ee22651bfe",
+        "passed": true
+      },
+      {
+        "check": "worktree_governing_inputs_unchanged",
+        "detail": "expected=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816 worktree=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816",
+        "passed": true
+      },
+      {
+        "check": "canonical_governing_inputs_unchanged",
+        "detail": "expected=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816 canonical=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816",
+        "passed": true
+      },
+      {
+        "check": "baseline_is_ancestor",
+        "detail": "baseline=cb78f614fa6cbc163179beb7da1af9f930fca54e head=daacc1f84c4e278fa78f648be5b6ed097e83b6c1",
+        "passed": true
+      },
+      {
+        "check": "expected_branch",
+        "detail": "expected=wp/mvp-0004 actual=wp/mvp-0004",
+        "passed": true
+      }
+    ],
+    "execution_id": "EXEC-0009",
+    "passed": true,
+    "target": "WP-MVP-0004",
+    "worktree_governing_hash": "4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816"
+  },
+  "declared_changed_files": [
+    "crates/monad-core/src/lib.rs",
+    "crates/monad-core/src/markdown.rs"
+  ],
+  "environment_drift": {
+    "head_changed": true,
+    "lockfiles_changed": false,
+    "tool_changes": {}
+  },
+  "execution_id": "EXEC-0009",
+  "passed": true,
+  "scope": {
+    "directives": {
+      "allowed": [
+        "*",
+        "**/*"
+      ],
+      "allowed_governed": [],
+      "forbidden": []
+    },
+    "passed": true,
+    "violations": []
+  },
+  "target": "WP-MVP-0004"
+}
