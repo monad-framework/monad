@@ -1,0 +1,24 @@
+name: Temporary WP-MVP-0005 authorization transaction
+
+on:
+  push:
+    branches:
+      - eosp/authorize-wp-mvp-0005
+    paths:
+      - .eos/wp-mvp-0005-authorize-trigger
+
+permissions:
+  contents: write
+
+jobs:
+  authorize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out exact EOSP branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - name: Execute governed authorization transaction
+        shell: bash
+        run: bash .eos/tmp-authorize-wp-mvp-0005.sh
