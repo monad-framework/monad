@@ -1,0 +1,155 @@
+name: WP-MVP-0004 EOSV reconciliation runner
+
+on:
+  push:
+    branches:
+      - "ops/wp-mvp-0004-eosv-runner-20260826"
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile-eosv:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      EOS_ACTOR: chatgpt
+      TARGET_BRANCH: gov/wp-mvp-0004-post-merge-reconciliation
+      EXPECTED_TARGET_HEAD: be0bc8ee12636b96ff626707b9810ae5dbf923cf
+      EXPECTED_MAIN_HEAD: 6793ae3085d372ac3a30bec65c5578b29149d223
+    steps:
+      - name: Check out exact governance branch
+        uses: actions/checkout@v4
+        with:
+          ref: gov/wp-mvp-0004-post-merge-reconciliation
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install governed Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.95.0"
+
+      - name: Guard remote authority and branch head
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git fetch origin main "$TARGET_BRANCH"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_TARGET_HEAD"
+          test "$(git rev-parse origin/main)" = "$EXPECTED_MAIN_HEAD"
+          test "$(git rev-parse "origin/$TARGET_BRANCH")" = "$EXPECTED_TARGET_HEAD"
+          git merge-base --is-ancestor "$EXPECTED_MAIN_HEAD" HEAD
+          test -z "$(git status --porcelain)"
+
+      - name: Prove pre-mutation fixed point
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          test -z "$(git status --porcelain)"
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Revalidate merged WP-MVP-0004 product
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cargo fmt --all -- --check
+          cargo test --workspace
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          git diff --check
+
+      - name: Enter EOSV and capture initial evidence
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0004 --profile wp --execution EXEC-0009
+          python3 scripts/sync-machine-docs.py --write
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Commit EOSV semantic transition with strict scope guard
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          mapfile -t changed < <({ git diff --name-only; git ls-files --others --exclude-standard; } | sort -u)
+          test "${#changed[@]}" -gt 0
+          for f in "${changed[@]}"; do
+            case "$f" in
+              .eos/*|engineering/evidence/*|engineering/work-packets/WP-MVP-0004.md|machine/*) ;;
+              *) echo "Out-of-scope EOSV path: $f" >&2; exit 1 ;;
+            esac
+          done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "${changed[@]}"
+          git diff --cached --check
+          git commit -m "chore(eosv): enter WP-MVP-0004 verification after merge"
+
+      - name: Refresh WP-MVP-0004 evidence against committed VERIFYING state
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0004 --profile wp --execution EXEC-0009
+          python3 scripts/sync-machine-docs.py --write
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Commit refreshed exact-state evidence with strict scope guard
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          mapfile -t changed < <({ git diff --name-only; git ls-files --others --exclude-standard; } | sort -u)
+          test "${#changed[@]}" -gt 0
+          for f in "${changed[@]}"; do
+            case "$f" in
+              .eos/*|engineering/evidence/*|machine/*) ;;
+              *) echo "Out-of-scope evidence-refresh path: $f" >&2; exit 1 ;;
+            esac
+          done
+          git add -- "${changed[@]}"
+          git diff --cached --check
+          git commit -m "chore(eosv): refresh WP-MVP-0004 verification evidence"
+
+      - name: Prove final EOSV fixed point and lifecycle invariants
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          test -z "$(git status --porcelain)"
+          python3 scripts/sync-machine-docs.py --check
+          cargo fmt --all -- --check
+          cargo test --workspace
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          git diff --check
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+          rows = {r['id']: r for r in csv.DictReader(Path('.eos/work-packets.tsv').open(), delimiter='\t')}
+          assert rows['WP-MVP-0001']['status'] == 'CLOSED'
+          assert rows['WP-MVP-0002']['status'] == 'CLOSED'
+          assert rows['WP-MVP-0003']['status'] == 'CLOSED'
+          assert rows['WP-MVP-0004']['status'] == 'VERIFYING'
+          wc = {r['id']: r for r in csv.DictReader(Path('.eos/work-cycles.tsv').open(), delimiter='\t')}
+          assert wc['WC-MVP-0002']['status'] == 'ACTIVE'
+          pi = {r['id']: r for r in csv.DictReader(Path('.eos/program-increments.tsv').open(), delimiter='\t')}
+          assert pi['PI-MVP-001']['status'] == 'ACTIVE'
+          ev = [r for r in csv.DictReader(Path('.eos/evidence.tsv').open(), delimiter='\t') if r['target'] == 'WP-MVP-0004' and r['status'] == 'VALIDATED']
+          assert len(ev) == 3, ev
+          assert {r['execution'] for r in ev} == {'EXEC-0009'}, ev
+          assert all(r['result'] in {'PASSED', 'SKIPPED'} for r in ev), ev
+          print('WP-MVP-0004 current evidence:', ', '.join(r['id'] for r in ev))
+          PY
+
+      - name: Push normal fast-forward governance commits
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git push origin "HEAD:$TARGET_BRANCH"
