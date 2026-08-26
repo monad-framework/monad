@@ -1,5 +1,5 @@
 {
-  "content": "# WP-MVP-0005 — Structured Monad configuration parser\n\n**Status:** Refined — prerequisites satisfied; Ready gate not yet executed  \n**Epic:** EPIC-003  \n**Feature:** F-003-03  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001\n\n## Objective\n\nRepresent canonical `monad.toml` as a provenance-rich semantic input after bootstrap validation, without creating a competing configuration authority.\n\n## Governing authority\n\n- FR-001, FR-002; QR-001, QR-003\n- ADR-0002, ADR-0003, ADR-0004\n- IFC-WORKSPACE-0001\n- DATA-SOURCE-0001\n- TECH-INGEST-0002\n- ADR-0005\n\n## Dependencies\n\n- WP-MVP-0001 is CLOSED and supplies valid effective configuration and precedence semantics.\n- WP-MVP-0003 is CLOSED and supplies stable source/document identity and provenance.\n- ADR-0005 is Accepted and authorizes the MVP Rust implementation topology and `monad-core` semantic boundary.\n- WC-MVP-0002 is ACTIVE and supplies the current parsing/reference-resolution execution context.\n\nThese historical prerequisite blockers are satisfied. This packet does not reimplement configuration precedence and is not Ready, authorized, or started merely because its prerequisites are complete; those lifecycle transitions require their separate governed EOS gates.\n\n## Acceptance criteria\n\n- [ ] US-015 valid `monad.toml` becomes a deterministic semantic document record.\n- [ ] US-016 schema/parse errors remain diagnostics and block a valid semantic config document.\n- [ ] US-017 normalized semantic representation is deterministic and retains source/effective-value provenance distinctions.\n- [ ] `.monad/manifest.yaml` cannot override or become a competing semantic config source.\n- [ ] no environment interpolation, command substitution, network lookup, or include execution occurs.\n\n## Implementation boundary\n\nUnder ADR-0005, semantic config adaptation belongs in the ingestion/config modules of `monad-core`; bootstrap loader semantics from WP-MVP-0001 are reused rather than duplicated.\n\n## Validation\n\nGolden config corpus for canonical repository config, malformed/unknown/unsupported keys, override provenance, deterministic representation, and legacy-manifest non-authority.\n\n## Readiness disposition\n\nThe prior dependency block is cleared by canonical closure/acceptance evidence for WP-MVP-0001 and WP-MVP-0003 plus the Accepted ADR-0005. The next permitted lifecycle action is governed readiness/adoption. Implementation authorization, execution preparation, and product mutation remain prohibited until the corresponding EOS gates pass and are recorded.\n",
+  "content": "# WP-MVP-0005 — Structured Monad configuration parser\n\n**Status:** READY\n**Epic:** EPIC-003  \n**Feature:** F-003-03  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001\n\n## Objective\n\nRepresent canonical `monad.toml` as a provenance-rich semantic input after bootstrap validation, without creating a competing configuration authority.\n\n## Governing authority\n\n- FR-001, FR-002; QR-001, QR-003\n- ADR-0002, ADR-0003, ADR-0004\n- IFC-WORKSPACE-0001\n- DATA-SOURCE-0001\n- TECH-INGEST-0002\n- ADR-0005\n\n## Dependencies\n\n- WP-MVP-0001 is CLOSED and supplies valid effective configuration and precedence semantics.\n- WP-MVP-0003 is CLOSED and supplies stable source/document identity and provenance.\n- ADR-0005 is Accepted and authorizes the MVP Rust implementation topology and `monad-core` semantic boundary.\n- WC-MVP-0002 is ACTIVE and supplies the current parsing/reference-resolution execution context.\n\nThese historical prerequisite blockers are satisfied. This packet does not reimplement configuration precedence and is not Ready, authorized, or started merely because its prerequisites are complete; those lifecycle transitions require their separate governed EOS gates.\n\n## Acceptance criteria\n\n- [ ] US-015 valid `monad.toml` becomes a deterministic semantic document record.\n- [ ] US-016 schema/parse errors remain diagnostics and block a valid semantic config document.\n- [ ] US-017 normalized semantic representation is deterministic and retains source/effective-value provenance distinctions.\n- [ ] `.monad/manifest.yaml` cannot override or become a competing semantic config source.\n- [ ] no environment interpolation, command substitution, network lookup, or include execution occurs.\n\n## Implementation boundary\n\nUnder ADR-0005, semantic config adaptation belongs in the ingestion/config modules of `monad-core`; bootstrap loader semantics from WP-MVP-0001 are reused rather than duplicated.\n\n## Validation\n\nGolden config corpus for canonical repository config, malformed/unknown/unsupported keys, override provenance, deterministic representation, and legacy-manifest non-authority.\n\n## Readiness disposition\n\nThe prior dependency block is cleared by canonical closure/acceptance evidence for WP-MVP-0001 and WP-MVP-0003 plus the Accepted ADR-0005. This packet has now been adopted into canonical EOS lifecycle control and has passed the `WP_READY` gate (`DRAFT → READY`). The next permitted lifecycle action is the separate `WP_AUTHORIZE` gate. Implementation authorization, execution preparation, start, and product mutation remain prohibited until their corresponding governed EOS gates pass and are recorded.\n",
   "document_id": "doc:engineering%2Fwork-packets%2FWP-MVP-0005.md",
   "generation": {
     "deterministic": true,
@@ -20,7 +20,7 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "Status: Refined — prerequisites satisfied; Ready gate not yet executed Epic: EPIC-003 Feature: F-003-03 Program Increment: PI-MVP-001 Work Cycle: WC-MVP-0002 Product Goal: PG-001",
+    "summary": "Status: READY Epic: EPIC-003 Feature: F-003-03 Program Increment: PI-MVP-001 Work Cycle: WC-MVP-0002 Product Goal: PG-001",
     "title": "WP-MVP-0005 — Structured Monad configuration parser"
   },
   "relations": [],
@@ -33,7 +33,7 @@
       "line_end": 9,
       "line_start": 1,
       "section_id": "wp-mvp-0005-structured-monad-configuration-parser",
-      "text": "# WP-MVP-0005 — Structured Monad configuration parser\n\n**Status:** Refined — prerequisites satisfied; Ready gate not yet executed  \n**Epic:** EPIC-003  \n**Feature:** F-003-03  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001",
+      "text": "# WP-MVP-0005 — Structured Monad configuration parser\n\n**Status:** READY\n**Epic:** EPIC-003  \n**Feature:** F-003-03  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001",
       "title": "WP-MVP-0005 — Structured Monad configuration parser"
     },
     {
@@ -111,17 +111,17 @@
       "line_end": 50,
       "line_start": 48,
       "section_id": "readiness-disposition",
-      "text": "## Readiness disposition\n\nThe prior dependency block is cleared by canonical closure/acceptance evidence for WP-MVP-0001 and WP-MVP-0003 plus the Accepted ADR-0005. The next permitted lifecycle action is governed readiness/adoption. Implementation authorization, execution preparation, and product mutation remain prohibited until the corresponding EOS gates pass and are recorded.",
+      "text": "## Readiness disposition\n\nThe prior dependency block is cleared by canonical closure/acceptance evidence for WP-MVP-0001 and WP-MVP-0003 plus the Accepted ADR-0005. This packet has now been adopted into canonical EOS lifecycle control and has passed the `WP_READY` gate (`DRAFT → READY`). The next permitted lifecycle action is the separate `WP_AUTHORIZE` gate. Implementation authorization, execution preparation, start, and product mutation remain prohibited until their corresponding governed EOS gates pass and are recorded.",
       "title": "Readiness disposition"
     }
   ],
   "source": {
-    "bytes": 2578,
+    "bytes": 2666,
     "canonical": true,
     "language": "markdown",
     "lines": 50,
     "media_type": "text/markdown",
     "path": "engineering/work-packets/WP-MVP-0005.md",
-    "sha256": "135e8292168681d1a50d8852e930d62daf0b4ad12ddf7c1ca8e9867f386b2de4"
+    "sha256": "325c57783f316f6f109a453f287244293f0966eb971b0554b394e1e243f41505"
   }
 }

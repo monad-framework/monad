@@ -495,11 +495,52 @@
         "schema_version": "2.0.0",
         "updated_at": "2026-08-26T13:38:03Z",
         "version": "1.0.6"
+      },
+      "WP-MVP-0005": {
+        "authority_level": "L3_BINDING",
+        "created_at": "2026-08-26T00:00:00Z",
+        "entity_type": "WP",
+        "id": "WP-MVP-0005",
+        "kind": "WP",
+        "lifecycle_state": "READY",
+        "operational_metadata": {
+          "domain": "CORE",
+          "github_url": "",
+          "path": "engineering/work-packets/WP-MVP-0005.md",
+          "pi": "PI-MVP-001",
+          "title": "Structured Monad configuration parser",
+          "wc": "WC-MVP-0002"
+        },
+        "provenance": {
+          "created_by": "EOS canonical-state adapter",
+          "generation_method": "EOS canonical-state capture",
+          "origin": "AUTOMATION",
+          "source_refs": [
+            ".eos/work-packets.tsv",
+            "engineering/work-packets/WP-MVP-0005.md",
+            ".eos/events.jsonl"
+          ]
+        },
+        "relationships": [
+          {
+            "target_id": "PI-MVP-001",
+            "target_type": "PI",
+            "type": "BELONGS_TO"
+          },
+          {
+            "target_id": "WC-MVP-0002",
+            "target_type": "WC",
+            "type": "BELONGS_TO"
+          }
+        ],
+        "schema_version": "2.0.0",
+        "updated_at": "2026-08-26T14:14:42Z",
+        "version": "1.0.1"
       }
     }
   },
   "model": "EOS-SINGLE-CANONICAL-STATE-1",
-  "revision": 51,
+  "revision": 53,
   "schema_version": "1.0.0",
-  "updated_at": "2026-08-26T13:38:03Z"
+  "updated_at": "2026-08-26T14:14:42Z"
 }
