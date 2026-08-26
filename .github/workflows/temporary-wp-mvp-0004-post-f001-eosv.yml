@@ -1,0 +1,76 @@
+name: Temporary WP-MVP-0004 post-F001 EOSV
+
+on:
+  push:
+    branches:
+      - eosv/wp-mvp-0004-post-f001
+    paths:
+      - .eos/wp-mvp-0004-post-f001-eosv-trigger
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact verification branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+
+      - name: Revalidate merged correction and capture EOSV evidence
+        shell: bash
+        env:
+          EOS_ACTOR: github-actions[bot]
+          EXPECTED_MAIN_HEAD: e5ae99e4856ddd69b1718839e5f201ff6440ffa5
+        run: |
+          set -Eeuo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$EXPECTED_MAIN_HEAD"
+          git merge-base --is-ancestor "$EXPECTED_MAIN_HEAD" HEAD
+
+          rm .github/workflows/temporary-wp-mvp-0004-post-f001-eosv.yml
+          rm .eos/wp-mvp-0004-post-f001-eosv-trigger
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git diff --name-only "$EXPECTED_MAIN_HEAD" -- crates engineering .eos machine | grep -v '^$')"
+
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+
+          ./scripts/eos validate WP-MVP-0004 --profile wp --execution EXEC-0009
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+
+          ./scripts/eos state status
+          ./scripts/eos verify --strict
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+
+          grep -q '^WP-MVP-0004.*IN_REVIEW' .eos/work-packets.tsv
+          grep -q '^\*\*Decision:\*\* REJECTED$' engineering/reviews/WP-MVP-0004-REVIEW.md
+          grep -q 'pub const MARKDOWN_PARSER_VERSION: &str = "2";' crates/monad-core/src/markdown.rs
+
+          mapfile -t changed < <({ git diff --name-only "$EXPECTED_MAIN_HEAD"; git ls-files --others --exclude-standard; } | sort -u)
+          test "${#changed[@]}" -gt 0
+          for f in "${changed[@]}"; do
+            case "$f" in
+              .eos/*|engineering/evidence/*|engineering/work-packets/WP-MVP-0004.md|machine/*) ;;
+              *) echo "Out-of-scope post-merge EOSV path: $f" >&2; exit 1 ;;
+            esac
+          done
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "chore(eosv): verify WP-MVP-0004 front-matter correction"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
