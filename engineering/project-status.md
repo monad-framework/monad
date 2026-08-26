@@ -1,61 +1,88 @@
 # Project Status
 
-**Overall state:** MVP Release 1 launch — EOS execution control reconciled  
+**Overall state:** MVP Release 1 execution active; expanded post-MVP roadmap approved under CR-0002  
 **Current milestone:** M-001 Semantic Kernel Alpha  
-**Current increment:** PI-MVP-001 — Authorized  
-**Current work cycle:** WC-MVP-0001 — Ready  
-**Current Ready packet:** WP-MVP-0001  
-**Product implementation:** Not yet started
+**Current increment:** PI-MVP-001 — ACTIVE  
+**Current work cycle:** WC-MVP-0002 — ACTIVE  
+**Current packet:** WP-MVP-0004 — VERIFYING  
+**Current product implementation:** WP-MVP-0001–0003 closed; WP-MVP-0004 implementation merged and under post-merge verification
 
 ## Executive summary
 
-Foundation stabilization is complete and merged to `main`. Monad has a coherent Engineering Knowledge Compilation Platform identity, a singular ADR root, accepted MVP implementation topology, substantive artifact-system contracts, deterministic human↔machine synchronization, a bounded MVP Release 1 vertical slice, a namespaced delivery hierarchy, and a live GitHub backlog projection.
+Foundation stabilization is complete. Monad is actively implementing MVP Release 1 through the governed EOS lifecycle. WC-MVP-0001 is closed with WP-MVP-0001 through WP-MVP-0003 completed. WC-MVP-0002 is active; the deterministic Markdown artifact parser for WP-MVP-0004 has been merged and the packet is in verification before lifecycle closure. WP-MVP-0005 and WP-MVP-0006 remain subsequent work in the same Work Cycle.
 
-EOS 0.8 reconciles permanent lifecycle control with that accepted canonical state. The obsolete bootstrap placeholders `PI-001`, `WC-0001`, and `WP-0001` are preserved as **SUPERSEDED** rather than deleted. The accepted current execution horizon is adopted as `PI-MVP-001` **AUTHORIZED**, `WC-MVP-0001` **READY**, and `WP-MVP-0001` **READY**. EOSB is recorded complete by explicit Foundation Stabilization adoption evidence rather than by replaying obsolete bootstrap work.
+CR-0002 adds an approved post-MVP capability/roadmap baseline without widening the active MVP execution boundary. The expansion preserves Monad's deterministic semantic kernel and local-first authority while planning living workspace intelligence, progressively autonomous multi-agent orchestration, automation/integrations, signed attestations and stronger security/identity, declarative policy/change-control/audit, observability/analytics, deployment/portability, MCP/LSP/plugin/storage ecosystem surfaces, deterministic parallelism, and explicit scale benchmarks.
 
-No Monad product code is authorized merely by this reconciliation. Parent lifecycle gates still apply: PI-MVP-001 must start, WC-MVP-0001 must be authorized and started, and only then may WP-MVP-0001 be authorized and started.
+The expanded roadmap begins only after the MVP Release 1 acceptance boundary unless a separately governed replanning decision changes the critical path.
 
 ## Current outcomes
 
 | Area | Status | Evidence | Next gate |
 | --- | --- | --- | --- |
 | Foundation stabilization | COMPLETE | M-000 + WP-STAB-0001 closure evidence | preserve baseline |
-| Product identity | Stable for MVP | vision/product/README | controlled change only |
-| ADR system | Stable | `architecture/decisions/`; ADR-0001..0005 Accepted | add decisions just-in-time |
-| Artifact system | Baseline complete | substantive Draft catalog contracts | specialize just-in-time |
-| Machine layer | PASS | deterministic generation/checks | ongoing freshness |
-| EOS | 0.8 reconciled | namespaced IDs, adoption manifest, strict verification, regression contract | merge EOS 0.8 PR |
-| Bootstrap control state | COMPLETE / superseded | `.eos/workflow.tsv` + adoption event/evidence | no replay of EOSB-001..020 |
-| PI-MVP-001 | AUTHORIZED | accepted stabilization baseline + EOS adoption | `./scripts/eos start PI-MVP-001` |
-| WC-MVP-0001 | READY | canonical Work Cycle contract + EOS adoption | authorize after PI active |
-| WP-MVP-0001 | READY | ADR-0002..0005 + approved specs + exact validation contract | authorize after WC active |
-| Product implementation | Not started | WIP/authorization gates intact | start only first authorized packet |
+| Product identity | Stable, expanded | vision/product baseline + CR-0002 | controlled evolution only |
+| ADR/specification system | Stable | accepted ADR/spec authority | specialize just-in-time |
+| Machine layer / EOS | governed active control | `.eos/`, evidence, machine projections | ongoing freshness/integrity |
+| PI-MVP-001 | ACTIVE | canonical Increment + EOS lifecycle | continue semantic-foundation critical path |
+| WC-MVP-0001 | CLOSED | accepted cycle + WP-MVP-0001–0003 closure | preserve evidence |
+| WC-MVP-0002 | ACTIVE | canonical cycle contract | close WP-MVP-0004; then refine/authorize WP-MVP-0005 |
+| WP-MVP-0004 | VERIFYING | merged implementation + post-merge EOSV verification | accept/close or create bounded corrective work |
+| Expanded roadmap | APPROVED FORECAST | CR-0002 + expanded requirements/backlog/schedule | no execution until post-MVP gates |
 
 ## Immediate critical path
 
-1. Merge the EOS 0.8 program-adoption change after Machine Documents, EOS Integrity, and Repository Integrity pass on the final PR head.
-2. Pull/fetch the merged `main` locally.
-3. Run `./scripts/eos status` and `./scripts/eos next`; confirm EOSB is complete and namespaced MVP state is authoritative.
-4. Start `PI-MVP-001` through EOS.
-5. Evaluate `WC_AUTHORIZE` for `WC-MVP-0001`; authorize and start it only if the gate passes.
-6. Evaluate `WP_AUTHORIZE` for `WP-MVP-0001`; authorize and start it only after its parent Work Cycle is Active.
-7. Generate the bounded EOSE/Codex execution contract for `WP-MVP-0001`.
-8. Require implementation, verification, review, and closure evidence before pulling `WP-MVP-0002`.
+1. Finish WP-MVP-0004 verification/review and close it only with accepted evidence.
+2. Reconcile stale projections/status generated before the WP-MVP-0004 lifecycle transition where required.
+3. Refine WP-MVP-0005 against now-resolved WP-MVP-0001/WP-MVP-0003/ADR-0005 dependencies.
+4. Authorize/start/execute WP-MVP-0005 only after its Ready and EOS authorization gates pass.
+5. Refine/execute WP-MVP-0006 after its parser dependencies are accepted.
+6. Close WC-MVP-0002 only when its Sprint Goal and WP-MVP-0004–0006 exit criteria have evidence.
+7. Continue WC-MVP-0003/0004 to M-001 Semantic Kernel Alpha.
+8. Preserve MVP Release 1 scope through M-003/PG-001 acceptance.
+9. Begin PI-EXP-001 only after the MVP release boundary or explicit governed replanning.
 
-## Planning inventory
+## Planning inventory after CR-0002
 
-- Product Goals: 1 active MVP goal (PG-001)
-- MVP Epics: 14
-- Feature/Work-Packet outcomes: 34 including completed WP-STAB-0001
-- MVP implementation Work Packets: 33
-- User stories: 105
-- Engineering enablers: 3
-- MVP Product Increments: 3
-- MVP Work Cycles/Sprints: 13 including completed WC-MVP-0000 stabilization
-- EOS current adopted horizon: PI-MVP-001 / WC-MVP-0001 / WP-MVP-0001
-- Live MVP tracking Issues: 156
-- Live MVP milestones: 4
+- Product Goals: 4 total — PG-001 plus PG-002 through PG-004
+- Delivery milestones: 7 total — M-000 through M-006
+- Epics: 24 total — EPIC-001 through EPIC-024
+- Feature / Work-Packet-sized outcomes: 74 total including WP-STAB-0001
+- MVP implementation Work Packets: 33 — WP-MVP-0001 through WP-MVP-0033
+- Expanded forecast Work Packets: 40 — WP-EXP-0001 through WP-EXP-0040
+- User Stories: 237 — US-001 through US-237
+- Engineering Enablers: 3 — EN-001 through EN-003
+- Program Increments: 6 — PI-MVP-001 through 003 plus PI-EXP-001 through 003
+- Work Cycles / Sprints: 27 total — 13 MVP cycles plus 14 expanded cycles
+- Formal project-wide Task IDs: none; task decomposition remains rolling-wave inside/refining Work Packets
+- Expanded roadmap target: M-006 / Release 2 forecast 2027-02-14, contingent on MVP timing and evidence
+
+## Roadmap sequence
+
+```text
+M-000 Foundation Stabilized — COMPLETE
+  → PI-MVP-001 Semantic Foundation — ACTIVE
+    → WC-MVP-0001 — CLOSED
+    → WC-MVP-0002 — ACTIVE
+    → WC-MVP-0003
+    → WC-MVP-0004
+    → M-001 Semantic Kernel Alpha
+  → PI-MVP-002 Intelligence and Agent Context
+    → WC-MVP-0005–0008
+    → M-002 MVP Beta
+  → PI-MVP-003 Integration and MVP Release
+    → WC-MVP-0009–0012
+    → M-003 / PG-001 / MVP Release 1
+  → PI-EXP-001 Living Intelligence
+    → WC-EXP-0001–0005
+    → M-004 / PG-002
+  → PI-EXP-002 Governed Automation & Trust
+    → WC-EXP-0006–0009
+    → M-005 / PG-003
+  → PI-EXP-003 Ecosystem, Deployment & Scale
+    → WC-EXP-0010–0014
+    → M-006 / PG-004 / Living Engineering OS Release 2
+```
 
 ## Rule
 
-Scheduling is not readiness; readiness is not authorization; authorization is not execution; execution is not completion. Canonical artifacts and EOS control state must agree before work advances. GitHub Projects, Issues, Wiki, `.eos/`, and `machine/` remain projections/control representations and do not silently supersede canonical human-authored authority.
+Scheduling is not readiness; readiness is not authorization; authorization is not execution; execution/merge is not verification; verification is not completion. Canonical artifacts and EOS control state must agree before work advances. GitHub Projects, Issues, Wiki, `.eos/`, dashboards, caches, scores, and machine projections are coordination/control/derived representations and do not silently supersede canonical human-authored authority.
