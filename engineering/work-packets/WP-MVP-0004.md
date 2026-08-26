@@ -1,6 +1,6 @@
 # WP-MVP-0004 — Markdown engineering artifact parser
 
-**Status:** IN_REVIEW
+**Status:** CLOSED
 **Epic:** EPIC-003  
 **Feature:** F-003-02  
 **Program Increment:** PI-MVP-001  
@@ -27,13 +27,13 @@ Parse canonical Markdown artifacts into deterministic provenance-rich structural
 
 ## Acceptance criteria
 
-- [ ] US-011 section/heading/metadata structure and source ranges are extracted deterministically.
-- [ ] US-012 governed identifiers/status metadata are extracted according to artifact contracts.
-- [ ] US-013 links and identifier references are emitted as unresolved candidates with provenance.
-- [ ] US-014 malformed/ambiguous governed constructs produce source-located diagnostics; partial recovery is not silently valid semantic state.
-- [ ] code fences containing fake IDs/links are not treated as ordinary governed references.
-- [ ] HTML/scripts/macros are never executed.
-- [ ] repeat-run normalized output is equivalent/byte-stable where declared canonical.
+- [x] US-011 section/heading/metadata structure and source ranges are extracted deterministically.
+- [x] US-012 governed identifiers/status metadata are extracted according to artifact contracts.
+- [x] US-013 links and identifier references are emitted as unresolved candidates with provenance.
+- [x] US-014 malformed/ambiguous governed constructs produce source-located diagnostics; partial recovery is not silently valid semantic state.
+- [x] code fences containing fake IDs/links are not treated as ordinary governed references.
+- [x] HTML/scripts/macros are never executed.
+- [x] repeat-run normalized output is equivalent/byte-stable where declared canonical.
 
 ## Out of scope
 
