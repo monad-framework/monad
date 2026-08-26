@@ -33,7 +33,6 @@ jobs:
           cp engineering/changes/CR-0002.md /tmp/CR-0002-detailed.md
           rm engineering/changes/CR-0002.md
           ./scripts/eos change create product/product-requirements.md "Expand Monad capability and roadmap baseline"
-          ./scripts/eos change approve CR-0002 --by "Project Authority" --reason "Approve the expanded Monad capability and roadmap baseline directed by Project Authority"
           python3 - <<'PY'
           from pathlib import Path
           generated = Path('engineering/changes/CR-0002.md')
@@ -45,9 +44,12 @@ jobs:
           if end < 0:
               raise SystemExit('generated CR-0002 front matter is malformed')
           front_matter = text[: end + len('\n---\n')]
-          body = detailed.read_text(encoding='utf-8').lstrip()
-          generated.write_text(front_matter + '\n' + body, encoding='utf-8')
+          body = detailed.read_text(encoding='utf-8').lstrip().rstrip()
+          if '## Decision' not in body:
+              body += '''\n\n## Decision\n\n**Decision:** APPROVED\n\n**Authority:** Project Authority\n\n**Authority statement:** Project Authority approves CR-0002 — Expand Monad capability and roadmap baseline.\n\n**Decision date:** 2026-08-26\n\nThis approval authorizes the expanded capability and roadmap baseline as a governed planning envelope. It does not move post-MVP capabilities into MVP Release 1, bypass Work Packet readiness/authorization gates, or alter the active MVP critical path without a separately governed replanning decision.\n'''
+          generated.write_text(front_matter + '\n' + body + '\n', encoding='utf-8')
           PY
+          ./scripts/eos change approve CR-0002 --by "Project Authority" --reason "Approve the expanded Monad capability and roadmap baseline directed by Project Authority"
 
       - name: Refresh current Work Packet evidence for final source fingerprint
         env:
