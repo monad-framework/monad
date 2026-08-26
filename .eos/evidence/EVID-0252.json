@@ -1,0 +1,77 @@
+{
+  "command": "builtin:execution-acceptance",
+  "covers": [],
+  "created": "2026-08-26T13:55:27Z",
+  "details": {
+    "criteria": [
+      {
+        "criterion": "US-008 stable Source IDs are equal across equivalent clean clones.",
+        "evidence": "identity::tests::source_identity_is_clone_independent_and_content_provenance_is_exact derives equal IDs from equal canonical path and kind.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-009 SHA-256/source/parser provenance is recorded and changes when consumed bytes change.",
+        "evidence": "SourceRecord::from_discovered records exact bytes, length, parser contract, discovery provenance, and SHA-256 golden vectors.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-010 duplicate governed identifiers produce collision diagnostics naming all sources.",
+        "evidence": "detect_duplicate_governed_identifiers deterministically returns sorted repository-relative locations; coverage verifies reordered input and namespace separation.",
+        "status": "passed"
+      },
+      {
+        "criterion": "content edits do not change Source ID solely because content changed.",
+        "evidence": "Identity test verifies changed content hashes with an unchanged SourceId.",
+        "status": "passed"
+      },
+      {
+        "criterion": "explicit governed Document IDs survive source-path moves; path-only Source IDs do not.",
+        "evidence": "document_ids_follow_explicit_and_path_only_rules covers both move cases.",
+        "status": "passed"
+      },
+      {
+        "criterion": "absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity.",
+        "evidence": "Identity derivation accepts only canonical path/source kind or explicit identity components; serialization test checks no host-state fields.",
+        "status": "passed"
+      },
+      {
+        "criterion": "case-collision and symlink-alias fixtures are deterministic.",
+        "evidence": "Discovery case-collision test preserves case-sensitive paths and emits a sorted diagnostic; symlink identity test confirms one discovered semantic source.",
+        "status": "passed"
+      }
+    ],
+    "failed": []
+  },
+  "environment": {
+    "bash": "GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)",
+    "bun": "",
+    "cargo": "cargo 1.97.1 (c980f4866 2026-06-30)",
+    "git": "git version 2.55.0",
+    "go": "go version go1.24.13 linux/amd64",
+    "hostname": "runnervm76f27",
+    "lockfiles": {
+      "Cargo.lock": "114034aebf82078124f42fc902668688c2a18a2d0aba67342a9b34793d141968"
+    },
+    "machine": "x86_64",
+    "node": "v22.23.2",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)"
+  },
+  "environment_hash": "1cadd6e72ec13ed8f9704c54199297820bcff4d10bff30ddbc7b2fd97b3076fa",
+  "execution": "EXEC-0005",
+  "exit_code": 0,
+  "id": "EVID-0252",
+  "kind": "acceptance",
+  "output": "[\n  {\n    \"criterion\": \"US-008 stable Source IDs are equal across equivalent clean clones.\",\n    \"evidence\": \"identity::tests::source_identity_is_clone_independent_and_content_provenance_is_exact derives equal IDs from equal canonical path and kind.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"US-009 SHA-256/source/parser provenance is recorded and changes when consumed bytes change.\",\n    \"evidence\": \"SourceRecord::from_discovered records exact bytes, length, parser contract, discovery provenance, and SHA-256 golden vectors.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"US-010 duplicate governed identifiers produce collision diagnostics naming all sources.\",\n    \"evidence\": \"detect_duplicate_governed_identifiers deterministically returns sorted repository-relative locations; coverage verifies reordered input and namespace separation.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"content edits do not change Source ID solely because content changed.\",\n    \"evidence\": \"Identity test verifies changed content hashes with an unchanged SourceId.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"explicit governed Document IDs survive source-path moves; path-only Source IDs do not.\",\n    \"evidence\": \"document_ids_follow_explicit_and_path_only_rules covers both move cases.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity.\",\n    \"evidence\": \"Identity derivation accepts only canonical path/source kind or explicit identity components; serialization test checks no host-state fields.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"case-collision and symlink-alias fixtures are deterministic.\",\n    \"evidence\": \"Discovery case-collision test preserves case-sensitive paths and emits a sorted diagnostic; symlink identity test confirms one discovered semantic source.\",\n    \"status\": \"passed\"\n  }\n]",
+  "output_hash": "12086f959004b70adae05cafb773d34b9b14eba607f91471d9c9b7456fcd937c",
+  "producer": {
+    "actor": "runner",
+    "commit": "1b358834651ed08b85626595d7ef877afccdf28f"
+  },
+  "profile": "wp",
+  "result": "PASSED",
+  "source_hash": "6a1af07db8e76443d8d2e9cef0f4ffd6246dc8559c23073755a31abc9dce7973",
+  "target": "WP-MVP-0003",
+  "validator": "execution-acceptance"
+}
