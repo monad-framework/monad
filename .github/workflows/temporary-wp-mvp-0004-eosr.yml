@@ -24,6 +24,9 @@ jobs:
         shell: bash
         run: |
           cp .eos/wp-mvp-0004-eosr-run.sh /tmp/wp-mvp-0004-eosr-run.sh
+          sed -i 's/let review = br#/let review_text = r#/' /tmp/wp-mvp-0004-eosr-run.sh
+          sed -i '0,/^"#;$/s//"#;\n    let review = review_text.as_bytes();/' /tmp/wp-mvp-0004-eosr-run.sh
+          sed -i 's/let wp = b"# WP-MVP-0003 — Stable source and document identity\\n";/let wp_text = "# WP-MVP-0003 — Stable source and document identity\\n";\n    let wp = wp_text.as_bytes();/' /tmp/wp-mvp-0004-eosr-run.sh
           rm .github/workflows/temporary-wp-mvp-0004-eosr.yml
           rm .eos/wp-mvp-0004-eosr-run.sh
           rm .eos/wp-mvp-0004-eosr-trigger
