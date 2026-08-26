@@ -1,6 +1,6 @@
 # WP-MVP-0005 — Structured Monad configuration parser
 
-**Status:** Refined — prerequisites satisfied; Ready gate not yet executed  
+**Status:** READY
 **Epic:** EPIC-003  
 **Feature:** F-003-03  
 **Program Increment:** PI-MVP-001  
@@ -47,4 +47,4 @@ Golden config corpus for canonical repository config, malformed/unknown/unsuppor
 
 ## Readiness disposition
 
-The prior dependency block is cleared by canonical closure/acceptance evidence for WP-MVP-0001 and WP-MVP-0003 plus the Accepted ADR-0005. The next permitted lifecycle action is governed readiness/adoption. Implementation authorization, execution preparation, and product mutation remain prohibited until the corresponding EOS gates pass and are recorded.
+The prior dependency block is cleared by canonical closure/acceptance evidence for WP-MVP-0001 and WP-MVP-0003 plus the Accepted ADR-0005. This packet has now been adopted into canonical EOS lifecycle control and has passed the `WP_READY` gate (`DRAFT → READY`). The next permitted lifecycle action is the separate `WP_AUTHORIZE` gate. Implementation authorization, execution preparation, start, and product mutation remain prohibited until their corresponding governed EOS gates pass and are recorded.
