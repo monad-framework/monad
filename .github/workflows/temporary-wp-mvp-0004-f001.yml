@@ -30,6 +30,7 @@ jobs:
           python3 scripts/sync-machine-docs.py --write
           python3 scripts/sync-machine-docs.py --check
           python3 /tmp/wp-mvp-0004-f001-patch.py
+          cargo fmt --all
           cargo fmt --all -- --check
           cargo clippy --workspace --all-targets --all-features -- -D warnings
           cargo test --workspace --all-targets --all-features
