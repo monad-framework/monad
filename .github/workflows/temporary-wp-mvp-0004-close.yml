@@ -13,14 +13,14 @@ permissions:
 jobs:
   close:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - name: Check out exact closure branch
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
 
-      - name: Reconcile checklist and execute governed closure
+      - name: Reconcile checklist, refresh evidence, and close
         shell: bash
         env:
           EXPECTED_MAIN_HEAD: 5f7fe570fd5bf2ac982e6f40ebb0a61f09d0dcad
@@ -36,17 +36,64 @@ jobs:
           python3 scripts/sync-machine-docs.py --check
           test -z "$(git diff --name-only "$EXPECTED_MAIN_HEAD" -- crates engineering .eos machine | grep -v '^$')"
 
-          python3 -c 'from pathlib import Path; p=Path("engineering/work-packets/WP-MVP-0004.md"); t=p.read_text(encoding="utf-8"); n=t.count("- [ ]"); assert n == 7, f"expected 7 unchecked acceptance criteria, found {n}"; p.write_text(t.replace("- [ ]", "- [x]"), encoding="utf-8")'
-          test "$(grep -c '^- \[x\]' engineering/work-packets/WP-MVP-0004.md)" -eq 7
-          ! grep -q '^- \[ \]' engineering/work-packets/WP-MVP-0004.md
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          grep -q '^WP-MVP-0004.*IN_REVIEW' .eos/work-packets.tsv
           grep -q '^\*\*Decision:\*\* ACCEPTED$' engineering/reviews/WP-MVP-0004-REVIEW.md
+
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('engineering/work-packets/WP-MVP-0004.md')
+          text = path.read_text(encoding='utf-8')
+          expected = [
+              'US-011 section/heading/metadata structure and source ranges are extracted deterministically.',
+              'US-012 governed identifiers/status metadata are extracted according to artifact contracts.',
+              'US-013 links and identifier references are emitted as unresolved candidates with provenance.',
+              'US-014 malformed/ambiguous governed constructs produce source-located diagnostics; partial recovery is not silently valid semantic state.',
+              'code fences containing fake IDs/links are not treated as ordinary governed references.',
+              'HTML/scripts/macros are never executed.',
+              'repeat-run normalized output is equivalent/byte-stable where declared canonical.',
+          ]
+          for criterion in expected:
+              old = f'- [ ] {criterion}'
+              new = f'- [x] {criterion}'
+              assert text.count(old) == 1, (criterion, text.count(old))
+              text = text.replace(old, new)
+          assert '- [ ] ' not in text
+          assert text.count('- [x] ') == 7
+          path.write_text(text, encoding='utf-8')
+          PY
 
           cargo fmt --all -- --check
           cargo clippy --workspace --all-targets --all-features -- -D warnings
           cargo test --workspace --all-targets --all-features
+
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp --execution EXEC-0004
+          ./scripts/eos validate WP-MVP-0003 --profile wp --execution EXEC-0005
+          ./scripts/eos validate WP-MVP-0004 --profile wp --execution EXEC-0009
           ./scripts/eos verify --strict
           ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
 
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv
+          wp = Path('engineering/work-packets/WP-MVP-0004.md').read_text(encoding='utf-8')
+          assert '**Status:** IN_REVIEW' in wp
+          assert wp.count('- [x] ') == 7
+          assert '- [ ] ' not in wp
+          rows = list(csv.DictReader(open('.eos/evidence.tsv'), delimiter='\t'))
+          current = [r for r in rows if r['target'] == 'WP-MVP-0004' and r['status'] != 'SUPERSEDED']
+          assert len(current) == 3, current
+          assert all(r['execution'] == 'EXEC-0009' and r['status'] == 'VALIDATED' for r in current), current
+          assert next(r for r in current if r['validator'] == 'eos-integrity')['result'] == 'PASSED'
+          assert next(r for r in current if r['validator'] == 'repository')['result'] in {'PASSED', 'SKIPPED'}
+          assert next(r for r in current if r['validator'] == 'execution-acceptance')['result'] == 'PASSED'
+          PY
+
+          ./scripts/eos gate explain WP_CLOSE WP-MVP-0004
           ./scripts/eos close WP-MVP-0004 --by "ChatGPT" --reason "all seven acceptance criteria independently verified; final EOSR accepted after F001 correction"
 
           python3 tools/eos/trace_integrity.py --write
@@ -69,7 +116,7 @@ jobs:
           test "${#changed[@]}" -gt 0
           for f in "${changed[@]}"; do
             case "$f" in
-              .eos/*|engineering/work-packets/WP-MVP-0004.md|machine/*) ;;
+              .eos/*|engineering/evidence/*|engineering/work-packets/WP-MVP-0004.md|machine/*) ;;
               *) echo "Out-of-scope WP-MVP-0004 closure path: $f" >&2; exit 1 ;;
             esac
           done
@@ -79,4 +126,8 @@ jobs:
           git add -A
           git diff --cached --check
           git commit -m "chore(eosr): close WP-MVP-0004"
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git status --porcelain)"
           git push origin "HEAD:${GITHUB_REF_NAME}"
