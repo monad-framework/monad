@@ -1,5 +1,5 @@
 {
-  "content": "# Architecture Overview\n\n**Status:** Proposed stabilization baseline\n\n## Architectural thesis\n\nMonad has a deterministic semantic kernel surrounded by adapters and interaction surfaces. AI reasoning is a consumer and producer of proposals/context, not part of the trusted compilation core.\n\n## Responsibility planes\n\n### Knowledge Plane\n\nDiscovers, parses, normalizes, identifies, links, validates, and stores/query-compiles engineering knowledge. Owns semantic graph and KIR contracts.\n\n### Control Plane\n\nInterprets configuration, policy, authorization, Work Packet scope, lifecycle state, and planning/acceptance constraints. Decides what is permitted/required but delegates native mechanics.\n\n### Execution Plane\n\nBuilds execution plans and invokes native tools/adapters with controlled environment, cancellation, caching, and evidence capture.\n\n### Observation Plane\n\nProvides diagnostics, provenance, logs/traces/metrics where relevant, semantic diff, execution evidence, and explainability.\n\n### Interaction Plane\n\nCLI first; later TUI/IDE/API/web/projections. Interaction surfaces do not redefine semantic truth.\n\n## MVP logical components\n\n```mermaid\nflowchart LR\n  SRC[Canonical Repository] --> DISC[Discovery + Config]\n  DISC --> PARSE[Artifact Parsers]\n  PARSE --> SEM[Semantic Analysis + Identity]\n  SEM --> MSG[Monad Semantic Graph]\n  MSG --> VAL[Validation + Diagnostics]\n  MSG --> Q[Query / Explain]\n  MSG --> KIR[KIR Lowering]\n  MSG --> CTX[Agent Context Builder]\n  VAL --> CLI[CLI]\n  Q --> CLI\n  CTX --> CLI\n  KIR --> CLI\n  CLI --> TOOLS[Native Tools / Humans / Agents]\n```\n\n## Key boundaries\n\n- **Canonical input boundary:** filesystem/Git content is untrusted input; reading does not imply execution.\n- **Semantic boundary:** parsed syntax becomes typed engineering meaning only through explicit deterministic rules.\n- **KIR boundary:** canonical downstream interchange has versioned schema/compatibility rules before stability is promised.\n- **Agent boundary:** context is selected from semantic authority and cannot expand implementation permission.\n- **Execution boundary:** native commands are explicit, observable, cancellable where possible, and preserve exit/evidence.\n\n## State\n\nCanonical repository content is durable source. Derived graph/KIR/cache state is rebuildable. Local state under `.monad/` must distinguish canonical configuration, lock/resolution state, and disposable caches. Corrupt derived state must never require reconstructing intent manually.\n\n## Incrementality\n\nMVP may rebuild modest repositories, but architecture records source/content identity and dependency relationships so semantic diff and minimal invalidation can be added without changing the knowledge model.\n\n## Deployment\n\nMVP favors a single local distributable CLI/runtime with internally modular components. Remote services are optional later. Repository splitting and distributed runtime boundaries require evidence rather than anticipation.\n\n## AI architecture\n\nChatGPT is strongest at architecture/planning/review; Codex at bounded implementation. Monad should eventually produce their context contracts itself. No LLM response becomes accepted engineering authority without an explicit canonical artifact/approval transition.\n\n## Security architecture\n\nDefault behaviors minimize context and execution authority. Parsing untrusted repositories must avoid arbitrary code execution. Paths, symlinks, plugins, external commands, generated artifacts, caches, and model-provider boundaries are explicit threat surfaces.\n\n## Evolution\n\nThe MVP semantic kernel establishes stable concepts first. Plugins, registries, remote execution, cross-repository knowledge, and hosted controls layer on through versioned contracts rather than being embedded into the initial core.",
+  "content": "# Architecture Overview\n\n**Status:** Expanded product baseline\n\n## Architectural thesis\n\nMonad has a deterministic semantic kernel surrounded by governed control, execution, observation, intelligence, integration, and interaction surfaces. AI reasoning is a consumer and producer of proposals/context/evidence, not part of the trusted compilation core. Post-MVP autonomy extends execution authority only through explicit policy, progressive trust, sandboxing, review, and auditable evidence.\n\n## Responsibility planes\n\n### Knowledge Plane\n\nDiscovers, parses, normalizes, identifies, links, validates, and stores/query-compiles engineering knowledge. Owns semantic graph, KIR, provenance, memory-state classification, graph health, and multi-vector semantic contracts.\n\n### Control Plane\n\nInterprets configuration, policy, authorization, Work Packet scope, lifecycle state, readiness/done gates, autonomy levels, ownership/resources, cryptographic/attestation requirements, change control, and planning/acceptance constraints. Decides what is permitted/required but delegates native mechanics.\n\n### Execution Plane\n\nBuilds dependency-aware execution plans and invokes native tools, adapters, plugins, integrations, and agents with controlled environment, worktree/branch isolation, cancellation, retries/idempotency, circuit breakers, caching, budgets, and evidence capture. Parallel execution may improve throughput but cannot make canonical result/evidence ordering nondeterministic.\n\n### Intelligence Plane\n\nSelects governed memory/context, routes work across approved AI providers/local models, coordinates bounded agents, performs cross-harness review, computes explainable intelligence/health indicators, and participates in a memory–intelligence–execution feedback loop. It cannot silently promote probabilistic output to canonical truth.\n\n### Observation Plane\n\nProvides diagnostics, provenance, audit, logs/traces/metrics, graph/workspace health, semantic diff, execution history, cost/token data where available, attestation evidence, and explainability. OpenTelemetry-compatible correlation uses stable Work Packet/execution/evidence identities where applicable.\n\n### Integration Plane\n\nOwns explicit resource/adapter contracts, MCP, LSP/IDE, plugin SDK/registry/packs, graph/vector storage adapters, automation integrations, and optional external runtime compatibility profiles. Third-party semantics do not leak into the deterministic core without an accepted canonical adapter/specification contract.\n\n### Interaction Plane\n\nCLI first; later TUI/IDE/MCP/API/web/dashboards/projections. Optional hosted/shared surfaces may add RBAC/passkeys, custom domains, analytics, deployment, and collaboration, but interaction surfaces do not redefine semantic truth.\n\n## MVP logical components\n\n```mermaid\nflowchart LR\n  SRC[Canonical Repository] --> DISC[Discovery + Config]\n  DISC --> PARSE[Artifact Parsers]\n  PARSE --> SEM[Semantic Analysis + Identity]\n  SEM --> MSG[Monad Semantic Graph]\n  MSG --> VAL[Validation + Diagnostics]\n  MSG --> Q[Query / Explain]\n  MSG --> KIR[KIR Lowering]\n  MSG --> CTX[Agent Context Builder]\n  VAL --> CLI[CLI]\n  Q --> CLI\n  CTX --> CLI\n  KIR --> CLI\n  CLI --> TOOLS[Native Tools / Humans / Agents]\n```\n\n## Expanded logical evolution\n\n```mermaid\nflowchart LR\n  MSG[Semantic Graph / KIR] --> MEM[Governed Memory + Health + Vectors]\n  MEM --> INTEL[Intelligence / Routing / Cross-Review]\n  INTEL --> ORCH[Dependency-Aware Orchestrator]\n  POLICY[Policy / Autonomy / Change Control] --> ORCH\n  ORCH --> ADAPT[Native Tools / Agents / Integrations / Plugins]\n  ADAPT --> EVID[Evidence / Audit / Attestations]\n  EVID --> MEM\n  EVID --> OBS[OpenTelemetry / Execution Analytics]\n  MSG --> MCP[MCP / LSP / IDE / API]\n  MSG --> STORE[Local or Adapter-Backed Graph/Vector Storage]\n  DEPLOY[Local / Air-Gap / On-Prem / Cloud] --> MCP\n```\n\n## Key boundaries\n\n- **Canonical input boundary:** filesystem/Git content is untrusted input; reading does not imply execution.\n- **Semantic boundary:** parsed syntax becomes typed engineering meaning only through explicit deterministic rules.\n- **KIR boundary:** canonical downstream interchange has versioned schema/compatibility rules before stability is promised.\n- **Memory boundary:** canonical, derived, proposed, uncertain, stale, contradictory, superseded, cached, vector, and external evidence states remain distinguishable.\n- **Agent boundary:** context is selected from semantic authority and cannot expand implementation permission.\n- **Autonomy boundary:** stronger agent authority is policy-gated, evidence-earned, reviewable, reversible, and never inferred from model confidence alone.\n- **Execution boundary:** native commands/agents/integrations/plugins are explicit, observable, bounded, cancellable where possible, and preserve result/evidence.\n- **Trust boundary:** attestations, identities, keys, multi-party approval, policy decisions, and audit evidence use versioned cryptographic/governance contracts.\n- **Provider boundary:** AI/cloud/storage/integration providers are replaceable consumers/adapters rather than semantic authorities.\n- **Deployment boundary:** local/offline remains valid; air-gapped/on-prem/cloud/shared surfaces add explicit operational/security contracts.\n\n## State\n\nCanonical repository content is durable source. Derived graph/KIR/cache/vector/dashboard state is rebuildable unless explicitly recorded as external evidence. Local state under `.monad/` must distinguish canonical configuration, lock/resolution state, evidence, and disposable caches. Corrupt derived state must never require reconstructing intent manually.\n\nHosted/multi-tenant state must additionally identify workspace/tenant, classification, retention, provenance, and isolation. File/media content is content-addressed where feasible and governed separately from ordinary text context.\n\n## Incrementality and learning\n\nSource/content identity and dependency relationships enable semantic diff and minimal invalidation. Post-MVP learning uses accepted execution/review evidence to improve routing, health, score, and proposed context selection, but learning outputs remain derived until explicitly governed into canonical authority.\n\n## Deployment\n\nMVP favors a single local distributable CLI/runtime with internally modular components. Post-MVP profiles may add containers, Nix, air-gapped/on-prem, and optional AWS/GCP/Azure services. Remote services, external storage, and multi-tenant controls are optional. Repository splitting and distributed runtime boundaries require evidence rather than anticipation.\n\n## AI architecture\n\nHuman architecture/planning/review and bounded implementation agents remain complementary. Monad should produce context/execution/review contracts from semantic authority. Multi-provider routing can choose hosted or local models by capability, policy, privacy, cost, and latency. No LLM response becomes accepted engineering authority without an explicit canonical artifact/approval transition.\n\n## Security architecture\n\nDefault behaviors minimize context and execution authority. Parsing untrusted repositories avoids arbitrary code execution. Paths, symlinks, plugins, external commands, integrations, files, caches, prompts, model-provider boundaries, workspaces/tenants, keys, and remote deployment are explicit threat surfaces. Secret masking, prompt-injection containment, capability sandboxing, signed attestations, key rotation, and post-quantum migration profiles are layered capabilities rather than assumptions inside the semantic kernel.\n\n## Performance architecture\n\nPerformance is benchmark-profile driven. The architecture supports dependency/conflict-aware parallelism and scalable caches while preserving deterministic state/evidence ordering. Long-range targets include at least 10,000 lightweight internal scheduler/graph operations per second and 400 ms p95 eligible local governed-state finalization once required inputs are available on declared reference hardware. External tool/provider/network latency is measured separately and cannot be hidden inside these claims.\n\n## Ecosystem evolution\n\nPlugins, registries, packs, MCP/LSP, external graph/vector storage, automation integrations, external runtime profiles, and hosted controls layer on through versioned capability contracts. Modular-first evolution precedes repository/service splitting. An optional EVM bytecode compatibility profile, if implemented, is an isolated adapter and never a core semantic dependency.\n",
   "document_id": "doc:architecture%2Foverview.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "architecture",
     "normative": true,
-    "summary": "Status: Proposed stabilization baseline",
+    "summary": "Status: Expanded product baseline",
     "title": "Architecture Overview"
   },
   "relations": [],
@@ -24,7 +24,7 @@
       "line_end": 4,
       "line_start": 1,
       "section_id": "architecture-overview",
-      "text": "# Architecture Overview\n\n**Status:** Proposed stabilization baseline",
+      "text": "# Architecture Overview\n\n**Status:** Expanded product baseline",
       "title": "Architecture Overview"
     },
     {
@@ -33,7 +33,7 @@
       "line_end": 8,
       "line_start": 5,
       "section_id": "architectural-thesis",
-      "text": "## Architectural thesis\n\nMonad has a deterministic semantic kernel surrounded by adapters and interaction surfaces. AI reasoning is a consumer and producer of proposals/context, not part of the trusted compilation core.",
+      "text": "## Architectural thesis\n\nMonad has a deterministic semantic kernel surrounded by governed control, execution, observation, intelligence, integration, and interaction surfaces. AI reasoning is a consumer and producer of proposals/context/evidence, not part of the trusted compilation core. Post-MVP autonomy extends execution authority only through explicit policy, progressive trust, sandboxing, review, and auditable evidence.",
       "title": "Architectural thesis"
     },
     {
@@ -51,7 +51,7 @@
       "line_end": 14,
       "line_start": 11,
       "section_id": "knowledge-plane",
-      "text": "### Knowledge Plane\n\nDiscovers, parses, normalizes, identifies, links, validates, and stores/query-compiles engineering knowledge. Owns semantic graph and KIR contracts.",
+      "text": "### Knowledge Plane\n\nDiscovers, parses, normalizes, identifies, links, validates, and stores/query-compiles engineering knowledge. Owns semantic graph, KIR, provenance, memory-state classification, graph health, and multi-vector semantic contracts.",
       "title": "Knowledge Plane"
     },
     {
@@ -60,7 +60,7 @@
       "line_end": 18,
       "line_start": 15,
       "section_id": "control-plane",
-      "text": "### Control Plane\n\nInterprets configuration, policy, authorization, Work Packet scope, lifecycle state, and planning/acceptance constraints. Decides what is permitted/required but delegates native mechanics.",
+      "text": "### Control Plane\n\nInterprets configuration, policy, authorization, Work Packet scope, lifecycle state, readiness/done gates, autonomy levels, ownership/resources, cryptographic/attestation requirements, change control, and planning/acceptance constraints. Decides what is permitted/required but delegates native mechanics.",
       "title": "Control Plane"
     },
     {
@@ -69,7 +69,7 @@
       "line_end": 22,
       "line_start": 19,
       "section_id": "execution-plane",
-      "text": "### Execution Plane\n\nBuilds execution plans and invokes native tools/adapters with controlled environment, cancellation, caching, and evidence capture.",
+      "text": "### Execution Plane\n\nBuilds dependency-aware execution plans and invokes native tools, adapters, plugins, integrations, and agents with controlled environment, worktree/branch isolation, cancellation, retries/idempotency, circuit breakers, caching, budgets, and evidence capture. Parallel execution may improve throughput but cannot make canonical result/evidence ordering nondeterministic.",
       "title": "Execution Plane"
     },
     {
@@ -77,24 +77,42 @@
       "level": 3,
       "line_end": 26,
       "line_start": 23,
-      "section_id": "observation-plane",
-      "text": "### Observation Plane\n\nProvides diagnostics, provenance, logs/traces/metrics where relevant, semantic diff, execution evidence, and explainability.",
-      "title": "Observation Plane"
+      "section_id": "intelligence-plane",
+      "text": "### Intelligence Plane\n\nSelects governed memory/context, routes work across approved AI providers/local models, coordinates bounded agents, performs cross-harness review, computes explainable intelligence/health indicators, and participates in a memory–intelligence–execution feedback loop. It cannot silently promote probabilistic output to canonical truth.",
+      "title": "Intelligence Plane"
     },
     {
       "identifiers": [],
       "level": 3,
       "line_end": 30,
       "line_start": 27,
+      "section_id": "observation-plane",
+      "text": "### Observation Plane\n\nProvides diagnostics, provenance, audit, logs/traces/metrics, graph/workspace health, semantic diff, execution history, cost/token data where available, attestation evidence, and explainability. OpenTelemetry-compatible correlation uses stable Work Packet/execution/evidence identities where applicable.",
+      "title": "Observation Plane"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 34,
+      "line_start": 31,
+      "section_id": "integration-plane",
+      "text": "### Integration Plane\n\nOwns explicit resource/adapter contracts, MCP, LSP/IDE, plugin SDK/registry/packs, graph/vector storage adapters, automation integrations, and optional external runtime compatibility profiles. Third-party semantics do not leak into the deterministic core without an accepted canonical adapter/specification contract.",
+      "title": "Integration Plane"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 38,
+      "line_start": 35,
       "section_id": "interaction-plane",
-      "text": "### Interaction Plane\n\nCLI first; later TUI/IDE/API/web/projections. Interaction surfaces do not redefine semantic truth.",
+      "text": "### Interaction Plane\n\nCLI first; later TUI/IDE/MCP/API/web/dashboards/projections. Optional hosted/shared surfaces may add RBAC/passkeys, custom domains, analytics, deployment, and collaboration, but interaction surfaces do not redefine semantic truth.",
       "title": "Interaction Plane"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 49,
-      "line_start": 31,
+      "line_end": 57,
+      "line_start": 39,
       "section_id": "mvp-logical-components",
       "text": "## MVP logical components\n\n```mermaid\nflowchart LR\n  SRC[Canonical Repository] --> DISC[Discovery + Config]\n  DISC --> PARSE[Artifact Parsers]\n  PARSE --> SEM[Semantic Analysis + Identity]\n  SEM --> MSG[Monad Semantic Graph]\n  MSG --> VAL[Validation + Diagnostics]\n  MSG --> Q[Query / Explain]\n  MSG --> KIR[KIR Lowering]\n  MSG --> CTX[Agent Context Builder]\n  VAL --> CLI[CLI]\n  Q --> CLI\n  CTX --> CLI\n  KIR --> CLI\n  CLI --> TOOLS[Native Tools / Humans / Agents]\n```",
       "title": "MVP logical components"
@@ -102,74 +120,92 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 57,
-      "line_start": 50,
+      "line_end": 74,
+      "line_start": 58,
+      "section_id": "expanded-logical-evolution",
+      "text": "## Expanded logical evolution\n\n```mermaid\nflowchart LR\n  MSG[Semantic Graph / KIR] --> MEM[Governed Memory + Health + Vectors]\n  MEM --> INTEL[Intelligence / Routing / Cross-Review]\n  INTEL --> ORCH[Dependency-Aware Orchestrator]\n  POLICY[Policy / Autonomy / Change Control] --> ORCH\n  ORCH --> ADAPT[Native Tools / Agents / Integrations / Plugins]\n  ADAPT --> EVID[Evidence / Audit / Attestations]\n  EVID --> MEM\n  EVID --> OBS[OpenTelemetry / Execution Analytics]\n  MSG --> MCP[MCP / LSP / IDE / API]\n  MSG --> STORE[Local or Adapter-Backed Graph/Vector Storage]\n  DEPLOY[Local / Air-Gap / On-Prem / Cloud] --> MCP\n```",
+      "title": "Expanded logical evolution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 87,
+      "line_start": 75,
       "section_id": "key-boundaries",
-      "text": "## Key boundaries\n\n- **Canonical input boundary:** filesystem/Git content is untrusted input; reading does not imply execution.\n- **Semantic boundary:** parsed syntax becomes typed engineering meaning only through explicit deterministic rules.\n- **KIR boundary:** canonical downstream interchange has versioned schema/compatibility rules before stability is promised.\n- **Agent boundary:** context is selected from semantic authority and cannot expand implementation permission.\n- **Execution boundary:** native commands are explicit, observable, cancellable where possible, and preserve exit/evidence.",
+      "text": "## Key boundaries\n\n- **Canonical input boundary:** filesystem/Git content is untrusted input; reading does not imply execution.\n- **Semantic boundary:** parsed syntax becomes typed engineering meaning only through explicit deterministic rules.\n- **KIR boundary:** canonical downstream interchange has versioned schema/compatibility rules before stability is promised.\n- **Memory boundary:** canonical, derived, proposed, uncertain, stale, contradictory, superseded, cached, vector, and external evidence states remain distinguishable.\n- **Agent boundary:** context is selected from semantic authority and cannot expand implementation permission.\n- **Autonomy boundary:** stronger agent authority is policy-gated, evidence-earned, reviewable, reversible, and never inferred from model confidence alone.\n- **Execution boundary:** native commands/agents/integrations/plugins are explicit, observable, bounded, cancellable where possible, and preserve result/evidence.\n- **Trust boundary:** attestations, identities, keys, multi-party approval, policy decisions, and audit evidence use versioned cryptographic/governance contracts.\n- **Provider boundary:** AI/cloud/storage/integration providers are replaceable consumers/adapters rather than semantic authorities.\n- **Deployment boundary:** local/offline remains valid; air-gapped/on-prem/cloud/shared surfaces add explicit operational/security contracts.",
       "title": "Key boundaries"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 61,
-      "line_start": 58,
+      "line_end": 93,
+      "line_start": 88,
       "section_id": "state",
-      "text": "## State\n\nCanonical repository content is durable source. Derived graph/KIR/cache state is rebuildable. Local state under `.monad/` must distinguish canonical configuration, lock/resolution state, and disposable caches. Corrupt derived state must never require reconstructing intent manually.",
+      "text": "## State\n\nCanonical repository content is durable source. Derived graph/KIR/cache/vector/dashboard state is rebuildable unless explicitly recorded as external evidence. Local state under `.monad/` must distinguish canonical configuration, lock/resolution state, evidence, and disposable caches. Corrupt derived state must never require reconstructing intent manually.\n\nHosted/multi-tenant state must additionally identify workspace/tenant, classification, retention, provenance, and isolation. File/media content is content-addressed where feasible and governed separately from ordinary text context.",
       "title": "State"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 65,
-      "line_start": 62,
-      "section_id": "incrementality",
-      "text": "## Incrementality\n\nMVP may rebuild modest repositories, but architecture records source/content identity and dependency relationships so semantic diff and minimal invalidation can be added without changing the knowledge model.",
-      "title": "Incrementality"
+      "line_end": 97,
+      "line_start": 94,
+      "section_id": "incrementality-and-learning",
+      "text": "## Incrementality and learning\n\nSource/content identity and dependency relationships enable semantic diff and minimal invalidation. Post-MVP learning uses accepted execution/review evidence to improve routing, health, score, and proposed context selection, but learning outputs remain derived until explicitly governed into canonical authority.",
+      "title": "Incrementality and learning"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 69,
-      "line_start": 66,
+      "line_end": 101,
+      "line_start": 98,
       "section_id": "deployment",
-      "text": "## Deployment\n\nMVP favors a single local distributable CLI/runtime with internally modular components. Remote services are optional later. Repository splitting and distributed runtime boundaries require evidence rather than anticipation.",
+      "text": "## Deployment\n\nMVP favors a single local distributable CLI/runtime with internally modular components. Post-MVP profiles may add containers, Nix, air-gapped/on-prem, and optional AWS/GCP/Azure services. Remote services, external storage, and multi-tenant controls are optional. Repository splitting and distributed runtime boundaries require evidence rather than anticipation.",
       "title": "Deployment"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 73,
-      "line_start": 70,
+      "line_end": 105,
+      "line_start": 102,
       "section_id": "ai-architecture",
-      "text": "## AI architecture\n\nChatGPT is strongest at architecture/planning/review; Codex at bounded implementation. Monad should eventually produce their context contracts itself. No LLM response becomes accepted engineering authority without an explicit canonical artifact/approval transition.",
+      "text": "## AI architecture\n\nHuman architecture/planning/review and bounded implementation agents remain complementary. Monad should produce context/execution/review contracts from semantic authority. Multi-provider routing can choose hosted or local models by capability, policy, privacy, cost, and latency. No LLM response becomes accepted engineering authority without an explicit canonical artifact/approval transition.",
       "title": "AI architecture"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 77,
-      "line_start": 74,
+      "line_end": 109,
+      "line_start": 106,
       "section_id": "security-architecture",
-      "text": "## Security architecture\n\nDefault behaviors minimize context and execution authority. Parsing untrusted repositories must avoid arbitrary code execution. Paths, symlinks, plugins, external commands, generated artifacts, caches, and model-provider boundaries are explicit threat surfaces.",
+      "text": "## Security architecture\n\nDefault behaviors minimize context and execution authority. Parsing untrusted repositories avoids arbitrary code execution. Paths, symlinks, plugins, external commands, integrations, files, caches, prompts, model-provider boundaries, workspaces/tenants, keys, and remote deployment are explicit threat surfaces. Secret masking, prompt-injection containment, capability sandboxing, signed attestations, key rotation, and post-quantum migration profiles are layered capabilities rather than assumptions inside the semantic kernel.",
       "title": "Security architecture"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 80,
-      "line_start": 78,
-      "section_id": "evolution",
-      "text": "## Evolution\n\nThe MVP semantic kernel establishes stable concepts first. Plugins, registries, remote execution, cross-repository knowledge, and hosted controls layer on through versioned contracts rather than being embedded into the initial core.",
-      "title": "Evolution"
+      "line_end": 113,
+      "line_start": 110,
+      "section_id": "performance-architecture",
+      "text": "## Performance architecture\n\nPerformance is benchmark-profile driven. The architecture supports dependency/conflict-aware parallelism and scalable caches while preserving deterministic state/evidence ordering. Long-range targets include at least 10,000 lightweight internal scheduler/graph operations per second and 400 ms p95 eligible local governed-state finalization once required inputs are available on declared reference hardware. External tool/provider/network latency is measured separately and cannot be hidden inside these claims.",
+      "title": "Performance architecture"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 116,
+      "line_start": 114,
+      "section_id": "ecosystem-evolution",
+      "text": "## Ecosystem evolution\n\nPlugins, registries, packs, MCP/LSP, external graph/vector storage, automation integrations, external runtime profiles, and hosted controls layer on through versioned capability contracts. Modular-first evolution precedes repository/service splitting. An optional EVM bytecode compatibility profile, if implemented, is an isolated adapter and never a core semantic dependency.",
+      "title": "Ecosystem evolution"
     }
   ],
   "source": {
-    "bytes": 3780,
+    "bytes": 8512,
     "canonical": true,
     "language": "markdown",
-    "lines": 80,
+    "lines": 116,
     "media_type": "text/markdown",
     "path": "architecture/overview.md",
-    "sha256": "bba155236f54a7b37b94a77a1899e8bd63e500fbeba3f5d6bcd1906ea803eed2"
+    "sha256": "60e64830bc5d403eacdad016bc9086af94b2e8d29ec6dd4b22478b64a01be4c1"
   }
 }

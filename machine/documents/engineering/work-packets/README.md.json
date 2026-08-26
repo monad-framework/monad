@@ -1,5 +1,5 @@
 {
-  "content": "# Work Packets\n\nA work packet is the smallest authorized unit of project work. It produces one\nreviewable result, has a single accountable owner, and contains enough context\nto execute without reconstructing decisions from chat or memory.\n\n## Packet characteristics\n\n- advances one increment outcome or retires one named risk;\n- can normally complete within a few focused days;\n- has explicit scope and exclusions;\n- includes testable acceptance and evidence locations;\n- names dependencies, reviewers, and required access;\n- includes documentation, security, and operations impact;\n- closes independently without hidden follow-up required for correctness.\n\n## Lifecycle\n\n`candidate → ready → active → review → done`\n\nExceptional states are `blocked`, `cancelled`, and `superseded`. Only ready\npackets may enter a work cycle. Active packets appear in `active.md`; qualified\nfuture packets appear in `backlog.md`. The packet record, not the index, holds\nthe complete execution contract.\n\n## Naming\n\nUse `WP-NNNN-short-result.md` with immutable sequential IDs. A title names the\nfinished result, such as `Durable workflow identity`, rather than an activity\nsuch as `Work on database`.\n\n## Sizing and splitting\n\nSplit by demonstrable behavior, business rule, failure path, data transition,\nor risk experiment. Avoid horizontal packets that produce no integrated\nevidence. When a packet grows during execution, preserve the essential outcome,\nmove optional scope to candidate packets, and re-review acceptance.\n\n## Closure\n\nThe owner links acceptance evidence, records decisions and remaining risk,\nupdates affected sources of truth, and requests acceptance. A reviewer verifies\nthe result against the packet and Definition of Done. Closure date and final\nstate are then reflected in the relevant indexes.\n",
+  "content": "# Work Packets\n\nA Work Packet is the smallest authorized unit of project work. It produces one reviewable result, has a single accountable owner, and contains enough context to execute without reconstructing decisions from chat or memory.\n\n## Packet characteristics\n\n- advances one Increment/Product Goal outcome or retires one named risk;\n- can normally complete within one Work Cycle;\n- has explicit scope and exclusions;\n- includes testable acceptance and evidence locations;\n- names dependencies, governing ADRs/specifications/policies, reviewers, required access, and capability boundaries;\n- includes documentation, security, privacy, operations, audit, and provenance impact as applicable;\n- has enough bounded Task/test/evidence decomposition to execute without guessing;\n- closes independently without hidden follow-up required for correctness.\n\n## Lifecycle\n\n`candidate → ready → authorized → active → verifying/review → closed`\n\nExceptional states include `blocked`, `cancelled`, and `superseded`. Ready does not imply authorized; authorized does not imply active; merged code does not imply closed. The packet record and EOS evidence, not an index or GitHub projection, hold the authoritative execution/closure contract.\n\n## Namespaces\n\n- `WP-MVP-*` — MVP Release 1 implementation Work Packets.\n- `WP-EXP-*` — CR-0002 post-MVP expansion Work Packets.\n- historical bootstrap IDs remain preserved but do not become competing active namespaces.\n\nThe expanded roadmap initially records WP-EXP identities in `WP-EXP-PI-*-FORECAST.md` catalogs. A forecast entry is split into its own detailed canonical Work Packet artifact during rolling-wave refinement before it can become Ready.\n\n## Sizing and splitting\n\nSplit by demonstrable behavior, business/engineering rule, failure path, data/state transition, security/privacy boundary, integration contract, or risk experiment. Avoid horizontal packets that produce no integrated evidence. When a packet grows during execution, preserve the essential outcome, move optional scope to candidate packets, and re-review acceptance.\n\n## Tasks\n\nTasks are execution decomposition beneath a Work Packet/Story, not a project-wide speculative inventory. Formal Tasks are created/refined when the Work Packet approaches Ready and must cover implementation, tests, negative/boundary cases, migration, documentation, security/privacy, observability, and evidence as relevant. Later-roadmap Tasks are intentionally absent until the governing contracts make them meaningful.\n\n## Closure\n\nThe owner links acceptance evidence, records decisions and remaining risk, updates affected sources of truth, completes required security/privacy/audit/attestation evidence, and requests acceptance. A reviewer verifies the result against the packet and Definition of Done. Closure date and final state are then reflected in canonical lifecycle state and relevant projections.\n",
   "document_id": "doc:engineering%2Fwork-packets%2FREADME.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "A work packet is the smallest authorized unit of project work. It produces one reviewable result, has a single accountable owner, and contains enough context to execute without reconstructing decisions from chat or memory.",
+    "summary": "A Work Packet is the smallest authorized unit of project work. It produces one reviewable result, has a single accountable owner, and contains enough context to execute without reconstructing decisions from chat or memory.",
     "title": "Work Packets"
   },
   "relations": [],
@@ -21,65 +21,74 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 6,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "work-packets",
-      "text": "# Work Packets\n\nA work packet is the smallest authorized unit of project work. It produces one\nreviewable result, has a single accountable owner, and contains enough context\nto execute without reconstructing decisions from chat or memory.",
+      "text": "# Work Packets\n\nA Work Packet is the smallest authorized unit of project work. It produces one reviewable result, has a single accountable owner, and contains enough context to execute without reconstructing decisions from chat or memory.",
       "title": "Work Packets"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 16,
-      "line_start": 7,
+      "line_end": 15,
+      "line_start": 5,
       "section_id": "packet-characteristics",
-      "text": "## Packet characteristics\n\n- advances one increment outcome or retires one named risk;\n- can normally complete within a few focused days;\n- has explicit scope and exclusions;\n- includes testable acceptance and evidence locations;\n- names dependencies, reviewers, and required access;\n- includes documentation, security, and operations impact;\n- closes independently without hidden follow-up required for correctness.",
+      "text": "## Packet characteristics\n\n- advances one Increment/Product Goal outcome or retires one named risk;\n- can normally complete within one Work Cycle;\n- has explicit scope and exclusions;\n- includes testable acceptance and evidence locations;\n- names dependencies, governing ADRs/specifications/policies, reviewers, required access, and capability boundaries;\n- includes documentation, security, privacy, operations, audit, and provenance impact as applicable;\n- has enough bounded Task/test/evidence decomposition to execute without guessing;\n- closes independently without hidden follow-up required for correctness.",
       "title": "Packet characteristics"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 25,
-      "line_start": 17,
+      "line_end": 21,
+      "line_start": 16,
       "section_id": "lifecycle",
-      "text": "## Lifecycle\n\n`candidate → ready → active → review → done`\n\nExceptional states are `blocked`, `cancelled`, and `superseded`. Only ready\npackets may enter a work cycle. Active packets appear in `active.md`; qualified\nfuture packets appear in `backlog.md`. The packet record, not the index, holds\nthe complete execution contract.",
+      "text": "## Lifecycle\n\n`candidate → ready → authorized → active → verifying/review → closed`\n\nExceptional states include `blocked`, `cancelled`, and `superseded`. Ready does not imply authorized; authorized does not imply active; merged code does not imply closed. The packet record and EOS evidence, not an index or GitHub projection, hold the authoritative execution/closure contract.",
       "title": "Lifecycle"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 31,
-      "line_start": 26,
-      "section_id": "naming",
-      "text": "## Naming\n\nUse `WP-NNNN-short-result.md` with immutable sequential IDs. A title names the\nfinished result, such as `Durable workflow identity`, rather than an activity\nsuch as `Work on database`.",
-      "title": "Naming"
+      "line_end": 29,
+      "line_start": 22,
+      "section_id": "namespaces",
+      "text": "## Namespaces\n\n- `WP-MVP-*` — MVP Release 1 implementation Work Packets.\n- `WP-EXP-*` — CR-0002 post-MVP expansion Work Packets.\n- historical bootstrap IDs remain preserved but do not become competing active namespaces.\n\nThe expanded roadmap initially records WP-EXP identities in `WP-EXP-PI-*-FORECAST.md` catalogs. A forecast entry is split into its own detailed canonical Work Packet artifact during rolling-wave refinement before it can become Ready.",
+      "title": "Namespaces"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 38,
-      "line_start": 32,
+      "line_end": 33,
+      "line_start": 30,
       "section_id": "sizing-and-splitting",
-      "text": "## Sizing and splitting\n\nSplit by demonstrable behavior, business rule, failure path, data transition,\nor risk experiment. Avoid horizontal packets that produce no integrated\nevidence. When a packet grows during execution, preserve the essential outcome,\nmove optional scope to candidate packets, and re-review acceptance.",
+      "text": "## Sizing and splitting\n\nSplit by demonstrable behavior, business/engineering rule, failure path, data/state transition, security/privacy boundary, integration contract, or risk experiment. Avoid horizontal packets that produce no integrated evidence. When a packet grows during execution, preserve the essential outcome, move optional scope to candidate packets, and re-review acceptance.",
       "title": "Sizing and splitting"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 44,
-      "line_start": 39,
+      "line_end": 37,
+      "line_start": 34,
+      "section_id": "tasks",
+      "text": "## Tasks\n\nTasks are execution decomposition beneath a Work Packet/Story, not a project-wide speculative inventory. Formal Tasks are created/refined when the Work Packet approaches Ready and must cover implementation, tests, negative/boundary cases, migration, documentation, security/privacy, observability, and evidence as relevant. Later-roadmap Tasks are intentionally absent until the governing contracts make them meaningful.",
+      "title": "Tasks"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 38,
       "section_id": "closure",
-      "text": "## Closure\n\nThe owner links acceptance evidence, records decisions and remaining risk,\nupdates affected sources of truth, and requests acceptance. A reviewer verifies\nthe result against the packet and Definition of Done. Closure date and final\nstate are then reflected in the relevant indexes.",
+      "text": "## Closure\n\nThe owner links acceptance evidence, records decisions and remaining risk, updates affected sources of truth, completes required security/privacy/audit/attestation evidence, and requests acceptance. A reviewer verifies the result against the packet and Definition of Done. Closure date and final state are then reflected in canonical lifecycle state and relevant projections.",
       "title": "Closure"
     }
   ],
   "source": {
-    "bytes": 1810,
+    "bytes": 2915,
     "canonical": true,
     "language": "markdown",
-    "lines": 44,
+    "lines": 40,
     "media_type": "text/markdown",
     "path": "engineering/work-packets/README.md",
-    "sha256": "fd4eca34c1ea159afdd8644937c32acabeab9c895afd6efc69bcf144687ee4a3"
+    "sha256": "c49d98929e1e4ad87d15fcf3cdf8f61475db623a288f940ae1d9613a193e16cb"
   }
 }

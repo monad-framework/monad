@@ -1,5 +1,5 @@
 {
-  "content": "# Work Cycles\n\nA work cycle is a short, fixed execution and learning window. It limits work in\nprogress, creates a frequent integration point, and provides evidence for\nreforecasting. A cycle is not successful merely because every planned task was\nstarted.\n\n## Cycle protocol\n\n### Plan\n\nConfirm the increment objective, available capacity, carryover reason, and top\nrisks. Pull only ready packets. Sequence the smallest path to integrated\nevidence and identify who can unblock external decisions.\n\n### Execute\n\nKeep active ownership and status visible. Integrate continuously, review early,\nand swarm on blockers or nearly complete packets before starting more work.\nUpdate acceptance evidence as it is produced.\n\n### Review\n\nDemonstrate completed outcomes and risk reduction in a representative context.\nRecord accepted packets, unmet evidence, defects, and product or architecture\nfindings. Do not count partial work as delivered value.\n\n### Improve\n\nInspect flow time, blocked time, rework, escaped defects, review latency, and\nunplanned work. Select at most one or two concrete process experiments for the\nnext cycle and assign owners.\n\n## Suggested limits\n\nUse no more concurrent packets than active contributors and aim for fewer.\nPackets blocked beyond one business day require an explicit escalation or\nre-plan. A packet spanning multiple cycles is split unless its indivisibility is\ndocumented and approved.\n\n## Cycle record\n\nName records `WC-NNNN-YYYY-MM-DD.md` and include objective, capacity, selected\npackets, risk focus, completed evidence, metrics, decisions, carryover, and the\nimprovement experiment. Link it from the parent increment.\n",
+  "content": "# Work Cycles / Sprints\n\nA Work Cycle is a short, fixed execution and learning window. It limits work in progress, creates a frequent integration point, and provides evidence for reforecasting. A cycle is not successful merely because every planned task was started.\n\nFor Monad's current roadmap, **Work Cycle == Sprint**. There is no second competing Sprint cadence.\n\n## Namespaces and schedules\n\n- `WC-MVP-*` — MVP Release 1; see `MVP-SPRINT-SCHEDULE.md`.\n- `WC-EXP-*` — CR-0002 post-MVP expansion; see `EXPANDED-SPRINT-SCHEDULE.md`.\n\nA forecast Work Cycle does not authorize its Work Packets. Parent increment state, Ready gates, authorization, execution, verification, and closure remain distinct.\n\n## Cycle protocol\n\n### Plan\n\nConfirm the Increment/Product Goal objective, available capacity, carryover reason, autonomy assumptions, and top risks. Pull only Ready packets. Sequence the smallest path to integrated evidence and identify who can unblock external decisions.\n\n### Execute\n\nKeep active ownership and status visible. Integrate continuously, review early, and swarm on blockers or nearly complete packets before starting more work. Update acceptance/audit evidence as it is produced. Multi-agent parallelism does not justify exceeding dependency, review, or least-authority constraints.\n\n### Review\n\nDemonstrate completed outcomes and risk reduction in a representative context. Record accepted packets, unmet evidence, defects, product/architecture/security/privacy findings, performance claims, autonomy changes, and milestone/Product Goal implications. Do not count partial work or merged code alone as delivered value.\n\n### Improve\n\nInspect flow time, blocked time, rework, escaped defects, review latency, automation/provider failures, cost, security/privacy findings, and unplanned work. Select at most one or two concrete process/system experiments for the next cycle and assign owners.\n\n## Suggested limits\n\nUse no more concurrent Work Packets than demonstrated review/execution capacity supports and aim for fewer. Only one Work Packet may be authorized at a time where EOS WIP policy says so. Packets blocked beyond the configured escalation threshold require explicit escalation or replanning. A packet spanning multiple cycles is split unless its indivisibility is documented and approved.\n\n## Cycle record\n\nEach activated Work Cycle receives a canonical record with objective, Increment/Product Goal, capacity, selected packets, risk focus, completed evidence, metrics, decisions, carryover, and improvement experiment. Forecast schedule rows are planning projections, not substitutes for activated cycle records.\n",
   "document_id": "doc:engineering%2Fwork-cycles%2FREADME.md",
   "generation": {
     "deterministic": true,
@@ -11,8 +11,8 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "A work cycle is a short, fixed execution and learning window. It limits work in progress, creates a frequent integration point, and provides evidence for reforecasting. A cycle is not successful merely because every planned task was started.",
-    "title": "Work Cycles"
+    "summary": "A Work Cycle is a short, fixed execution and learning window. It limits work in progress, creates a frequent integration point, and provides evidence for reforecasting. A cycle is not successful merely because every planned task was started.",
+    "title": "Work Cycles / Sprints"
   },
   "relations": [],
   "schema": "machine/schemas/document.schema.json",
@@ -21,17 +21,26 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 7,
+      "line_end": 6,
       "line_start": 1,
-      "section_id": "work-cycles",
-      "text": "# Work Cycles\n\nA work cycle is a short, fixed execution and learning window. It limits work in\nprogress, creates a frequent integration point, and provides evidence for\nreforecasting. A cycle is not successful merely because every planned task was\nstarted.",
-      "title": "Work Cycles"
+      "section_id": "work-cycles-sprints",
+      "text": "# Work Cycles / Sprints\n\nA Work Cycle is a short, fixed execution and learning window. It limits work in progress, creates a frequent integration point, and provides evidence for reforecasting. A cycle is not successful merely because every planned task was started.\n\nFor Monad's current roadmap, **Work Cycle == Sprint**. There is no second competing Sprint cadence.",
+      "title": "Work Cycles / Sprints"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 9,
-      "line_start": 8,
+      "line_end": 13,
+      "line_start": 7,
+      "section_id": "namespaces-and-schedules",
+      "text": "## Namespaces and schedules\n\n- `WC-MVP-*` — MVP Release 1; see `MVP-SPRINT-SCHEDULE.md`.\n- `WC-EXP-*` — CR-0002 post-MVP expansion; see `EXPANDED-SPRINT-SCHEDULE.md`.\n\nA forecast Work Cycle does not authorize its Work Packets. Parent increment state, Ready gates, authorization, execution, verification, and closure remain distinct.",
+      "title": "Namespaces and schedules"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 14,
       "section_id": "cycle-protocol",
       "text": "## Cycle protocol",
       "title": "Cycle protocol"
@@ -39,65 +48,65 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 15,
-      "line_start": 10,
+      "line_end": 19,
+      "line_start": 16,
       "section_id": "plan",
-      "text": "### Plan\n\nConfirm the increment objective, available capacity, carryover reason, and top\nrisks. Pull only ready packets. Sequence the smallest path to integrated\nevidence and identify who can unblock external decisions.",
+      "text": "### Plan\n\nConfirm the Increment/Product Goal objective, available capacity, carryover reason, autonomy assumptions, and top risks. Pull only Ready packets. Sequence the smallest path to integrated evidence and identify who can unblock external decisions.",
       "title": "Plan"
     },
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 21,
-      "line_start": 16,
+      "line_end": 23,
+      "line_start": 20,
       "section_id": "execute",
-      "text": "### Execute\n\nKeep active ownership and status visible. Integrate continuously, review early,\nand swarm on blockers or nearly complete packets before starting more work.\nUpdate acceptance evidence as it is produced.",
+      "text": "### Execute\n\nKeep active ownership and status visible. Integrate continuously, review early, and swarm on blockers or nearly complete packets before starting more work. Update acceptance/audit evidence as it is produced. Multi-agent parallelism does not justify exceeding dependency, review, or least-authority constraints.",
       "title": "Execute"
     },
     {
       "identifiers": [],
       "level": 3,
       "line_end": 27,
-      "line_start": 22,
+      "line_start": 24,
       "section_id": "review",
-      "text": "### Review\n\nDemonstrate completed outcomes and risk reduction in a representative context.\nRecord accepted packets, unmet evidence, defects, and product or architecture\nfindings. Do not count partial work as delivered value.",
+      "text": "### Review\n\nDemonstrate completed outcomes and risk reduction in a representative context. Record accepted packets, unmet evidence, defects, product/architecture/security/privacy findings, performance claims, autonomy changes, and milestone/Product Goal implications. Do not count partial work or merged code alone as delivered value.",
       "title": "Review"
     },
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 33,
+      "line_end": 31,
       "line_start": 28,
       "section_id": "improve",
-      "text": "### Improve\n\nInspect flow time, blocked time, rework, escaped defects, review latency, and\nunplanned work. Select at most one or two concrete process experiments for the\nnext cycle and assign owners.",
+      "text": "### Improve\n\nInspect flow time, blocked time, rework, escaped defects, review latency, automation/provider failures, cost, security/privacy findings, and unplanned work. Select at most one or two concrete process/system experiments for the next cycle and assign owners.",
       "title": "Improve"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 40,
-      "line_start": 34,
+      "line_end": 35,
+      "line_start": 32,
       "section_id": "suggested-limits",
-      "text": "## Suggested limits\n\nUse no more concurrent packets than active contributors and aim for fewer.\nPackets blocked beyond one business day require an explicit escalation or\nre-plan. A packet spanning multiple cycles is split unless its indivisibility is\ndocumented and approved.",
+      "text": "## Suggested limits\n\nUse no more concurrent Work Packets than demonstrated review/execution capacity supports and aim for fewer. Only one Work Packet may be authorized at a time where EOS WIP policy says so. Packets blocked beyond the configured escalation threshold require explicit escalation or replanning. A packet spanning multiple cycles is split unless its indivisibility is documented and approved.",
       "title": "Suggested limits"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 45,
-      "line_start": 41,
+      "line_end": 38,
+      "line_start": 36,
       "section_id": "cycle-record",
-      "text": "## Cycle record\n\nName records `WC-NNNN-YYYY-MM-DD.md` and include objective, capacity, selected\npackets, risk focus, completed evidence, metrics, decisions, carryover, and the\nimprovement experiment. Link it from the parent increment.",
+      "text": "## Cycle record\n\nEach activated Work Cycle receives a canonical record with objective, Increment/Product Goal, capacity, selected packets, risk focus, completed evidence, metrics, decisions, carryover, and improvement experiment. Forecast schedule rows are planning projections, not substitutes for activated cycle records.",
       "title": "Cycle record"
     }
   ],
   "source": {
-    "bytes": 1653,
+    "bytes": 2646,
     "canonical": true,
     "language": "markdown",
-    "lines": 45,
+    "lines": 38,
     "media_type": "text/markdown",
     "path": "engineering/work-cycles/README.md",
-    "sha256": "786f11fa817a07bf1771f9dda89788b8efd773f674fc9fb0b400a0a6b3d158ad"
+    "sha256": "edeec4e93de2e4f5c9fa8f43ccf2c937ea250544aff330a28f96747528056f4d"
   }
 }
