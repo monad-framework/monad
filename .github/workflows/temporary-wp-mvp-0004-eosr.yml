@@ -30,4 +30,6 @@ jobs:
           rm .github/workflows/temporary-wp-mvp-0004-eosr.yml
           rm .eos/wp-mvp-0004-eosr-run.sh
           rm .eos/wp-mvp-0004-eosr-trigger
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
           bash /tmp/wp-mvp-0004-eosr-run.sh
