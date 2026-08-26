@@ -1,0 +1,135 @@
+{
+  "content": "# Expanded Work Cycle / Sprint Schedule\n\n**Status:** Approved forecast baseline under CR-0002  \n**Cadence:** one week, Monday–Sunday  \n**Rule:** Work Cycle == Sprint; there is no parallel execution cadence.\n\nThis schedule begins after the forecast MVP Release 1 gate. Dates are planning forecasts, not implementation authorization or promises.\n\n| Work Cycle | Dates | Sprint Goal | Forecast packets |\n| --- | --- | --- | --- |\n| WC-EXP-0001 | Nov 9–15, 2026 | Establish intelligence scoring, governed memory, and workspace health | WP-EXP-0001–0003 |\n| WC-EXP-0002 | Nov 16–22, 2026 | Add vector/cache intelligence and dependency-aware autonomous orchestration foundations | WP-EXP-0004–0005 |\n| WC-EXP-0003 | Nov 23–29, 2026 | Establish progressive autonomy and independent cross-harness verification | WP-EXP-0006–0007 |\n| WC-EXP-0004 | Nov 30–Dec 6, 2026 | Add provider routing, agent resilience, and integration/resource contracts | WP-EXP-0008–0010 |\n| WC-EXP-0005 | Dec 7–13, 2026 | Close the living-intelligence increment with reactive automation and verified PR lifecycle | WP-EXP-0011–0012 |\n| WC-EXP-0006 | Dec 14–20, 2026 | Establish signed attestations, cryptographic agility, multi-party trust, and strong identity | WP-EXP-0013–0015 |\n| WC-EXP-0007 | Dec 21–27, 2026 | Harden AI/input boundaries and implement declarative policy/change-control foundations | WP-EXP-0016–0018 |\n| WC-EXP-0008 | Dec 28, 2026–Jan 3, 2027 | Establish immutable audit, readiness/done trust gates, and OpenTelemetry health observation | WP-EXP-0019–0021 |\n| WC-EXP-0009 | Jan 4–10, 2027 | Add execution analytics, privacy-governed hosted analytics, and shared deployment | WP-EXP-0022–0024 |\n| WC-EXP-0010 | Jan 11–17, 2027 | Add workspace clone/restore, enterprise deployment modes, and reproducible environments | WP-EXP-0025–0027 |\n| WC-EXP-0011 | Jan 18–24, 2027 | Add governed file/media handling, MCP, and IDE/LSP integration | WP-EXP-0028–0030 |\n| WC-EXP-0012 | Jan 25–31, 2027 | Establish plugin/registry/packs, pluggable storage, and external runtime adapter profiles | WP-EXP-0031–0033 |\n| WC-EXP-0013 | Feb 1–7, 2027 | Prove deterministic parallelism, throughput/finality profiles, and scale-out cache isolation | WP-EXP-0034–0037 |\n| WC-EXP-0014 | Feb 8–14, 2027 | Pass expanded end-to-end/security/scale acceptance and disposition Release 2 | WP-EXP-0038–0040 |\n\n## Program Increment boundaries\n\n- `PI-EXP-001` — WC-EXP-0001 through WC-EXP-0005 — Living Intelligence — target M-004.\n- `PI-EXP-002` — WC-EXP-0006 through WC-EXP-0009 — Governed Automation & Trust — target M-005.\n- `PI-EXP-003` — WC-EXP-0010 through WC-EXP-0014 — Ecosystem, Deployment & Scale — target M-006.\n\n## Sprint events\n\n- **Planning:** select only Ready packets that support the Sprint Goal and fit demonstrated capacity.\n- **Daily inspection:** reconcile completed/active/blocked/decision-required/next work.\n- **Refinement:** maintain at least two future Work Cycles with bounded task/test/evidence decomposition.\n- **Review:** demonstrate integrated evidence against the Sprint Goal.\n- **Retrospective:** record actionable process/system improvements or an evidence-based no-change disposition.\n\n## Capacity and autonomy\n\nDo not commit 100% of theoretical capacity. Preserve explicit capacity for review, red-team verification, debugging, evidence, security/privacy analysis, and corrective work. Multi-agent parallelism does not multiply trusted capacity mechanically; demonstrated throughput and review quality determine future planning assumptions.\n\n## Forecast rule\n\nIf MVP Release 1 moves, this schedule shifts with it unless CR/EOSP replanning explicitly changes sequencing. Quality, determinism, provenance, security, privacy, cryptographic, and human-authority gates do not silently shrink to preserve dates.\n",
+  "document_id": "doc:engineering%2Fwork-cycles%2FEXPANDED-SPRINT-SCHEDULE.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "EXP-0001",
+    "EXP-0002",
+    "EXP-0003",
+    "EXP-0004",
+    "EXP-0005",
+    "EXP-0006",
+    "EXP-0007",
+    "EXP-0008",
+    "EXP-0009",
+    "EXP-001",
+    "EXP-0010",
+    "EXP-0011",
+    "EXP-0012",
+    "EXP-0013",
+    "EXP-0014",
+    "EXP-0016",
+    "EXP-0019",
+    "EXP-002",
+    "EXP-0022",
+    "EXP-0025",
+    "EXP-0028",
+    "EXP-003",
+    "EXP-0031",
+    "EXP-0034",
+    "EXP-0038"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Approved forecast baseline under CR-0002 Cadence: one week, Monday–Sunday Rule: Work Cycle == Sprint; there is no parallel execution cadence.",
+    "title": "Expanded Work Cycle / Sprint Schedule"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "EXP-0001",
+        "EXP-0002",
+        "EXP-0003",
+        "EXP-0004",
+        "EXP-0005",
+        "EXP-0006",
+        "EXP-0007",
+        "EXP-0008",
+        "EXP-0009",
+        "EXP-0010",
+        "EXP-0011",
+        "EXP-0012",
+        "EXP-0013",
+        "EXP-0014",
+        "EXP-0016",
+        "EXP-0019",
+        "EXP-0022",
+        "EXP-0025",
+        "EXP-0028",
+        "EXP-0031",
+        "EXP-0034",
+        "EXP-0038"
+      ],
+      "level": 1,
+      "line_end": 25,
+      "line_start": 1,
+      "section_id": "expanded-work-cycle-sprint-schedule",
+      "text": "# Expanded Work Cycle / Sprint Schedule\n\n**Status:** Approved forecast baseline under CR-0002  \n**Cadence:** one week, Monday–Sunday  \n**Rule:** Work Cycle == Sprint; there is no parallel execution cadence.\n\nThis schedule begins after the forecast MVP Release 1 gate. Dates are planning forecasts, not implementation authorization or promises.\n\n| Work Cycle | Dates | Sprint Goal | Forecast packets |\n| --- | --- | --- | --- |\n| WC-EXP-0001 | Nov 9–15, 2026 | Establish intelligence scoring, governed memory, and workspace health | WP-EXP-0001–0003 |\n| WC-EXP-0002 | Nov 16–22, 2026 | Add vector/cache intelligence and dependency-aware autonomous orchestration foundations | WP-EXP-0004–0005 |\n| WC-EXP-0003 | Nov 23–29, 2026 | Establish progressive autonomy and independent cross-harness verification | WP-EXP-0006–0007 |\n| WC-EXP-0004 | Nov 30–Dec 6, 2026 | Add provider routing, agent resilience, and integration/resource contracts | WP-EXP-0008–0010 |\n| WC-EXP-0005 | Dec 7–13, 2026 | Close the living-intelligence increment with reactive automation and verified PR lifecycle | WP-EXP-0011–0012 |\n| WC-EXP-0006 | Dec 14–20, 2026 | Establish signed attestations, cryptographic agility, multi-party trust, and strong identity | WP-EXP-0013–0015 |\n| WC-EXP-0007 | Dec 21–27, 2026 | Harden AI/input boundaries and implement declarative policy/change-control foundations | WP-EXP-0016–0018 |\n| WC-EXP-0008 | Dec 28, 2026–Jan 3, 2027 | Establish immutable audit, readiness/done trust gates, and OpenTelemetry health observation | WP-EXP-0019–0021 |\n| WC-EXP-0009 | Jan 4–10, 2027 | Add execution analytics, privacy-governed hosted analytics, and shared deployment | WP-EXP-0022–0024 |\n| WC-EXP-0010 | Jan 11–17, 2027 | Add workspace clone/restore, enterprise deployment modes, and reproducible environments | WP-EXP-0025–0027 |\n| WC-EXP-0011 | Jan 18–24, 2027 | Add governed file/media handling, MCP, and IDE/LSP integration | WP-EXP-0028–0030 |\n| WC-EXP-0012 | Jan 25–31, 2027 | Establish plugin/registry/packs, pluggable storage, and external runtime adapter profiles | WP-EXP-0031–0033 |\n| WC-EXP-0013 | Feb 1–7, 2027 | Prove deterministic parallelism, throughput/finality profiles, and scale-out cache isolation | WP-EXP-0034–0037 |\n| WC-EXP-0014 | Feb 8–14, 2027 | Pass expanded end-to-end/security/scale acceptance and disposition Release 2 | WP-EXP-0038–0040 |",
+      "title": "Expanded Work Cycle / Sprint Schedule"
+    },
+    {
+      "identifiers": [
+        "EXP-0001",
+        "EXP-0005",
+        "EXP-0006",
+        "EXP-0009",
+        "EXP-001",
+        "EXP-0010",
+        "EXP-0014",
+        "EXP-002",
+        "EXP-003"
+      ],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 26,
+      "section_id": "program-increment-boundaries",
+      "text": "## Program Increment boundaries\n\n- `PI-EXP-001` — WC-EXP-0001 through WC-EXP-0005 — Living Intelligence — target M-004.\n- `PI-EXP-002` — WC-EXP-0006 through WC-EXP-0009 — Governed Automation & Trust — target M-005.\n- `PI-EXP-003` — WC-EXP-0010 through WC-EXP-0014 — Ecosystem, Deployment & Scale — target M-006.",
+      "title": "Program Increment boundaries"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 32,
+      "section_id": "sprint-events",
+      "text": "## Sprint events\n\n- **Planning:** select only Ready packets that support the Sprint Goal and fit demonstrated capacity.\n- **Daily inspection:** reconcile completed/active/blocked/decision-required/next work.\n- **Refinement:** maintain at least two future Work Cycles with bounded task/test/evidence decomposition.\n- **Review:** demonstrate integrated evidence against the Sprint Goal.\n- **Retrospective:** record actionable process/system improvements or an evidence-based no-change disposition.",
+      "title": "Sprint events"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 40,
+      "section_id": "capacity-and-autonomy",
+      "text": "## Capacity and autonomy\n\nDo not commit 100% of theoretical capacity. Preserve explicit capacity for review, red-team verification, debugging, evidence, security/privacy analysis, and corrective work. Multi-agent parallelism does not multiply trusted capacity mechanically; demonstrated throughput and review quality determine future planning assumptions.",
+      "title": "Capacity and autonomy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 44,
+      "section_id": "forecast-rule",
+      "text": "## Forecast rule\n\nIf MVP Release 1 moves, this schedule shifts with it unless CR/EOSP replanning explicitly changes sequencing. Quality, determinism, provenance, security, privacy, cryptographic, and human-authority gates do not silently shrink to preserve dates.",
+      "title": "Forecast rule"
+    }
+  ],
+  "source": {
+    "bytes": 3874,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 46,
+    "media_type": "text/markdown",
+    "path": "engineering/work-cycles/EXPANDED-SPRINT-SCHEDULE.md",
+    "sha256": "fc77ad292d73a71d5257af016a561db574303f35458dfed80895370515adf0e0"
+  }
+}

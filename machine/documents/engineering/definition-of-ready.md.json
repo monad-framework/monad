@@ -1,5 +1,5 @@
 {
-  "content": "# Definition of Ready\n\nA work packet may enter a committed work cycle only when it is understandable,\nbounded, testable, safe to begin, and connected to an authorized outcome. Ready\ndoes not mean every implementation detail is known; it means remaining\nuncertainty is intentional and affordable inside the packet.\n\n## Required for every work packet\n\n- [ ] Stable ID, concise title, owner, and target increment are assigned.\n- [ ] The problem or desired outcome is stated in observable terms.\n- [ ] Scope and explicit exclusions fit within one work cycle.\n- [ ] Acceptance criteria describe evidence, including failure or boundary\n      behavior when applicable.\n- [ ] Relevant requirements, specifications, ADRs, risks, and dependencies are\n      linked.\n- [ ] Preconditions, required access, environments, and test data are available.\n- [ ] Security, privacy, accessibility, operations, and documentation impacts\n      have been assessed.\n- [ ] Unknowns are either resolved or converted into bounded research work.\n- [ ] The owner believes the packet can reach Done without hidden external\n      approval or another unplanned packet.\n\n## Additional checks for behavior changes\n\n- [ ] User and system behavior is specified for success, invalid input,\n      unauthorized action, dependency failure, interruption, and retry as\n      relevant.\n- [ ] Compatibility and migration impact is understood.\n- [ ] Test approach includes the appropriate unit, contract, integration,\n      acceptance, accessibility, performance, or security level.\n- [ ] Required telemetry and support behavior are explicit.\n\n## Additional checks for architecture or infrastructure\n\n- [ ] Decision drivers and quality scenarios are identified.\n- [ ] Strategic choices have an ADR or an assigned decision packet.\n- [ ] Deployment, configuration, rollback, capacity, cost, and ownership are\n      addressed.\n- [ ] Dependency risk and exit or containment strategy are understood.\n\n## Readiness authority\n\nThe packet owner performs the initial check. Product accepts user outcome and\nscope; engineering accepts feasibility and evidence; security or operations\nreview when their risk threshold is crossed. A reviewer may mark a packet not\nready with a specific unmet criterion and the smallest corrective action.\n\n## Expedite policy\n\nAn active security incident or production outage may bypass normal readiness to\ncontain harm. The incident commander records the authority, scope, risk, and\nverification plan. Missing traceability, tests, documentation, and follow-up\nwork are restored immediately after stabilization.\n",
+  "content": "# Definition of Ready\n\nA work packet may enter a committed work cycle only when it is understandable,\nbounded, testable, safe to begin, and connected to an authorized outcome. Ready\ndoes not mean every implementation detail is known; it means remaining\nuncertainty is intentional and affordable inside the packet.\n\n## Required for every work packet\n\n- [ ] Stable ID, concise title, owner, and target increment are assigned.\n- [ ] The problem or desired outcome is stated in observable terms.\n- [ ] Scope and explicit exclusions fit within one work cycle.\n- [ ] Acceptance criteria describe evidence, including failure or boundary\n      behavior when applicable.\n- [ ] Relevant requirements, specifications, ADRs, risks, policies, and\n      dependencies are linked.\n- [ ] Task/test/evidence decomposition is bounded enough that implementation can\n      begin without guessing about public semantics or authority.\n- [ ] Preconditions, required access, environments, test data, external\n      resources, provider capabilities, and integration dependencies are\n      available or explicitly simulated.\n- [ ] Security, privacy, accessibility, operations, documentation, data\n      classification, secret handling, and audit impacts have been assessed.\n- [ ] Agent/plugin/integration capabilities and the least-authority boundary are\n      explicit where automation is involved.\n- [ ] Required autonomy level is named; any level above advisory has an accepted\n      promotion basis and a demotion/revocation path.\n- [ ] Unknowns are either resolved or converted into bounded research work.\n- [ ] The owner believes the packet can reach Done without hidden external\n      approval or another unplanned packet.\n\n## Additional checks for behavior changes\n\n- [ ] User and system behavior is specified for success, invalid input,\n      unauthorized action, dependency failure, interruption, timeout,\n      cancellation, retry, and circuit-breaker behavior as relevant.\n- [ ] Compatibility and migration impact is understood.\n- [ ] Test approach includes the appropriate unit, contract, integration,\n      acceptance, accessibility, performance, determinism, privacy, or security\n      level.\n- [ ] Required telemetry, audit events, health behavior, and support behavior are\n      explicit.\n- [ ] Cache/vector/file/hosted state has declared provenance, isolation,\n      invalidation/retention, and rebuild/recovery behavior where applicable.\n\n## Additional checks for agent, AI, plugin, or integration work\n\n- [ ] Canonical facts, derived facts, proposals, uncertain inference, and\n      external evidence cannot be conflated silently.\n- [ ] Prompt-injection, secret-exposure, tool escalation, and untrusted-input\n      threats have explicit negative tests where relevant.\n- [ ] Provider/model selection constraints include capability, privacy, cost,\n      latency, locality, and fallback expectations as applicable.\n- [ ] Retry/idempotency, timeout/cancellation, rate/cost budgets, and side-effect\n      risk are defined.\n- [ ] Cross-harness or human review requirements and disagreement-disposition\n      rules are explicit for consequential work.\n\n## Additional checks for architecture or infrastructure\n\n- [ ] Decision drivers and quality scenarios are identified.\n- [ ] Strategic choices have an ADR or an assigned decision packet.\n- [ ] Deployment, configuration, rollback, capacity, cost, ownership, isolation,\n      and air-gap/on-prem/cloud implications are addressed as applicable.\n- [ ] Dependency risk and exit or containment strategy are understood.\n- [ ] Public protocol/schema/plugin/storage/MCP/LSP/attestation surfaces have an\n      explicit versioning/compatibility plan before stability is promised.\n- [ ] Cryptographic work states algorithm profile, key lifecycle, rotation,\n      revocation, migration, and multi-party policy requirements where relevant.\n- [ ] Performance claims name a reproducible reference workload/profile rather\n      than relying on an unqualified headline number.\n\n## Readiness authority\n\nThe packet owner performs the initial check. Product accepts user outcome and\nscope; engineering accepts feasibility and evidence; security, privacy,\noperations, or governance review when their risk threshold is crossed. A\nreviewer may mark a packet not ready with a specific unmet criterion and the\nsmallest corrective action.\n\nAgent-generated readiness assessments are advisory unless a separately accepted\npolicy grants a bounded machine-enforcement role. Readiness never authorizes\nexecution by itself.\n\n## Expedite policy\n\nAn active security incident or production outage may bypass normal readiness to\ncontain harm. The incident commander records the authority, scope, risk,\ncapability boundary, and verification plan. Missing traceability, tests,\ndocumentation, audit evidence, and follow-up work are restored immediately after\nstabilization.\n",
   "document_id": "doc:engineering%2Fdefinition-of-ready.md",
   "generation": {
     "deterministic": true,
@@ -30,56 +30,65 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 23,
+      "line_end": 31,
       "line_start": 8,
       "section_id": "required-for-every-work-packet",
-      "text": "## Required for every work packet\n\n- [ ] Stable ID, concise title, owner, and target increment are assigned.\n- [ ] The problem or desired outcome is stated in observable terms.\n- [ ] Scope and explicit exclusions fit within one work cycle.\n- [ ] Acceptance criteria describe evidence, including failure or boundary\n      behavior when applicable.\n- [ ] Relevant requirements, specifications, ADRs, risks, and dependencies are\n      linked.\n- [ ] Preconditions, required access, environments, and test data are available.\n- [ ] Security, privacy, accessibility, operations, and documentation impacts\n      have been assessed.\n- [ ] Unknowns are either resolved or converted into bounded research work.\n- [ ] The owner believes the packet can reach Done without hidden external\n      approval or another unplanned packet.",
+      "text": "## Required for every work packet\n\n- [ ] Stable ID, concise title, owner, and target increment are assigned.\n- [ ] The problem or desired outcome is stated in observable terms.\n- [ ] Scope and explicit exclusions fit within one work cycle.\n- [ ] Acceptance criteria describe evidence, including failure or boundary\n      behavior when applicable.\n- [ ] Relevant requirements, specifications, ADRs, risks, policies, and\n      dependencies are linked.\n- [ ] Task/test/evidence decomposition is bounded enough that implementation can\n      begin without guessing about public semantics or authority.\n- [ ] Preconditions, required access, environments, test data, external\n      resources, provider capabilities, and integration dependencies are\n      available or explicitly simulated.\n- [ ] Security, privacy, accessibility, operations, documentation, data\n      classification, secret handling, and audit impacts have been assessed.\n- [ ] Agent/plugin/integration capabilities and the least-authority boundary are\n      explicit where automation is involved.\n- [ ] Required autonomy level is named; any level above advisory has an accepted\n      promotion basis and a demotion/revocation path.\n- [ ] Unknowns are either resolved or converted into bounded research work.\n- [ ] The owner believes the packet can reach Done without hidden external\n      approval or another unplanned packet.",
       "title": "Required for every work packet"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 33,
-      "line_start": 24,
+      "line_end": 45,
+      "line_start": 32,
       "section_id": "additional-checks-for-behavior-changes",
-      "text": "## Additional checks for behavior changes\n\n- [ ] User and system behavior is specified for success, invalid input,\n      unauthorized action, dependency failure, interruption, and retry as\n      relevant.\n- [ ] Compatibility and migration impact is understood.\n- [ ] Test approach includes the appropriate unit, contract, integration,\n      acceptance, accessibility, performance, or security level.\n- [ ] Required telemetry and support behavior are explicit.",
+      "text": "## Additional checks for behavior changes\n\n- [ ] User and system behavior is specified for success, invalid input,\n      unauthorized action, dependency failure, interruption, timeout,\n      cancellation, retry, and circuit-breaker behavior as relevant.\n- [ ] Compatibility and migration impact is understood.\n- [ ] Test approach includes the appropriate unit, contract, integration,\n      acceptance, accessibility, performance, determinism, privacy, or security\n      level.\n- [ ] Required telemetry, audit events, health behavior, and support behavior are\n      explicit.\n- [ ] Cache/vector/file/hosted state has declared provenance, isolation,\n      invalidation/retention, and rebuild/recovery behavior where applicable.",
       "title": "Additional checks for behavior changes"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 41,
-      "line_start": 34,
+      "line_end": 58,
+      "line_start": 46,
+      "section_id": "additional-checks-for-agent-ai-plugin-or-integration-work",
+      "text": "## Additional checks for agent, AI, plugin, or integration work\n\n- [ ] Canonical facts, derived facts, proposals, uncertain inference, and\n      external evidence cannot be conflated silently.\n- [ ] Prompt-injection, secret-exposure, tool escalation, and untrusted-input\n      threats have explicit negative tests where relevant.\n- [ ] Provider/model selection constraints include capability, privacy, cost,\n      latency, locality, and fallback expectations as applicable.\n- [ ] Retry/idempotency, timeout/cancellation, rate/cost budgets, and side-effect\n      risk are defined.\n- [ ] Cross-harness or human review requirements and disagreement-disposition\n      rules are explicit for consequential work.",
+      "title": "Additional checks for agent, AI, plugin, or integration work"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 72,
+      "line_start": 59,
       "section_id": "additional-checks-for-architecture-or-infrastructure",
-      "text": "## Additional checks for architecture or infrastructure\n\n- [ ] Decision drivers and quality scenarios are identified.\n- [ ] Strategic choices have an ADR or an assigned decision packet.\n- [ ] Deployment, configuration, rollback, capacity, cost, and ownership are\n      addressed.\n- [ ] Dependency risk and exit or containment strategy are understood.",
+      "text": "## Additional checks for architecture or infrastructure\n\n- [ ] Decision drivers and quality scenarios are identified.\n- [ ] Strategic choices have an ADR or an assigned decision packet.\n- [ ] Deployment, configuration, rollback, capacity, cost, ownership, isolation,\n      and air-gap/on-prem/cloud implications are addressed as applicable.\n- [ ] Dependency risk and exit or containment strategy are understood.\n- [ ] Public protocol/schema/plugin/storage/MCP/LSP/attestation surfaces have an\n      explicit versioning/compatibility plan before stability is promised.\n- [ ] Cryptographic work states algorithm profile, key lifecycle, rotation,\n      revocation, migration, and multi-party policy requirements where relevant.\n- [ ] Performance claims name a reproducible reference workload/profile rather\n      than relying on an unqualified headline number.",
       "title": "Additional checks for architecture or infrastructure"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 48,
-      "line_start": 42,
+      "line_end": 84,
+      "line_start": 73,
       "section_id": "readiness-authority",
-      "text": "## Readiness authority\n\nThe packet owner performs the initial check. Product accepts user outcome and\nscope; engineering accepts feasibility and evidence; security or operations\nreview when their risk threshold is crossed. A reviewer may mark a packet not\nready with a specific unmet criterion and the smallest corrective action.",
+      "text": "## Readiness authority\n\nThe packet owner performs the initial check. Product accepts user outcome and\nscope; engineering accepts feasibility and evidence; security, privacy,\noperations, or governance review when their risk threshold is crossed. A\nreviewer may mark a packet not ready with a specific unmet criterion and the\nsmallest corrective action.\n\nAgent-generated readiness assessments are advisory unless a separately accepted\npolicy grants a bounded machine-enforcement role. Readiness never authorizes\nexecution by itself.",
       "title": "Readiness authority"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 54,
-      "line_start": 49,
+      "line_end": 91,
+      "line_start": 85,
       "section_id": "expedite-policy",
-      "text": "## Expedite policy\n\nAn active security incident or production outage may bypass normal readiness to\ncontain harm. The incident commander records the authority, scope, risk, and\nverification plan. Missing traceability, tests, documentation, and follow-up\nwork are restored immediately after stabilization.",
+      "text": "## Expedite policy\n\nAn active security incident or production outage may bypass normal readiness to\ncontain harm. The incident commander records the authority, scope, risk,\ncapability boundary, and verification plan. Missing traceability, tests,\ndocumentation, audit evidence, and follow-up work are restored immediately after\nstabilization.",
       "title": "Expedite policy"
     }
   ],
   "source": {
-    "bytes": 2585,
+    "bytes": 4872,
     "canonical": true,
     "language": "markdown",
-    "lines": 54,
+    "lines": 91,
     "media_type": "text/markdown",
     "path": "engineering/definition-of-ready.md",
-    "sha256": "1e7ae0062eb8e727020ed541a6a98b71fd1e34670c11e66cacf8dcfb21303e58"
+    "sha256": "629db934c4855c5b2169170a8d1ecb0595f35d6696722489a5bbea6bd9686403"
   }
 }

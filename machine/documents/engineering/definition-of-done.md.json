@@ -1,5 +1,5 @@
 {
-  "content": "# Definition of Done\n\nDone means the intended behavior or evidence is integrated, verified,\ndocumented, operable, and accepted. Code complete, review requested, or works on\none machine are intermediate states.\n\n## Required for every work packet\n\n- [ ] Every acceptance criterion has linked passing evidence.\n- [ ] The change is reviewed and all blocking findings are resolved.\n- [ ] Automated checks pass in the protected integration path.\n- [ ] New and changed behavior has appropriate positive, negative, boundary,\n      and regression tests.\n- [ ] Documentation, specifications, diagrams, decisions, and changelog entries\n      are accurate where affected.\n- [ ] No credential, sensitive data, generated noise, debug bypass, or\n      unexplained warning is introduced.\n- [ ] Known limitations and follow-up work are recorded with owners.\n- [ ] The packet owner and required acceptance authority mark the work complete.\n\n## Product quality\n\n- [ ] The result is demonstrated through the supported user or system contract.\n- [ ] Errors and recovery are actionable and consistent with the product model.\n- [ ] Accessibility checks pass for affected user interactions.\n- [ ] Compatibility is preserved or the approved migration path is complete.\n\n## Security and data\n\n- [ ] Threats introduced or changed by the work are reviewed.\n- [ ] Authentication, authorization, validation, secrets, encryption, evidence,\n      and privacy controls are tested where relevant.\n- [ ] Data ownership, classification, retention, migration, and deletion remain\n      correct.\n- [ ] Dependency and artifact checks pass with no unaccepted blocking finding.\n\n## Operations and reliability\n\n- [ ] Health, demand, errors, saturation, and journey telemetry are present and\n      contain no prohibited sensitive payload.\n- [ ] Alerts are actionable, owned, and linked to response guidance.\n- [ ] Deployment, configuration, migration, rollback, and recovery behavior is\n      tested at the appropriate level.\n- [ ] Performance and cost remain within budgets or have approved evidence.\n\n## Increment and release completion\n\nIn addition to packet completion, an increment is Done only when integrated\nacceptance passes, unresolved work is explicitly re-planned, risk and status are\nupdated, and the review decision is recorded. A release also requires security,\noperational, product, and change approvals defined by the quality gates.\n\n## Waivers\n\nA waiver names the unmet criterion, reason, user and operational impact,\ncompensating control, accountable approver, expiration, and corrective work.\nWaivers cannot conceal an unaccepted critical risk and do not redefine Done.\n",
+  "content": "# Definition of Done\n\nDone means the intended behavior or evidence is integrated, verified,\ndocumented, operable, traceable, and accepted. Code complete, review requested,\nPR merged, or works on one machine are intermediate states.\n\n## Required for every work packet\n\n- [ ] Every acceptance criterion has linked passing evidence.\n- [ ] The change is reviewed and all blocking findings are resolved.\n- [ ] Automated checks pass in the protected integration path.\n- [ ] New and changed behavior has appropriate positive, negative, boundary,\n      determinism, security/privacy, and regression tests.\n- [ ] Documentation, specifications, diagrams, decisions, policies, and\n      changelog entries are accurate where affected.\n- [ ] No credential, sensitive data, generated noise, debug bypass, unexplained\n      warning, hidden authority expansion, or untracked external state is\n      introduced.\n- [ ] Known limitations and follow-up work are recorded with owners.\n- [ ] The packet owner and required acceptance authority mark the work complete.\n- [ ] Consequential actions, decisions, reviews, executions, and resulting\n      artifacts are linked through the required audit/evidence model.\n- [ ] When policy requires it, DSSE-compatible attestations are valid, linked to\n      exact source/artifact/evidence identities, and accepted by the protected\n      integration/release gate.\n\n## Product quality\n\n- [ ] The result is demonstrated through the supported user or system contract.\n- [ ] Errors and recovery are actionable and consistent with the product model.\n- [ ] Accessibility checks pass for affected user interactions.\n- [ ] Compatibility is preserved or the approved migration path is complete.\n- [ ] Scores, dashboards, AI summaries, and automation views link back to the\n      underlying governed evidence rather than becoming opaque truth.\n\n## Agent, AI, plugin, and integration quality\n\n- [ ] Agent/provider/plugin/integration capabilities stay within the authorized\n      least-privilege boundary.\n- [ ] Canonical fact, derived fact, proposal, uncertain inference, stale state,\n      and external evidence remain distinguishable.\n- [ ] Prompt-injection, secret masking, capability escalation, and untrusted-input\n      controls pass relevant negative tests.\n- [ ] Retry/idempotency, timeout/cancellation, circuit-breaker, cost/rate budget,\n      and failure-isolation behavior is verified where applicable.\n- [ ] Required cross-harness/human review is complete and disagreements have an\n      explicit disposition.\n- [ ] Autonomy promotion evidence is recorded; newly demonstrated unreliability\n      triggers demotion/revocation or an explicit risk disposition.\n\n## Security, identity, cryptography, and data\n\n- [ ] Threats introduced or changed by the work are reviewed.\n- [ ] Authentication, authorization, validation, secrets, encryption,\n      attestations, evidence, tenant/workspace isolation, and privacy controls\n      are tested where relevant.\n- [ ] Data ownership, classification, retention, migration, deletion, cache\n      invalidation, and rebuild/recovery remain correct.\n- [ ] Key generation/use/rotation/revocation and multi-party approval rules are\n      verified for cryptographic changes.\n- [ ] Algorithm/version identifiers are explicit; post-quantum or other crypto\n      migration does not rewrite historical semantic meaning.\n- [ ] Dependency, plugin, adapter, and artifact provenance checks pass with no\n      unaccepted blocking finding.\n\n## Operations, observability, and reliability\n\n- [ ] Health, demand, errors, saturation, journey, execution, and cost/token\n      telemetry are present where relevant and contain no prohibited sensitive\n      payload.\n- [ ] Required structured logs, metrics, and traces correlate to Work\n      Packet/execution/evidence identifiers through OpenTelemetry-compatible\n      boundaries where applicable.\n- [ ] Alerts are actionable, owned, and linked to response guidance.\n- [ ] Deployment, configuration, migration, rollback/restore, air-gap boundary,\n      and recovery behavior is tested at the appropriate level.\n- [ ] Performance and cost remain within approved budgets or have explicit\n      evidence/risk disposition.\n- [ ] Any throughput or state-finalization claim names the exact reference\n      hardware/workload/profile and cannot be inferred from a different class of\n      operation.\n\n## Increment and release completion\n\nIn addition to packet completion, an increment is Done only when integrated\nacceptance passes, unresolved work is explicitly re-planned, risk and status are\nupdated, and the review decision is recorded. A release also requires security,\nprivacy, operational, product, change, compatibility, provenance, and\nattestation approvals defined by its quality gates.\n\nRelease completion cannot be inferred from merged code, model consensus,\nperformance headline numbers, or a dashboard score.\n\n## Waivers\n\nA waiver names the unmet criterion, reason, user and operational impact,\ncompensating control, accountable approver, expiration, and corrective work.\nWaivers cannot conceal an unaccepted critical risk, cannot grant unbounded agent\nauthority, and do not redefine Done.\n",
   "document_id": "doc:engineering%2Fdefinition-of-done.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "Done means the intended behavior or evidence is integrated, verified, documented, operable, and accepted. Code complete, review requested, or works on one machine are intermediate states.",
+    "summary": "Done means the intended behavior or evidence is integrated, verified, documented, operable, traceable, and accepted. Code complete, review requested, PR merged, or works on one machine are intermediate states.",
     "title": "Definition of Done"
   },
   "relations": [],
@@ -24,71 +24,80 @@
       "line_end": 6,
       "line_start": 1,
       "section_id": "definition-of-done",
-      "text": "# Definition of Done\n\nDone means the intended behavior or evidence is integrated, verified,\ndocumented, operable, and accepted. Code complete, review requested, or works on\none machine are intermediate states.",
+      "text": "# Definition of Done\n\nDone means the intended behavior or evidence is integrated, verified,\ndocumented, operable, traceable, and accepted. Code complete, review requested,\nPR merged, or works on one machine are intermediate states.",
       "title": "Definition of Done"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 20,
+      "line_end": 26,
       "line_start": 7,
       "section_id": "required-for-every-work-packet",
-      "text": "## Required for every work packet\n\n- [ ] Every acceptance criterion has linked passing evidence.\n- [ ] The change is reviewed and all blocking findings are resolved.\n- [ ] Automated checks pass in the protected integration path.\n- [ ] New and changed behavior has appropriate positive, negative, boundary,\n      and regression tests.\n- [ ] Documentation, specifications, diagrams, decisions, and changelog entries\n      are accurate where affected.\n- [ ] No credential, sensitive data, generated noise, debug bypass, or\n      unexplained warning is introduced.\n- [ ] Known limitations and follow-up work are recorded with owners.\n- [ ] The packet owner and required acceptance authority mark the work complete.",
+      "text": "## Required for every work packet\n\n- [ ] Every acceptance criterion has linked passing evidence.\n- [ ] The change is reviewed and all blocking findings are resolved.\n- [ ] Automated checks pass in the protected integration path.\n- [ ] New and changed behavior has appropriate positive, negative, boundary,\n      determinism, security/privacy, and regression tests.\n- [ ] Documentation, specifications, diagrams, decisions, policies, and\n      changelog entries are accurate where affected.\n- [ ] No credential, sensitive data, generated noise, debug bypass, unexplained\n      warning, hidden authority expansion, or untracked external state is\n      introduced.\n- [ ] Known limitations and follow-up work are recorded with owners.\n- [ ] The packet owner and required acceptance authority mark the work complete.\n- [ ] Consequential actions, decisions, reviews, executions, and resulting\n      artifacts are linked through the required audit/evidence model.\n- [ ] When policy requires it, DSSE-compatible attestations are valid, linked to\n      exact source/artifact/evidence identities, and accepted by the protected\n      integration/release gate.",
       "title": "Required for every work packet"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 27,
-      "line_start": 21,
+      "line_end": 35,
+      "line_start": 27,
       "section_id": "product-quality",
-      "text": "## Product quality\n\n- [ ] The result is demonstrated through the supported user or system contract.\n- [ ] Errors and recovery are actionable and consistent with the product model.\n- [ ] Accessibility checks pass for affected user interactions.\n- [ ] Compatibility is preserved or the approved migration path is complete.",
+      "text": "## Product quality\n\n- [ ] The result is demonstrated through the supported user or system contract.\n- [ ] Errors and recovery are actionable and consistent with the product model.\n- [ ] Accessibility checks pass for affected user interactions.\n- [ ] Compatibility is preserved or the approved migration path is complete.\n- [ ] Scores, dashboards, AI summaries, and automation views link back to the\n      underlying governed evidence rather than becoming opaque truth.",
       "title": "Product quality"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 36,
-      "line_start": 28,
-      "section_id": "security-and-data",
-      "text": "## Security and data\n\n- [ ] Threats introduced or changed by the work are reviewed.\n- [ ] Authentication, authorization, validation, secrets, encryption, evidence,\n      and privacy controls are tested where relevant.\n- [ ] Data ownership, classification, retention, migration, and deletion remain\n      correct.\n- [ ] Dependency and artifact checks pass with no unaccepted blocking finding.",
-      "title": "Security and data"
+      "line_end": 50,
+      "line_start": 36,
+      "section_id": "agent-ai-plugin-and-integration-quality",
+      "text": "## Agent, AI, plugin, and integration quality\n\n- [ ] Agent/provider/plugin/integration capabilities stay within the authorized\n      least-privilege boundary.\n- [ ] Canonical fact, derived fact, proposal, uncertain inference, stale state,\n      and external evidence remain distinguishable.\n- [ ] Prompt-injection, secret masking, capability escalation, and untrusted-input\n      controls pass relevant negative tests.\n- [ ] Retry/idempotency, timeout/cancellation, circuit-breaker, cost/rate budget,\n      and failure-isolation behavior is verified where applicable.\n- [ ] Required cross-harness/human review is complete and disagreements have an\n      explicit disposition.\n- [ ] Autonomy promotion evidence is recorded; newly demonstrated unreliability\n      triggers demotion/revocation or an explicit risk disposition.",
+      "title": "Agent, AI, plugin, and integration quality"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 45,
-      "line_start": 37,
-      "section_id": "operations-and-reliability",
-      "text": "## Operations and reliability\n\n- [ ] Health, demand, errors, saturation, and journey telemetry are present and\n      contain no prohibited sensitive payload.\n- [ ] Alerts are actionable, owned, and linked to response guidance.\n- [ ] Deployment, configuration, migration, rollback, and recovery behavior is\n      tested at the appropriate level.\n- [ ] Performance and cost remain within budgets or have approved evidence.",
-      "title": "Operations and reliability"
+      "line_end": 65,
+      "line_start": 51,
+      "section_id": "security-identity-cryptography-and-data",
+      "text": "## Security, identity, cryptography, and data\n\n- [ ] Threats introduced or changed by the work are reviewed.\n- [ ] Authentication, authorization, validation, secrets, encryption,\n      attestations, evidence, tenant/workspace isolation, and privacy controls\n      are tested where relevant.\n- [ ] Data ownership, classification, retention, migration, deletion, cache\n      invalidation, and rebuild/recovery remain correct.\n- [ ] Key generation/use/rotation/revocation and multi-party approval rules are\n      verified for cryptographic changes.\n- [ ] Algorithm/version identifiers are explicit; post-quantum or other crypto\n      migration does not rewrite historical semantic meaning.\n- [ ] Dependency, plugin, adapter, and artifact provenance checks pass with no\n      unaccepted blocking finding.",
+      "title": "Security, identity, cryptography, and data"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 52,
-      "line_start": 46,
+      "line_end": 82,
+      "line_start": 66,
+      "section_id": "operations-observability-and-reliability",
+      "text": "## Operations, observability, and reliability\n\n- [ ] Health, demand, errors, saturation, journey, execution, and cost/token\n      telemetry are present where relevant and contain no prohibited sensitive\n      payload.\n- [ ] Required structured logs, metrics, and traces correlate to Work\n      Packet/execution/evidence identifiers through OpenTelemetry-compatible\n      boundaries where applicable.\n- [ ] Alerts are actionable, owned, and linked to response guidance.\n- [ ] Deployment, configuration, migration, rollback/restore, air-gap boundary,\n      and recovery behavior is tested at the appropriate level.\n- [ ] Performance and cost remain within approved budgets or have explicit\n      evidence/risk disposition.\n- [ ] Any throughput or state-finalization claim names the exact reference\n      hardware/workload/profile and cannot be inferred from a different class of\n      operation.",
+      "title": "Operations, observability, and reliability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 93,
+      "line_start": 83,
       "section_id": "increment-and-release-completion",
-      "text": "## Increment and release completion\n\nIn addition to packet completion, an increment is Done only when integrated\nacceptance passes, unresolved work is explicitly re-planned, risk and status are\nupdated, and the review decision is recorded. A release also requires security,\noperational, product, and change approvals defined by the quality gates.",
+      "text": "## Increment and release completion\n\nIn addition to packet completion, an increment is Done only when integrated\nacceptance passes, unresolved work is explicitly re-planned, risk and status are\nupdated, and the review decision is recorded. A release also requires security,\nprivacy, operational, product, change, compatibility, provenance, and\nattestation approvals defined by its quality gates.\n\nRelease completion cannot be inferred from merged code, model consensus,\nperformance headline numbers, or a dashboard score.",
       "title": "Increment and release completion"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 57,
-      "line_start": 53,
+      "line_end": 99,
+      "line_start": 94,
       "section_id": "waivers",
-      "text": "## Waivers\n\nA waiver names the unmet criterion, reason, user and operational impact,\ncompensating control, accountable approver, expiration, and corrective work.\nWaivers cannot conceal an unaccepted critical risk and do not redefine Done.",
+      "text": "## Waivers\n\nA waiver names the unmet criterion, reason, user and operational impact,\ncompensating control, accountable approver, expiration, and corrective work.\nWaivers cannot conceal an unaccepted critical risk, cannot grant unbounded agent\nauthority, and do not redefine Done.",
       "title": "Waivers"
     }
   ],
   "source": {
-    "bytes": 2647,
+    "bytes": 5178,
     "canonical": true,
     "language": "markdown",
-    "lines": 57,
+    "lines": 99,
     "media_type": "text/markdown",
     "path": "engineering/definition-of-done.md",
-    "sha256": "26f0b6330893a8a6522d88b26c1aea55538bec83930672a8ba2658a0a9cd216b"
+    "sha256": "5f324ea56be20a589fe228f1aa28af85faec198b6506b55485621e57c6c1033b"
   }
 }

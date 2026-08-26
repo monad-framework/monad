@@ -1,0 +1,71 @@
+{
+  "content": "# M-005 — Governed Automation Beta\n\n**Status:** Planned  \n**Target gate:** 2027-01-10 (forecast)  \n**Increment:** PI-EXP-002  \n**Product Goal:** PG-003\n\n## Outcome\n\nMonad can run consequential automation under signed attestations, cryptographic agility, strong identity, prompt/secret/capability security, declarative policy, formal change control, tamper-evident audit, readiness/done trust gates, OpenTelemetry, execution analytics, privacy-governed hosted analytics, and controlled shared deployment.\n\n## Acceptance\n\n- WC-EXP-0006 through WC-EXP-0009 accepted;\n- WP-EXP-0013 through WP-EXP-0024 closed or explicitly replanned without weakening PG-003;\n- attestation/identity/key lifecycle policies have conformance evidence;\n- security boundaries withstand negative prompt/secret/capability tests;\n- change/rollback/audit history is reconstructable;\n- operational telemetry correlates actions to Work Packets/executions/evidence;\n- hosted analytics/deployment remain optional and separable from local semantic authority.\n",
+  "document_id": "doc:engineering%2Fmilestones%2FM-005-GOVERNED-AUTOMATION-BETA.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "EXP-0006",
+    "EXP-0009",
+    "EXP-0013",
+    "EXP-002",
+    "EXP-0024"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Planned Target gate: 2027-01-10 (forecast) Increment: PI-EXP-002 Product Goal: PG-003",
+    "title": "M-005 — Governed Automation Beta"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "EXP-002"
+      ],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "m-005-governed-automation-beta",
+      "text": "# M-005 — Governed Automation Beta\n\n**Status:** Planned  \n**Target gate:** 2027-01-10 (forecast)  \n**Increment:** PI-EXP-002  \n**Product Goal:** PG-003",
+      "title": "M-005 — Governed Automation Beta"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 8,
+      "section_id": "outcome",
+      "text": "## Outcome\n\nMonad can run consequential automation under signed attestations, cryptographic agility, strong identity, prompt/secret/capability security, declarative policy, formal change control, tamper-evident audit, readiness/done trust gates, OpenTelemetry, execution analytics, privacy-governed hosted analytics, and controlled shared deployment.",
+      "title": "Outcome"
+    },
+    {
+      "identifiers": [
+        "EXP-0006",
+        "EXP-0009",
+        "EXP-0013",
+        "EXP-0024"
+      ],
+      "level": 2,
+      "line_end": 20,
+      "line_start": 12,
+      "section_id": "acceptance",
+      "text": "## Acceptance\n\n- WC-EXP-0006 through WC-EXP-0009 accepted;\n- WP-EXP-0013 through WP-EXP-0024 closed or explicitly replanned without weakening PG-003;\n- attestation/identity/key lifecycle policies have conformance evidence;\n- security boundaries withstand negative prompt/secret/capability tests;\n- change/rollback/audit history is reconstructable;\n- operational telemetry correlates actions to Work Packets/executions/evidence;\n- hosted analytics/deployment remain optional and separable from local semantic authority.",
+      "title": "Acceptance"
+    }
+  ],
+  "source": {
+    "bytes": 1026,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 20,
+    "media_type": "text/markdown",
+    "path": "engineering/milestones/M-005-GOVERNED-AUTOMATION-BETA.md",
+    "sha256": "af7d36a0f35548266c45e02ad9f4302fc068fe662f575ae1de845e5586e7df98"
+  }
+}

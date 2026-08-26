@@ -1,0 +1,71 @@
+{
+  "content": "# M-006 — Living Engineering OS Release 2\n\n**Status:** Planned  \n**Target gate:** 2027-02-14 (forecast)  \n**Increment:** PI-EXP-003  \n**Product Goal:** PG-004\n\n## Outcome\n\nMonad can operate across local, air-gapped, on-premises, and optional cloud profiles; clone/restore governed workspace state; reproduce environments; manage governed files/media; integrate through MCP/LSP/plugins/storage adapters; isolate optional external-runtime profiles; execute independent internal work deterministically in parallel; and meet declared scale/finalization benchmarks with complete security/provenance evidence.\n\n## Acceptance\n\n- WC-EXP-0010 through WC-EXP-0014 accepted;\n- WP-EXP-0025 through WP-EXP-0040 closed or explicitly replanned without weakening PG-004;\n- enterprise/offline and integration-surface conformance passes;\n- plugin/storage/runtime adapters cannot redefine canonical semantic truth;\n- parallel scheduling preserves deterministic result/evidence ordering;\n- throughput/finalization claims include declared reference hardware/workload evidence;\n- expanded security/scale/end-to-end journeys pass;\n- migration from MVP Release 1 preserves canonical history and compatibility guarantees;\n- PG-002, PG-003, and PG-004 receive explicit Product Authority acceptance or exact blocking evidence is recorded.\n",
+  "document_id": "doc:engineering%2Fmilestones%2FM-006-LIVING-ENGINEERING-OS-RELEASE-2.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "EXP-0010",
+    "EXP-0014",
+    "EXP-0025",
+    "EXP-003",
+    "EXP-0040"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Planned Target gate: 2027-02-14 (forecast) Increment: PI-EXP-003 Product Goal: PG-004",
+    "title": "M-006 — Living Engineering OS Release 2"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "EXP-003"
+      ],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "m-006-living-engineering-os-release-2",
+      "text": "# M-006 — Living Engineering OS Release 2\n\n**Status:** Planned  \n**Target gate:** 2027-02-14 (forecast)  \n**Increment:** PI-EXP-003  \n**Product Goal:** PG-004",
+      "title": "M-006 — Living Engineering OS Release 2"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 8,
+      "section_id": "outcome",
+      "text": "## Outcome\n\nMonad can operate across local, air-gapped, on-premises, and optional cloud profiles; clone/restore governed workspace state; reproduce environments; manage governed files/media; integrate through MCP/LSP/plugins/storage adapters; isolate optional external-runtime profiles; execute independent internal work deterministically in parallel; and meet declared scale/finalization benchmarks with complete security/provenance evidence.",
+      "title": "Outcome"
+    },
+    {
+      "identifiers": [
+        "EXP-0010",
+        "EXP-0014",
+        "EXP-0025",
+        "EXP-0040"
+      ],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 12,
+      "section_id": "acceptance",
+      "text": "## Acceptance\n\n- WC-EXP-0010 through WC-EXP-0014 accepted;\n- WP-EXP-0025 through WP-EXP-0040 closed or explicitly replanned without weakening PG-004;\n- enterprise/offline and integration-surface conformance passes;\n- plugin/storage/runtime adapters cannot redefine canonical semantic truth;\n- parallel scheduling preserves deterministic result/evidence ordering;\n- throughput/finalization claims include declared reference hardware/workload evidence;\n- expanded security/scale/end-to-end journeys pass;\n- migration from MVP Release 1 preserves canonical history and compatibility guarantees;\n- PG-002, PG-003, and PG-004 receive explicit Product Authority acceptance or exact blocking evidence is recorded.",
+      "title": "Acceptance"
+    }
+  ],
+  "source": {
+    "bytes": 1314,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 22,
+    "media_type": "text/markdown",
+    "path": "engineering/milestones/M-006-LIVING-ENGINEERING-OS-RELEASE-2.md",
+    "sha256": "629f90561b2543faca6c9c9e9b705318b2897fce73a8e87bd0c9f673a607a20d"
+  }
+}
