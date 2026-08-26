@@ -1,0 +1,82 @@
+name: Temporary WP-MVP-0004 closure
+
+on:
+  push:
+    branches:
+      - eosr/close-wp-mvp-0004
+    paths:
+      - .eos/wp-mvp-0004-close-trigger
+
+permissions:
+  contents: write
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact closure branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+
+      - name: Reconcile checklist and execute governed closure
+        shell: bash
+        env:
+          EXPECTED_MAIN_HEAD: 5f7fe570fd5bf2ac982e6f40ebb0a61f09d0dcad
+        run: |
+          set -Eeuo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$EXPECTED_MAIN_HEAD"
+          git merge-base --is-ancestor "$EXPECTED_MAIN_HEAD" HEAD
+
+          rm .github/workflows/temporary-wp-mvp-0004-close.yml
+          rm .eos/wp-mvp-0004-close-trigger
+          python3 scripts/sync-machine-docs.py --write
+          python3 scripts/sync-machine-docs.py --check
+          test -z "$(git diff --name-only "$EXPECTED_MAIN_HEAD" -- crates engineering .eos machine | grep -v '^$')"
+
+          python3 -c 'from pathlib import Path; p=Path("engineering/work-packets/WP-MVP-0004.md"); t=p.read_text(encoding="utf-8"); n=t.count("- [ ]"); assert n == 7, f"expected 7 unchecked acceptance criteria, found {n}"; p.write_text(t.replace("- [ ]", "- [x]"), encoding="utf-8")'
+          test "$(grep -c '^- \[x\]' engineering/work-packets/WP-MVP-0004.md)" -eq 7
+          ! grep -q '^- \[ \]' engineering/work-packets/WP-MVP-0004.md
+          grep -q '^\*\*Decision:\*\* ACCEPTED$' engineering/reviews/WP-MVP-0004-REVIEW.md
+
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+          ./scripts/eos verify --strict
+          ./scripts/eos state status
+
+          ./scripts/eos close WP-MVP-0004 --by "ChatGPT" --reason "all seven acceptance criteria independently verified; final EOSR accepted after F001 correction"
+
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+          ./scripts/eos state status
+          ./scripts/eos verify --strict
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-targets --all-features
+
+          grep -q '^\*\*Status:\*\* CLOSED$' engineering/work-packets/WP-MVP-0004.md
+          grep -q '^WP-MVP-0004.*CLOSED' .eos/work-packets.tsv
+          test "$(grep -c '^- \[x\]' engineering/work-packets/WP-MVP-0004.md)" -eq 7
+          ! grep -q '^- \[ \]' engineering/work-packets/WP-MVP-0004.md
+          grep -q '^\*\*Decision:\*\* ACCEPTED$' engineering/reviews/WP-MVP-0004-REVIEW.md
+
+          mapfile -t changed < <({ git diff --name-only "$EXPECTED_MAIN_HEAD"; git ls-files --others --exclude-standard; } | sort -u)
+          test "${#changed[@]}" -gt 0
+          for f in "${changed[@]}"; do
+            case "$f" in
+              .eos/*|engineering/work-packets/WP-MVP-0004.md|machine/*) ;;
+              *) echo "Out-of-scope WP-MVP-0004 closure path: $f" >&2; exit 1 ;;
+            esac
+          done
+
+          git config user.name "ChatGPT"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "chore(eosr): close WP-MVP-0004"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
