@@ -1,0 +1,67 @@
+{
+  "content": "---\nartifact_id: \"EVID-0179\"\ntitle: \"Verification Evidence EVID-0179\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"VALIDATED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-08-26\"\nupdated: \"2026-08-26\"\n---\n\n# EVID-0179 — Verification Evidence\n\n- Target: WP-MVP-0004\n- Execution: EXEC-0009\n- Profile: wp\n- Validator: repository\n- Kind: repository\n- Result: SKIPPED\n- Exit code: 0\n- Source fingerprint: `f7cc22cb8062bf7349a5dc1081038a2ad6ec036d92d2e9884f4659a581e5ae92`\n- Environment fingerprint: `8ccd55e02114d937547f274915818df635c83c845a7b3d8fd5fe1286839a4e7e`\n- Machine evidence: `.eos/evidence/EVID-0179.json`\n- Machine evidence SHA-256: `3c5d87f37c6ca97c384b089cdaf3cbad2ecadbe3466ed871f6768ad04d27d966`\n- Covers: (not explicitly mapped)\n\n## Command\n\n`legacy:.eos/validation.commands`\n\n## Output Digest\n\n`fae3e53fb62a416d7890478ca9e34727182f11b1f627e6e32b2f51b62e35d4f7`\n\nThe full bounded output and structured details are retained in the machine evidence artifact.\n",
+  "document_id": "doc:engineering%2Fevidence%2FEVID-0179.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"EVID-0179\" title: \"Verification Evidence EVID-0179\" type: \"verification-evidence\" version: \"1.0.0\" status: \"VALIDATED\" authority: \"evidence-authoritative\" created: \"2026-08-26\" updated: \"2026-08-26\" ---",
+    "title": "EVID-0179 — Verification Evidence"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"EVID-0179\"\ntitle: \"Verification Evidence EVID-0179\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"VALIDATED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-08-26\"\nupdated: \"2026-08-26\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 26,
+      "line_start": 12,
+      "section_id": "evid-0179-verification-evidence",
+      "text": "# EVID-0179 — Verification Evidence\n\n- Target: WP-MVP-0004\n- Execution: EXEC-0009\n- Profile: wp\n- Validator: repository\n- Kind: repository\n- Result: SKIPPED\n- Exit code: 0\n- Source fingerprint: `f7cc22cb8062bf7349a5dc1081038a2ad6ec036d92d2e9884f4659a581e5ae92`\n- Environment fingerprint: `8ccd55e02114d937547f274915818df635c83c845a7b3d8fd5fe1286839a4e7e`\n- Machine evidence: `.eos/evidence/EVID-0179.json`\n- Machine evidence SHA-256: `3c5d87f37c6ca97c384b089cdaf3cbad2ecadbe3466ed871f6768ad04d27d966`\n- Covers: (not explicitly mapped)",
+      "title": "EVID-0179 — Verification Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 27,
+      "section_id": "command",
+      "text": "## Command\n\n`legacy:.eos/validation.commands`",
+      "title": "Command"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 31,
+      "section_id": "output-digest",
+      "text": "## Output Digest\n\n`fae3e53fb62a416d7890478ca9e34727182f11b1f627e6e32b2f51b62e35d4f7`\n\nThe full bounded output and structured details are retained in the machine evidence artifact.",
+      "title": "Output Digest"
+    }
+  ],
+  "source": {
+    "bytes": 987,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 35,
+    "media_type": "text/markdown",
+    "path": "engineering/evidence/EVID-0179.md",
+    "sha256": "9ae6ba8797767defa0041b416c6da8f00934633f4d7300456830ab9bda9d5c56"
+  }
+}

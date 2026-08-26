@@ -1,0 +1,77 @@
+{
+  "command": "builtin:execution-acceptance",
+  "covers": [],
+  "created": "2026-08-26T08:16:20Z",
+  "details": {
+    "criteria": [
+      {
+        "criterion": "US-011 section/heading/metadata structure and source ranges are extracted deterministically.",
+        "evidence": "Workspace parser tests pass; multiline inline code is masked before structural extraction and source-range behavior remains covered.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-012 governed identifiers/status metadata are extracted according to artifact contracts.",
+        "evidence": "Explicit ID values now require one complete valid governed identifier; malformed values are diagnosed and not promoted to accepted metadata.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-013 links and identifier references are emitted as unresolved candidates with provenance.",
+        "evidence": "Link destinations now exclude optional Markdown titles while identifier candidates retain exact source spans and approved governed namespaces.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-014 malformed/ambiguous governed constructs produce source-located diagnostics; partial recovery is not silently valid semantic state.",
+        "evidence": "Invalid explicit IDs, malformed metadata shapes, and invalid UTF-8 sequences produce bounded diagnostics without promotion to valid semantic facts.",
+        "status": "passed"
+      },
+      {
+        "criterion": "code fences containing fake IDs/links are not treated as ordinary governed references.",
+        "evidence": "Existing fence tests and new multiline inline-code structural masking tests pass.",
+        "status": "passed"
+      },
+      {
+        "criterion": "HTML/scripts/macros are never executed.",
+        "evidence": "Existing executable-looking-content and HTML-comment safety tests pass; parser behavior remains side-effect free.",
+        "status": "passed"
+      },
+      {
+        "criterion": "repeat-run normalized output is equivalent/byte-stable where declared canonical.",
+        "evidence": "Existing normalized-output and comment-mask repeatability tests pass.",
+        "status": "passed"
+      }
+    ],
+    "failed": []
+  },
+  "environment": {
+    "bash": "GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)",
+    "bun": "",
+    "cargo": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)",
+    "git": "git version 2.55.0",
+    "go": "go version go1.24.13 linux/amd64",
+    "hostname": "runnervmgx7h7",
+    "lockfiles": {
+      "Cargo.lock": "114034aebf82078124f42fc902668688c2a18a2d0aba67342a9b34793d141968"
+    },
+    "machine": "x86_64",
+    "node": "v22.23.2",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)"
+  },
+  "environment_hash": "8ccd55e02114d937547f274915818df635c83c845a7b3d8fd5fe1286839a4e7e",
+  "execution": "EXEC-0009",
+  "exit_code": 0,
+  "id": "EVID-0180",
+  "kind": "acceptance",
+  "output": "[\n  {\n    \"criterion\": \"US-011 section/heading/metadata structure and source ranges are extracted deterministically.\",\n    \"evidence\": \"Workspace parser tests pass; multiline inline code is masked before structural extraction and source-range behavior remains covered.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"US-012 governed identifiers/status metadata are extracted according to artifact contracts.\",\n    \"evidence\": \"Explicit ID values now require one complete valid governed identifier; malformed values are diagnosed and not promoted to accepted metadata.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"US-013 links and identifier references are emitted as unresolved candidates with provenance.\",\n    \"evidence\": \"Link destinations now exclude optional Markdown titles while identifier candidates retain exact source spans and approved governed namespaces.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"US-014 malformed/ambiguous governed constructs produce source-located diagnostics; partial recovery is not silently valid semantic state.\",\n    \"evidence\": \"Invalid explicit IDs, malformed metadata shapes, and invalid UTF-8 sequences produce bounded diagnostics without promotion to valid semantic facts.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"code fences containing fake IDs/links are not treated as ordinary governed references.\",\n    \"evidence\": \"Existing fence tests and new multiline inline-code structural masking tests pass.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"HTML/scripts/macros are never executed.\",\n    \"evidence\": \"Existing executable-looking-content and HTML-comment safety tests pass; parser behavior remains side-effect free.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"repeat-run normalized output is equivalent/byte-stable where declared canonical.\",\n    \"evidence\": \"Existing normalized-output and comment-mask repeatability tests pass.\",\n    \"status\": \"passed\"\n  }\n]",
+  "output_hash": "5d63b6e5c6554d5c7d41b4f794ff70bbfad59c17a00eb52b099fcafbeb0f45d0",
+  "producer": {
+    "actor": "chatgpt",
+    "commit": "c1ac64ea08d55c58acfb3e9ac67fda253e6f0014"
+  },
+  "profile": "wp",
+  "result": "PASSED",
+  "source_hash": "f7cc22cb8062bf7349a5dc1081038a2ad6ec036d92d2e9884f4659a581e5ae92",
+  "target": "WP-MVP-0004",
+  "validator": "execution-acceptance"
+}
