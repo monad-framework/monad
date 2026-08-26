@@ -1,0 +1,40 @@
+{
+  "content": "name: Temporary trace synchronization\n\non:\n  push:\n    branches:\n      - trace/expanded-capability-roadmap-sync\n    paths:\n      - engineering/.trace-sync-trigger\n\npermissions:\n  contents: write\n\njobs:\n  synchronize:\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - name: Check out branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          fetch-depth: 0\n\n      - name: Regenerate deterministic EOS trace projection\n        run: python3 tools/eos/trace_integrity.py --write\n\n      - name: Synchronize deterministic machine documents\n        run: python3 scripts/sync-machine-docs.py --write\n\n      - name: Verify deterministic projections\n        run: |\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit generated projections\n        shell: bash\n        run: |\n          if git diff --quiet --exit-code; then\n            exit 0\n          fi\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add .eos/trace-edges.tsv machine\n          git commit -m \"chore(eos): synchronize deterministic trace projection\"\n          git push origin \"HEAD:${GITHUB_REF_NAME}\"\n",
+  "document_id": "doc:.github%2Fworkflows%2Ftemporary-trace-sync.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/temporary-trace-sync.yml.",
+    "title": "Temporary Trace Sync"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 44,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Temporary trace synchronization\n\non:\n  push:\n    branches:\n      - trace/expanded-capability-roadmap-sync\n    paths:\n      - engineering/.trace-sync-trigger\n\npermissions:\n  contents: write\n\njobs:\n  synchronize:\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - name: Check out branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          fetch-depth: 0\n\n      - name: Regenerate deterministic EOS trace projection\n        run: python3 tools/eos/trace_integrity.py --write\n\n      - name: Synchronize deterministic machine documents\n        run: python3 scripts/sync-machine-docs.py --write\n\n      - name: Verify deterministic projections\n        run: |\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit generated projections\n        shell: bash\n        run: |\n          if git diff --quiet --exit-code; then\n            exit 0\n          fi\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add .eos/trace-edges.tsv machine\n          git commit -m \"chore(eos): synchronize deterministic trace projection\"\n          git push origin \"HEAD:${GITHUB_REF_NAME}\"",
+      "title": "Temporary Trace Sync"
+    }
+  ],
+  "source": {
+    "bytes": 1302,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 44,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/temporary-trace-sync.yml",
+    "sha256": "58931e65f5f6d65232c24b11d9b3ec4eecb8f67dc68690ae6c30f93e23b34ecf"
+  }
+}
