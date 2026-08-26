@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "adoption_id": "ADOPT-WP-MVP-0005-2026-08-26",
+  "reason": "Adopt WP-MVP-0005 after canonical closure of WP-MVP-0004 and reconciliation of its satisfied prerequisites; advance only through the governed Ready gate while preserving separate authorization.",
+  "evidence": [
+    "engineering/work-cycles/WC-MVP-0002.md",
+    "engineering/work-packets/WP-MVP-0001.md",
+    "engineering/work-packets/WP-MVP-0003.md",
+    "engineering/work-packets/WP-MVP-0004.md",
+    "architecture/decisions/ADR-0002-repository-root-and-configuration.md",
+    "architecture/decisions/ADR-0003-stable-source-and-document-identity.md",
+    "architecture/decisions/ADR-0004-safe-deterministic-ingestion-boundary.md",
+    "architecture/decisions/ADR-0005-mvp-core-implementation-topology.md",
+    "specifications/interfaces/IFC-WORKSPACE-0001-repository-root-and-effective-configuration.md",
+    "specifications/data/DATA-SOURCE-0001-stable-source-and-document-identity.md",
+    "specifications/technical/TECH-INGEST-0002-structured-monad-configuration-parsing.md"
+  ],
+  "work_packets": [
+    {
+      "id": "WP-MVP-0005",
+      "path": "engineering/work-packets/WP-MVP-0005.md",
+      "title": "Structured Monad configuration parser",
+      "status": "DRAFT",
+      "pi": "PI-MVP-001",
+      "wc": "WC-MVP-0002",
+      "domain": "CORE",
+      "created": "2026-08-26T00:00:00Z",
+      "updated": "2026-08-26T00:00:00Z",
+      "github_url": ""
+    }
+  ]
+}
