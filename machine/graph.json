@@ -1701,38 +1701,38 @@
       "type": "declares"
     },
     {
-      "source": "doc:.github%2Fworkflows%2Frepository-integrity.yml",
-      "target": "identifier:ADR-0001",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.github%2Fworkflows%2Ftemporary-wp-mvp-0004-eosr.yml",
+      "source": "doc:.eos%2Fwp-mvp-0004-eosr-run.sh",
       "target": "identifier:ADR-0003",
       "type": "declares"
     },
     {
-      "source": "doc:.github%2Fworkflows%2Ftemporary-wp-mvp-0004-eosr.yml",
+      "source": "doc:.eos%2Fwp-mvp-0004-eosr-run.sh",
       "target": "identifier:ADR-0004",
       "type": "declares"
     },
     {
-      "source": "doc:.github%2Fworkflows%2Ftemporary-wp-mvp-0004-eosr.yml",
+      "source": "doc:.eos%2Fwp-mvp-0004-eosr-run.sh",
       "target": "identifier:ADR-0005",
       "type": "declares"
     },
     {
-      "source": "doc:.github%2Fworkflows%2Ftemporary-wp-mvp-0004-eosr.yml",
+      "source": "doc:.eos%2Fwp-mvp-0004-eosr-run.sh",
       "target": "identifier:FR-002",
       "type": "declares"
     },
     {
-      "source": "doc:.github%2Fworkflows%2Ftemporary-wp-mvp-0004-eosr.yml",
+      "source": "doc:.eos%2Fwp-mvp-0004-eosr-run.sh",
       "target": "identifier:QR-001",
       "type": "declares"
     },
     {
-      "source": "doc:.github%2Fworkflows%2Ftemporary-wp-mvp-0004-eosr.yml",
+      "source": "doc:.eos%2Fwp-mvp-0004-eosr-run.sh",
       "target": "identifier:QR-003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.github%2Fworkflows%2Frepository-integrity.yml",
+      "target": "identifier:ADR-0001",
       "type": "declares"
     },
     {
@@ -8110,6 +8110,14 @@
       "normative": false,
       "source_path": ".eos/workflow.tsv",
       "title": "Workflow",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fwp-mvp-0004-eosr-run.sh",
+      "normative": false,
+      "source_path": ".eos/wp-mvp-0004-eosr-run.sh",
+      "title": "Wp Mvp 0004 Eosr Run",
       "type": "document"
     },
     {
@@ -19107,5 +19115,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "e8025ec5c04e7663e39a956915a904bbf60e4f094ce7f15013c57894bae1734a"
+  "source_tree_sha256": "aba5ac30d6393f603f30f7421af678b0c5a70cf0d6473901b09b65689d90dc1f"
 }
