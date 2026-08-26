@@ -24,12 +24,15 @@ jobs:
         shell: bash
         run: |
           cp .eos/wp-mvp-0004-f001-patch.py /tmp/wp-mvp-0004-f001-patch.py
+          cp .eos/wp-mvp-0004-f001-refactor.py /tmp/wp-mvp-0004-f001-refactor.py
           rm .github/workflows/temporary-wp-mvp-0004-f001.yml
           rm .eos/wp-mvp-0004-f001-patch.py
+          rm .eos/wp-mvp-0004-f001-refactor.py
           rm .eos/wp-mvp-0004-f001-trigger
           python3 scripts/sync-machine-docs.py --write
           python3 scripts/sync-machine-docs.py --check
           python3 /tmp/wp-mvp-0004-f001-patch.py
+          python3 /tmp/wp-mvp-0004-f001-refactor.py
           cargo fmt --all
           cargo fmt --all -- --check
           cargo clippy --workspace --all-targets --all-features -- -D warnings
