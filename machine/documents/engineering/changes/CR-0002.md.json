@@ -1,5 +1,5 @@
 {
-  "content": "# CR-0002 — Expand Monad capability and roadmap baseline\n\n**Status:** APPROVED  \n**Date:** 2026-08-26  \n**Authority:** Project Authority  \n**Change class:** Product / requirements / architecture / roadmap expansion\n\n## Summary\n\nExpand Monad beyond the existing MVP semantic-kernel roadmap to include governed workspace intelligence, progressive multi-agent autonomy, automation/integrations, cryptographic attestations and identity, policy/change-control/audit, observability/analytics, deployment/portability, MCP/LSP/plugin/storage ecosystem surfaces, and measured parallel-performance/scale capabilities.\n\n## Intent\n\nThe change extends Monad from a deterministic Engineering Knowledge Compilation Platform into a broader living engineering operating system while preserving the semantic graph, canonical artifacts, deterministic core, local-first operation, bounded authority, and evidence model as the foundation.\n\n## Scope\n\nThis change authorizes planning and canonical-baseline updates for:\n\n- workspace intelligence scoring and maturity tiers;\n- unified memory–intelligence–execution learning loops;\n- anti-hallucination memory, graph health, decay/staleness indicators, multi-vector memory, and semantic/result-aware caching;\n- autonomous dependency-aware agent orchestration, progressive autonomy, operator decision stewardship, cross-harness review, provider routing, and resilience controls;\n- resource/adapter models, intelligent automation, broad external integrations, and verified PR automation;\n- DSSE-compatible attestations, cryptographic agility, post-quantum profiles, multi-party trust, key rotation, RBAC/passkeys, prompt-injection defense, secret masking, and capability sandboxing;\n- declarative policy, readiness/done gates, formal change control, restore/rollback, and tamper-evident audit;\n- OpenTelemetry, health dashboards, execution records/analytics, and optional privacy-governed hosted analytics;\n- shared deployment/custom domains, workspace cloning/restoration, air-gapped/on-prem/multi-cloud operation, Docker/Nix profiles, and governed file/media handling;\n- MCP, LSP/IDE, plugin SDK/registry/packs, pluggable graph/vector storage, and optional external runtime compatibility profiles;\n- deterministic parallel execution plus declared throughput and local state-finalization benchmark targets.\n\n## Scope protection\n\n1. `MVP-RELEASE-1.md` remains the governing MVP scope contract.\n2. New capabilities do not enter MVP solely because they are now planned.\n3. Existing active execution under `PI-MVP-001` / `WC-MVP-0002` continues unless a separately governed blocker changes the critical path.\n4. Post-MVP implementation requires ordinary ADR/specification/Ready/Authorize/Start gates.\n5. Out-of-domain terminology is normalized to Monad-specific engineering semantics; optional external-runtime compatibility remains adapter-scoped.\n\n## Required canonical updates\n\n- expand `product/capabilities.md`;\n- expand `product/product-requirements.md`;\n- expand `product/constraints.md`;\n- expand `architecture/quality-attributes.md` and architecture evolution boundaries;\n- add a canonical expanded backlog and post-MVP Work Cycle/Sprint schedule;\n- define post-MVP Product Goals, Program Increments, milestones, Features, Work Packets, and Stories;\n- preserve rolling-wave task refinement rather than inventing implementation tasks before contracts are stable.\n\n## Acceptance\n\nThis planning change is accepted when:\n\n- all requested capability/requirement intent has a canonical disposition;\n- existing MVP work remains traceable and unambiguously sequenced before the expansion;\n- every net-new Feature maps to a forecast Work Packet and Work Cycle/Sprint;\n- post-MVP Product Goals/Increments/milestones are explicit;\n- performance, security, cryptographic, privacy, provider, and deployment constraints are stated without weakening deterministic/local-first core principles;\n- the resulting roadmap can be projected to GitHub Issues/Projects without inventing a second authority.\n",
+  "content": "---\nartifact_id: \"CR-0002\"\ntitle: \"Expand Monad capability and roadmap baseline\"\ntype: \"change-request\"\nversion: \"0.1.0\"\nstatus: \"APPROVED\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-26\"\nupdated: \"2026-08-26\"\n---\n\n# CR-0002 — Expand Monad capability and roadmap baseline\n\n**Status:** APPROVED\n**Date:** 2026-08-26  \n**Authority:** Project Authority  \n**Change class:** Product / requirements / architecture / roadmap expansion\n\n## Summary\n\nExpand Monad beyond the existing MVP semantic-kernel roadmap to include governed workspace intelligence, progressive multi-agent autonomy, automation/integrations, cryptographic attestations and identity, policy/change-control/audit, observability/analytics, deployment/portability, MCP/LSP/plugin/storage ecosystem surfaces, and measured parallel-performance/scale capabilities.\n\n## Intent\n\nThe change extends Monad from a deterministic Engineering Knowledge Compilation Platform into a broader living engineering operating system while preserving the semantic graph, canonical artifacts, deterministic core, local-first operation, bounded authority, and evidence model as the foundation.\n\n## Scope\n\nThis change authorizes planning and canonical-baseline updates for:\n\n- workspace intelligence scoring and maturity tiers;\n- unified memory–intelligence–execution learning loops;\n- anti-hallucination memory, graph health, decay/staleness indicators, multi-vector memory, and semantic/result-aware caching;\n- autonomous dependency-aware agent orchestration, progressive autonomy, operator decision stewardship, cross-harness review, provider routing, and resilience controls;\n- resource/adapter models, intelligent automation, broad external integrations, and verified PR automation;\n- DSSE-compatible attestations, cryptographic agility, post-quantum profiles, multi-party trust, key rotation, RBAC/passkeys, prompt-injection defense, secret masking, and capability sandboxing;\n- declarative policy, readiness/done gates, formal change control, restore/rollback, and tamper-evident audit;\n- OpenTelemetry, health dashboards, execution records/analytics, and optional privacy-governed hosted analytics;\n- shared deployment/custom domains, workspace cloning/restoration, air-gapped/on-prem/multi-cloud operation, Docker/Nix profiles, and governed file/media handling;\n- MCP, LSP/IDE, plugin SDK/registry/packs, pluggable graph/vector storage, and optional external runtime compatibility profiles;\n- deterministic parallel execution plus declared throughput and local state-finalization benchmark targets.\n\n## Scope protection\n\n1. `MVP-RELEASE-1.md` remains the governing MVP scope contract.\n2. New capabilities do not enter MVP solely because they are now planned.\n3. Existing active execution under `PI-MVP-001` / `WC-MVP-0002` continues unless a separately governed blocker changes the critical path.\n4. Post-MVP implementation requires ordinary ADR/specification/Ready/Authorize/Start gates.\n5. Out-of-domain terminology is normalized to Monad-specific engineering semantics; optional external-runtime compatibility remains adapter-scoped.\n\n## Required canonical updates\n\n- expand `product/capabilities.md`;\n- expand `product/product-requirements.md`;\n- expand `product/constraints.md`;\n- expand `architecture/quality-attributes.md` and architecture evolution boundaries;\n- add a canonical expanded backlog and post-MVP Work Cycle/Sprint schedule;\n- define post-MVP Product Goals, Program Increments, milestones, Features, Work Packets, and Stories;\n- preserve rolling-wave task refinement rather than inventing implementation tasks before contracts are stable.\n\n## Acceptance\n\nThis planning change is accepted when:\n\n- all requested capability/requirement intent has a canonical disposition;\n- existing MVP work remains traceable and unambiguously sequenced before the expansion;\n- every net-new Feature maps to a forecast Work Packet and Work Cycle/Sprint;\n- post-MVP Product Goals/Increments/milestones are explicit;\n- performance, security, cryptographic, privacy, provider, and deployment constraints are stated without weakening deterministic/local-first core principles;\n- the resulting roadmap can be projected to GitHub Issues/Projects without inventing a second authority.\n\n## Decision\n\n**Decision:** APPROVED\n\n**Authority:** Project Authority\n\n**Authority statement:** Project Authority approves CR-0002 — Expand Monad capability and roadmap baseline.\n\n**Decision date:** 2026-08-26\n\nThis approval authorizes the expanded capability and roadmap baseline as a governed planning envelope. It does not move post-MVP capabilities into MVP Release 1, bypass Work Packet readiness/authorization gates, or alter the active MVP critical path without a separately governed replanning decision.\n\n",
   "document_id": "doc:engineering%2Fchanges%2FCR-0002.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "Status: APPROVED Date: 2026-08-26 Authority: Project Authority Change class: Product / requirements / architecture / roadmap expansion",
+    "summary": "--- artifactid: \"CR-0002\" title: \"Expand Monad capability and roadmap baseline\" type: \"change-request\" version: \"0.1.0\" status: \"APPROVED\" authority: \"governance-authoritative\" created: \"2026-08-26\" updated: \"2026-08-26\" ---",
     "title": "CR-0002 — Expand Monad capability and roadmap baseline"
   },
   "relations": [],
@@ -20,18 +20,27 @@
   "sections": [
     {
       "identifiers": [],
-      "level": 1,
-      "line_end": 7,
+      "level": 0,
+      "line_end": 11,
       "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"CR-0002\"\ntitle: \"Expand Monad capability and roadmap baseline\"\ntype: \"change-request\"\nversion: \"0.1.0\"\nstatus: \"APPROVED\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-26\"\nupdated: \"2026-08-26\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 18,
+      "line_start": 12,
       "section_id": "cr-0002-expand-monad-capability-and-roadmap-baseline",
-      "text": "# CR-0002 — Expand Monad capability and roadmap baseline\n\n**Status:** APPROVED  \n**Date:** 2026-08-26  \n**Authority:** Project Authority  \n**Change class:** Product / requirements / architecture / roadmap expansion",
+      "text": "# CR-0002 — Expand Monad capability and roadmap baseline\n\n**Status:** APPROVED\n**Date:** 2026-08-26  \n**Authority:** Project Authority  \n**Change class:** Product / requirements / architecture / roadmap expansion",
       "title": "CR-0002 — Expand Monad capability and roadmap baseline"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 11,
-      "line_start": 8,
+      "line_end": 22,
+      "line_start": 19,
       "section_id": "summary",
       "text": "## Summary\n\nExpand Monad beyond the existing MVP semantic-kernel roadmap to include governed workspace intelligence, progressive multi-agent autonomy, automation/integrations, cryptographic attestations and identity, policy/change-control/audit, observability/analytics, deployment/portability, MCP/LSP/plugin/storage ecosystem surfaces, and measured parallel-performance/scale capabilities.",
       "title": "Summary"
@@ -39,8 +48,8 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 15,
-      "line_start": 12,
+      "line_end": 26,
+      "line_start": 23,
       "section_id": "intent",
       "text": "## Intent\n\nThe change extends Monad from a deterministic Engineering Knowledge Compilation Platform into a broader living engineering operating system while preserving the semantic graph, canonical artifacts, deterministic core, local-first operation, bounded authority, and evidence model as the foundation.",
       "title": "Intent"
@@ -48,8 +57,8 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 31,
-      "line_start": 16,
+      "line_end": 42,
+      "line_start": 27,
       "section_id": "scope",
       "text": "## Scope\n\nThis change authorizes planning and canonical-baseline updates for:\n\n- workspace intelligence scoring and maturity tiers;\n- unified memory–intelligence–execution learning loops;\n- anti-hallucination memory, graph health, decay/staleness indicators, multi-vector memory, and semantic/result-aware caching;\n- autonomous dependency-aware agent orchestration, progressive autonomy, operator decision stewardship, cross-harness review, provider routing, and resilience controls;\n- resource/adapter models, intelligent automation, broad external integrations, and verified PR automation;\n- DSSE-compatible attestations, cryptographic agility, post-quantum profiles, multi-party trust, key rotation, RBAC/passkeys, prompt-injection defense, secret masking, and capability sandboxing;\n- declarative policy, readiness/done gates, formal change control, restore/rollback, and tamper-evident audit;\n- OpenTelemetry, health dashboards, execution records/analytics, and optional privacy-governed hosted analytics;\n- shared deployment/custom domains, workspace cloning/restoration, air-gapped/on-prem/multi-cloud operation, Docker/Nix profiles, and governed file/media handling;\n- MCP, LSP/IDE, plugin SDK/registry/packs, pluggable graph/vector storage, and optional external runtime compatibility profiles;\n- deterministic parallel execution plus declared throughput and local state-finalization benchmark targets.",
       "title": "Scope"
@@ -57,8 +66,8 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 39,
-      "line_start": 32,
+      "line_end": 50,
+      "line_start": 43,
       "section_id": "scope-protection",
       "text": "## Scope protection\n\n1. `MVP-RELEASE-1.md` remains the governing MVP scope contract.\n2. New capabilities do not enter MVP solely because they are now planned.\n3. Existing active execution under `PI-MVP-001` / `WC-MVP-0002` continues unless a separately governed blocker changes the critical path.\n4. Post-MVP implementation requires ordinary ADR/specification/Ready/Authorize/Start gates.\n5. Out-of-domain terminology is normalized to Monad-specific engineering semantics; optional external-runtime compatibility remains adapter-scoped.",
       "title": "Scope protection"
@@ -66,8 +75,8 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 49,
-      "line_start": 40,
+      "line_end": 60,
+      "line_start": 51,
       "section_id": "required-canonical-updates",
       "text": "## Required canonical updates\n\n- expand `product/capabilities.md`;\n- expand `product/product-requirements.md`;\n- expand `product/constraints.md`;\n- expand `architecture/quality-attributes.md` and architecture evolution boundaries;\n- add a canonical expanded backlog and post-MVP Work Cycle/Sprint schedule;\n- define post-MVP Product Goals, Program Increments, milestones, Features, Work Packets, and Stories;\n- preserve rolling-wave task refinement rather than inventing implementation tasks before contracts are stable.",
       "title": "Required canonical updates"
@@ -75,20 +84,29 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 59,
-      "line_start": 50,
+      "line_end": 71,
+      "line_start": 61,
       "section_id": "acceptance",
       "text": "## Acceptance\n\nThis planning change is accepted when:\n\n- all requested capability/requirement intent has a canonical disposition;\n- existing MVP work remains traceable and unambiguously sequenced before the expansion;\n- every net-new Feature maps to a forecast Work Packet and Work Cycle/Sprint;\n- post-MVP Product Goals/Increments/milestones are explicit;\n- performance, security, cryptographic, privacy, provider, and deployment constraints are stated without weakening deterministic/local-first core principles;\n- the resulting roadmap can be projected to GitHub Issues/Projects without inventing a second authority.",
       "title": "Acceptance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 83,
+      "line_start": 72,
+      "section_id": "decision",
+      "text": "## Decision\n\n**Decision:** APPROVED\n\n**Authority:** Project Authority\n\n**Authority statement:** Project Authority approves CR-0002 — Expand Monad capability and roadmap baseline.\n\n**Decision date:** 2026-08-26\n\nThis approval authorizes the expanded capability and roadmap baseline as a governed planning envelope. It does not move post-MVP capabilities into MVP Release 1, bypass Work Packet readiness/authorization gates, or alter the active MVP critical path without a separately governed replanning decision.",
+      "title": "Decision"
     }
   ],
   "source": {
-    "bytes": 4018,
+    "bytes": 4759,
     "canonical": true,
     "language": "markdown",
-    "lines": 59,
+    "lines": 83,
     "media_type": "text/markdown",
     "path": "engineering/changes/CR-0002.md",
-    "sha256": "4affa47b591eee30a4befdc27018c4ef805eb353f992c9e0a8f82597ffb3ffbf"
+    "sha256": "19e52b49510c09a6cf203d04a5a84db881fa5c2a8a365902c284bd771a0b99a1"
   }
 }
