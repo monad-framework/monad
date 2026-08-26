@@ -4,12 +4,12 @@
 **Current milestone:** M-001 Semantic Kernel Alpha  
 **Current increment:** PI-MVP-001 — ACTIVE  
 **Current work cycle:** WC-MVP-0002 — ACTIVE  
-**Current packet:** WP-MVP-0005 — READY; authorization not yet granted  
-**Current product implementation:** WP-MVP-0001–0004 closed; WP-MVP-0005 is adopted into EOS and READY, with no implementation authorization yet
+**Current packet:** WP-MVP-0005 — AUTHORIZED; start not yet executed  
+**Current product implementation:** WP-MVP-0001–0004 closed; WP-MVP-0005 is AUTHORIZED but not started or under implementation
 
 ## Executive summary
 
-Foundation stabilization is complete. Monad is actively implementing MVP Release 1 through the governed EOS lifecycle. WC-MVP-0001 is closed with WP-MVP-0001 through WP-MVP-0003 completed. WC-MVP-0002 remains active; WP-MVP-0004 is now CLOSED after merged implementation, post-correction EOSV, accepted final EOSR, checklist reconciliation, and the deterministic `WP_CLOSE` transaction. WP-MVP-0005 is the next critical-path packet. Its historical prerequisite blockers are resolved and it has passed governed adoption/Ready; it remains unauthorized and unstarted until the separate `WP_AUTHORIZE` and EOSE start gates pass. WP-MVP-0006 remains subsequent work in the same Work Cycle.
+Foundation stabilization is complete. Monad is actively implementing MVP Release 1 through the governed EOS lifecycle. WC-MVP-0001 is closed with WP-MVP-0001 through WP-MVP-0003 completed. WC-MVP-0002 remains active; WP-MVP-0004 is now CLOSED after merged implementation, post-correction EOSV, accepted final EOSR, checklist reconciliation, and the deterministic `WP_CLOSE` transaction. WP-MVP-0005 is the next critical-path packet. Its historical prerequisite blockers are resolved and it has passed governed adoption/Ready plus the separate `WP_AUTHORIZE` gate; it remains unstarted until the separate EOSE start gate passes. No product implementation is active yet. WP-MVP-0006 remains subsequent work in the same Work Cycle.
 
 CR-0002 adds an approved post-MVP capability/roadmap baseline without widening the active MVP execution boundary. The expansion preserves Monad's deterministic semantic kernel and local-first authority while planning living workspace intelligence, progressively autonomous multi-agent orchestration, automation/integrations, signed attestations and stronger security/identity, declarative policy/change-control/audit, observability/analytics, deployment/portability, MCP/LSP/plugin/storage ecosystem surfaces, deterministic parallelism, and explicit scale benchmarks.
 
@@ -25,15 +25,15 @@ The expanded roadmap begins only after the MVP Release 1 acceptance boundary unl
 | Machine layer / EOS | governed active control | `.eos/`, evidence, machine projections | ongoing freshness/integrity |
 | PI-MVP-001 | ACTIVE | canonical Increment + EOS lifecycle | continue semantic-foundation critical path |
 | WC-MVP-0001 | CLOSED | accepted cycle + WP-MVP-0001–0003 closure | preserve evidence |
-| WC-MVP-0002 | ACTIVE | canonical cycle contract | evaluate the separate WP-MVP-0005 authorization gate; do not start implicitly |
+| WC-MVP-0002 | ACTIVE | canonical cycle contract | execute the separate WP-MVP-0005 EOSE start gate; do not begin implementation implicitly |
 | WP-MVP-0004 | CLOSED | PR #217 implementation; PR #231 F001 correction; PR #232 EOSV; PR #233 accepted EOSR; PR #234 closure | preserve closure evidence |
-| WP-MVP-0005 | READY / NOT AUTHORIZED | canonical packet + EOS adoption/Ready evidence + resolved prerequisites | evaluate separate `WP_AUTHORIZE`; do not start implicitly |
+| WP-MVP-0005 | AUTHORIZED / NOT STARTED | canonical packet + EOS adoption/Ready/authorization evidence | execute separate EOSE start transition; do not implement before start |
 | Expanded roadmap | APPROVED FORECAST | CR-0002 + expanded requirements/backlog/schedule | no execution until post-MVP gates |
 
 ## Immediate critical path
 
-1. Evaluate the separate `WP_AUTHORIZE` gate for WP-MVP-0005; authorize only through its own governed transaction if the gate passes.
-2. Start and execute WP-MVP-0005 only after authorization and the separate EOSE start transition.
+1. Execute the separate EOSE start transition for WP-MVP-0005; do not begin product implementation before that gate passes.
+2. Execute and verify WP-MVP-0005 against its bounded acceptance contract after start.
 3. Refine/execute WP-MVP-0006 after its parser dependencies are accepted.
 4. Close WC-MVP-0002 only when its Sprint Goal and WP-MVP-0004–0006 exit criteria have evidence.
 5. Continue WC-MVP-0003/0004 to M-001 Semantic Kernel Alpha.
@@ -63,7 +63,7 @@ M-000 Foundation Stabilized — COMPLETE
     → WC-MVP-0001 — CLOSED
     → WC-MVP-0002 — ACTIVE
       → WP-MVP-0004 — CLOSED
-      → WP-MVP-0005 — READY / NOT AUTHORIZED
+      → WP-MVP-0005 — AUTHORIZED / NOT STARTED
       → WP-MVP-0006 — PLANNED
     → WC-MVP-0003
     → WC-MVP-0004
