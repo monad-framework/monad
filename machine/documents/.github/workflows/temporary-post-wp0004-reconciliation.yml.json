@@ -1,0 +1,44 @@
+{
+  "content": "name: Temporary post-WP0004 reconciliation\n\non:\n  push:\n    branches:\n      - reconcile/post-wp-mvp-0004\n    paths:\n      - .eos/post-wp0004-reconciliation-trigger\n\npermissions:\n  contents: write\n\njobs:\n  reconcile:\n    runs-on: ubuntu-latest\n    timeout-minutes: 20\n    steps:\n      - name: Check out exact reconciliation branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          fetch-depth: 0\n\n      - name: Validate and finalize reconciliation\n        shell: bash\n        env:\n          EXPECTED_MAIN_HEAD: e9209fc523d3d925e772c7da6a595bfb136799f2\n        run: |\n          set -Eeuo pipefail\n          git fetch origin main\n          test \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN_HEAD\"\n          git merge-base --is-ancestor \"$EXPECTED_MAIN_HEAD\" HEAD\n\n          rm .github/workflows/temporary-post-wp0004-reconciliation.yml\n          rm .eos/post-wp0004-reconciliation-trigger\n\n          python3 tools/eos/trace_integrity.py --write\n          python3 scripts/sync-machine-docs.py --write\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n\n          grep -q '^\\*\\*Current packet:\\*\\* WP-MVP-0005 — REFINED; Ready gate not yet executed' engineering/project-status.md\n          grep -q '^\\*\\*Status:\\*\\* Refined — prerequisites satisfied; Ready gate not yet executed' engineering/work-packets/WP-MVP-0005.md\n          grep -q 'ADR-0005 is Accepted' engineering/work-packets/WP-MVP-0005.md\n          ! grep -q 'blocked from Ready by WP-MVP-0001/WP-MVP-0003 and ADR-0005' engineering/work-packets/WP-MVP-0005.md\n          ! grep -q 'proposed ADR-0005' engineering/work-packets/WP-MVP-0005.md\n\n          mapfile -t changed < <({ git diff --name-only \"$EXPECTED_MAIN_HEAD\"; git ls-files --others --exclude-standard; } | sort -u)\n          test \"${#changed[@]}\" -gt 0\n          for f in \"${changed[@]}\"; do\n            case \"$f\" in\n              engineering/project-status.md|engineering/work-packets/WP-MVP-0005.md|.eos/trace-edges.tsv|machine/*) ;;\n              *) echo \"Out-of-scope reconciliation path: $f\" >&2; exit 1 ;;\n            esac\n          done\n\n          git config user.name \"ChatGPT\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add -A\n          git commit -m \"docs(engineering): finalize post-WP-MVP-0004 reconciliation\"\n          ./scripts/eos verify --strict\n          python3 scripts/sync-machine-docs.py --check\n          test -z \"$(git status --porcelain)\"\n          git push origin \"HEAD:${GITHUB_REF_NAME}\"\n",
+  "document_id": "doc:.github%2Fworkflows%2Ftemporary-post-wp0004-reconciliation.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0005"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/temporary-post-wp0004-reconciliation.yml.",
+    "title": "Temporary Post Wp0004 Reconciliation"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 1,
+      "line_end": 65,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Temporary post-WP0004 reconciliation\n\non:\n  push:\n    branches:\n      - reconcile/post-wp-mvp-0004\n    paths:\n      - .eos/post-wp0004-reconciliation-trigger\n\npermissions:\n  contents: write\n\njobs:\n  reconcile:\n    runs-on: ubuntu-latest\n    timeout-minutes: 20\n    steps:\n      - name: Check out exact reconciliation branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          fetch-depth: 0\n\n      - name: Validate and finalize reconciliation\n        shell: bash\n        env:\n          EXPECTED_MAIN_HEAD: e9209fc523d3d925e772c7da6a595bfb136799f2\n        run: |\n          set -Eeuo pipefail\n          git fetch origin main\n          test \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN_HEAD\"\n          git merge-base --is-ancestor \"$EXPECTED_MAIN_HEAD\" HEAD\n\n          rm .github/workflows/temporary-post-wp0004-reconciliation.yml\n          rm .eos/post-wp0004-reconciliation-trigger\n\n          python3 tools/eos/trace_integrity.py --write\n          python3 scripts/sync-machine-docs.py --write\n          ./scripts/eos verify --strict\n          ./scripts/eos state status\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n\n          grep -q '^\\*\\*Current packet:\\*\\* WP-MVP-0005 — REFINED; Ready gate not yet executed' engineering/project-status.md\n          grep -q '^\\*\\*Status:\\*\\* Refined — prerequisites satisfied; Ready gate not yet executed' engineering/work-packets/WP-MVP-0005.md\n          grep -q 'ADR-0005 is Accepted' engineering/work-packets/WP-MVP-0005.md\n          ! grep -q 'blocked from Ready by WP-MVP-0001/WP-MVP-0003 and ADR-0005' engineering/work-packets/WP-MVP-0005.md\n          ! grep -q 'proposed ADR-0005' engineering/work-packets/WP-MVP-0005.md\n\n          mapfile -t changed < <({ git diff --name-only \"$EXPECTED_MAIN_HEAD\"; git ls-files --others --exclude-standard; } | sort -u)\n          test \"${#changed[@]}\" -gt 0\n          for f in \"${changed[@]}\"; do\n            case \"$f\" in\n              engineering/project-status.md|engineering/work-packets/WP-MVP-0005.md|.eos/trace-edges.tsv|machine/*) ;;\n              *) echo \"Out-of-scope reconciliation path: $f\" >&2; exit 1 ;;\n            esac\n          done\n\n          git config user.name \"ChatGPT\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add -A\n          git commit -m \"docs(engineering): finalize post-WP-MVP-0004 reconciliation\"\n          ./scripts/eos verify --strict\n          python3 scripts/sync-machine-docs.py --check\n          test -z \"$(git status --porcelain)\"\n          git push origin \"HEAD:${GITHUB_REF_NAME}\"",
+      "title": "Temporary Post Wp0004 Reconciliation"
+    }
+  ],
+  "source": {
+    "bytes": 2672,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 65,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/temporary-post-wp0004-reconciliation.yml",
+    "sha256": "c439007e1607b7e7921c74f07526f08ba2cd6499f92e1d532f9b02cd094c6c9d"
+  }
+}

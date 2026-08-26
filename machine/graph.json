@@ -1886,6 +1886,11 @@
       "type": "declares"
     },
     {
+      "source": "doc:.github%2Fworkflows%2Ftemporary-post-wp0004-reconciliation.yml",
+      "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
       "source": "doc:CONTRIBUTING.md",
       "target": "doc:SECURITY.md",
       "type": "references"
@@ -8754,6 +8759,14 @@
       "normative": false,
       "source_path": ".github/workflows/stabilization-generation.yml",
       "title": "Stabilization Generation",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Ftemporary-post-wp0004-reconciliation.yml",
+      "normative": false,
+      "source_path": ".github/workflows/temporary-post-wp0004-reconciliation.yml",
+      "title": "Temporary Post Wp0004 Reconciliation",
       "type": "document"
     },
     {
@@ -19935,5 +19948,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "fcc175616bc8d412054a890c7893b56797ebfc9381c7fc5454b2366185f4896e"
+  "source_tree_sha256": "2449fa6a6bd4224c02d7493425180031a63deef5bde89ecbd50d494adfe3f866"
 }
