@@ -51,6 +51,26 @@
       "type": "declares"
     },
     {
+      "source": "doc:.eos%2Fadoptions%2Fwp-mvp-0005.json",
+      "target": "identifier:ADR-0002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fadoptions%2Fwp-mvp-0005.json",
+      "target": "identifier:ADR-0003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fadoptions%2Fwp-mvp-0005.json",
+      "target": "identifier:ADR-0004",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fadoptions%2Fwp-mvp-0005.json",
+      "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
       "source": "doc:.eos%2Fartifacts.tsv",
       "target": "identifier:QA-0001",
       "type": "declares"
@@ -1923,6 +1943,16 @@
     {
       "source": "doc:.github%2Fworkflows%2Frepository-integrity.yml",
       "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.github%2Fworkflows%2Ftemporary-wp-mvp-0005-ready.yml",
+      "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.github%2Fworkflows%2Ftemporary-wp-mvp-0005-ready.yml",
+      "target": "identifier:EXP-001",
       "type": "declares"
     },
     {
@@ -5194,6 +5224,14 @@
       "normative": false,
       "source_path": ".eos/adoptions/wp-mvp-0004.json",
       "title": "Wp Mvp 0004",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fadoptions%2Fwp-mvp-0005.json",
+      "normative": false,
+      "source_path": ".eos/adoptions/wp-mvp-0005.json",
+      "title": "Wp Mvp 0005",
       "type": "document"
     },
     {
@@ -8890,6 +8928,14 @@
       "normative": false,
       "source_path": ".github/workflows/stabilization-generation.yml",
       "title": "Stabilization Generation",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Ftemporary-wp-mvp-0005-ready.yml",
+      "normative": false,
+      "source_path": ".github/workflows/temporary-wp-mvp-0005-ready.yml",
+      "title": "Temporary Wp Mvp 0005 Ready",
       "type": "document"
     },
     {
@@ -20167,5 +20213,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "071d61fe12868df8d9a5a80143f4c50a8df7f08fd24bdd8e9f5a95063aecb845"
+  "source_tree_sha256": "fa2a2975ffdf937d9ecb9c8e4dc82dc526038ed616ed777164c4040581e7d963"
 }
