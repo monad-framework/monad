@@ -1606,6 +1606,16 @@
       "type": "declares"
     },
     {
+      "source": "doc:.eos%2Ftmp-ready-wp-mvp-0005.sh",
+      "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftmp-ready-wp-mvp-0005.sh",
+      "target": "identifier:EXP-001",
+      "type": "declares"
+    },
+    {
       "source": "doc:.eos%2Ftrace-edges.tsv",
       "target": "identifier:ADR-0001",
       "type": "declares"
@@ -1943,16 +1953,6 @@
     {
       "source": "doc:.github%2Fworkflows%2Frepository-integrity.yml",
       "target": "identifier:ADR-0001",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.github%2Fworkflows%2Ftemporary-wp-mvp-0005-ready.yml",
-      "target": "identifier:ADR-0005",
-      "type": "declares"
-    },
-    {
-      "source": "doc:.github%2Fworkflows%2Ftemporary-wp-mvp-0005-ready.yml",
-      "target": "identifier:EXP-001",
       "type": "declares"
     },
     {
@@ -8732,6 +8732,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Ftmp-ready-wp-mvp-0005.sh",
+      "normative": false,
+      "source_path": ".eos/tmp-ready-wp-mvp-0005.sh",
+      "title": "Tmp Ready Wp Mvp 0005",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Ftrace-edges.tsv",
       "normative": false,
       "source_path": ".eos/trace-edges.tsv",
@@ -8800,6 +8808,14 @@
       "normative": false,
       "source_path": ".eos/workflow.tsv",
       "title": "Workflow",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fwp-mvp-0005-ready-trigger",
+      "normative": false,
+      "source_path": ".eos/wp-mvp-0005-ready-trigger",
+      "title": "Wp Mvp 0005 Ready Trigger",
       "type": "document"
     },
     {
@@ -20213,5 +20229,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "fa2a2975ffdf937d9ecb9c8e4dc82dc526038ed616ed777164c4040581e7d963"
+  "source_tree_sha256": "41ef83ed094aa149600dfa974b6b969455dd6f1508832345402e5cbb31be6fdd"
 }
