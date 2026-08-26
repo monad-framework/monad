@@ -95,9 +95,9 @@ jobs:
         run: |
           set -Eeuo pipefail
           ./scripts/eos validate WP-MVP-0004 --profile wp --execution EXEC-0009
-          python3 scripts/sync-machine-docs.py --write
           ./scripts/eos verify --strict
           ./scripts/eos state status
+          python3 scripts/sync-machine-docs.py --write
           python3 scripts/sync-machine-docs.py --check
 
       - name: Commit refreshed exact-state evidence with strict scope guard
