@@ -33,6 +33,39 @@
         "schema_version": "2.0.0",
         "updated_at": "2026-08-14T10:34:08Z",
         "version": "1.0.1"
+      },
+      "CR-0002": {
+        "authority_level": "L3_BINDING",
+        "created_at": "2026-08-26T09:53:14Z",
+        "entity_type": "ChangeRequest",
+        "id": "CR-0002",
+        "kind": "CR",
+        "lifecycle_state": "APPROVED",
+        "operational_metadata": {
+          "github_url": "",
+          "path": "engineering/changes/CR-0002.md",
+          "summary": "Expand Monad capability and roadmap baseline",
+          "target": "product/product-requirements.md"
+        },
+        "provenance": {
+          "created_by": "EOS canonical-state adapter",
+          "generation_method": "EOS canonical-state capture",
+          "origin": "AUTOMATION",
+          "source_refs": [
+            ".eos/change-requests.tsv",
+            "engineering/changes/CR-0002.md",
+            ".eos/events.jsonl"
+          ]
+        },
+        "relationships": [
+          {
+            "target_id": "product/product-requirements.md",
+            "type": "AFFECTS"
+          }
+        ],
+        "schema_version": "2.0.0",
+        "updated_at": "2026-08-26T09:53:14Z",
+        "version": "1.0.1"
       }
     },
     "MNT": {
@@ -466,7 +499,7 @@
     }
   },
   "model": "EOS-SINGLE-CANONICAL-STATE-1",
-  "revision": 47,
+  "revision": 49,
   "schema_version": "1.0.0",
-  "updated_at": "2026-08-26T08:16:14Z"
+  "updated_at": "2026-08-26T09:53:14Z"
 }
