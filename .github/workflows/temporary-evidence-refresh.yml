@@ -1,0 +1,56 @@
+name: Temporary EOS evidence refresh
+
+on:
+  push:
+    branches:
+      - evidence/expanded-capability-roadmap-refresh
+    paths:
+      - .github/workflows/temporary-evidence-refresh.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+
+      - name: Remove temporary workflow from working tree before fingerprinting
+        run: rm .github/workflows/temporary-evidence-refresh.yml
+
+      - name: Refresh governed Work Packet evidence
+        env:
+          EOS_ACTOR: github-actions[bot]
+        run: |
+          ./scripts/eos validate WP-MVP-0001 --profile wp
+          ./scripts/eos validate WP-MVP-0002 --profile wp
+          ./scripts/eos validate WP-MVP-0003 --profile wp
+          ./scripts/eos validate WP-MVP-0004 --profile wp --execution EXEC-0009
+
+      - name: Regenerate deterministic projections
+        run: |
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+
+      - name: Verify strict EOS and projections
+        run: |
+          ./scripts/eos verify --strict
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Commit refreshed evidence and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet --exit-code; then
+            exit 0
+          fi
+          git commit -m "chore(eos): refresh evidence after roadmap expansion"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
