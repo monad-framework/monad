@@ -45,6 +45,8 @@ jobs:
               raise SystemExit('generated CR-0002 front matter is malformed')
           front_matter = text[: end + len('\n---\n')]
           body = detailed.read_text(encoding='utf-8').lstrip().rstrip()
+          body = body.replace('**Status:** APPROVED', '**Status:** PROPOSED', 1)
+          body = body.replace('**State:** APPROVED', '**State:** PROPOSED', 1)
           if '## Decision' not in body:
               body += '''\n\n## Decision\n\n**Decision:** APPROVED\n\n**Authority:** Project Authority\n\n**Authority statement:** Project Authority approves CR-0002 — Expand Monad capability and roadmap baseline.\n\n**Decision date:** 2026-08-26\n\nThis approval authorizes the expanded capability and roadmap baseline as a governed planning envelope. It does not move post-MVP capabilities into MVP Release 1, bypass Work Packet readiness/authorization gates, or alter the active MVP critical path without a separately governed replanning decision.\n'''
           generated.write_text(front_matter + '\n' + body + '\n', encoding='utf-8')
