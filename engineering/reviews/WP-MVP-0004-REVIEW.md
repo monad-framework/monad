@@ -1,85 +1,15 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-mkdir -p crates/monad-core/tests
-cat > crates/monad-core/tests/eosr_wp_mvp_0004_frontmatter.rs <<'RS'
-use monad_core::discovery::{DiscoveryProvenance, SourceKindCandidate};
-use monad_core::identity::{SourceRecord, content_sha256, derive_source_id, detect_duplicate_governed_identifiers};
-use monad_core::markdown::{markdown_parser_contract, parse_markdown};
-
-fn source(path: &str, bytes: &[u8]) -> SourceRecord {
-    SourceRecord {
-        source_id: derive_source_id(path, &SourceKindCandidate::Markdown),
-        canonical_path: path.to_owned(),
-        source_kind: SourceKindCandidate::Markdown,
-        content_sha256: content_sha256(bytes),
-        byte_length: bytes.len() as u64,
-        parser_contract: markdown_parser_contract(),
-        discovery_provenance: vec![DiscoveryProvenance {
-            artifact_class: "engineering".to_owned(),
-            pattern: "engineering/**/*.md".to_owned(),
-        }],
-    }
-}
-
-#[test]
-fn governed_frontmatter_controls_review_identity_and_status() {
-    let review = br#"---
-artifact_id: "REV-WP-MVP-0003"
-status: "In Review"
 ---
-# WP-MVP-0003 — Engineering Review
-"#;
-    let wp = b"# WP-MVP-0003 — Stable source and document identity\n";
-    let review_doc = parse_markdown(source("engineering/reviews/WP-MVP-0003-REVIEW.md", review), review);
-    let wp_doc = parse_markdown(source("engineering/work-packets/WP-MVP-0003.md", wp), wp);
+artifact_id: "REV-WP-MVP-0004"
+title: "WP-MVP-0004 Engineering Review"
+type: "review"
+version: "0.1.0"
+status: "In Review"
+authority: "review-authoritative"
+created: "2026-08-26"
+updated: "2026-08-26"
+---
 
-    assert_eq!(
-        review_doc.identity.explicit_governed_identifier.as_ref().map(|id| id.value.as_str()),
-        Some("REV-WP-MVP-0003")
-    );
-    assert_eq!(review_doc.status.as_deref(), Some("In Review"));
-    assert!(detect_duplicate_governed_identifiers(&[review_doc.identity, wp_doc.identity]).is_empty());
-}
-RS
-
-set +e
-cargo test -p monad-core --test eosr_wp_mvp_0004_frontmatter -- --nocapture 2>&1 | tee /tmp/wp-mvp-0004-frontmatter-probe.log
-probe_rc=${PIPESTATUS[0]}
-set -e
-rm crates/monad-core/tests/eosr_wp_mvp_0004_frontmatter.rs
-rmdir crates/monad-core/tests 2>/dev/null || true
-if [ "$probe_rc" -eq 0 ]; then
-  echo "ERROR: adversarial probe unexpectedly passed; EOSR finding must be reassessed"
-  exit 1
-fi
-grep -q 'left: Some("WP-MVP-0003")' /tmp/wp-mvp-0004-frontmatter-probe.log || {
-  echo "ERROR: adversarial probe failed for an unexpected reason"
-  cat /tmp/wp-mvp-0004-frontmatter-probe.log
-  exit 1
-}
-echo "Confirmed F001: current parser assigns the review H1 identifier instead of front-matter artifact_id."
-
-cargo fmt --all -- --check
-cargo clippy --workspace --all-targets --all-features -- -D warnings
-cargo test --workspace --all-targets --all-features
-./scripts/eos verify --strict
-./scripts/eos state status
-python3 scripts/sync-machine-docs.py --check
-
-EOS_ACTOR="ChatGPT EOSR Reviewer" ./scripts/eos review WP-MVP-0004
-python3 - <<'PY'
-from pathlib import Path
-
-path = Path('engineering/reviews/WP-MVP-0004-REVIEW.md')
-text = path.read_text(encoding='utf-8')
-if not text.startswith('---\n'):
-    raise SystemExit('generated review is missing governed front matter')
-end = text.find('\n---\n', 4)
-if end < 0:
-    raise SystemExit('generated review front matter is malformed')
-front = text[: end + len('\n---\n')]
-body = '''# WP-MVP-0004 — Engineering Review
+# WP-MVP-0004 — Engineering Review
 
 **Decision:** REJECTED
 
@@ -196,30 +126,3 @@ The existing EXEC-0009 note remains valid: the approved governed-identifier name
 ## Decision
 
 **REJECTED.** WP-MVP-0004 must remain `IN_REVIEW` while `EOSR-WP-MVP-0004-F001` is corrected through bounded product work. Closure is not authorized. After the correction merges and evidence is refreshed, perform a fresh independent EOSR review before checklist reconciliation or `WP_CLOSE`.
-'''
-path.write_text(front + '\n' + body, encoding='utf-8')
-PY
-
-EOS_ACTOR="github-actions[bot]" ./scripts/eos validate WP-MVP-0001 --profile wp
-EOS_ACTOR="github-actions[bot]" ./scripts/eos validate WP-MVP-0002 --profile wp
-EOS_ACTOR="github-actions[bot]" ./scripts/eos validate WP-MVP-0003 --profile wp
-EOS_ACTOR="github-actions[bot]" ./scripts/eos validate WP-MVP-0004 --profile wp --execution EXEC-0009
-
-python3 tools/eos/trace_integrity.py --write
-python3 scripts/sync-machine-docs.py --write
-./scripts/eos state status
-./scripts/eos verify --strict
-python3 tools/eos/trace_integrity.py
-python3 scripts/sync-machine-docs.py --check
-cargo fmt --all -- --check
-cargo clippy --workspace --all-targets --all-features -- -D warnings
-cargo test --workspace --all-targets --all-features
-grep -q '^\*\*Decision:\*\* REJECTED$' engineering/reviews/WP-MVP-0004-REVIEW.md
-grep -q '^WP-MVP-0004.*IN_REVIEW' .eos/work-packets.tsv
-
-git config user.name "github-actions[bot]"
-git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-git add -A
-git diff --cached --quiet --exit-code && exit 0
-git commit -m "docs(eosr): record initial WP-MVP-0004 review"
-git push origin "HEAD:${GITHUB_REF_NAME}"
