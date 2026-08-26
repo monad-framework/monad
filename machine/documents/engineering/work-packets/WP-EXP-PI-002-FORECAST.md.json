@@ -1,0 +1,207 @@
+{
+  "content": "# Forecast Work Packets — PI-EXP-002\n\n**Status:** Forecast catalog  \n**Change authority:** CR-0002\n\nThese Work Packets are forecast placeholders. They are not Ready or authorized. Each is split into its own canonical Work Packet artifact when rolling-wave refinement reaches it; until then this catalog plus `product/backlog/EXPANDED-BACKLOG.md` defines the forecast identity and scope intent.\n\n## WP-EXP-0013 — Signed attestations & crypto agility\n\n- **Epic:** EPIC-018\n- **Feature:** F-018-01\n- **Work Cycle / Sprint:** WC-EXP-0006\n- **Product Goal:** PG-003\n- **Planned stories:** US-148 DSSE-compatible attestations; US-149 protected-branch attestation gate; US-150 Ed25519/P-256/secp256k1 profiles; US-151 ML-DSA post-quantum profile\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0014 — Multi-party trust & key lifecycle\n\n- **Epic:** EPIC-018\n- **Feature:** F-018-02\n- **Work Cycle / Sprint:** WC-EXP-0006\n- **Product Goal:** PG-003\n- **Planned stories:** US-152 multi-signature approval policy; US-153 key rotation/revocation; US-154 quantum-migration policy\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0015 — RBAC & passkey identity\n\n- **Epic:** EPIC-018\n- **Feature:** F-018-03\n- **Work Cycle / Sprint:** WC-EXP-0006\n- **Product Goal:** PG-003\n- **Planned stories:** US-155 RBAC; US-156 WebAuthn/P-256 passkeys; US-157 password/session/access protection\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0016 — AI/input security boundary\n\n- **Epic:** EPIC-018\n- **Feature:** F-018-04\n- **Work Cycle / Sprint:** WC-EXP-0007\n- **Product Goal:** PG-003\n- **Planned stories:** US-158 prompt-injection detection/containment; US-159 secret masking; US-160 capability sandboxing; US-161 least-authority execution\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0017 — Declarative policy & resource governance\n\n- **Epic:** EPIC-019\n- **Feature:** F-019-01\n- **Work Cycle / Sprint:** WC-EXP-0007\n- **Product Goal:** PG-003\n- **Planned stories:** US-162 policy model/DSL; US-163 quality/autonomy/compliance policies; US-164 governed resources/ownership\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0018 — Change control & restoration\n\n- **Epic:** EPIC-019\n- **Feature:** F-019-02\n- **Work Cycle / Sprint:** WC-EXP-0007\n- **Product Goal:** PG-003\n- **Planned stories:** US-165 submit/review/approve change; US-166 rollback/restore; US-167 versioned policy/workspace state\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0019 — Immutable audit trail\n\n- **Epic:** EPIC-019\n- **Feature:** F-019-03\n- **Work Cycle / Sprint:** WC-EXP-0008\n- **Product Goal:** PG-003\n- **Planned stories:** US-168 audit event model; US-169 action/agent/decision/evidence linkage; US-170 tamper-evident export\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0020 — Readiness/done trust gates\n\n- **Epic:** EPIC-019\n- **Feature:** F-019-04\n- **Work Cycle / Sprint:** WC-EXP-0008\n- **Product Goal:** PG-003\n- **Planned stories:** US-171 enforce Definition of Ready; US-172 Definition of Done attestation policy; US-173 progressive-trust evidence gate\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0021 — OpenTelemetry & health telemetry\n\n- **Epic:** EPIC-020\n- **Feature:** F-020-01\n- **Work Cycle / Sprint:** WC-EXP-0008\n- **Product Goal:** PG-003\n- **Planned stories:** US-174 correlated traces; US-175 metrics; US-176 structured logs; US-177 operational/knowledge-health views\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0022 — Agent execution analytics\n\n- **Epic:** EPIC-020\n- **Feature:** F-020-02\n- **Work Cycle / Sprint:** WC-EXP-0009\n- **Product Goal:** PG-003\n- **Planned stories:** US-178 execution history; US-179 context/diff/verification view; US-180 token/cost/duration/failure metrics\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0023 — Hosted usage analytics\n\n- **Epic:** EPIC-020\n- **Feature:** F-020-03\n- **Work Cycle / Sprint:** WC-EXP-0009\n- **Product Goal:** PG-003\n- **Planned stories:** US-181 visitor/session tracking; US-182 traffic/geography/device metrics; US-183 privacy/opt-in/retention controls\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0024 — Instant deployment & custom domains\n\n- **Epic:** EPIC-021\n- **Feature:** F-021-01\n- **Work Cycle / Sprint:** WC-EXP-0009\n- **Product Goal:** PG-003\n- **Planned stories:** US-184 one-action deployment; US-185 shareable links/custom domains/access control; US-186 optional gallery publication\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2FWP-EXP-PI-002-FORECAST.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "EXP-0006",
+    "EXP-0007",
+    "EXP-0008",
+    "EXP-0009",
+    "EXP-0013",
+    "EXP-0014",
+    "EXP-0015",
+    "EXP-0016",
+    "EXP-0017",
+    "EXP-0018",
+    "EXP-0019",
+    "EXP-002",
+    "EXP-0020",
+    "EXP-0021",
+    "EXP-0022",
+    "EXP-0023",
+    "EXP-0024",
+    "P-256"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast catalog Change authority: CR-0002",
+    "title": "Forecast Work Packets — PI-EXP-002"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "EXP-002"
+      ],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "forecast-work-packets-pi-exp-002",
+      "text": "# Forecast Work Packets — PI-EXP-002\n\n**Status:** Forecast catalog  \n**Change authority:** CR-0002\n\nThese Work Packets are forecast placeholders. They are not Ready or authorized. Each is split into its own canonical Work Packet artifact when rolling-wave refinement reaches it; until then this catalog plus `product/backlog/EXPANDED-BACKLOG.md` defines the forecast identity and scope intent.",
+      "title": "Forecast Work Packets — PI-EXP-002"
+    },
+    {
+      "identifiers": [
+        "EXP-0006",
+        "EXP-0013",
+        "P-256"
+      ],
+      "level": 2,
+      "line_end": 16,
+      "line_start": 8,
+      "section_id": "wp-exp-0013-signed-attestations-crypto-agility",
+      "text": "## WP-EXP-0013 — Signed attestations & crypto agility\n\n- **Epic:** EPIC-018\n- **Feature:** F-018-01\n- **Work Cycle / Sprint:** WC-EXP-0006\n- **Product Goal:** PG-003\n- **Planned stories:** US-148 DSSE-compatible attestations; US-149 protected-branch attestation gate; US-150 Ed25519/P-256/secp256k1 profiles; US-151 ML-DSA post-quantum profile\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0013 — Signed attestations & crypto agility"
+    },
+    {
+      "identifiers": [
+        "EXP-0006",
+        "EXP-0014"
+      ],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 17,
+      "section_id": "wp-exp-0014-multi-party-trust-key-lifecycle",
+      "text": "## WP-EXP-0014 — Multi-party trust & key lifecycle\n\n- **Epic:** EPIC-018\n- **Feature:** F-018-02\n- **Work Cycle / Sprint:** WC-EXP-0006\n- **Product Goal:** PG-003\n- **Planned stories:** US-152 multi-signature approval policy; US-153 key rotation/revocation; US-154 quantum-migration policy\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0014 — Multi-party trust & key lifecycle"
+    },
+    {
+      "identifiers": [
+        "EXP-0006",
+        "EXP-0015",
+        "P-256"
+      ],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 26,
+      "section_id": "wp-exp-0015-rbac-passkey-identity",
+      "text": "## WP-EXP-0015 — RBAC & passkey identity\n\n- **Epic:** EPIC-018\n- **Feature:** F-018-03\n- **Work Cycle / Sprint:** WC-EXP-0006\n- **Product Goal:** PG-003\n- **Planned stories:** US-155 RBAC; US-156 WebAuthn/P-256 passkeys; US-157 password/session/access protection\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0015 — RBAC & passkey identity"
+    },
+    {
+      "identifiers": [
+        "EXP-0007",
+        "EXP-0016"
+      ],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 35,
+      "section_id": "wp-exp-0016-ai-input-security-boundary",
+      "text": "## WP-EXP-0016 — AI/input security boundary\n\n- **Epic:** EPIC-018\n- **Feature:** F-018-04\n- **Work Cycle / Sprint:** WC-EXP-0007\n- **Product Goal:** PG-003\n- **Planned stories:** US-158 prompt-injection detection/containment; US-159 secret masking; US-160 capability sandboxing; US-161 least-authority execution\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0016 — AI/input security boundary"
+    },
+    {
+      "identifiers": [
+        "EXP-0007",
+        "EXP-0017"
+      ],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 44,
+      "section_id": "wp-exp-0017-declarative-policy-resource-governance",
+      "text": "## WP-EXP-0017 — Declarative policy & resource governance\n\n- **Epic:** EPIC-019\n- **Feature:** F-019-01\n- **Work Cycle / Sprint:** WC-EXP-0007\n- **Product Goal:** PG-003\n- **Planned stories:** US-162 policy model/DSL; US-163 quality/autonomy/compliance policies; US-164 governed resources/ownership\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0017 — Declarative policy & resource governance"
+    },
+    {
+      "identifiers": [
+        "EXP-0007",
+        "EXP-0018"
+      ],
+      "level": 2,
+      "line_end": 61,
+      "line_start": 53,
+      "section_id": "wp-exp-0018-change-control-restoration",
+      "text": "## WP-EXP-0018 — Change control & restoration\n\n- **Epic:** EPIC-019\n- **Feature:** F-019-02\n- **Work Cycle / Sprint:** WC-EXP-0007\n- **Product Goal:** PG-003\n- **Planned stories:** US-165 submit/review/approve change; US-166 rollback/restore; US-167 versioned policy/workspace state\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0018 — Change control & restoration"
+    },
+    {
+      "identifiers": [
+        "EXP-0008",
+        "EXP-0019"
+      ],
+      "level": 2,
+      "line_end": 70,
+      "line_start": 62,
+      "section_id": "wp-exp-0019-immutable-audit-trail",
+      "text": "## WP-EXP-0019 — Immutable audit trail\n\n- **Epic:** EPIC-019\n- **Feature:** F-019-03\n- **Work Cycle / Sprint:** WC-EXP-0008\n- **Product Goal:** PG-003\n- **Planned stories:** US-168 audit event model; US-169 action/agent/decision/evidence linkage; US-170 tamper-evident export\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0019 — Immutable audit trail"
+    },
+    {
+      "identifiers": [
+        "EXP-0008",
+        "EXP-0020"
+      ],
+      "level": 2,
+      "line_end": 79,
+      "line_start": 71,
+      "section_id": "wp-exp-0020-readiness-done-trust-gates",
+      "text": "## WP-EXP-0020 — Readiness/done trust gates\n\n- **Epic:** EPIC-019\n- **Feature:** F-019-04\n- **Work Cycle / Sprint:** WC-EXP-0008\n- **Product Goal:** PG-003\n- **Planned stories:** US-171 enforce Definition of Ready; US-172 Definition of Done attestation policy; US-173 progressive-trust evidence gate\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0020 — Readiness/done trust gates"
+    },
+    {
+      "identifiers": [
+        "EXP-0008",
+        "EXP-0021"
+      ],
+      "level": 2,
+      "line_end": 88,
+      "line_start": 80,
+      "section_id": "wp-exp-0021-opentelemetry-health-telemetry",
+      "text": "## WP-EXP-0021 — OpenTelemetry & health telemetry\n\n- **Epic:** EPIC-020\n- **Feature:** F-020-01\n- **Work Cycle / Sprint:** WC-EXP-0008\n- **Product Goal:** PG-003\n- **Planned stories:** US-174 correlated traces; US-175 metrics; US-176 structured logs; US-177 operational/knowledge-health views\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0021 — OpenTelemetry & health telemetry"
+    },
+    {
+      "identifiers": [
+        "EXP-0009",
+        "EXP-0022"
+      ],
+      "level": 2,
+      "line_end": 97,
+      "line_start": 89,
+      "section_id": "wp-exp-0022-agent-execution-analytics",
+      "text": "## WP-EXP-0022 — Agent execution analytics\n\n- **Epic:** EPIC-020\n- **Feature:** F-020-02\n- **Work Cycle / Sprint:** WC-EXP-0009\n- **Product Goal:** PG-003\n- **Planned stories:** US-178 execution history; US-179 context/diff/verification view; US-180 token/cost/duration/failure metrics\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0022 — Agent execution analytics"
+    },
+    {
+      "identifiers": [
+        "EXP-0009",
+        "EXP-0023"
+      ],
+      "level": 2,
+      "line_end": 106,
+      "line_start": 98,
+      "section_id": "wp-exp-0023-hosted-usage-analytics",
+      "text": "## WP-EXP-0023 — Hosted usage analytics\n\n- **Epic:** EPIC-020\n- **Feature:** F-020-03\n- **Work Cycle / Sprint:** WC-EXP-0009\n- **Product Goal:** PG-003\n- **Planned stories:** US-181 visitor/session tracking; US-182 traffic/geography/device metrics; US-183 privacy/opt-in/retention controls\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0023 — Hosted usage analytics"
+    },
+    {
+      "identifiers": [
+        "EXP-0009",
+        "EXP-0024"
+      ],
+      "level": 2,
+      "line_end": 114,
+      "line_start": 107,
+      "section_id": "wp-exp-0024-instant-deployment-custom-domains",
+      "text": "## WP-EXP-0024 — Instant deployment & custom domains\n\n- **Epic:** EPIC-021\n- **Feature:** F-021-01\n- **Work Cycle / Sprint:** WC-EXP-0009\n- **Product Goal:** PG-003\n- **Planned stories:** US-184 one-action deployment; US-185 shareable links/custom domains/access control; US-186 optional gallery publication\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0024 — Instant deployment & custom domains"
+    }
+  ],
+  "source": {
+    "bytes": 5488,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 114,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/WP-EXP-PI-002-FORECAST.md",
+    "sha256": "48d7170ee9dee3be1a18d3c106e66e9834fe7fe301b707c8f34ddb1b7beed11f"
+  }
+}

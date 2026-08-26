@@ -1,5 +1,5 @@
 {
-  "content": "# Product Constraints\n\n**Status:** Proposed stabilization baseline\n\n## PC-001 — Local-first core\n\nRepository discovery, semantic compilation, validation, query/explain, and MVP context generation must operate without mandatory hosted services.\n\n## PC-002 — Deterministic semantic core\n\nEquivalent supported inputs/configuration/Monad version must produce equivalent canonical semantic identity and output. Probabilistic AI output cannot define core graph truth.\n\n## PC-003 — Human-readable canonical source\n\nMVP assumes human-readable Git artifacts are canonical. Machine companions are generated derivatives with source hashes/provenance.\n\n## PC-004 — Git-native history\n\nMonad does not replace Git history/branching/PR review. It may enrich and validate them.\n\n## PC-005 — Native-tool authority\n\nLanguage compilers, package managers, test runners, formatters, and other domain tools remain authoritative for their native semantics unless an accepted adapter contract says otherwise.\n\n## PC-006 — Bounded AI authority\n\nAgents must receive explicit scope and may not silently accept architecture, specifications, risk, or releases.\n\n## PC-007 — Explainability\n\nConsequential diagnostics, graph relationships, context selections, and policy/execution decisions must retain enough provenance to explain their basis.\n\n## PC-008 — Security and secret minimization\n\nRepository ingestion and context generation must honor exclusions, data classification, and least-context principles; secrets are never considered ordinary engineering context.\n\n## PC-009 — Polyglot evolution\n\nThe architecture must not hard-code one implementation language/toolchain as the product model. MVP implementation may choose a narrow stack while interfaces remain explicit.\n\n## PC-010 — Bootstrap resource discipline\n\nThe project should prefer best-of-breed open-source dependencies and avoid unnecessary paid infrastructure/API requirements for the local core.\n\n## PC-011 — Backward-compatible evolution\n\nPublic schemas, KIR, configuration, CLI structured output, plugin APIs, and registry protocols must establish explicit versioning before external stability is promised.\n\n## PC-012 — No false completeness\n\nUnsupported constructs, incomplete graph knowledge, and uncertain relationships must be visible rather than guessed into a complete-looking model.",
+  "content": "# Product Constraints\n\n**Status:** Expanded product baseline\n\n## PC-001 — Local-first core\n\nRepository discovery, semantic compilation, validation, query/explain, MVP context generation, and core governance must operate without mandatory hosted services.\n\n## PC-002 — Deterministic semantic core\n\nEquivalent supported inputs/configuration/Monad version must produce equivalent canonical semantic identity and output. Probabilistic AI output cannot define core graph truth.\n\n## PC-003 — Human-readable canonical source\n\nMVP assumes human-readable Git artifacts are canonical. Machine companions are generated derivatives with source hashes/provenance.\n\n## PC-004 — Git-native history\n\nMonad does not replace Git history/branching/PR review. It may enrich, automate, attest, validate, and restore through governed policies.\n\n## PC-005 — Native-tool authority\n\nLanguage compilers, package managers, test runners, formatters, and other domain tools remain authoritative for their native semantics unless an accepted adapter contract says otherwise.\n\n## PC-006 — Bounded AI authority\n\nAgents must receive explicit scope and may not silently accept architecture, specifications, risk, policy exceptions, security posture, or releases.\n\n## PC-007 — Explainability\n\nConsequential diagnostics, graph relationships, context selections, policy/execution decisions, autonomy promotions, score changes, and automation actions must retain enough provenance to explain their basis.\n\n## PC-008 — Security and secret minimization\n\nRepository ingestion and context generation must honor exclusions, data classification, capability sandboxing, prompt-injection defenses, secret masking, and least-context principles; secrets are never considered ordinary engineering context.\n\n## PC-009 — Polyglot evolution\n\nThe architecture must not hard-code one implementation language/toolchain as the product model. MVP implementation may choose a narrow stack while interfaces remain explicit.\n\n## PC-010 — Bootstrap resource discipline\n\nThe project should prefer best-of-breed open-source dependencies and avoid unnecessary paid infrastructure/API requirements for the local core.\n\n## PC-011 — Backward-compatible evolution\n\nPublic schemas, KIR, configuration, CLI structured output, plugin APIs, registry protocols, MCP/LSP surfaces, adapters, attestations, storage backends, and provider contracts must establish explicit versioning before external stability is promised.\n\n## PC-012 — No false completeness\n\nUnsupported constructs, incomplete graph knowledge, uncertain relationships, stale memory, reviewer disagreement, and missing evidence must be visible rather than guessed into a complete-looking model.\n\n## PC-013 — Progressive trust only\n\nNo agent, provider, plugin, integration, or automation begins with unrestricted authority. Stronger authority requires explicit policy, evidence, approval, and a reversible demotion path.\n\n## PC-014 — Operator decision stewardship\n\nAutomation may reduce typing and routine coordination, but humans remain responsible for framing unresolved decisions and for disposition of architecture, risk, security, policy exceptions, and release authority unless governance explicitly delegates a bounded decision class.\n\n## PC-015 — Modular-first ecosystem evolution\n\nStable module/contracts precede repository/service splitting. Additional repositories, services, plugins, packs, registries, and hosted controls require evidence of ownership, deployment, scale, or compatibility need.\n\n## PC-016 — Provider and vendor independence\n\nCanonical core operation must not require a single AI provider, cloud vendor, hosted database, automation vendor, IDE, or integration platform.\n\n## PC-017 — Optional remote/hosted surfaces\n\nHosted analytics, custom domains, galleries, managed deployment, multi-tenant caches, and cloud storage are optional interaction/operations capabilities. Their absence cannot invalidate local semantic truth.\n\n## PC-018 — Air-gapped viability\n\nSecurity-sensitive deployments must have a path to no-network/no-exfiltration operation with local models/tools or disabled AI features and auditable attempts to cross the boundary.\n\n## PC-019 — Cryptographic agility\n\nAttestation and identity algorithms are versioned profiles rather than permanent semantic assumptions. Key rotation, revocation, multi-party policy, and post-quantum migration must be possible without rewriting historical engineering meaning.\n\n## PC-020 — Isolation boundaries\n\nWorktrees/branches, tenants/workspaces, caches, vector stores, files, plugins, integrations, and agent capabilities must have explicit isolation and provenance boundaries.\n\n## PC-021 — Rebase/merge policy is declarative\n\nA rebase-first branch policy may be mandatory for configured autonomous execution profiles, but Git integration strategy remains a governed repository policy rather than an unconditional semantic law of Monad.\n\n## PC-022 — Performance targets never weaken correctness\n\nParallelism, throughput, caching, and fast state-finalization targets may not weaken determinism, safety, provenance, native-tool authority, or release evidence.\n\n## PC-023 — External runtime compatibility is adapter-scoped\n\nCompatibility with external bytecode/runtime ecosystems, including any EVM profile, must remain isolated behind an adapter contract and may not redefine the knowledge/control planes.\n\n## PC-024 — Privacy-governed analytics\n\nHosted traffic/geography/device analytics must be optional, minimized, separable from canonical engineering data, and controlled by explicit retention/access/privacy policies.\n\n## PC-025 — Generated intelligence is not sole authority\n\nScores, dashboards, embeddings, caches, AI summaries, and automation state are derived views. Users must be able to inspect the underlying canonical evidence or explicit external evidence record.\n",
   "document_id": "doc:product%2Fconstraints.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "product",
     "normative": true,
-    "summary": "Status: Proposed stabilization baseline",
+    "summary": "Status: Expanded product baseline",
     "title": "Product Constraints"
   },
   "relations": [],
@@ -24,7 +24,7 @@
       "line_end": 4,
       "line_start": 1,
       "section_id": "product-constraints",
-      "text": "# Product Constraints\n\n**Status:** Proposed stabilization baseline",
+      "text": "# Product Constraints\n\n**Status:** Expanded product baseline",
       "title": "Product Constraints"
     },
     {
@@ -33,7 +33,7 @@
       "line_end": 8,
       "line_start": 5,
       "section_id": "pc-001-local-first-core",
-      "text": "## PC-001 — Local-first core\n\nRepository discovery, semantic compilation, validation, query/explain, and MVP context generation must operate without mandatory hosted services.",
+      "text": "## PC-001 — Local-first core\n\nRepository discovery, semantic compilation, validation, query/explain, MVP context generation, and core governance must operate without mandatory hosted services.",
       "title": "PC-001 — Local-first core"
     },
     {
@@ -60,7 +60,7 @@
       "line_end": 20,
       "line_start": 17,
       "section_id": "pc-004-git-native-history",
-      "text": "## PC-004 — Git-native history\n\nMonad does not replace Git history/branching/PR review. It may enrich and validate them.",
+      "text": "## PC-004 — Git-native history\n\nMonad does not replace Git history/branching/PR review. It may enrich, automate, attest, validate, and restore through governed policies.",
       "title": "PC-004 — Git-native history"
     },
     {
@@ -78,7 +78,7 @@
       "line_end": 28,
       "line_start": 25,
       "section_id": "pc-006-bounded-ai-authority",
-      "text": "## PC-006 — Bounded AI authority\n\nAgents must receive explicit scope and may not silently accept architecture, specifications, risk, or releases.",
+      "text": "## PC-006 — Bounded AI authority\n\nAgents must receive explicit scope and may not silently accept architecture, specifications, risk, policy exceptions, security posture, or releases.",
       "title": "PC-006 — Bounded AI authority"
     },
     {
@@ -87,7 +87,7 @@
       "line_end": 32,
       "line_start": 29,
       "section_id": "pc-007-explainability",
-      "text": "## PC-007 — Explainability\n\nConsequential diagnostics, graph relationships, context selections, and policy/execution decisions must retain enough provenance to explain their basis.",
+      "text": "## PC-007 — Explainability\n\nConsequential diagnostics, graph relationships, context selections, policy/execution decisions, autonomy promotions, score changes, and automation actions must retain enough provenance to explain their basis.",
       "title": "PC-007 — Explainability"
     },
     {
@@ -96,7 +96,7 @@
       "line_end": 36,
       "line_start": 33,
       "section_id": "pc-008-security-and-secret-minimization",
-      "text": "## PC-008 — Security and secret minimization\n\nRepository ingestion and context generation must honor exclusions, data classification, and least-context principles; secrets are never considered ordinary engineering context.",
+      "text": "## PC-008 — Security and secret minimization\n\nRepository ingestion and context generation must honor exclusions, data classification, capability sandboxing, prompt-injection defenses, secret masking, and least-context principles; secrets are never considered ordinary engineering context.",
       "title": "PC-008 — Security and secret minimization"
     },
     {
@@ -123,26 +123,143 @@
       "line_end": 48,
       "line_start": 45,
       "section_id": "pc-011-backward-compatible-evolution",
-      "text": "## PC-011 — Backward-compatible evolution\n\nPublic schemas, KIR, configuration, CLI structured output, plugin APIs, and registry protocols must establish explicit versioning before external stability is promised.",
+      "text": "## PC-011 — Backward-compatible evolution\n\nPublic schemas, KIR, configuration, CLI structured output, plugin APIs, registry protocols, MCP/LSP surfaces, adapters, attestations, storage backends, and provider contracts must establish explicit versioning before external stability is promised.",
       "title": "PC-011 — Backward-compatible evolution"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 51,
+      "line_end": 52,
       "line_start": 49,
       "section_id": "pc-012-no-false-completeness",
-      "text": "## PC-012 — No false completeness\n\nUnsupported constructs, incomplete graph knowledge, and uncertain relationships must be visible rather than guessed into a complete-looking model.",
+      "text": "## PC-012 — No false completeness\n\nUnsupported constructs, incomplete graph knowledge, uncertain relationships, stale memory, reviewer disagreement, and missing evidence must be visible rather than guessed into a complete-looking model.",
       "title": "PC-012 — No false completeness"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 53,
+      "section_id": "pc-013-progressive-trust-only",
+      "text": "## PC-013 — Progressive trust only\n\nNo agent, provider, plugin, integration, or automation begins with unrestricted authority. Stronger authority requires explicit policy, evidence, approval, and a reversible demotion path.",
+      "title": "PC-013 — Progressive trust only"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 57,
+      "section_id": "pc-014-operator-decision-stewardship",
+      "text": "## PC-014 — Operator decision stewardship\n\nAutomation may reduce typing and routine coordination, but humans remain responsible for framing unresolved decisions and for disposition of architecture, risk, security, policy exceptions, and release authority unless governance explicitly delegates a bounded decision class.",
+      "title": "PC-014 — Operator decision stewardship"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 64,
+      "line_start": 61,
+      "section_id": "pc-015-modular-first-ecosystem-evolution",
+      "text": "## PC-015 — Modular-first ecosystem evolution\n\nStable module/contracts precede repository/service splitting. Additional repositories, services, plugins, packs, registries, and hosted controls require evidence of ownership, deployment, scale, or compatibility need.",
+      "title": "PC-015 — Modular-first ecosystem evolution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 65,
+      "section_id": "pc-016-provider-and-vendor-independence",
+      "text": "## PC-016 — Provider and vendor independence\n\nCanonical core operation must not require a single AI provider, cloud vendor, hosted database, automation vendor, IDE, or integration platform.",
+      "title": "PC-016 — Provider and vendor independence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 72,
+      "line_start": 69,
+      "section_id": "pc-017-optional-remote-hosted-surfaces",
+      "text": "## PC-017 — Optional remote/hosted surfaces\n\nHosted analytics, custom domains, galleries, managed deployment, multi-tenant caches, and cloud storage are optional interaction/operations capabilities. Their absence cannot invalidate local semantic truth.",
+      "title": "PC-017 — Optional remote/hosted surfaces"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 76,
+      "line_start": 73,
+      "section_id": "pc-018-air-gapped-viability",
+      "text": "## PC-018 — Air-gapped viability\n\nSecurity-sensitive deployments must have a path to no-network/no-exfiltration operation with local models/tools or disabled AI features and auditable attempts to cross the boundary.",
+      "title": "PC-018 — Air-gapped viability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 80,
+      "line_start": 77,
+      "section_id": "pc-019-cryptographic-agility",
+      "text": "## PC-019 — Cryptographic agility\n\nAttestation and identity algorithms are versioned profiles rather than permanent semantic assumptions. Key rotation, revocation, multi-party policy, and post-quantum migration must be possible without rewriting historical engineering meaning.",
+      "title": "PC-019 — Cryptographic agility"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 84,
+      "line_start": 81,
+      "section_id": "pc-020-isolation-boundaries",
+      "text": "## PC-020 — Isolation boundaries\n\nWorktrees/branches, tenants/workspaces, caches, vector stores, files, plugins, integrations, and agent capabilities must have explicit isolation and provenance boundaries.",
+      "title": "PC-020 — Isolation boundaries"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 88,
+      "line_start": 85,
+      "section_id": "pc-021-rebase-merge-policy-is-declarative",
+      "text": "## PC-021 — Rebase/merge policy is declarative\n\nA rebase-first branch policy may be mandatory for configured autonomous execution profiles, but Git integration strategy remains a governed repository policy rather than an unconditional semantic law of Monad.",
+      "title": "PC-021 — Rebase/merge policy is declarative"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 92,
+      "line_start": 89,
+      "section_id": "pc-022-performance-targets-never-weaken-correctness",
+      "text": "## PC-022 — Performance targets never weaken correctness\n\nParallelism, throughput, caching, and fast state-finalization targets may not weaken determinism, safety, provenance, native-tool authority, or release evidence.",
+      "title": "PC-022 — Performance targets never weaken correctness"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 96,
+      "line_start": 93,
+      "section_id": "pc-023-external-runtime-compatibility-is-adapter-scoped",
+      "text": "## PC-023 — External runtime compatibility is adapter-scoped\n\nCompatibility with external bytecode/runtime ecosystems, including any EVM profile, must remain isolated behind an adapter contract and may not redefine the knowledge/control planes.",
+      "title": "PC-023 — External runtime compatibility is adapter-scoped"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 100,
+      "line_start": 97,
+      "section_id": "pc-024-privacy-governed-analytics",
+      "text": "## PC-024 — Privacy-governed analytics\n\nHosted traffic/geography/device analytics must be optional, minimized, separable from canonical engineering data, and controlled by explicit retention/access/privacy policies.",
+      "title": "PC-024 — Privacy-governed analytics"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 103,
+      "line_start": 101,
+      "section_id": "pc-025-generated-intelligence-is-not-sole-authority",
+      "text": "## PC-025 — Generated intelligence is not sole authority\n\nScores, dashboards, embeddings, caches, AI summaries, and automation state are derived views. Users must be able to inspect the underlying canonical evidence or explicit external evidence record.",
+      "title": "PC-025 — Generated intelligence is not sole authority"
     }
   ],
   "source": {
-    "bytes": 2353,
+    "bytes": 5892,
     "canonical": true,
     "language": "markdown",
-    "lines": 51,
+    "lines": 103,
     "media_type": "text/markdown",
     "path": "product/constraints.md",
-    "sha256": "a373d3297ecdac1743c98f6d8f228532f99a3f9e2eee1570a18212e41d60c6b9"
+    "sha256": "585263f8db34c43bfac617da8103247a4f46d26bf4e455e22613f75835fef864"
   }
 }

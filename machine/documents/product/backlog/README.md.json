@@ -1,12 +1,15 @@
 {
-  "content": "# Monad Product Backlog\n\n**Status:** Active rolling-wave plan\n\nThe Product Backlog is the ordered product/value view of work. It complements—not replaces—engineering authority.\n\n```text\nProduct Goal\n  → Epic\n    → Feature\n      → Story / Enabler / Bug / Spike\n        → Task\n\nEngineering authority\n  → ADR / Specification\n    → Increment\n      → Work Cycle (Sprint)\n        → Work Packet\n          → Implementation / tests / evidence / PR\n```\n\nFor MVP, **Work Cycle and Sprint are the same one-week execution window**. This avoids running two competing cadences.\n\n## Refinement horizon\n\n- All MVP Epics: defined and sequenced.\n- All MVP Features: defined and assigned to a forecast Sprint/Increment.\n- Stories/Enablers: defined across the MVP with acceptance intent.\n- Next three Sprints: decomposed into ready-candidate Work Packets/tasks.\n- Later tasks: refined when dependencies/evidence make them meaningful.\n\nGitHub Issues/Projects project this backlog for collaboration. Git files remain canonical for governing specifications, ADRs, Work Packets, and release evidence.",
+  "content": "# Monad Product Backlog\n\n**Status:** Active rolling-wave plan\n\nThe Product Backlog is the ordered product/value view of work. It complements—not replaces—engineering authority.\n\n```text\nProduct Goal\n  → Epic\n    → Feature\n      → Story / Enabler / Bug / Spike\n        → Task\n\nEngineering authority\n  → ADR / Specification\n    → Increment\n      → Work Cycle (Sprint)\n        → Work Packet\n          → Execution / implementation / tests / evidence / PR\n```\n\nFor Monad, **Work Cycle and Sprint are the same execution window** unless a future governance change explicitly replaces that rule. This avoids running two competing cadences.\n\n## Canonical backlog layers\n\n- `MVP-BACKLOG.md` — PG-001 / MVP Release 1: EPIC-001 through EPIC-014, WP-MVP-0001 through WP-MVP-0033, US-001 through US-105 plus EN-001 through EN-003.\n- `EXPANDED-BACKLOG.md` — approved post-MVP expansion under CR-0002: PG-002 through PG-004, EPIC-015 through EPIC-024, WP-EXP-0001 through WP-EXP-0040, US-106 through US-237.\n\nMVP remains first in execution order. The expanded backlog does not silently widen an active MVP Work Packet or Work Cycle.\n\n## Refinement horizon\n\n- All planned Epics: defined and sequenced at outcome level.\n- All forecast Features: assigned to a forecast Increment and Work Cycle/Sprint.\n- Stories/Enablers: stable planning identifiers with acceptance intent.\n- Near-term Work Packets: decomposed into ready-candidate Tasks/tests/evidence.\n- Later Tasks: refined only when dependencies, ADRs/specifications, security/privacy analysis, and evidence make them meaningful.\n\nFor the expanded roadmap, forecast Work Packet identities are cataloged by Program Increment under `engineering/work-packets/WP-EXP-PI-*-FORECAST.md`. A forecast entry is split into its own detailed Work Packet file when rolling-wave refinement reaches it. Forecast status is never Ready/Authorized by implication.\n\n## Task rule\n\nFormal implementation Tasks are intentionally not pre-generated for the entire roadmap. Before a Work Packet becomes Ready, it must have enough bounded task/test/evidence decomposition to execute without guessing. This prevents stale speculative task inventories from masquerading as engineering authority.\n\n## Projection rule\n\nGitHub Issues/Projects may project this backlog for collaboration. Git files remain canonical for governing requirements, specifications, ADRs, Work Packets, Program Increments, Work Cycles, Product Goals, milestones, and release evidence. Projection drift must be reconciled; it never silently changes canonical status.\n",
   "document_id": "doc:product%2Fbacklog%2FREADME.md",
   "generation": {
     "deterministic": true,
     "tool": "sync-machine-docs",
     "version": "1.0.0"
   },
-  "identifiers": [],
+  "identifiers": [
+    "EXP-0001",
+    "EXP-0040"
+  ],
   "links": [],
   "metadata": {
     "document_type": "product",
@@ -24,26 +27,56 @@
       "line_end": 23,
       "line_start": 1,
       "section_id": "monad-product-backlog",
-      "text": "# Monad Product Backlog\n\n**Status:** Active rolling-wave plan\n\nThe Product Backlog is the ordered product/value view of work. It complements—not replaces—engineering authority.\n\n```text\nProduct Goal\n  → Epic\n    → Feature\n      → Story / Enabler / Bug / Spike\n        → Task\n\nEngineering authority\n  → ADR / Specification\n    → Increment\n      → Work Cycle (Sprint)\n        → Work Packet\n          → Implementation / tests / evidence / PR\n```\n\nFor MVP, **Work Cycle and Sprint are the same one-week execution window**. This avoids running two competing cadences.",
+      "text": "# Monad Product Backlog\n\n**Status:** Active rolling-wave plan\n\nThe Product Backlog is the ordered product/value view of work. It complements—not replaces—engineering authority.\n\n```text\nProduct Goal\n  → Epic\n    → Feature\n      → Story / Enabler / Bug / Spike\n        → Task\n\nEngineering authority\n  → ADR / Specification\n    → Increment\n      → Work Cycle (Sprint)\n        → Work Packet\n          → Execution / implementation / tests / evidence / PR\n```\n\nFor Monad, **Work Cycle and Sprint are the same execution window** unless a future governance change explicitly replaces that rule. This avoids running two competing cadences.",
       "title": "Monad Product Backlog"
+    },
+    {
+      "identifiers": [
+        "EXP-0001",
+        "EXP-0040"
+      ],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 24,
+      "section_id": "canonical-backlog-layers",
+      "text": "## Canonical backlog layers\n\n- `MVP-BACKLOG.md` — PG-001 / MVP Release 1: EPIC-001 through EPIC-014, WP-MVP-0001 through WP-MVP-0033, US-001 through US-105 plus EN-001 through EN-003.\n- `EXPANDED-BACKLOG.md` — approved post-MVP expansion under CR-0002: PG-002 through PG-004, EPIC-015 through EPIC-024, WP-EXP-0001 through WP-EXP-0040, US-106 through US-237.\n\nMVP remains first in execution order. The expanded backlog does not silently widen an active MVP Work Packet or Work Cycle.",
+      "title": "Canonical backlog layers"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 32,
-      "line_start": 24,
+      "line_end": 40,
+      "line_start": 31,
       "section_id": "refinement-horizon",
-      "text": "## Refinement horizon\n\n- All MVP Epics: defined and sequenced.\n- All MVP Features: defined and assigned to a forecast Sprint/Increment.\n- Stories/Enablers: defined across the MVP with acceptance intent.\n- Next three Sprints: decomposed into ready-candidate Work Packets/tasks.\n- Later tasks: refined when dependencies/evidence make them meaningful.\n\nGitHub Issues/Projects project this backlog for collaboration. Git files remain canonical for governing specifications, ADRs, Work Packets, and release evidence.",
+      "text": "## Refinement horizon\n\n- All planned Epics: defined and sequenced at outcome level.\n- All forecast Features: assigned to a forecast Increment and Work Cycle/Sprint.\n- Stories/Enablers: stable planning identifiers with acceptance intent.\n- Near-term Work Packets: decomposed into ready-candidate Tasks/tests/evidence.\n- Later Tasks: refined only when dependencies, ADRs/specifications, security/privacy analysis, and evidence make them meaningful.\n\nFor the expanded roadmap, forecast Work Packet identities are cataloged by Program Increment under `engineering/work-packets/WP-EXP-PI-*-FORECAST.md`. A forecast entry is split into its own detailed Work Packet file when rolling-wave refinement reaches it. Forecast status is never Ready/Authorized by implication.",
       "title": "Refinement horizon"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 41,
+      "section_id": "task-rule",
+      "text": "## Task rule\n\nFormal implementation Tasks are intentionally not pre-generated for the entire roadmap. Before a Work Packet becomes Ready, it must have enough bounded task/test/evidence decomposition to execute without guessing. This prevents stale speculative task inventories from masquerading as engineering authority.",
+      "title": "Task rule"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 45,
+      "section_id": "projection-rule",
+      "text": "## Projection rule\n\nGitHub Issues/Projects may project this backlog for collaboration. Git files remain canonical for governing requirements, specifications, ADRs, Work Packets, Program Increments, Work Cycles, Product Goals, milestones, and release evidence. Projection drift must be reconciled; it never silently changes canonical status.",
+      "title": "Projection rule"
     }
   ],
   "source": {
-    "bytes": 1097,
+    "bytes": 2571,
     "canonical": true,
     "language": "markdown",
-    "lines": 32,
+    "lines": 47,
     "media_type": "text/markdown",
     "path": "product/backlog/README.md",
-    "sha256": "dbbf3006d799a00f088587e919ff030b994abe3b4113470152014bc65c0c367c"
+    "sha256": "a8c6768088c90b0c19e84b3e207c7f6c0acc75705c28a0b5edba54cf3b0d85aa"
   }
 }
