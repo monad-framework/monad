@@ -9,120 +9,101 @@ created: "2026-08-26"
 updated: "2026-08-26"
 ---
 
+
 # WP-MVP-0004 — Engineering Review
 
-**Decision:** REJECTED
+**Decision:** ACCEPTED
 
 ## Target
 
 - Artifact: `engineering/work-packets/WP-MVP-0004.md`
-- State at review start: VERIFYING
+- State at final review start: IN_REVIEW
 - Governed execution: `EXEC-0009`
-- Implementation merge: PR #217
-- Post-merge EOSV merge: PR #224
-- Review baseline: `8923f63e39d26937c82d3e9837431c7cdd89b1ee`
+- Initial implementation merge: PR #217
+- Initial rejected EOSR merge: PR #230
+- F001 correction merge: PR #231
+- Post-correction EOSV merge: PR #232
+- Final review baseline: `385fd7bb8631e25d4c2cdae0c2a81f8406ba734b`
 
 ## Deterministic Verification
 
-**Result:** PASS for the existing repository suite; a focused EOSR adversarial conformance probe FAILS as expected and exposes a missing canonical-artifact contract case.
+**Result:** PASS.
 
-Before lifecycle mutation, the merged baseline independently passed:
+The canonical merged state was freshly revalidated before this review using formatting checks, Clippy with warnings denied, and the complete workspace test suite. `monad-core` has 56 passing tests. Focused independent reruns also pass for canonical front-matter authority, prevention of the review/Work-Packet false duplicate, and malformed/duplicate/conflicting explicit identity behavior. EOS strict verification, canonical-state consistency, trace integrity, and machine-document synchronization pass.
 
-- `cargo fmt --all -- --check`;
-- `cargo clippy --workspace --all-targets --all-features -- -D warnings`;
-- `cargo test --workspace --all-targets --all-features`;
-- `./scripts/eos verify --strict`;
-- `./scripts/eos state status`;
-- `python3 scripts/sync-machine-docs.py --check`.
-
-A temporary uncommitted regression probe used the repository's real review-artifact shape: YAML front matter with `artifact_id: "REV-WP-MVP-0003"` and `status: "In Review"`, followed by H1 `# WP-MVP-0003 — Engineering Review`. The current parser returns explicit document identity `WP-MVP-0003`, not `REV-WP-MVP-0003`; the expected contract probe therefore fails. The probe was removed before the governed review transaction.
+Current post-correction EOSV evidence is `EVID-0229` through `EVID-0231`, captured after PR #231 was merged and integrated through PR #232.
 
 ## Scope Conformance
 
 PASS.
 
-The merged implementation remains within the authorized Rust semantic-core boundary. Product semantics are confined to `crates/monad-core/src/markdown.rs` plus its module export. There is no network access, repository-code execution, CLI-owned duplicate semantic rule, plugin/runtime expansion, or unrelated refactor.
+The product correction is confined to `crates/monad-core/src/markdown.rs`; the remaining correction/EOSV changes are governed evidence, trace, and machine projections. The parser remains deterministic, local, non-executing, and free of network behavior. No CLI-owned semantic rule, graph construction, reference resolution, LLM inference, arbitrary MDX execution, remote include, plugin/runtime expansion, or unrelated product refactor was introduced.
 
 ## Requirements / Specification Conformance
 
-REJECTED because of one blocking root defect, `EOSR-WP-MVP-0004-F001`.
+PASS.
 
-FR-002 requires canonical Markdown ingestion to preserve sections, metadata, stable identifiers, and references, while malformed input cannot silently become valid semantic state. TECH-INGEST-0001 likewise requires recognized metadata fields expressed by the artifact contract plus explicit governed identifiers and statuses where present. Monad's canonical repository configuration includes `engineering/**/*.md`, and governed review/change artifacts in that tree use YAML front matter for their canonical artifact identity and lifecycle metadata.
+The implementation now satisfies FR-002, QR-001, QR-003, ADR-0003, ADR-0004, DATA-SOURCE-0001, TECH-INGEST-0001, and ADR-0005 for this packet:
 
-The current parser does not parse YAML front matter as Markdown artifact metadata. It instead promotes an approved governed identifier found in an H1 heading to explicit document identity. This is incorrect for canonical review artifacts whose H1 names the reviewed target while front matter identifies the review artifact itself.
+- canonical Markdown structural and metadata extraction is deterministic and source-located;
+- canonical top-of-document YAML `artifact_id` is authoritative explicit document identity;
+- H1 governed identifiers are identity fallback only when no authoritative explicit identity is declared;
+- canonical front-matter `status` is preserved as metadata;
+- malformed, duplicate, and conflicting explicit identities produce diagnostics and cannot silently fall back to H1 identity;
+- links and governed identifier references remain unresolved provenance-rich candidates;
+- code fences, inline code, HTML comments, scripts, macros, and executable-looking content remain inert;
+- normalized output remains deterministic and parser semantics are versioned through Markdown parser contract v2.
 
 ## Architecture Conformance
 
-PARTIAL / BLOCKED BY F001.
+PASS.
 
-The implementation correctly lives in `monad-core`, remains deterministic/offline, and preserves the ADR-0004 safe-ingestion boundary. However ADR-0003 requires a Document ID to use the explicit governed identifier when the artifact contract defines one. Ignoring the canonical front-matter `artifact_id` and substituting the H1 target ID violates that identity rule.
-
-This also interacts directly with DATA-SOURCE-0001: duplicate explicit governed identifiers are fatal and must not be resolved by traversal order. Under the current parser, an actual Work Packet `WP-MVP-0003` and its canonical review `REV-WP-MVP-0003` are both assigned explicit identifier `WP-MVP-0003`, manufacturing a false fatal collision.
+Markdown semantic extraction remains in `monad-core`, consistent with ADR-0005. The correction composes with ADR-0003 document identity rather than duplicating identity derivation. It preserves ADR-0004 safe-ingestion constraints: repository content is treated as data, no network fetch is performed, and no repository code or embedded construct is executed.
 
 ## Acceptance Criteria Evidence
 
-- US-011 section/heading/metadata structure and source ranges are extracted deterministically — **FAIL / PARTIAL**. Heading/source-range behavior is well covered, but canonical YAML front-matter metadata is omitted.
-- US-012 governed identifiers/status metadata are extracted according to artifact contracts — **FAIL**. Canonical `artifact_id` and `status` front-matter fields are not extracted; H1 target IDs can be promoted as document identity instead.
-- US-013 links and identifier references are emitted as unresolved candidates with provenance — **PASS**. Link/title parsing, approved identifier namespaces, lexical boundaries, and exact spans have focused coverage.
-- US-014 malformed/ambiguous governed constructs produce source-located diagnostics without silent valid promotion — **FAIL / PARTIAL** for canonical front-matter identity/status fields because they are not recognized as governed metadata at all.
-- Code fences containing fake IDs/links are not treated as ordinary governed references — **PASS**.
-- HTML/scripts/macros are never executed — **PASS**.
-- Repeat-run normalized output is equivalent/byte-stable where declared canonical — **PASS** for currently modeled constructs.
+PASS for all seven WP-MVP-0004 acceptance criteria.
+
+- US-011: section/heading/metadata structure and exact source ranges are extracted deterministically — PASS, including canonical front matter.
+- US-012: governed identifiers and status metadata follow artifact contracts — PASS. `artifact_id` is authoritative; H1 is fallback only; malformed/duplicate/conflicting explicit identity blocks silent fallback.
+- US-013: links and identifier references are emitted as unresolved candidates with provenance — PASS, including the reviewed Work Packet ID in a review H1 remaining a reference rather than review identity.
+- US-014: malformed/ambiguous governed constructs produce source-located diagnostics without silently valid semantic promotion — PASS, including malformed and unclosed governed front matter.
+- Fake IDs/links inside code fences are not ordinary governed references — PASS.
+- HTML/scripts/macros are never executed — PASS.
+- Repeat-run normalized output is equivalent/byte-stable where declared canonical — PASS.
+
+The Work Packet checklist remains unreconciled here by design; acceptance review and checklist/closure are separate governed transactions.
 
 ## Test / Validation Evidence
 
-The existing suite is strong and all current tests pass. It covers headings, bold metadata, links, Unicode, malformed constructs, UTF-8 diagnostics, code fences, HTML comments, multiline inline code, explicit-ID conflicts, link titles, identifier namespace filtering, and repeatability.
+PASS.
 
-The EOSR probe demonstrates the missing test class: a real canonical governed artifact with YAML front matter whose `artifact_id` differs intentionally from the H1 target/reference identifier. The current suite does not cover that artifact contract shape.
+Coverage includes headings, bold metadata, canonical YAML front matter, links, optional link titles, Unicode, malformed constructs, invalid UTF-8 spans, empty documents, code fences, HTML comments, multiline inline code, namespace filtering, explicit-ID conflicts, deterministic serialization, executable-looking inert content, and repeatability.
+
+The five F001-focused regressions all pass, including the exact canonical review shape that previously failed. A review with `artifact_id: REV-WP-MVP-0003` and H1 target `WP-MVP-0003` now retains review identity `REV-WP-MVP-0003`, preserves status, treats the H1 target as a reference candidate, and does not collide with the actual `WP-MVP-0003` Work Packet.
 
 ## Security / Reliability Findings
 
-No execution/network security regression was found. The parser remains side-effect free and inert with respect to code fences, HTML/scripts, macros, links, and executable-looking content.
+No blocking security or reliability finding remains.
 
-F001 is nevertheless reliability-critical because it can create false fatal identity collisions from valid repository state and can discard authoritative lifecycle metadata during canonical ingestion.
+The parser does not execute HTML, scripts, macros, code fences, inline code, links, remote includes, or repository commands. F001's reliability impact—manufacturing a false fatal duplicate identity and dropping authoritative lifecycle metadata—is resolved by explicit front-matter authority plus fail-closed malformed-identity behavior.
 
 ## Traceability Findings
 
-PASS for existing execution/evidence traceability; BLOCKED for semantic acceptance by F001.
+PASS.
 
-Relevant authority/evidence:
-
-- FR-002; QR-001; QR-003;
-- ADR-0003; ADR-0004; ADR-0005;
-- DATA-SOURCE-0001;
-- TECH-INGEST-0001;
-- WP-MVP-0004;
-- EXEC-0006 through EXEC-0009, all CLOSED;
-- PR #217 implementation;
-- PR #224 post-merge EOSV;
-- current WP-MVP-0004 evidence EVID-0202 through EVID-0204 before this review-state transaction.
+The accepted result is traceable through FR-002; QR-001 and QR-003; ADR-0003, ADR-0004, and ADR-0005; DATA-SOURCE-0001; TECH-INGEST-0001; WP-MVP-0004; EXEC-0006 through EXEC-0009; implementation PR #217; rejected review PR #230; corrective PR #231; post-correction EOSV PR #232; and current evidence EVID-0229 through EVID-0231.
 
 ## Blocking Findings
 
-### EOSR-WP-MVP-0004-F001 — Canonical YAML front matter is not authoritative for Markdown document identity/metadata
+None.
 
-**Severity:** P1 / blocking acceptance
-
-**Observed behavior:** a canonical review artifact with `artifact_id: "REV-WP-MVP-0003"` and H1 `# WP-MVP-0003 — Engineering Review` is parsed with explicit governed identifier `WP-MVP-0003`; front-matter status is omitted.
-
-**Impact:** valid canonical review artifacts can collide with the Work Packets they review, and authoritative artifact identity/status metadata is lost. This violates FR-002, TECH-INGEST-0001, ADR-0003, and DATA-SOURCE-0001.
-
-**Required bounded correction:**
-
-1. recognize the repository's canonical top-of-document YAML front-matter metadata contract deterministically, at minimum `artifact_id` and `status`, with exact source ranges;
-2. make a valid front-matter `artifact_id` authoritative explicit document identity for governed artifacts;
-3. treat H1 governed IDs as identity fallback only when no authoritative explicit identity field is declared; an H1 target/reference must not conflict with a valid front-matter artifact ID;
-4. if explicit front-matter identity is malformed, duplicated, or conflicts with another authoritative explicit-ID field, emit a source-located diagnostic and do not silently fall back to H1 identity;
-5. preserve front-matter status as recognized metadata;
-6. add focused regressions using review-style canonical artifacts and prove the review plus reviewed Work Packet do not produce a false duplicate-ID diagnostic;
-7. preserve all existing code-fence/comment/execution/network safety and deterministic ordering/span behavior;
-8. bump the Markdown parser contract version if required by the parser-version compatibility rule for changed canonical extraction semantics;
-9. rerun full Rust validation, first-class EOSV evidence, and EOSR after the correction is integrated.
+`EOSR-WP-MVP-0004-F001` is **RESOLVED**. The exact previously failing review-artifact identity scenario is covered by a permanent regression and passes on canonical `main`.
 
 ## Non-Blocking Findings
 
-The existing EXEC-0009 note remains valid: the approved governed-identifier namespace allowlist will require intentional extension and regression coverage when new canonical namespaces are introduced. This is maintainability guidance, not a separate blocker for the present packet.
+The earlier maintainability observation remains: the governed-identifier namespace allowlist must be intentionally extended with regression coverage when future canonical namespaces are introduced. This is not a defect in the present authorized scope.
 
 ## Decision
 
-**REJECTED.** WP-MVP-0004 must remain `IN_REVIEW` while `EOSR-WP-MVP-0004-F001` is corrected through bounded product work. Closure is not authorized. After the correction merges and evidence is refreshed, perform a fresh independent EOSR review before checklist reconciliation or `WP_CLOSE`.
+**ACCEPTED.** WP-MVP-0004 satisfies its authorized scope and all acceptance criteria after the bounded F001 correction. It may proceed to the separate governed checklist-reconciliation and closure transaction. This review does not itself close the Work Packet.
