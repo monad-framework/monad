@@ -9,16 +9,12 @@
 use serde::Serialize;
 
 use crate::{
-    harness::{
-        EnvelopeId, ExecutionEnvelope, OperationRequest, OperationResult, RunId,
-    },
+    harness::{EnvelopeId, ExecutionEnvelope, OperationRequest, OperationResult, RunId},
     harness_gateway::{
         MediatedOperationResult, OperationBackend, OperationGovernanceContext, mediate_operation,
     },
     harness_runtime::{ExecutionCheckpoint, GovernedRunJournal, ResumeDisposition},
-    harness_verification::{
-        CompletionAssessment, VerificationEvidenceBundle, assess_completion,
-    },
+    harness_verification::{CompletionAssessment, VerificationEvidenceBundle, assess_completion},
     harness_workspace_read::WorkspaceTextObservation,
 };
 
@@ -693,7 +689,10 @@ mod tests {
             &mut denied_backend,
         )
         .unwrap();
-        assert_eq!(denied.result.disposition, OperationDisposition::DeniedCapability);
+        assert_eq!(
+            denied.result.disposition,
+            OperationDisposition::DeniedCapability
+        );
         assert!(denied_backend.calls.is_empty());
 
         let allowed_envelope = envelope(true);

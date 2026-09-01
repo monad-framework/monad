@@ -1,10 +1,10 @@
 # Governed Execution Conformance Matrix
 
 **Status:** proposed  
-**Version:** 0.1.0  
+**Version:** 0.1.1  
 **Owner:** Monad Core / EOS  
 **Requirements:** FR-037 through FR-042; QR-001, QR-003, QR-004, QR-007, QR-010, QR-014, QR-021, QR-022, QR-023  
-**Specifications:** TECH-HARNESS-0001, DATA-HARNESS-0001, IFC-HARNESS-0001  
+**Specifications:** TECH-HARNESS-0001, DATA-HARNESS-0001, IFC-HARNESS-0001, IFC-HARNESS-0002  
 **Threat model:** `security/threat-model.md`
 
 ## Purpose
@@ -88,6 +88,9 @@ Fixtures MUST be deterministic except for fields explicitly designated nondeterm
 | GEH-CF-034 | C2 | Adapter disconnect and resume | FR-039, FR-041 | Requires GEH state/freshness/checkpoint validation | Rebinding evidence |
 | GEH-CF-035 | C2 | Mandatory extension unsupported | FR-039 | Compatibility failure | Negotiation diagnostic |
 | GEH-CF-036 | C2 | Adapter attempts operation after cancellation | FR-039, FR-041 | Rejected | Cancellation + operation result |
+| GEH-CF-037 | C2 | Concrete Codex profile initialization | FR-039 | Dynamic-tools profile negotiated without silent fallback | Concrete descriptor + negotiated extension |
+| GEH-CF-038 | C2 | Codex dynamic workspace read and authority-smuggling attempts | FR-038, FR-039, QR-003, QR-021 | Exact-scope read succeeds; broader/malformed authority requests fail closed | Provider call + reconstructed request + governed result |
+| GEH-CF-039 | C2 | Codex turn reports completion | FR-039, FR-040 | Provider completion remains advisory and invokes independent verification | Turn identity + verification assessment |
 | GEH-CF-040 | C3 | Same fixture via adapter A and B | FR-039, FR-042, QR-014 | Equivalent governance obligations and classification semantics | Cross-adapter comparison |
 | GEH-CF-041 | C3 | Provider/model switch under same compatible adapter contract | FR-017, FR-039 | No authority broadening or envelope mutation | Before/after envelope + routing record |
 | GEH-CF-050 | C4 | Equivalent governed task across harness/model combinations | FR-042 | Comparable versioned evaluation results | Fixture/model/adapter/config identities + metrics |
@@ -99,9 +102,9 @@ The suite MUST maintain explicit coverage of GEH threats T-011 through T-018:
 
 - T-011 prompt/repository injection → GEH-CF-025;
 - T-012 stale/replayed/mutated envelope → GEH-CF-002, 003, 016, 019;
-- T-013 capability confusion/confused deputy → GEH-CF-005, 011, 012, 013;
-- T-014 adapter incompatibility → GEH-CF-031, 035;
-- T-015 false completion/evidence → GEH-CF-021, 022, 033;
+- T-013 capability confusion/confused deputy → GEH-CF-005, 011, 012, 013, 038;
+- T-014 adapter incompatibility → GEH-CF-031, 035, 037;
+- T-015 false completion/evidence → GEH-CF-021, 022, 033, 039;
 - T-016 delegation amplification → GEH-CF-026;
 - T-017 unsafe resume/replay → GEH-CF-018, 019, 020;
 - T-018 falsely governed external effect → GEH-CF-024.
@@ -136,4 +139,4 @@ Private chain-of-thought MUST NOT be required as conformance evidence.
 
 ## Initial automation target
 
-The first automated implementation SHOULD encode C0 and the deterministic subset of C1 directly against `monad-core`, then add adapter contract fixtures as the first external adapter is introduced. Fixture identities and expected outcomes SHOULD be machine-readable so the same corpus can later drive the evaluation harness required by FR-042.
+The automated implementation now covers C0, deterministic C1, the transport-neutral C2 foundation, and the deterministic concrete Codex adapter kernel. Effectful provider-runtime conformance remains a separate C2 layer and MUST be green before the Codex adapter/version is eligible for governed-execution activation.
