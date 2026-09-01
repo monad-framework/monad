@@ -218,11 +218,10 @@ pub fn compile_codex_operation_request(
             diagnostic: error.to_string(),
         })?;
 
-    let canonical_arguments = serde_json::to_vec(&arguments).map_err(|error| {
-        CodexAdapterError::MalformedArguments {
+    let canonical_arguments =
+        serde_json::to_vec(&arguments).map_err(|error| CodexAdapterError::MalformedArguments {
             diagnostic: error.to_string(),
-        }
-    })?;
+        })?;
 
     Ok(OperationRequest {
         operation_id: crate::harness::OperationId(format!(
@@ -462,10 +461,8 @@ mod tests {
     }
 
     fn binding(envelope: &ExecutionEnvelope) -> CodexAdapterSession {
-        let initialized = initialize_codex_adapter(
-            envelope,
-            AdapterSessionId("session-codex-c2-0001".into()),
-        );
+        let initialized =
+            initialize_codex_adapter(envelope, AdapterSessionId("session-codex-c2-0001".into()));
         let AdapterInitializationOutcome::Accepted(session) = initialized else {
             panic!("Codex adapter profile should initialize");
         };
@@ -494,10 +491,8 @@ mod tests {
     #[test]
     fn geh_cf_037_codex_profile_negotiates_mandatory_dynamic_tools_extension() {
         let envelope = envelope("README.md");
-        let outcome = initialize_codex_adapter(
-            &envelope,
-            AdapterSessionId("session-codex-c2-0001".into()),
-        );
+        let outcome =
+            initialize_codex_adapter(&envelope, AdapterSessionId("session-codex-c2-0001".into()));
 
         let AdapterInitializationOutcome::Accepted(session) = outcome else {
             panic!("Codex adapter profile should initialize");
@@ -581,7 +576,10 @@ mod tests {
         });
 
         let error = compile_codex_operation_request(&binding, &envelope, &call).unwrap_err();
-        assert!(matches!(error, CodexAdapterError::MalformedArguments { .. }));
+        assert!(matches!(
+            error,
+            CodexAdapterError::MalformedArguments { .. }
+        ));
     }
 
     #[test]
@@ -595,9 +593,12 @@ mod tests {
 
         assert_eq!(first.operation_id, second.operation_id);
         assert_eq!(first.parameters_digest, second.parameters_digest);
-        assert_eq!(first.run_id, *envelope.run_id());
-        assert_eq!(first.envelope_id, *envelope.envelope_id());
-        assert_eq!(first.executor_actor_id, envelope.executor().actor_id);
+        assert_eq!(&first.run_id, envelope.run_id());
+        assert_eq!(&first.envelope_id, envelope.envelope_id());
+        assert_eq!(
+            first.executor_actor_id.as_str(),
+            envelope.executor().actor_id.as_str()
+        );
     }
 
     #[test]
