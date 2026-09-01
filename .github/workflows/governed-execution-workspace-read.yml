@@ -1,0 +1,32 @@
+name: Governed execution workspace read
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/monad-core/**"
+      - "specifications/technical/TECH-HARNESS-0002-governed-workspace-read-backend.md"
+      - ".github/workflows/governed-execution-workspace-read.yml"
+  push:
+    branches: [main]
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/monad-core/**"
+      - "specifications/technical/TECH-HARNESS-0002-governed-workspace-read-backend.md"
+      - ".github/workflows/governed-execution-workspace-read.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  workspace-read:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify formatting
+        run: cargo fmt --check
+      - name: Run governed workspace read tests
+        run: cargo test -p monad-core harness_workspace_read
