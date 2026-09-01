@@ -50,6 +50,46 @@ Commit canonical and generated changes together. The check mode performs no
 writes and is enforced by `.github/workflows/document-sync.yml`. Generated
 companions are never the direct edit target.
 
+## Website publication projection
+
+`validate-publication.py` validates the publication policy, publication JSON
+Schemas, and positive/negative contract fixtures:
+
+```bash
+python3 scripts/validate-publication.py
+```
+
+`export-site-state.py` compiles an exact committed Monad `main` revision into a
+deterministic staging tree for the website publication projection. It reads
+source content from Git rather than from the mutable working tree, performs no
+network I/O, derives `generatedAt` from the source commit timestamp, validates
+generated JSON against the publication schemas, and records exact manifest and
+provenance information.
+
+From a synchronized repository:
+
+```bash
+python3 scripts/export-site-state.py \
+  --ref main \
+  --output .tmp/publication-export \
+  --clean \
+  --verify-determinism
+```
+
+The staging tree uses paths relative to the destination Fumadocs repository.
+Nothing under `.tmp/` is committed. Cross-repository synchronization is a
+separate downstream concern and must not become the semantic definition of the
+projection.
+
+Run the exporter regression tests with:
+
+```bash
+python3 tests/publication/test-export-site-state.py
+```
+
+The test exports the same committed `main` revision twice and requires the
+complete generated trees to be byte-identical.
+
 ## Generated artifacts
 
 Document source, destination, reproducibility, overwrite behavior, and whether
