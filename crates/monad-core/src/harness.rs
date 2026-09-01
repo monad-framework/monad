@@ -112,33 +112,123 @@ pub struct ExecutionEnvelopeDraft {
 
 /// Canonical, normalized governed work contract supplied to an executor.
 ///
-/// No mutating methods are exposed. A material governing-state change should
-/// produce a newly compiled envelope rather than modifying this value in
-/// place.
+/// Fields are private so a compiled envelope cannot be mutated directly by a
+/// caller. A material governing-state change must produce a newly compiled
+/// envelope rather than modifying this value in place.
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct ExecutionEnvelope {
-    pub envelope_id: EnvelopeId,
-    pub envelope_digest: EnvelopeDigest,
-    pub schema_version: String,
-    pub run_id: RunId,
-    pub logical_time: String,
-    pub work_subject: String,
-    pub intent: String,
-    pub requested_outcome: String,
-    pub governing_state_digest: String,
-    pub governed_references: Vec<GovernedReference>,
-    pub initiating_actor: ActorIdentity,
-    pub executor: ActorIdentity,
-    pub granted_capabilities: Vec<CapabilityGrant>,
-    pub prohibited_capabilities: Vec<CapabilityGrant>,
-    pub allowed_tools: Vec<String>,
-    pub environment_constraints: Vec<String>,
-    pub acceptance_criteria: Vec<String>,
-    pub verification_obligations: Vec<String>,
-    pub approval_gates: Vec<String>,
-    pub escalation_conditions: Vec<String>,
-    pub completion_criteria: Vec<String>,
-    pub resource_limits: BTreeMap<String, String>,
+    envelope_id: EnvelopeId,
+    envelope_digest: EnvelopeDigest,
+    schema_version: String,
+    run_id: RunId,
+    logical_time: String,
+    work_subject: String,
+    intent: String,
+    requested_outcome: String,
+    governing_state_digest: String,
+    governed_references: Vec<GovernedReference>,
+    initiating_actor: ActorIdentity,
+    executor: ActorIdentity,
+    granted_capabilities: Vec<CapabilityGrant>,
+    prohibited_capabilities: Vec<CapabilityGrant>,
+    allowed_tools: Vec<String>,
+    environment_constraints: Vec<String>,
+    acceptance_criteria: Vec<String>,
+    verification_obligations: Vec<String>,
+    approval_gates: Vec<String>,
+    escalation_conditions: Vec<String>,
+    completion_criteria: Vec<String>,
+    resource_limits: BTreeMap<String, String>,
+}
+
+impl ExecutionEnvelope {
+    pub fn envelope_id(&self) -> &EnvelopeId {
+        &self.envelope_id
+    }
+
+    pub fn envelope_digest(&self) -> &EnvelopeDigest {
+        &self.envelope_digest
+    }
+
+    pub fn schema_version(&self) -> &str {
+        &self.schema_version
+    }
+
+    pub fn run_id(&self) -> &RunId {
+        &self.run_id
+    }
+
+    pub fn logical_time(&self) -> &str {
+        &self.logical_time
+    }
+
+    pub fn work_subject(&self) -> &str {
+        &self.work_subject
+    }
+
+    pub fn intent(&self) -> &str {
+        &self.intent
+    }
+
+    pub fn requested_outcome(&self) -> &str {
+        &self.requested_outcome
+    }
+
+    pub fn governing_state_digest(&self) -> &str {
+        &self.governing_state_digest
+    }
+
+    pub fn governed_references(&self) -> &[GovernedReference] {
+        &self.governed_references
+    }
+
+    pub fn initiating_actor(&self) -> &ActorIdentity {
+        &self.initiating_actor
+    }
+
+    pub fn executor(&self) -> &ActorIdentity {
+        &self.executor
+    }
+
+    pub fn granted_capabilities(&self) -> &[CapabilityGrant] {
+        &self.granted_capabilities
+    }
+
+    pub fn prohibited_capabilities(&self) -> &[CapabilityGrant] {
+        &self.prohibited_capabilities
+    }
+
+    pub fn allowed_tools(&self) -> &[String] {
+        &self.allowed_tools
+    }
+
+    pub fn environment_constraints(&self) -> &[String] {
+        &self.environment_constraints
+    }
+
+    pub fn acceptance_criteria(&self) -> &[String] {
+        &self.acceptance_criteria
+    }
+
+    pub fn verification_obligations(&self) -> &[String] {
+        &self.verification_obligations
+    }
+
+    pub fn approval_gates(&self) -> &[String] {
+        &self.approval_gates
+    }
+
+    pub fn escalation_conditions(&self) -> &[String] {
+        &self.escalation_conditions
+    }
+
+    pub fn completion_criteria(&self) -> &[String] {
+        &self.completion_criteria
+    }
+
+    pub fn resource_limits(&self) -> &BTreeMap<String, String> {
+        &self.resource_limits
+    }
 }
 
 /// Compile a normalized, content-addressed execution envelope.
@@ -400,8 +490,8 @@ mod tests {
         reordered.governed_references.reverse();
         let right = compile_execution_envelope(reordered);
 
-        assert_eq!(left.envelope_id, right.envelope_id);
-        assert_eq!(left.envelope_digest, right.envelope_digest);
+        assert_eq!(left.envelope_id(), right.envelope_id());
+        assert_eq!(left.envelope_digest(), right.envelope_digest());
         assert_eq!(left, right);
     }
 
@@ -412,12 +502,12 @@ mod tests {
         changed.governing_state_digest = "different-state".into();
         let after = compile_execution_envelope(changed);
 
-        assert_ne!(before.envelope_id, after.envelope_id);
-        assert_ne!(before.envelope_digest, after.envelope_digest);
+        assert_ne!(before.envelope_id(), after.envelope_id());
+        assert_ne!(before.envelope_digest(), after.envelope_digest());
     }
 
     #[test]
-    fn executor_completion_is_not_encoded_as_run_state_transition_logic() {
+    fn terminal_state_is_explicit() {
         assert!(RunState::Completed.is_terminal());
         assert!(RunState::Cancelled.is_terminal());
         assert!(RunState::Failed.is_terminal());
