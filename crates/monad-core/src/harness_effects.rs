@@ -71,8 +71,8 @@ mod tests {
     use super::*;
     use crate::{
         harness::{
-            ActorIdentity, CapabilityGrant, ExecutionEnvelope, ExecutionEnvelopeDraft,
-            OperationId, OperationRequest, RunId, RunState, compile_execution_envelope,
+            ActorIdentity, CapabilityGrant, ExecutionEnvelope, ExecutionEnvelopeDraft, OperationId,
+            OperationRequest, RunId, RunState, compile_execution_envelope,
         },
         harness_gateway::{
             BackendExecution, OperationBackend, OperationGovernanceContext, PolicyDecision,
