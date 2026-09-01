@@ -49,9 +49,9 @@ Monad MUST explain why a supported artifact/entity exists or what governs/depend
 
 ### FR-007 — Produce bounded agent context
 
-Given a valid authorized Work Packet, Monad MUST produce a context package containing applicable scope, governing artifacts, constraints/prohibitions, relevant graph neighborhood, acceptance criteria, and validation commands while excluding unrelated content by default.
+Given a valid authorized Work Packet, Monad MUST produce a context package containing applicable scope, governing artifacts, constraints/prohibitions, relevant graph neighborhood, acceptance criteria, and validation commands while excluding unrelated content by default. When that context is used for governed execution, its authoritative inputs MUST be incorporated by identity into the bound Execution Envelope rather than treated as independent execution authority.
 
-**Acceptance:** context-package membership is deterministic/explainable; excluded secret paths remain excluded; missing authority blocks an implementation-ready package.
+**Acceptance:** context-package membership is deterministic/explainable; excluded secret paths remain excluded; missing authority blocks an implementation-ready package; material governing-context drift after a run is bound is detectable by the execution-governance boundary.
 
 ### FR-008 — Expose a coherent CLI
 
@@ -63,7 +63,9 @@ Monad MUST record enough version/input/configuration identity to reproduce seman
 
 ### FR-010 — Integrate without replacing native tools
 
-Where validation or execution delegates to a native tool, Monad MUST expose the invocation/evidence and preserve the native result rather than reinterpreting a failure as success.
+Where validation or execution delegates to a native tool, Monad MUST expose the invocation/evidence and preserve the native result rather than reinterpreting a failure as success. A consequential native-tool invocation that claims governed execution MUST be requested through the applicable capability/policy-mediated execution boundary rather than bypassing it.
+
+**Acceptance:** denied or unavailable authority prevents the governed effect before invocation; native results remain attributable to the requesting run/operation and are preserved as evidence without semantic rewriting.
 
 ### FR-011 — Measure workspace intelligence
 
@@ -73,7 +75,7 @@ Monad MUST provide an explainable 0–100 workspace-intelligence score with expl
 
 ### FR-012 — Unify memory, intelligence, and execution
 
-Monad MUST support a unified workspace-intelligence model in which governed memory informs bounded agent reasoning, reasoning may propose or trigger authorized execution, and execution produces provenance-rich memory/evidence.
+Monad MUST support a unified workspace-intelligence model in which governed memory informs bounded agent reasoning, reasoning may propose or request execution through the governed execution boundary, and authorized execution produces provenance-rich memory/evidence.
 
 ### FR-013 — Maintain anti-hallucination engineering memory
 
@@ -81,19 +83,19 @@ Agent-facing memory MUST distinguish canonical fact, derived fact, proposal, unc
 
 ### FR-014 — Orchestrate dependency-aware agent work
 
-Monad MUST be able to dispatch bounded developer-agent work through an explicit dependency graph, with concurrency, cancellation, resource limits, authorization, and evidence capture. Autonomous orchestration MUST begin behind an explicit experimental capability gate.
+Monad MUST be able to dispatch bounded developer-agent work through an explicit dependency graph, with concurrency, cancellation, resource limits, authorization, and evidence capture. Each governed executable unit MUST be bound to explicit execution authority and capabilities; delegation or subagent creation MUST NOT broaden those grants. Autonomous orchestration MUST begin behind an explicit experimental capability gate.
 
 ### FR-015 — Enforce progressive autonomy
 
-Agents MUST operate under named autonomy levels beginning with advisory behavior. Promotion to stronger execution authority MUST require objective reliability evidence, explicit policy, and reversible human approval. Operators remain decision stewards for unresolved authority, risk, architecture, and release decisions.
+Agents MUST operate under named autonomy levels beginning with advisory behavior. Promotion to stronger execution authority MUST require objective reliability evidence, explicit policy, and reversible human approval. Autonomy level MUST constrain the capabilities and approval/escalation rules applied at the governed execution boundary rather than acting as an executor-controlled preference. Operators remain decision stewards for unresolved authority, risk, architecture, and release decisions.
 
 ### FR-016 — Support cross-harness review
 
-Monad MUST support independent parallel review by multiple configured agent/model harnesses, preserve reviewer provenance, surface disagreement, and prevent reviewer consensus from overriding canonical human/governance authority.
+Monad MUST support independent parallel review by multiple configured agent/model harnesses, preserve reviewer provenance, surface disagreement, and prevent reviewer consensus or any individual executor's self-report from overriding canonical human/governance authority or verification-controlled completion.
 
 ### FR-017 — Route AI work by capability, cost, and policy
 
-Monad MUST support multiple AI providers and local models through a provider-neutral contract and route work using declared capability, complexity, privacy, cost, latency, and policy constraints.
+Monad MUST support multiple AI providers and local models through a provider-neutral contract and route work using declared capability, complexity, privacy, cost, latency, and policy constraints. Routing MAY select a model, provider, or agent harness but MUST NOT modify the governing Execution Envelope or broaden granted authority as a side effect of selection.
 
 ### FR-018 — Provide a governed automation and integration layer
 
@@ -113,15 +115,15 @@ Monad MUST support versioned cryptographic profiles capable of Ed25519, P-256, s
 
 ### FR-022 — Defend agent and prompt boundaries
 
-Monad MUST detect or contain prompt-injection attempts, mask secrets in logs/context/output, sandbox agent capabilities, enforce least authority, and prohibit unapproved tool/resource escalation.
+Monad MUST detect or contain prompt-injection attempts, mask secrets in logs/context/output, sandbox agent capabilities, enforce least authority, and prohibit unapproved tool/resource escalation. Untrusted executor input or private reasoning MUST NOT be able to expand an Execution Envelope, create capabilities, suppress mandatory policy checks, or convert a denied operation into an authorized effect.
 
 ### FR-023 — Provide declarative governance, change control, and audit
 
-Monad MUST support declarative quality/autonomy/compliance policies, formal governed resources, Definition-of-Ready and Definition-of-Done gates, change submission/review/approval/rollback, and a complete tamper-evident audit trail linking humans, agents, decisions, executions, evidence, and resulting artifacts.
+Monad MUST support declarative quality/autonomy/compliance policies, formal governed resources, Definition-of-Ready and Definition-of-Done gates, change submission/review/approval/rollback, and a complete tamper-evident audit trail linking humans, agents, decisions, execution envelopes, capability/policy decisions, operations/effects, executions, evidence, verification, and resulting artifacts.
 
 ### FR-024 — Provide operational health and execution observability
 
-Monad MUST expose knowledge-graph health, stale/zombie/decaying relationships, agent execution history, input context, output diff, verification results, duration, token/cost data where available, and OpenTelemetry-compatible logs/metrics/traces.
+Monad MUST expose knowledge-graph health, stale/zombie/decaying relationships, agent execution history, bound Execution Envelope identity, capability/policy decisions, mediated operation/effect history, checkpoints/escalations, input context, output diff, verification results, duration, token/cost data where available, and OpenTelemetry-compatible logs/metrics/traces.
 
 ### FR-025 — Support privacy-governed hosted analytics
 
@@ -141,7 +143,7 @@ Monad MUST support a path to air-gapped/no-exfiltration operation, on-premises d
 
 ### FR-029 — Provide reproducible environment profiles
 
-Monad MUST support container and Nix-based environment profiles where required to reproduce builds, validation, agent execution, and release evidence.
+Monad MUST support container and Nix-based environment profiles where required to reproduce builds, validation, agent execution, and release evidence. Governed execution MUST be able to bind or reference the applicable environment identity in its Execution Envelope and evidence when reproducibility policy requires it.
 
 ### FR-030 — Manage governed files and media
 
@@ -171,11 +173,47 @@ The adapter architecture MUST permit optional compatibility profiles for externa
 
 Monad MUST support dependency/conflict-aware parallel execution of independent internal work and define benchmark profiles for throughput and state finalization. A long-range benchmark target is at least 10,000 lightweight scheduler/graph operations per second on declared reference hardware, and eligible local control-state transitions SHOULD finalize within 400 ms p95 once their inputs are available. External tool/network latency is excluded from these internal targets.
 
+### FR-037 — Compile governed Execution Envelopes
+
+Before a governed run begins, Monad MUST compile the bounded work intent and applicable canonical engineering knowledge into a versioned, immutable, content-addressed Execution Envelope that identifies the governing state, actor/executor, authority, capabilities/prohibitions, tools/environment constraints, acceptance criteria, verification obligations, approval/escalation rules, evidence obligations, and applicable resource limits.
+
+**Acceptance:** equivalent governed inputs produce an equivalent canonical envelope identity; a material change to governing authority, policy, constraints, acceptance, or other envelope-defining input changes the envelope identity; a bound envelope cannot be silently mutated in place.
+
+### FR-038 — Mediate governed execution through a fail-closed harness
+
+Any consequential agent, automation, or tool effect that claims Monad-governed execution MUST be requested through the Governed Execution Harness or a semantically conforming boundary that evaluates the bound Execution Envelope, current policy/authority state, and explicit capabilities before allowing the effect.
+
+**Acceptance:** missing, stale, ambiguous, denied, expired, or incompatible authority/capability state cannot be interpreted as permission; denied operations produce attributable diagnostics/evidence and no governed effect; successful effects remain attributable to the requesting run and operation.
+
+### FR-039 — Support replaceable agent harnesses through a stable adapter contract
+
+Monad MUST provide a versioned agent/executor harness adapter contract that permits materially different model-driven, scripted, or human-driven executors to consume the same governed execution semantics without becoming authoritative for policy, capability grants, evidence validity, verification, or EOS lifecycle state.
+
+**Acceptance:** adapter compatibility is negotiated before a run is bound; an adapter unable to represent a mandatory envelope obligation fails explicitly rather than weakening governance; switching compatible adapters does not require changing canonical Monad authority semantics.
+
+### FR-040 — Verify completion independently of executor claims
+
+Executor-reported success or completion MUST be treated as a candidate terminal request, not authoritative completion. Monad MUST evaluate the bound acceptance criteria, verification obligations, required evidence, and approval gates before a governed run can become verified/complete or drive an authoritative EOS completion transition.
+
+**Acceptance:** an executor cannot mark governed work complete solely by self-report; failed or missing verification prevents authoritative completion; verification results identify the obligations and evidence evaluated.
+
+### FR-041 — Recover execution without losing governing identity
+
+Monad MUST support bounded checkpoint, cancellation, resume/recovery, and governing-state drift handling for long-running or interruptible governed execution. Recovery MUST preserve or explicitly replace the bound Execution Envelope and MUST NOT silently resume under materially changed authority, policy, constraints, or acceptance obligations.
+
+**Acceptance:** resumable state identifies the run, envelope, adapter/executor compatibility state where required, and relevant evidence; material governing drift causes suspension/recompilation, escalation, cancellation, or another explicit governed outcome rather than silent continuation.
+
+### FR-042 — Evaluate harness and model combinations under governed conformance
+
+Monad MUST support a verification/evaluation capability that can execute equivalent governed task fixtures against different compatible agent-harness/model combinations and measure requirement satisfaction, policy compliance, unauthorized-operation attempts, evidence/provenance completeness, verification outcome, reproducibility characteristics, cost/latency where available, and human intervention.
+
+**Acceptance:** evaluation uses versioned fixtures and governed envelopes; results preserve the tested adapter/model/configuration identity; model or harness ranking cannot override canonical authority and does not itself grant production execution rights.
+
 ## Quality requirements
 
 ### QR-001 — Determinism
 
-Ordering, identity, canonical serialization, diagnostics, policy decisions, and reproducible execution records must not depend on filesystem enumeration order, wall-clock time, randomized IDs, or ungoverned LLM output.
+Ordering, identity, canonical serialization, Execution Envelope compilation, diagnostics, policy/capability decisions, and reproducible execution records must not depend on filesystem enumeration order, wall-clock time, randomized IDs, or ungoverned LLM output where deterministic semantics are required.
 
 ### QR-002 — Performance
 
@@ -183,11 +221,11 @@ Reference budgets for startup, parse/graph build, query latency, context generat
 
 ### QR-003 — Security
 
-The system follows least privilege/context, defends against path traversal/symlink and untrusted-input hazards, avoids executing repository content during inspection unless explicitly authorized, and produces no secret-bearing diagnostics/context by default.
+The system follows least privilege/context, defends against path traversal/symlink and untrusted-input hazards, avoids executing repository content during inspection unless explicitly authorized, produces no secret-bearing diagnostics/context by default, and fails closed when a consequential governed effect lacks sufficient authority, policy, or capability evidence.
 
 ### QR-004 — Reliability
 
-Partial/corrupt caches or generated state must be detectable and recoverable by rebuilding from canonical inputs. Remote calls and agent orchestration use bounded retries, exponential backoff where safe, idempotency semantics, and circuit breakers to prevent cascading failure.
+Partial/corrupt caches or generated state must be detectable and recoverable by rebuilding from canonical inputs. Remote calls and agent orchestration use bounded retries, exponential backoff where safe, idempotency semantics, checkpoints where appropriate, and circuit breakers to prevent cascading failure. Recovery must not silently change governing execution semantics.
 
 ### QR-005 — Compatibility
 
@@ -199,7 +237,7 @@ Doctor/diagnostic paths must distinguish configuration/toolchain/environment, se
 
 ### QR-007 — Maintainability
 
-Compiler/graph/query/context/policy/execution/observation/integration concerns have explicit boundaries and conformance fixtures so implementations can evolve without changing semantics accidentally.
+Compiler/graph/query/context/policy/execution/observation/integration concerns have explicit boundaries and conformance fixtures so implementations can evolve without changing semantics accidentally. Governed execution semantics must remain separable from replaceable model reasoning, prompting strategy, and agent-harness internals.
 
 ### QR-008 — Progressive trust
 
@@ -211,7 +249,7 @@ Attestation and identity mechanisms must permit algorithm/version rotation, post
 
 ### QR-010 — Auditability
 
-Consequential human/agent actions, decisions, state transitions, policy evaluations, attestations, and execution results must be reconstructable from durable evidence and tamper-evident logs.
+Consequential human/agent actions, decisions, state transitions, Execution Envelopes, capability/policy evaluations, operations/effects, checkpoints/escalations, attestations, evidence, and verification results must be reconstructable from durable evidence and tamper-evident logs without requiring private model chain-of-thought.
 
 ### QR-011 — Prompt and secret safety
 
@@ -225,9 +263,9 @@ Operational components must expose structured logs, metrics, and traces through 
 
 The local core remains usable offline. Optional deployment surfaces support major developer platforms, containers, Nix, air-gapped/on-prem operation, and multiple clouds through explicit compatibility profiles.
 
-### QR-014 — Provider independence
+### QR-014 — Provider and harness independence
 
-No single AI provider, hosted graph database, cloud vendor, or automation vendor is required for canonical core operation.
+No single AI provider, model family, agent harness, hosted graph database, cloud vendor, or automation vendor is required for canonical core operation or authoritative governed-execution semantics.
 
 ### QR-015 — High-throughput scalability
 
@@ -253,6 +291,18 @@ Hosted analytics, vector memory, caches, files, integrations, and agent records 
 
 Dashboards, scores, automation, and AI summaries cannot become the sole source of truth; users must be able to reach the underlying governed evidence and explanations.
 
+### QR-021 — Fail-closed execution governance
+
+Governed execution must deny, suspend, or explicitly escalate when mandatory authority, policy, capability, compatibility, approval, or governing-state validity cannot be established. Absence or ambiguity must never be treated as implicit permission.
+
+### QR-022 — Cognition independence
+
+Normative Monad execution contracts must govern observable intent, authority, operations, effects, evidence, verification, and state transitions without depending on a particular private reasoning representation, prompting technique, planner/executor pattern, reflection loop, or chain-of-thought disclosure.
+
+### QR-023 — Governed execution reproducibility
+
+Given equivalent canonical governed inputs and declared deterministic configuration, Monad must reproduce equivalent Execution Envelope identity and governance decisions. Nondeterministic executor/model outputs must be attributable and captured as results/evidence rather than falsely normalized into deterministic semantic truth.
+
 ## Release gates
 
 ### MVP Release 1
@@ -262,3 +312,5 @@ MVP Release 1 remains governed by `MVP-RELEASE-1.md`. New post-MVP capabilities 
 ### Post-MVP expansion
 
 A post-MVP capability may enter execution only when its Epic/Feature/Work Packet is refined, governing ADR/specification authority is explicit, threat/privacy implications are dispositioned, exact validation/evidence requirements exist, and parent lifecycle gates authorize execution.
+
+FR-037 through FR-042 and their associated quality requirements are post-MVP governed execution commitments. Their inclusion in this baseline does not authorize production activation of the Governed Execution Harness; activation remains subject to the same lifecycle, security, verification, and evidence gates.
