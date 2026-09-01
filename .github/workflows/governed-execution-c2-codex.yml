@@ -1,0 +1,46 @@
+name: Governed execution C2 Codex adapter
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/monad-core/**"
+      - "specifications/interfaces/IFC-HARNESS-0001-agent-harness-adapter.md"
+      - "specifications/interfaces/IFC-HARNESS-0002-codex-app-server-adapter.md"
+      - "testing/governed-execution-conformance.md"
+      - "testing/governed-execution-c2-adapter-foundation.md"
+      - "testing/governed-execution-c2-codex-adapter.md"
+      - ".github/workflows/governed-execution-c2.yml"
+      - ".github/workflows/governed-execution-c2-codex.yml"
+  push:
+    branches: [main]
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/monad-core/**"
+      - "specifications/interfaces/IFC-HARNESS-0001-agent-harness-adapter.md"
+      - "specifications/interfaces/IFC-HARNESS-0002-codex-app-server-adapter.md"
+      - "testing/governed-execution-conformance.md"
+      - "testing/governed-execution-c2-adapter-foundation.md"
+      - "testing/governed-execution-c2-codex-adapter.md"
+      - ".github/workflows/governed-execution-c2.yml"
+      - ".github/workflows/governed-execution-c2-codex.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  c2-codex-adapter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify formatting
+        run: cargo fmt --check
+      - name: Run generic C2 adapter foundation fixtures
+        run: cargo test -p monad-core harness_adapter
+      - name: Run concrete Codex adapter fixtures
+        run: cargo test -p monad-core harness_codex_adapter
+      - name: Run workspace read regression fixtures
+        run: cargo test -p monad-core harness_workspace_read
