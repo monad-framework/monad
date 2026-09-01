@@ -1,0 +1,40 @@
+{
+  "content": "name: Governed execution C2 foundation\n\non:\n  workflow_dispatch:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"specifications/interfaces/IFC-HARNESS-0001-agent-harness-adapter.md\"\n      - \"testing/governed-execution-conformance.md\"\n      - \"testing/governed-execution-c2-adapter-foundation.md\"\n      - \".github/workflows/governed-execution-c2.yml\"\n  push:\n    branches: [main]\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"specifications/interfaces/IFC-HARNESS-0001-agent-harness-adapter.md\"\n      - \"testing/governed-execution-conformance.md\"\n      - \"testing/governed-execution-c2-adapter-foundation.md\"\n      - \".github/workflows/governed-execution-c2.yml\"\n\npermissions:\n  contents: read\n\njobs:\n  c2-foundation:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Verify formatting\n        run: cargo fmt --check\n      - name: Run C2 adapter foundation fixtures\n        run: cargo test -p monad-core harness_adapter\n",
+  "document_id": "doc:.github%2Fworkflows%2Fgoverned-execution-c2.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/governed-execution-c2.yml.",
+    "title": "Governed Execution C2"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 36,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Governed execution C2 foundation\n\non:\n  workflow_dispatch:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"specifications/interfaces/IFC-HARNESS-0001-agent-harness-adapter.md\"\n      - \"testing/governed-execution-conformance.md\"\n      - \"testing/governed-execution-c2-adapter-foundation.md\"\n      - \".github/workflows/governed-execution-c2.yml\"\n  push:\n    branches: [main]\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"specifications/interfaces/IFC-HARNESS-0001-agent-harness-adapter.md\"\n      - \"testing/governed-execution-conformance.md\"\n      - \"testing/governed-execution-c2-adapter-foundation.md\"\n      - \".github/workflows/governed-execution-c2.yml\"\n\npermissions:\n  contents: read\n\njobs:\n  c2-foundation:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Verify formatting\n        run: cargo fmt --check\n      - name: Run C2 adapter foundation fixtures\n        run: cargo test -p monad-core harness_adapter",
+      "title": "Governed Execution C2"
+    }
+  ],
+  "source": {
+    "bytes": 1063,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 36,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/governed-execution-c2.yml",
+    "sha256": "04cea770baf770a3f3d6b112675472055171491e1b5a16ee265b29a2809a243a"
+  }
+}
