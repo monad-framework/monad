@@ -5691,6 +5691,11 @@
       "type": "declares"
     },
     {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0002-codex-app-server-adapter.md",
+      "target": "identifier:ADR-0007",
+      "type": "declares"
+    },
+    {
       "source": "doc:specifications%2Finterfaces%2FIFC-WORKSPACE-0001-repository-root-and-effective-configuration.md",
       "target": "identifier:ADR-0002",
       "type": "declares"
@@ -11343,6 +11348,14 @@
       "normative": false,
       "source_path": ".github/workflows/governed-execution-c1.yml",
       "title": "Governed Execution C1",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Fgoverned-execution-c2-codex.yml",
+      "normative": false,
+      "source_path": ".github/workflows/governed-execution-c2-codex.yml",
+      "title": "Governed Execution C2 Codex",
       "type": "document"
     },
     {
@@ -17643,6 +17656,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:crates%2Fmonad-core%2Fsrc%2Fharness_codex_adapter.rs",
+      "normative": false,
+      "source_path": "crates/monad-core/src/harness_codex_adapter.rs",
+      "title": "Harness Codex Adapter",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:crates%2Fmonad-core%2Fsrc%2Fharness_delegation.rs",
       "normative": false,
       "source_path": "crates/monad-core/src/harness_delegation.rs",
@@ -22547,6 +22568,14 @@
     },
     {
       "document_type": "specification",
+      "id": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0002-codex-app-server-adapter.md",
+      "normative": true,
+      "source_path": "specifications/interfaces/IFC-HARNESS-0002-codex-app-server-adapter.md",
+      "title": "IFC-HARNESS-0002: Codex App Server Adapter Profile",
+      "type": "document"
+    },
+    {
+      "document_type": "specification",
       "id": "doc:specifications%2Finterfaces%2FIFC-WORKSPACE-0001-repository-root-and-effective-configuration.md",
       "normative": true,
       "source_path": "specifications/interfaces/IFC-WORKSPACE-0001-repository-root-and-effective-configuration.md",
@@ -22659,6 +22688,14 @@
     },
     {
       "document_type": "quality-assurance",
+      "id": "doc:testing%2Fgoverned-execution-c2-codex-adapter.md",
+      "normative": true,
+      "source_path": "testing/governed-execution-c2-codex-adapter.md",
+      "title": "Governed Execution C2 Codex Adapter Coverage",
+      "type": "document"
+    },
+    {
+      "document_type": "quality-assurance",
       "id": "doc:testing%2Fgoverned-execution-conformance.md",
       "normative": true,
       "source_path": "testing/governed-execution-conformance.md",
@@ -22699,6 +22736,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fmanifest-metadata-envelope-self-inventory.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/invalid/manifest-metadata-envelope-self-inventory.json",
+      "title": "Manifest Metadata Envelope Self Inventory",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fmanifest-missing-policy-rule.json",
       "normative": false,
       "source_path": "tests/publication/fixtures/invalid/manifest-missing-policy-rule.json",
@@ -22719,6 +22764,14 @@
       "normative": false,
       "source_path": "tests/publication/fixtures/invalid/provenance-empty-inputs.json",
       "title": "Provenance Empty Inputs",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fprovenance-metadata-envelope-record.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/invalid/provenance-metadata-envelope-record.json",
+      "title": "Provenance Metadata Envelope Record",
       "type": "document"
     },
     {
@@ -24312,5 +24365,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "4b0dfe9f956518e1aa0d661d720970074c06305678da37379bc95892efbd1f7d"
+  "source_tree_sha256": "83377fae9b1e915918f8a3b7b778b5b79c5f84c89a03340d2dfc2cb1c42c1ae9"
 }

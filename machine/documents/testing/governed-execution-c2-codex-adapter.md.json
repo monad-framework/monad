@@ -1,0 +1,157 @@
+{
+  "content": "# Governed Execution C2 Codex Adapter Coverage\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Parent interface:** IFC-HARNESS-0001  \n**Concrete interface:** IFC-HARNESS-0002  \n**Conformance matrix:** `testing/governed-execution-conformance.md`\n\n## Purpose\n\nRecords the first concrete external-harness C2 implementation for Monad's Governed Execution Harness.\n\nThe adapter targets OpenAI Codex App Server but keeps provider mechanics subordinate to the already-merged transport-neutral `harness_adapter` foundation. The implementation proves the provider can request the initial `workspace.read_text` operation without acquiring authority to choose Monad run identity, envelope identity, capability, operation family, policy, approval, or completion state.\n\n## Implementation surface\n\nThe deterministic provider-specific kernel lives in:\n\n```text\ncrates/monad-core/src/harness_codex_adapter.rs\n```\n\nIt provides:\n\n- the concrete Codex C2 adapter descriptor;\n- mandatory provider-profile negotiation for App Server dynamic tools;\n- provider-thread binding beneath the generic C2 adapter session;\n- an untrusted `item/tool/call` parameter document;\n- strict initial `monad_workspace_read_text` arguments;\n- deterministic translation to authoritative `OperationRequest` values;\n- exact `workspace.read` / `workspace` / `read_text` reconstruction;\n- C1 Tool Gateway + `WorkspaceReadBackend` mediation;\n- provider-facing transient dynamic-tool response rendering;\n- Codex turn-completion mapping into the existing verification-controlled completion path.\n\nThe module does not launch Codex or perform child-process I/O.\n\n## Authority reconstruction boundary\n\nThe Codex request may supply only provider transport identity, tool name, and model-authored arguments.\n\nFor the initial operation it can choose:\n\n```text\npath\n```\n\nIt cannot choose:\n\n```text\nrun_id\nenvelope_id\nexecutor_actor_id\ncapability\ntool family\nMonad operation type\ngoverning state\npolicy result\napproval state\ncompletion state\n```\n\nThose values are reconstructed from the bound adapter session, immutable Execution Envelope, and fixed concrete operation profile.\n\nUnknown `workspace.read_text` argument fields are rejected. This specifically prevents arguments that resemble capability, run, or operation fields from being accepted as semantic input.\n\n## Provider compatibility boundary\n\nThe adapter descriptor requires:\n\n```text\ntransport: app-server-jsonl-stdio\nextension: org.monad.codex.app-server.dynamic-tools@0.1.0\n```\n\nThe extension records the Monad-owned provider profile needed by the first adapter. A later effectful runtime integration must separately prove that the connected Codex App Server actually accepts the experimental API and dynamic-tool registration.\n\nNo Codex-native filesystem/shell/network tool may be substituted when the required profile is unavailable.\n\n## GEH-CF-037 — concrete adapter profile initialization\n\n**Class:** compatibility / positive\n\n**Given:**\n\n- a valid Execution Envelope version `0.1.0`;\n- the concrete Codex descriptor;\n- the generic adapter interface version `0.1.0`.\n\n**When:** the adapter initializes.\n\n**Then:**\n\n- the adapter family is `openai-codex`;\n- transport is `app-server-jsonl-stdio`;\n- the mandatory dynamic-tools profile is negotiated;\n- the adapter session remains bound to the Monad run/envelope.\n\n## GEH-CF-038 — dynamic read mediation and authority non-amplification\n\n**Class:** positive + negative + adversarial\n\n### Authorized case\n\nA Codex dynamic tool call requests:\n\n```json\n{\n  \"tool\": \"monad_workspace_read_text\",\n  \"arguments\": {\n    \"path\": \"docs/input.txt\"\n  }\n}\n```\n\nThe bound Execution Envelope grants exactly:\n\n```text\nworkspace.read @ docs/input.txt\n```\n\nExpected outcome:\n\n- the adapter reconstructs a Monad `OperationRequest`;\n- the Tool Gateway admits the exact-scope request;\n- `WorkspaceReadBackend` executes;\n- the durable governed result contains attributable result metadata/digest;\n- the transient provider response contains the workspace observation;\n- raw workspace content is not thereby promoted to durable evidence.\n\n### Out-of-scope case\n\nThe same bound run grants only `allowed.txt`, while Codex requests `other.txt`.\n\nExpected outcome:\n\n- `denied_scope`;\n- no transient observation;\n- the backend does not perform the unauthorized read.\n\n### Authority-smuggling case\n\nCodex arguments include extra fields such as:\n\n```json\n{\n  \"path\": \"allowed.txt\",\n  \"capability\": \"workspace.write\",\n  \"runId\": \"run-attacker\",\n  \"operationType\": \"write_text\"\n}\n```\n\nExpected outcome:\n\n- provider argument validation fails before governed operation compilation;\n- none of the supplied authority-like fields are honored.\n\n### Identity case\n\nRepeated translation of the same bound provider call produces the same adapter-derived operation ID and parameter digest.\n\nProvider call identity contributes replay/operation correlation only. It does not grant capability.\n\n## GEH-CF-039 — Codex completion remains advisory\n\n**Class:** negative / verification\n\n**Given:** a bound Codex adapter session and no evidence satisfying the Execution Envelope's completion obligations.\n\n**When:** Codex reports that its turn completed.\n\n**Then:**\n\n- the adapter creates the semantic equivalent of `complete.request`;\n- the existing Verification Controller evaluates completion;\n- the assessment remains `incomplete`;\n- no Monad or EOS lifecycle completion is established by the provider notification.\n\n## Existing generic C2 fixtures remain mandatory\n\nThe concrete Codex adapter does not replace the generic foundation. This adapter/version must continue to satisfy the semantics established by:\n\n- GEH-CF-030 compatible initialization;\n- GEH-CF-031 mandatory feature incompatibility;\n- GEH-CF-032 governed denial versus tool failure;\n- GEH-CF-033 verification-controlled complete request;\n- GEH-CF-034 disconnect/resume revalidation;\n- GEH-CF-035 mandatory extension incompatibility;\n- GEH-CF-036 cancellation blocking subsequent effects.\n\n## External runtime conformance still required\n\nPassing the deterministic kernel tests is necessary but not sufficient to claim that a real Codex App Server version is C2-conforming.\n\nThe subsequent effectful integration must add evidence for:\n\n1. App Server process/version identity;\n2. initialization handshake;\n3. experimental API capability acceptance;\n4. dynamic-tool registration;\n5. real `item/tool/call` request/response transport;\n6. restricted provider-native effect surface;\n7. disconnect/cancellation behavior;\n8. one read-only dogfood run through the actual provider transport.\n\nUntil that slice is green, the repository has a concrete Codex adapter kernel, not a production-activated Codex executor.\n",
+  "document_id": "doc:testing%2Fgoverned-execution-c2-codex-adapter.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "quality-assurance",
+    "normative": true,
+    "summary": "Status: proposed Version: 0.1.0 Owner: Monad Core / EOS Parent interface: IFC-HARNESS-0001 Concrete interface: IFC-HARNESS-0002 Conformance matrix: testing/governed-execution-conformance.md",
+    "title": "Governed Execution C2 Codex Adapter Coverage"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "governed-execution-c2-codex-adapter-coverage",
+      "text": "# Governed Execution C2 Codex Adapter Coverage\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Parent interface:** IFC-HARNESS-0001  \n**Concrete interface:** IFC-HARNESS-0002  \n**Conformance matrix:** `testing/governed-execution-conformance.md`",
+      "title": "Governed Execution C2 Codex Adapter Coverage"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 10,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nRecords the first concrete external-harness C2 implementation for Monad's Governed Execution Harness.\n\nThe adapter targets OpenAI Codex App Server but keeps provider mechanics subordinate to the already-merged transport-neutral `harness_adapter` foundation. The implementation proves the provider can request the initial `workspace.read_text` operation without acquiring authority to choose Monad run identity, envelope identity, capability, operation family, policy, approval, or completion state.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 16,
+      "section_id": "implementation-surface",
+      "text": "## Implementation surface\n\nThe deterministic provider-specific kernel lives in:\n\n```text\ncrates/monad-core/src/harness_codex_adapter.rs\n```\n\nIt provides:\n\n- the concrete Codex C2 adapter descriptor;\n- mandatory provider-profile negotiation for App Server dynamic tools;\n- provider-thread binding beneath the generic C2 adapter session;\n- an untrusted `item/tool/call` parameter document;\n- strict initial `monad_workspace_read_text` arguments;\n- deterministic translation to authoritative `OperationRequest` values;\n- exact `workspace.read` / `workspace` / `read_text` reconstruction;\n- C1 Tool Gateway + `WorkspaceReadBackend` mediation;\n- provider-facing transient dynamic-tool response rendering;\n- Codex turn-completion mapping into the existing verification-controlled completion path.\n\nThe module does not launch Codex or perform child-process I/O.",
+      "title": "Implementation surface"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 39,
+      "section_id": "authority-reconstruction-boundary",
+      "text": "## Authority reconstruction boundary\n\nThe Codex request may supply only provider transport identity, tool name, and model-authored arguments.\n\nFor the initial operation it can choose:\n\n```text\npath\n```\n\nIt cannot choose:\n\n```text\nrun_id\nenvelope_id\nexecutor_actor_id\ncapability\ntool family\nMonad operation type\ngoverning state\npolicy result\napproval state\ncompletion state\n```\n\nThose values are reconstructed from the bound adapter session, immutable Execution Envelope, and fixed concrete operation profile.\n\nUnknown `workspace.read_text` argument fields are rejected. This specifically prevents arguments that resemble capability, run, or operation fields from being accepted as semantic input.",
+      "title": "Authority reconstruction boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 80,
+      "line_start": 68,
+      "section_id": "provider-compatibility-boundary",
+      "text": "## Provider compatibility boundary\n\nThe adapter descriptor requires:\n\n```text\ntransport: app-server-jsonl-stdio\nextension: org.monad.codex.app-server.dynamic-tools@0.1.0\n```\n\nThe extension records the Monad-owned provider profile needed by the first adapter. A later effectful runtime integration must separately prove that the connected Codex App Server actually accepts the experimental API and dynamic-tool registration.\n\nNo Codex-native filesystem/shell/network tool may be substituted when the required profile is unavailable.",
+      "title": "Provider compatibility boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 99,
+      "line_start": 81,
+      "section_id": "geh-cf-037-concrete-adapter-profile-initialization",
+      "text": "## GEH-CF-037 — concrete adapter profile initialization\n\n**Class:** compatibility / positive\n\n**Given:**\n\n- a valid Execution Envelope version `0.1.0`;\n- the concrete Codex descriptor;\n- the generic adapter interface version `0.1.0`.\n\n**When:** the adapter initializes.\n\n**Then:**\n\n- the adapter family is `openai-codex`;\n- transport is `app-server-jsonl-stdio`;\n- the mandatory dynamic-tools profile is negotiated;\n- the adapter session remains bound to the Monad run/envelope.",
+      "title": "GEH-CF-037 — concrete adapter profile initialization"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 103,
+      "line_start": 100,
+      "section_id": "geh-cf-038-dynamic-read-mediation-and-authority-non-amplification",
+      "text": "## GEH-CF-038 — dynamic read mediation and authority non-amplification\n\n**Class:** positive + negative + adversarial",
+      "title": "GEH-CF-038 — dynamic read mediation and authority non-amplification"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 131,
+      "line_start": 104,
+      "section_id": "authorized-case",
+      "text": "### Authorized case\n\nA Codex dynamic tool call requests:\n\n```json\n{\n  \"tool\": \"monad_workspace_read_text\",\n  \"arguments\": {\n    \"path\": \"docs/input.txt\"\n  }\n}\n```\n\nThe bound Execution Envelope grants exactly:\n\n```text\nworkspace.read @ docs/input.txt\n```\n\nExpected outcome:\n\n- the adapter reconstructs a Monad `OperationRequest`;\n- the Tool Gateway admits the exact-scope request;\n- `WorkspaceReadBackend` executes;\n- the durable governed result contains attributable result metadata/digest;\n- the transient provider response contains the workspace observation;\n- raw workspace content is not thereby promoted to durable evidence.",
+      "title": "Authorized case"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 141,
+      "line_start": 132,
+      "section_id": "out-of-scope-case",
+      "text": "### Out-of-scope case\n\nThe same bound run grants only `allowed.txt`, while Codex requests `other.txt`.\n\nExpected outcome:\n\n- `denied_scope`;\n- no transient observation;\n- the backend does not perform the unauthorized read.",
+      "title": "Out-of-scope case"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 159,
+      "line_start": 142,
+      "section_id": "authority-smuggling-case",
+      "text": "### Authority-smuggling case\n\nCodex arguments include extra fields such as:\n\n```json\n{\n  \"path\": \"allowed.txt\",\n  \"capability\": \"workspace.write\",\n  \"runId\": \"run-attacker\",\n  \"operationType\": \"write_text\"\n}\n```\n\nExpected outcome:\n\n- provider argument validation fails before governed operation compilation;\n- none of the supplied authority-like fields are honored.",
+      "title": "Authority-smuggling case"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 165,
+      "line_start": 160,
+      "section_id": "identity-case",
+      "text": "### Identity case\n\nRepeated translation of the same bound provider call produces the same adapter-derived operation ID and parameter digest.\n\nProvider call identity contributes replay/operation correlation only. It does not grant capability.",
+      "title": "Identity case"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 180,
+      "line_start": 166,
+      "section_id": "geh-cf-039-codex-completion-remains-advisory",
+      "text": "## GEH-CF-039 — Codex completion remains advisory\n\n**Class:** negative / verification\n\n**Given:** a bound Codex adapter session and no evidence satisfying the Execution Envelope's completion obligations.\n\n**When:** Codex reports that its turn completed.\n\n**Then:**\n\n- the adapter creates the semantic equivalent of `complete.request`;\n- the existing Verification Controller evaluates completion;\n- the assessment remains `incomplete`;\n- no Monad or EOS lifecycle completion is established by the provider notification.",
+      "title": "GEH-CF-039 — Codex completion remains advisory"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 192,
+      "line_start": 181,
+      "section_id": "existing-generic-c2-fixtures-remain-mandatory",
+      "text": "## Existing generic C2 fixtures remain mandatory\n\nThe concrete Codex adapter does not replace the generic foundation. This adapter/version must continue to satisfy the semantics established by:\n\n- GEH-CF-030 compatible initialization;\n- GEH-CF-031 mandatory feature incompatibility;\n- GEH-CF-032 governed denial versus tool failure;\n- GEH-CF-033 verification-controlled complete request;\n- GEH-CF-034 disconnect/resume revalidation;\n- GEH-CF-035 mandatory extension incompatibility;\n- GEH-CF-036 cancellation blocking subsequent effects.",
+      "title": "Existing generic C2 fixtures remain mandatory"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 208,
+      "line_start": 193,
+      "section_id": "external-runtime-conformance-still-required",
+      "text": "## External runtime conformance still required\n\nPassing the deterministic kernel tests is necessary but not sufficient to claim that a real Codex App Server version is C2-conforming.\n\nThe subsequent effectful integration must add evidence for:\n\n1. App Server process/version identity;\n2. initialization handshake;\n3. experimental API capability acceptance;\n4. dynamic-tool registration;\n5. real `item/tool/call` request/response transport;\n6. restricted provider-native effect surface;\n7. disconnect/cancellation behavior;\n8. one read-only dogfood run through the actual provider transport.\n\nUntil that slice is green, the repository has a concrete Codex adapter kernel, not a production-activated Codex executor.",
+      "title": "External runtime conformance still required"
+    }
+  ],
+  "source": {
+    "bytes": 6716,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 208,
+    "media_type": "text/markdown",
+    "path": "testing/governed-execution-c2-codex-adapter.md",
+    "sha256": "1db4dfeb9e83cade49d451f7191c3c2b256528ca009d5fc6151c2354c3faf0a7"
+  }
+}
