@@ -1,0 +1,49 @@
+{
+  "content": "# Publication Validation Fixtures\n\nThis directory contains contract fixtures for Monad's publication projection schemas.\n\n## Structure\n\n- `fixtures/valid/` contains instances that MUST validate.\n- `fixtures/invalid/` contains instances that MUST be rejected.\n\nThe validation entry point is:\n\n```bash\npython3 scripts/validate-publication.py\n```\n\nThe harness also validates the real `publication/website/projection.yaml` and performs\nboundary mutations proving that the schema rejects a non-`main` current-state source\nbranch and a non-deny default disposition.\n\nFixtures are intentionally small. They test schema contracts rather than attempting\nto model a complete real publication export. Real exporter output will later become\nan additional validation target.\n",
+  "document_id": "doc:tests%2Fpublication%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "This directory contains contract fixtures for Monad's publication projection schemas.",
+    "title": "Publication Validation Fixtures"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 4,
+      "line_start": 1,
+      "section_id": "publication-validation-fixtures",
+      "text": "# Publication Validation Fixtures\n\nThis directory contains contract fixtures for Monad's publication projection schemas.",
+      "title": "Publication Validation Fixtures"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 5,
+      "section_id": "structure",
+      "text": "## Structure\n\n- `fixtures/valid/` contains instances that MUST validate.\n- `fixtures/invalid/` contains instances that MUST be rejected.\n\nThe validation entry point is:\n\n```bash\npython3 scripts/validate-publication.py\n```\n\nThe harness also validates the real `publication/website/projection.yaml` and performs\nboundary mutations proving that the schema rejects a non-`main` current-state source\nbranch and a non-deny default disposition.\n\nFixtures are intentionally small. They test schema contracts rather than attempting\nto model a complete real publication export. Real exporter output will later become\nan additional validation target.",
+      "title": "Structure"
+    }
+  ],
+  "source": {
+    "bytes": 762,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 22,
+    "media_type": "text/markdown",
+    "path": "tests/publication/README.md",
+    "sha256": "b802999e91bceef6c5fafda7c2941725331e5a84a88b0dfbd525804efc503fd0"
+  }
+}

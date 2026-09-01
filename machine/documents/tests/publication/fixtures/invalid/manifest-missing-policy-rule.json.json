@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"projectionVersion\": 1,\n  \"sourceRepository\": \"monad-framework/monad\",\n  \"sourceBranch\": \"main\",\n  \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"generatedAt\": \"2026-09-01T18:00:00Z\",\n  \"artifacts\": [\n    {\n      \"sourcePath\": \"README.md\",\n      \"sourceBlob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\n      \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n      \"destinationPath\": \"content/generated/monad/canonical/README.md\",\n      \"mode\": \"MIRROR\",\n      \"contentHash\": \"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\"\n    },\n    {\n      \"sourcePath\": \"publication/website/projection.yaml\",\n      \"sourceBlob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\n      \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n      \"destinationPath\": \"content/generated/monad/state/project.json\",\n      \"mode\": \"DERIVE\",\n      \"contentHash\": \"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\",\n      \"policyRuleId\": \"DERIVE-PROJECT\",\n      \"inputs\": [\n        {\n          \"path\": \"README.md\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        }\n      ]\n    }\n  ]\n}\n",
+  "document_id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fmanifest-missing-policy-rule.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for tests/publication/fixtures/invalid/manifest-missing-policy-rule.json.",
+    "title": "Manifest Missing Policy Rule"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 32,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"projectionVersion\": 1,\n  \"sourceRepository\": \"monad-framework/monad\",\n  \"sourceBranch\": \"main\",\n  \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"generatedAt\": \"2026-09-01T18:00:00Z\",\n  \"artifacts\": [\n    {\n      \"sourcePath\": \"README.md\",\n      \"sourceBlob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\n      \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n      \"destinationPath\": \"content/generated/monad/canonical/README.md\",\n      \"mode\": \"MIRROR\",\n      \"contentHash\": \"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\"\n    },\n    {\n      \"sourcePath\": \"publication/website/projection.yaml\",\n      \"sourceBlob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\n      \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n      \"destinationPath\": \"content/generated/monad/state/project.json\",\n      \"mode\": \"DERIVE\",\n      \"contentHash\": \"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\",\n      \"policyRuleId\": \"DERIVE-PROJECT\",\n      \"inputs\": [\n        {\n          \"path\": \"README.md\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        }\n      ]\n    }\n  ]\n}",
+      "title": "Manifest Missing Policy Rule"
+    }
+  ],
+  "source": {
+    "bytes": 1150,
+    "canonical": true,
+    "language": "json",
+    "lines": 32,
+    "media_type": "application/json",
+    "path": "tests/publication/fixtures/invalid/manifest-missing-policy-rule.json",
+    "sha256": "d7b6aa6f931d43eaf1be9ea4932d7da22155d4d5d4c05eb78373c5ed46557d5d"
+  }
+}

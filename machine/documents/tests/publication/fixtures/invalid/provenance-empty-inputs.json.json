@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"projectionVersion\": 1,\n  \"sourceRepository\": \"monad-framework/monad\",\n  \"sourceBranch\": \"main\",\n  \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"generatedAt\": \"2026-09-01T18:00:00Z\",\n  \"records\": [\n    {\n      \"destinationPath\": \"content/generated/monad/canonical/README.md\",\n      \"mode\": \"MIRROR\",\n      \"policyRuleId\": \"MIRROR-ROOT-README\",\n      \"inputs\": []\n    },\n    {\n      \"destinationPath\": \"content/generated/monad/state/project.json\",\n      \"mode\": \"DERIVE\",\n      \"policyRuleId\": \"DERIVE-PROJECT\",\n      \"inputs\": [\n        {\n          \"path\": \"README.md\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        },\n        {\n          \"path\": \"VERSION\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        }\n      ]\n    }\n  ]\n}\n",
+  "document_id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fprovenance-empty-inputs.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for tests/publication/fixtures/invalid/provenance-empty-inputs.json.",
+    "title": "Provenance Empty Inputs"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 30,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"projectionVersion\": 1,\n  \"sourceRepository\": \"monad-framework/monad\",\n  \"sourceBranch\": \"main\",\n  \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"generatedAt\": \"2026-09-01T18:00:00Z\",\n  \"records\": [\n    {\n      \"destinationPath\": \"content/generated/monad/canonical/README.md\",\n      \"mode\": \"MIRROR\",\n      \"policyRuleId\": \"MIRROR-ROOT-README\",\n      \"inputs\": []\n    },\n    {\n      \"destinationPath\": \"content/generated/monad/state/project.json\",\n      \"mode\": \"DERIVE\",\n      \"policyRuleId\": \"DERIVE-PROJECT\",\n      \"inputs\": [\n        {\n          \"path\": \"README.md\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        },\n        {\n          \"path\": \"VERSION\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        }\n      ]\n    }\n  ]\n}",
+      "title": "Provenance Empty Inputs"
+    }
+  ],
+  "source": {
+    "bytes": 793,
+    "canonical": true,
+    "language": "json",
+    "lines": 30,
+    "media_type": "application/json",
+    "path": "tests/publication/fixtures/invalid/provenance-empty-inputs.json",
+    "sha256": "262ba9dffefb5950fe452342778871c655bbdc06626d1c8566209869e5814375"
+  }
+}

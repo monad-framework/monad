@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"projectionVersion\": 1,\n  \"sourceRepository\": \"monad-framework/monad\",\n  \"sourceBranch\": \"main\",\n  \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"generatedAt\": \"2026-09-01T18:00:00Z\",\n  \"artifacts\": [\n    {\n      \"sourcePath\": \"README.md\",\n      \"sourceBlob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\n      \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n      \"destinationPath\": \"content/generated/monad/canonical/README.md\",\n      \"mode\": \"MIRROR\",\n      \"contentHash\": \"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\",\n      \"policyRuleId\": \"MIRROR-ROOT-README\"\n    },\n    {\n      \"sourcePath\": \"publication/website/projection.yaml\",\n      \"sourceBlob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\n      \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n      \"destinationPath\": \"content/generated/monad/state/project.json\",\n      \"mode\": \"DERIVE\",\n      \"contentHash\": \"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\",\n      \"policyRuleId\": \"DERIVE-PROJECT\",\n      \"inputs\": [\n        {\n          \"path\": \"README.md\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        }\n      ]\n    }\n  ]\n}\n",
+  "document_id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fmanifest-basic.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for tests/publication/fixtures/valid/manifest-basic.json.",
+    "title": "Manifest Basic"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 33,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"projectionVersion\": 1,\n  \"sourceRepository\": \"monad-framework/monad\",\n  \"sourceBranch\": \"main\",\n  \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"generatedAt\": \"2026-09-01T18:00:00Z\",\n  \"artifacts\": [\n    {\n      \"sourcePath\": \"README.md\",\n      \"sourceBlob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\n      \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n      \"destinationPath\": \"content/generated/monad/canonical/README.md\",\n      \"mode\": \"MIRROR\",\n      \"contentHash\": \"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\",\n      \"policyRuleId\": \"MIRROR-ROOT-README\"\n    },\n    {\n      \"sourcePath\": \"publication/website/projection.yaml\",\n      \"sourceBlob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\n      \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n      \"destinationPath\": \"content/generated/monad/state/project.json\",\n      \"mode\": \"DERIVE\",\n      \"contentHash\": \"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\",\n      \"policyRuleId\": \"DERIVE-PROJECT\",\n      \"inputs\": [\n        {\n          \"path\": \"README.md\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        }\n      ]\n    }\n  ]\n}",
+      "title": "Manifest Basic"
+    }
+  ],
+  "source": {
+    "bytes": 1194,
+    "canonical": true,
+    "language": "json",
+    "lines": 33,
+    "media_type": "application/json",
+    "path": "tests/publication/fixtures/valid/manifest-basic.json",
+    "sha256": "5d5a7d519b1beac28eeb3bb942735c760df8798b8c2a45096480507e72056c5d"
+  }
+}
