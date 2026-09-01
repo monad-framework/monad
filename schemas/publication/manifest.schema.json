@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:monad:schema:publication:manifest:1",
+  "title": "Monad Publication Projection Manifest",
+  "description": "Complete inventory of files managed by one deterministic Monad website publication projection.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "projectionVersion",
+    "sourceRepository",
+    "sourceBranch",
+    "sourceCommit",
+    "generatedAt",
+    "artifacts"
+  ],
+  "properties": {
+    "projectionVersion": {
+      "const": 1
+    },
+    "sourceRepository": {
+      "const": "monad-framework/monad"
+    },
+    "sourceBranch": {
+      "const": "main"
+    },
+    "sourceCommit": {
+      "$ref": "#/$defs/gitCommit"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact"
+      }
+    }
+  },
+  "$defs": {
+    "gitCommit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "gitBlob": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sourceInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "blob"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "blob": {
+          "$ref": "#/$defs/gitBlob"
+        }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourcePath",
+        "sourceBlob",
+        "sourceCommit",
+        "destinationPath",
+        "mode",
+        "contentHash",
+        "policyRuleId"
+      ],
+      "properties": {
+        "sourcePath": {
+          "type": "string",
+          "minLength": 1,
+          "description": "For MIRROR, the mirrored canonical source path. For DERIVE, publication/website/projection.yaml, whose rule authorizes the derivation; concrete derivation inputs are recorded in inputs."
+        },
+        "sourceBlob": {
+          "$ref": "#/$defs/gitBlob",
+          "description": "Git blob SHA for sourcePath. For DERIVE, this is the blob SHA of publication/website/projection.yaml."
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitCommit"
+        },
+        "destinationPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": [
+            "MIRROR",
+            "DERIVE"
+          ]
+        },
+        "contentHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "policyRuleId": {
+          "type": "string",
+          "pattern": "^(MIRROR|DERIVE)-[A-Z0-9-]+$"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceInput"
+          },
+          "uniqueItems": true,
+          "description": "Concrete repository inputs contributing to a DERIVE output. Required for DERIVE and optional for MIRROR."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "DERIVE"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "required": [
+              "inputs"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

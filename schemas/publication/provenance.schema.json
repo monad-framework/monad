@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:monad:schema:publication:provenance:1",
+  "title": "Monad Publication Projection Provenance",
+  "description": "Provenance record for all projection-managed publication outputs generated from one Monad source revision.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "projectionVersion",
+    "sourceRepository",
+    "sourceBranch",
+    "sourceCommit",
+    "generatedAt",
+    "records"
+  ],
+  "properties": {
+    "projectionVersion": {
+      "const": 1
+    },
+    "sourceRepository": {
+      "const": "monad-framework/monad"
+    },
+    "sourceBranch": {
+      "const": "main"
+    },
+    "sourceCommit": {
+      "$ref": "#/$defs/gitCommit"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/provenanceRecord"
+      }
+    }
+  },
+  "$defs": {
+    "gitCommit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "gitBlob": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "blob"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "blob": {
+          "$ref": "#/$defs/gitBlob"
+        }
+      }
+    },
+    "provenanceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "destinationPath",
+        "mode",
+        "policyRuleId",
+        "inputs"
+      ],
+      "properties": {
+        "destinationPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": [
+            "MIRROR",
+            "DERIVE"
+          ]
+        },
+        "policyRuleId": {
+          "type": "string",
+          "pattern": "^(MIRROR|DERIVE)-[A-Z0-9-]+$"
+        },
+        "inputs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/input"
+          },
+          "description": "Concrete source paths and Git blob SHAs that contributed to this output. MIRROR normally has one; DERIVE has one or more."
+        },
+        "sourceStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}
