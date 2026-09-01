@@ -6,11 +6,6 @@ on:
       target:
         description: "Existing EOS lifecycle target missing a root event"
         required: true
-  push:
-    branches:
-      - "fix/eos-post-publication-integrity"
-    paths:
-      - ".eos/recover-event.trigger"
 
 permissions:
   contents: write
@@ -26,25 +21,21 @@ jobs:
     timeout-minutes: 15
     env:
       EOS_ACTOR: eos-integrity-recovery
-      TARGET: ${{ inputs.target || '' }}
+      TARGET: ${{ inputs.target }}
     steps:
       - name: Check out branch
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
-      - name: Resolve recovery target
+      - name: Validate recovery target
         shell: bash
         run: |
           set -Eeuo pipefail
           if [[ -z "$TARGET" ]]; then
-            TARGET="$(tr -d '[:space:]' < .eos/recover-event.trigger)"
-          fi
-          if [[ -z "$TARGET" ]]; then
             echo "Recovery target is empty" >&2
             exit 1
           fi
-          echo "TARGET=$TARGET" >> "$GITHUB_ENV"
 
       - name: Import missing root lifecycle event
         shell: bash
