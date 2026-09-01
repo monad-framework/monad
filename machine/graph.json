@@ -11488,6 +11488,14 @@
     },
     {
       "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Fgoverned-execution-c2-codex-runtime.yml",
+      "normative": false,
+      "source_path": ".github/workflows/governed-execution-c2-codex-runtime.yml",
+      "title": "Governed Execution C2 Codex Runtime",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
       "id": "doc:.github%2Fworkflows%2Fgoverned-execution-c2-codex.yml",
       "normative": false,
       "source_path": ".github/workflows/governed-execution-c2-codex.yml",
@@ -17760,6 +17768,22 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:crates%2Fmonad-codex-runtime%2FCargo.toml",
+      "normative": false,
+      "source_path": "crates/monad-codex-runtime/Cargo.toml",
+      "title": "Cargo",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:crates%2Fmonad-codex-runtime%2Fsrc%2Flib.rs",
+      "normative": false,
+      "source_path": "crates/monad-codex-runtime/src/lib.rs",
+      "title": "Lib",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:crates%2Fmonad-core%2FCargo.toml",
       "normative": false,
       "source_path": "crates/monad-core/Cargo.toml",
@@ -22928,6 +22952,14 @@
     },
     {
       "document_type": "quality-assurance",
+      "id": "doc:testing%2Fgoverned-execution-c2-codex-runtime.md",
+      "normative": true,
+      "source_path": "testing/governed-execution-c2-codex-runtime.md",
+      "title": "Governed Execution C2 Codex Runtime Conformance",
+      "type": "document"
+    },
+    {
+      "document_type": "quality-assurance",
       "id": "doc:testing%2Fgoverned-execution-conformance.md",
       "normative": true,
       "source_path": "testing/governed-execution-conformance.md",
@@ -22968,14 +23000,6 @@
     },
     {
       "document_type": "project-source",
-      "id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fmanifest-metadata-envelope-self-inventory.json",
-      "normative": false,
-      "source_path": "tests/publication/fixtures/invalid/manifest-metadata-envelope-self-inventory.json",
-      "title": "Manifest Metadata Envelope Self Inventory",
-      "type": "document"
-    },
-    {
-      "document_type": "project-source",
       "id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fmanifest-missing-policy-rule.json",
       "normative": false,
       "source_path": "tests/publication/fixtures/invalid/manifest-missing-policy-rule.json",
@@ -22996,14 +23020,6 @@
       "normative": false,
       "source_path": "tests/publication/fixtures/invalid/provenance-empty-inputs.json",
       "title": "Provenance Empty Inputs",
-      "type": "document"
-    },
-    {
-      "document_type": "project-source",
-      "id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fprovenance-metadata-envelope-record.json",
-      "normative": false,
-      "source_path": "tests/publication/fixtures/invalid/provenance-metadata-envelope-record.json",
-      "title": "Provenance Metadata Envelope Record",
       "type": "document"
     },
     {
@@ -24597,5 +24613,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "135b6cd576fc98ece1367671f4bdabc166ae4e933aa9af4ab1560afd6e7069f2"
+  "source_tree_sha256": "1a895a7e843fcc10a97eea2fc7e5895c9252e10f7af5ad2324f2eb1af6c7eb78"
 }
