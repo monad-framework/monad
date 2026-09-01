@@ -12,16 +12,20 @@
     "work_subject",
     "intent",
     "requested_outcome",
+    "scope_boundaries",
+    "dependencies",
     "governing_state_digest",
     "governed_references",
     "initiating_actor",
     "executor",
     "granted_capabilities",
     "prohibited_capabilities",
+    "delegation_constraints",
     "allowed_tools",
     "environment_constraints",
     "acceptance_criteria",
     "verification_obligations",
+    "evidence_obligations",
     "approval_gates",
     "escalation_conditions",
     "completion_criteria",
@@ -48,15 +52,17 @@
     "requested_outcome": {
       "$ref": "#/$defs/nonEmptyString"
     },
+    "scope_boundaries": {
+      "$ref": "#/$defs/stringSet"
+    },
+    "dependencies": {
+      "$ref": "#/$defs/governedReferenceSet"
+    },
     "governing_state_digest": {
       "$ref": "#/$defs/nonEmptyString"
     },
     "governed_references": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "$ref": "#/$defs/governedReference"
-      }
+      "$ref": "#/$defs/governedReferenceSet"
     },
     "initiating_actor": {
       "$ref": "#/$defs/actorIdentity"
@@ -65,18 +71,13 @@
       "$ref": "#/$defs/actorIdentity"
     },
     "granted_capabilities": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "$ref": "#/$defs/capabilityGrant"
-      }
+      "$ref": "#/$defs/capabilityGrantSet"
     },
     "prohibited_capabilities": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "$ref": "#/$defs/capabilityGrant"
-      }
+      "$ref": "#/$defs/capabilityGrantSet"
+    },
+    "delegation_constraints": {
+      "$ref": "#/$defs/stringSet"
     },
     "allowed_tools": {
       "$ref": "#/$defs/stringSet"
@@ -88,6 +89,9 @@
       "$ref": "#/$defs/stringSet"
     },
     "verification_obligations": {
+      "$ref": "#/$defs/stringSet"
+    },
+    "evidence_obligations": {
       "$ref": "#/$defs/stringSet"
     },
     "approval_gates": {
@@ -121,6 +125,20 @@
       "uniqueItems": true,
       "items": {
         "$ref": "#/$defs/nonEmptyString"
+      }
+    },
+    "governedReferenceSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/governedReference"
+      }
+    },
+    "capabilityGrantSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/capabilityGrant"
       }
     },
     "governedReference": {
