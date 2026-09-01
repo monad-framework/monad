@@ -191,17 +191,23 @@ mod tests {
 
     #[test]
     fn geh_cf_021_executor_completion_without_evidence_remains_incomplete() {
-        let assessment = assess_completion(
-            &envelope(),
-            true,
-            &VerificationEvidenceBundle::default(),
-        );
+        let assessment =
+            assess_completion(&envelope(), true, &VerificationEvidenceBundle::default());
 
         assert_eq!(assessment.disposition, CompletionDisposition::Incomplete);
         assert!(assessment.executor_reported_complete);
-        assert_eq!(assessment.missing_acceptance_criteria, vec!["artifact exists"]);
-        assert_eq!(assessment.missing_verification_obligations, vec!["tests pass"]);
-        assert_eq!(assessment.missing_completion_criteria, vec!["evidence linked"]);
+        assert_eq!(
+            assessment.missing_acceptance_criteria,
+            vec!["artifact exists"]
+        );
+        assert_eq!(
+            assessment.missing_verification_obligations,
+            vec!["tests pass"]
+        );
+        assert_eq!(
+            assessment.missing_completion_criteria,
+            vec!["evidence linked"]
+        );
         assert_eq!(assessment.missing_approval_gates, vec!["review-approved"]);
     }
 
