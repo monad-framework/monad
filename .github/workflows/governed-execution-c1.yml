@@ -29,6 +29,6 @@ jobs:
       - name: Verify formatting
         run: cargo fmt --check
       # The `harness` filter covers envelope, gateway, runtime, verification,
-      # effect-classification, and delegation conformance modules together.
+      # effect-classification, delegation, and workspace-read conformance modules together.
       - name: Run monad-core governed-execution C1 tests
         run: cargo test -p monad-core harness
