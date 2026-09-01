@@ -1,5 +1,5 @@
 {
-  "content": "name: Governed execution C1\n\non:\n  workflow_dispatch:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"testing/governed-execution-conformance.md\"\n      - \".github/workflows/governed-execution-c1.yml\"\n  push:\n    branches: [main]\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"testing/governed-execution-conformance.md\"\n      - \".github/workflows/governed-execution-c1.yml\"\n\npermissions:\n  contents: read\n\njobs:\n  c1:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Verify formatting\n        run: cargo fmt --check\n      # The `harness` filter covers envelope, gateway, runtime, verification,\n      # effect-classification, and delegation conformance modules together.\n      - name: Run monad-core governed-execution C1 tests\n        run: cargo test -p monad-core harness\n",
+  "content": "name: Governed execution C1\n\non:\n  workflow_dispatch:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"testing/governed-execution-conformance.md\"\n      - \".github/workflows/governed-execution-c1.yml\"\n  push:\n    branches: [main]\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"testing/governed-execution-conformance.md\"\n      - \".github/workflows/governed-execution-c1.yml\"\n\npermissions:\n  contents: read\n\njobs:\n  c1:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Verify formatting\n        run: cargo fmt --check\n      # The `harness` filter covers envelope, gateway, runtime, verification,\n      # effect-classification, delegation, and workspace-read conformance modules together.\n      - name: Run monad-core governed-execution C1 tests\n        run: cargo test -p monad-core harness\n",
   "document_id": "doc:.github%2Fworkflows%2Fgoverned-execution-c1.yml",
   "generation": {
     "deterministic": true,
@@ -24,17 +24,17 @@
       "line_end": 34,
       "line_start": 1,
       "section_id": "content",
-      "text": "name: Governed execution C1\n\non:\n  workflow_dispatch:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"testing/governed-execution-conformance.md\"\n      - \".github/workflows/governed-execution-c1.yml\"\n  push:\n    branches: [main]\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"testing/governed-execution-conformance.md\"\n      - \".github/workflows/governed-execution-c1.yml\"\n\npermissions:\n  contents: read\n\njobs:\n  c1:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Verify formatting\n        run: cargo fmt --check\n      # The `harness` filter covers envelope, gateway, runtime, verification,\n      # effect-classification, and delegation conformance modules together.\n      - name: Run monad-core governed-execution C1 tests\n        run: cargo test -p monad-core harness",
+      "text": "name: Governed execution C1\n\non:\n  workflow_dispatch:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"testing/governed-execution-conformance.md\"\n      - \".github/workflows/governed-execution-c1.yml\"\n  push:\n    branches: [main]\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"testing/governed-execution-conformance.md\"\n      - \".github/workflows/governed-execution-c1.yml\"\n\npermissions:\n  contents: read\n\njobs:\n  c1:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Verify formatting\n        run: cargo fmt --check\n      # The `harness` filter covers envelope, gateway, runtime, verification,\n      # effect-classification, delegation, and workspace-read conformance modules together.\n      - name: Run monad-core governed-execution C1 tests\n        run: cargo test -p monad-core harness",
       "title": "Governed Execution C1"
     }
   ],
   "source": {
-    "bytes": 915,
+    "bytes": 931,
     "canonical": true,
     "language": "yaml",
     "lines": 34,
     "media_type": "application/yaml",
     "path": ".github/workflows/governed-execution-c1.yml",
-    "sha256": "0ed48b4e5eb1daf7e88c18657bdd9467c387aefc9611abe13b6cfc64671fd536"
+    "sha256": "b28df60d42b5966c51cf02469d1511f460bd345b4a84a67e3c68b45026d40a6c"
   }
 }
