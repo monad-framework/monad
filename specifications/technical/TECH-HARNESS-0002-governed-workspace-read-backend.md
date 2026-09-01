@@ -43,7 +43,7 @@ Version 0.1.0 MUST reject:
 - drive/prefix-like segments containing `:`;
 - any path containing a symbolic-link component;
 - a target that resolves outside the canonical workspace root;
-- non-regular-file targets.
+- non-regular-file targets, including directories, FIFOs, sockets, devices, and other special files.
 
 These restrictions are intentionally narrower than a general host filesystem API. Broader path semantics require a versioned contract change rather than implicit relaxation.
 
@@ -53,12 +53,16 @@ The backend MUST:
 
 1. bind to a canonical existing workspace root at construction;
 2. impose a non-zero maximum byte limit supplied by the caller or governing configuration;
-3. reject a file whose observed size already exceeds that limit;
-4. bound the actual read to at most `max_bytes + 1` so concurrent growth cannot silently bypass the limit;
-5. reject data exceeding the limit during the read;
-6. accept UTF-8 text only in version 0.1.0;
-7. compute a SHA-256 digest over the exact observed bytes;
-8. return tool failure rather than partial/truncated success when the contract cannot be satisfied.
+3. inspect the resolved target metadata before opening and reject a non-regular target or a file whose observed size exceeds the limit;
+4. only after that pre-open validation, open the target for reading;
+5. inspect the opened file metadata again and reject a non-regular replacement or a size that now exceeds the limit;
+6. bound the actual read to at most `max_bytes + 1` so concurrent growth cannot silently bypass the limit;
+7. reject data exceeding the limit during the read;
+8. accept UTF-8 text only in version 0.1.0;
+9. compute a SHA-256 digest over the exact observed bytes;
+10. return tool failure rather than partial/truncated success when the contract cannot be satisfied.
+
+Pre-open file-type validation is required because opening some special files, such as a Unix FIFO without a writer, can block before post-open metadata can be inspected. The post-open metadata check remains required as defense against ordinary replacement races between validation and opening.
 
 The backend MUST NOT write, create, delete, rename, execute, publish, deploy, contact a network service, or mutate governance state.
 
@@ -105,7 +109,7 @@ Version 0.1.0 rejects symbolic-link components entirely, even when a symlink wou
 
 The implementation MUST also canonicalize the final target and verify containment beneath the canonical workspace root as defense in depth.
 
-Standard cross-platform path APIs cannot eliminate every hostile concurrent-filesystem time-of-check/time-of-use race. Therefore this v0.1.0 backend is suitable for bounded local-first operation and conformance/dogfooding, but MUST NOT be represented as hardened against a concurrently malicious host filesystem. Production activation in such a threat model requires a handle-relative or equivalent race-resistant filesystem primitive and a corresponding contract revision/review.
+Standard cross-platform path APIs cannot eliminate every hostile concurrent-filesystem time-of-check/time-of-use race. Pre-open and post-open metadata checks reduce avoidable blocking and replacement hazards but do not provide a race-free hostile-filesystem guarantee. Therefore this v0.1.0 backend is suitable for bounded local-first operation and conformance/dogfooding, but MUST NOT be represented as hardened against a concurrently malicious host filesystem. Production activation in such a threat model requires a handle-relative or equivalent race-resistant filesystem primitive and a corresponding contract revision/review.
 
 ## Resource and confidentiality constraints
 
@@ -126,7 +130,8 @@ The initial implementation MUST cover at least:
 7. byte limit is enforced;
 8. non-UTF-8 data is rejected;
 9. unsupported operation type is rejected without modifying the target;
-10. symlink components are rejected on platforms supporting the fixture.
+10. symlink components are rejected on platforms supporting the fixture;
+11. a pre-existing FIFO or equivalent blocking special file is rejected before opening on platforms supporting the fixture.
 
 All existing C0 and C1 conformance MUST continue to pass.
 
