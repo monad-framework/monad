@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://monad.dev/schemas/execution-envelope/0.1.0",
+  "title": "Monad Execution Envelope",
+  "description": "Machine-validatable interchange shape for DATA-HARNESS-0001 version 0.1.0. Canonical ordering, digest verification, governing-state freshness, and context-dependent execution obligations require semantic validation in addition to JSON Schema validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope_id",
+    "envelope_digest",
+    "schema_version",
+    "run_id",
+    "logical_time",
+    "work_subject",
+    "intent",
+    "requested_outcome",
+    "governing_state_digest",
+    "governed_references",
+    "initiating_actor",
+    "executor",
+    "granted_capabilities",
+    "prohibited_capabilities",
+    "allowed_tools",
+    "environment_constraints",
+    "acceptance_criteria",
+    "verification_obligations",
+    "approval_gates",
+    "escalation_conditions",
+    "completion_criteria",
+    "resource_limits"
+  ],
+  "properties": {
+    "envelope_id": {
+      "type": "string",
+      "pattern": "^env-v1-[0-9a-f]{64}$"
+    },
+    "envelope_digest": {
+      "$ref": "#/$defs/sha256Hex"
+    },
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "logical_time": {
+      "type": "string",
+      "minLength": 1
+    },
+    "work_subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "intent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requested_outcome": {
+      "type": "string",
+      "minLength": 1
+    },
+    "governing_state_digest": {
+      "type": "string",
+      "minLength": 1
+    },
+    "governed_references": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/governedReference"
+      }
+    },
+    "initiating_actor": {
+      "$ref": "#/$defs/actorIdentity"
+    },
+    "executor": {
+      "$ref": "#/$defs/actorIdentity"
+    },
+    "granted_capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/capabilityGrant"
+      }
+    },
+    "prohibited_capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/capabilityGrant"
+      }
+    },
+    "allowed_tools": {
+      "$ref": "#/$defs/uniqueStrings"
+    },
+    "environment_constraints": {
+      "$ref": "#/$defs/uniqueStrings"
+    },
+    "acceptance_criteria": {
+      "$ref": "#/$defs/uniqueStrings"
+    },
+    "verification_obligations": {
+      "$ref": "#/$defs/uniqueStrings"
+    },
+    "approval_gates": {
+      "$ref": "#/$defs/uniqueStrings"
+    },
+    "escalation_conditions": {
+      "$ref": "#/$defs/uniqueStrings"
+    },
+    "completion_criteria": {
+      "$ref": "#/$defs/uniqueStrings"
+    },
+    "resource_limits": {
+      "type": "object",
+      "propertyNames": {
+        "minLength": 1
+      },
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "sha256Hex": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "governedReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "identifier"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "identifier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content_digest": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "actorIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actor_id", "role"],
+      "properties": {
+        "actor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "capabilityGrant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capability", "scope"],
+      "properties": {
+        "capability": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "uniqueStrings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}
