@@ -584,52 +584,12 @@
     "manifestPolicy": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "path",
-        "complete_inventory",
-        "inventory_scope",
-        "metadata_envelope",
-        "metadata_envelope_in_artifacts",
-        "metadata_envelope_in_provenance_records",
-        "artifact_fields",
-        "projection_fields"
-      ],
+      "required": ["path", "complete_inventory", "artifact_fields", "projection_fields"],
       "properties": {
-        "path": {
-          "const": "content/generated/monad/manifest.json"
-        },
-        "complete_inventory": {
-          "const": true
-        },
-        "inventory_scope": {
-          "const": "projection_managed_content"
-        },
-        "metadata_envelope": {
-          "type": "array",
-          "prefixItems": [
-            {
-              "const": "content/generated/monad/manifest.json"
-            },
-            {
-              "const": "content/generated/monad/provenance.json"
-            }
-          ],
-          "items": false,
-          "minItems": 2,
-          "maxItems": 2
-        },
-        "metadata_envelope_in_artifacts": {
-          "const": false
-        },
-        "metadata_envelope_in_provenance_records": {
-          "const": false
-        },
-        "artifact_fields": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "projection_fields": {
-          "$ref": "#/$defs/stringArray"
-        }
+        "path": { "const": "content/generated/monad/manifest.json" },
+        "complete_inventory": { "const": true },
+        "artifact_fields": { "$ref": "#/$defs/stringArray" },
+        "projection_fields": { "$ref": "#/$defs/stringArray" }
       }
     },
     "invariant": {

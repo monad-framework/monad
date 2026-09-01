@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:monad:schema:publication:provenance:1",
   "title": "Monad Publication Projection Provenance",
-  "description": "Provenance records for projection-managed publication content outputs generated from one Monad source revision, excluding manifest.json and provenance.json as the projection metadata envelope.",
+  "description": "Provenance record for all projection-managed publication outputs generated from one Monad source revision.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -75,13 +75,7 @@
       "properties": {
         "destinationPath": {
           "type": "string",
-          "minLength": 1,
-          "not": {
-            "enum": [
-              "content/generated/monad/manifest.json",
-              "content/generated/monad/provenance.json"
-            ]
-          }
+          "minLength": 1
         },
         "mode": {
           "enum": [
