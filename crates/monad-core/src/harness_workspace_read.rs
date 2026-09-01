@@ -126,23 +126,19 @@ impl WorkspaceReadBackend {
             ));
         }
 
-        let file = File::open(&canonical_target)
-            .map_err(|error| format!("cannot open workspace target {portable_path:?}: {error}"))?;
-        let metadata = file.metadata().map_err(|error| {
+        // Inspect the target before opening it so pre-existing special files
+        // such as FIFOs cannot block the governed read at File::open.
+        let pre_open_metadata = fs::metadata(&canonical_target).map_err(|error| {
             format!("cannot inspect workspace target {portable_path:?}: {error}")
         })?;
+        validate_regular_file_metadata(&portable_path, &pre_open_metadata, self.max_bytes)?;
 
-        if !metadata.is_file() {
-            return Err(format!(
-                "workspace target {portable_path:?} is not a regular file"
-            ));
-        }
-        if metadata.len() > self.max_bytes {
-            return Err(format!(
-                "workspace target {portable_path:?} exceeds the {} byte read limit",
-                self.max_bytes
-            ));
-        }
+        let file = File::open(&canonical_target)
+            .map_err(|error| format!("cannot open workspace target {portable_path:?}: {error}"))?;
+        let post_open_metadata = file.metadata().map_err(|error| {
+            format!("cannot inspect opened workspace target {portable_path:?}: {error}")
+        })?;
+        validate_regular_file_metadata(&portable_path, &post_open_metadata, self.max_bytes)?;
 
         let mut bytes = Vec::new();
         let mut limited = file.take(self.max_bytes.saturating_add(1));
@@ -259,6 +255,24 @@ fn reject_symlink_components(root: &Path, relative: &Path) -> Result<(), String>
                 current.display()
             ));
         }
+    }
+    Ok(())
+}
+
+fn validate_regular_file_metadata(
+    portable_path: &str,
+    metadata: &fs::Metadata,
+    max_bytes: u64,
+) -> Result<(), String> {
+    if !metadata.is_file() {
+        return Err(format!(
+            "workspace target {portable_path:?} is not a regular file"
+        ));
+    }
+    if metadata.len() > max_bytes {
+        return Err(format!(
+            "workspace target {portable_path:?} exceeds the {max_bytes} byte read limit"
+        ));
     }
     Ok(())
 }
@@ -572,5 +586,39 @@ mod tests {
             OperationDisposition::ToolFailure
         );
         assert!(outcome.observation.is_none());
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn harness_workspace_read_rejects_fifo_before_open() {
+        use std::process::Command;
+
+        let workspace = TestWorkspace::new("fifo");
+        let fifo = workspace.root().join("pipe");
+        let status = Command::new("mkfifo")
+            .arg(&fifo)
+            .status()
+            .expect("run mkfifo");
+        assert!(status.success(), "mkfifo fixture creation failed");
+
+        let envelope = envelope("pipe");
+        let request = request(&envelope, "pipe");
+        let mut backend = WorkspaceReadBackend::new(workspace.root(), 4096).unwrap();
+
+        let outcome = mediate_workspace_read(&envelope, &request, &context(), &mut backend);
+
+        assert_eq!(
+            outcome.mediated.result.disposition,
+            OperationDisposition::ToolFailure
+        );
+        assert!(outcome.observation.is_none());
+        assert!(
+            outcome
+                .mediated
+                .result
+                .diagnostic
+                .as_deref()
+                .is_some_and(|value| value.contains("not a regular file"))
+        );
     }
 }
