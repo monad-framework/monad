@@ -36,10 +36,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Run effectful Codex runtime fixtures
-        run: cargo test -p monad-codex-runtime
       - name: Verify formatting
         run: cargo fmt --check
+      - name: Run effectful Codex runtime fixtures
+        run: cargo test -p monad-codex-runtime
       - name: Run deterministic Codex adapter fixtures
         run: cargo test -p monad-core harness_codex_adapter
       - name: Run workspace read regression fixtures
