@@ -6633,7 +6633,7 @@
     },
     {
       "companion_path": "machine/documents/.eos/trace-edges.tsv.json",
-      "companion_sha256": "a1b1731e7bce94427a06147a9f1505dd30ffbba66394036ea78eae1e6dd407f6",
+      "companion_sha256": "5b0935efc8c9e7131468b7f50153b6031392e106aaa661435eaba8eb0b2b2c9a",
       "document_id": "doc:.eos%2Ftrace-edges.tsv",
       "document_type": "project-source",
       "identifier_count": 63,
@@ -6641,7 +6641,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/trace-edges.tsv",
-      "source_sha256": "c8e690aea7a7b722d46d19068e10f42c816e5010385521835d0980d702bb84f4",
+      "source_sha256": "40199d468aaca2e918c0ce637c25d8a1fd25503116e75e421c2fcf7a076b9c6f",
       "title": "Trace Edges"
     },
     {
@@ -6958,7 +6958,7 @@
     },
     {
       "companion_path": "machine/documents/.github/workflows/machine-workflow-projection.yml.json",
-      "companion_sha256": "7ab926c6f5a6d6714f1336a8733283c24ef262f49053cc245d8dc0f00fc4e588",
+      "companion_sha256": "11261c42e5d804a8f1be823564e3208e983b4148d38d2955d3548b5ee3c913f3",
       "document_id": "doc:.github%2Fworkflows%2Fmachine-workflow-projection.yml",
       "document_type": "continuous-integration",
       "identifier_count": 0,
@@ -6966,7 +6966,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".github/workflows/machine-workflow-projection.yml",
-      "source_sha256": "b3621e884a91a05466ab64119b5c16c185c01273a999702a1c00617b94c350a5",
+      "source_sha256": "f47c559a420ba80e05dbde25bd3f24315c96ad9427e007d238458648ff61e2fd",
       "title": "Machine Workflow Projection"
     },
     {
@@ -23793,15 +23793,15 @@
     },
     {
       "companion_path": "machine/documents/security/threat-model.md.json",
-      "companion_sha256": "0964dbe35c1dcb210ca0c88aaec83ad6fc41afe024520a821f05c692d7c6d8ce",
+      "companion_sha256": "f0f926d4af0c31e5f31b594e1000c3f197617eb463289e81b971dbf683cc8f1c",
       "document_id": "doc:security%2Fthreat-model.md",
       "document_type": "security",
-      "identifier_count": 10,
+      "identifier_count": 18,
       "normative": true,
       "relation_count": 0,
-      "section_count": 8,
+      "section_count": 9,
       "source_path": "security/threat-model.md",
-      "source_sha256": "869f4590e79709282d5cdde2a3a7567f50f13c8fd60f22a459e6536240273b68",
+      "source_sha256": "31bb774732a360003b9d95ca493c9ebd45919de639e4fcc1543247ad3529aa9d",
       "title": "Threat Model"
     },
     {
@@ -23844,6 +23844,19 @@
       "title": "Initial Specification Baseline"
     },
     {
+      "companion_path": "machine/documents/specifications/data/DATA-HARNESS-0001-execution-envelope.md.json",
+      "companion_sha256": "bb3a9e7c6c92c664fcc7cc395e6b6e09002f7184f3eedafb05cb1d1e9de5e5e0",
+      "document_id": "doc:specifications%2Fdata%2FDATA-HARNESS-0001-execution-envelope.md",
+      "document_type": "specification",
+      "identifier_count": 20,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 14,
+      "source_path": "specifications/data/DATA-HARNESS-0001-execution-envelope.md",
+      "source_sha256": "f4c0c22658589ac9d2bff08e406a34b6cc0dbf31ab6569ff66f1cfa562d5a70c",
+      "title": "DATA-HARNESS-0001: Execution Envelope Data Contract"
+    },
+    {
       "companion_path": "machine/documents/specifications/data/DATA-SOURCE-0001-stable-source-document-identity.md.json",
       "companion_sha256": "5ee3325708487779c34b6adf635ade895dd8701deb9717eb586de8e8bca9a055",
       "document_id": "doc:specifications%2Fdata%2FDATA-SOURCE-0001-stable-source-document-identity.md",
@@ -23855,6 +23868,19 @@
       "source_path": "specifications/data/DATA-SOURCE-0001-stable-source-document-identity.md",
       "source_sha256": "410b778766c518a93a739c669ef41c61f4f7a177ba299926ec7828b82aafd248",
       "title": "DATA-SOURCE-0001: Stable Source and Document Identity"
+    },
+    {
+      "companion_path": "machine/documents/specifications/data/execution-envelope.schema.json.json",
+      "companion_sha256": "4095965999925ccd876f63e63887d36441c003a4cbe6577fff620b55bb67653c",
+      "document_id": "doc:specifications%2Fdata%2Fexecution-envelope.schema.json",
+      "document_type": "specification",
+      "identifier_count": 0,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "specifications/data/execution-envelope.schema.json",
+      "source_sha256": "1f66fe6530d2ed2667efbd02ed992c079716e9f1e10ccf9e37885adb93dc09ce",
+      "title": "Execution Envelope.Schema"
     },
     {
       "companion_path": "machine/documents/specifications/interfaces/IFC-HARNESS-0001-agent-harness-adapter.md.json",
@@ -24011,6 +24037,19 @@
       "source_path": "testing/acceptance.md",
       "source_sha256": "31ccc3074591a7c409f7d03fe1b7846aac763d5b33c7431fb947826859035638",
       "title": "Acceptance Model"
+    },
+    {
+      "companion_path": "machine/documents/testing/governed-execution-conformance.md.json",
+      "companion_sha256": "f9a35acad6f57345b1d3abecf14ad5cd102f5f5abfa19e9e4591b0eac0f3fcf0",
+      "document_id": "doc:testing%2Fgoverned-execution-conformance.md",
+      "document_type": "quality-assurance",
+      "identifier_count": 28,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 14,
+      "source_path": "testing/governed-execution-conformance.md",
+      "source_sha256": "58239751e45088f9aa44c238fe6404107efa1250794327df01430cb88a64d83e",
+      "title": "Governed Execution Conformance Matrix"
     },
     {
       "companion_path": "machine/documents/testing/performance.md.json",
@@ -24293,7 +24332,7 @@
   },
   "schema": "machine/schemas/manifest.schema.json",
   "schema_version": "1.0.0",
-  "source_count": 1868,
+  "source_count": 1871,
   "source_root": ".",
-  "source_tree_sha256": "5e20e1c0b0223623c31a2b7a6dd0285f075a057fbefcc2a34d0152f8f0d02c3a"
+  "source_tree_sha256": "76459858b245e32f5ab809c68b688cc52f2e60b7f34d93958d86b474a1aaefdb"
 }

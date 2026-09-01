@@ -1,5 +1,5 @@
 {
-  "content": "name: Machine workflow projection\n\non:\n  push:\n    paths:\n      - '.github/workflows/**'\n  workflow_dispatch:\n\npermissions:\n  contents: write\n\nconcurrency:\n  group: machine-workflow-projection-${{ github.ref }}\n  cancel-in-progress: true\n\njobs:\n  synchronize:\n    if: github.actor != 'github-actions[bot]'\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - name: Check out branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n        with:\n          fetch-depth: 0\n\n      - name: Regenerate machine projection\n        run: python3 scripts/sync-machine-docs.py --write\n\n      - name: Verify projection\n        run: python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit synchronized workflow projection\n        run: |\n          if git diff --quiet --exit-code; then\n            exit 0\n          fi\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add machine\n          git commit -m \"chore(machine): synchronize workflow projection\"\n          git push origin \"HEAD:${GITHUB_REF_NAME}\"\n",
+  "content": "name: Machine workflow projection\n\non:\n  push:\n    paths:\n      - '.github/workflows/**'\n  workflow_dispatch:\n\npermissions:\n  contents: write\n\nconcurrency:\n  group: machine-workflow-projection-${{ github.ref }}\n  cancel-in-progress: true\n\njobs:\n  synchronize:\n    if: github.actor != 'github-actions[bot]'\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - name: Check out branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n        with:\n          fetch-depth: 0\n\n      - name: Regenerate trace projection\n        run: python3 tools/eos/trace_integrity.py --write\n\n      - name: Regenerate machine projection from settled trace\n        run: python3 scripts/sync-machine-docs.py --write\n\n      - name: Verify trace and machine projections\n        run: |\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit synchronized projections\n        run: |\n          if git diff --quiet --exit-code; then\n            exit 0\n          fi\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add .eos/trace-edges.tsv machine\n          git commit -m \"chore(machine): synchronize trace and machine projections\"\n          git push origin \"HEAD:${GITHUB_REF_NAME}\"\n",
   "document_id": "doc:.github%2Fworkflows%2Fmachine-workflow-projection.yml",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 42,
+      "line_end": 47,
       "line_start": 1,
       "section_id": "content",
-      "text": "name: Machine workflow projection\n\non:\n  push:\n    paths:\n      - '.github/workflows/**'\n  workflow_dispatch:\n\npermissions:\n  contents: write\n\nconcurrency:\n  group: machine-workflow-projection-${{ github.ref }}\n  cancel-in-progress: true\n\njobs:\n  synchronize:\n    if: github.actor != 'github-actions[bot]'\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - name: Check out branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n        with:\n          fetch-depth: 0\n\n      - name: Regenerate machine projection\n        run: python3 scripts/sync-machine-docs.py --write\n\n      - name: Verify projection\n        run: python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit synchronized workflow projection\n        run: |\n          if git diff --quiet --exit-code; then\n            exit 0\n          fi\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add machine\n          git commit -m \"chore(machine): synchronize workflow projection\"\n          git push origin \"HEAD:${GITHUB_REF_NAME}\"",
+      "text": "name: Machine workflow projection\n\non:\n  push:\n    paths:\n      - '.github/workflows/**'\n  workflow_dispatch:\n\npermissions:\n  contents: write\n\nconcurrency:\n  group: machine-workflow-projection-${{ github.ref }}\n  cancel-in-progress: true\n\njobs:\n  synchronize:\n    if: github.actor != 'github-actions[bot]'\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - name: Check out branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n        with:\n          fetch-depth: 0\n\n      - name: Regenerate trace projection\n        run: python3 tools/eos/trace_integrity.py --write\n\n      - name: Regenerate machine projection from settled trace\n        run: python3 scripts/sync-machine-docs.py --write\n\n      - name: Verify trace and machine projections\n        run: |\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n\n      - name: Commit synchronized projections\n        run: |\n          if git diff --quiet --exit-code; then\n            exit 0\n          fi\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add .eos/trace-edges.tsv machine\n          git commit -m \"chore(machine): synchronize trace and machine projections\"\n          git push origin \"HEAD:${GITHUB_REF_NAME}\"",
       "title": "Machine Workflow Projection"
     }
   ],
   "source": {
-    "bytes": 1156,
+    "bytes": 1377,
     "canonical": true,
     "language": "yaml",
-    "lines": 42,
+    "lines": 47,
     "media_type": "application/yaml",
     "path": ".github/workflows/machine-workflow-projection.yml",
-    "sha256": "b3621e884a91a05466ab64119b5c16c185c01273a999702a1c00617b94c350a5"
+    "sha256": "f47c559a420ba80e05dbde25bd3f24315c96ad9427e007d238458648ff61e2fd"
   }
 }
