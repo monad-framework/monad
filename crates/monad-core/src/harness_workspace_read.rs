@@ -116,8 +116,9 @@ impl WorkspaceReadBackend {
         reject_symlink_components(&self.canonical_root, &relative)?;
 
         let candidate = self.canonical_root.join(&relative);
-        let canonical_target = fs::canonicalize(&candidate)
-            .map_err(|error| format!("cannot resolve workspace target {portable_path:?}: {error}"))?;
+        let canonical_target = fs::canonicalize(&candidate).map_err(|error| {
+            format!("cannot resolve workspace target {portable_path:?}: {error}")
+        })?;
 
         if !canonical_target.starts_with(&self.canonical_root) {
             return Err(format!(
@@ -127,9 +128,9 @@ impl WorkspaceReadBackend {
 
         let file = File::open(&canonical_target)
             .map_err(|error| format!("cannot open workspace target {portable_path:?}: {error}"))?;
-        let metadata = file
-            .metadata()
-            .map_err(|error| format!("cannot inspect workspace target {portable_path:?}: {error}"))?;
+        let metadata = file.metadata().map_err(|error| {
+            format!("cannot inspect workspace target {portable_path:?}: {error}")
+        })?;
 
         if !metadata.is_file() {
             return Err(format!(
@@ -246,8 +247,12 @@ fn reject_symlink_components(root: &Path, relative: &Path) -> Result<(), String>
     let mut current = root.to_path_buf();
     for component in relative.components() {
         current.push(component.as_os_str());
-        let metadata = fs::symlink_metadata(&current)
-            .map_err(|error| format!("cannot inspect workspace path {}: {error}", current.display()))?;
+        let metadata = fs::symlink_metadata(&current).map_err(|error| {
+            format!(
+                "cannot inspect workspace path {}: {error}",
+                current.display()
+            )
+        })?;
         if metadata.file_type().is_symlink() {
             return Err(format!(
                 "workspace read refuses symlink component {}",
@@ -411,7 +416,10 @@ mod tests {
 
         assert!(!serialized.contains("transient-sensitive-content"));
         assert_eq!(
-            outcome.observation.as_ref().map(|value| value.text.as_str()),
+            outcome
+                .observation
+                .as_ref()
+                .map(|value| value.text.as_str()),
             Some("transient-sensitive-content")
         );
     }
@@ -515,7 +523,10 @@ mod tests {
             OperationDisposition::ToolFailure
         );
         assert!(outcome.observation.is_none());
-        assert_eq!(fs::read_to_string(workspace.root().join("input.txt")).unwrap(), "hello");
+        assert_eq!(
+            fs::read_to_string(workspace.root().join("input.txt")).unwrap(),
+            "hello"
+        );
     }
 
     #[test]
