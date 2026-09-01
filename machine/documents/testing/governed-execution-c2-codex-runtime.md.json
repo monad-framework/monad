@@ -1,0 +1,148 @@
+{
+  "content": "# Governed Execution C2 Codex Runtime Conformance\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Parent matrix:** `testing/governed-execution-conformance.md`  \n**Adapter profile:** `IFC-HARNESS-0002`  \n**Implementation:** `crates/monad-codex-runtime`\n\n## Purpose\n\nDefines the effectful runtime subfixtures for the concrete OpenAI Codex App Server C2 adapter. These fixtures extend GEH-CF-037 through GEH-CF-039 from deterministic adapter translation into the actual client-owned App Server transport boundary.\n\nThis tranche proves runtime protocol behavior. It does **not** by itself activate Codex for live governed execution and does not relax the requirement that all consequential model-requested effects pass through Monad mediation.\n\n## Runtime boundary\n\n`monad-core` remains deterministic and provider-neutral at the authority boundary. `monad-codex-runtime` owns only replaceable integration mechanics:\n\n- child-process launch and supervision;\n- JSONL stdio transport;\n- App Server initialize/initialized handshake;\n- experimental API opt-in required for dynamic tools;\n- restricted provider thread creation;\n- `item/tool/call` request routing;\n- provider-facing dynamic-tool responses;\n- turn-completion event routing;\n- fail-closed handling of unexpected provider requests/effects.\n\nThe runtime MUST NOT create a second capability, policy, evidence, verification, approval, or EOS lifecycle authority.\n\n## Upstream wire contract\n\nThe runtime profile is based on the current Codex App Server contract in which:\n\n- stdio uses newline-delimited JSON;\n- JSON-RPC 2.0 semantics are used with the `jsonrpc` member omitted on the wire;\n- one `initialize` request is required before other methods, followed by `initialized`;\n- `initialize.params.capabilities.experimentalApi = true` enables the experimental dynamic-tools surface;\n- dynamic tools are registered on `thread/start`;\n- the server invokes a client-owned dynamic tool with `item/tool/call`;\n- `turn/completed` reports provider turn completion independently of Monad verification.\n\nRuntime compatibility is authoritative over documentation assumptions. A selected Codex build that rejects or materially changes these semantics is incompatible until this profile is revised and reverified.\n\n## Restricted provider thread\n\nThe runtime MUST start the provider thread independently of the governed repository workspace.\n\nThe initial thread request MUST include, at minimum:\n\n- an explicit provider runtime `cwd` supplied by the host;\n- `runtimeWorkspaceRoots: []`;\n- `ephemeral: true`;\n- legacy sandbox projection `read-only` or an equivalent stricter verified permission profile;\n- no automatic approval path that can be mistaken for Monad authority;\n- `environments: []`;\n- `selectedCapabilityRoots: []`;\n- only the Monad dynamic tool required by the current profile;\n- provider-native consequential surfaces disabled where the selected Codex build exposes supported configuration controls.\n\nThe current runtime disables the same broad native-tool families used by Codex's own temporary structured-thread hardening pattern, including shell/unified execution, web search, MCP servers, plugins, multi-agent paths, image/view-image paths, request-permissions tooling, hooks, and related discoverable tool surfaces.\n\nThese controls are defense in depth. Their presence in a request does not by itself prove live provider-effect confinement.\n\n## Runtime subfixtures\n\n### GEH-CF-037-RUNTIME — handshake and restricted thread\n\n**Type:** compatibility / positive / negative-by-omission  \n**Expected:** pass\n\nThe fixture MUST prove that the runtime:\n\n1. sends `initialize` before other App Server requests;\n2. identifies Monad as the client;\n3. opts into `experimentalApi`;\n4. sends `initialized` only after successful initialization;\n5. initializes the generic Monad C2 adapter session;\n6. starts an ephemeral provider thread;\n7. binds the returned `thread.id` beneath the Monad adapter session;\n8. registers `monad_workspace_read_text` with strict arguments;\n9. requests empty runtime workspace roots and environments;\n10. requests read-only provider sandbox semantics;\n11. disables known provider-native consequential tool families.\n\nA provider response that contradicts the required sandbox/thread semantics MUST fail closed.\n\n### GEH-CF-038-RUNTIME — wire request mediation and alternate-effect rejection\n\n**Type:** positive / adversarial\n\nThe fixture MUST prove that a real App Server-shaped `item/tool/call` document:\n\n```text\nthreadId\nturnId\ncallId\ntool\narguments\n```\n\nis translated through `harness_codex_adapter`, mediated by the C1 Tool Gateway, executed only by `WorkspaceReadBackend` when authorized, and returned to the provider as a transient result.\n\nThe fixture MUST additionally prove:\n\n- exact-scope reads succeed;\n- provider identity remains subordinate to Monad run/envelope authority;\n- unexpected provider approval/server requests are rejected rather than treated as Monad approvals;\n- an observed provider-native consequential item start causes the governed runtime to fail closed;\n- unknown/malformed dynamic-tool requests never broaden authority.\n\n### GEH-CF-039-RUNTIME — provider turn completion\n\n**Type:** verification / negative\n\nThe fixture MUST prove that:\n\n- only the bound thread/turn completion is accepted;\n- a provider turn whose status is not `completed` cannot be mapped to executor completion;\n- a valid `turn/completed` event still routes to Monad's Verification Controller;\n- missing verification evidence leaves the governed work incomplete.\n\n## Transport-order regression\n\nThe runtime MUST retain a regression fixture proving that asynchronous notifications received while waiting for a request response cannot starve the response or create an infinite deferred-message loop.\n\n## Live dogfood activation gate\n\nProtocol conformance is not sufficient for a live governed-execution claim.\n\nUntil a selected Codex build passes a separate provider-effect confinement activation fixture, `monad-codex-runtime` MUST report live governed dogfood as ineligible.\n\nThat future activation proof MUST demonstrate, under adversarial attempts, that provider-native command/filesystem/network/tool paths cannot observe or mutate the governed repository outside Monad's authorized dynamic-tool path. Merely asking the model not to use those tools is insufficient.\n\nThe activation proof MAY rely on a selected Codex permission profile, process isolation, or another enforceable mechanism, but the mechanism MUST be machine-verifiable and fail closed when unavailable.\n\n## Required commands\n\n```text\ncargo fmt --check\ncargo test -p monad-codex-runtime\ncargo test -p monad-core harness_codex_adapter\ncargo test -p monad-core harness_workspace_read\n```\n\nThe repository-wide C0, C1, generic C2, EOS, machine-projection, and repository-integrity gates remain required.\n\n## Definition of done\n\nThis runtime tranche is complete when:\n\n1. all runtime subfixtures are green;\n2. the generic Codex adapter fixtures remain green;\n3. workspace-read regressions remain green;\n4. generated machine projections are current;\n5. EOS evidence is current on the settled source/projection tree;\n6. the final exact PR head is green;\n7. no unresolved substantive review thread remains.\n\nCompletion of this tranche means the **effectful App Server runtime bridge exists and conforms**. It does not mean a live external Codex run has yet been certified as governed.\n",
+  "document_id": "doc:testing%2Fgoverned-execution-c2-codex-runtime.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "quality-assurance",
+    "normative": true,
+    "summary": "Status: proposed Version: 0.1.0 Owner: Monad Core / EOS Parent matrix: testing/governed-execution-conformance.md Adapter profile: IFC-HARNESS-0002 Implementation: crates/monad-codex-runtime",
+    "title": "Governed Execution C2 Codex Runtime Conformance"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "governed-execution-c2-codex-runtime-conformance",
+      "text": "# Governed Execution C2 Codex Runtime Conformance\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Parent matrix:** `testing/governed-execution-conformance.md`  \n**Adapter profile:** `IFC-HARNESS-0002`  \n**Implementation:** `crates/monad-codex-runtime`",
+      "title": "Governed Execution C2 Codex Runtime Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 10,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nDefines the effectful runtime subfixtures for the concrete OpenAI Codex App Server C2 adapter. These fixtures extend GEH-CF-037 through GEH-CF-039 from deterministic adapter translation into the actual client-owned App Server transport boundary.\n\nThis tranche proves runtime protocol behavior. It does **not** by itself activate Codex for live governed execution and does not relax the requirement that all consequential model-requested effects pass through Monad mediation.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 16,
+      "section_id": "runtime-boundary",
+      "text": "## Runtime boundary\n\n`monad-core` remains deterministic and provider-neutral at the authority boundary. `monad-codex-runtime` owns only replaceable integration mechanics:\n\n- child-process launch and supervision;\n- JSONL stdio transport;\n- App Server initialize/initialized handshake;\n- experimental API opt-in required for dynamic tools;\n- restricted provider thread creation;\n- `item/tool/call` request routing;\n- provider-facing dynamic-tool responses;\n- turn-completion event routing;\n- fail-closed handling of unexpected provider requests/effects.\n\nThe runtime MUST NOT create a second capability, policy, evidence, verification, approval, or EOS lifecycle authority.",
+      "title": "Runtime boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 45,
+      "line_start": 32,
+      "section_id": "upstream-wire-contract",
+      "text": "## Upstream wire contract\n\nThe runtime profile is based on the current Codex App Server contract in which:\n\n- stdio uses newline-delimited JSON;\n- JSON-RPC 2.0 semantics are used with the `jsonrpc` member omitted on the wire;\n- one `initialize` request is required before other methods, followed by `initialized`;\n- `initialize.params.capabilities.experimentalApi = true` enables the experimental dynamic-tools surface;\n- dynamic tools are registered on `thread/start`;\n- the server invokes a client-owned dynamic tool with `item/tool/call`;\n- `turn/completed` reports provider turn completion independently of Monad verification.\n\nRuntime compatibility is authoritative over documentation assumptions. A selected Codex build that rejects or materially changes these semantics is incompatible until this profile is revised and reverified.",
+      "title": "Upstream wire contract"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 65,
+      "line_start": 46,
+      "section_id": "restricted-provider-thread",
+      "text": "## Restricted provider thread\n\nThe runtime MUST start the provider thread independently of the governed repository workspace.\n\nThe initial thread request MUST include, at minimum:\n\n- an explicit provider runtime `cwd` supplied by the host;\n- `runtimeWorkspaceRoots: []`;\n- `ephemeral: true`;\n- legacy sandbox projection `read-only` or an equivalent stricter verified permission profile;\n- no automatic approval path that can be mistaken for Monad authority;\n- `environments: []`;\n- `selectedCapabilityRoots: []`;\n- only the Monad dynamic tool required by the current profile;\n- provider-native consequential surfaces disabled where the selected Codex build exposes supported configuration controls.\n\nThe current runtime disables the same broad native-tool families used by Codex's own temporary structured-thread hardening pattern, including shell/unified execution, web search, MCP servers, plugins, multi-agent paths, image/view-image paths, request-permissions tooling, hooks, and related discoverable tool surfaces.\n\nThese controls are defense in depth. Their presence in a request does not by itself prove live provider-effect confinement.",
+      "title": "Restricted provider thread"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 66,
+      "section_id": "runtime-subfixtures",
+      "text": "## Runtime subfixtures",
+      "title": "Runtime subfixtures"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 88,
+      "line_start": 68,
+      "section_id": "geh-cf-037-runtime-handshake-and-restricted-thread",
+      "text": "### GEH-CF-037-RUNTIME — handshake and restricted thread\n\n**Type:** compatibility / positive / negative-by-omission  \n**Expected:** pass\n\nThe fixture MUST prove that the runtime:\n\n1. sends `initialize` before other App Server requests;\n2. identifies Monad as the client;\n3. opts into `experimentalApi`;\n4. sends `initialized` only after successful initialization;\n5. initializes the generic Monad C2 adapter session;\n6. starts an ephemeral provider thread;\n7. binds the returned `thread.id` beneath the Monad adapter session;\n8. registers `monad_workspace_read_text` with strict arguments;\n9. requests empty runtime workspace roots and environments;\n10. requests read-only provider sandbox semantics;\n11. disables known provider-native consequential tool families.\n\nA provider response that contradicts the required sandbox/thread semantics MUST fail closed.",
+      "title": "GEH-CF-037-RUNTIME — handshake and restricted thread"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 112,
+      "line_start": 89,
+      "section_id": "geh-cf-038-runtime-wire-request-mediation-and-alternate-effect-rejection",
+      "text": "### GEH-CF-038-RUNTIME — wire request mediation and alternate-effect rejection\n\n**Type:** positive / adversarial\n\nThe fixture MUST prove that a real App Server-shaped `item/tool/call` document:\n\n```text\nthreadId\nturnId\ncallId\ntool\narguments\n```\n\nis translated through `harness_codex_adapter`, mediated by the C1 Tool Gateway, executed only by `WorkspaceReadBackend` when authorized, and returned to the provider as a transient result.\n\nThe fixture MUST additionally prove:\n\n- exact-scope reads succeed;\n- provider identity remains subordinate to Monad run/envelope authority;\n- unexpected provider approval/server requests are rejected rather than treated as Monad approvals;\n- an observed provider-native consequential item start causes the governed runtime to fail closed;\n- unknown/malformed dynamic-tool requests never broaden authority.",
+      "title": "GEH-CF-038-RUNTIME — wire request mediation and alternate-effect rejection"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 123,
+      "line_start": 113,
+      "section_id": "geh-cf-039-runtime-provider-turn-completion",
+      "text": "### GEH-CF-039-RUNTIME — provider turn completion\n\n**Type:** verification / negative\n\nThe fixture MUST prove that:\n\n- only the bound thread/turn completion is accepted;\n- a provider turn whose status is not `completed` cannot be mapped to executor completion;\n- a valid `turn/completed` event still routes to Monad's Verification Controller;\n- missing verification evidence leaves the governed work incomplete.",
+      "title": "GEH-CF-039-RUNTIME — provider turn completion"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 127,
+      "line_start": 124,
+      "section_id": "transport-order-regression",
+      "text": "## Transport-order regression\n\nThe runtime MUST retain a regression fixture proving that asynchronous notifications received while waiting for a request response cannot starve the response or create an infinite deferred-message loop.",
+      "title": "Transport-order regression"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 137,
+      "line_start": 128,
+      "section_id": "live-dogfood-activation-gate",
+      "text": "## Live dogfood activation gate\n\nProtocol conformance is not sufficient for a live governed-execution claim.\n\nUntil a selected Codex build passes a separate provider-effect confinement activation fixture, `monad-codex-runtime` MUST report live governed dogfood as ineligible.\n\nThat future activation proof MUST demonstrate, under adversarial attempts, that provider-native command/filesystem/network/tool paths cannot observe or mutate the governed repository outside Monad's authorized dynamic-tool path. Merely asking the model not to use those tools is insufficient.\n\nThe activation proof MAY rely on a selected Codex permission profile, process isolation, or another enforceable mechanism, but the mechanism MUST be machine-verifiable and fail closed when unavailable.",
+      "title": "Live dogfood activation gate"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 148,
+      "line_start": 138,
+      "section_id": "required-commands",
+      "text": "## Required commands\n\n```text\ncargo fmt --check\ncargo test -p monad-codex-runtime\ncargo test -p monad-core harness_codex_adapter\ncargo test -p monad-core harness_workspace_read\n```\n\nThe repository-wide C0, C1, generic C2, EOS, machine-projection, and repository-integrity gates remain required.",
+      "title": "Required commands"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 161,
+      "line_start": 149,
+      "section_id": "definition-of-done",
+      "text": "## Definition of done\n\nThis runtime tranche is complete when:\n\n1. all runtime subfixtures are green;\n2. the generic Codex adapter fixtures remain green;\n3. workspace-read regressions remain green;\n4. generated machine projections are current;\n5. EOS evidence is current on the settled source/projection tree;\n6. the final exact PR head is green;\n7. no unresolved substantive review thread remains.\n\nCompletion of this tranche means the **effectful App Server runtime bridge exists and conforms**. It does not mean a live external Codex run has yet been certified as governed.",
+      "title": "Definition of done"
+    }
+  ],
+  "source": {
+    "bytes": 7455,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 161,
+    "media_type": "text/markdown",
+    "path": "testing/governed-execution-c2-codex-runtime.md",
+    "sha256": "c49670c194858f3f95b3041b43ebb78d67f8af17fe7f4158c1f0ebfb517affa8"
+  }
+}

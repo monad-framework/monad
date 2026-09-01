@@ -6,12 +6,11 @@
 //! `item/tool/call` requests through the core adapter, and mapping
 //! `turn/completed` back to verification-controlled completion.
 //!
-//! Version 0.1.0 intentionally distinguishes protocol conformance from a claim
-//! that a live Codex process is safe for governed dogfood execution. Codex also
-//! has provider-native tools. Until their access to the governed workspace can
-//! be independently confined and verified, live dogfood eligibility fails
-//! closed even though this transport can be exercised against a real or
-//! scripted App Server.
+//! Protocol conformance and live governed-execution eligibility are distinct.
+//! The runtime configures a deliberately constrained provider thread and rejects
+//! unexpected provider-native effect requests, but version 0.1.0 still fails
+//! live dogfood eligibility closed until provider-effect confinement has a
+//! separate machine-verifiable activation proof.
 
 use std::{
     collections::VecDeque,
@@ -25,7 +24,7 @@ use std::{
 
 use monad_core::{
     harness::ExecutionEnvelope,
-    harness_adapter::{AdapterInitializationOutcome, AdapterSessionId},
+    harness_adapter::{AdapterCompletionResponse, AdapterInitializationOutcome, AdapterSessionId},
     harness_codex_adapter::{
         CODEX_ADAPTER_ID, CODEX_ADAPTER_VERSION, CODEX_WORKSPACE_READ_TOOL, CodexAdapterSession,
         CodexDynamicToolCallDocument, CodexDynamicToolContentItem, CodexDynamicToolResponse,
@@ -33,7 +32,7 @@ use monad_core::{
         mediate_codex_dynamic_tool_call,
     },
     harness_gateway::OperationGovernanceContext,
-    harness_verification::{AdapterCompletionResponse, VerificationEvidenceBundle},
+    harness_verification::VerificationEvidenceBundle,
     harness_workspace_read::WorkspaceReadBackend,
 };
 use serde::Serialize;
@@ -46,6 +45,7 @@ const APP_SERVER_TURN_START: &str = "turn/start";
 const APP_SERVER_TURN_COMPLETED: &str = "turn/completed";
 const APP_SERVER_DYNAMIC_TOOL_CALL: &str = "item/tool/call";
 const APP_SERVER_TURN_INTERRUPT: &str = "turn/interrupt";
+const APP_SERVER_ITEM_STARTED: &str = "item/started";
 
 #[derive(Debug)]
 pub enum CodexRuntimeError {
@@ -65,10 +65,16 @@ impl fmt::Display for CodexRuntimeError {
                 write!(formatter, "Codex App Server JSON was invalid: {diagnostic}")
             }
             Self::Protocol(diagnostic) => {
-                write!(formatter, "Codex App Server protocol failed closed: {diagnostic}")
+                write!(
+                    formatter,
+                    "Codex App Server protocol failed closed: {diagnostic}"
+                )
             }
             Self::Adapter(diagnostic) => {
-                write!(formatter, "Monad Codex adapter rejected the request: {diagnostic}")
+                write!(
+                    formatter,
+                    "Monad Codex adapter rejected the request: {diagnostic}"
+                )
             }
             Self::ExecutorBindingMismatch { expected, actual } => write!(
                 formatter,
@@ -215,9 +221,8 @@ pub struct CodexTurnOutcome {
     pub completion: AdapterCompletionResponse,
 }
 
-/// Synchronous App Server driver. The synchronous design is deliberate for the
-/// initial C2 bridge: protocol ordering remains inspectable and deterministic,
-/// while provider/model cognition stays outside Monad.
+/// Synchronous App Server driver. Protocol ordering stays inspectable while
+/// provider/model cognition remains external to Monad.
 pub struct CodexAppServerRuntime<T: AppServerTransport> {
     transport: T,
     next_request_id: u64,
@@ -275,12 +280,13 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
         })
     }
 
-    /// Start an ephemeral, read-only provider thread and bind it beneath the
-    /// already-governed Monad run/envelope.
+    /// Start an ephemeral provider thread beneath an already-governed Monad
+    /// run/envelope.
     ///
-    /// The provider cwd is deliberately independent of the workspace root used
-    /// by `WorkspaceReadBackend`. Callers should use an empty runtime directory
-    /// rather than point Codex at governed repository content.
+    /// The provider cwd MUST be independent of the governed workspace. The
+    /// thread also disables known provider-native effect surfaces used by
+    /// Codex's own temporary structured-request implementation. These controls
+    /// are defense in depth; they do not by themselves activate live dogfood.
     pub fn start_read_only_session(
         &mut self,
         envelope: &ExecutionEnvelope,
@@ -312,12 +318,14 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
             APP_SERVER_THREAD_START,
             json!({
                 "cwd": cwd,
+                "runtimeWorkspaceRoots": [],
                 "ephemeral": true,
-                "sandbox": "readOnly",
-                "approvalPolicy": "untrusted",
+                "sandbox": "read-only",
+                "approvalPolicy": "never",
                 "environments": [],
                 "selectedCapabilityRoots": [],
                 "dynamicTools": [workspace_read_dynamic_tool_spec()],
+                "config": codex_restricted_thread_config(),
                 "developerInstructions": "Use the Monad-provided dynamic tool for any governed workspace observation. Provider-native effects are not Monad authority."
             }),
         )?;
@@ -330,14 +338,23 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
                     "thread/start response omitted a non-empty thread.id".into(),
                 )
             })?;
+
+        if let Some(sandbox_type) = result.pointer("/sandbox/type").and_then(Value::as_str)
+            && sandbox_type != "readOnly"
+        {
+            return Err(CodexRuntimeError::Protocol(format!(
+                "thread/start returned unexpected sandbox type {sandbox_type:?}"
+            )));
+        }
+
         let binding = bind_codex_thread(adapter_session, thread_id.to_owned())
             .map_err(|error| CodexRuntimeError::Adapter(format!("{error:?}")))?;
-
         Ok(CodexRuntimeSession { binding })
     }
 
-    /// Run one provider turn and service only the concrete Monad dynamic-tool
-    /// request family. Any other App Server request fails closed.
+    /// Run one provider turn and service only Monad's concrete dynamic-tool
+    /// request family. Other App Server server requests and provider-native
+    /// consequential item starts fail closed.
     pub fn run_turn(
         &mut self,
         session: &CodexRuntimeSession,
@@ -359,6 +376,8 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
             json!({
                 "threadId": session.thread_id(),
                 "input": [{ "type": "text", "text": prompt }],
+                "environments": [],
+                "runtimeWorkspaceRoots": [],
                 "sandboxPolicy": {
                     "type": "readOnly",
                     "networkAccess": false
@@ -370,7 +389,9 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
             .and_then(Value::as_str)
             .filter(|value| !value.trim().is_empty())
             .ok_or_else(|| {
-                CodexRuntimeError::Protocol("turn/start response omitted a non-empty turn.id".into())
+                CodexRuntimeError::Protocol(
+                    "turn/start response omitted a non-empty turn.id".into(),
+                )
             })?
             .to_owned();
 
@@ -426,6 +447,15 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
                         }
                     }
                 }
+                Some(APP_SERVER_ITEM_STARTED) if provider_native_effect_started(&message) => {
+                    let item_type = message
+                        .pointer("/params/item/type")
+                        .and_then(Value::as_str)
+                        .unwrap_or("unknown");
+                    return Err(CodexRuntimeError::Protocol(format!(
+                        "provider-native consequential item {item_type:?} started outside Monad Tool Gateway"
+                    )));
+                }
                 Some(APP_SERVER_TURN_COMPLETED) => {
                     let params = message.get("params").ok_or_else(|| {
                         CodexRuntimeError::Protocol(
@@ -436,9 +466,7 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
                         .get("threadId")
                         .and_then(Value::as_str)
                         .ok_or_else(|| {
-                            CodexRuntimeError::Protocol(
-                                "turn/completed omitted threadId".into(),
-                            )
+                            CodexRuntimeError::Protocol("turn/completed omitted threadId".into())
                         })?;
                     let completed_turn = params
                         .pointer("/turn/id")
@@ -452,6 +480,18 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
                                 .into(),
                         ));
                     }
+                    let status = params
+                        .pointer("/turn/status")
+                        .and_then(Value::as_str)
+                        .ok_or_else(|| {
+                            CodexRuntimeError::Protocol("turn/completed omitted turn.status".into())
+                        })?;
+                    if status != "completed" {
+                        return Err(CodexRuntimeError::Protocol(format!(
+                            "Codex turn ended with non-complete status {status:?}"
+                        )));
+                    }
+
                     let completion = handle_codex_turn_completed(
                         session.binding(),
                         envelope,
@@ -460,7 +500,6 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
                         evidence,
                     )
                     .map_err(|error| CodexRuntimeError::Adapter(format!("{error:?}")))?;
-
                     return Ok(CodexTurnOutcome {
                         thread_id: completed_thread.to_owned(),
                         turn_id,
@@ -476,8 +515,8 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
                     )));
                 }
                 _ => {
-                    // Notifications are observable provider progress only. They
-                    // do not create Monad authority or lifecycle state.
+                    // Other notifications are provider progress only. They do
+                    // not create Monad authority or lifecycle state.
                 }
             }
         }
@@ -496,14 +535,13 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
         Ok(())
     }
 
-    /// Version 0.1.0 has not yet established a machine-verifiable guarantee
-    /// that provider-native Codex command/filesystem tools cannot observe the
-    /// governed repository outside Monad's Tool Gateway. Therefore a live run
-    /// MUST NOT be labeled governed dogfood merely because the App Server
-    /// transport and dynamic-tool adapter function correctly.
+    /// Runtime protocol conformance is necessary but not sufficient for a live
+    /// governed-execution claim. Version 0.1.0 intentionally requires a later
+    /// activation proof that the selected Codex build honors the provider-
+    /// effect confinement profile under adversarial read attempts.
     pub fn require_live_governed_dogfood_eligibility(&self) -> Result<(), CodexRuntimeError> {
         Err(CodexRuntimeError::EffectConfinementUnproven {
-            diagnostic: "read-only sandbox prevents writes but does not by itself prove that provider-native read/command tools cannot bypass GEH workspace.read mediation; add and verify a provider-effect confinement profile before activation".into(),
+            diagnostic: "the runtime requests a restricted Codex thread and rejects observed alternate effects, but a selected live Codex build has not yet passed the provider-effect confinement activation fixture".into(),
         })
     }
 
@@ -519,8 +557,11 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
             "params": params
         }))?;
 
+        // Read directly from the transport while awaiting this response. Using
+        // `receive_message` here would repeatedly pop and requeue the same
+        // deferred notification, starving the actual response.
         loop {
-            let message = self.receive_message()?;
+            let message = self.transport.receive()?;
             if message.get("id") == Some(&json!(request_id)) {
                 if let Some(error) = message.get("error") {
                     return Err(CodexRuntimeError::Protocol(format!(
@@ -609,6 +650,54 @@ fn workspace_read_dynamic_tool_spec() -> Value {
         },
         "deferLoading": false
     })
+}
+
+/// Defense-in-depth provider configuration based on Codex's own temporary
+/// structured-thread profile. The Monad dynamic tool remains registered by
+/// `thread/start`; known native effect surfaces are disabled independently.
+fn codex_restricted_thread_config() -> Value {
+    json!({
+        "features.apps": false,
+        "features.code_mode": false,
+        "features.code_mode_only": false,
+        "features.deferred_executor": false,
+        "features.enable_fanout": false,
+        "features.hooks": false,
+        "features.image_generation": false,
+        "features.memories": false,
+        "features.multi_agent": false,
+        "features.multi_agent_v2": false,
+        "features.plugins": false,
+        "features.request_permissions_tool": false,
+        "features.shell_snapshot": false,
+        "features.shell_tool": false,
+        "features.standalone_web_search": false,
+        "features.tool_suggest": false,
+        "features.unified_exec": false,
+        "features.view_image": false,
+        "orchestrator.skills.enabled": false,
+        "skills.include_instructions": false,
+        "tools.experimental_request_user_input.enabled": false,
+        "tools.update_plan.enabled": false,
+        "web_search": "disabled",
+        "mcp_servers": {}
+    })
+}
+
+fn provider_native_effect_started(message: &Value) -> bool {
+    let Some(item_type) = message.pointer("/params/item/type").and_then(Value::as_str) else {
+        return false;
+    };
+    matches!(
+        item_type,
+        "commandExecution"
+            | "fileChange"
+            | "mcpToolCall"
+            | "webSearch"
+            | "imageGeneration"
+            | "collabAgentToolCall"
+            | "subAgentActivity"
+    )
 }
 
 fn optional_string(value: &Value, key: &str) -> Option<String> {
@@ -745,19 +834,44 @@ mod tests {
     }
 
     fn thread_start_response() -> Value {
-        json!({ "id": 2, "result": { "thread": { "id": "thr_runtime_0001" } } })
+        json!({
+            "id": 2,
+            "result": {
+                "thread": { "id": "thr_runtime_0001" },
+                "sandbox": { "type": "readOnly", "networkAccess": false }
+            }
+        })
     }
 
     fn turn_start_response() -> Value {
         json!({ "id": 3, "result": { "turn": { "id": "turn_runtime_0001" } } })
     }
 
+    fn started_runtime() -> (
+        CodexAppServerRuntime<ScriptedTransport>,
+        ExecutionEnvelope,
+        TestWorkspace,
+    ) {
+        let transport =
+            ScriptedTransport::with_incoming(vec![initialize_response(), thread_start_response()]);
+        let mut runtime = CodexAppServerRuntime::new(transport);
+        runtime.initialize_connection().unwrap();
+        let envelope = envelope("README.md");
+        let provider_cwd = TestWorkspace::new("provider-cwd");
+        runtime
+            .start_read_only_session(
+                &envelope,
+                AdapterSessionId("session-runtime-0001".into()),
+                provider_cwd.root(),
+            )
+            .unwrap();
+        (runtime, envelope, provider_cwd)
+    }
+
     #[test]
-    fn c2_runtime_initialization_enables_experimental_api_and_registers_dynamic_tool() {
-        let transport = ScriptedTransport::with_incoming(vec![
-            initialize_response(),
-            thread_start_response(),
-        ]);
+    fn geh_cf_037_runtime_initialization_enables_dynamic_tools_and_restricts_native_surfaces() {
+        let transport =
+            ScriptedTransport::with_incoming(vec![initialize_response(), thread_start_response()]);
         let mut runtime = CodexAppServerRuntime::new(transport);
         let identity = runtime.initialize_connection().unwrap();
         let envelope = envelope("README.md");
@@ -774,22 +888,39 @@ mod tests {
         assert_eq!(session.thread_id(), "thr_runtime_0001");
         let sent = &runtime.transport().sent;
         assert_eq!(sent[0]["method"], APP_SERVER_INITIALIZE);
-        assert_eq!(
-            sent[0]["params"]["capabilities"]["experimentalApi"],
-            true
-        );
+        assert_eq!(sent[0]["params"]["capabilities"]["experimentalApi"], true);
         assert_eq!(sent[1]["method"], APP_SERVER_INITIALIZED);
         assert_eq!(sent[2]["method"], APP_SERVER_THREAD_START);
         assert_eq!(
             sent[2]["params"]["dynamicTools"][0]["name"],
             CODEX_WORKSPACE_READ_TOOL
         );
-        assert_eq!(sent[2]["params"]["sandbox"], "readOnly");
+        assert_eq!(sent[2]["params"]["sandbox"], "read-only");
+        assert_eq!(sent[2]["params"]["runtimeWorkspaceRoots"], json!([]));
         assert_eq!(sent[2]["params"]["environments"], json!([]));
+        assert_eq!(sent[2]["params"]["config"]["features.shell_tool"], false);
+        assert_eq!(sent[2]["params"]["config"]["features.unified_exec"], false);
+        assert_eq!(sent[2]["params"]["config"]["web_search"], "disabled");
     }
 
     #[test]
-    fn c2_runtime_routes_real_wire_shape_through_workspace_read_and_verification() {
+    fn request_waiting_does_not_starve_response_behind_deferred_notification() {
+        let transport = ScriptedTransport::with_incoming(vec![
+            json!({ "method": "server/progress", "params": { "phase": "init" } }),
+            initialize_response(),
+        ]);
+        let mut runtime = CodexAppServerRuntime::new(transport);
+        runtime.initialize_connection().unwrap();
+
+        assert_eq!(runtime.deferred.len(), 1);
+        assert_eq!(
+            runtime.receive_message().unwrap()["method"],
+            "server/progress"
+        );
+    }
+
+    #[test]
+    fn geh_cf_038_runtime_routes_wire_tool_call_through_workspace_read_and_verification() {
         let workspace = TestWorkspace::new("governed-workspace");
         workspace.write("docs/input.txt", "runtime governed observation\n");
         let provider_cwd = TestWorkspace::new("provider-cwd");
@@ -859,7 +990,7 @@ mod tests {
     }
 
     #[test]
-    fn c2_runtime_rejects_unexpected_provider_approval_request() {
+    fn geh_cf_038_runtime_rejects_unexpected_provider_approval_request() {
         let workspace = TestWorkspace::new("workspace");
         workspace.write("README.md", "hello");
         let provider_cwd = TestWorkspace::new("provider-cwd");
@@ -907,11 +1038,111 @@ mod tests {
     }
 
     #[test]
+    fn geh_cf_038_runtime_rejects_observed_provider_native_effect_item() {
+        let workspace = TestWorkspace::new("workspace");
+        workspace.write("README.md", "hello");
+        let provider_cwd = TestWorkspace::new("provider-cwd");
+        let envelope = envelope("README.md");
+        let transport = ScriptedTransport::with_incoming(vec![
+            initialize_response(),
+            thread_start_response(),
+            turn_start_response(),
+            json!({
+                "method": APP_SERVER_ITEM_STARTED,
+                "params": {
+                    "threadId": "thr_runtime_0001",
+                    "turnId": "turn_runtime_0001",
+                    "item": {
+                        "type": "commandExecution",
+                        "id": "item_native_0001",
+                        "command": "cat /governed/README.md"
+                    }
+                }
+            }),
+        ]);
+        let mut runtime = CodexAppServerRuntime::new(transport);
+        runtime.initialize_connection().unwrap();
+        let session = runtime
+            .start_read_only_session(
+                &envelope,
+                AdapterSessionId("session-runtime-0001".into()),
+                provider_cwd.root(),
+            )
+            .unwrap();
+        let mut backend = WorkspaceReadBackend::new(workspace.root(), 4096).unwrap();
+
+        let error = runtime
+            .run_turn(
+                &session,
+                &envelope,
+                "Attempt a read.",
+                &governance(),
+                &mut backend,
+                &VerificationEvidenceBundle::default(),
+            )
+            .unwrap_err();
+        assert!(matches!(error, CodexRuntimeError::Protocol(_)));
+    }
+
+    #[test]
+    fn geh_cf_039_runtime_turn_completion_remains_verification_controlled() {
+        let workspace = TestWorkspace::new("workspace");
+        workspace.write("README.md", "hello");
+        let provider_cwd = TestWorkspace::new("provider-cwd");
+        let envelope = envelope("README.md");
+        let transport = ScriptedTransport::with_incoming(vec![
+            initialize_response(),
+            thread_start_response(),
+            turn_start_response(),
+            json!({
+                "method": APP_SERVER_TURN_COMPLETED,
+                "params": {
+                    "threadId": "thr_runtime_0001",
+                    "turn": { "id": "turn_runtime_0001", "status": "completed" }
+                }
+            }),
+        ]);
+        let mut runtime = CodexAppServerRuntime::new(transport);
+        runtime.initialize_connection().unwrap();
+        let session = runtime
+            .start_read_only_session(
+                &envelope,
+                AdapterSessionId("session-runtime-0001".into()),
+                provider_cwd.root(),
+            )
+            .unwrap();
+        let mut backend = WorkspaceReadBackend::new(workspace.root(), 4096).unwrap();
+
+        let outcome = runtime
+            .run_turn(
+                &session,
+                &envelope,
+                "Finish without evidence.",
+                &governance(),
+                &mut backend,
+                &VerificationEvidenceBundle::default(),
+            )
+            .unwrap();
+        assert_eq!(
+            outcome.completion.assessment.disposition,
+            CompletionDisposition::Incomplete
+        );
+    }
+
+    #[test]
     fn live_governed_dogfood_fails_closed_until_provider_effect_confinement_is_verified() {
         let runtime = CodexAppServerRuntime::new(ScriptedTransport::default());
         assert!(matches!(
             runtime.require_live_governed_dogfood_eligibility(),
             Err(CodexRuntimeError::EffectConfinementUnproven { .. })
         ));
+    }
+
+    #[test]
+    fn helper_can_build_started_runtime_without_touching_governed_workspace() {
+        let (runtime, envelope, provider_cwd) = started_runtime();
+        assert_eq!(runtime.deferred.len(), 0);
+        assert_eq!(envelope.executor().actor_id, CODEX_ADAPTER_ID);
+        assert!(provider_cwd.root().is_dir());
     }
 }

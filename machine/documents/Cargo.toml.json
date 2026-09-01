@@ -1,5 +1,5 @@
 {
-  "content": "[workspace]\nmembers = [\"crates/monad-core\", \"crates/monad-cli\"]\nresolver = \"2\"\n\n[workspace.package]\nedition = \"2024\"\nrust-version = \"1.95\"\nlicense = \"Apache-2.0\"\n\n[workspace.dependencies]\nserde = { version = \"1\", features = [\"derive\"] }\nserde_json = \"1\"\ntoml = \"0.9\"\nsha2 = \"0.10\"\n",
+  "content": "[workspace]\nmembers = [\"crates/monad-core\", \"crates/monad-cli\", \"crates/monad-codex-runtime\"]\nresolver = \"2\"\n\n[workspace.package]\nedition = \"2024\"\nrust-version = \"1.95\"\nlicense = \"Apache-2.0\"\n\n[workspace.dependencies]\nserde = { version = \"1\", features = [\"derive\"] }\nserde_json = \"1\"\ntoml = \"0.9\"\nsha2 = \"0.10\"\n",
   "document_id": "doc:Cargo.toml",
   "generation": {
     "deterministic": true,
@@ -24,17 +24,17 @@
       "line_end": 14,
       "line_start": 1,
       "section_id": "content",
-      "text": "[workspace]\nmembers = [\"crates/monad-core\", \"crates/monad-cli\"]\nresolver = \"2\"\n\n[workspace.package]\nedition = \"2024\"\nrust-version = \"1.95\"\nlicense = \"Apache-2.0\"\n\n[workspace.dependencies]\nserde = { version = \"1\", features = [\"derive\"] }\nserde_json = \"1\"\ntoml = \"0.9\"\nsha2 = \"0.10\"",
+      "text": "[workspace]\nmembers = [\"crates/monad-core\", \"crates/monad-cli\", \"crates/monad-codex-runtime\"]\nresolver = \"2\"\n\n[workspace.package]\nedition = \"2024\"\nrust-version = \"1.95\"\nlicense = \"Apache-2.0\"\n\n[workspace.dependencies]\nserde = { version = \"1\", features = [\"derive\"] }\nserde_json = \"1\"\ntoml = \"0.9\"\nsha2 = \"0.10\"",
       "title": "Cargo"
     }
   ],
   "source": {
-    "bytes": 281,
+    "bytes": 311,
     "canonical": true,
     "language": "toml",
     "lines": 14,
     "media_type": "application/toml",
     "path": "Cargo.toml",
-    "sha256": "352ad4d425ec623e18165020ec2e5b83868b6f3001c677056f211a788b715f6b"
+    "sha256": "98c716ef0bcb678b6f9123089346579631a4e1f8446910403f6ce37a217eb75e"
   }
 }

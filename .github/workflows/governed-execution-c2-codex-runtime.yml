@@ -1,0 +1,47 @@
+name: Governed execution C2 Codex runtime
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/monad-core/**"
+      - "crates/monad-codex-runtime/**"
+      - "specifications/interfaces/IFC-HARNESS-0002-codex-app-server-adapter.md"
+      - "testing/governed-execution-conformance.md"
+      - "testing/governed-execution-c2-codex-adapter.md"
+      - "testing/governed-execution-c2-codex-runtime.md"
+      - ".github/workflows/governed-execution-c2-codex.yml"
+      - ".github/workflows/governed-execution-c2-codex-runtime.yml"
+  push:
+    branches: [main]
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/monad-core/**"
+      - "crates/monad-codex-runtime/**"
+      - "specifications/interfaces/IFC-HARNESS-0002-codex-app-server-adapter.md"
+      - "testing/governed-execution-conformance.md"
+      - "testing/governed-execution-c2-codex-adapter.md"
+      - "testing/governed-execution-c2-codex-runtime.md"
+      - ".github/workflows/governed-execution-c2-codex.yml"
+      - ".github/workflows/governed-execution-c2-codex-runtime.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  c2-codex-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Verify formatting
+        run: cargo fmt --check
+      - name: Run effectful Codex runtime fixtures
+        run: cargo test -p monad-codex-runtime
+      - name: Run deterministic Codex adapter fixtures
+        run: cargo test -p monad-core harness_codex_adapter
+      - name: Run workspace read regression fixtures
+        run: cargo test -p monad-core harness_workspace_read
