@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "revision": 1,
+  "updated_at": "2026-08-12T15:31:00Z",
+  "entities": {
+    "PI-001": {
+      "id": "PI-001", "entity_type": "PI", "version": "0.1.0", "lifecycle_state": "DRAFT",
+      "title": "Architecture Baseline", "artifact_path": "engineering/increments/PI-001.md",
+      "created_at": "2026-08-12T00:00:00Z", "updated_at": "2026-08-12T00:00:00Z",
+      "relationships": [], "authority_level": "L2_NORMATIVE",
+      "provenance": {"origin": "MIGRATION", "created_by": "EOS", "source_refs": [".eos/program-increments.tsv", ".eos/events.jsonl", "engineering/increments/PI-001.md"], "generation_method": "single-canonical-state-migration"},
+      "projection": {"tsv": {"registry": ".eos/program-increments.tsv"}, "github": {"url": ""}}
+    },
+    "WC-0001": {
+      "id": "WC-0001", "entity_type": "WC", "version": "0.1.0", "lifecycle_state": "DRAFT",
+      "title": "Architecture and Boundaries", "artifact_path": "engineering/work-cycles/WC-0001.md",
+      "created_at": "2026-08-12T00:00:00Z", "updated_at": "2026-08-12T00:00:00Z",
+      "relationships": [{"type": "BELONGS_TO", "target_id": "PI-001", "target_type": "PI"}], "authority_level": "L2_NORMATIVE",
+      "provenance": {"origin": "MIGRATION", "created_by": "EOS", "source_refs": [".eos/work-cycles.tsv", ".eos/events.jsonl", "engineering/work-cycles/WC-0001.md"], "generation_method": "single-canonical-state-migration"},
+      "projection": {"tsv": {"registry": ".eos/work-cycles.tsv"}, "github": {"url": ""}}
+    },
+    "WP-0001": {
+      "id": "WP-0001", "entity_type": "WP", "version": "0.1.0", "lifecycle_state": "DRAFT",
+      "title": "Architecture Baseline", "artifact_path": "engineering/work-packets/WP-0001.md",
+      "created_at": "2026-08-12T00:00:00Z", "updated_at": "2026-08-12T00:00:00Z",
+      "relationships": [{"type": "BELONGS_TO", "target_id": "WC-0001", "target_type": "WC"}, {"type": "BELONGS_TO", "target_id": "PI-001", "target_type": "PI"}], "authority_level": "L2_NORMATIVE",
+      "provenance": {"origin": "MIGRATION", "created_by": "EOS", "source_refs": [".eos/work-packets.tsv", ".eos/events.jsonl", "engineering/work-packets/WP-0001.md"], "generation_method": "single-canonical-state-migration"},
+      "projection": {"tsv": {"registry": ".eos/work-packets.tsv"}, "github": {"url": ""}}
+    }
+  }
+}

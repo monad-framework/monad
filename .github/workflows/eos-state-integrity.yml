@@ -1,0 +1,20 @@
+name: EOS State Integrity
+
+on:
+  pull_request:
+  push:
+    branches: [main, stabilization/mvp-foundation]
+
+permissions:
+  contents: read
+
+jobs:
+  canonical-state:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify canonical state and projections
+        run: python tools/eos/state_model.py verify
