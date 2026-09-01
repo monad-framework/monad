@@ -1234,6 +1234,14 @@ conflicts:
 manifest:
   path: content/generated/monad/manifest.json
   complete_inventory: true
+  inventory_scope: projection_managed_content
+
+  metadata_envelope:
+    - content/generated/monad/manifest.json
+    - content/generated/monad/provenance.json
+
+  metadata_envelope_in_artifacts: false
+  metadata_envelope_in_provenance_records: false
 
   artifact_fields:
     - sourcePath
@@ -1299,3 +1307,7 @@ invariants:
   - id: PPC-INV-012
     name: Local reproducibility
     assertion: publication_projection_must_be_reproducible_without_github_actions
+
+  - id: PPC-INV-013
+    name: Acyclic metadata envelope
+    assertion: manifest_and_provenance_must_not_inventory_themselves_or_each_other
