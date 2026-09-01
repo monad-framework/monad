@@ -278,7 +278,9 @@ impl GovernedRunJournal {
         {
             return ResumeDecision {
                 disposition: ResumeDisposition::HistoryMismatch,
-                diagnostic: Some("checkpoint operation/evidence history does not match journal".into()),
+                diagnostic: Some(
+                    "checkpoint operation/evidence history does not match journal".into(),
+                ),
             };
         }
 
@@ -297,8 +299,7 @@ impl GovernedRunJournal {
             return Err(RuntimeOperationError::RunBindingMismatch);
         }
 
-        if self.envelope_id != envelope.envelope_id().0
-            || self.envelope_id != request.envelope_id.0
+        if self.envelope_id != envelope.envelope_id().0 || self.envelope_id != request.envelope_id.0
         {
             return Err(RuntimeOperationError::EnvelopeBindingMismatch);
         }
@@ -440,8 +441,8 @@ mod tests {
     use super::*;
     use crate::{
         harness::{
-            ActorIdentity, CapabilityGrant, ExecutionEnvelopeDraft, OperationId,
-            OperationRequest, RunState, compile_execution_envelope,
+            ActorIdentity, CapabilityGrant, ExecutionEnvelopeDraft, OperationId, OperationRequest,
+            RunState, compile_execution_envelope,
         },
         harness_gateway::{BackendExecution, OperationBackend, PolicyDecision},
     };
@@ -548,10 +549,7 @@ mod tests {
 
         let resume = journal.validate_resume(&envelope, &checkpoint, "state-runtime-changed");
 
-        assert_eq!(
-            resume.disposition,
-            ResumeDisposition::GoverningStateDrift
-        );
+        assert_eq!(resume.disposition, ResumeDisposition::GoverningStateDrift);
     }
 
     #[test]
@@ -638,7 +636,10 @@ mod tests {
             )
             .expect_err("idempotency key cannot be reused for changed material");
 
-        assert!(matches!(error, RuntimeOperationError::ReplayConflict { .. }));
+        assert!(matches!(
+            error,
+            RuntimeOperationError::ReplayConflict { .. }
+        ));
         assert_eq!(backend.calls, 1);
     }
 
