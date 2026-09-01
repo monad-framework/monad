@@ -1,0 +1,38 @@
+{
+  "command": "eos-core:verify --strict",
+  "covers": [],
+  "created": "2026-09-01T18:02:18Z",
+  "details": {},
+  "environment": {
+    "bash": "GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)",
+    "bun": "",
+    "cargo": "cargo 1.98.0 (797e8a9bc 2026-08-05)",
+    "git": "git version 2.55.0",
+    "go": "go version go1.24.13 linux/amd64",
+    "hostname": "runnervmgx7h7",
+    "lockfiles": {
+      "Cargo.lock": "114034aebf82078124f42fc902668688c2a18a2d0aba67342a9b34793d141968"
+    },
+    "machine": "x86_64",
+    "node": "v22.23.2",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "rustc": "rustc 1.98.0 (88d9e12ae 2026-08-18)"
+  },
+  "environment_hash": "debf9c1e106eda51db3b995350fa4c2152f2514088d8745d246f296774a006b8",
+  "execution": "",
+  "exit_code": 0,
+  "id": "EVID-0310",
+  "kind": "integrity",
+  "output": "registered artifacts: 352\nevents: 1077\noverrides: 0\ntrace edges: 1024\nprogram increments: 2\nwork cycles: 3\nwork packets: 6\nopen stale records: 0\ntrace coverage: 62.5%\nwarnings:\n  WARN registered Markdown artifact has no EOS front matter: governance/terminology.md\n  WARN registered Markdown artifact has no EOS front matter: vision/problem-statement.md\n  WARN registered Markdown artifact has no EOS front matter: vision/product-vision.md\n  WARN registered Markdown artifact has no EOS front matter: vision/principles.md\n  WARN registered Markdown artifact has no EOS front matter: vision/goals.md\n  WARN registered Markdown artifact has no EOS front matter: vision/non-goals.md\n  WARN registered Markdown artifact has no EOS front matter: product/personas.md\n  WARN registered Markdown artifact has no EOS front matter: product/use-cases.md\n  WARN registered Markdown artifact has no EOS front matter: product/user-journeys.md\n  WARN registered Markdown artifact has no EOS front matter: product/capabilities.md\n  WARN registered Markdown artifact has no EOS front matter: product/product-requirements.md\n  WARN registered Markdown artifact has no EOS front matter: product/constraints.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/quality-attributes.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/context.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/system-boundaries.md\n  WARN registered Markdown artifact has no EOS front matter: research/questions.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/overview.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/increments/PI-001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-cycles/WC-0001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-packets/WP-0001.md\nRESULT: PASS\n",
+  "output_hash": "5eecf67593d39efcebffb2ae15baebb422c01d335da8f83af279d22cbf924396",
+  "producer": {
+    "actor": "eos-evidence-refresh",
+    "commit": "b5ab1fdbca028ba9cdbec759620e8ae1ba628dd3"
+  },
+  "profile": "wp",
+  "result": "PASSED",
+  "source_hash": "056453d3a448fd5892bf9d0d0337603716f07b2b5ca97bffc15dae6fb78549a8",
+  "target": "WP-MVP-0003",
+  "validator": "eos-integrity"
+}

@@ -13,7 +13,7 @@ on:
         default: "wp"
   push:
     branches:
-      - "fix/eos-stale-mvp-evidence"
+      - "fix/eos-*"
     paths:
       - ".eos/refresh-evidence.trigger"
 
@@ -76,5 +76,5 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(eos): refresh stale MVP verification evidence"
+          git commit -m "chore(eos): refresh stale verification evidence"
           git push origin "HEAD:${GITHUB_REF_NAME}"

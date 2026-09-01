@@ -1,0 +1,112 @@
+name: EOS event recovery
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Existing EOS lifecycle target missing a root event"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eos-event-recovery-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      EOS_ACTOR: eos-integrity-recovery
+      TARGET: ${{ inputs.target }}
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Validate recovery target
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          if [[ -z "$TARGET" ]]; then
+            echo "Recovery target is empty" >&2
+            exit 1
+          fi
+
+      - name: Import missing root lifecycle event
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          import importlib.util
+          import os
+          from pathlib import Path
+
+          root = Path.cwd()
+          spec = importlib.util.spec_from_file_location("monad_eos", root / "tools/eos/eos.py")
+          eos = importlib.util.module_from_spec(spec)
+          assert spec.loader is not None
+          spec.loader.exec_module(eos)
+
+          target = os.environ["TARGET"]
+          kind = eos.kind_for_id(target)
+          row = eos.find_row(kind, target)
+          if row is None:
+              raise SystemExit(f"{target} is not present in the canonical {kind} registry")
+
+          roots = [
+              event for event in eos.read_events()
+              if event.get("target") == target
+              and event.get("event_type") in {"ENTITY_CREATED", "ENTITY_IMPORTED"}
+          ]
+          if roots:
+              raise SystemExit(f"{target} already has {len(roots)} root lifecycle event(s); refusing recovery")
+
+          eos.append_event(
+              "ENTITY_IMPORTED",
+              target=target,
+              entity_kind=kind,
+              action="recovery-import",
+              to_state=row.get("status", ""),
+              actor="eos-integrity-recovery",
+              reason="recover missing root lifecycle event for an existing canonical registry object",
+              metadata={"row": row, "recovery": "missing-root-event"},
+          )
+          print(f"Recovered {target} at state {row.get('status', '')}")
+          PY
+
+      - name: Regenerate trace before machine projection
+        run: python3 tools/eos/trace_integrity.py --write
+
+      - name: Regenerate machine documents from settled trace
+        run: python3 scripts/sync-machine-docs.py --write
+
+      - name: Verify recovered canonical state
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos state status
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+
+      - name: Commit recovered event and projections
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git add .eos/events.jsonl .eos/trace-edges.tsv machine
+          if ! git diff --quiet; then
+            echo "Unexpected unstaged changes outside recovered event/projection paths:" >&2
+            git status --short >&2
+            exit 1
+          fi
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(eos): recover missing lifecycle root event"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
