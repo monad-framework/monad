@@ -5731,6 +5731,76 @@
       "type": "declares"
     },
     {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:ADR-0007",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:FR-022",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:FR-037",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:FR-038",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:FR-040",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:FR-041",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:QR-001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:QR-003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:QR-004",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:QR-007",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:QR-010",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:QR-021",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:QR-022",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "target": "identifier:QR-023",
+      "type": "declares"
+    },
+    {
       "source": "doc:specifications%2Ftechnical%2FTECH-INGEST-0001-markdown-engineering-artifact-parsing.md",
       "target": "identifier:ADR-0003",
       "type": "declares"
@@ -6038,6 +6108,21 @@
     {
       "source": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fsite-state-research.json",
       "target": "identifier:RQ-001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:tests%2Fpublication%2Ftest-export-site-state.py",
+      "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:tests%2Fpublication%2Ftest-export-site-state.py",
+      "target": "identifier:ADR-0002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:tests%2Fpublication%2Ftest-export-site-state.py",
+      "target": "identifier:R-001",
       "type": "declares"
     },
     {
@@ -10850,6 +10935,14 @@
       "normative": false,
       "source_path": ".github/workflows/governed-execution-c1.yml",
       "title": "Governed Execution C1",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Fgoverned-execution-workspace-read.yml",
+      "normative": false,
+      "source_path": ".github/workflows/governed-execution-workspace-read.yml",
+      "title": "Governed Execution Workspace Read",
       "type": "document"
     },
     {
@@ -17174,6 +17267,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:crates%2Fmonad-core%2Fsrc%2Fharness_workspace_read.rs",
+      "normative": false,
+      "source_path": "crates/monad-core/src/harness_workspace_read.rs",
+      "title": "Harness Workspace Read",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:crates%2Fmonad-core%2Fsrc%2Fidentity.rs",
       "normative": false,
       "source_path": "crates/monad-core/src/identity.rs",
@@ -21526,6 +21627,14 @@
     },
     {
       "document_type": "automation",
+      "id": "doc:scripts%2Fexport-site-state.py",
+      "normative": false,
+      "source_path": "scripts/export-site-state.py",
+      "title": "Export Site State",
+      "type": "document"
+    },
+    {
+      "document_type": "automation",
       "id": "doc:scripts%2Fgenerate-mvp-work-packets.py",
       "normative": false,
       "source_path": "scripts/generate-mvp-work-packets.py",
@@ -21758,6 +21867,14 @@
     },
     {
       "document_type": "specification",
+      "id": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "normative": true,
+      "source_path": "specifications/technical/TECH-HARNESS-0002-governed-workspace-read-backend.md",
+      "title": "TECH-HARNESS-0002: Governed Workspace Read Backend",
+      "type": "document"
+    },
+    {
+      "document_type": "specification",
       "id": "doc:specifications%2Ftechnical%2FTECH-INGEST-0001-markdown-engineering-artifact-parsing.md",
       "normative": true,
       "source_path": "specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md",
@@ -21857,7 +21974,7 @@
       "id": "doc:tests%2Fpublication%2FREADME.md",
       "normative": false,
       "source_path": "tests/publication/README.md",
-      "title": "Publication Validation Fixtures",
+      "title": "Publication Validation and Export Tests",
       "type": "document"
     },
     {
@@ -21994,6 +22111,14 @@
       "normative": false,
       "source_path": "tests/publication/fixtures/valid/site-state-work-packets.json",
       "title": "Site State Work Packets",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ftest-export-site-state.py",
+      "normative": false,
+      "source_path": "tests/publication/test-export-site-state.py",
+      "title": "Test Export Site State",
       "type": "document"
     },
     {
@@ -23467,5 +23592,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "c80db827c0321267e937959c6f65519fa7897a761534c028539cd3b0517cd513"
+  "source_tree_sha256": "132dd7df8cab5222e325030bfc747a086904f88ff2748fbc8e6f056dd8b18345"
 }

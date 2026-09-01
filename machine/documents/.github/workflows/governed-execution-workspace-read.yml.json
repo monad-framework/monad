@@ -1,0 +1,40 @@
+{
+  "content": "name: Governed execution workspace read\n\non:\n  workflow_dispatch:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"specifications/technical/TECH-HARNESS-0002-governed-workspace-read-backend.md\"\n      - \".github/workflows/governed-execution-workspace-read.yml\"\n  push:\n    branches: [main]\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"specifications/technical/TECH-HARNESS-0002-governed-workspace-read-backend.md\"\n      - \".github/workflows/governed-execution-workspace-read.yml\"\n\npermissions:\n  contents: read\n\njobs:\n  workspace-read:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Verify formatting\n        run: cargo fmt --check\n      - name: Run governed workspace read tests\n        run: cargo test -p monad-core harness_workspace_read\n",
+  "document_id": "doc:.github%2Fworkflows%2Fgoverned-execution-workspace-read.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/governed-execution-workspace-read.yml.",
+    "title": "Governed Execution Workspace Read"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 32,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Governed execution workspace read\n\non:\n  workflow_dispatch:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"specifications/technical/TECH-HARNESS-0002-governed-workspace-read-backend.md\"\n      - \".github/workflows/governed-execution-workspace-read.yml\"\n  push:\n    branches: [main]\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"specifications/technical/TECH-HARNESS-0002-governed-workspace-read-backend.md\"\n      - \".github/workflows/governed-execution-workspace-read.yml\"\n\npermissions:\n  contents: read\n\njobs:\n  workspace-read:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Verify formatting\n        run: cargo fmt --check\n      - name: Run governed workspace read tests\n        run: cargo test -p monad-core harness_workspace_read",
+      "title": "Governed Execution Workspace Read"
+    }
+  ],
+  "source": {
+    "bytes": 887,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 32,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/governed-execution-workspace-read.yml",
+    "sha256": "f17043857b9077aa9077277ad17572b08d8129f63836c8b82dfafb209eab23f8"
+  }
+}

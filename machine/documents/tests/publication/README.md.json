@@ -1,5 +1,5 @@
 {
-  "content": "# Publication Validation Fixtures\n\nThis directory contains contract fixtures for Monad's publication projection schemas.\n\n## Structure\n\n- `fixtures/valid/` contains instances that MUST validate.\n- `fixtures/invalid/` contains instances that MUST be rejected.\n\nThe validation entry point is:\n\n```bash\npython3 scripts/validate-publication.py\n```\n\nThe harness also validates the real `publication/website/projection.yaml` and performs\nboundary mutations proving that the schema rejects a non-`main` current-state source\nbranch and a non-deny default disposition.\n\nFixtures are intentionally small. They test schema contracts rather than attempting\nto model a complete real publication export. Real exporter output will later become\nan additional validation target.\n",
+  "content": "# Publication Validation and Export Tests\n\nThis directory contains contract fixtures and executable tests for Monad's website publication projection.\n\n## Schema fixtures\n\n- `fixtures/valid/` contains instances that MUST validate.\n- `fixtures/invalid/` contains instances that MUST be rejected.\n\nThe schema-validation entry point is:\n\n```bash\npython3 scripts/validate-publication.py\n```\n\nThe validation harness also validates the real `publication/website/projection.yaml` and performs boundary mutations proving that the schema rejects a non-`main` current-state source branch and a non-deny default disposition.\n\nFixtures are intentionally small. They test schema contracts rather than attempting to model a complete real publication export.\n\n## Deterministic exporter\n\n`test-export-site-state.py` tests the publication exporter at two levels:\n\n1. unit-level parsing, glob, frontmatter, and determinism-boundary behavior;\n2. an integration export of the local `main` or `origin/main` revision.\n\nRun:\n\n```bash\npython3 tests/publication/test-export-site-state.py\n```\n\nThe integration test exports the same authoritative revision twice and requires the complete generated trees to be byte-identical. The exporter itself validates generated manifest, provenance, and site-state JSON against the publication schemas before reporting success.\n\nThe test intentionally exports a committed `main` revision rather than mutable working-tree content. This preserves the `MONAD-PUB-001` main-only current-state boundary even when the test itself is executed from a feature branch.\n",
   "document_id": "doc:tests%2Fpublication%2FREADME.md",
   "generation": {
     "deterministic": true,
@@ -11,8 +11,8 @@
   "metadata": {
     "document_type": "project-source",
     "normative": false,
-    "summary": "This directory contains contract fixtures for Monad's publication projection schemas.",
-    "title": "Publication Validation Fixtures"
+    "summary": "This directory contains contract fixtures and executable tests for Monad's website publication projection.",
+    "title": "Publication Validation and Export Tests"
   },
   "relations": [],
   "schema": "machine/schemas/document.schema.json",
@@ -23,27 +23,36 @@
       "level": 1,
       "line_end": 4,
       "line_start": 1,
-      "section_id": "publication-validation-fixtures",
-      "text": "# Publication Validation Fixtures\n\nThis directory contains contract fixtures for Monad's publication projection schemas.",
-      "title": "Publication Validation Fixtures"
+      "section_id": "publication-validation-and-export-tests",
+      "text": "# Publication Validation and Export Tests\n\nThis directory contains contract fixtures and executable tests for Monad's website publication projection.",
+      "title": "Publication Validation and Export Tests"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 22,
+      "line_end": 19,
       "line_start": 5,
-      "section_id": "structure",
-      "text": "## Structure\n\n- `fixtures/valid/` contains instances that MUST validate.\n- `fixtures/invalid/` contains instances that MUST be rejected.\n\nThe validation entry point is:\n\n```bash\npython3 scripts/validate-publication.py\n```\n\nThe harness also validates the real `publication/website/projection.yaml` and performs\nboundary mutations proving that the schema rejects a non-`main` current-state source\nbranch and a non-deny default disposition.\n\nFixtures are intentionally small. They test schema contracts rather than attempting\nto model a complete real publication export. Real exporter output will later become\nan additional validation target.",
-      "title": "Structure"
+      "section_id": "schema-fixtures",
+      "text": "## Schema fixtures\n\n- `fixtures/valid/` contains instances that MUST validate.\n- `fixtures/invalid/` contains instances that MUST be rejected.\n\nThe schema-validation entry point is:\n\n```bash\npython3 scripts/validate-publication.py\n```\n\nThe validation harness also validates the real `publication/website/projection.yaml` and performs boundary mutations proving that the schema rejects a non-`main` current-state source branch and a non-deny default disposition.\n\nFixtures are intentionally small. They test schema contracts rather than attempting to model a complete real publication export.",
+      "title": "Schema fixtures"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 20,
+      "section_id": "deterministic-exporter",
+      "text": "## Deterministic exporter\n\n`test-export-site-state.py` tests the publication exporter at two levels:\n\n1. unit-level parsing, glob, frontmatter, and determinism-boundary behavior;\n2. an integration export of the local `main` or `origin/main` revision.\n\nRun:\n\n```bash\npython3 tests/publication/test-export-site-state.py\n```\n\nThe integration test exports the same authoritative revision twice and requires the complete generated trees to be byte-identical. The exporter itself validates generated manifest, provenance, and site-state JSON against the publication schemas before reporting success.\n\nThe test intentionally exports a committed `main` revision rather than mutable working-tree content. This preserves the `MONAD-PUB-001` main-only current-state boundary even when the test itself is executed from a feature branch.",
+      "title": "Deterministic exporter"
     }
   ],
   "source": {
-    "bytes": 762,
+    "bytes": 1569,
     "canonical": true,
     "language": "markdown",
-    "lines": 22,
+    "lines": 35,
     "media_type": "text/markdown",
     "path": "tests/publication/README.md",
-    "sha256": "b802999e91bceef6c5fafda7c2941725331e5a84a88b0dfbd525804efc503fd0"
+    "sha256": "08bb8f54d112da47e903e0cb78a9b3a2981dc229d31854f543fc15ce06f6a8ee"
   }
 }
