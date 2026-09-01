@@ -1,0 +1,23 @@
+name: EOS State Integrity
+
+on:
+  pull_request:
+  push:
+    branches: [main, stabilization/mvp-foundation]
+
+permissions:
+  contents: read
+
+jobs:
+  canonical-state:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # The repository's sole operational state authority is the canonical
+      # controller exposed through scripts/eos. The legacy state_model.py
+      # verifier still projects the superseded event-ledger authority model.
+      - name: Verify canonical state and projections
+        run: ./scripts/eos state status

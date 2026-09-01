@@ -1,0 +1,40 @@
+{
+  "content": "name: EOS State Integrity\n\non:\n  pull_request:\n  push:\n    branches: [main, stabilization/mvp-foundation]\n\npermissions:\n  contents: read\n\njobs:\n  canonical-state:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      # The repository's sole operational state authority is the canonical\n      # controller exposed through scripts/eos. The legacy state_model.py\n      # verifier still projects the superseded event-ledger authority model.\n      - name: Verify canonical state and projections\n        run: ./scripts/eos state status\n",
+  "document_id": "doc:.github%2Fworkflows%2Feos-state-integrity.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/eos-state-integrity.yml.",
+    "title": "Eos State Integrity"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 23,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: EOS State Integrity\n\non:\n  pull_request:\n  push:\n    branches: [main, stabilization/mvp-foundation]\n\npermissions:\n  contents: read\n\njobs:\n  canonical-state:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      # The repository's sole operational state authority is the canonical\n      # controller exposed through scripts/eos. The legacy state_model.py\n      # verifier still projects the superseded event-ledger authority model.\n      - name: Verify canonical state and projections\n        run: ./scripts/eos state status",
+      "title": "Eos State Integrity"
+    }
+  ],
+  "source": {
+    "bytes": 639,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 23,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/eos-state-integrity.yml",
+    "sha256": "eea4468c5672525d3f3e09d3d7f296a3eb5ccfe9d25104aefe4a0ee0332ab5f3"
+  }
+}
