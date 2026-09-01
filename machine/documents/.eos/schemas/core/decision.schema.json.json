@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/decision.schema.json\",\"title\":\"EOS Decision\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"question\",\"outcome\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^DEC-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"Decision\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"PROPOSED\",\"DECIDED\",\"SUPERSEDED\",\"REVOKED\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"question\":{\"type\":\"string\",\"minLength\":1},\"outcome\":{\"type\":\"string\",\"minLength\":1},\"rationale\":{\"type\":\"string\"}},\"unevaluatedProperties\":false}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Fdecision.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/decision.schema.json.",
+    "title": "Decision.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/decision.schema.json\",\"title\":\"EOS Decision\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"question\",\"outcome\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^DEC-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"Decision\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"PROPOSED\",\"DECIDED\",\"SUPERSEDED\",\"REVOKED\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"question\":{\"type\":\"string\",\"minLength\":1},\"outcome\":{\"type\":\"string\",\"minLength\":1},\"rationale\":{\"type\":\"string\"}},\"unevaluatedProperties\":false}",
+      "title": "Decision.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 648,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/decision.schema.json",
+    "sha256": "5356f735f106e6c0c7b134050e33b35397ac62dd13e0ffbf55b9f7e1bc0331f4"
+  }
+}

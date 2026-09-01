@@ -1,51 +1,71 @@
-# EOS Single Canonical State Model
+# EOS Single Canonical State Model — Implementation Record
 
 **Status:** Implemented  
-**Authority:** Normative  
-**Version:** 1.0.0
+**Date:** 2026-08-12  
+**Canonical model:** `EOS-SINGLE-CANONICAL-STATE-1`
 
-## Decision
+## Scope
 
-`.eos/state/canonical.json` is the sole authority for current EOS operational state.
+This tranche makes machine-readable EOS metadata the sole canonical current
+operational state and explicitly demotes TSV registries, Markdown lifecycle
+fields, Git history, GitHub collaboration objects, and runtime cache state to
+their correct roles.
 
-All other representations have narrower roles:
+## Implementation
 
-| Representation | Role | Authority over current operational state |
-|---|---|---|
-| `.eos/state/canonical.json` | Machine-readable current state | **Canonical** |
-| `.eos/events.jsonl` | Immutable mutation/audit history | Historical evidence; not current-state authority |
-| TSV registries | Compatibility/query projections | None |
-| Markdown | Governed human-readable artifacts | Content authority; embedded operational metadata is projected |
-| Git | Versioned history and provenance | None by itself |
-| GitHub Issues/Projects/milestones/labels | Collaboration projection | None |
+- `.eos/state/current.json` — canonical current operational state.
+- `.eos/state/projections.json` — local projection fingerprints and GitHub sync
+  receipts.
+- `.eos/state-model.json` — normative machine-readable representation policy.
+- `.eos/schemas/canonical-state.schema.json` — canonical store schema.
+- `.eos/schemas/projection-manifest.schema.json` — projection receipt schema.
+- `tools/eos/canonical_state.py` — canonical transaction, drift detection,
+  projection, and reconciliation controller.
+- `scripts/eos` — transaction wrapper around the compatibility EOS runtime.
+- `tools/eos/test_canonical_state.py` — deterministic regression tests.
 
-## Mutation rule
+## Compatibility Strategy
 
-Operational state changes must enter EOS through a governed mutation and be represented in canonical machine metadata. An event must record the mutation. TSV, Markdown, and GitHub are then synchronized from canonical state. Editing a projection is never sufficient to change EOS state.
+The existing `tools/eos/eos.py` implementation is retained as a compatibility
+runtime during this tranche. It still operates on TSV/Markdown projections, but
+it can no longer be invoked through the supported `scripts/eos` entry point
+without canonical preflight and post-transaction capture.
 
-## Drift rule
+This avoids a high-risk monolithic rewrite while immediately enforcing one
+operational source of truth.
 
-A mismatch is not resolved by guessing which copy is newest. It is classified as **state drift**, verification fails, and repair proceeds from canonical state outward. Silent reconciliation is forbidden.
+## Fail-closed cases
 
-`python tools/eos/state_model.py verify` checks:
+The controller rejects:
 
-- canonical lifecycle states against the domain model;
-- canonical state against the append-only event history;
-- canonical state against TSV compatibility registries;
-- lifecycle/status markers in governed Markdown artifacts;
-- registry entities that lack canonical entities;
-- GitHub synchronization revision and entity fingerprints when GitHub mappings exist.
+- direct TSV edits;
+- Markdown lifecycle edits inconsistent with canonical state;
+- event history whose reconstructed lifecycle differs from canonical state;
+- entity disappearance during a normal transaction;
+- a successful legacy command that leaves its projections mutually
+  inconsistent;
+- GitHub automatic overwrite when the remote issue changed since the last
+  synchronization receipt.
 
-The `EOS State Integrity` GitHub Actions workflow makes drift CI-blocking.
+## Explicit projection repair
 
-## Initial migration decision
+Local projections can only be repaired from canonical state. GitHub reconciliation
+requires an explicit target and `canonical-wins` strategy. There is no implicit
+projection-to-canonical import.
 
-At introduction time PI-001 and WC-0001 already demonstrated the problem this model addresses: their machine registry/event state was `DRAFT` while their Markdown displayed `Planned`. Operational history and registries were used to establish `DRAFT` as the migration state, and Markdown was repaired as a projection. Human-facing titles were retained as canonical titles and the TSV title columns were repaired from them.
+## Initial inconsistency resolved
 
-## GitHub synchronization contract
+Before this tranche, `.eos/program-increments.tsv` and `.eos/events.jsonl` said
+PI-001 was `DRAFT`, while the governed Markdown said `Planned`. WC-0001 had the
+same discrepancy. The initial canonical seed follows the agreeing operational
+registry/event history and repairs the Markdown lifecycle fields to `DRAFT`.
 
-`.eos/sync/github-projection.json` records synchronized GitHub entities. Each synchronized entry must carry the canonical state revision and a SHA-256 fingerprint of its canonical entity. GitHub-originated changes to operational fields are treated as proposed collaboration input, not authoritative state changes, until converted into an EOS mutation.
+## Tests
 
-## Non-negotiable invariant
+The regression suite covers:
 
-There is one current operational truth. Everything else is either governed human content, history, evidence, or a projection.
+1. clean canonical/projection state;
+2. direct TSV drift detection;
+3. direct Markdown lifecycle drift detection;
+4. successful transaction advancement of canonical revision/state;
+5. one-way local projection repair from canonical state.

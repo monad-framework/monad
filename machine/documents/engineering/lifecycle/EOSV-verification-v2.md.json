@@ -1,0 +1,130 @@
+{
+  "content": "---\nartifact_id: \"EOSV-V2\"\ntitle: \"EOSV Verification v2\"\ntype: \"lifecycle-extension\"\nversion: \"0.1.0\"\nstatus: \"Accepted\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSV — Verification v2\n\n## Purpose\n\nProduce first-class, reproducible, independently auditable verification evidence rather than treating a successful command exit as sufficient proof of correctness.\n\n## Verification Model\n\n`target -> validation profile -> typed validators -> EVID-* records -> coverage / staleness -> review gate`\n\n## Evidence Properties\n\nEvery `EVID-*` record captures its target, validator, result, source fingerprint, environment fingerprint, artifact hash, explicit coverage links, and provenance. Evidence is retained as an observation; later source drift marks current evidence stale, and new evidence supersedes older evidence rather than rewriting historical proof.\n\n## EOSV v2 Capabilities\n\n- typed validator registry and validation profiles;\n- first-class `EVID-*` schema, state machine, registry, and audit events;\n- acceptance-criterion-to-evidence mapping using stable `AC-*` identifiers;\n- evidence coverage reporting for acceptance criteria and governing artifacts;\n- source/environment fingerprinting and stale-evidence detection;\n- cryptographic tamper detection for machine evidence;\n- execution-result acceptance evidence integration with `EXEC-*`;\n- repository-specific validation commands;\n- reproducibility validation by repeated normalized execution;\n- governed performance baselines and tolerance checks;\n- high-confidence secret scanning;\n- supply-chain manifest/lockfile inventory and hashing;\n- strict project verification that blocks unresolved stale or corrupt evidence;\n- dynamic CLI help and shell completion for EOSV commands.\n\n## Primary Commands\n\n```bash\n./scripts/eos validators list\n./scripts/eos validation profiles\n./scripts/eos validate WP-CORE-0001 --profile wp\n./scripts/eos evidence list WP-CORE-0001\n./scripts/eos evidence coverage WP-CORE-0001\n./scripts/eos evidence audit\n./scripts/eos security scan WP-CORE-0001\n./scripts/eos supply-chain inventory WP-CORE-0001\n./scripts/eos performance record graph_lookup 12.4 --unit ms --direction lower --tolerance 0.10\n./scripts/eos performance check graph_lookup 12.8\n./scripts/eos verify --strict\n```\n\n## Evidence Lifecycle\n\n`CAPTURED -> VALIDATED | FAILED`\n\nValidated evidence may later become `STALE` when its subject-under-test changes, or `SUPERSEDED` when newer evidence replaces it. Failed or stale evidence is never silently rewritten into a passing observation.\n\n## Validation Profiles\n\nThe initial profiles are `default`, `wp`, `security`, `release`, `reproducibility`, and `performance`. Project-specific validators may be added in `.eos/validators.local.json` without modifying the EOS-managed validator catalog.\n\n## Security and Supply Chain Boundary\n\nThe built-in security validator intentionally performs only high-confidence secret-pattern detection. The built-in supply-chain validator inventories and fingerprints package manifests and lockfiles. Full vulnerability analysis, SBOM generation, SAST, license policy, provenance verification, and ecosystem-specific scanners belong in subsequent validators or project-local validator integrations rather than being falsely claimed by this baseline.\n\n## Gate Implication\n\nEOSV evidence is intended to become the machine-verifiable input to EOSR Review v2. A claimed implementation completion is not sufficient: the relevant acceptance criteria, governing artifacts, and required validation profiles must have current, untampered evidence before review or closure gates may rely on them.\n",
+  "document_id": "doc:engineering%2Flifecycle%2FEOSV-verification-v2.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"EOSV-V2\" title: \"EOSV Verification v2\" type: \"lifecycle-extension\" version: \"0.1.0\" status: \"Accepted\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOSV — Verification v2"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"EOSV-V2\"\ntitle: \"EOSV Verification v2\"\ntype: \"lifecycle-extension\"\nversion: \"0.1.0\"\nstatus: \"Accepted\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "eosv-verification-v2",
+      "text": "# EOSV — Verification v2",
+      "title": "EOSV — Verification v2"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 14,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nProduce first-class, reproducible, independently auditable verification evidence rather than treating a successful command exit as sufficient proof of correctness.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 18,
+      "section_id": "verification-model",
+      "text": "## Verification Model\n\n`target -> validation profile -> typed validators -> EVID-* records -> coverage / staleness -> review gate`",
+      "title": "Verification Model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 22,
+      "section_id": "evidence-properties",
+      "text": "## Evidence Properties\n\nEvery `EVID-*` record captures its target, validator, result, source fingerprint, environment fingerprint, artifact hash, explicit coverage links, and provenance. Evidence is retained as an observation; later source drift marks current evidence stale, and new evidence supersedes older evidence rather than rewriting historical proof.",
+      "title": "Evidence Properties"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 42,
+      "line_start": 26,
+      "section_id": "eosv-v2-capabilities",
+      "text": "## EOSV v2 Capabilities\n\n- typed validator registry and validation profiles;\n- first-class `EVID-*` schema, state machine, registry, and audit events;\n- acceptance-criterion-to-evidence mapping using stable `AC-*` identifiers;\n- evidence coverage reporting for acceptance criteria and governing artifacts;\n- source/environment fingerprinting and stale-evidence detection;\n- cryptographic tamper detection for machine evidence;\n- execution-result acceptance evidence integration with `EXEC-*`;\n- repository-specific validation commands;\n- reproducibility validation by repeated normalized execution;\n- governed performance baselines and tolerance checks;\n- high-confidence secret scanning;\n- supply-chain manifest/lockfile inventory and hashing;\n- strict project verification that blocks unresolved stale or corrupt evidence;\n- dynamic CLI help and shell completion for EOSV commands.",
+      "title": "EOSV v2 Capabilities"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 43,
+      "section_id": "primary-commands",
+      "text": "## Primary Commands\n\n```bash\n./scripts/eos validators list\n./scripts/eos validation profiles\n./scripts/eos validate WP-CORE-0001 --profile wp\n./scripts/eos evidence list WP-CORE-0001\n./scripts/eos evidence coverage WP-CORE-0001\n./scripts/eos evidence audit\n./scripts/eos security scan WP-CORE-0001\n./scripts/eos supply-chain inventory WP-CORE-0001\n./scripts/eos performance record graph_lookup 12.4 --unit ms --direction lower --tolerance 0.10\n./scripts/eos performance check graph_lookup 12.8\n./scripts/eos verify --strict\n```",
+      "title": "Primary Commands"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 64,
+      "line_start": 59,
+      "section_id": "evidence-lifecycle",
+      "text": "## Evidence Lifecycle\n\n`CAPTURED -> VALIDATED | FAILED`\n\nValidated evidence may later become `STALE` when its subject-under-test changes, or `SUPERSEDED` when newer evidence replaces it. Failed or stale evidence is never silently rewritten into a passing observation.",
+      "title": "Evidence Lifecycle"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 65,
+      "section_id": "validation-profiles",
+      "text": "## Validation Profiles\n\nThe initial profiles are `default`, `wp`, `security`, `release`, `reproducibility`, and `performance`. Project-specific validators may be added in `.eos/validators.local.json` without modifying the EOS-managed validator catalog.",
+      "title": "Validation Profiles"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 72,
+      "line_start": 69,
+      "section_id": "security-and-supply-chain-boundary",
+      "text": "## Security and Supply Chain Boundary\n\nThe built-in security validator intentionally performs only high-confidence secret-pattern detection. The built-in supply-chain validator inventories and fingerprints package manifests and lockfiles. Full vulnerability analysis, SBOM generation, SAST, license policy, provenance verification, and ecosystem-specific scanners belong in subsequent validators or project-local validator integrations rather than being falsely claimed by this baseline.",
+      "title": "Security and Supply Chain Boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 75,
+      "line_start": 73,
+      "section_id": "gate-implication",
+      "text": "## Gate Implication\n\nEOSV evidence is intended to become the machine-verifiable input to EOSR Review v2. A claimed implementation completion is not sufficient: the relevant acceptance criteria, governing artifacts, and required validation profiles must have current, untampered evidence before review or closure gates may rely on them.",
+      "title": "Gate Implication"
+    }
+  ],
+  "source": {
+    "bytes": 3667,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 75,
+    "media_type": "text/markdown",
+    "path": "engineering/lifecycle/EOSV-verification-v2.md",
+    "sha256": "9d4d7df8f8eb0358ef783a8ace8478d3a8959b089be44164a82c127527e433f6"
+  }
+}

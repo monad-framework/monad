@@ -1,6 +1,6 @@
 # WP-MVP-0005 — Structured Monad configuration parser
 
-**Status:** Refined — blocked from Ready by WP-MVP-0001/WP-MVP-0003 and ADR-0005  
+**Status:** AUTHORIZED
 **Epic:** EPIC-003  
 **Feature:** F-003-03  
 **Program Increment:** PI-MVP-001  
@@ -18,11 +18,16 @@ Represent canonical `monad.toml` as a provenance-rich semantic input after boots
 - IFC-WORKSPACE-0001
 - DATA-SOURCE-0001
 - TECH-INGEST-0002
-- proposed ADR-0005
+- ADR-0005
 
 ## Dependencies
 
-WP-MVP-0001 supplies valid effective configuration; WP-MVP-0003 supplies identity/provenance. This packet does not reimplement configuration precedence.
+- WP-MVP-0001 is CLOSED and supplies valid effective configuration and precedence semantics.
+- WP-MVP-0003 is CLOSED and supplies stable source/document identity and provenance.
+- ADR-0005 is Accepted and authorizes the MVP Rust implementation topology and `monad-core` semantic boundary.
+- WC-MVP-0002 is ACTIVE and supplies the current parsing/reference-resolution execution context.
+
+These historical prerequisite blockers are satisfied. This packet does not reimplement configuration precedence. Prerequisite completion alone did not make the packet Ready, authorized, or started; those lifecycle transitions require separate governed EOS gates.
 
 ## Acceptance criteria
 
@@ -39,3 +44,7 @@ Under ADR-0005, semantic config adaptation belongs in the ingestion/config modul
 ## Validation
 
 Golden config corpus for canonical repository config, malformed/unknown/unsupported keys, override provenance, deterministic representation, and legacy-manifest non-authority.
+
+## Authorization disposition
+
+The prior dependency block is cleared by canonical closure/acceptance evidence for WP-MVP-0001 and WP-MVP-0003 plus the Accepted ADR-0005. This packet was adopted into canonical EOS lifecycle control, passed `WP_READY` (`DRAFT → READY`), and has now passed the separate `WP_AUTHORIZE` gate (`READY → AUTHORIZED`). The next permitted lifecycle action is the separate EOSE start transition. Execution preparation, start, product mutation, and implementation remain prohibited until that governed start transition passes and is recorded.

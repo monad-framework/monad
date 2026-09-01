@@ -1,0 +1,94 @@
+{
+  "content": "# EOS Trace Projection Integrity Repair — 2026-08-12\n\n**Decision:** ACCEPTED\n\n## Finding\n\nA clean checkout of protected `main` could pass `./scripts/eos verify --strict` while leaving `.eos/trace-edges.tsv` modified. The tracked trace projection contained stale merge-resolution residue and no gate required the deterministic projection to match the committed file after verification.\n\nThe repository wrapper also dispatched commands twice: it executed the legacy controller inside the canonical transaction and then executed the selected legacy/v2 runtime again. This duplicated output and could duplicate side effects.\n\n## Root Cause\n\n1. `tools/eos/eos.py::rebuild_trace()` is used by verification and planning/query paths and writes `.eos/trace-edges.tsv` as a side effect.\n2. EOS Integrity validated the logical report but did not require the tracked trace projection to equal deterministic regeneration.\n3. Repository Integrity did not reject unresolved Git conflict-marker lines.\n4. `scripts/eos` selected the v2 runtime only after already invoking the legacy runtime once.\n\n## Repair\n\n- Regenerate `.eos/trace-edges.tsv` from the current governed repository state.\n- Add `tools/eos/trace_integrity.py` to compute the expected trace without writing during checks and to support explicit atomic regeneration with `--write`.\n- Add `tools/eos/test_wrapper_dispatch.py` to prove one-runtime dispatch for legacy, EOSE v2, and EOSV v2 commands.\n- Change `scripts/eos` so one selected runtime executes exactly once inside the canonical transaction.\n- Require EOS Integrity to check trace freshness before verification and require the full working tree to remain unchanged afterward.\n- Require Repository Integrity to reject unresolved `<<<<<<<` / `>>>>>>>` conflict markers and to reject EOS verification that changes tracked files.\n\n## Safety Properties\n\n- Verification may inspect/recompute trace semantics but a stale committed projection is a gate failure, not a silent repair.\n- Explicit trace regeneration is separate from verification.\n- Canonical lifecycle state remains unchanged by this repair.\n- `PI-MVP-001`, `WC-MVP-0001`, and `WP-MVP-0001` are not started or authorized by this repair.\n- Existing EOSV Verification v2 behavior is preserved behind single-dispatch routing.\n\n## Required Evidence\n\nThe repair is acceptable only when all of the following are true on the final branch head:\n\n1. `python3 tools/eos/test_wrapper_dispatch.py` passes.\n2. `python3 tools/eos/trace_integrity.py` reports the tracked trace as consistent.\n3. `./scripts/eos state status` reports `RESULT: CONSISTENT`.\n4. `./scripts/eos verify --strict` passes.\n5. `git diff --exit-code` passes after verification.\n6. machine documentation synchronization passes.\n7. permanent PR Repository Integrity, EOS Integrity, and Machine Document Synchronization checks pass.\n\n## Disposition\n\n**ACCEPTED** as a blocking control-integrity repair that must merge before the first MVP lifecycle transition.\n",
+  "document_id": "doc:engineering%2Freviews%2FEOS-TRACE-PROJECTION-INTEGRITY-REPAIR-2026-08-12.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Decision: ACCEPTED",
+    "title": "EOS Trace Projection Integrity Repair — 2026-08-12"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 4,
+      "line_start": 1,
+      "section_id": "eos-trace-projection-integrity-repair-2026-08-12",
+      "text": "# EOS Trace Projection Integrity Repair — 2026-08-12\n\n**Decision:** ACCEPTED",
+      "title": "EOS Trace Projection Integrity Repair — 2026-08-12"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 5,
+      "section_id": "finding",
+      "text": "## Finding\n\nA clean checkout of protected `main` could pass `./scripts/eos verify --strict` while leaving `.eos/trace-edges.tsv` modified. The tracked trace projection contained stale merge-resolution residue and no gate required the deterministic projection to match the committed file after verification.\n\nThe repository wrapper also dispatched commands twice: it executed the legacy controller inside the canonical transaction and then executed the selected legacy/v2 runtime again. This duplicated output and could duplicate side effects.",
+      "title": "Finding"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 11,
+      "section_id": "root-cause",
+      "text": "## Root Cause\n\n1. `tools/eos/eos.py::rebuild_trace()` is used by verification and planning/query paths and writes `.eos/trace-edges.tsv` as a side effect.\n2. EOS Integrity validated the logical report but did not require the tracked trace projection to equal deterministic regeneration.\n3. Repository Integrity did not reject unresolved Git conflict-marker lines.\n4. `scripts/eos` selected the v2 runtime only after already invoking the legacy runtime once.",
+      "title": "Root Cause"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 18,
+      "section_id": "repair",
+      "text": "## Repair\n\n- Regenerate `.eos/trace-edges.tsv` from the current governed repository state.\n- Add `tools/eos/trace_integrity.py` to compute the expected trace without writing during checks and to support explicit atomic regeneration with `--write`.\n- Add `tools/eos/test_wrapper_dispatch.py` to prove one-runtime dispatch for legacy, EOSE v2, and EOSV v2 commands.\n- Change `scripts/eos` so one selected runtime executes exactly once inside the canonical transaction.\n- Require EOS Integrity to check trace freshness before verification and require the full working tree to remain unchanged afterward.\n- Require Repository Integrity to reject unresolved `<<<<<<<` / `>>>>>>>` conflict markers and to reject EOS verification that changes tracked files.",
+      "title": "Repair"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 27,
+      "section_id": "safety-properties",
+      "text": "## Safety Properties\n\n- Verification may inspect/recompute trace semantics but a stale committed projection is a gate failure, not a silent repair.\n- Explicit trace regeneration is separate from verification.\n- Canonical lifecycle state remains unchanged by this repair.\n- `PI-MVP-001`, `WC-MVP-0001`, and `WP-MVP-0001` are not started or authorized by this repair.\n- Existing EOSV Verification v2 behavior is preserved behind single-dispatch routing.",
+      "title": "Safety Properties"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 35,
+      "section_id": "required-evidence",
+      "text": "## Required Evidence\n\nThe repair is acceptable only when all of the following are true on the final branch head:\n\n1. `python3 tools/eos/test_wrapper_dispatch.py` passes.\n2. `python3 tools/eos/trace_integrity.py` reports the tracked trace as consistent.\n3. `./scripts/eos state status` reports `RESULT: CONSISTENT`.\n4. `./scripts/eos verify --strict` passes.\n5. `git diff --exit-code` passes after verification.\n6. machine documentation synchronization passes.\n7. permanent PR Repository Integrity, EOS Integrity, and Machine Document Synchronization checks pass.",
+      "title": "Required Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 47,
+      "section_id": "disposition",
+      "text": "## Disposition\n\n**ACCEPTED** as a blocking control-integrity repair that must merge before the first MVP lifecycle transition.",
+      "title": "Disposition"
+    }
+  ],
+  "source": {
+    "bytes": 2979,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 49,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/EOS-TRACE-PROJECTION-INTEGRITY-REPAIR-2026-08-12.md",
+    "sha256": "b00c3eba25a1671288ac9e9884bcdcd5644b8d0c544e2712a9f2099da464f610"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/pi/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"path\", \"title\", \"status\", \"created\", \"updated\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^PI-[0-9]{3}$\"},\n    \"path\": {\"type\": \"string\", \"minLength\": 1},\n    \"title\": {\"type\": \"string\", \"minLength\": 1},\n    \"status\": {\"type\": \"string\"},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1},\n    \"github_url\": {\"type\": \"string\"}\n  },\n  \"additionalProperties\": false\n}\n",
+  "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/pi/1.2.0\",\n  \"type\": \"object\",\n  \"required\": [\n    \"id\",\n    \"path\",\n    \"title\",\n    \"status\",\n    \"created\",\n    \"updated\"\n  ],\n  \"properties\": {\n    \"id\": {\n      \"type\": \"string\",\n      \"pattern\": \"^PI(?:-[A-Z][A-Z0-9]*)?-[0-9]{3}$\"\n    },\n    \"path\": {\n      \"type\": \"string\",\n      \"minLength\": 1\n    },\n    \"title\": {\n      \"type\": \"string\",\n      \"minLength\": 1\n    },\n    \"status\": {\n      \"type\": \"string\"\n    },\n    \"created\": {\n      \"type\": \"string\",\n      \"minLength\": 1\n    },\n    \"updated\": {\n      \"type\": \"string\",\n      \"minLength\": 1\n    },\n    \"github_url\": {\n      \"type\": \"string\"\n    }\n  },\n  \"additionalProperties\": false\n}\n",
   "document_id": "doc:.eos%2Fschemas%2Fpi.schema.json",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 16,
+      "line_end": 42,
       "line_start": 1,
       "section_id": "content",
-      "text": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/pi/1.0.0\",\n  \"type\": \"object\",\n  \"required\": [\"id\", \"path\", \"title\", \"status\", \"created\", \"updated\"],\n  \"properties\": {\n    \"id\": {\"type\": \"string\", \"pattern\": \"^PI-[0-9]{3}$\"},\n    \"path\": {\"type\": \"string\", \"minLength\": 1},\n    \"title\": {\"type\": \"string\", \"minLength\": 1},\n    \"status\": {\"type\": \"string\"},\n    \"created\": {\"type\": \"string\", \"minLength\": 1},\n    \"updated\": {\"type\": \"string\", \"minLength\": 1},\n    \"github_url\": {\"type\": \"string\"}\n  },\n  \"additionalProperties\": false\n}",
+      "text": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"eos://schemas/pi/1.2.0\",\n  \"type\": \"object\",\n  \"required\": [\n    \"id\",\n    \"path\",\n    \"title\",\n    \"status\",\n    \"created\",\n    \"updated\"\n  ],\n  \"properties\": {\n    \"id\": {\n      \"type\": \"string\",\n      \"pattern\": \"^PI(?:-[A-Z][A-Z0-9]*)?-[0-9]{3}$\"\n    },\n    \"path\": {\n      \"type\": \"string\",\n      \"minLength\": 1\n    },\n    \"title\": {\n      \"type\": \"string\",\n      \"minLength\": 1\n    },\n    \"status\": {\n      \"type\": \"string\"\n    },\n    \"created\": {\n      \"type\": \"string\",\n      \"minLength\": 1\n    },\n    \"updated\": {\n      \"type\": \"string\",\n      \"minLength\": 1\n    },\n    \"github_url\": {\n      \"type\": \"string\"\n    }\n  },\n  \"additionalProperties\": false\n}",
       "title": "Pi.Schema"
     }
   ],
   "source": {
-    "bytes": 574,
+    "bytes": 736,
     "canonical": true,
     "language": "json",
-    "lines": 16,
+    "lines": 42,
     "media_type": "application/json",
     "path": ".eos/schemas/pi.schema.json",
-    "sha256": "eb8cab95113f5a4b20ae4c2cd638f3791bdef8f2c4e98238f1ce9e23ca1d543a"
+    "sha256": "0f573dc4b3ecd8990e82d2da4b91451e827ee4be320bbfd83d32acc9fe1099fa"
   }
 }

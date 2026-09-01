@@ -1,5 +1,5 @@
 {
-  "content": "# Product Capabilities\n\n**Status:** Proposed stabilization baseline\n\n## C-01 — Repository and workspace discovery\n\nIdentify repository/workspace roots, configuration, packages/modules, canonical artifact locations, toolchains, and supported inputs deterministically.\n\n## C-02 — Canonical knowledge ingestion\n\nRead supported human-authored artifacts, preserve source provenance, normalize metadata/identifiers/references, and reject or diagnose malformed input.\n\n## C-03 — Semantic graph compilation\n\nConstruct stable engineering entities and typed relationships spanning requirements, decisions, specifications, components, dependencies, work, tests, evidence, releases, and provenance.\n\n## C-04 — KIR and canonical interchange\n\nLower validated semantic knowledge into canonical machine representations suitable for deterministic downstream consumption, caching, diff, and compatibility.\n\n## C-05 — Diagnostics and conformance\n\nEvaluate structural/semantic invariants, policies, and specification conformance and return stable actionable diagnostics.\n\n## C-06 — Query, traversal, and explanation\n\nQuery graph state, traverse relationships, explain why/what-governs/what-depends, and retain the evidence path supporting the answer.\n\n## C-07 — Change impact and incrementality\n\nRelate repository changes to semantic entities and eventually derive minimal invalidation/execution scope.\n\n## C-08 — Native tool orchestration\n\nPlan and invoke native compilers, formatters, linters, tests, build tools, infrastructure tools, and other adapters through explicit capability contracts.\n\n## C-09 — AI/agent context and governance\n\nSelect minimal authorized context, express scope/prohibitions/acceptance, record provenance, and support ChatGPT/Codex collaboration without granting unbounded authority.\n\n## C-10 — Policy and governance\n\nRepresent/evaluate engineering rules, ownership, architectural constraints, exceptions, and acceptance gates against semantic state.\n\n## C-11 — Documentation and projection\n\nGenerate or validate machine companions, publication views, status, GitHub projections, and later other derived artifacts from canonical knowledge.\n\n## C-12 — Extensibility and ecosystem\n\nSupport adapters, plugins, registries, SDKs, and multi-repository evolution through stable contracts when scale requires them.\n\n## C-13 — Release and provenance\n\nCreate traceable release evidence linking source, resolved inputs, semantic state, tests, artifacts, compatibility, and signatures/attestations where applicable.\n\n## MVP capability boundary\n\nMVP directly requires C-01, C-02, C-03, foundations of C-04, C-05, C-06, bounded C-09, and enough C-11/C-13 to prove deterministic provenance. C-07/C-08 begin only to the extent needed to demonstrate impact/validation; C-10/C-12 are architected but not broadly implemented.",
+  "content": "# Product Capabilities\n\n**Status:** Expanded product baseline\n\n## Core semantic capabilities\n\n### C-01 — Repository and workspace discovery\n\nIdentify repository/workspace roots, configuration, packages/modules, canonical artifact locations, toolchains, and supported inputs deterministically.\n\n### C-02 — Canonical knowledge ingestion\n\nRead supported human-authored artifacts, preserve source provenance, normalize metadata/identifiers/references, and reject or diagnose malformed input.\n\n### C-03 — Semantic graph compilation\n\nConstruct stable engineering entities and typed relationships spanning requirements, decisions, specifications, components, dependencies, work, tests, evidence, releases, and provenance.\n\n### C-04 — KIR and canonical interchange\n\nLower validated semantic knowledge into canonical machine representations suitable for deterministic downstream consumption, caching, diff, and compatibility.\n\n### C-05 — Diagnostics and conformance\n\nEvaluate structural/semantic invariants, policies, and specification conformance and return stable actionable diagnostics.\n\n### C-06 — Query, traversal, and explanation\n\nQuery graph state, traverse relationships, explain why/what-governs/what-depends, and retain the evidence path supporting the answer.\n\n### C-07 — Change impact and incrementality\n\nRelate repository changes to semantic entities and derive minimal invalidation, validation, and execution scope.\n\n### C-08 — Native tool orchestration\n\nPlan and invoke native compilers, formatters, linters, tests, build tools, infrastructure tools, and other adapters through explicit capability contracts.\n\n### C-09 — AI/agent context and governance\n\nSelect minimal authorized context, express scope/prohibitions/acceptance, record provenance, and support bounded AI collaboration without granting unbounded authority.\n\n### C-10 — Policy and governance\n\nRepresent/evaluate engineering rules, ownership, architectural constraints, readiness/done gates, exceptions, autonomy strategies, and acceptance gates against semantic state.\n\n### C-11 — Documentation and projection\n\nGenerate or validate machine companions, publication views, status, GitHub projections, dashboards, and other derived artifacts from canonical knowledge.\n\n### C-12 — Extensibility and ecosystem\n\nSupport adapters, plugins, registries, SDKs, packs, and multi-repository evolution through stable contracts.\n\n### C-13 — Release and provenance\n\nCreate traceable release evidence linking source, resolved inputs, semantic state, tests, artifacts, compatibility, signatures, attestations, and approval evidence.\n\n## Living workspace intelligence\n\n### C-14 — Workspace intelligence scoring\n\nCompute an explainable 0–100 workspace-intelligence score and maturity tier from governed evidence across knowledge/memory, agent intelligence, automation/execution, health, and governance.\n\n### C-15 — Unified memory–intelligence–execution loop\n\nMaintain a governed feedback loop in which canonical memory informs bounded reasoning, authorized reasoning triggers execution, and execution creates provenance-rich memory/evidence.\n\n### C-16 — Anti-hallucination memory and knowledge health\n\nDistinguish canonical, derived, proposed, uncertain, stale, contradictory, and superseded knowledge; identify zombie/stale nodes and degrading relationships; and expose health indicators without inventing completeness.\n\n### C-17 — Multi-vector memory and intelligent caching\n\nSupport multiple vector spaces for code, data, and engineering/business semantics plus semantic/result-aware caches with isolation, provenance, invalidation, and privacy rules.\n\n## Governed agent execution\n\n### C-18 — Autonomous dependency-aware orchestration\n\nDispatch bounded agent work through dependency graphs with explicit authority, concurrency, cancellation, budgets, evidence capture, and experimental autonomy gates.\n\n### C-19 — Progressive autonomy and operator stewardship\n\nSupport named autonomy levels from advisory to stronger policy-governed execution, evidence-based promotion/demotion, and explicit human decision stewardship for unresolved authority/risk.\n\n### C-20 — Cross-harness verification\n\nRun independent parallel reviewers, preserve reviewer provenance, surface disagreements, and require governed disposition rather than treating model consensus as authority.\n\n### C-21 — Cost/capability-aware AI routing\n\nRoute AI work across multiple hosted or local providers according to capability, complexity, policy, privacy, cost, and latency.\n\n### C-22 — Agent resilience controls\n\nProvide retry/idempotency, exponential backoff, timeout/cancellation, circuit breakers, execution budgets, and failure isolation for agent/provider workflows.\n\n## Automation, integrations, and resources\n\n### C-23 — Integration adapter framework\n\nProvide versioned resource and adapter contracts for external systems and a scalable integration catalog without embedding third-party semantics in the core.\n\n### C-24 — Intelligent automation workflows\n\nSupport reactive/event-driven workflows that can adapt within explicit policy and generate durable evidence/memory from their outcomes.\n\n### C-25 — Verified pull-request automation\n\nCreate PRs from verified bounded work using isolated worktrees/branches, configurable rebase-first policy, and complete Work Packet/execution/evidence traceability.\n\n## Security, identity, governance, and audit\n\n### C-26 — Signed attestations and cryptographic agility\n\nProduce DSSE-compatible change/release attestations and support rotating cryptographic profiles including conventional and post-quantum signatures.\n\n### C-27 — Multi-party trust and key lifecycle\n\nSupport multi-party approval/signature policies, key rotation/revocation, migration, and quantum-transition planning.\n\n### C-28 — RBAC and passkey identity\n\nProvide RBAC, passkey/WebAuthn-backed identity, session/access policy, and password-protected shared surfaces where deployment mode requires them.\n\n### C-29 — Agent and prompt security\n\nDetect/contain prompt-injection attempts, mask secrets, sandbox capabilities, apply least authority, and prevent unapproved tool/resource escalation.\n\n### C-30 — Change control and immutable audit\n\nProvide formal change submission/review/approval/rollback/restore and tamper-evident audit records linking people, agents, decisions, policies, executions, evidence, and artifacts.\n\n## Observation and operations\n\n### C-31 — OpenTelemetry and health observation\n\nExpose correlated structured logs, metrics, traces, graph-health indicators, stale/decay signals, and operational health through OpenTelemetry-compatible boundaries.\n\n### C-32 — Agent execution analytics\n\nRecord execution inputs, selected context, output diffs, verification, duration, token/cost data, failures, and resulting evidence.\n\n### C-33 — Privacy-governed hosted analytics\n\nFor optional hosted/public surfaces, provide opt-in traffic/source/geography/device/usage analytics isolated from the local semantic core.\n\n## Deployment and workspace lifecycle\n\n### C-34 — Instant/shared deployment\n\nSupport automated deployment of approved surfaces with shareable endpoints, custom domains, access controls, and optional gallery/registry publication.\n\n### C-35 — Workspace cloning and restoration\n\nClone/templates of complete governed workspace state with provenance and restore prior versioned states through canonical version control.\n\n### C-36 — Enterprise deployment modes\n\nSupport air-gapped/no-exfiltration, on-premises, and optional AWS/GCP/Azure deployment profiles.\n\n### C-37 — Reproducible environments\n\nSupport Docker/container and Nix environment profiles for repeatable validation, execution, and release evidence.\n\n### C-38 — Governed file and media handling\n\nProvide content-addressed file/media ingestion, storage/reference, provenance, classification, retention, access controls, and AI-processing policy.\n\n## Developer and ecosystem surfaces\n\n### C-39 — MCP server\n\nExpose bounded semantic query/context/validation capabilities through a governed Model Context Protocol server.\n\n### C-40 — LSP and IDE integration\n\nExpose diagnostics, navigation, semantic relationships, explanations, and bounded actions through LSP/IDE integration surfaces.\n\n### C-41 — Plugin SDK, registry, and packs\n\nProvide versioned plugin SDK, registry/discovery, curated packs, compatibility, provenance, signature, and permission contracts.\n\n### C-42 — Pluggable graph/vector storage\n\nSupport local-first storage plus adapters for external graph/vector systems when scale/deployment evidence requires them.\n\n### C-43 — External runtime compatibility profiles\n\nPermit isolated adapter-defined compatibility with external bytecode/runtime ecosystems, including an optional EVM bytecode profile, without redefining Monad semantic truth.\n\n## Performance and scale\n\n### C-44 — Deterministic parallel execution\n\nSchedule independent internal work in parallel using dependency/conflict analysis while preserving deterministic evidence/state ordering.\n\n### C-45 — High-throughput and fast-finalization benchmark profiles\n\nMaintain declared benchmark profiles including a long-range target of at least 10,000 lightweight internal scheduler/graph operations per second and eligible local governed-state transitions at or below 400 ms p95 once inputs are available.\n\n## Capability boundary\n\nMVP Release 1 directly requires C-01 through foundations of C-13 as defined by `MVP-RELEASE-1.md`. C-14 through C-45 form the governed post-MVP capability roadmap. Their presence in the product baseline does not authorize implementation or expand MVP scope automatically.\n",
   "document_id": "doc:product%2Fcapabilities.md",
   "generation": {
     "deterministic": true,
@@ -19,13 +19,45 @@
     "C-10",
     "C-11",
     "C-12",
-    "C-13"
+    "C-13",
+    "C-14",
+    "C-15",
+    "C-16",
+    "C-17",
+    "C-18",
+    "C-19",
+    "C-20",
+    "C-21",
+    "C-22",
+    "C-23",
+    "C-24",
+    "C-25",
+    "C-26",
+    "C-27",
+    "C-28",
+    "C-29",
+    "C-30",
+    "C-31",
+    "C-32",
+    "C-33",
+    "C-34",
+    "C-35",
+    "C-36",
+    "C-37",
+    "C-38",
+    "C-39",
+    "C-40",
+    "C-41",
+    "C-42",
+    "C-43",
+    "C-44",
+    "C-45"
   ],
   "links": [],
   "metadata": {
     "document_type": "product",
     "normative": true,
-    "summary": "Status: Proposed stabilization baseline",
+    "summary": "Status: Expanded product baseline",
     "title": "Product Capabilities"
   },
   "relations": [],
@@ -38,183 +70,607 @@
       "line_end": 4,
       "line_start": 1,
       "section_id": "product-capabilities",
-      "text": "# Product Capabilities\n\n**Status:** Proposed stabilization baseline",
+      "text": "# Product Capabilities\n\n**Status:** Expanded product baseline",
       "title": "Product Capabilities"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 6,
+      "line_start": 5,
+      "section_id": "core-semantic-capabilities",
+      "text": "## Core semantic capabilities",
+      "title": "Core semantic capabilities"
     },
     {
       "identifiers": [
         "C-01"
       ],
-      "level": 2,
-      "line_end": 8,
-      "line_start": 5,
+      "level": 3,
+      "line_end": 10,
+      "line_start": 7,
       "section_id": "c-01-repository-and-workspace-discovery",
-      "text": "## C-01 — Repository and workspace discovery\n\nIdentify repository/workspace roots, configuration, packages/modules, canonical artifact locations, toolchains, and supported inputs deterministically.",
+      "text": "### C-01 — Repository and workspace discovery\n\nIdentify repository/workspace roots, configuration, packages/modules, canonical artifact locations, toolchains, and supported inputs deterministically.",
       "title": "C-01 — Repository and workspace discovery"
     },
     {
       "identifiers": [
         "C-02"
       ],
-      "level": 2,
-      "line_end": 12,
-      "line_start": 9,
+      "level": 3,
+      "line_end": 14,
+      "line_start": 11,
       "section_id": "c-02-canonical-knowledge-ingestion",
-      "text": "## C-02 — Canonical knowledge ingestion\n\nRead supported human-authored artifacts, preserve source provenance, normalize metadata/identifiers/references, and reject or diagnose malformed input.",
+      "text": "### C-02 — Canonical knowledge ingestion\n\nRead supported human-authored artifacts, preserve source provenance, normalize metadata/identifiers/references, and reject or diagnose malformed input.",
       "title": "C-02 — Canonical knowledge ingestion"
     },
     {
       "identifiers": [
         "C-03"
       ],
-      "level": 2,
-      "line_end": 16,
-      "line_start": 13,
+      "level": 3,
+      "line_end": 18,
+      "line_start": 15,
       "section_id": "c-03-semantic-graph-compilation",
-      "text": "## C-03 — Semantic graph compilation\n\nConstruct stable engineering entities and typed relationships spanning requirements, decisions, specifications, components, dependencies, work, tests, evidence, releases, and provenance.",
+      "text": "### C-03 — Semantic graph compilation\n\nConstruct stable engineering entities and typed relationships spanning requirements, decisions, specifications, components, dependencies, work, tests, evidence, releases, and provenance.",
       "title": "C-03 — Semantic graph compilation"
     },
     {
       "identifiers": [
         "C-04"
       ],
-      "level": 2,
-      "line_end": 20,
-      "line_start": 17,
+      "level": 3,
+      "line_end": 22,
+      "line_start": 19,
       "section_id": "c-04-kir-and-canonical-interchange",
-      "text": "## C-04 — KIR and canonical interchange\n\nLower validated semantic knowledge into canonical machine representations suitable for deterministic downstream consumption, caching, diff, and compatibility.",
+      "text": "### C-04 — KIR and canonical interchange\n\nLower validated semantic knowledge into canonical machine representations suitable for deterministic downstream consumption, caching, diff, and compatibility.",
       "title": "C-04 — KIR and canonical interchange"
     },
     {
       "identifiers": [
         "C-05"
       ],
-      "level": 2,
-      "line_end": 24,
-      "line_start": 21,
+      "level": 3,
+      "line_end": 26,
+      "line_start": 23,
       "section_id": "c-05-diagnostics-and-conformance",
-      "text": "## C-05 — Diagnostics and conformance\n\nEvaluate structural/semantic invariants, policies, and specification conformance and return stable actionable diagnostics.",
+      "text": "### C-05 — Diagnostics and conformance\n\nEvaluate structural/semantic invariants, policies, and specification conformance and return stable actionable diagnostics.",
       "title": "C-05 — Diagnostics and conformance"
     },
     {
       "identifiers": [
         "C-06"
       ],
-      "level": 2,
-      "line_end": 28,
-      "line_start": 25,
+      "level": 3,
+      "line_end": 30,
+      "line_start": 27,
       "section_id": "c-06-query-traversal-and-explanation",
-      "text": "## C-06 — Query, traversal, and explanation\n\nQuery graph state, traverse relationships, explain why/what-governs/what-depends, and retain the evidence path supporting the answer.",
+      "text": "### C-06 — Query, traversal, and explanation\n\nQuery graph state, traverse relationships, explain why/what-governs/what-depends, and retain the evidence path supporting the answer.",
       "title": "C-06 — Query, traversal, and explanation"
     },
     {
       "identifiers": [
         "C-07"
       ],
-      "level": 2,
-      "line_end": 32,
-      "line_start": 29,
+      "level": 3,
+      "line_end": 34,
+      "line_start": 31,
       "section_id": "c-07-change-impact-and-incrementality",
-      "text": "## C-07 — Change impact and incrementality\n\nRelate repository changes to semantic entities and eventually derive minimal invalidation/execution scope.",
+      "text": "### C-07 — Change impact and incrementality\n\nRelate repository changes to semantic entities and derive minimal invalidation, validation, and execution scope.",
       "title": "C-07 — Change impact and incrementality"
     },
     {
       "identifiers": [
         "C-08"
       ],
-      "level": 2,
-      "line_end": 36,
-      "line_start": 33,
+      "level": 3,
+      "line_end": 38,
+      "line_start": 35,
       "section_id": "c-08-native-tool-orchestration",
-      "text": "## C-08 — Native tool orchestration\n\nPlan and invoke native compilers, formatters, linters, tests, build tools, infrastructure tools, and other adapters through explicit capability contracts.",
+      "text": "### C-08 — Native tool orchestration\n\nPlan and invoke native compilers, formatters, linters, tests, build tools, infrastructure tools, and other adapters through explicit capability contracts.",
       "title": "C-08 — Native tool orchestration"
     },
     {
       "identifiers": [
         "C-09"
       ],
-      "level": 2,
-      "line_end": 40,
-      "line_start": 37,
+      "level": 3,
+      "line_end": 42,
+      "line_start": 39,
       "section_id": "c-09-ai-agent-context-and-governance",
-      "text": "## C-09 — AI/agent context and governance\n\nSelect minimal authorized context, express scope/prohibitions/acceptance, record provenance, and support ChatGPT/Codex collaboration without granting unbounded authority.",
+      "text": "### C-09 — AI/agent context and governance\n\nSelect minimal authorized context, express scope/prohibitions/acceptance, record provenance, and support bounded AI collaboration without granting unbounded authority.",
       "title": "C-09 — AI/agent context and governance"
     },
     {
       "identifiers": [
         "C-10"
       ],
-      "level": 2,
-      "line_end": 44,
-      "line_start": 41,
+      "level": 3,
+      "line_end": 46,
+      "line_start": 43,
       "section_id": "c-10-policy-and-governance",
-      "text": "## C-10 — Policy and governance\n\nRepresent/evaluate engineering rules, ownership, architectural constraints, exceptions, and acceptance gates against semantic state.",
+      "text": "### C-10 — Policy and governance\n\nRepresent/evaluate engineering rules, ownership, architectural constraints, readiness/done gates, exceptions, autonomy strategies, and acceptance gates against semantic state.",
       "title": "C-10 — Policy and governance"
     },
     {
       "identifiers": [
         "C-11"
       ],
-      "level": 2,
-      "line_end": 48,
-      "line_start": 45,
+      "level": 3,
+      "line_end": 50,
+      "line_start": 47,
       "section_id": "c-11-documentation-and-projection",
-      "text": "## C-11 — Documentation and projection\n\nGenerate or validate machine companions, publication views, status, GitHub projections, and later other derived artifacts from canonical knowledge.",
+      "text": "### C-11 — Documentation and projection\n\nGenerate or validate machine companions, publication views, status, GitHub projections, dashboards, and other derived artifacts from canonical knowledge.",
       "title": "C-11 — Documentation and projection"
     },
     {
       "identifiers": [
         "C-12"
       ],
-      "level": 2,
-      "line_end": 52,
-      "line_start": 49,
+      "level": 3,
+      "line_end": 54,
+      "line_start": 51,
       "section_id": "c-12-extensibility-and-ecosystem",
-      "text": "## C-12 — Extensibility and ecosystem\n\nSupport adapters, plugins, registries, SDKs, and multi-repository evolution through stable contracts when scale requires them.",
+      "text": "### C-12 — Extensibility and ecosystem\n\nSupport adapters, plugins, registries, SDKs, packs, and multi-repository evolution through stable contracts.",
       "title": "C-12 — Extensibility and ecosystem"
     },
     {
       "identifiers": [
         "C-13"
       ],
-      "level": 2,
-      "line_end": 56,
-      "line_start": 53,
+      "level": 3,
+      "line_end": 58,
+      "line_start": 55,
       "section_id": "c-13-release-and-provenance",
-      "text": "## C-13 — Release and provenance\n\nCreate traceable release evidence linking source, resolved inputs, semantic state, tests, artifacts, compatibility, and signatures/attestations where applicable.",
+      "text": "### C-13 — Release and provenance\n\nCreate traceable release evidence linking source, resolved inputs, semantic state, tests, artifacts, compatibility, signatures, attestations, and approval evidence.",
       "title": "C-13 — Release and provenance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 59,
+      "section_id": "living-workspace-intelligence",
+      "text": "## Living workspace intelligence",
+      "title": "Living workspace intelligence"
+    },
+    {
+      "identifiers": [
+        "C-14"
+      ],
+      "level": 3,
+      "line_end": 64,
+      "line_start": 61,
+      "section_id": "c-14-workspace-intelligence-scoring",
+      "text": "### C-14 — Workspace intelligence scoring\n\nCompute an explainable 0–100 workspace-intelligence score and maturity tier from governed evidence across knowledge/memory, agent intelligence, automation/execution, health, and governance.",
+      "title": "C-14 — Workspace intelligence scoring"
+    },
+    {
+      "identifiers": [
+        "C-15"
+      ],
+      "level": 3,
+      "line_end": 68,
+      "line_start": 65,
+      "section_id": "c-15-unified-memory-intelligence-execution-loop",
+      "text": "### C-15 — Unified memory–intelligence–execution loop\n\nMaintain a governed feedback loop in which canonical memory informs bounded reasoning, authorized reasoning triggers execution, and execution creates provenance-rich memory/evidence.",
+      "title": "C-15 — Unified memory–intelligence–execution loop"
+    },
+    {
+      "identifiers": [
+        "C-16"
+      ],
+      "level": 3,
+      "line_end": 72,
+      "line_start": 69,
+      "section_id": "c-16-anti-hallucination-memory-and-knowledge-health",
+      "text": "### C-16 — Anti-hallucination memory and knowledge health\n\nDistinguish canonical, derived, proposed, uncertain, stale, contradictory, and superseded knowledge; identify zombie/stale nodes and degrading relationships; and expose health indicators without inventing completeness.",
+      "title": "C-16 — Anti-hallucination memory and knowledge health"
+    },
+    {
+      "identifiers": [
+        "C-17"
+      ],
+      "level": 3,
+      "line_end": 76,
+      "line_start": 73,
+      "section_id": "c-17-multi-vector-memory-and-intelligent-caching",
+      "text": "### C-17 — Multi-vector memory and intelligent caching\n\nSupport multiple vector spaces for code, data, and engineering/business semantics plus semantic/result-aware caches with isolation, provenance, invalidation, and privacy rules.",
+      "title": "C-17 — Multi-vector memory and intelligent caching"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 78,
+      "line_start": 77,
+      "section_id": "governed-agent-execution",
+      "text": "## Governed agent execution",
+      "title": "Governed agent execution"
+    },
+    {
+      "identifiers": [
+        "C-18"
+      ],
+      "level": 3,
+      "line_end": 82,
+      "line_start": 79,
+      "section_id": "c-18-autonomous-dependency-aware-orchestration",
+      "text": "### C-18 — Autonomous dependency-aware orchestration\n\nDispatch bounded agent work through dependency graphs with explicit authority, concurrency, cancellation, budgets, evidence capture, and experimental autonomy gates.",
+      "title": "C-18 — Autonomous dependency-aware orchestration"
+    },
+    {
+      "identifiers": [
+        "C-19"
+      ],
+      "level": 3,
+      "line_end": 86,
+      "line_start": 83,
+      "section_id": "c-19-progressive-autonomy-and-operator-stewardship",
+      "text": "### C-19 — Progressive autonomy and operator stewardship\n\nSupport named autonomy levels from advisory to stronger policy-governed execution, evidence-based promotion/demotion, and explicit human decision stewardship for unresolved authority/risk.",
+      "title": "C-19 — Progressive autonomy and operator stewardship"
+    },
+    {
+      "identifiers": [
+        "C-20"
+      ],
+      "level": 3,
+      "line_end": 90,
+      "line_start": 87,
+      "section_id": "c-20-cross-harness-verification",
+      "text": "### C-20 — Cross-harness verification\n\nRun independent parallel reviewers, preserve reviewer provenance, surface disagreements, and require governed disposition rather than treating model consensus as authority.",
+      "title": "C-20 — Cross-harness verification"
+    },
+    {
+      "identifiers": [
+        "C-21"
+      ],
+      "level": 3,
+      "line_end": 94,
+      "line_start": 91,
+      "section_id": "c-21-cost-capability-aware-ai-routing",
+      "text": "### C-21 — Cost/capability-aware AI routing\n\nRoute AI work across multiple hosted or local providers according to capability, complexity, policy, privacy, cost, and latency.",
+      "title": "C-21 — Cost/capability-aware AI routing"
+    },
+    {
+      "identifiers": [
+        "C-22"
+      ],
+      "level": 3,
+      "line_end": 98,
+      "line_start": 95,
+      "section_id": "c-22-agent-resilience-controls",
+      "text": "### C-22 — Agent resilience controls\n\nProvide retry/idempotency, exponential backoff, timeout/cancellation, circuit breakers, execution budgets, and failure isolation for agent/provider workflows.",
+      "title": "C-22 — Agent resilience controls"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 100,
+      "line_start": 99,
+      "section_id": "automation-integrations-and-resources",
+      "text": "## Automation, integrations, and resources",
+      "title": "Automation, integrations, and resources"
+    },
+    {
+      "identifiers": [
+        "C-23"
+      ],
+      "level": 3,
+      "line_end": 104,
+      "line_start": 101,
+      "section_id": "c-23-integration-adapter-framework",
+      "text": "### C-23 — Integration adapter framework\n\nProvide versioned resource and adapter contracts for external systems and a scalable integration catalog without embedding third-party semantics in the core.",
+      "title": "C-23 — Integration adapter framework"
+    },
+    {
+      "identifiers": [
+        "C-24"
+      ],
+      "level": 3,
+      "line_end": 108,
+      "line_start": 105,
+      "section_id": "c-24-intelligent-automation-workflows",
+      "text": "### C-24 — Intelligent automation workflows\n\nSupport reactive/event-driven workflows that can adapt within explicit policy and generate durable evidence/memory from their outcomes.",
+      "title": "C-24 — Intelligent automation workflows"
+    },
+    {
+      "identifiers": [
+        "C-25"
+      ],
+      "level": 3,
+      "line_end": 112,
+      "line_start": 109,
+      "section_id": "c-25-verified-pull-request-automation",
+      "text": "### C-25 — Verified pull-request automation\n\nCreate PRs from verified bounded work using isolated worktrees/branches, configurable rebase-first policy, and complete Work Packet/execution/evidence traceability.",
+      "title": "C-25 — Verified pull-request automation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 114,
+      "line_start": 113,
+      "section_id": "security-identity-governance-and-audit",
+      "text": "## Security, identity, governance, and audit",
+      "title": "Security, identity, governance, and audit"
+    },
+    {
+      "identifiers": [
+        "C-26"
+      ],
+      "level": 3,
+      "line_end": 118,
+      "line_start": 115,
+      "section_id": "c-26-signed-attestations-and-cryptographic-agility",
+      "text": "### C-26 — Signed attestations and cryptographic agility\n\nProduce DSSE-compatible change/release attestations and support rotating cryptographic profiles including conventional and post-quantum signatures.",
+      "title": "C-26 — Signed attestations and cryptographic agility"
+    },
+    {
+      "identifiers": [
+        "C-27"
+      ],
+      "level": 3,
+      "line_end": 122,
+      "line_start": 119,
+      "section_id": "c-27-multi-party-trust-and-key-lifecycle",
+      "text": "### C-27 — Multi-party trust and key lifecycle\n\nSupport multi-party approval/signature policies, key rotation/revocation, migration, and quantum-transition planning.",
+      "title": "C-27 — Multi-party trust and key lifecycle"
+    },
+    {
+      "identifiers": [
+        "C-28"
+      ],
+      "level": 3,
+      "line_end": 126,
+      "line_start": 123,
+      "section_id": "c-28-rbac-and-passkey-identity",
+      "text": "### C-28 — RBAC and passkey identity\n\nProvide RBAC, passkey/WebAuthn-backed identity, session/access policy, and password-protected shared surfaces where deployment mode requires them.",
+      "title": "C-28 — RBAC and passkey identity"
+    },
+    {
+      "identifiers": [
+        "C-29"
+      ],
+      "level": 3,
+      "line_end": 130,
+      "line_start": 127,
+      "section_id": "c-29-agent-and-prompt-security",
+      "text": "### C-29 — Agent and prompt security\n\nDetect/contain prompt-injection attempts, mask secrets, sandbox capabilities, apply least authority, and prevent unapproved tool/resource escalation.",
+      "title": "C-29 — Agent and prompt security"
+    },
+    {
+      "identifiers": [
+        "C-30"
+      ],
+      "level": 3,
+      "line_end": 134,
+      "line_start": 131,
+      "section_id": "c-30-change-control-and-immutable-audit",
+      "text": "### C-30 — Change control and immutable audit\n\nProvide formal change submission/review/approval/rollback/restore and tamper-evident audit records linking people, agents, decisions, policies, executions, evidence, and artifacts.",
+      "title": "C-30 — Change control and immutable audit"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 136,
+      "line_start": 135,
+      "section_id": "observation-and-operations",
+      "text": "## Observation and operations",
+      "title": "Observation and operations"
+    },
+    {
+      "identifiers": [
+        "C-31"
+      ],
+      "level": 3,
+      "line_end": 140,
+      "line_start": 137,
+      "section_id": "c-31-opentelemetry-and-health-observation",
+      "text": "### C-31 — OpenTelemetry and health observation\n\nExpose correlated structured logs, metrics, traces, graph-health indicators, stale/decay signals, and operational health through OpenTelemetry-compatible boundaries.",
+      "title": "C-31 — OpenTelemetry and health observation"
+    },
+    {
+      "identifiers": [
+        "C-32"
+      ],
+      "level": 3,
+      "line_end": 144,
+      "line_start": 141,
+      "section_id": "c-32-agent-execution-analytics",
+      "text": "### C-32 — Agent execution analytics\n\nRecord execution inputs, selected context, output diffs, verification, duration, token/cost data, failures, and resulting evidence.",
+      "title": "C-32 — Agent execution analytics"
+    },
+    {
+      "identifiers": [
+        "C-33"
+      ],
+      "level": 3,
+      "line_end": 148,
+      "line_start": 145,
+      "section_id": "c-33-privacy-governed-hosted-analytics",
+      "text": "### C-33 — Privacy-governed hosted analytics\n\nFor optional hosted/public surfaces, provide opt-in traffic/source/geography/device/usage analytics isolated from the local semantic core.",
+      "title": "C-33 — Privacy-governed hosted analytics"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 150,
+      "line_start": 149,
+      "section_id": "deployment-and-workspace-lifecycle",
+      "text": "## Deployment and workspace lifecycle",
+      "title": "Deployment and workspace lifecycle"
+    },
+    {
+      "identifiers": [
+        "C-34"
+      ],
+      "level": 3,
+      "line_end": 154,
+      "line_start": 151,
+      "section_id": "c-34-instant-shared-deployment",
+      "text": "### C-34 — Instant/shared deployment\n\nSupport automated deployment of approved surfaces with shareable endpoints, custom domains, access controls, and optional gallery/registry publication.",
+      "title": "C-34 — Instant/shared deployment"
+    },
+    {
+      "identifiers": [
+        "C-35"
+      ],
+      "level": 3,
+      "line_end": 158,
+      "line_start": 155,
+      "section_id": "c-35-workspace-cloning-and-restoration",
+      "text": "### C-35 — Workspace cloning and restoration\n\nClone/templates of complete governed workspace state with provenance and restore prior versioned states through canonical version control.",
+      "title": "C-35 — Workspace cloning and restoration"
+    },
+    {
+      "identifiers": [
+        "C-36"
+      ],
+      "level": 3,
+      "line_end": 162,
+      "line_start": 159,
+      "section_id": "c-36-enterprise-deployment-modes",
+      "text": "### C-36 — Enterprise deployment modes\n\nSupport air-gapped/no-exfiltration, on-premises, and optional AWS/GCP/Azure deployment profiles.",
+      "title": "C-36 — Enterprise deployment modes"
+    },
+    {
+      "identifiers": [
+        "C-37"
+      ],
+      "level": 3,
+      "line_end": 166,
+      "line_start": 163,
+      "section_id": "c-37-reproducible-environments",
+      "text": "### C-37 — Reproducible environments\n\nSupport Docker/container and Nix environment profiles for repeatable validation, execution, and release evidence.",
+      "title": "C-37 — Reproducible environments"
+    },
+    {
+      "identifiers": [
+        "C-38"
+      ],
+      "level": 3,
+      "line_end": 170,
+      "line_start": 167,
+      "section_id": "c-38-governed-file-and-media-handling",
+      "text": "### C-38 — Governed file and media handling\n\nProvide content-addressed file/media ingestion, storage/reference, provenance, classification, retention, access controls, and AI-processing policy.",
+      "title": "C-38 — Governed file and media handling"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 172,
+      "line_start": 171,
+      "section_id": "developer-and-ecosystem-surfaces",
+      "text": "## Developer and ecosystem surfaces",
+      "title": "Developer and ecosystem surfaces"
+    },
+    {
+      "identifiers": [
+        "C-39"
+      ],
+      "level": 3,
+      "line_end": 176,
+      "line_start": 173,
+      "section_id": "c-39-mcp-server",
+      "text": "### C-39 — MCP server\n\nExpose bounded semantic query/context/validation capabilities through a governed Model Context Protocol server.",
+      "title": "C-39 — MCP server"
+    },
+    {
+      "identifiers": [
+        "C-40"
+      ],
+      "level": 3,
+      "line_end": 180,
+      "line_start": 177,
+      "section_id": "c-40-lsp-and-ide-integration",
+      "text": "### C-40 — LSP and IDE integration\n\nExpose diagnostics, navigation, semantic relationships, explanations, and bounded actions through LSP/IDE integration surfaces.",
+      "title": "C-40 — LSP and IDE integration"
+    },
+    {
+      "identifiers": [
+        "C-41"
+      ],
+      "level": 3,
+      "line_end": 184,
+      "line_start": 181,
+      "section_id": "c-41-plugin-sdk-registry-and-packs",
+      "text": "### C-41 — Plugin SDK, registry, and packs\n\nProvide versioned plugin SDK, registry/discovery, curated packs, compatibility, provenance, signature, and permission contracts.",
+      "title": "C-41 — Plugin SDK, registry, and packs"
+    },
+    {
+      "identifiers": [
+        "C-42"
+      ],
+      "level": 3,
+      "line_end": 188,
+      "line_start": 185,
+      "section_id": "c-42-pluggable-graph-vector-storage",
+      "text": "### C-42 — Pluggable graph/vector storage\n\nSupport local-first storage plus adapters for external graph/vector systems when scale/deployment evidence requires them.",
+      "title": "C-42 — Pluggable graph/vector storage"
+    },
+    {
+      "identifiers": [
+        "C-43"
+      ],
+      "level": 3,
+      "line_end": 192,
+      "line_start": 189,
+      "section_id": "c-43-external-runtime-compatibility-profiles",
+      "text": "### C-43 — External runtime compatibility profiles\n\nPermit isolated adapter-defined compatibility with external bytecode/runtime ecosystems, including an optional EVM bytecode profile, without redefining Monad semantic truth.",
+      "title": "C-43 — External runtime compatibility profiles"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 194,
+      "line_start": 193,
+      "section_id": "performance-and-scale",
+      "text": "## Performance and scale",
+      "title": "Performance and scale"
+    },
+    {
+      "identifiers": [
+        "C-44"
+      ],
+      "level": 3,
+      "line_end": 198,
+      "line_start": 195,
+      "section_id": "c-44-deterministic-parallel-execution",
+      "text": "### C-44 — Deterministic parallel execution\n\nSchedule independent internal work in parallel using dependency/conflict analysis while preserving deterministic evidence/state ordering.",
+      "title": "C-44 — Deterministic parallel execution"
+    },
+    {
+      "identifiers": [
+        "C-45"
+      ],
+      "level": 3,
+      "line_end": 202,
+      "line_start": 199,
+      "section_id": "c-45-high-throughput-and-fast-finalization-benchmark-profiles",
+      "text": "### C-45 — High-throughput and fast-finalization benchmark profiles\n\nMaintain declared benchmark profiles including a long-range target of at least 10,000 lightweight internal scheduler/graph operations per second and eligible local governed-state transitions at or below 400 ms p95 once inputs are available.",
+      "title": "C-45 — High-throughput and fast-finalization benchmark profiles"
     },
     {
       "identifiers": [
         "C-01",
-        "C-02",
-        "C-03",
-        "C-04",
-        "C-05",
-        "C-06",
-        "C-07",
-        "C-08",
-        "C-09",
-        "C-10",
-        "C-11",
-        "C-12",
-        "C-13"
+        "C-13",
+        "C-14",
+        "C-45"
       ],
       "level": 2,
-      "line_end": 59,
-      "line_start": 57,
-      "section_id": "mvp-capability-boundary",
-      "text": "## MVP capability boundary\n\nMVP directly requires C-01, C-02, C-03, foundations of C-04, C-05, C-06, bounded C-09, and enough C-11/C-13 to prove deterministic provenance. C-07/C-08 begin only to the extent needed to demonstrate impact/validation; C-10/C-12 are architected but not broadly implemented.",
-      "title": "MVP capability boundary"
+      "line_end": 205,
+      "line_start": 203,
+      "section_id": "capability-boundary",
+      "text": "## Capability boundary\n\nMVP Release 1 directly requires C-01 through foundations of C-13 as defined by `MVP-RELEASE-1.md`. C-14 through C-45 form the governed post-MVP capability roadmap. Their presence in the product baseline does not authorize implementation or expand MVP scope automatically.",
+      "title": "Capability boundary"
     }
   ],
   "source": {
-    "bytes": 2839,
+    "bytes": 9677,
     "canonical": true,
     "language": "markdown",
-    "lines": 59,
+    "lines": 205,
     "media_type": "text/markdown",
     "path": "product/capabilities.md",
-    "sha256": "5ae5a6e1229c1605af9ad892b27832e4b61f5cbe2864d58ac10a305e7ae9180b"
+    "sha256": "9d88e55227e674f2270448d3fa8a9f55df7bd055529d0e757f5846d8547f9758"
   }
 }

@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/change-request.schema.json\",\"title\":\"EOS ChangeRequest\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"target_ids\",\"summary\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^CR-[0-9]{4}$\"},\"entity_type\":{\"const\":\"ChangeRequest\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"DRAFT\",\"PROPOSED\",\"APPROVED\",\"APPLIED\",\"CLOSED\",\"REJECTED\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"target_ids\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1},\"minItems\":1,\"uniqueItems\":true},\"summary\":{\"type\":\"string\",\"minLength\":1},\"rationale\":{\"type\":\"string\"}},\"unevaluatedProperties\":false}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Fchange-request.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/change-request.schema.json.",
+    "title": "Change Request.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/change-request.schema.json\",\"title\":\"EOS ChangeRequest\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"title\",\"target_ids\",\"summary\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^CR-[0-9]{4}$\"},\"entity_type\":{\"const\":\"ChangeRequest\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"DRAFT\",\"PROPOSED\",\"APPROVED\",\"APPLIED\",\"CLOSED\",\"REJECTED\"]},\"title\":{\"type\":\"string\",\"minLength\":1},\"target_ids\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1},\"minItems\":1,\"uniqueItems\":true},\"summary\":{\"type\":\"string\",\"minLength\":1},\"rationale\":{\"type\":\"string\"}},\"unevaluatedProperties\":false}",
+      "title": "Change Request.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 730,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/change-request.schema.json",
+    "sha256": "cbd411d4a1fb7aa16f969caf9cdd5af82800f1562ec576ad5bd646c020e836b7"
+  }
+}

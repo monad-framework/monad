@@ -1,5 +1,5 @@
 {
-  "content": "# WP-MVP-0004 — Markdown engineering artifact parser\n\n**Status:** Refined — blocked from Ready by WP-MVP-0003 and ADR-0005  \n**Epic:** EPIC-003  \n**Feature:** F-003-02  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001\n\n## Objective\n\nParse canonical Markdown artifacts into deterministic provenance-rich structural records and reference candidates without LLM inference or executable semantics.\n\n## Governing authority\n\n- FR-002; QR-001, QR-003\n- ADR-0003, ADR-0004\n- DATA-SOURCE-0001\n- TECH-INGEST-0001\n- proposed ADR-0005\n\n## Dependencies\n\nWP-MVP-0003 provides stable source/document identity. ADR-0005 establishes implementation topology.\n\n## Acceptance criteria\n\n- [ ] US-011 section/heading/metadata structure and source ranges are extracted deterministically.\n- [ ] US-012 governed identifiers/status metadata are extracted according to artifact contracts.\n- [ ] US-013 links and identifier references are emitted as unresolved candidates with provenance.\n- [ ] US-014 malformed/ambiguous governed constructs produce source-located diagnostics; partial recovery is not silently valid semantic state.\n- [ ] code fences containing fake IDs/links are not treated as ordinary governed references.\n- [ ] HTML/scripts/macros are never executed.\n- [ ] repeat-run normalized output is equivalent/byte-stable where declared canonical.\n\n## Out of scope\n\nsemantic graph construction, reference resolution, natural-language inference, arbitrary MDX execution, remote includes.\n\n## Validation\n\nParser golden corpus covering headings, metadata, links, code fences, comments, Unicode, malformed constructs, empty documents, and security fixtures; machine-document freshness check.\n",
+  "content": "# WP-MVP-0004 — Markdown engineering artifact parser\n\n**Status:** CLOSED\n**Epic:** EPIC-003  \n**Feature:** F-003-02  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001\n\n## Objective\n\nParse canonical Markdown artifacts into deterministic provenance-rich structural records and reference candidates without LLM inference or executable semantics.\n\n## Governing authority\n\n- FR-002; QR-001, QR-003\n- ADR-0003, ADR-0004\n- DATA-SOURCE-0001\n- TECH-INGEST-0001\n- ADR-0005\n\n## Dependencies\n\n- WP-MVP-0003 is CLOSED and provides stable source/document identity.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.\n- WC-MVP-0002 is ACTIVE and provides the current Parsing and Reference Resolution cycle context.\n\n## Acceptance criteria\n\n- [x] US-011 section/heading/metadata structure and source ranges are extracted deterministically.\n- [x] US-012 governed identifiers/status metadata are extracted according to artifact contracts.\n- [x] US-013 links and identifier references are emitted as unresolved candidates with provenance.\n- [x] US-014 malformed/ambiguous governed constructs produce source-located diagnostics; partial recovery is not silently valid semantic state.\n- [x] code fences containing fake IDs/links are not treated as ordinary governed references.\n- [x] HTML/scripts/macros are never executed.\n- [x] repeat-run normalized output is equivalent/byte-stable where declared canonical.\n\n## Out of scope\n\nsemantic graph construction, reference resolution, natural-language inference, arbitrary MDX execution, remote includes.\n\n## Validation\n\nParser golden corpus covering headings, metadata, links, code fences, comments, Unicode, malformed constructs, empty documents, and security fixtures; machine-document freshness check.\n",
   "document_id": "doc:engineering%2Fwork-packets%2FWP-MVP-0004.md",
   "generation": {
     "deterministic": true,
@@ -18,7 +18,7 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "Status: Refined — blocked from Ready by WP-MVP-0003 and ADR-0005 Epic: EPIC-003 Feature: F-003-02 Program Increment: PI-MVP-001 Work Cycle: WC-MVP-0002 Product Goal: PG-001",
+    "summary": "Status: CLOSED Epic: EPIC-003 Feature: F-003-02 Program Increment: PI-MVP-001 Work Cycle: WC-MVP-0002 Product Goal: PG-001",
     "title": "WP-MVP-0004 — Markdown engineering artifact parser"
   },
   "relations": [],
@@ -26,14 +26,12 @@
   "schema_version": "1.0.0",
   "sections": [
     {
-      "identifiers": [
-        "ADR-0005"
-      ],
+      "identifiers": [],
       "level": 1,
       "line_end": 9,
       "line_start": 1,
       "section_id": "wp-mvp-0004-markdown-engineering-artifact-parser",
-      "text": "# WP-MVP-0004 — Markdown engineering artifact parser\n\n**Status:** Refined — blocked from Ready by WP-MVP-0003 and ADR-0005  \n**Epic:** EPIC-003  \n**Feature:** F-003-02  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001",
+      "text": "# WP-MVP-0004 — Markdown engineering artifact parser\n\n**Status:** CLOSED\n**Epic:** EPIC-003  \n**Feature:** F-003-02  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001",
       "title": "WP-MVP-0004 — Markdown engineering artifact parser"
     },
     {
@@ -58,7 +56,7 @@
       "line_end": 21,
       "line_start": 14,
       "section_id": "governing-authority",
-      "text": "## Governing authority\n\n- FR-002; QR-001, QR-003\n- ADR-0003, ADR-0004\n- DATA-SOURCE-0001\n- TECH-INGEST-0001\n- proposed ADR-0005",
+      "text": "## Governing authority\n\n- FR-002; QR-001, QR-003\n- ADR-0003, ADR-0004\n- DATA-SOURCE-0001\n- TECH-INGEST-0001\n- ADR-0005",
       "title": "Governing authority"
     },
     {
@@ -66,26 +64,26 @@
         "ADR-0005"
       ],
       "level": 2,
-      "line_end": 25,
+      "line_end": 27,
       "line_start": 22,
       "section_id": "dependencies",
-      "text": "## Dependencies\n\nWP-MVP-0003 provides stable source/document identity. ADR-0005 establishes implementation topology.",
+      "text": "## Dependencies\n\n- WP-MVP-0003 is CLOSED and provides stable source/document identity.\n- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.\n- WC-MVP-0002 is ACTIVE and provides the current Parsing and Reference Resolution cycle context.",
       "title": "Dependencies"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 35,
-      "line_start": 26,
+      "line_end": 37,
+      "line_start": 28,
       "section_id": "acceptance-criteria",
-      "text": "## Acceptance criteria\n\n- [ ] US-011 section/heading/metadata structure and source ranges are extracted deterministically.\n- [ ] US-012 governed identifiers/status metadata are extracted according to artifact contracts.\n- [ ] US-013 links and identifier references are emitted as unresolved candidates with provenance.\n- [ ] US-014 malformed/ambiguous governed constructs produce source-located diagnostics; partial recovery is not silently valid semantic state.\n- [ ] code fences containing fake IDs/links are not treated as ordinary governed references.\n- [ ] HTML/scripts/macros are never executed.\n- [ ] repeat-run normalized output is equivalent/byte-stable where declared canonical.",
+      "text": "## Acceptance criteria\n\n- [x] US-011 section/heading/metadata structure and source ranges are extracted deterministically.\n- [x] US-012 governed identifiers/status metadata are extracted according to artifact contracts.\n- [x] US-013 links and identifier references are emitted as unresolved candidates with provenance.\n- [x] US-014 malformed/ambiguous governed constructs produce source-located diagnostics; partial recovery is not silently valid semantic state.\n- [x] code fences containing fake IDs/links are not treated as ordinary governed references.\n- [x] HTML/scripts/macros are never executed.\n- [x] repeat-run normalized output is equivalent/byte-stable where declared canonical.",
       "title": "Acceptance criteria"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 39,
-      "line_start": 36,
+      "line_end": 41,
+      "line_start": 38,
       "section_id": "out-of-scope",
       "text": "## Out of scope\n\nsemantic graph construction, reference resolution, natural-language inference, arbitrary MDX execution, remote includes.",
       "title": "Out of scope"
@@ -93,20 +91,20 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 42,
-      "line_start": 40,
+      "line_end": 44,
+      "line_start": 42,
       "section_id": "validation",
       "text": "## Validation\n\nParser golden corpus covering headings, metadata, links, code fences, comments, Unicode, malformed constructs, empty documents, and security fixtures; machine-document freshness check.",
       "title": "Validation"
     }
   ],
   "source": {
-    "bytes": 1718,
+    "bytes": 1805,
     "canonical": true,
     "language": "markdown",
-    "lines": 42,
+    "lines": 44,
     "media_type": "text/markdown",
     "path": "engineering/work-packets/WP-MVP-0004.md",
-    "sha256": "2ba599992331fb6ca8d998e389d9e700e4721aec4627c2ea1ef56f304b7bfb70"
+    "sha256": "b3dfc3ffb9ad509ccde044e159a7464cdd758ecc65f67ec0755dee473dfee952"
   }
 }

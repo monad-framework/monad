@@ -1,5 +1,5 @@
 {
-  "content": "# WP-MVP-0005 — Structured Monad configuration parser\n\n**Status:** Refined — blocked from Ready by WP-MVP-0001/WP-MVP-0003 and ADR-0005  \n**Epic:** EPIC-003  \n**Feature:** F-003-03  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001\n\n## Objective\n\nRepresent canonical `monad.toml` as a provenance-rich semantic input after bootstrap validation, without creating a competing configuration authority.\n\n## Governing authority\n\n- FR-001, FR-002; QR-001, QR-003\n- ADR-0002, ADR-0003, ADR-0004\n- IFC-WORKSPACE-0001\n- DATA-SOURCE-0001\n- TECH-INGEST-0002\n- proposed ADR-0005\n\n## Dependencies\n\nWP-MVP-0001 supplies valid effective configuration; WP-MVP-0003 supplies identity/provenance. This packet does not reimplement configuration precedence.\n\n## Acceptance criteria\n\n- [ ] US-015 valid `monad.toml` becomes a deterministic semantic document record.\n- [ ] US-016 schema/parse errors remain diagnostics and block a valid semantic config document.\n- [ ] US-017 normalized semantic representation is deterministic and retains source/effective-value provenance distinctions.\n- [ ] `.monad/manifest.yaml` cannot override or become a competing semantic config source.\n- [ ] no environment interpolation, command substitution, network lookup, or include execution occurs.\n\n## Implementation boundary\n\nUnder ADR-0005, semantic config adaptation belongs in the ingestion/config modules of `monad-core`; bootstrap loader semantics from WP-MVP-0001 are reused rather than duplicated.\n\n## Validation\n\nGolden config corpus for canonical repository config, malformed/unknown/unsupported keys, override provenance, deterministic representation, and legacy-manifest non-authority.\n",
+  "content": "# WP-MVP-0005 — Structured Monad configuration parser\n\n**Status:** AUTHORIZED\n**Epic:** EPIC-003  \n**Feature:** F-003-03  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001\n\n## Objective\n\nRepresent canonical `monad.toml` as a provenance-rich semantic input after bootstrap validation, without creating a competing configuration authority.\n\n## Governing authority\n\n- FR-001, FR-002; QR-001, QR-003\n- ADR-0002, ADR-0003, ADR-0004\n- IFC-WORKSPACE-0001\n- DATA-SOURCE-0001\n- TECH-INGEST-0002\n- ADR-0005\n\n## Dependencies\n\n- WP-MVP-0001 is CLOSED and supplies valid effective configuration and precedence semantics.\n- WP-MVP-0003 is CLOSED and supplies stable source/document identity and provenance.\n- ADR-0005 is Accepted and authorizes the MVP Rust implementation topology and `monad-core` semantic boundary.\n- WC-MVP-0002 is ACTIVE and supplies the current parsing/reference-resolution execution context.\n\nThese historical prerequisite blockers are satisfied. This packet does not reimplement configuration precedence. Prerequisite completion alone did not make the packet Ready, authorized, or started; those lifecycle transitions require separate governed EOS gates.\n\n## Acceptance criteria\n\n- [ ] US-015 valid `monad.toml` becomes a deterministic semantic document record.\n- [ ] US-016 schema/parse errors remain diagnostics and block a valid semantic config document.\n- [ ] US-017 normalized semantic representation is deterministic and retains source/effective-value provenance distinctions.\n- [ ] `.monad/manifest.yaml` cannot override or become a competing semantic config source.\n- [ ] no environment interpolation, command substitution, network lookup, or include execution occurs.\n\n## Implementation boundary\n\nUnder ADR-0005, semantic config adaptation belongs in the ingestion/config modules of `monad-core`; bootstrap loader semantics from WP-MVP-0001 are reused rather than duplicated.\n\n## Validation\n\nGolden config corpus for canonical repository config, malformed/unknown/unsupported keys, override provenance, deterministic representation, and legacy-manifest non-authority.\n\n## Authorization disposition\n\nThe prior dependency block is cleared by canonical closure/acceptance evidence for WP-MVP-0001 and WP-MVP-0003 plus the Accepted ADR-0005. This packet was adopted into canonical EOS lifecycle control, passed `WP_READY` (`DRAFT → READY`), and has now passed the separate `WP_AUTHORIZE` gate (`READY → AUTHORIZED`). The next permitted lifecycle action is the separate EOSE start transition. Execution preparation, start, product mutation, and implementation remain prohibited until that governed start transition passes and is recorded.\n",
   "document_id": "doc:engineering%2Fwork-packets%2FWP-MVP-0005.md",
   "generation": {
     "deterministic": true,
@@ -20,7 +20,7 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "Status: Refined — blocked from Ready by WP-MVP-0001/WP-MVP-0003 and ADR-0005 Epic: EPIC-003 Feature: F-003-03 Program Increment: PI-MVP-001 Work Cycle: WC-MVP-0002 Product Goal: PG-001",
+    "summary": "Status: AUTHORIZED Epic: EPIC-003 Feature: F-003-03 Program Increment: PI-MVP-001 Work Cycle: WC-MVP-0002 Product Goal: PG-001",
     "title": "WP-MVP-0005 — Structured Monad configuration parser"
   },
   "relations": [],
@@ -28,14 +28,12 @@
   "schema_version": "1.0.0",
   "sections": [
     {
-      "identifiers": [
-        "ADR-0005"
-      ],
+      "identifiers": [],
       "level": 1,
       "line_end": 9,
       "line_start": 1,
       "section_id": "wp-mvp-0005-structured-monad-configuration-parser",
-      "text": "# WP-MVP-0005 — Structured Monad configuration parser\n\n**Status:** Refined — blocked from Ready by WP-MVP-0001/WP-MVP-0003 and ADR-0005  \n**Epic:** EPIC-003  \n**Feature:** F-003-03  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001",
+      "text": "# WP-MVP-0005 — Structured Monad configuration parser\n\n**Status:** AUTHORIZED\n**Epic:** EPIC-003  \n**Feature:** F-003-03  \n**Program Increment:** PI-MVP-001  \n**Work Cycle:** WC-MVP-0002  \n**Product Goal:** PG-001",
       "title": "WP-MVP-0005 — Structured Monad configuration parser"
     },
     {
@@ -62,23 +60,25 @@
       "line_end": 22,
       "line_start": 14,
       "section_id": "governing-authority",
-      "text": "## Governing authority\n\n- FR-001, FR-002; QR-001, QR-003\n- ADR-0002, ADR-0003, ADR-0004\n- IFC-WORKSPACE-0001\n- DATA-SOURCE-0001\n- TECH-INGEST-0002\n- proposed ADR-0005",
+      "text": "## Governing authority\n\n- FR-001, FR-002; QR-001, QR-003\n- ADR-0002, ADR-0003, ADR-0004\n- IFC-WORKSPACE-0001\n- DATA-SOURCE-0001\n- TECH-INGEST-0002\n- ADR-0005",
       "title": "Governing authority"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "ADR-0005"
+      ],
       "level": 2,
-      "line_end": 26,
+      "line_end": 31,
       "line_start": 23,
       "section_id": "dependencies",
-      "text": "## Dependencies\n\nWP-MVP-0001 supplies valid effective configuration; WP-MVP-0003 supplies identity/provenance. This packet does not reimplement configuration precedence.",
+      "text": "## Dependencies\n\n- WP-MVP-0001 is CLOSED and supplies valid effective configuration and precedence semantics.\n- WP-MVP-0003 is CLOSED and supplies stable source/document identity and provenance.\n- ADR-0005 is Accepted and authorizes the MVP Rust implementation topology and `monad-core` semantic boundary.\n- WC-MVP-0002 is ACTIVE and supplies the current parsing/reference-resolution execution context.\n\nThese historical prerequisite blockers are satisfied. This packet does not reimplement configuration precedence. Prerequisite completion alone did not make the packet Ready, authorized, or started; those lifecycle transitions require separate governed EOS gates.",
       "title": "Dependencies"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 34,
-      "line_start": 27,
+      "line_end": 39,
+      "line_start": 32,
       "section_id": "acceptance-criteria",
       "text": "## Acceptance criteria\n\n- [ ] US-015 valid `monad.toml` becomes a deterministic semantic document record.\n- [ ] US-016 schema/parse errors remain diagnostics and block a valid semantic config document.\n- [ ] US-017 normalized semantic representation is deterministic and retains source/effective-value provenance distinctions.\n- [ ] `.monad/manifest.yaml` cannot override or become a competing semantic config source.\n- [ ] no environment interpolation, command substitution, network lookup, or include execution occurs.",
       "title": "Acceptance criteria"
@@ -88,8 +88,8 @@
         "ADR-0005"
       ],
       "level": 2,
-      "line_end": 38,
-      "line_start": 35,
+      "line_end": 43,
+      "line_start": 40,
       "section_id": "implementation-boundary",
       "text": "## Implementation boundary\n\nUnder ADR-0005, semantic config adaptation belongs in the ingestion/config modules of `monad-core`; bootstrap loader semantics from WP-MVP-0001 are reused rather than duplicated.",
       "title": "Implementation boundary"
@@ -97,20 +97,31 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 41,
-      "line_start": 39,
+      "line_end": 47,
+      "line_start": 44,
       "section_id": "validation",
       "text": "## Validation\n\nGolden config corpus for canonical repository config, malformed/unknown/unsupported keys, override provenance, deterministic representation, and legacy-manifest non-authority.",
       "title": "Validation"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 48,
+      "section_id": "authorization-disposition",
+      "text": "## Authorization disposition\n\nThe prior dependency block is cleared by canonical closure/acceptance evidence for WP-MVP-0001 and WP-MVP-0003 plus the Accepted ADR-0005. This packet was adopted into canonical EOS lifecycle control, passed `WP_READY` (`DRAFT → READY`), and has now passed the separate `WP_AUTHORIZE` gate (`READY → AUTHORIZED`). The next permitted lifecycle action is the separate EOSE start transition. Execution preparation, start, product mutation, and implementation remain prohibited until that governed start transition passes and is recorded.",
+      "title": "Authorization disposition"
     }
   ],
   "source": {
-    "bytes": 1705,
+    "bytes": 2701,
     "canonical": true,
     "language": "markdown",
-    "lines": 41,
+    "lines": 50,
     "media_type": "text/markdown",
     "path": "engineering/work-packets/WP-MVP-0005.md",
-    "sha256": "c91c1ffeed845f53c20a81249b2057d825606dbfcd437cf6d262c0006b1314a4"
+    "sha256": "5d38b78606f732ee84d2661ae6ee0f1e81511c2e043bc186d08fd85abcd9e81d"
   }
 }

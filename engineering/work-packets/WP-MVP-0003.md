@@ -1,6 +1,6 @@
 # WP-MVP-0003 — Stable source and document identity
 
-**Status:** Refined — blocked from Ready by workspace bootstrap and ADR-0005  
+**Status:** CLOSED
 **Epic:** EPIC-003  
 **Feature:** F-003-01  
 **Program Increment:** PI-MVP-001  
@@ -17,21 +17,23 @@ Create clone-independent source/document identities and content provenance that 
 - ADR-0003
 - DATA-SOURCE-0001
 - TECH-WORKSPACE-0001
-- proposed ADR-0005
+- ADR-0005
 
 ## Dependencies
 
-WP-MVP-0001 root semantics and WP-MVP-0002 canonical discovery output must be stable. ADR-0005 must be accepted before implementation authorization.
+- WP-MVP-0001 is CLOSED and provides stable repository root/effective configuration semantics.
+- WP-MVP-0002 is CLOSED and provides stable canonical discovery output.
+- ADR-0005 is Accepted and establishes the authorized MVP implementation topology.
 
 ## Acceptance criteria
 
-- [ ] US-008 stable Source IDs are equal across equivalent clean clones.
-- [ ] US-009 SHA-256/source/parser provenance is recorded and changes when consumed bytes change.
-- [ ] US-010 duplicate governed identifiers produce collision diagnostics naming all sources.
-- [ ] content edits do not change Source ID solely because content changed.
-- [ ] explicit governed Document IDs survive source-path moves; path-only Source IDs do not.
-- [ ] absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity.
-- [ ] case-collision and symlink-alias fixtures are deterministic.
+- [x] US-008 stable Source IDs are equal across equivalent clean clones.
+- [x] US-009 SHA-256/source/parser provenance is recorded and changes when consumed bytes change.
+- [x] US-010 duplicate governed identifiers produce collision diagnostics naming all sources.
+- [x] content edits do not change Source ID solely because content changed.
+- [x] explicit governed Document IDs survive source-path moves; path-only Source IDs do not.
+- [x] absolute host path, time, random IDs, inode/device data, and Git branch do not affect identity.
+- [x] case-collision and symlink-alias fixtures are deterministic.
 
 ## Implementation boundary
 

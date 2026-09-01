@@ -1,0 +1,76 @@
+{
+  "content": "---\nartifact_id: \"GOV-EXEC-0001\"\ntitle: \"EOSE Execution Engine\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSE Execution Engine\n\nEOSE Execution v2 turns an authorized work packet into a bounded, reproducible,\nauditable implementation session.\n\n## Execution Flow\n\n`AUTHORIZED WP -> preflight -> isolated worktree/branch -> EXEC-* session ->\nfingerprinted machine/human contracts -> bounded implementation -> result\n ingestion -> scope/concurrency checks -> verification evidence -> review`\n\n## Invariants\n\n- one active execution session per work packet unless policy explicitly changes;\n- execution contracts are fingerprinted against governing inputs;\n- governing-input drift invalidates a contract instead of being silently ignored;\n- changed files must satisfy work-packet execution-scope rules;\n- EOS and Git metadata are never authorized implementation scope;\n- concurrent mutation of one WP/EXEC target is protected by EOS lock records;\n- agent output is ingested as structured evidence, never trusted as the sole proof;\n- the actual Git diff is compared with the agent-declared changed-file list;\n- execution does not itself approve verification, review, closure, or release.\n\n## Work Packet Scope Directives\n\nWork packets may contain machine-readable list entries:\n\n```text\n- allowed-path: src/**\n- allowed-path: tests/**\n- forbidden-path: scripts/release/**\n- allowed-governed-path: specifications/CORE/SPEC-CORE-0007.md\n```\n\nIf no `allowed-path` is present, the execution engine permits repository files\nby default but still blocks EOS/Git internals and flags governed-artifact\nchanges unless specifically authorized by `allowed-governed-path`.\n",
+  "document_id": "doc:governance%2Fexecution-engine.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "governance",
+    "normative": true,
+    "summary": "--- artifactid: \"GOV-EXEC-0001\" title: \"EOSE Execution Engine\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "title": "EOSE Execution Engine"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"GOV-EXEC-0001\"\ntitle: \"EOSE Execution Engine\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 16,
+      "line_start": 12,
+      "section_id": "eose-execution-engine",
+      "text": "# EOSE Execution Engine\n\nEOSE Execution v2 turns an authorized work packet into a bounded, reproducible,\nauditable implementation session.",
+      "title": "EOSE Execution Engine"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 17,
+      "section_id": "execution-flow",
+      "text": "## Execution Flow\n\n`AUTHORIZED WP -> preflight -> isolated worktree/branch -> EXEC-* session ->\nfingerprinted machine/human contracts -> bounded implementation -> result\n ingestion -> scope/concurrency checks -> verification evidence -> review`",
+      "title": "Execution Flow"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 23,
+      "section_id": "invariants",
+      "text": "## Invariants\n\n- one active execution session per work packet unless policy explicitly changes;\n- execution contracts are fingerprinted against governing inputs;\n- governing-input drift invalidates a contract instead of being silently ignored;\n- changed files must satisfy work-packet execution-scope rules;\n- EOS and Git metadata are never authorized implementation scope;\n- concurrent mutation of one WP/EXEC target is protected by EOS lock records;\n- agent output is ingested as structured evidence, never trusted as the sole proof;\n- the actual Git diff is compared with the agent-declared changed-file list;\n- execution does not itself approve verification, review, closure, or release.",
+      "title": "Invariants"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 35,
+      "section_id": "work-packet-scope-directives",
+      "text": "## Work Packet Scope Directives\n\nWork packets may contain machine-readable list entries:\n\n```text\n- allowed-path: src/**\n- allowed-path: tests/**\n- forbidden-path: scripts/release/**\n- allowed-governed-path: specifications/CORE/SPEC-CORE-0007.md\n```\n\nIf no `allowed-path` is present, the execution engine permits repository files\nby default but still blocks EOS/Git internals and flags governed-artifact\nchanges unless specifically authorized by `allowed-governed-path`.",
+      "title": "Work Packet Scope Directives"
+    }
+  ],
+  "source": {
+    "bytes": 1753,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 48,
+    "media_type": "text/markdown",
+    "path": "governance/execution-engine.md",
+    "sha256": "f6b5bd538e3917578e135cd389456fcec1b34e0b0388166e16da1754efb7072a"
+  }
+}

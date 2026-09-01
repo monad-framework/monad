@@ -1,0 +1,163 @@
+{
+  "content": "---\nartifact_id: \"REV-WP-MVP-0001\"\ntitle: \"WP-MVP-0001 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"In Review\"\nauthority: \"review-authoritative\"\ncreated: \"2026-08-16\"\nupdated: \"2026-08-16\"\n---\n\n# WP-MVP-0001 — Engineering Review\n\n**Decision:** PENDING\n\n## Target\n\n- Artifact: `engineering/work-packets/WP-MVP-0001.md`\n- State at review start: VERIFYING\n- Review generated: 2026-08-16T10:59:23Z\n- Git HEAD: e25ed4acbb29aa2d012f9c1e1203b70eeca9be1f\n\n## Deterministic Verification\n\n**Result:** PASS\n\n```text\nregistered artifacts: 52\nevents: 83\noverrides: 0\ntrace edges: 314\nprogram increments: 2\nwork cycles: 2\nwork packets: 2\nopen stale records: 0\ntrace coverage: 25.0%\nwarnings:\n  WARN registered Markdown artifact has no EOS front matter: governance/terminology.md\n  WARN registered Markdown artifact has no EOS front matter: vision/problem-statement.md\n  WARN registered Markdown artifact has no EOS front matter: vision/product-vision.md\n  WARN registered Markdown artifact has no EOS front matter: vision/principles.md\n  WARN registered Markdown artifact has no EOS front matter: vision/goals.md\n  WARN registered Markdown artifact has no EOS front matter: vision/non-goals.md\n  WARN registered Markdown artifact has no EOS front matter: product/personas.md\n  WARN registered Markdown artifact has no EOS front matter: product/use-cases.md\n  WARN registered Markdown artifact has no EOS front matter: product/user-journeys.md\n  WARN registered Markdown artifact has no EOS front matter: product/capabilities.md\n  WARN registered Markdown artifact has no EOS front matter: product/product-requirements.md\n  WARN registered Markdown artifact has no EOS front matter: product/constraints.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/quality-attributes.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/context.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/system-boundaries.md\n  WARN registered Markdown artifact has no EOS front matter: research/questions.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/overview.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/increments/PI-001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-cycles/WC-0001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-packets/WP-0001.md\nRESULT: PASS\n```\n\n## Scope Conformance\n\nTBD.\n\n## Requirements / Specification Conformance\n\nTBD.\n\n## Architecture Conformance\n\nTBD.\n\n## Acceptance Criteria Evidence\n\nTBD.\n\n## Test / Validation Evidence\n\nTBD.\n\n## Security / Reliability Findings\n\nTBD.\n\n## Traceability Findings\n\nTBD.\n\n## Blocking Findings\n\nTBD.\n\n## Non-Blocking Findings\n\nTBD.\n\n## Decision\n\nSet the top-level `**Decision:**` to one of:\n\n- ACCEPTED\n- ACCEPTED_WITH_FOLLOW_UP\n- REJECTED\n- BLOCKED\n",
+  "document_id": "doc:.eos%2Fhistory%2Fengineering%2Freviews%2FWP-MVP-0001-REVIEW%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WC-0001",
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"REV-WP-MVP-0001\" title: \"WP-MVP-0001 Engineering Review\" type: \"review\" version: \"0.1.0\" status: \"In Review\" authority: \"review-authoritative\" created: \"2026-08-16\" updated: \"2026-08-16\" ---",
+    "title": "WP-MVP-0001 — Engineering Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"REV-WP-MVP-0001\"\ntitle: \"WP-MVP-0001 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"In Review\"\nauthority: \"review-authoritative\"\ncreated: \"2026-08-16\"\nupdated: \"2026-08-16\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "wp-mvp-0001-engineering-review",
+      "text": "# WP-MVP-0001 — Engineering Review\n\n**Decision:** PENDING",
+      "title": "WP-MVP-0001 — Engineering Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 16,
+      "section_id": "target",
+      "text": "## Target\n\n- Artifact: `engineering/work-packets/WP-MVP-0001.md`\n- State at review start: VERIFYING\n- Review generated: 2026-08-16T10:59:23Z\n- Git HEAD: e25ed4acbb29aa2d012f9c1e1203b70eeca9be1f",
+      "title": "Target"
+    },
+    {
+      "identifiers": [
+        "WC-0001",
+        "WP-0001"
+      ],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 23,
+      "section_id": "deterministic-verification",
+      "text": "## Deterministic Verification\n\n**Result:** PASS\n\n```text\nregistered artifacts: 52\nevents: 83\noverrides: 0\ntrace edges: 314\nprogram increments: 2\nwork cycles: 2\nwork packets: 2\nopen stale records: 0\ntrace coverage: 25.0%\nwarnings:\n  WARN registered Markdown artifact has no EOS front matter: governance/terminology.md\n  WARN registered Markdown artifact has no EOS front matter: vision/problem-statement.md\n  WARN registered Markdown artifact has no EOS front matter: vision/product-vision.md\n  WARN registered Markdown artifact has no EOS front matter: vision/principles.md\n  WARN registered Markdown artifact has no EOS front matter: vision/goals.md\n  WARN registered Markdown artifact has no EOS front matter: vision/non-goals.md\n  WARN registered Markdown artifact has no EOS front matter: product/personas.md\n  WARN registered Markdown artifact has no EOS front matter: product/use-cases.md\n  WARN registered Markdown artifact has no EOS front matter: product/user-journeys.md\n  WARN registered Markdown artifact has no EOS front matter: product/capabilities.md\n  WARN registered Markdown artifact has no EOS front matter: product/product-requirements.md\n  WARN registered Markdown artifact has no EOS front matter: product/constraints.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/quality-attributes.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/context.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/system-boundaries.md\n  WARN registered Markdown artifact has no EOS front matter: research/questions.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/overview.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/increments/PI-001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-cycles/WC-0001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-packets/WP-0001.md\nRESULT: PASS\n```",
+      "title": "Deterministic Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 64,
+      "line_start": 61,
+      "section_id": "scope-conformance",
+      "text": "## Scope Conformance\n\nTBD.",
+      "title": "Scope Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 65,
+      "section_id": "requirements-specification-conformance",
+      "text": "## Requirements / Specification Conformance\n\nTBD.",
+      "title": "Requirements / Specification Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 72,
+      "line_start": 69,
+      "section_id": "architecture-conformance",
+      "text": "## Architecture Conformance\n\nTBD.",
+      "title": "Architecture Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 76,
+      "line_start": 73,
+      "section_id": "acceptance-criteria-evidence",
+      "text": "## Acceptance Criteria Evidence\n\nTBD.",
+      "title": "Acceptance Criteria Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 80,
+      "line_start": 77,
+      "section_id": "test-validation-evidence",
+      "text": "## Test / Validation Evidence\n\nTBD.",
+      "title": "Test / Validation Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 84,
+      "line_start": 81,
+      "section_id": "security-reliability-findings",
+      "text": "## Security / Reliability Findings\n\nTBD.",
+      "title": "Security / Reliability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 88,
+      "line_start": 85,
+      "section_id": "traceability-findings",
+      "text": "## Traceability Findings\n\nTBD.",
+      "title": "Traceability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 92,
+      "line_start": 89,
+      "section_id": "blocking-findings",
+      "text": "## Blocking Findings\n\nTBD.",
+      "title": "Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 96,
+      "line_start": 93,
+      "section_id": "non-blocking-findings",
+      "text": "## Non-Blocking Findings\n\nTBD.",
+      "title": "Non-Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 104,
+      "line_start": 97,
+      "section_id": "decision",
+      "text": "## Decision\n\nSet the top-level `**Decision:**` to one of:\n\n- ACCEPTED\n- ACCEPTED_WITH_FOLLOW_UP\n- REJECTED\n- BLOCKED",
+      "title": "Decision"
+    }
+  ],
+  "source": {
+    "bytes": 2900,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 104,
+    "media_type": "text/markdown",
+    "path": ".eos/history/engineering/reviews/WP-MVP-0001-REVIEW/v0.1.0.md",
+    "sha256": "5e48a6b88f23405f00209daa3ed444ffa80389bada307324aa8e5f9b24745b7a"
+  }
+}

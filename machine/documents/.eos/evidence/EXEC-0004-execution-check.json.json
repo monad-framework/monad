@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"actual_changed_files\": [\n    \"crates/monad-core/src/discovery.rs\",\n    \"crates/monad-core/src/lib.rs\",\n    \"machine/corpus.jsonl\",\n    \"machine/documents/crates/monad-core/src/discovery.rs.json\",\n    \"machine/documents/crates/monad-core/src/lib.rs.json\",\n    \"machine/graph.json\",\n    \"machine/manifest.json\"\n  ],\n  \"checked\": \"2026-08-16T16:05:16Z\",\n  \"checks\": {\n    \"contract_valid\": true,\n    \"declared_diff_matches_actual\": true,\n    \"result_ingested\": true,\n    \"scope_passed\": true\n  },\n  \"contract\": {\n    \"canonical_governing_hash\": \"8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142\",\n    \"checks\": [\n      {\n        \"check\": \"contract_hash\",\n        \"detail\": \"expected=bc8a277c3599ee885d7d02134de5e5882adf84f2e16d8e2fd578811949f746fd calculated=bc8a277c3599ee885d7d02134de5e5882adf84f2e16d8e2fd578811949f746fd\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"worktree_governing_inputs_unchanged\",\n        \"detail\": \"expected=8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142 worktree=8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"canonical_governing_inputs_unchanged\",\n        \"detail\": \"expected=8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142 canonical=8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"baseline_is_ancestor\",\n        \"detail\": \"baseline=5dc6ad47759dbd7e315d23627feef5086eb64099 head=5dc6ad47759dbd7e315d23627feef5086eb64099\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"expected_branch\",\n        \"detail\": \"expected=wp/mvp-0002 actual=wp/mvp-0002\",\n        \"passed\": true\n      }\n    ],\n    \"execution_id\": \"EXEC-0004\",\n    \"passed\": true,\n    \"target\": \"WP-MVP-0002\",\n    \"worktree_governing_hash\": \"8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142\"\n  },\n  \"declared_changed_files\": [\n    \"crates/monad-core/src/discovery.rs\",\n    \"crates/monad-core/src/lib.rs\",\n    \"machine/corpus.jsonl\",\n    \"machine/documents/crates/monad-core/src/discovery.rs.json\",\n    \"machine/documents/crates/monad-core/src/lib.rs.json\",\n    \"machine/graph.json\",\n    \"machine/manifest.json\"\n  ],\n  \"environment_drift\": {\n    \"head_changed\": false,\n    \"lockfiles_changed\": false,\n    \"tool_changes\": {\n      \"cargo\": {\n        \"after\": \"cargo 1.95.0 (f2d3ce0bd 2026-03-21)\",\n        \"before\": \"cargo 1.97.1 (c980f4866 2026-06-30)\"\n      },\n      \"rustc\": {\n        \"after\": \"rustc 1.95.0 (59807616e 2026-04-14)\",\n        \"before\": \"rustc 1.97.1 (8bab26f4f 2026-07-14)\"\n      }\n    }\n  },\n  \"execution_id\": \"EXEC-0004\",\n  \"passed\": true,\n  \"scope\": {\n    \"directives\": {\n      \"allowed\": [\n        \"*\",\n        \"**/*\"\n      ],\n      \"allowed_governed\": [],\n      \"forbidden\": []\n    },\n    \"passed\": true,\n    \"violations\": []\n  },\n  \"target\": \"WP-MVP-0002\"\n}\n",
+  "document_id": "doc:.eos%2Fevidence%2FEXEC-0004-execution-check.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/evidence/EXEC-0004-execution-check.json.",
+    "title": "Exec 0004 Execution Check"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 90,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"actual_changed_files\": [\n    \"crates/monad-core/src/discovery.rs\",\n    \"crates/monad-core/src/lib.rs\",\n    \"machine/corpus.jsonl\",\n    \"machine/documents/crates/monad-core/src/discovery.rs.json\",\n    \"machine/documents/crates/monad-core/src/lib.rs.json\",\n    \"machine/graph.json\",\n    \"machine/manifest.json\"\n  ],\n  \"checked\": \"2026-08-16T16:05:16Z\",\n  \"checks\": {\n    \"contract_valid\": true,\n    \"declared_diff_matches_actual\": true,\n    \"result_ingested\": true,\n    \"scope_passed\": true\n  },\n  \"contract\": {\n    \"canonical_governing_hash\": \"8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142\",\n    \"checks\": [\n      {\n        \"check\": \"contract_hash\",\n        \"detail\": \"expected=bc8a277c3599ee885d7d02134de5e5882adf84f2e16d8e2fd578811949f746fd calculated=bc8a277c3599ee885d7d02134de5e5882adf84f2e16d8e2fd578811949f746fd\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"worktree_governing_inputs_unchanged\",\n        \"detail\": \"expected=8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142 worktree=8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"canonical_governing_inputs_unchanged\",\n        \"detail\": \"expected=8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142 canonical=8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"baseline_is_ancestor\",\n        \"detail\": \"baseline=5dc6ad47759dbd7e315d23627feef5086eb64099 head=5dc6ad47759dbd7e315d23627feef5086eb64099\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"expected_branch\",\n        \"detail\": \"expected=wp/mvp-0002 actual=wp/mvp-0002\",\n        \"passed\": true\n      }\n    ],\n    \"execution_id\": \"EXEC-0004\",\n    \"passed\": true,\n    \"target\": \"WP-MVP-0002\",\n    \"worktree_governing_hash\": \"8ff12f33ec701fde9ae35c6a71b128ea4799a50118331652106a12a9f2b52142\"\n  },\n  \"declared_changed_files\": [\n    \"crates/monad-core/src/discovery.rs\",\n    \"crates/monad-core/src/lib.rs\",\n    \"machine/corpus.jsonl\",\n    \"machine/documents/crates/monad-core/src/discovery.rs.json\",\n    \"machine/documents/crates/monad-core/src/lib.rs.json\",\n    \"machine/graph.json\",\n    \"machine/manifest.json\"\n  ],\n  \"environment_drift\": {\n    \"head_changed\": false,\n    \"lockfiles_changed\": false,\n    \"tool_changes\": {\n      \"cargo\": {\n        \"after\": \"cargo 1.95.0 (f2d3ce0bd 2026-03-21)\",\n        \"before\": \"cargo 1.97.1 (c980f4866 2026-06-30)\"\n      },\n      \"rustc\": {\n        \"after\": \"rustc 1.95.0 (59807616e 2026-04-14)\",\n        \"before\": \"rustc 1.97.1 (8bab26f4f 2026-07-14)\"\n      }\n    }\n  },\n  \"execution_id\": \"EXEC-0004\",\n  \"passed\": true,\n  \"scope\": {\n    \"directives\": {\n      \"allowed\": [\n        \"*\",\n        \"**/*\"\n      ],\n      \"allowed_governed\": [],\n      \"forbidden\": []\n    },\n    \"passed\": true,\n    \"violations\": []\n  },\n  \"target\": \"WP-MVP-0002\"\n}",
+      "title": "Exec 0004 Execution Check"
+    }
+  ],
+  "source": {
+    "bytes": 2916,
+    "canonical": true,
+    "language": "json",
+    "lines": 90,
+    "media_type": "application/json",
+    "path": ".eos/evidence/EXEC-0004-execution-check.json",
+    "sha256": "16361c43cc213c1a6f6b58ccf8bb515ef7e7bf8d3dcaa7c4fbb934712aed3f68"
+  }
+}

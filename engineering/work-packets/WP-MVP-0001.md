@@ -1,6 +1,6 @@
 # WP-MVP-0001 — Repository identity and effective configuration
 
-**Status:** Ready — not Authorized  
+**Status:** CLOSED
 **Epic:** EPIC-002  
 **Feature:** F-002-01  
 **Program Increment:** PI-MVP-001  
@@ -59,15 +59,15 @@ No additional crate, service, plugin boundary, hosted dependency, or unrelated r
 
 ## Acceptance criteria
 
-- [ ] US-002: invocation at root/descendant detects the nearest valid Monad root.
-- [ ] US-003: schema-v1 configuration resolves with documented precedence.
-- [ ] US-004: effective configuration is explainable with value provenance.
-- [ ] no `monad.toml` yields a stable repository-not-found diagnostic.
-- [ ] malformed/unsupported/unknown semantic config cannot become valid state silently.
-- [ ] environment differences do not change semantic configuration in conformance tests.
-- [ ] nested Monad-root fixtures bind to the nearest root.
-- [ ] repository code/network is never executed during bootstrap.
-- [ ] repeated structured output for identical inputs is byte-equivalent where declared canonical.
+- [x] US-002: invocation at root/descendant detects the nearest valid Monad root.
+- [x] US-003: schema-v1 configuration resolves with documented precedence.
+- [x] US-004: effective configuration is explainable with value provenance.
+- [x] no `monad.toml` yields a stable repository-not-found diagnostic.
+- [x] malformed/unsupported/unknown semantic config cannot become valid state silently.
+- [x] environment differences do not change semantic configuration in conformance tests.
+- [x] nested Monad-root fixtures bind to the nearest root.
+- [x] repository code/network is never executed during bootstrap.
+- [x] repeated structured output for identical inputs is byte-equivalent where declared canonical.
 
 ## Required validation commands
 

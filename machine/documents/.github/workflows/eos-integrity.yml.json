@@ -1,5 +1,5 @@
 {
-  "content": "name: EOS Integrity\non:\n  push:\n    branches: [main]\n  pull_request:\npermissions:\n  contents: read\njobs:\n  eos-integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - name: Run governed EOS verification\n        run: ./scripts/eos verify --strict\n",
+  "content": "name: EOS Integrity\non:\n  push:\n    branches: [main]\n  pull_request:\npermissions:\n  contents: read\njobs:\n  eos-integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - name: Verify canonical state controller\n        run: python3 tools/eos/test_canonical_state.py\n      - name: Verify evidence-consensus reconciliation contract\n        run: python3 tools/eos/test_canonical_reconciliation.py\n      - name: Verify wrapper single-dispatch contract\n        run: python3 tools/eos/test_wrapper_dispatch.py\n      - name: Verify canonical lifecycle model consistency\n        run: python3 scripts/sync-eos-lifecycle-model.py\n      - name: Verify EOS 0.8 program adoption contract\n        run: python3 scripts/test-eos-0.8-program-adoption.py\n      - name: Verify EOS 0.8 adoption safety contract\n        run: python3 scripts/test-eos-0.8-adoption-safety.py\n      - name: Verify no canonical reconciliation is pending\n        run: python3 scripts/reconcile-eos-canonical-state.py\n      - name: Verify canonical state and projections\n        run: ./scripts/eos state status\n      - name: Verify deterministic trace projection\n        run: python3 tools/eos/trace_integrity.py\n      - name: Run governed EOS verification\n        run: ./scripts/eos verify --strict\n      - name: Verify governed verification is read-only\n        run: |\n          python3 tools/eos/trace_integrity.py\n          git diff --exit-code\n",
   "document_id": "doc:.github%2Fworkflows%2Feos-integrity.yml",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 17,
+      "line_end": 39,
       "line_start": 1,
       "section_id": "content",
-      "text": "name: EOS Integrity\non:\n  push:\n    branches: [main]\n  pull_request:\npermissions:\n  contents: read\njobs:\n  eos-integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - name: Run governed EOS verification\n        run: ./scripts/eos verify --strict",
+      "text": "name: EOS Integrity\non:\n  push:\n    branches: [main]\n  pull_request:\npermissions:\n  contents: read\njobs:\n  eos-integrity:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - name: Verify canonical state controller\n        run: python3 tools/eos/test_canonical_state.py\n      - name: Verify evidence-consensus reconciliation contract\n        run: python3 tools/eos/test_canonical_reconciliation.py\n      - name: Verify wrapper single-dispatch contract\n        run: python3 tools/eos/test_wrapper_dispatch.py\n      - name: Verify canonical lifecycle model consistency\n        run: python3 scripts/sync-eos-lifecycle-model.py\n      - name: Verify EOS 0.8 program adoption contract\n        run: python3 scripts/test-eos-0.8-program-adoption.py\n      - name: Verify EOS 0.8 adoption safety contract\n        run: python3 scripts/test-eos-0.8-adoption-safety.py\n      - name: Verify no canonical reconciliation is pending\n        run: python3 scripts/reconcile-eos-canonical-state.py\n      - name: Verify canonical state and projections\n        run: ./scripts/eos state status\n      - name: Verify deterministic trace projection\n        run: python3 tools/eos/trace_integrity.py\n      - name: Run governed EOS verification\n        run: ./scripts/eos verify --strict\n      - name: Verify governed verification is read-only\n        run: |\n          python3 tools/eos/trace_integrity.py\n          git diff --exit-code",
       "title": "Eos Integrity"
     }
   ],
   "source": {
-    "bytes": 366,
+    "bytes": 1521,
     "canonical": true,
     "language": "yaml",
-    "lines": 17,
+    "lines": 39,
     "media_type": "application/yaml",
     "path": ".github/workflows/eos-integrity.yml",
-    "sha256": "c0e43ccb64c44c4eec5b86467bf043a1b23052d41f05229babef9e7469977c6b"
+    "sha256": "4b9b7ac17f7592d368b2225950f373a74a468abbc5fe7e18a5375f3630ca6389"
   }
 }

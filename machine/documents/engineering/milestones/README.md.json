@@ -1,5 +1,5 @@
 {
-  "content": "# Milestones\n\nA milestone is a major, reviewable outcome that materially changes product\ncapability, evidence, or readiness. It may span multiple increments but must be\nsmall enough to support a meaningful continue, correct, or stop decision.\n\n## Naming\n\nUse `MS-NNNN-short-outcome.md`. Numbers are chronological and never reused.\nTitles describe the achieved condition, such as `Validated Primary Journey`,\nnot an activity such as `Build Features`.\n\n## Milestone record\n\nEach record contains:\n\n- outcome statement and connection to vision goals;\n- scope, exclusions, accountable owner, and target review window;\n- entry evidence and assumptions;\n- ordered increments and critical dependencies;\n- outcome, quality, security, operational, and economic measures;\n- risks, stop conditions, and contingency;\n- exit evidence and approval authorities;\n- final review decision and lessons.\n\n## Lifecycle\n\nStatuses are `proposed`, `authorized`, `active`, `at risk`, `achieved`,\n`stopped`, and `superseded`. Only one status is current. Authorization confirms\nthat the outcome justifies investment and initial increments are feasible; it\ndoes not commit every later scope detail.\n\n## Review\n\nAt milestone review, compare actual outcomes with baselines and guardrails,\ninspect unresolved risk and operational burden, and decide whether to proceed,\ncorrect, narrow, expand, pause, or stop. Incomplete work is not automatically\ncarried forward. Preserve the review result in the milestone record and journal.\n",
+  "content": "# Milestones\n\nA milestone is a major, reviewable outcome that materially changes product capability, evidence, or readiness. It may span one or more increments but must be small enough to support a meaningful continue, correct, re-scope, or stop decision.\n\n## Active naming\n\nMonad uses chronological `M-NNN` milestone IDs with descriptive filenames. IDs are never reused.\n\n## Current roadmap\n\n- M-000 — Foundation Stabilized — complete\n- M-001 — Semantic Kernel Alpha — MVP\n- M-002 — MVP Beta\n- M-003 — MVP Release 1\n- M-004 — Living Intelligence Alpha — CR-0002 / PG-002\n- M-005 — Governed Automation Beta — CR-0002 / PG-003\n- M-006 — Living Engineering OS Release 2 — CR-0002 / PG-004\n\n## Milestone record\n\nEach record contains:\n\n- outcome statement and connection to Product Goal/vision;\n- scope, exclusions, accountable authority, and target review window;\n- entry evidence and assumptions;\n- ordered increments and critical dependencies;\n- outcome, quality, security, privacy, operational, performance, provenance, and economic measures as applicable;\n- risks, stop conditions, and contingency;\n- exit evidence and approval/attestation authorities;\n- final review decision and lessons.\n\n## Lifecycle\n\nStatuses include `proposed`, `authorized`, `active`, `at risk`, `achieved`, `stopped`, and `superseded`. Only one status is current. Authorization confirms that the outcome justifies investment and initial increments are feasible; it does not commit every later scope detail or authorize child Work Packets.\n\n## Review\n\nAt milestone review, compare actual outcomes with baselines and guardrails, inspect unresolved risk, security/privacy posture, operational burden, cost, performance claims, compatibility/migration, audit/attestation evidence where applicable, and decide whether to proceed, correct, narrow, expand, pause, or stop. Incomplete work is not automatically carried forward. Preserve the review result in the milestone record and journal/evidence system.\n",
   "document_id": "doc:engineering%2Fmilestones%2FREADME.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "A milestone is a major, reviewable outcome that materially changes product capability, evidence, or readiness. It may span multiple increments but must be small enough to support a meaningful continue, correct, or stop decision.",
+    "summary": "A milestone is a major, reviewable outcome that materially changes product capability, evidence, or readiness. It may span one or more increments but must be small enough to support a meaningful continue, correct, re-scope, or stop decision.",
     "title": "Milestones"
   },
   "relations": [],
@@ -21,56 +21,65 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 6,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "milestones",
-      "text": "# Milestones\n\nA milestone is a major, reviewable outcome that materially changes product\ncapability, evidence, or readiness. It may span multiple increments but must be\nsmall enough to support a meaningful continue, correct, or stop decision.",
+      "text": "# Milestones\n\nA milestone is a major, reviewable outcome that materially changes product capability, evidence, or readiness. It may span one or more increments but must be small enough to support a meaningful continue, correct, re-scope, or stop decision.",
       "title": "Milestones"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 12,
-      "line_start": 7,
-      "section_id": "naming",
-      "text": "## Naming\n\nUse `MS-NNNN-short-outcome.md`. Numbers are chronological and never reused.\nTitles describe the achieved condition, such as `Validated Primary Journey`,\nnot an activity such as `Build Features`.",
-      "title": "Naming"
+      "line_end": 8,
+      "line_start": 5,
+      "section_id": "active-naming",
+      "text": "## Active naming\n\nMonad uses chronological `M-NNN` milestone IDs with descriptive filenames. IDs are never reused.",
+      "title": "Active naming"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 25,
-      "line_start": 13,
+      "line_end": 18,
+      "line_start": 9,
+      "section_id": "current-roadmap",
+      "text": "## Current roadmap\n\n- M-000 — Foundation Stabilized — complete\n- M-001 — Semantic Kernel Alpha — MVP\n- M-002 — MVP Beta\n- M-003 — MVP Release 1\n- M-004 — Living Intelligence Alpha — CR-0002 / PG-002\n- M-005 — Governed Automation Beta — CR-0002 / PG-003\n- M-006 — Living Engineering OS Release 2 — CR-0002 / PG-004",
+      "title": "Current roadmap"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 19,
       "section_id": "milestone-record",
-      "text": "## Milestone record\n\nEach record contains:\n\n- outcome statement and connection to vision goals;\n- scope, exclusions, accountable owner, and target review window;\n- entry evidence and assumptions;\n- ordered increments and critical dependencies;\n- outcome, quality, security, operational, and economic measures;\n- risks, stop conditions, and contingency;\n- exit evidence and approval authorities;\n- final review decision and lessons.",
+      "text": "## Milestone record\n\nEach record contains:\n\n- outcome statement and connection to Product Goal/vision;\n- scope, exclusions, accountable authority, and target review window;\n- entry evidence and assumptions;\n- ordered increments and critical dependencies;\n- outcome, quality, security, privacy, operational, performance, provenance, and economic measures as applicable;\n- risks, stop conditions, and contingency;\n- exit evidence and approval/attestation authorities;\n- final review decision and lessons.",
       "title": "Milestone record"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 32,
-      "line_start": 26,
+      "line_end": 35,
+      "line_start": 32,
       "section_id": "lifecycle",
-      "text": "## Lifecycle\n\nStatuses are `proposed`, `authorized`, `active`, `at risk`, `achieved`,\n`stopped`, and `superseded`. Only one status is current. Authorization confirms\nthat the outcome justifies investment and initial increments are feasible; it\ndoes not commit every later scope detail.",
+      "text": "## Lifecycle\n\nStatuses include `proposed`, `authorized`, `active`, `at risk`, `achieved`, `stopped`, and `superseded`. Only one status is current. Authorization confirms that the outcome justifies investment and initial increments are feasible; it does not commit every later scope detail or authorize child Work Packets.",
       "title": "Lifecycle"
     },
     {
       "identifiers": [],
       "level": 2,
       "line_end": 38,
-      "line_start": 33,
+      "line_start": 36,
       "section_id": "review",
-      "text": "## Review\n\nAt milestone review, compare actual outcomes with baselines and guardrails,\ninspect unresolved risk and operational burden, and decide whether to proceed,\ncorrect, narrow, expand, pause, or stop. Incomplete work is not automatically\ncarried forward. Preserve the review result in the milestone record and journal.",
+      "text": "## Review\n\nAt milestone review, compare actual outcomes with baselines and guardrails, inspect unresolved risk, security/privacy posture, operational burden, cost, performance claims, compatibility/migration, audit/attestation evidence where applicable, and decide whether to proceed, correct, narrow, expand, pause, or stop. Incomplete work is not automatically carried forward. Preserve the review result in the milestone record and journal/evidence system.",
       "title": "Review"
     }
   ],
   "source": {
-    "bytes": 1496,
+    "bytes": 1999,
     "canonical": true,
     "language": "markdown",
     "lines": 38,
     "media_type": "text/markdown",
     "path": "engineering/milestones/README.md",
-    "sha256": "99f8350281c8d41b9374adf5f928a897e83628a38b81042f34ce404b7518d98b"
+    "sha256": "fb0c6e0e321a3c20a0bb0eab9448da06b043dbc4a545569d6dd70f8c046ca462"
   }
 }

@@ -1,0 +1,46 @@
+{
+  "content": "{\n  \"command\": \"eos-core:verify --strict\",\n  \"covers\": [],\n  \"created\": \"2026-08-17T00:38:59Z\",\n  \"details\": {},\n  \"environment\": {\n    \"bash\": \"GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)\",\n    \"bun\": \"\",\n    \"cargo\": \"cargo 1.95.0 (f2d3ce0bd 2026-03-21)\",\n    \"git\": \"git version 2.54.0\",\n    \"go\": \"go version go1.24.13 linux/amd64\",\n    \"hostname\": \"runnervmzvulz\",\n    \"lockfiles\": {\n      \"Cargo.lock\": \"114034aebf82078124f42fc902668688c2a18a2d0aba67342a9b34793d141968\"\n    },\n    \"machine\": \"x86_64\",\n    \"node\": \"v22.23.2\",\n    \"platform\": \"Linux-6.17.0-1022-azure-x86_64-with-glibc2.39\",\n    \"python\": \"3.12.3\",\n    \"rustc\": \"rustc 1.95.0 (59807616e 2026-04-14)\"\n  },\n  \"environment_hash\": \"6a94843a0e98a659ae0d3231aa0037671b363c43bae46ef91647c748a82b647a\",\n  \"execution\": \"EXEC-0005\",\n  \"exit_code\": 0,\n  \"id\": \"EVID-0079\",\n  \"kind\": \"integrity\",\n  \"output\": \"registered artifacts: 121\\nevents: 328\\noverrides: 0\\ntrace edges: 428\\nprogram increments: 2\\nwork cycles: 2\\nwork packets: 4\\nopen stale records: 0\\ntrace coverage: 50.0%\\nwarnings:\\n  WARN registered Markdown artifact has no EOS front matter: governance/terminology.md\\n  WARN registered Markdown artifact has no EOS front matter: vision/problem-statement.md\\n  WARN registered Markdown artifact has no EOS front matter: vision/product-vision.md\\n  WARN registered Markdown artifact has no EOS front matter: vision/principles.md\\n  WARN registered Markdown artifact has no EOS front matter: vision/goals.md\\n  WARN registered Markdown artifact has no EOS front matter: vision/non-goals.md\\n  WARN registered Markdown artifact has no EOS front matter: product/personas.md\\n  WARN registered Markdown artifact has no EOS front matter: product/use-cases.md\\n  WARN registered Markdown artifact has no EOS front matter: product/user-journeys.md\\n  WARN registered Markdown artifact has no EOS front matter: product/capabilities.md\\n  WARN registered Markdown artifact has no EOS front matter: product/product-requirements.md\\n  WARN registered Markdown artifact has no EOS front matter: product/constraints.md\\n  WARN registered Markdown artifact has no EOS front matter: architecture/quality-attributes.md\\n  WARN registered Markdown artifact has no EOS front matter: architecture/context.md\\n  WARN registered Markdown artifact has no EOS front matter: architecture/system-boundaries.md\\n  WARN registered Markdown artifact has no EOS front matter: research/questions.md\\n  WARN registered Markdown artifact has no EOS front matter: architecture/overview.md\\n  WARN registered Markdown artifact has no EOS front matter: engineering/increments/PI-001.md\\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-cycles/WC-0001.md\\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-packets/WP-0001.md\\nRESULT: PASS\\n\",\n  \"output_hash\": \"52736ce9514a6eeb1853e352d0c633ade07f137f88107f6093733d8ffd4f0b73\",\n  \"producer\": {\n    \"actor\": \"chatgpt\",\n    \"commit\": \"06bdc3b7faeb00d1d9d3959c2a8bae3cfd4d3aad\"\n  },\n  \"profile\": \"wp\",\n  \"result\": \"PASSED\",\n  \"source_hash\": \"7978e304330375d43defe3b7758f1998e9807d2dee7c2c50cf2262eb1afee5a6\",\n  \"target\": \"WP-MVP-0003\",\n  \"validator\": \"eos-integrity\"\n}\n",
+  "document_id": "doc:.eos%2Fevidence%2FEVID-0079.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WC-0001",
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/evidence/EVID-0079.json.",
+    "title": "Evid 0079"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "WC-0001",
+        "WP-0001"
+      ],
+      "level": 1,
+      "line_end": 38,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"command\": \"eos-core:verify --strict\",\n  \"covers\": [],\n  \"created\": \"2026-08-17T00:38:59Z\",\n  \"details\": {},\n  \"environment\": {\n    \"bash\": \"GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)\",\n    \"bun\": \"\",\n    \"cargo\": \"cargo 1.95.0 (f2d3ce0bd 2026-03-21)\",\n    \"git\": \"git version 2.54.0\",\n    \"go\": \"go version go1.24.13 linux/amd64\",\n    \"hostname\": \"runnervmzvulz\",\n    \"lockfiles\": {\n      \"Cargo.lock\": \"114034aebf82078124f42fc902668688c2a18a2d0aba67342a9b34793d141968\"\n    },\n    \"machine\": \"x86_64\",\n    \"node\": \"v22.23.2\",\n    \"platform\": \"Linux-6.17.0-1022-azure-x86_64-with-glibc2.39\",\n    \"python\": \"3.12.3\",\n    \"rustc\": \"rustc 1.95.0 (59807616e 2026-04-14)\"\n  },\n  \"environment_hash\": \"6a94843a0e98a659ae0d3231aa0037671b363c43bae46ef91647c748a82b647a\",\n  \"execution\": \"EXEC-0005\",\n  \"exit_code\": 0,\n  \"id\": \"EVID-0079\",\n  \"kind\": \"integrity\",\n  \"output\": \"registered artifacts: 121\\nevents: 328\\noverrides: 0\\ntrace edges: 428\\nprogram increments: 2\\nwork cycles: 2\\nwork packets: 4\\nopen stale records: 0\\ntrace coverage: 50.0%\\nwarnings:\\n  WARN registered Markdown artifact has no EOS front matter: governance/terminology.md\\n  WARN registered Markdown artifact has no EOS front matter: vision/problem-statement.md\\n  WARN registered Markdown artifact has no EOS front matter: vision/product-vision.md\\n  WARN registered Markdown artifact has no EOS front matter: vision/principles.md\\n  WARN registered Markdown artifact has no EOS front matter: vision/goals.md\\n  WARN registered Markdown artifact has no EOS front matter: vision/non-goals.md\\n  WARN registered Markdown artifact has no EOS front matter: product/personas.md\\n  WARN registered Markdown artifact has no EOS front matter: product/use-cases.md\\n  WARN registered Markdown artifact has no EOS front matter: product/user-journeys.md\\n  WARN registered Markdown artifact has no EOS front matter: product/capabilities.md\\n  WARN registered Markdown artifact has no EOS front matter: product/product-requirements.md\\n  WARN registered Markdown artifact has no EOS front matter: product/constraints.md\\n  WARN registered Markdown artifact has no EOS front matter: architecture/quality-attributes.md\\n  WARN registered Markdown artifact has no EOS front matter: architecture/context.md\\n  WARN registered Markdown artifact has no EOS front matter: architecture/system-boundaries.md\\n  WARN registered Markdown artifact has no EOS front matter: research/questions.md\\n  WARN registered Markdown artifact has no EOS front matter: architecture/overview.md\\n  WARN registered Markdown artifact has no EOS front matter: engineering/increments/PI-001.md\\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-cycles/WC-0001.md\\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-packets/WP-0001.md\\nRESULT: PASS\\n\",\n  \"output_hash\": \"52736ce9514a6eeb1853e352d0c633ade07f137f88107f6093733d8ffd4f0b73\",\n  \"producer\": {\n    \"actor\": \"chatgpt\",\n    \"commit\": \"06bdc3b7faeb00d1d9d3959c2a8bae3cfd4d3aad\"\n  },\n  \"profile\": \"wp\",\n  \"result\": \"PASSED\",\n  \"source_hash\": \"7978e304330375d43defe3b7758f1998e9807d2dee7c2c50cf2262eb1afee5a6\",\n  \"target\": \"WP-MVP-0003\",\n  \"validator\": \"eos-integrity\"\n}",
+      "title": "Evid 0079"
+    }
+  ],
+  "source": {
+    "bytes": 3224,
+    "canonical": true,
+    "language": "json",
+    "lines": 38,
+    "media_type": "application/json",
+    "path": ".eos/evidence/EVID-0079.json",
+    "sha256": "6e2816bc451af16880a724c08d977f0458838d5382bd56b7d38e1a494c5ea5eb"
+  }
+}

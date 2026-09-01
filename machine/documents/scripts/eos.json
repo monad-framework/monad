@@ -1,5 +1,5 @@
 {
-  "content": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\nexec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"\n",
+  "content": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\nCANONICAL=\"$ROOT/tools/eos/canonical_state.py\"\nLEGACY=\"$ROOT/tools/eos/eos.py\"\nEXECUTION_V2=\"$ROOT/tools/eos/execution_v2.py\"\nVERIFICATION_V2=\"$ROOT/tools/eos/verification_v2.py\"\n\n# Canonical-state administration is handled directly by the state controller.\nif [[ \"${1:-}\" == \"state\" ]]; then\n  shift\n  exec python3 \"$CANONICAL\" \"$@\"\nfi\n\n# `rebuild-state` historically treated the event ledger as the current-state\n# authority. Under the single-canonical-state model it is retained as a\n# compatibility alias for projecting the canonical snapshot.\nif [[ \"${1:-}\" == \"rebuild-state\" ]]; then\n  shift\n  printf 'NOTE: rebuild-state now projects from .eos/state/current.json (canonical).\\n' >&2\n  exec python3 \"$CANONICAL\" project \"$@\"\nfi\n\n# Select exactly one runtime before entering the canonical transaction. The\n# previous wrapper invoked the legacy runtime first and then invoked the selected\n# runtime a second time, duplicating output and side effects for every command.\nRUNNER=\"$LEGACY\"\ncase \"${1:-}\" in\n  preflight|worktree|execute|execution|contract|codex)\n    RUNNER=\"$EXECUTION_V2\"\n    ;;\n  validate|validators|validation|evidence|performance|security|supply-chain|verify)\n    RUNNER=\"$VERIFICATION_V2\"\n    ;;\nesac\n\n# Every EOS command runs inside a canonical transaction:\n# 1. fail closed if any projection already drifted;\n# 2. execute exactly one selected runtime;\n# 3. capture only a successful, internally consistent mutation into canonical\n#    machine-readable state; otherwise canonical state never advances.\npython3 \"$CANONICAL\" pre -- \"$@\"\n\nset +e\npython3 \"$RUNNER\" \"$@\"\nrc=$?\nset -e\n\nif (( rc != 0 )); then\n  rm -f \"$ROOT/.eos/cache/canonical-state-transaction.json\"\n  exit \"$rc\"\nfi\n\npython3 \"$CANONICAL\" post -- \"$@\"\n",
   "document_id": "doc:scripts%2Feos",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 13,
+      "line_end": 63,
       "line_start": 1,
       "section_id": "content",
-      "text": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\nexec python3 \"$ROOT/tools/eos/eos.py\" \"$@\"",
+      "text": "#!/usr/bin/env bash\nset -Eeuo pipefail\n\nSCRIPT_ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)\"\nROOT=\"$(git -C \"$SCRIPT_ROOT\" rev-parse --show-toplevel 2>/dev/null || printf '%s\\n' \"$SCRIPT_ROOT\")\"\nexport EOS_ROOT=\"$ROOT\"\n\nif ! command -v python3 >/dev/null 2>&1; then\n  printf 'ERROR: python3 is required by the repository-local EOS control tooling.\\n' >&2\n  exit 127\nfi\n\nCANONICAL=\"$ROOT/tools/eos/canonical_state.py\"\nLEGACY=\"$ROOT/tools/eos/eos.py\"\nEXECUTION_V2=\"$ROOT/tools/eos/execution_v2.py\"\nVERIFICATION_V2=\"$ROOT/tools/eos/verification_v2.py\"\n\n# Canonical-state administration is handled directly by the state controller.\nif [[ \"${1:-}\" == \"state\" ]]; then\n  shift\n  exec python3 \"$CANONICAL\" \"$@\"\nfi\n\n# `rebuild-state` historically treated the event ledger as the current-state\n# authority. Under the single-canonical-state model it is retained as a\n# compatibility alias for projecting the canonical snapshot.\nif [[ \"${1:-}\" == \"rebuild-state\" ]]; then\n  shift\n  printf 'NOTE: rebuild-state now projects from .eos/state/current.json (canonical).\\n' >&2\n  exec python3 \"$CANONICAL\" project \"$@\"\nfi\n\n# Select exactly one runtime before entering the canonical transaction. The\n# previous wrapper invoked the legacy runtime first and then invoked the selected\n# runtime a second time, duplicating output and side effects for every command.\nRUNNER=\"$LEGACY\"\ncase \"${1:-}\" in\n  preflight|worktree|execute|execution|contract|codex)\n    RUNNER=\"$EXECUTION_V2\"\n    ;;\n  validate|validators|validation|evidence|performance|security|supply-chain|verify)\n    RUNNER=\"$VERIFICATION_V2\"\n    ;;\nesac\n\n# Every EOS command runs inside a canonical transaction:\n# 1. fail closed if any projection already drifted;\n# 2. execute exactly one selected runtime;\n# 3. capture only a successful, internally consistent mutation into canonical\n#    machine-readable state; otherwise canonical state never advances.\npython3 \"$CANONICAL\" pre -- \"$@\"\n\nset +e\npython3 \"$RUNNER\" \"$@\"\nrc=$?\nset -e\n\nif (( rc != 0 )); then\n  rm -f \"$ROOT/.eos/cache/canonical-state-transaction.json\"\n  exit \"$rc\"\nfi\n\npython3 \"$CANONICAL\" post -- \"$@\"",
       "title": "Eos"
     }
   ],
   "source": {
-    "bytes": 423,
+    "bytes": 2117,
     "canonical": true,
     "language": "plain-text",
-    "lines": 13,
+    "lines": 63,
     "media_type": "text/plain",
     "path": "scripts/eos",
-    "sha256": "6fe7c189e64a11ebb46769241f456299f8f943c059f44089fad24b39efa5a3e4"
+    "sha256": "3b068a40b87c3cfae5a16a41494fc95f6a3c1241a50fe4d06d2575b2f9d321dc"
   }
 }

@@ -13,5 +13,27 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Verify canonical state controller
+        run: python3 tools/eos/test_canonical_state.py
+      - name: Verify evidence-consensus reconciliation contract
+        run: python3 tools/eos/test_canonical_reconciliation.py
+      - name: Verify wrapper single-dispatch contract
+        run: python3 tools/eos/test_wrapper_dispatch.py
+      - name: Verify canonical lifecycle model consistency
+        run: python3 scripts/sync-eos-lifecycle-model.py
+      - name: Verify EOS 0.8 program adoption contract
+        run: python3 scripts/test-eos-0.8-program-adoption.py
+      - name: Verify EOS 0.8 adoption safety contract
+        run: python3 scripts/test-eos-0.8-adoption-safety.py
+      - name: Verify no canonical reconciliation is pending
+        run: python3 scripts/reconcile-eos-canonical-state.py
+      - name: Verify canonical state and projections
+        run: ./scripts/eos state status
+      - name: Verify deterministic trace projection
+        run: python3 tools/eos/trace_integrity.py
       - name: Run governed EOS verification
         run: ./scripts/eos verify --strict
+      - name: Verify governed verification is read-only
+        run: |
+          python3 tools/eos/trace_integrity.py
+          git diff --exit-code

@@ -1,0 +1,67 @@
+{
+  "content": "---\nartifact_id: \"EVID-0052\"\ntitle: \"Verification Evidence EVID-0052\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"SUPERSEDED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-08-16\"\nupdated: \"2026-08-16\"\n---\n\n# EVID-0052 — Verification Evidence\n\n- Target: WP-MVP-0002\n- Execution: EXEC-0004\n- Profile: wp\n- Validator: eos-integrity\n- Kind: integrity\n- Result: PASSED\n- Exit code: 0\n- Source fingerprint: `6b461b16fa1954c032ff7090c7d2460c0a7550f489cbe93a078135535c0038cc`\n- Environment fingerprint: `1f619c8788d05b02af26901cd93786098c58be61972d2c97a7ba4d17bef0922b`\n- Machine evidence: `.eos/evidence/EVID-0052.json`\n- Machine evidence SHA-256: `2fa46b0d35e38425545488d6b0df532e4f356730df835ab44d9b9676be425d55`\n- Covers: (not explicitly mapped)\n\n## Command\n\n`eos-core:verify --strict`\n\n## Output Digest\n\n`399f2fb40f44ba4d1827ce1e4e11f89f82dbb0b44801c8d83c3d7b6a58ca0d0d`\n\nThe full bounded output and structured details are retained in the machine evidence artifact.\n",
+  "document_id": "doc:engineering%2Fevidence%2FEVID-0052.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"EVID-0052\" title: \"Verification Evidence EVID-0052\" type: \"verification-evidence\" version: \"1.0.0\" status: \"SUPERSEDED\" authority: \"evidence-authoritative\" created: \"2026-08-16\" updated: \"2026-08-16\" ---",
+    "title": "EVID-0052 — Verification Evidence"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"EVID-0052\"\ntitle: \"Verification Evidence EVID-0052\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"SUPERSEDED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-08-16\"\nupdated: \"2026-08-16\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 26,
+      "line_start": 12,
+      "section_id": "evid-0052-verification-evidence",
+      "text": "# EVID-0052 — Verification Evidence\n\n- Target: WP-MVP-0002\n- Execution: EXEC-0004\n- Profile: wp\n- Validator: eos-integrity\n- Kind: integrity\n- Result: PASSED\n- Exit code: 0\n- Source fingerprint: `6b461b16fa1954c032ff7090c7d2460c0a7550f489cbe93a078135535c0038cc`\n- Environment fingerprint: `1f619c8788d05b02af26901cd93786098c58be61972d2c97a7ba4d17bef0922b`\n- Machine evidence: `.eos/evidence/EVID-0052.json`\n- Machine evidence SHA-256: `2fa46b0d35e38425545488d6b0df532e4f356730df835ab44d9b9676be425d55`\n- Covers: (not explicitly mapped)",
+      "title": "EVID-0052 — Verification Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 27,
+      "section_id": "command",
+      "text": "## Command\n\n`eos-core:verify --strict`",
+      "title": "Command"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 31,
+      "section_id": "output-digest",
+      "text": "## Output Digest\n\n`399f2fb40f44ba4d1827ce1e4e11f89f82dbb0b44801c8d83c3d7b6a58ca0d0d`\n\nThe full bounded output and structured details are retained in the machine evidence artifact.",
+      "title": "Output Digest"
+    }
+  ],
+  "source": {
+    "bytes": 982,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 35,
+    "media_type": "text/markdown",
+    "path": "engineering/evidence/EVID-0052.md",
+    "sha256": "7d368e9ad2ca2e11ced55762c153c8bca97954affbbb993d6346f81b6dffa535"
+  }
+}

@@ -1,35 +1,191 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "eos://schemas/state/1.0.0/canonical-state.schema.json",
-  "title": "EOS Canonical Operational State",
-  "type": "object",
-  "required": ["schema_version", "revision", "updated_at", "entities"],
-  "properties": {
-    "schema_version": {"const": "1.0.0"},
-    "revision": {"type": "integer", "minimum": 1},
-    "updated_at": {"type": "string", "format": "date-time"},
-    "entities": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "object",
-        "required": ["id", "entity_type", "version", "lifecycle_state", "created_at", "updated_at", "artifact_path", "relationships", "authority_level", "provenance"],
-        "properties": {
-          "id": {"type": "string", "minLength": 1},
-          "entity_type": {"type": "string", "minLength": 1},
-          "version": {"type": "string"},
-          "lifecycle_state": {"type": "string"},
-          "title": {"type": "string"},
-          "artifact_path": {"type": "string"},
-          "created_at": {"type": "string", "format": "date-time"},
-          "updated_at": {"type": "string", "format": "date-time"},
-          "relationships": {"type": "array"},
-          "authority_level": {"type": "string"},
-          "provenance": {"type": "object"},
-          "projection": {"type": "object"}
+  "$defs": {
+    "entity": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_level": {
+          "enum": [
+            "L0_INFORMATIVE",
+            "L1_ADVISORY",
+            "L2_NORMATIVE",
+            "L3_BINDING",
+            "L4_HUMAN_SOVEREIGN"
+          ]
         },
-        "additionalProperties": true
-      }
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "entity_type": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "PI",
+            "WC",
+            "WP",
+            "CR",
+            "MNT",
+            "REL"
+          ]
+        },
+        "lifecycle_state": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "operational_metadata": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "provenance": {
+          "additionalProperties": true,
+          "properties": {
+            "created_by": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "generation_method": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "origin": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "source_refs": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "origin",
+            "created_by",
+            "source_refs",
+            "generation_method"
+          ],
+          "type": "object"
+        },
+        "relationships": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "schema_version": {
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "type": "string"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "entity_type",
+        "schema_version",
+        "version",
+        "lifecycle_state",
+        "created_at",
+        "updated_at",
+        "relationships",
+        "authority_level",
+        "provenance",
+        "kind",
+        "operational_metadata"
+      ],
+      "type": "object"
     }
   },
-  "additionalProperties": false
+  "$id": "eos://schemas/canonical-state/1.0.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "entities": {
+      "additionalProperties": false,
+      "properties": {
+        "CR": {
+          "additionalProperties": {
+            "$ref": "#/$defs/entity"
+          },
+          "type": "object"
+        },
+        "MNT": {
+          "additionalProperties": {
+            "$ref": "#/$defs/entity"
+          },
+          "type": "object"
+        },
+        "PI": {
+          "additionalProperties": {
+            "$ref": "#/$defs/entity"
+          },
+          "type": "object"
+        },
+        "REL": {
+          "additionalProperties": {
+            "$ref": "#/$defs/entity"
+          },
+          "type": "object"
+        },
+        "WC": {
+          "additionalProperties": {
+            "$ref": "#/$defs/entity"
+          },
+          "type": "object"
+        },
+        "WP": {
+          "additionalProperties": {
+            "$ref": "#/$defs/entity"
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "PI",
+        "WC",
+        "WP",
+        "CR",
+        "MNT",
+        "REL"
+      ],
+      "type": "object"
+    },
+    "model": {
+      "const": "EOS-SINGLE-CANONICAL-STATE-1"
+    },
+    "revision": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "model",
+    "revision",
+    "updated_at",
+    "entities"
+  ],
+  "title": "EOS Canonical Operational State",
+  "type": "object"
 }

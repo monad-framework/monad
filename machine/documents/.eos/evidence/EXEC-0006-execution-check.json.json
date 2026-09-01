@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"actual_changed_files\": [\n    \"crates/monad-core/src/lib.rs\",\n    \"crates/monad-core/src/markdown.rs\"\n  ],\n  \"checked\": \"2026-08-17T03:00:19Z\",\n  \"checks\": {\n    \"contract_valid\": true,\n    \"declared_diff_matches_actual\": true,\n    \"result_ingested\": true,\n    \"scope_passed\": true\n  },\n  \"contract\": {\n    \"canonical_governing_hash\": \"4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816\",\n    \"checks\": [\n      {\n        \"check\": \"contract_hash\",\n        \"detail\": \"expected=3e7c5bc8200efa48f9e3908c1ee7c6700943594f35334145d0588c57daf529b0 calculated=3e7c5bc8200efa48f9e3908c1ee7c6700943594f35334145d0588c57daf529b0\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"worktree_governing_inputs_unchanged\",\n        \"detail\": \"expected=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816 worktree=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"canonical_governing_inputs_unchanged\",\n        \"detail\": \"expected=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816 canonical=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"baseline_is_ancestor\",\n        \"detail\": \"baseline=87257c8060c3d08413bf5f975e2f605369340b9e head=7361233094f77407e79e3b7ff4f8c24725335a9b\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"expected_branch\",\n        \"detail\": \"expected=wp/mvp-0004 actual=wp/mvp-0004\",\n        \"passed\": true\n      }\n    ],\n    \"execution_id\": \"EXEC-0006\",\n    \"passed\": true,\n    \"target\": \"WP-MVP-0004\",\n    \"worktree_governing_hash\": \"4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816\"\n  },\n  \"declared_changed_files\": [\n    \"crates/monad-core/src/lib.rs\",\n    \"crates/monad-core/src/markdown.rs\"\n  ],\n  \"environment_drift\": {\n    \"head_changed\": true,\n    \"lockfiles_changed\": false,\n    \"tool_changes\": {\n      \"go\": {\n        \"after\": \"{\\\"type\\\":\\\"message\\\",\\\"message\\\":\\\"Detected an AI agent environment, printing as NDJSON. Trace logs are written to stderr, while user-facing logs are written to stdout.\\\"}\",\n        \"before\": \"go version go1.26.3 linux/amd64\"\n      },\n      \"node\": {\n        \"after\": \"{\\\"type\\\":\\\"message\\\",\\\"message\\\":\\\"Detected an AI agent environment, printing as NDJSON. Trace logs are written to stderr, while user-facing logs are written to stdout.\\\"}\",\n        \"before\": \"v24.14.0\"\n      }\n    }\n  },\n  \"execution_id\": \"EXEC-0006\",\n  \"passed\": true,\n  \"scope\": {\n    \"directives\": {\n      \"allowed\": [\n        \"*\",\n        \"**/*\"\n      ],\n      \"allowed_governed\": [],\n      \"forbidden\": []\n    },\n    \"passed\": true,\n    \"violations\": []\n  },\n  \"target\": \"WP-MVP-0004\"\n}\n",
+  "document_id": "doc:.eos%2Fevidence%2FEXEC-0006-execution-check.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/evidence/EXEC-0006-execution-check.json.",
+    "title": "Exec 0006 Execution Check"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 80,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"actual_changed_files\": [\n    \"crates/monad-core/src/lib.rs\",\n    \"crates/monad-core/src/markdown.rs\"\n  ],\n  \"checked\": \"2026-08-17T03:00:19Z\",\n  \"checks\": {\n    \"contract_valid\": true,\n    \"declared_diff_matches_actual\": true,\n    \"result_ingested\": true,\n    \"scope_passed\": true\n  },\n  \"contract\": {\n    \"canonical_governing_hash\": \"4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816\",\n    \"checks\": [\n      {\n        \"check\": \"contract_hash\",\n        \"detail\": \"expected=3e7c5bc8200efa48f9e3908c1ee7c6700943594f35334145d0588c57daf529b0 calculated=3e7c5bc8200efa48f9e3908c1ee7c6700943594f35334145d0588c57daf529b0\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"worktree_governing_inputs_unchanged\",\n        \"detail\": \"expected=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816 worktree=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"canonical_governing_inputs_unchanged\",\n        \"detail\": \"expected=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816 canonical=4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"baseline_is_ancestor\",\n        \"detail\": \"baseline=87257c8060c3d08413bf5f975e2f605369340b9e head=7361233094f77407e79e3b7ff4f8c24725335a9b\",\n        \"passed\": true\n      },\n      {\n        \"check\": \"expected_branch\",\n        \"detail\": \"expected=wp/mvp-0004 actual=wp/mvp-0004\",\n        \"passed\": true\n      }\n    ],\n    \"execution_id\": \"EXEC-0006\",\n    \"passed\": true,\n    \"target\": \"WP-MVP-0004\",\n    \"worktree_governing_hash\": \"4933e2428d0dfaaa2ab315a885b60260e18a9c9896bf99453be4a3c2f2a94816\"\n  },\n  \"declared_changed_files\": [\n    \"crates/monad-core/src/lib.rs\",\n    \"crates/monad-core/src/markdown.rs\"\n  ],\n  \"environment_drift\": {\n    \"head_changed\": true,\n    \"lockfiles_changed\": false,\n    \"tool_changes\": {\n      \"go\": {\n        \"after\": \"{\\\"type\\\":\\\"message\\\",\\\"message\\\":\\\"Detected an AI agent environment, printing as NDJSON. Trace logs are written to stderr, while user-facing logs are written to stdout.\\\"}\",\n        \"before\": \"go version go1.26.3 linux/amd64\"\n      },\n      \"node\": {\n        \"after\": \"{\\\"type\\\":\\\"message\\\",\\\"message\\\":\\\"Detected an AI agent environment, printing as NDJSON. Trace logs are written to stderr, while user-facing logs are written to stdout.\\\"}\",\n        \"before\": \"v24.14.0\"\n      }\n    }\n  },\n  \"execution_id\": \"EXEC-0006\",\n  \"passed\": true,\n  \"scope\": {\n    \"directives\": {\n      \"allowed\": [\n        \"*\",\n        \"**/*\"\n      ],\n      \"allowed_governed\": [],\n      \"forbidden\": []\n    },\n    \"passed\": true,\n    \"violations\": []\n  },\n  \"target\": \"WP-MVP-0004\"\n}",
+      "title": "Exec 0006 Execution Check"
+    }
+  ],
+  "source": {
+    "bytes": 2738,
+    "canonical": true,
+    "language": "json",
+    "lines": 80,
+    "media_type": "application/json",
+    "path": ".eos/evidence/EXEC-0006-execution-check.json",
+    "sha256": "49dc920aa01e02df32f524f7adc578764026cd13cf4d732c60f91d7c34b58d78"
+  }
+}

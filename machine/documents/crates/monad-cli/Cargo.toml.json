@@ -1,0 +1,40 @@
+{
+  "content": "[package]\nname = \"monad-cli\"\nversion = \"0.1.0\"\nedition.workspace = true\nrust-version.workspace = true\nlicense.workspace = true\n\n[[bin]]\nname = \"monad\"\npath = \"src/main.rs\"\n\n[dependencies]\nmonad-core = { path = \"../monad-core\" }\nserde_json.workspace = true\n",
+  "document_id": "doc:crates%2Fmonad-cli%2FCargo.toml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical toml source for crates/monad-cli/Cargo.toml.",
+    "title": "Cargo"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 14,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "[package]\nname = \"monad-cli\"\nversion = \"0.1.0\"\nedition.workspace = true\nrust-version.workspace = true\nlicense.workspace = true\n\n[[bin]]\nname = \"monad\"\npath = \"src/main.rs\"\n\n[dependencies]\nmonad-core = { path = \"../monad-core\" }\nserde_json.workspace = true",
+      "title": "Cargo"
+    }
+  ],
+  "source": {
+    "bytes": 256,
+    "canonical": true,
+    "language": "toml",
+    "lines": 14,
+    "media_type": "application/toml",
+    "path": "crates/monad-cli/Cargo.toml",
+    "sha256": "f31c835c79b0eaf7281da1c04e1db068b485d750afb24cbd618bca32015c70c7"
+  }
+}

@@ -10,4 +10,54 @@ if ! command -v python3 >/dev/null 2>&1; then
   exit 127
 fi
 
-exec python3 "$ROOT/tools/eos/eos.py" "$@"
+CANONICAL="$ROOT/tools/eos/canonical_state.py"
+LEGACY="$ROOT/tools/eos/eos.py"
+EXECUTION_V2="$ROOT/tools/eos/execution_v2.py"
+VERIFICATION_V2="$ROOT/tools/eos/verification_v2.py"
+
+# Canonical-state administration is handled directly by the state controller.
+if [[ "${1:-}" == "state" ]]; then
+  shift
+  exec python3 "$CANONICAL" "$@"
+fi
+
+# `rebuild-state` historically treated the event ledger as the current-state
+# authority. Under the single-canonical-state model it is retained as a
+# compatibility alias for projecting the canonical snapshot.
+if [[ "${1:-}" == "rebuild-state" ]]; then
+  shift
+  printf 'NOTE: rebuild-state now projects from .eos/state/current.json (canonical).\n' >&2
+  exec python3 "$CANONICAL" project "$@"
+fi
+
+# Select exactly one runtime before entering the canonical transaction. The
+# previous wrapper invoked the legacy runtime first and then invoked the selected
+# runtime a second time, duplicating output and side effects for every command.
+RUNNER="$LEGACY"
+case "${1:-}" in
+  preflight|worktree|execute|execution|contract|codex)
+    RUNNER="$EXECUTION_V2"
+    ;;
+  validate|validators|validation|evidence|performance|security|supply-chain|verify)
+    RUNNER="$VERIFICATION_V2"
+    ;;
+esac
+
+# Every EOS command runs inside a canonical transaction:
+# 1. fail closed if any projection already drifted;
+# 2. execute exactly one selected runtime;
+# 3. capture only a successful, internally consistent mutation into canonical
+#    machine-readable state; otherwise canonical state never advances.
+python3 "$CANONICAL" pre -- "$@"
+
+set +e
+python3 "$RUNNER" "$@"
+rc=$?
+set -e
+
+if (( rc != 0 )); then
+  rm -f "$ROOT/.eos/cache/canonical-state-transaction.json"
+  exit "$rc"
+fi
+
+python3 "$CANONICAL" post -- "$@"

@@ -1,17 +1,19 @@
 {
-  "content": "# Quality Attributes\n\n**Status:** Proposed stabilization baseline\n\n## Determinism\n\nEquivalent supported inputs, configuration, tool/Monad versions, and declared environment dimensions produce equivalent semantic identities, graph/KIR serialization, diagnostics, and context membership.\n\n## Correctness\n\nThe semantic model must reject or visibly represent unsupported/ambiguous states rather than silently normalize them into misleading truth. Conformance fixtures exercise positive, negative, boundary, and contradiction cases.\n\n## Explainability\n\nEvery consequential derived relationship, diagnostic, query/explanation path, context selection, or execution decision can identify its canonical inputs and governing rule.\n\n## Performance\n\nMVP establishes measured budgets for cold startup, repository discovery, full graph compilation on reference repositories, common query latency, context generation, and peak memory. Budgets are ratcheted from evidence rather than guessed into false SLOs.\n\n## Scalability\n\nDesign targets repository sizes materially beyond toy fixtures without assuming distributed infrastructure. Indexing/incrementality should allow later scaling before remote execution is considered necessary.\n\n## Reliability and recovery\n\nDerived state corruption or interruption is recoverable through validation/rebuild. Atomic writes protect canonical generated artifacts. Unknown/partial execution state is never represented as clean success.\n\n## Security\n\nInspection is non-executing by default, path/symlink handling is defensive, external commands/plugins are explicit capabilities, secrets/context are minimized, dependency provenance is controlled, and AI/remote boundaries are opt-in and auditable.\n\n## Portability\n\nThe local core should support major developer platforms through a deliberately bounded compatibility matrix. Platform-specific variance cannot contaminate canonical semantic identity without being declared.\n\n## Evolvability\n\nCore semantic concepts, adapters, storage/indexes, CLI, and AI integrations have boundaries enabling replacement. Public contracts gain versioning before external reliance.\n\n## Usability / developer experience\n\nFirst-run behavior, diagnostics, command naming, structured output, shell completion, and explanations reduce cognitive load rather than expose internal compiler architecture unnecessarily.\n\n## Testability\n\nPure semantic transformations are preferred where practical; golden/conformance/property tests cover canonicalization and graph invariants; end-to-end fixtures prove clean-clone behavior.",
+  "content": "# Quality Attributes\n\n**Status:** Expanded product baseline\n\n## Determinism\n\nEquivalent supported inputs, configuration, tool/Monad versions, declared environment dimensions, and governed policy state produce equivalent semantic identities, graph/KIR serialization, diagnostics, context membership, and reproducible execution records. Parallel execution may change wall-clock timing but not canonical result/evidence ordering where determinism is declared.\n\n## Correctness\n\nThe semantic model must reject or visibly represent unsupported/ambiguous states rather than silently normalize them into misleading truth. Conformance fixtures exercise positive, negative, boundary, contradiction, stale-memory, policy, and agent-disagreement cases.\n\n## Explainability\n\nEvery consequential derived relationship, diagnostic, score change, query/explanation path, context selection, policy/autonomy decision, automation action, and execution decision can identify its canonical inputs, external evidence where applicable, and governing rule.\n\n## Performance\n\nMVP establishes measured budgets for cold startup, repository discovery, full graph compilation on reference repositories, common query latency, context generation, and peak memory. Post-MVP benchmark profiles extend this to parallel scheduling, caches, provider routing, state finalization, and large workspace workloads.\n\nA long-range scale profile targets at least 10,000 lightweight internal scheduler/graph operations per second on declared reference hardware. Eligible local governed state transitions target 400 ms p95 finalization after all required inputs are available. These are evidence-driven benchmark targets, not substitutes for correctness and not promises about external tool or network latency.\n\n## Scalability\n\nDesign targets repository sizes materially beyond toy fixtures without assuming distributed infrastructure. Indexing/incrementality should allow scaling locally first. Optional external graph/vector backends, distributed caches, and multi-tenant services are introduced through versioned adapters only when evidence justifies them.\n\n## Reliability and recovery\n\nDerived state corruption or interruption is recoverable through validation/rebuild. Atomic writes protect canonical generated artifacts. Unknown/partial execution state is never represented as clean success. Remote/provider/integration workflows use timeout/cancellation, bounded retries, exponential backoff, idempotency-aware retry, circuit breakers, and failure isolation.\n\n## Security\n\nInspection is non-executing by default; path/symlink handling is defensive; external commands/plugins/integrations are explicit capabilities; secrets/context are minimized; dependency provenance is controlled; and AI/remote boundaries are opt-in and auditable. Agent/tool capability sandboxing, prompt-injection defenses, secret masking, tenant/workspace isolation, signed attestations, and least-authority defaults apply to consequential execution paths.\n\n## Cryptographic agility\n\nAttestation and privileged-identity mechanisms must support versioned algorithm profiles, key rotation/revocation, multi-party approval/signature policies, and migration to post-quantum algorithms such as ML-DSA without rewriting semantic history. Conventional profiles may include Ed25519, P-256, and secp256k1 where appropriate.\n\n## Auditability\n\nHuman actions, agent executions, policy evaluations, autonomy changes, attestations, changes, rollbacks, release decisions, and resulting artifacts must be reconstructable from durable correlated evidence. Audit exports should be tamper-evident and distinguish canonical repository history from external operational evidence.\n\n## Privacy\n\nHosted analytics, vector memory, semantic/result caches, files/media, agent execution records, and integrations must have explicit workspace/tenant isolation, retention, classification, and access rules. Optional visitor/geography/device analytics are never required for local core operation.\n\n## Portability\n\nThe local core should support major developer platforms through a deliberately bounded compatibility matrix and remain useful offline. Optional deployment profiles include containers, Nix, air-gapped/on-prem, and major clouds. Platform-specific variance cannot contaminate canonical semantic identity without being declared.\n\n## Provider independence\n\nAI, storage, automation, cloud, IDE, and integration capabilities use explicit contracts so no single external provider becomes a prerequisite for canonical semantic operation.\n\n## Evolvability\n\nCore semantic concepts, adapters, storage/indexes, CLI, AI integrations, policy, execution, observation, MCP/LSP, plugins, registries, and deployment surfaces have boundaries enabling replacement. Public contracts gain versioning before external reliance. Modular-first evolution precedes repository/service splitting.\n\n## Progressive trust\n\nAgents and automations begin with minimal authority. Promotion to stronger autonomy requires defined reliability evidence and policy approval; demotion/revocation remains possible. Cross-harness agreement is evidence, not authority by itself.\n\n## Observability\n\nOperational components expose structured logs, metrics, and traces through OpenTelemetry-compatible boundaries where applicable. Records correlate to product goals, epics/features, Work Packets, executions, providers, costs/tokens where available, evidence, and resulting state.\n\n## Usability / developer experience\n\nFirst-run behavior, diagnostics, command naming, structured output, shell completion, score/health explanations, dashboards, IDE integrations, and automation reviews reduce cognitive load rather than expose internal compiler architecture unnecessarily.\n\n## Accessibility of evidence\n\nDashboards, scores, summaries, embeddings, caches, and AI explanations must link back to underlying canonical or explicitly external evidence. Derived intelligence may accelerate understanding but may not become the only route to inspect a consequential claim.\n\n## Testability\n\nPure semantic transformations are preferred where practical; golden/conformance/property tests cover canonicalization and graph invariants; end-to-end fixtures prove clean-clone behavior. Security, agent, integration, deployment, cryptographic, parallelism, cache isolation, recovery, and performance profiles gain dedicated conformance/acceptance suites as they enter refinement.\n",
   "document_id": "doc:architecture%2Fquality-attributes.md",
   "generation": {
     "deterministic": true,
     "tool": "sync-machine-docs",
     "version": "1.0.0"
   },
-  "identifiers": [],
+  "identifiers": [
+    "P-256"
+  ],
   "links": [],
   "metadata": {
     "document_type": "architecture",
     "normative": true,
-    "summary": "Status: Proposed stabilization baseline",
+    "summary": "Status: Expanded product baseline",
     "title": "Quality Attributes"
   },
   "relations": [],
@@ -24,7 +26,7 @@
       "line_end": 4,
       "line_start": 1,
       "section_id": "quality-attributes",
-      "text": "# Quality Attributes\n\n**Status:** Proposed stabilization baseline",
+      "text": "# Quality Attributes\n\n**Status:** Expanded product baseline",
       "title": "Quality Attributes"
     },
     {
@@ -33,7 +35,7 @@
       "line_end": 8,
       "line_start": 5,
       "section_id": "determinism",
-      "text": "## Determinism\n\nEquivalent supported inputs, configuration, tool/Monad versions, and declared environment dimensions produce equivalent semantic identities, graph/KIR serialization, diagnostics, and context membership.",
+      "text": "## Determinism\n\nEquivalent supported inputs, configuration, tool/Monad versions, declared environment dimensions, and governed policy state produce equivalent semantic identities, graph/KIR serialization, diagnostics, context membership, and reproducible execution records. Parallel execution may change wall-clock timing but not canonical result/evidence ordering where determinism is declared.",
       "title": "Determinism"
     },
     {
@@ -42,7 +44,7 @@
       "line_end": 12,
       "line_start": 9,
       "section_id": "correctness",
-      "text": "## Correctness\n\nThe semantic model must reject or visibly represent unsupported/ambiguous states rather than silently normalize them into misleading truth. Conformance fixtures exercise positive, negative, boundary, and contradiction cases.",
+      "text": "## Correctness\n\nThe semantic model must reject or visibly represent unsupported/ambiguous states rather than silently normalize them into misleading truth. Conformance fixtures exercise positive, negative, boundary, contradiction, stale-memory, policy, and agent-disagreement cases.",
       "title": "Correctness"
     },
     {
@@ -51,89 +53,154 @@
       "line_end": 16,
       "line_start": 13,
       "section_id": "explainability",
-      "text": "## Explainability\n\nEvery consequential derived relationship, diagnostic, query/explanation path, context selection, or execution decision can identify its canonical inputs and governing rule.",
+      "text": "## Explainability\n\nEvery consequential derived relationship, diagnostic, score change, query/explanation path, context selection, policy/autonomy decision, automation action, and execution decision can identify its canonical inputs, external evidence where applicable, and governing rule.",
       "title": "Explainability"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 20,
+      "line_end": 22,
       "line_start": 17,
       "section_id": "performance",
-      "text": "## Performance\n\nMVP establishes measured budgets for cold startup, repository discovery, full graph compilation on reference repositories, common query latency, context generation, and peak memory. Budgets are ratcheted from evidence rather than guessed into false SLOs.",
+      "text": "## Performance\n\nMVP establishes measured budgets for cold startup, repository discovery, full graph compilation on reference repositories, common query latency, context generation, and peak memory. Post-MVP benchmark profiles extend this to parallel scheduling, caches, provider routing, state finalization, and large workspace workloads.\n\nA long-range scale profile targets at least 10,000 lightweight internal scheduler/graph operations per second on declared reference hardware. Eligible local governed state transitions target 400 ms p95 finalization after all required inputs are available. These are evidence-driven benchmark targets, not substitutes for correctness and not promises about external tool or network latency.",
       "title": "Performance"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 24,
-      "line_start": 21,
+      "line_end": 26,
+      "line_start": 23,
       "section_id": "scalability",
-      "text": "## Scalability\n\nDesign targets repository sizes materially beyond toy fixtures without assuming distributed infrastructure. Indexing/incrementality should allow later scaling before remote execution is considered necessary.",
+      "text": "## Scalability\n\nDesign targets repository sizes materially beyond toy fixtures without assuming distributed infrastructure. Indexing/incrementality should allow scaling locally first. Optional external graph/vector backends, distributed caches, and multi-tenant services are introduced through versioned adapters only when evidence justifies them.",
       "title": "Scalability"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 28,
-      "line_start": 25,
+      "line_end": 30,
+      "line_start": 27,
       "section_id": "reliability-and-recovery",
-      "text": "## Reliability and recovery\n\nDerived state corruption or interruption is recoverable through validation/rebuild. Atomic writes protect canonical generated artifacts. Unknown/partial execution state is never represented as clean success.",
+      "text": "## Reliability and recovery\n\nDerived state corruption or interruption is recoverable through validation/rebuild. Atomic writes protect canonical generated artifacts. Unknown/partial execution state is never represented as clean success. Remote/provider/integration workflows use timeout/cancellation, bounded retries, exponential backoff, idempotency-aware retry, circuit breakers, and failure isolation.",
       "title": "Reliability and recovery"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 32,
-      "line_start": 29,
+      "line_end": 34,
+      "line_start": 31,
       "section_id": "security",
-      "text": "## Security\n\nInspection is non-executing by default, path/symlink handling is defensive, external commands/plugins are explicit capabilities, secrets/context are minimized, dependency provenance is controlled, and AI/remote boundaries are opt-in and auditable.",
+      "text": "## Security\n\nInspection is non-executing by default; path/symlink handling is defensive; external commands/plugins/integrations are explicit capabilities; secrets/context are minimized; dependency provenance is controlled; and AI/remote boundaries are opt-in and auditable. Agent/tool capability sandboxing, prompt-injection defenses, secret masking, tenant/workspace isolation, signed attestations, and least-authority defaults apply to consequential execution paths.",
       "title": "Security"
+    },
+    {
+      "identifiers": [
+        "P-256"
+      ],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 35,
+      "section_id": "cryptographic-agility",
+      "text": "## Cryptographic agility\n\nAttestation and privileged-identity mechanisms must support versioned algorithm profiles, key rotation/revocation, multi-party approval/signature policies, and migration to post-quantum algorithms such as ML-DSA without rewriting semantic history. Conventional profiles may include Ed25519, P-256, and secp256k1 where appropriate.",
+      "title": "Cryptographic agility"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 36,
-      "line_start": 33,
+      "line_end": 42,
+      "line_start": 39,
+      "section_id": "auditability",
+      "text": "## Auditability\n\nHuman actions, agent executions, policy evaluations, autonomy changes, attestations, changes, rollbacks, release decisions, and resulting artifacts must be reconstructable from durable correlated evidence. Audit exports should be tamper-evident and distinguish canonical repository history from external operational evidence.",
+      "title": "Auditability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 43,
+      "section_id": "privacy",
+      "text": "## Privacy\n\nHosted analytics, vector memory, semantic/result caches, files/media, agent execution records, and integrations must have explicit workspace/tenant isolation, retention, classification, and access rules. Optional visitor/geography/device analytics are never required for local core operation.",
+      "title": "Privacy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 47,
       "section_id": "portability",
-      "text": "## Portability\n\nThe local core should support major developer platforms through a deliberately bounded compatibility matrix. Platform-specific variance cannot contaminate canonical semantic identity without being declared.",
+      "text": "## Portability\n\nThe local core should support major developer platforms through a deliberately bounded compatibility matrix and remain useful offline. Optional deployment profiles include containers, Nix, air-gapped/on-prem, and major clouds. Platform-specific variance cannot contaminate canonical semantic identity without being declared.",
       "title": "Portability"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 40,
-      "line_start": 37,
+      "line_end": 54,
+      "line_start": 51,
+      "section_id": "provider-independence",
+      "text": "## Provider independence\n\nAI, storage, automation, cloud, IDE, and integration capabilities use explicit contracts so no single external provider becomes a prerequisite for canonical semantic operation.",
+      "title": "Provider independence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 55,
       "section_id": "evolvability",
-      "text": "## Evolvability\n\nCore semantic concepts, adapters, storage/indexes, CLI, and AI integrations have boundaries enabling replacement. Public contracts gain versioning before external reliance.",
+      "text": "## Evolvability\n\nCore semantic concepts, adapters, storage/indexes, CLI, AI integrations, policy, execution, observation, MCP/LSP, plugins, registries, and deployment surfaces have boundaries enabling replacement. Public contracts gain versioning before external reliance. Modular-first evolution precedes repository/service splitting.",
       "title": "Evolvability"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 44,
-      "line_start": 41,
+      "line_end": 62,
+      "line_start": 59,
+      "section_id": "progressive-trust",
+      "text": "## Progressive trust\n\nAgents and automations begin with minimal authority. Promotion to stronger autonomy requires defined reliability evidence and policy approval; demotion/revocation remains possible. Cross-harness agreement is evidence, not authority by itself.",
+      "title": "Progressive trust"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 66,
+      "line_start": 63,
+      "section_id": "observability",
+      "text": "## Observability\n\nOperational components expose structured logs, metrics, and traces through OpenTelemetry-compatible boundaries where applicable. Records correlate to product goals, epics/features, Work Packets, executions, providers, costs/tokens where available, evidence, and resulting state.",
+      "title": "Observability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 70,
+      "line_start": 67,
       "section_id": "usability-developer-experience",
-      "text": "## Usability / developer experience\n\nFirst-run behavior, diagnostics, command naming, structured output, shell completion, and explanations reduce cognitive load rather than expose internal compiler architecture unnecessarily.",
+      "text": "## Usability / developer experience\n\nFirst-run behavior, diagnostics, command naming, structured output, shell completion, score/health explanations, dashboards, IDE integrations, and automation reviews reduce cognitive load rather than expose internal compiler architecture unnecessarily.",
       "title": "Usability / developer experience"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 47,
-      "line_start": 45,
+      "line_end": 74,
+      "line_start": 71,
+      "section_id": "accessibility-of-evidence",
+      "text": "## Accessibility of evidence\n\nDashboards, scores, summaries, embeddings, caches, and AI explanations must link back to underlying canonical or explicitly external evidence. Derived intelligence may accelerate understanding but may not become the only route to inspect a consequential claim.",
+      "title": "Accessibility of evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 77,
+      "line_start": 75,
       "section_id": "testability",
-      "text": "## Testability\n\nPure semantic transformations are preferred where practical; golden/conformance/property tests cover canonicalization and graph invariants; end-to-end fixtures prove clean-clone behavior.",
+      "text": "## Testability\n\nPure semantic transformations are preferred where practical; golden/conformance/property tests cover canonicalization and graph invariants; end-to-end fixtures prove clean-clone behavior. Security, agent, integration, deployment, cryptographic, parallelism, cache isolation, recovery, and performance profiles gain dedicated conformance/acceptance suites as they enter refinement.",
       "title": "Testability"
     }
   ],
   "source": {
-    "bytes": 2565,
+    "bytes": 6423,
     "canonical": true,
     "language": "markdown",
-    "lines": 47,
+    "lines": 77,
     "media_type": "text/markdown",
     "path": "architecture/quality-attributes.md",
-    "sha256": "6dc9315358b542fee9e3e9c526d3f85df7ce13ba6368e93fe9e5705c21fc5d6a"
+    "sha256": "8d19c2d35adc900675b364c9363c62882d8a13b739b4242c53a90ba241f20b11"
   }
 }

@@ -1,0 +1,257 @@
+{
+  "content": "# Forecast Work Packets — PI-EXP-003\n\n**Status:** Forecast catalog  \n**Change authority:** CR-0002\n\nThese Work Packets are forecast placeholders. They are not Ready or authorized. Each is split into its own canonical Work Packet artifact when rolling-wave refinement reaches it; until then this catalog plus `product/backlog/EXPANDED-BACKLOG.md` defines the forecast identity and scope intent.\n\n## WP-EXP-0025 — Workspace cloning & restore\n\n- **Epic:** EPIC-021\n- **Feature:** F-021-02\n- **Work Cycle / Sprint:** WC-EXP-0010\n- **Product Goal:** PG-004\n- **Planned stories:** US-187 one-action full workspace clone/template; US-188 version-history restore; US-189 clone/restore provenance\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0026 — Enterprise deployment modes\n\n- **Epic:** EPIC-021\n- **Feature:** F-021-03\n- **Work Cycle / Sprint:** WC-EXP-0010\n- **Product Goal:** PG-004\n- **Planned stories:** US-190 air-gapped/no-exfiltration; US-191 AWS/GCP/Azure profiles; US-192 on-premises profile; US-193 boundary audit controls\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0027 — Reproducible environments\n\n- **Epic:** EPIC-021\n- **Feature:** F-021-04\n- **Work Cycle / Sprint:** WC-EXP-0010\n- **Product Goal:** PG-004\n- **Planned stories:** US-194 Docker/container support; US-195 Nix support; US-196 reproducible environment manifest/evidence\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0028 — Governed files & media\n\n- **Epic:** EPIC-021\n- **Feature:** F-021-05\n- **Work Cycle / Sprint:** WC-EXP-0011\n- **Product Goal:** PG-004\n- **Planned stories:** US-197 upload/storage/reference; US-198 content hashing/provenance; US-199 classification/retention/AI-processing policy\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0029 — MCP server\n\n- **Epic:** EPIC-022\n- **Feature:** F-022-01\n- **Work Cycle / Sprint:** WC-EXP-0011\n- **Product Goal:** PG-004\n- **Planned stories:** US-200 MCP tools/resources; US-201 scoped authority/context; US-202 external MCP-client interoperability\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0030 — LSP/IDE integrations\n\n- **Epic:** EPIC-022\n- **Feature:** F-022-02\n- **Work Cycle / Sprint:** WC-EXP-0011\n- **Product Goal:** PG-004\n- **Planned stories:** US-203 LSP semantic contract; US-204 VS Code/JetBrains/Zed integration profiles; US-205 diagnostics/navigation/explain/context actions\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0031 — Plugin SDK, registry & packs\n\n- **Epic:** EPIC-022\n- **Feature:** F-022-03\n- **Work Cycle / Sprint:** WC-EXP-0012\n- **Product Goal:** PG-004\n- **Planned stories:** US-206 plugin SDK; US-207 registry/discovery; US-208 curated packs; US-209 plugin provenance/signature/permission policy\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0032 — Pluggable storage backends\n\n- **Epic:** EPIC-022\n- **Feature:** F-022-04\n- **Work Cycle / Sprint:** WC-EXP-0012\n- **Product Goal:** PG-004\n- **Planned stories:** US-210 graph/vector backend contracts; US-211 Neo4j/Neptune/JanusGraph adapters; US-212 pgvector/Pinecone/Weaviate adapters; US-213 local-first default\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0033 — External runtime compatibility profiles\n\n- **Epic:** EPIC-022\n- **Feature:** F-022-05\n- **Work Cycle / Sprint:** WC-EXP-0012\n- **Product Goal:** PG-004\n- **Planned stories:** US-214 adapter-defined runtime/bytecode compatibility; US-215 optional EVM bytecode profile; US-216 isolation/no-core-semantic-dependency\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0034 — Parallel execution scheduler\n\n- **Epic:** EPIC-023\n- **Feature:** F-023-01\n- **Work Cycle / Sprint:** WC-EXP-0013\n- **Product Goal:** PG-004\n- **Planned stories:** US-217 parallel independent work; US-218 dependency/conflict detection; US-219 deterministic result/evidence commit ordering\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0035 — High-throughput benchmark profile\n\n- **Epic:** EPIC-023\n- **Feature:** F-023-02\n- **Work Cycle / Sprint:** WC-EXP-0013\n- **Product Goal:** PG-004\n- **Planned stories:** US-220 declared reference benchmark; US-221 10,000+ lightweight internal operations/second stretch target; US-222 regression budgets\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0036 — Fast local state finalization\n\n- **Epic:** EPIC-023\n- **Feature:** F-023-03\n- **Work Cycle / Sprint:** WC-EXP-0013\n- **Product Goal:** PG-004\n- **Planned stories:** US-223 400 ms p95 eligible local transition target; US-224 timeout/failure semantics; US-225 benchmark evidence\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0037 — Scale-out cache & isolation\n\n- **Epic:** EPIC-023\n- **Feature:** F-023-04\n- **Work Cycle / Sprint:** WC-EXP-0013\n- **Product Goal:** PG-004\n- **Planned stories:** US-226 distributed-cache abstraction; US-227 tenant/workspace cache isolation; US-228 cache provenance/invalidation\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0038 — End-to-end expanded acceptance\n\n- **Epic:** EPIC-024\n- **Feature:** F-024-01\n- **Work Cycle / Sprint:** WC-EXP-0014\n- **Product Goal:** PG-004\n- **Planned stories:** US-229 living-intelligence journey; US-230 governed-autonomy journey; US-231 enterprise/offline journey\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0039 — Security & scale readiness\n\n- **Epic:** EPIC-024\n- **Feature:** F-024-02\n- **Work Cycle / Sprint:** WC-EXP-0014\n- **Product Goal:** PG-004\n- **Planned stories:** US-232 attestation/crypto readiness; US-233 prompt/secret/sandbox acceptance; US-234 performance/scale evidence acceptance\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n\n## WP-EXP-0040 — Release 2 packaging & migration\n\n- **Epic:** EPIC-024\n- **Feature:** F-024-03\n- **Work Cycle / Sprint:** WC-EXP-0014\n- **Product Goal:** PG-004\n- **Planned stories:** US-235 MVP-to-expanded migration; US-236 release provenance/notes/artifacts; US-237 PG-002/003/004 acceptance and release disposition\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.\n",
+  "document_id": "doc:engineering%2Fwork-packets%2FWP-EXP-PI-003-FORECAST.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "EXP-0010",
+    "EXP-0011",
+    "EXP-0012",
+    "EXP-0013",
+    "EXP-0014",
+    "EXP-0025",
+    "EXP-0026",
+    "EXP-0027",
+    "EXP-0028",
+    "EXP-0029",
+    "EXP-003",
+    "EXP-0030",
+    "EXP-0031",
+    "EXP-0032",
+    "EXP-0033",
+    "EXP-0034",
+    "EXP-0035",
+    "EXP-0036",
+    "EXP-0037",
+    "EXP-0038",
+    "EXP-0039",
+    "EXP-0040"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Forecast catalog Change authority: CR-0002",
+    "title": "Forecast Work Packets — PI-EXP-003"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "EXP-003"
+      ],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "forecast-work-packets-pi-exp-003",
+      "text": "# Forecast Work Packets — PI-EXP-003\n\n**Status:** Forecast catalog  \n**Change authority:** CR-0002\n\nThese Work Packets are forecast placeholders. They are not Ready or authorized. Each is split into its own canonical Work Packet artifact when rolling-wave refinement reaches it; until then this catalog plus `product/backlog/EXPANDED-BACKLOG.md` defines the forecast identity and scope intent.",
+      "title": "Forecast Work Packets — PI-EXP-003"
+    },
+    {
+      "identifiers": [
+        "EXP-0010",
+        "EXP-0025"
+      ],
+      "level": 2,
+      "line_end": 16,
+      "line_start": 8,
+      "section_id": "wp-exp-0025-workspace-cloning-restore",
+      "text": "## WP-EXP-0025 — Workspace cloning & restore\n\n- **Epic:** EPIC-021\n- **Feature:** F-021-02\n- **Work Cycle / Sprint:** WC-EXP-0010\n- **Product Goal:** PG-004\n- **Planned stories:** US-187 one-action full workspace clone/template; US-188 version-history restore; US-189 clone/restore provenance\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0025 — Workspace cloning & restore"
+    },
+    {
+      "identifiers": [
+        "EXP-0010",
+        "EXP-0026"
+      ],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 17,
+      "section_id": "wp-exp-0026-enterprise-deployment-modes",
+      "text": "## WP-EXP-0026 — Enterprise deployment modes\n\n- **Epic:** EPIC-021\n- **Feature:** F-021-03\n- **Work Cycle / Sprint:** WC-EXP-0010\n- **Product Goal:** PG-004\n- **Planned stories:** US-190 air-gapped/no-exfiltration; US-191 AWS/GCP/Azure profiles; US-192 on-premises profile; US-193 boundary audit controls\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0026 — Enterprise deployment modes"
+    },
+    {
+      "identifiers": [
+        "EXP-0010",
+        "EXP-0027"
+      ],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 26,
+      "section_id": "wp-exp-0027-reproducible-environments",
+      "text": "## WP-EXP-0027 — Reproducible environments\n\n- **Epic:** EPIC-021\n- **Feature:** F-021-04\n- **Work Cycle / Sprint:** WC-EXP-0010\n- **Product Goal:** PG-004\n- **Planned stories:** US-194 Docker/container support; US-195 Nix support; US-196 reproducible environment manifest/evidence\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0027 — Reproducible environments"
+    },
+    {
+      "identifiers": [
+        "EXP-0011",
+        "EXP-0028"
+      ],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 35,
+      "section_id": "wp-exp-0028-governed-files-media",
+      "text": "## WP-EXP-0028 — Governed files & media\n\n- **Epic:** EPIC-021\n- **Feature:** F-021-05\n- **Work Cycle / Sprint:** WC-EXP-0011\n- **Product Goal:** PG-004\n- **Planned stories:** US-197 upload/storage/reference; US-198 content hashing/provenance; US-199 classification/retention/AI-processing policy\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0028 — Governed files & media"
+    },
+    {
+      "identifiers": [
+        "EXP-0011",
+        "EXP-0029"
+      ],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 44,
+      "section_id": "wp-exp-0029-mcp-server",
+      "text": "## WP-EXP-0029 — MCP server\n\n- **Epic:** EPIC-022\n- **Feature:** F-022-01\n- **Work Cycle / Sprint:** WC-EXP-0011\n- **Product Goal:** PG-004\n- **Planned stories:** US-200 MCP tools/resources; US-201 scoped authority/context; US-202 external MCP-client interoperability\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0029 — MCP server"
+    },
+    {
+      "identifiers": [
+        "EXP-0011",
+        "EXP-0030"
+      ],
+      "level": 2,
+      "line_end": 61,
+      "line_start": 53,
+      "section_id": "wp-exp-0030-lsp-ide-integrations",
+      "text": "## WP-EXP-0030 — LSP/IDE integrations\n\n- **Epic:** EPIC-022\n- **Feature:** F-022-02\n- **Work Cycle / Sprint:** WC-EXP-0011\n- **Product Goal:** PG-004\n- **Planned stories:** US-203 LSP semantic contract; US-204 VS Code/JetBrains/Zed integration profiles; US-205 diagnostics/navigation/explain/context actions\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0030 — LSP/IDE integrations"
+    },
+    {
+      "identifiers": [
+        "EXP-0012",
+        "EXP-0031"
+      ],
+      "level": 2,
+      "line_end": 70,
+      "line_start": 62,
+      "section_id": "wp-exp-0031-plugin-sdk-registry-packs",
+      "text": "## WP-EXP-0031 — Plugin SDK, registry & packs\n\n- **Epic:** EPIC-022\n- **Feature:** F-022-03\n- **Work Cycle / Sprint:** WC-EXP-0012\n- **Product Goal:** PG-004\n- **Planned stories:** US-206 plugin SDK; US-207 registry/discovery; US-208 curated packs; US-209 plugin provenance/signature/permission policy\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0031 — Plugin SDK, registry & packs"
+    },
+    {
+      "identifiers": [
+        "EXP-0012",
+        "EXP-0032"
+      ],
+      "level": 2,
+      "line_end": 79,
+      "line_start": 71,
+      "section_id": "wp-exp-0032-pluggable-storage-backends",
+      "text": "## WP-EXP-0032 — Pluggable storage backends\n\n- **Epic:** EPIC-022\n- **Feature:** F-022-04\n- **Work Cycle / Sprint:** WC-EXP-0012\n- **Product Goal:** PG-004\n- **Planned stories:** US-210 graph/vector backend contracts; US-211 Neo4j/Neptune/JanusGraph adapters; US-212 pgvector/Pinecone/Weaviate adapters; US-213 local-first default\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0032 — Pluggable storage backends"
+    },
+    {
+      "identifiers": [
+        "EXP-0012",
+        "EXP-0033"
+      ],
+      "level": 2,
+      "line_end": 88,
+      "line_start": 80,
+      "section_id": "wp-exp-0033-external-runtime-compatibility-profiles",
+      "text": "## WP-EXP-0033 — External runtime compatibility profiles\n\n- **Epic:** EPIC-022\n- **Feature:** F-022-05\n- **Work Cycle / Sprint:** WC-EXP-0012\n- **Product Goal:** PG-004\n- **Planned stories:** US-214 adapter-defined runtime/bytecode compatibility; US-215 optional EVM bytecode profile; US-216 isolation/no-core-semantic-dependency\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0033 — External runtime compatibility profiles"
+    },
+    {
+      "identifiers": [
+        "EXP-0013",
+        "EXP-0034"
+      ],
+      "level": 2,
+      "line_end": 97,
+      "line_start": 89,
+      "section_id": "wp-exp-0034-parallel-execution-scheduler",
+      "text": "## WP-EXP-0034 — Parallel execution scheduler\n\n- **Epic:** EPIC-023\n- **Feature:** F-023-01\n- **Work Cycle / Sprint:** WC-EXP-0013\n- **Product Goal:** PG-004\n- **Planned stories:** US-217 parallel independent work; US-218 dependency/conflict detection; US-219 deterministic result/evidence commit ordering\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0034 — Parallel execution scheduler"
+    },
+    {
+      "identifiers": [
+        "EXP-0013",
+        "EXP-0035"
+      ],
+      "level": 2,
+      "line_end": 106,
+      "line_start": 98,
+      "section_id": "wp-exp-0035-high-throughput-benchmark-profile",
+      "text": "## WP-EXP-0035 — High-throughput benchmark profile\n\n- **Epic:** EPIC-023\n- **Feature:** F-023-02\n- **Work Cycle / Sprint:** WC-EXP-0013\n- **Product Goal:** PG-004\n- **Planned stories:** US-220 declared reference benchmark; US-221 10,000+ lightweight internal operations/second stretch target; US-222 regression budgets\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0035 — High-throughput benchmark profile"
+    },
+    {
+      "identifiers": [
+        "EXP-0013",
+        "EXP-0036"
+      ],
+      "level": 2,
+      "line_end": 115,
+      "line_start": 107,
+      "section_id": "wp-exp-0036-fast-local-state-finalization",
+      "text": "## WP-EXP-0036 — Fast local state finalization\n\n- **Epic:** EPIC-023\n- **Feature:** F-023-03\n- **Work Cycle / Sprint:** WC-EXP-0013\n- **Product Goal:** PG-004\n- **Planned stories:** US-223 400 ms p95 eligible local transition target; US-224 timeout/failure semantics; US-225 benchmark evidence\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0036 — Fast local state finalization"
+    },
+    {
+      "identifiers": [
+        "EXP-0013",
+        "EXP-0037"
+      ],
+      "level": 2,
+      "line_end": 124,
+      "line_start": 116,
+      "section_id": "wp-exp-0037-scale-out-cache-isolation",
+      "text": "## WP-EXP-0037 — Scale-out cache & isolation\n\n- **Epic:** EPIC-023\n- **Feature:** F-023-04\n- **Work Cycle / Sprint:** WC-EXP-0013\n- **Product Goal:** PG-004\n- **Planned stories:** US-226 distributed-cache abstraction; US-227 tenant/workspace cache isolation; US-228 cache provenance/invalidation\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0037 — Scale-out cache & isolation"
+    },
+    {
+      "identifiers": [
+        "EXP-0014",
+        "EXP-0038"
+      ],
+      "level": 2,
+      "line_end": 133,
+      "line_start": 125,
+      "section_id": "wp-exp-0038-end-to-end-expanded-acceptance",
+      "text": "## WP-EXP-0038 — End-to-end expanded acceptance\n\n- **Epic:** EPIC-024\n- **Feature:** F-024-01\n- **Work Cycle / Sprint:** WC-EXP-0014\n- **Product Goal:** PG-004\n- **Planned stories:** US-229 living-intelligence journey; US-230 governed-autonomy journey; US-231 enterprise/offline journey\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0038 — End-to-end expanded acceptance"
+    },
+    {
+      "identifiers": [
+        "EXP-0014",
+        "EXP-0039"
+      ],
+      "level": 2,
+      "line_end": 142,
+      "line_start": 134,
+      "section_id": "wp-exp-0039-security-scale-readiness",
+      "text": "## WP-EXP-0039 — Security & scale readiness\n\n- **Epic:** EPIC-024\n- **Feature:** F-024-02\n- **Work Cycle / Sprint:** WC-EXP-0014\n- **Product Goal:** PG-004\n- **Planned stories:** US-232 attestation/crypto readiness; US-233 prompt/secret/sandbox acceptance; US-234 performance/scale evidence acceptance\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0039 — Security & scale readiness"
+    },
+    {
+      "identifiers": [
+        "EXP-0014",
+        "EXP-0040"
+      ],
+      "level": 2,
+      "line_end": 150,
+      "line_start": 143,
+      "section_id": "wp-exp-0040-release-2-packaging-migration",
+      "text": "## WP-EXP-0040 — Release 2 packaging & migration\n\n- **Epic:** EPIC-024\n- **Feature:** F-024-03\n- **Work Cycle / Sprint:** WC-EXP-0014\n- **Product Goal:** PG-004\n- **Planned stories:** US-235 MVP-to-expanded migration; US-236 release provenance/notes/artifacts; US-237 PG-002/003/004 acceptance and release disposition\n- **Readiness:** Planned only; concrete ADR/specification/dependency/task/test/evidence boundaries are required before Ready.",
+      "title": "WP-EXP-0040 — Release 2 packaging & migration"
+    }
+  ],
+  "source": {
+    "bytes": 7296,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 150,
+    "media_type": "text/markdown",
+    "path": "engineering/work-packets/WP-EXP-PI-003-FORECAST.md",
+    "sha256": "2b5a30d060117dd7b734dc1c81a7d28ebe39e70496b5a15a41648b0513d9b6ed"
+  }
+}

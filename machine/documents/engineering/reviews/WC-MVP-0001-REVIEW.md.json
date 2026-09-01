@@ -1,0 +1,170 @@
+{
+  "content": "---\nartifact_id: \"REV-WC-MVP-0001\"\ntitle: \"WC-MVP-0001 Work Cycle Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"In Review\"\nauthority: \"review-authoritative\"\ncreated: \"2026-08-17\"\nupdated: \"2026-08-17\"\n---\n\n# WC-MVP-0001 — Work Cycle Review\n\n**Decision:** ACCEPTED\n\n## Target\n\n- Work Cycle: `WC-MVP-0001 — Workspace, Discovery, and Identity`\n- Program Increment: `PI-MVP-001 — Semantic Foundation`\n- State at review start: ACTIVE\n- Review baseline: `bd79c8096e066502d1c7d03a9eda2b40195c6ae9`\n- Included packets: `WP-MVP-0001`, `WP-MVP-0002`, `WP-MVP-0003`\n\n## Sprint Goal Disposition\n\n**ACHIEVED.**\n\nSprint Goal: **Discover repository/workspace knowledge with stable identity.**\n\nThe cycle established the complete repository-bootstrap boundary intended by the goal:\n\n1. `WP-MVP-0001` delivered deterministic Monad repository-root detection and effective configuration semantics.\n2. `WP-MVP-0002` delivered deterministic, containment-safe workspace discovery with stable ordering, exclusions, provenance, source-kind classification, diagnostics, and symlink handling.\n3. `WP-MVP-0003` delivered clone-independent Source IDs, stable Document IDs, exact-byte SHA-256 provenance, governed-ID collision diagnostics, and deterministic case/symlink identity behavior.\n\nAll three Work Packets are CLOSED following governed EOSE execution, EOSV verification, independent EOSR review, accepted evidence, and separate closure transactions.\n\n## Exit Criteria Assessment\n\n**PASS.**\n\n- WP-MVP-0001 through WP-MVP-0003 are CLOSED with accepted evidence — PASS.\n- Deterministic root/config/discovery/identity behavior is demonstrated against positive, negative, boundary, security, and reproducibility fixtures — PASS. The merged Rust workspace suite passes with 29 tests, supplemented by packet-specific EOSE/EOSV evidence and independent reviews.\n- Work Cycle Review records the Sprint Goal disposition — PASS in this review.\n- Retrospective records an actionable process/system improvement — PASS in the retrospective section below.\n\nNo packet is being replanned or carried over from this Work Cycle.\n\n## Evidence and Quality Summary\n\nThe cycle's product changes are confined to the authorized Rust MVP topology in `monad-core`/`monad-cli` boundaries and their locked dependency metadata. All packet implementation PRs and governance PRs passed Repository Integrity, Machine Document Synchronization, and EOS Integrity before merge.\n\nCurrent closed-packet evidence remains first-class EOS evidence. In particular, WP-MVP-0002 is bound to `EXEC-0004` and WP-MVP-0003 to `EXEC-0005`, with current integrity and execution-acceptance evidence validated. WP-MVP-0001 also remains CLOSED with refreshed evidence appropriate to its execution history.\n\nIndependent EOSR review caught and corrected a real reliability defect in WP-MVP-0002 (`ReadDir` item errors silently dropped) before closure, demonstrating that review operated as an independent quality gate rather than a ceremonial approval.\n\n## Scope / Architecture Conformance\n\n**PASS.**\n\nThe Work Cycle stayed within its objective: repository bootstrap, effective configuration, deterministic discovery, and stable identity/provenance. It did not expand into Markdown parsing, semantic graph construction, KIR/query/context, hosted services, plugin execution, or network-dependent ingestion. Semantic runtime behavior remains in `monad-core`, consistent with ADR-0005.\n\n## Reliability and Security Disposition\n\n**PASS for Work Cycle closure.**\n\nRoot containment, exclusion of EOS/Git/machine/build internals, no repository-code execution, no network access during discovery, deterministic diagnostics, symlink escape/cycle handling, case-collision diagnostics, and exact-byte cryptographic provenance are all represented in the closed packet implementations and tests.\n\nSeparate EOS tooling issues #175, #176, #178, and #181 remain outside this Work Cycle's product scope. None invalidates the delivered product behavior or accepted packet evidence.\n\n## Retrospective\n\n### What worked\n\n- Separating EOSP, EOSE, EOSV, EOSR, and closure transactions prevented implementation success from being mistaken for acceptance.\n- Exact-head PR merge guards and post-commit strict verification preserved a strong audit trail.\n- Re-validating evidence after semantic lifecycle changes prevented stale evidence from silently surviving state transitions.\n- Independent EOSR review materially improved the product by finding the WP-MVP-0002 directory-enumeration defect that execution tests had missed.\n\n### Friction observed\n\nThe Work Cycle's `Included Work Packets` section embedded mutable lifecycle labels (`Ready` / `Refined`). Those labels became stale as the canonical EOS state advanced, even though the packet IDs and plan remained correct. The stale prose had to be reconciled during Work Cycle review.\n\n### Actionable improvement\n\n**For WC-MVP-0002 and later Work Cycles, do not manually embed mutable child lifecycle state in the authoritative inclusion list.** Use status-neutral packet references, or generate/synchronize any displayed child status from canonical EOS state. This reduces duplicated state, prevents misleading planning prose, and removes avoidable review-time reconciliation.\n\nOwner: EOSP / Work Cycle planning process.  \nApply beginning with: `WC-MVP-0002` planning/readiness reconciliation.\n\n## Carryover / Follow-up\n\n- No WP-MVP-0001/0002/0003 implementation work carries over.\n- Known EOS tooling issues #175, #176, #178, and #181 remain separately governed and must not be folded into later product packets without authorization.\n- The next Work Cycle must be independently inspected/adopted/authorized under EOSP after this cycle closes; Work Cycle closure does not itself authorize subsequent packets.\n\n## Blocking Findings\n\nNone.\n\n## Decision\n\n**ACCEPTED.** The Sprint Goal is achieved, all Work Cycle exit criteria are satisfied, the retrospective contains a concrete improvement for the next planning cycle, and `WC-MVP-0001` may proceed to the separate governed `WC_CLOSE` transaction.\n",
+  "document_id": "doc:engineering%2Freviews%2FWC-MVP-0001-REVIEW.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0005"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"REV-WC-MVP-0001\" title: \"WC-MVP-0001 Work Cycle Review\" type: \"review\" version: \"0.1.0\" status: \"In Review\" authority: \"review-authoritative\" created: \"2026-08-17\" updated: \"2026-08-17\" ---",
+    "title": "WC-MVP-0001 — Work Cycle Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"REV-WC-MVP-0001\"\ntitle: \"WC-MVP-0001 Work Cycle Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"In Review\"\nauthority: \"review-authoritative\"\ncreated: \"2026-08-17\"\nupdated: \"2026-08-17\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "wc-mvp-0001-work-cycle-review",
+      "text": "# WC-MVP-0001 — Work Cycle Review\n\n**Decision:** ACCEPTED",
+      "title": "WC-MVP-0001 — Work Cycle Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 16,
+      "section_id": "target",
+      "text": "## Target\n\n- Work Cycle: `WC-MVP-0001 — Workspace, Discovery, and Identity`\n- Program Increment: `PI-MVP-001 — Semantic Foundation`\n- State at review start: ACTIVE\n- Review baseline: `bd79c8096e066502d1c7d03a9eda2b40195c6ae9`\n- Included packets: `WP-MVP-0001`, `WP-MVP-0002`, `WP-MVP-0003`",
+      "title": "Target"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 24,
+      "section_id": "sprint-goal-disposition",
+      "text": "## Sprint Goal Disposition\n\n**ACHIEVED.**\n\nSprint Goal: **Discover repository/workspace knowledge with stable identity.**\n\nThe cycle established the complete repository-bootstrap boundary intended by the goal:\n\n1. `WP-MVP-0001` delivered deterministic Monad repository-root detection and effective configuration semantics.\n2. `WP-MVP-0002` delivered deterministic, containment-safe workspace discovery with stable ordering, exclusions, provenance, source-kind classification, diagnostics, and symlink handling.\n3. `WP-MVP-0003` delivered clone-independent Source IDs, stable Document IDs, exact-byte SHA-256 provenance, governed-ID collision diagnostics, and deterministic case/symlink identity behavior.\n\nAll three Work Packets are CLOSED following governed EOSE execution, EOSV verification, independent EOSR review, accepted evidence, and separate closure transactions.",
+      "title": "Sprint Goal Disposition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 38,
+      "section_id": "exit-criteria-assessment",
+      "text": "## Exit Criteria Assessment\n\n**PASS.**\n\n- WP-MVP-0001 through WP-MVP-0003 are CLOSED with accepted evidence — PASS.\n- Deterministic root/config/discovery/identity behavior is demonstrated against positive, negative, boundary, security, and reproducibility fixtures — PASS. The merged Rust workspace suite passes with 29 tests, supplemented by packet-specific EOSE/EOSV evidence and independent reviews.\n- Work Cycle Review records the Sprint Goal disposition — PASS in this review.\n- Retrospective records an actionable process/system improvement — PASS in the retrospective section below.\n\nNo packet is being replanned or carried over from this Work Cycle.",
+      "title": "Exit Criteria Assessment"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 49,
+      "section_id": "evidence-and-quality-summary",
+      "text": "## Evidence and Quality Summary\n\nThe cycle's product changes are confined to the authorized Rust MVP topology in `monad-core`/`monad-cli` boundaries and their locked dependency metadata. All packet implementation PRs and governance PRs passed Repository Integrity, Machine Document Synchronization, and EOS Integrity before merge.\n\nCurrent closed-packet evidence remains first-class EOS evidence. In particular, WP-MVP-0002 is bound to `EXEC-0004` and WP-MVP-0003 to `EXEC-0005`, with current integrity and execution-acceptance evidence validated. WP-MVP-0001 also remains CLOSED with refreshed evidence appropriate to its execution history.\n\nIndependent EOSR review caught and corrected a real reliability defect in WP-MVP-0002 (`ReadDir` item errors silently dropped) before closure, demonstrating that review operated as an independent quality gate rather than a ceremonial approval.",
+      "title": "Evidence and Quality Summary"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 62,
+      "line_start": 57,
+      "section_id": "scope-architecture-conformance",
+      "text": "## Scope / Architecture Conformance\n\n**PASS.**\n\nThe Work Cycle stayed within its objective: repository bootstrap, effective configuration, deterministic discovery, and stable identity/provenance. It did not expand into Markdown parsing, semantic graph construction, KIR/query/context, hosted services, plugin execution, or network-dependent ingestion. Semantic runtime behavior remains in `monad-core`, consistent with ADR-0005.",
+      "title": "Scope / Architecture Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 70,
+      "line_start": 63,
+      "section_id": "reliability-and-security-disposition",
+      "text": "## Reliability and Security Disposition\n\n**PASS for Work Cycle closure.**\n\nRoot containment, exclusion of EOS/Git/machine/build internals, no repository-code execution, no network access during discovery, deterministic diagnostics, symlink escape/cycle handling, case-collision diagnostics, and exact-byte cryptographic provenance are all represented in the closed packet implementations and tests.\n\nSeparate EOS tooling issues #175, #176, #178, and #181 remain outside this Work Cycle's product scope. None invalidates the delivered product behavior or accepted packet evidence.",
+      "title": "Reliability and Security Disposition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 72,
+      "line_start": 71,
+      "section_id": "retrospective",
+      "text": "## Retrospective",
+      "title": "Retrospective"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 79,
+      "line_start": 73,
+      "section_id": "what-worked",
+      "text": "### What worked\n\n- Separating EOSP, EOSE, EOSV, EOSR, and closure transactions prevented implementation success from being mistaken for acceptance.\n- Exact-head PR merge guards and post-commit strict verification preserved a strong audit trail.\n- Re-validating evidence after semantic lifecycle changes prevented stale evidence from silently surviving state transitions.\n- Independent EOSR review materially improved the product by finding the WP-MVP-0002 directory-enumeration defect that execution tests had missed.",
+      "title": "What worked"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 83,
+      "line_start": 80,
+      "section_id": "friction-observed",
+      "text": "### Friction observed\n\nThe Work Cycle's `Included Work Packets` section embedded mutable lifecycle labels (`Ready` / `Refined`). Those labels became stale as the canonical EOS state advanced, even though the packet IDs and plan remained correct. The stale prose had to be reconciled during Work Cycle review.",
+      "title": "Friction observed"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 90,
+      "line_start": 84,
+      "section_id": "actionable-improvement",
+      "text": "### Actionable improvement\n\n**For WC-MVP-0002 and later Work Cycles, do not manually embed mutable child lifecycle state in the authoritative inclusion list.** Use status-neutral packet references, or generate/synchronize any displayed child status from canonical EOS state. This reduces duplicated state, prevents misleading planning prose, and removes avoidable review-time reconciliation.\n\nOwner: EOSP / Work Cycle planning process.  \nApply beginning with: `WC-MVP-0002` planning/readiness reconciliation.",
+      "title": "Actionable improvement"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 96,
+      "line_start": 91,
+      "section_id": "carryover-follow-up",
+      "text": "## Carryover / Follow-up\n\n- No WP-MVP-0001/0002/0003 implementation work carries over.\n- Known EOS tooling issues #175, #176, #178, and #181 remain separately governed and must not be folded into later product packets without authorization.\n- The next Work Cycle must be independently inspected/adopted/authorized under EOSP after this cycle closes; Work Cycle closure does not itself authorize subsequent packets.",
+      "title": "Carryover / Follow-up"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 100,
+      "line_start": 97,
+      "section_id": "blocking-findings",
+      "text": "## Blocking Findings\n\nNone.",
+      "title": "Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 103,
+      "line_start": 101,
+      "section_id": "decision",
+      "text": "## Decision\n\n**ACCEPTED.** The Sprint Goal is achieved, all Work Cycle exit criteria are satisfied, the retrospective contains a concrete improvement for the next planning cycle, and `WC-MVP-0001` may proceed to the separate governed `WC_CLOSE` transaction.",
+      "title": "Decision"
+    }
+  ],
+  "source": {
+    "bytes": 6065,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 103,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/WC-MVP-0001-REVIEW.md",
+    "sha256": "9250a13659e3d332f88d4a95030bd826d0822a3afe612da8db86b430edecc416"
+  }
+}

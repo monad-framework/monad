@@ -1,0 +1,182 @@
+{
+  "content": "---\nartifact_id: \"REV-WP-MVP-0004\"\ntitle: \"WP-MVP-0004 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"In Review\"\nauthority: \"review-authoritative\"\ncreated: \"2026-08-26\"\nupdated: \"2026-08-26\"\n---\n\n\n# WP-MVP-0004 — Engineering Review\n\n**Decision:** ACCEPTED\n\n## Target\n\n- Artifact: `engineering/work-packets/WP-MVP-0004.md`\n- State at final review start: IN_REVIEW\n- Governed execution: `EXEC-0009`\n- Initial implementation merge: PR #217\n- Initial rejected EOSR merge: PR #230\n- F001 correction merge: PR #231\n- Post-correction EOSV merge: PR #232\n- Final review baseline: `385fd7bb8631e25d4c2cdae0c2a81f8406ba734b`\n\n## Deterministic Verification\n\n**Result:** PASS.\n\nThe canonical merged state was freshly revalidated before this review using formatting checks, Clippy with warnings denied, and the complete workspace test suite. `monad-core` has 56 passing tests. Focused independent reruns also pass for canonical front-matter authority, prevention of the review/Work-Packet false duplicate, and malformed/duplicate/conflicting explicit identity behavior. EOS strict verification, canonical-state consistency, trace integrity, and machine-document synchronization pass.\n\nCurrent post-correction EOSV evidence is `EVID-0229` through `EVID-0231`, captured after PR #231 was merged and integrated through PR #232.\n\n## Scope Conformance\n\nPASS.\n\nThe product correction is confined to `crates/monad-core/src/markdown.rs`; the remaining correction/EOSV changes are governed evidence, trace, and machine projections. The parser remains deterministic, local, non-executing, and free of network behavior. No CLI-owned semantic rule, graph construction, reference resolution, LLM inference, arbitrary MDX execution, remote include, plugin/runtime expansion, or unrelated product refactor was introduced.\n\n## Requirements / Specification Conformance\n\nPASS.\n\nThe implementation now satisfies FR-002, QR-001, QR-003, ADR-0003, ADR-0004, DATA-SOURCE-0001, TECH-INGEST-0001, and ADR-0005 for this packet:\n\n- canonical Markdown structural and metadata extraction is deterministic and source-located;\n- canonical top-of-document YAML `artifact_id` is authoritative explicit document identity;\n- H1 governed identifiers are identity fallback only when no authoritative explicit identity is declared;\n- canonical front-matter `status` is preserved as metadata;\n- malformed, duplicate, and conflicting explicit identities produce diagnostics and cannot silently fall back to H1 identity;\n- links and governed identifier references remain unresolved provenance-rich candidates;\n- code fences, inline code, HTML comments, scripts, macros, and executable-looking content remain inert;\n- normalized output remains deterministic and parser semantics are versioned through Markdown parser contract v2.\n\n## Architecture Conformance\n\nPASS.\n\nMarkdown semantic extraction remains in `monad-core`, consistent with ADR-0005. The correction composes with ADR-0003 document identity rather than duplicating identity derivation. It preserves ADR-0004 safe-ingestion constraints: repository content is treated as data, no network fetch is performed, and no repository code or embedded construct is executed.\n\n## Acceptance Criteria Evidence\n\nPASS for all seven WP-MVP-0004 acceptance criteria.\n\n- US-011: section/heading/metadata structure and exact source ranges are extracted deterministically — PASS, including canonical front matter.\n- US-012: governed identifiers and status metadata follow artifact contracts — PASS. `artifact_id` is authoritative; H1 is fallback only; malformed/duplicate/conflicting explicit identity blocks silent fallback.\n- US-013: links and identifier references are emitted as unresolved candidates with provenance — PASS, including the reviewed Work Packet ID in a review H1 remaining a reference rather than review identity.\n- US-014: malformed/ambiguous governed constructs produce source-located diagnostics without silently valid semantic promotion — PASS, including malformed and unclosed governed front matter.\n- Fake IDs/links inside code fences are not ordinary governed references — PASS.\n- HTML/scripts/macros are never executed — PASS.\n- Repeat-run normalized output is equivalent/byte-stable where declared canonical — PASS.\n\nThe Work Packet checklist remains unreconciled here by design; acceptance review and checklist/closure are separate governed transactions.\n\n## Test / Validation Evidence\n\nPASS.\n\nCoverage includes headings, bold metadata, canonical YAML front matter, links, optional link titles, Unicode, malformed constructs, invalid UTF-8 spans, empty documents, code fences, HTML comments, multiline inline code, namespace filtering, explicit-ID conflicts, deterministic serialization, executable-looking inert content, and repeatability.\n\nThe five F001-focused regressions all pass, including the exact canonical review shape that previously failed. A review with `artifact_id: REV-WP-MVP-0003` and H1 target `WP-MVP-0003` now retains review identity `REV-WP-MVP-0003`, preserves status, treats the H1 target as a reference candidate, and does not collide with the actual `WP-MVP-0003` Work Packet.\n\n## Security / Reliability Findings\n\nNo blocking security or reliability finding remains.\n\nThe parser does not execute HTML, scripts, macros, code fences, inline code, links, remote includes, or repository commands. F001's reliability impact—manufacturing a false fatal duplicate identity and dropping authoritative lifecycle metadata—is resolved by explicit front-matter authority plus fail-closed malformed-identity behavior.\n\n## Traceability Findings\n\nPASS.\n\nThe accepted result is traceable through FR-002; QR-001 and QR-003; ADR-0003, ADR-0004, and ADR-0005; DATA-SOURCE-0001; TECH-INGEST-0001; WP-MVP-0004; EXEC-0006 through EXEC-0009; implementation PR #217; rejected review PR #230; corrective PR #231; post-correction EOSV PR #232; and current evidence EVID-0229 through EVID-0231.\n\n## Blocking Findings\n\nNone.\n\n`EOSR-WP-MVP-0004-F001` is **RESOLVED**. The exact previously failing review-artifact identity scenario is covered by a permanent regression and passes on canonical `main`.\n\n## Non-Blocking Findings\n\nThe earlier maintainability observation remains: the governed-identifier namespace allowlist must be intentionally extended with regression coverage when future canonical namespaces are introduced. This is not a defect in the present authorized scope.\n\n## Decision\n\n**ACCEPTED.** WP-MVP-0004 satisfies its authorized scope and all acceptance criteria after the bounded F001 correction. It may proceed to the separate governed checklist-reconciliation and closure transaction. This review does not itself close the Work Packet.\n",
+  "document_id": "doc:engineering%2Freviews%2FWP-MVP-0004-REVIEW.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0003",
+    "ADR-0004",
+    "ADR-0005",
+    "FR-002",
+    "QR-001",
+    "QR-003"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"REV-WP-MVP-0004\" title: \"WP-MVP-0004 Engineering Review\" type: \"review\" version: \"0.1.0\" status: \"In Review\" authority: \"review-authoritative\" created: \"2026-08-26\" updated: \"2026-08-26\" ---",
+    "title": "WP-MVP-0004 — Engineering Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 12,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"REV-WP-MVP-0004\"\ntitle: \"WP-MVP-0004 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"In Review\"\nauthority: \"review-authoritative\"\ncreated: \"2026-08-26\"\nupdated: \"2026-08-26\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 16,
+      "line_start": 13,
+      "section_id": "wp-mvp-0004-engineering-review",
+      "text": "# WP-MVP-0004 — Engineering Review\n\n**Decision:** ACCEPTED",
+      "title": "WP-MVP-0004 — Engineering Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 17,
+      "section_id": "target",
+      "text": "## Target\n\n- Artifact: `engineering/work-packets/WP-MVP-0004.md`\n- State at final review start: IN_REVIEW\n- Governed execution: `EXEC-0009`\n- Initial implementation merge: PR #217\n- Initial rejected EOSR merge: PR #230\n- F001 correction merge: PR #231\n- Post-correction EOSV merge: PR #232\n- Final review baseline: `385fd7bb8631e25d4c2cdae0c2a81f8406ba734b`",
+      "title": "Target"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 28,
+      "section_id": "deterministic-verification",
+      "text": "## Deterministic Verification\n\n**Result:** PASS.\n\nThe canonical merged state was freshly revalidated before this review using formatting checks, Clippy with warnings denied, and the complete workspace test suite. `monad-core` has 56 passing tests. Focused independent reruns also pass for canonical front-matter authority, prevention of the review/Work-Packet false duplicate, and malformed/duplicate/conflicting explicit identity behavior. EOS strict verification, canonical-state consistency, trace integrity, and machine-document synchronization pass.\n\nCurrent post-correction EOSV evidence is `EVID-0229` through `EVID-0231`, captured after PR #231 was merged and integrated through PR #232.",
+      "title": "Deterministic Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 41,
+      "line_start": 36,
+      "section_id": "scope-conformance",
+      "text": "## Scope Conformance\n\nPASS.\n\nThe product correction is confined to `crates/monad-core/src/markdown.rs`; the remaining correction/EOSV changes are governed evidence, trace, and machine projections. The parser remains deterministic, local, non-executing, and free of network behavior. No CLI-owned semantic rule, graph construction, reference resolution, LLM inference, arbitrary MDX execution, remote include, plugin/runtime expansion, or unrelated product refactor was introduced.",
+      "title": "Scope Conformance"
+    },
+    {
+      "identifiers": [
+        "ADR-0003",
+        "ADR-0004",
+        "ADR-0005",
+        "FR-002",
+        "QR-001",
+        "QR-003"
+      ],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 42,
+      "section_id": "requirements-specification-conformance",
+      "text": "## Requirements / Specification Conformance\n\nPASS.\n\nThe implementation now satisfies FR-002, QR-001, QR-003, ADR-0003, ADR-0004, DATA-SOURCE-0001, TECH-INGEST-0001, and ADR-0005 for this packet:\n\n- canonical Markdown structural and metadata extraction is deterministic and source-located;\n- canonical top-of-document YAML `artifact_id` is authoritative explicit document identity;\n- H1 governed identifiers are identity fallback only when no authoritative explicit identity is declared;\n- canonical front-matter `status` is preserved as metadata;\n- malformed, duplicate, and conflicting explicit identities produce diagnostics and cannot silently fall back to H1 identity;\n- links and governed identifier references remain unresolved provenance-rich candidates;\n- code fences, inline code, HTML comments, scripts, macros, and executable-looking content remain inert;\n- normalized output remains deterministic and parser semantics are versioned through Markdown parser contract v2.",
+      "title": "Requirements / Specification Conformance"
+    },
+    {
+      "identifiers": [
+        "ADR-0003",
+        "ADR-0004",
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 62,
+      "line_start": 57,
+      "section_id": "architecture-conformance",
+      "text": "## Architecture Conformance\n\nPASS.\n\nMarkdown semantic extraction remains in `monad-core`, consistent with ADR-0005. The correction composes with ADR-0003 document identity rather than duplicating identity derivation. It preserves ADR-0004 safe-ingestion constraints: repository content is treated as data, no network fetch is performed, and no repository code or embedded construct is executed.",
+      "title": "Architecture Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 76,
+      "line_start": 63,
+      "section_id": "acceptance-criteria-evidence",
+      "text": "## Acceptance Criteria Evidence\n\nPASS for all seven WP-MVP-0004 acceptance criteria.\n\n- US-011: section/heading/metadata structure and exact source ranges are extracted deterministically — PASS, including canonical front matter.\n- US-012: governed identifiers and status metadata follow artifact contracts — PASS. `artifact_id` is authoritative; H1 is fallback only; malformed/duplicate/conflicting explicit identity blocks silent fallback.\n- US-013: links and identifier references are emitted as unresolved candidates with provenance — PASS, including the reviewed Work Packet ID in a review H1 remaining a reference rather than review identity.\n- US-014: malformed/ambiguous governed constructs produce source-located diagnostics without silently valid semantic promotion — PASS, including malformed and unclosed governed front matter.\n- Fake IDs/links inside code fences are not ordinary governed references — PASS.\n- HTML/scripts/macros are never executed — PASS.\n- Repeat-run normalized output is equivalent/byte-stable where declared canonical — PASS.\n\nThe Work Packet checklist remains unreconciled here by design; acceptance review and checklist/closure are separate governed transactions.",
+      "title": "Acceptance Criteria Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 84,
+      "line_start": 77,
+      "section_id": "test-validation-evidence",
+      "text": "## Test / Validation Evidence\n\nPASS.\n\nCoverage includes headings, bold metadata, canonical YAML front matter, links, optional link titles, Unicode, malformed constructs, invalid UTF-8 spans, empty documents, code fences, HTML comments, multiline inline code, namespace filtering, explicit-ID conflicts, deterministic serialization, executable-looking inert content, and repeatability.\n\nThe five F001-focused regressions all pass, including the exact canonical review shape that previously failed. A review with `artifact_id: REV-WP-MVP-0003` and H1 target `WP-MVP-0003` now retains review identity `REV-WP-MVP-0003`, preserves status, treats the H1 target as a reference candidate, and does not collide with the actual `WP-MVP-0003` Work Packet.",
+      "title": "Test / Validation Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 90,
+      "line_start": 85,
+      "section_id": "security-reliability-findings",
+      "text": "## Security / Reliability Findings\n\nNo blocking security or reliability finding remains.\n\nThe parser does not execute HTML, scripts, macros, code fences, inline code, links, remote includes, or repository commands. F001's reliability impact—manufacturing a false fatal duplicate identity and dropping authoritative lifecycle metadata—is resolved by explicit front-matter authority plus fail-closed malformed-identity behavior.",
+      "title": "Security / Reliability Findings"
+    },
+    {
+      "identifiers": [
+        "ADR-0003",
+        "ADR-0004",
+        "ADR-0005",
+        "FR-002",
+        "QR-001",
+        "QR-003"
+      ],
+      "level": 2,
+      "line_end": 96,
+      "line_start": 91,
+      "section_id": "traceability-findings",
+      "text": "## Traceability Findings\n\nPASS.\n\nThe accepted result is traceable through FR-002; QR-001 and QR-003; ADR-0003, ADR-0004, and ADR-0005; DATA-SOURCE-0001; TECH-INGEST-0001; WP-MVP-0004; EXEC-0006 through EXEC-0009; implementation PR #217; rejected review PR #230; corrective PR #231; post-correction EOSV PR #232; and current evidence EVID-0229 through EVID-0231.",
+      "title": "Traceability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 102,
+      "line_start": 97,
+      "section_id": "blocking-findings",
+      "text": "## Blocking Findings\n\nNone.\n\n`EOSR-WP-MVP-0004-F001` is **RESOLVED**. The exact previously failing review-artifact identity scenario is covered by a permanent regression and passes on canonical `main`.",
+      "title": "Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 106,
+      "line_start": 103,
+      "section_id": "non-blocking-findings",
+      "text": "## Non-Blocking Findings\n\nThe earlier maintainability observation remains: the governed-identifier namespace allowlist must be intentionally extended with regression coverage when future canonical namespaces are introduced. This is not a defect in the present authorized scope.",
+      "title": "Non-Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 109,
+      "line_start": 107,
+      "section_id": "decision",
+      "text": "## Decision\n\n**ACCEPTED.** WP-MVP-0004 satisfies its authorized scope and all acceptance criteria after the bounded F001 correction. It may proceed to the separate governed checklist-reconciliation and closure transaction. This review does not itself close the Work Packet.",
+      "title": "Decision"
+    }
+  ],
+  "source": {
+    "bytes": 6701,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 109,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/WP-MVP-0004-REVIEW.md",
+    "sha256": "63b420c8f5e25cde7691ceeec18c648ba17422b23351a158f7b490036b8f6a52"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "content": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/trace-edge.schema.json\",\"title\":\"EOS TraceEdge\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"source_id\",\"target_id\",\"relation_type\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^TRC-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"TraceEdge\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"ACTIVE\",\"STALE\",\"SUPERSEDED\",\"RETIRED\"]},\"source_id\":{\"type\":\"string\",\"minLength\":1},\"target_id\":{\"type\":\"string\",\"minLength\":1},\"relation_type\":{\"type\":\"string\",\"enum\":[\"CONTAINS\",\"BELONGS_TO\",\"DERIVES_FROM\",\"SUPERSEDES\",\"IMPLEMENTS\",\"SATISFIES\",\"VERIFIED_BY\",\"EVIDENCES\",\"REVIEWS\",\"APPROVES\",\"DEPENDS_ON\",\"BLOCKS\",\"TRACES_TO\",\"REFERENCES\",\"CONFORMS_TO\",\"CONSTRAINED_BY\",\"AFFECTS\",\"INCLUDES\",\"PRODUCES\",\"CONSUMES\",\"RELEASES\",\"MAINTAINS\",\"GOVERNS\",\"AUTHORIZED_BY\"]},\"rationale\":{\"type\":\"string\"}},\"unevaluatedProperties\":false}\n",
+  "document_id": "doc:.eos%2Fschemas%2Fcore%2Ftrace-edge.schema.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/schemas/core/trace-edge.schema.json.",
+    "title": "Trace Edge.Schema"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 1,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"eos://schemas/core/2.0.0/trace-edge.schema.json\",\"title\":\"EOS TraceEdge\",\"allOf\":[{\"$ref\":\"eos://schemas/core/2.0.0/base-entity.schema.json\"}],\"type\":\"object\",\"required\":[\"source_id\",\"target_id\",\"relation_type\"],\"properties\":{\"id\":{\"type\":\"string\",\"pattern\":\"^TRC-[A-Z0-9][A-Z0-9-]*$\"},\"entity_type\":{\"const\":\"TraceEdge\"},\"lifecycle_state\":{\"type\":\"string\",\"enum\":[\"ACTIVE\",\"STALE\",\"SUPERSEDED\",\"RETIRED\"]},\"source_id\":{\"type\":\"string\",\"minLength\":1},\"target_id\":{\"type\":\"string\",\"minLength\":1},\"relation_type\":{\"type\":\"string\",\"enum\":[\"CONTAINS\",\"BELONGS_TO\",\"DERIVES_FROM\",\"SUPERSEDES\",\"IMPLEMENTS\",\"SATISFIES\",\"VERIFIED_BY\",\"EVIDENCES\",\"REVIEWS\",\"APPROVES\",\"DEPENDS_ON\",\"BLOCKS\",\"TRACES_TO\",\"REFERENCES\",\"CONFORMS_TO\",\"CONSTRAINED_BY\",\"AFFECTS\",\"INCLUDES\",\"PRODUCES\",\"CONSUMES\",\"RELEASES\",\"MAINTAINS\",\"GOVERNS\",\"AUTHORIZED_BY\"]},\"rationale\":{\"type\":\"string\"}},\"unevaluatedProperties\":false}",
+      "title": "Trace Edge.Schema"
+    }
+  ],
+  "source": {
+    "bytes": 959,
+    "canonical": true,
+    "language": "json",
+    "lines": 1,
+    "media_type": "application/json",
+    "path": ".eos/schemas/core/trace-edge.schema.json",
+    "sha256": "fbe4389bb4a203ebfa3e860533f069e091d24191b8f8cc9b28ce0d0bcbdbf179"
+  }
+}

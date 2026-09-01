@@ -1,17 +1,21 @@
 {
-  "content": "# Product Increments\n\nAn increment is an integrated, potentially releasable advance that proves a\nbounded product outcome or retires a material risk. It combines all work needed\nfor acceptance rather than handing partially complete layers between teams.\n\n## Naming and duration\n\nUse `INC-NNNN-short-outcome.md`. An increment typically spans two to six work\ncycles. If useful evidence cannot be demonstrated within that horizon, split\nthe outcome or authorize a separate exploration.\n\n## Required content\n\n- objective and parent milestone;\n- user, system, or risk outcome;\n- included and excluded requirements;\n- architecture decisions and specifications;\n- ordered work packets and dependency chain;\n- acceptance, quality, security, operations, and documentation evidence;\n- release or exposure strategy and rollback;\n- capacity assumption, forecast, and decision dates;\n- active risks and stop conditions.\n\n## Increment review\n\nThe review demonstrates the integrated result in a representative environment,\nnot a slide summary or collection of component reports. Reviewers inspect\nacceptance evidence, failed or waived gates, user findings, service behavior,\ncost, and risks. The recorded decision is `accept`, `accept with corrective\nwork`, `continue`, `re-scope`, or `stop`.\n\n## Closure\n\nAn increment closes only after its review decision, status, risk changes,\nchangelog impact, and unfinished work are recorded. Work that no longer advances\nthe outcome is removed rather than carried as historical obligation.\n",
+  "content": "# Product Increments\n\nA Program/Product Increment is an integrated, potentially releasable advance that proves a bounded product outcome or retires a material risk. It combines all work needed for acceptance rather than handing partially complete layers between teams.\n\n## Active naming\n\nMonad uses namespaced immutable IDs:\n\n- `PI-MVP-NNN` for MVP Release 1 increments;\n- `PI-EXP-NNN` for the approved CR-0002 post-MVP expansion;\n- future programs introduce a namespace through governed planning rather than reusing ambiguous bootstrap IDs.\n\nAn increment typically spans two to six Work Cycles. If useful evidence cannot be demonstrated within that horizon, split the outcome or authorize a separate exploration. A longer forecast requires explicit rationale and frequent reforecasting.\n\n## Current roadmap\n\n### MVP Release 1 / PG-001\n\n- PI-MVP-001 — Semantic Foundation\n- PI-MVP-002 — Intelligence and Agent Context\n- PI-MVP-003 — Integration and MVP Release\n\n### Expanded roadmap / CR-0002\n\n- PI-EXP-001 — Living Intelligence — PG-002 / M-004\n- PI-EXP-002 — Governed Automation & Trust — PG-003 / M-005\n- PI-EXP-003 — Ecosystem, Deployment & Scale — PG-004 / M-006\n\n## Required content\n\n- objective, parent Product Goal, and parent milestone;\n- user, system, or risk outcome;\n- included and excluded requirements;\n- architecture decisions and specifications;\n- ordered Work Packets and dependency chain;\n- acceptance, quality, security, privacy, operations, documentation, audit, and provenance evidence as applicable;\n- release/exposure strategy and rollback;\n- capacity assumption, forecast, and decision dates;\n- active risks and stop conditions.\n\n## Increment review\n\nThe review demonstrates the integrated result in a representative environment, not a slide summary or collection of component reports. Reviewers inspect acceptance evidence, failed or waived gates, user findings, system behavior, security/privacy posture, cost, performance claims, audit/attestation evidence where applicable, and risks. The recorded decision is `accept`, `accept with corrective work`, `continue`, `re-scope`, or `stop`.\n\n## Closure\n\nAn increment closes only after its review decision, status, risk changes, changelog impact, unfinished work, milestone/Product Goal implications, and required evidence/attestations are recorded. Work that no longer advances the outcome is removed rather than carried as historical obligation.\n",
   "document_id": "doc:engineering%2Fincrements%2FREADME.md",
   "generation": {
     "deterministic": true,
     "tool": "sync-machine-docs",
     "version": "1.0.0"
   },
-  "identifiers": [],
+  "identifiers": [
+    "EXP-001",
+    "EXP-002",
+    "EXP-003"
+  ],
   "links": [],
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "An increment is an integrated, potentially releasable advance that proves a bounded product outcome or retires a material risk. It combines all work needed for acceptance rather than handing partially complete layers between teams.",
+    "summary": "A Program/Product Increment is an integrated, potentially releasable advance that proves a bounded product outcome or retires a material risk. It combines all work needed for acceptance rather than handing partially complete layers between teams.",
     "title": "Product Increments"
   },
   "relations": [],
@@ -21,56 +25,87 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 6,
+      "line_end": 4,
       "line_start": 1,
       "section_id": "product-increments",
-      "text": "# Product Increments\n\nAn increment is an integrated, potentially releasable advance that proves a\nbounded product outcome or retires a material risk. It combines all work needed\nfor acceptance rather than handing partially complete layers between teams.",
+      "text": "# Product Increments\n\nA Program/Product Increment is an integrated, potentially releasable advance that proves a bounded product outcome or retires a material risk. It combines all work needed for acceptance rather than handing partially complete layers between teams.",
       "title": "Product Increments"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 12,
-      "line_start": 7,
-      "section_id": "naming-and-duration",
-      "text": "## Naming and duration\n\nUse `INC-NNNN-short-outcome.md`. An increment typically spans two to six work\ncycles. If useful evidence cannot be demonstrated within that horizon, split\nthe outcome or authorize a separate exploration.",
-      "title": "Naming and duration"
+      "line_end": 14,
+      "line_start": 5,
+      "section_id": "active-naming",
+      "text": "## Active naming\n\nMonad uses namespaced immutable IDs:\n\n- `PI-MVP-NNN` for MVP Release 1 increments;\n- `PI-EXP-NNN` for the approved CR-0002 post-MVP expansion;\n- future programs introduce a namespace through governed planning rather than reusing ambiguous bootstrap IDs.\n\nAn increment typically spans two to six Work Cycles. If useful evidence cannot be demonstrated within that horizon, split the outcome or authorize a separate exploration. A longer forecast requires explicit rationale and frequent reforecasting.",
+      "title": "Active naming"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 24,
-      "line_start": 13,
+      "line_end": 16,
+      "line_start": 15,
+      "section_id": "current-roadmap",
+      "text": "## Current roadmap",
+      "title": "Current roadmap"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 22,
+      "line_start": 17,
+      "section_id": "mvp-release-1-pg-001",
+      "text": "### MVP Release 1 / PG-001\n\n- PI-MVP-001 — Semantic Foundation\n- PI-MVP-002 — Intelligence and Agent Context\n- PI-MVP-003 — Integration and MVP Release",
+      "title": "MVP Release 1 / PG-001"
+    },
+    {
+      "identifiers": [
+        "EXP-001",
+        "EXP-002",
+        "EXP-003"
+      ],
+      "level": 3,
+      "line_end": 28,
+      "line_start": 23,
+      "section_id": "expanded-roadmap-cr-0002",
+      "text": "### Expanded roadmap / CR-0002\n\n- PI-EXP-001 — Living Intelligence — PG-002 / M-004\n- PI-EXP-002 — Governed Automation & Trust — PG-003 / M-005\n- PI-EXP-003 — Ecosystem, Deployment & Scale — PG-004 / M-006",
+      "title": "Expanded roadmap / CR-0002"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 29,
       "section_id": "required-content",
-      "text": "## Required content\n\n- objective and parent milestone;\n- user, system, or risk outcome;\n- included and excluded requirements;\n- architecture decisions and specifications;\n- ordered work packets and dependency chain;\n- acceptance, quality, security, operations, and documentation evidence;\n- release or exposure strategy and rollback;\n- capacity assumption, forecast, and decision dates;\n- active risks and stop conditions.",
+      "text": "## Required content\n\n- objective, parent Product Goal, and parent milestone;\n- user, system, or risk outcome;\n- included and excluded requirements;\n- architecture decisions and specifications;\n- ordered Work Packets and dependency chain;\n- acceptance, quality, security, privacy, operations, documentation, audit, and provenance evidence as applicable;\n- release/exposure strategy and rollback;\n- capacity assumption, forecast, and decision dates;\n- active risks and stop conditions.",
       "title": "Required content"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 32,
-      "line_start": 25,
+      "line_end": 44,
+      "line_start": 41,
       "section_id": "increment-review",
-      "text": "## Increment review\n\nThe review demonstrates the integrated result in a representative environment,\nnot a slide summary or collection of component reports. Reviewers inspect\nacceptance evidence, failed or waived gates, user findings, service behavior,\ncost, and risks. The recorded decision is `accept`, `accept with corrective\nwork`, `continue`, `re-scope`, or `stop`.",
+      "text": "## Increment review\n\nThe review demonstrates the integrated result in a representative environment, not a slide summary or collection of component reports. Reviewers inspect acceptance evidence, failed or waived gates, user findings, system behavior, security/privacy posture, cost, performance claims, audit/attestation evidence where applicable, and risks. The recorded decision is `accept`, `accept with corrective work`, `continue`, `re-scope`, or `stop`.",
       "title": "Increment review"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 37,
-      "line_start": 33,
+      "line_end": 47,
+      "line_start": 45,
       "section_id": "closure",
-      "text": "## Closure\n\nAn increment closes only after its review decision, status, risk changes,\nchangelog impact, and unfinished work are recorded. Work that no longer advances\nthe outcome is removed rather than carried as historical obligation.",
+      "text": "## Closure\n\nAn increment closes only after its review decision, status, risk changes, changelog impact, unfinished work, milestone/Product Goal implications, and required evidence/attestations are recorded. Work that no longer advances the outcome is removed rather than carried as historical obligation.",
       "title": "Closure"
     }
   ],
   "source": {
-    "bytes": 1515,
+    "bytes": 2438,
     "canonical": true,
     "language": "markdown",
-    "lines": 37,
+    "lines": 47,
     "media_type": "text/markdown",
     "path": "engineering/increments/README.md",
-    "sha256": "4b75e2e78a47859fa82fdb7bf696e9958c63082fb74c3d96931c9a6d7f337f30"
+    "sha256": "4c51654d6b7e49cd3457a101f7de12c83c3abd278d63df3f3f3d8291ef7fe485"
   }
 }

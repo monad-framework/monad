@@ -1,0 +1,175 @@
+{
+  "content": "---\nartifact_id: \"REV-WP-MVP-0002\"\ntitle: \"WP-MVP-0002 Engineering Review\"\ntype: \"review\"\nversion: \"1.0.0\"\nstatus: \"Accepted\"\nauthority: \"review-authoritative\"\ncreated: \"2026-08-16\"\nupdated: \"2026-08-16\"\n---\n\n# WP-MVP-0002 — Engineering Review\n\n**Decision:** ACCEPTED\n\n## Target\n\n- Work Packet: `WP-MVP-0002 — Deterministic workspace discovery`\n- Lifecycle state: IN_REVIEW\n- Governed execution: `EXEC-0004` — CLOSED\n- Implementation merge: PR #190\n- EOSV verification merge: PR #196\n- Initial rejected EOSR: PR #198\n- EOSR corrective conformance merge: PR #199\n- Final review baseline: `1d7446308e4f2e2efa6ee57aa52747b938232ec0`\n\n## Deterministic Verification\n\nPASS.\n\nThe corrected implementation passes `cargo fmt --all -- --check`, Clippy for all workspace targets/features with warnings denied, the full workspace test suite, strict EOS integrity verification, canonical-state consistency, and machine-document synchronization.\n\nWP-MVP-0002 has current first-class EOSV evidence bound to EXEC-0004. Execution acceptance is PASS and current stale evidence is zero.\n\n## Scope Conformance\n\nPASS.\n\nProduct behavior remains bounded to deterministic workspace discovery in `monad-core`. The EOSR correction is narrowly confined to explicit `ReadDir` item-error handling plus its focused regression. No network access, repository-code execution, service/plugin boundary, or unrelated refactor was introduced.\n\n## Requirements / Specification Conformance\n\nPASS.\n\nReview against FR-001; QR-001 and QR-003; ADR-0002, ADR-0004, ADR-0005; IFC-WORKSPACE-0001; and TECH-WORKSPACE-0001 confirms:\n\n- configured include patterns are applied after exclusions;\n- `.git/`, `.eos/`, `machine/`, `target/`, and configured exclusions are pruned;\n- canonical source paths are repository-relative `/`-separated paths;\n- root escape and unsafe symlink targets are rejected diagnostically;\n- overlapping matches yield one canonical source with merged provenance;\n- final source ordering is stable by canonical path/source kind;\n- unsupported broad-pattern source kinds produce deterministic diagnostics;\n- Markdown/YAML MVP source candidates are classified without parsing/execution;\n- per-entry filesystem enumeration errors now produce `UnreadableSource` diagnostics rather than silent omission;\n- discovery executes no repository code, package-manager command, plugin, or network operation.\n\n## Architecture Conformance\n\nPASS.\n\nDiscovery semantics live in `monad-core`; configuration/root semantics remain shared with WP-MVP-0001; the implementation preserves the local-first single-runtime topology and safe deterministic ingestion boundary established by ADR-0002, ADR-0004, and ADR-0005.\n\n## Acceptance Criteria Evidence\n\nAll seven WP-MVP-0002 acceptance criteria are satisfied:\n\n1. US-005 configured supported workspace candidates are discovered — PASS.\n2. US-006 ordering is stable across differing filesystem creation/enumeration order — PASS.\n3. US-007 unsupported/unsafe structures produce actionable diagnostics — PASS after EOSR-WP-MVP-0002-F001 correction.\n4. Default/configured exclusions prevent canonical ingestion — PASS.\n5. Overlapping patterns yield one canonical candidate — PASS.\n6. External/cyclic symlinks cannot escape root or create duplicate semantic sources — PASS.\n7. Repository code/network is never executed — PASS.\n\n## Test / Validation Evidence\n\nPASS.\n\nFocused coverage includes stable ordering/equivalent clones, overlapping provenance, default/configured exclusions, unsupported source kinds, inert repository content, globstar behavior, symlink aliases/external targets/cycles, invalid UTF-8 paths on Unix, and the EOSR regression proving directory-entry errors are preserved while valid entries retain stable order.\n\n## Security / Reliability Findings\n\n**EOSR-WP-MVP-0002-F001 — RESOLVED.**\n\nInitial review found that `ReadDir` item failures were silently dropped. PR #199 replaced that behavior with explicit error retention and deterministic `UnreadableSource` diagnostics anchored to the containing repository-relative directory, while preserving sorted traversal of valid entries. The focused regression and full validation suite pass.\n\nNo blocking security or reliability finding remains.\n\n## Traceability Findings\n\nPASS.\n\nTraceability is complete across the Work Packet, governing requirements/ADRs/specifications, EXEC-0004, EOSV evidence, initial EOSR finding, correction PR #199, and this final review disposition.\n\n## Blocking Findings\n\nNone.\n\n## Non-Blocking Findings\n\nNone specific to WP-MVP-0002. Existing separate EOS issues #175, #176, #178, and #181 remain outside this packet.\n\n## Decision\n\n**ACCEPTED.**\n\nWP-MVP-0002 is technically acceptable for governed closure after its acceptance checklist is reconciled and evidence is refreshed for that semantic artifact change.\n",
+  "document_id": "doc:engineering%2Freviews%2FWP-MVP-0002-REVIEW.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0002",
+    "ADR-0004",
+    "ADR-0005",
+    "FR-001",
+    "QR-001",
+    "QR-003"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"REV-WP-MVP-0002\" title: \"WP-MVP-0002 Engineering Review\" type: \"review\" version: \"1.0.0\" status: \"Accepted\" authority: \"review-authoritative\" created: \"2026-08-16\" updated: \"2026-08-16\" ---",
+    "title": "WP-MVP-0002 — Engineering Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"REV-WP-MVP-0002\"\ntitle: \"WP-MVP-0002 Engineering Review\"\ntype: \"review\"\nversion: \"1.0.0\"\nstatus: \"Accepted\"\nauthority: \"review-authoritative\"\ncreated: \"2026-08-16\"\nupdated: \"2026-08-16\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "wp-mvp-0002-engineering-review",
+      "text": "# WP-MVP-0002 — Engineering Review\n\n**Decision:** ACCEPTED",
+      "title": "WP-MVP-0002 — Engineering Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 16,
+      "section_id": "target",
+      "text": "## Target\n\n- Work Packet: `WP-MVP-0002 — Deterministic workspace discovery`\n- Lifecycle state: IN_REVIEW\n- Governed execution: `EXEC-0004` — CLOSED\n- Implementation merge: PR #190\n- EOSV verification merge: PR #196\n- Initial rejected EOSR: PR #198\n- EOSR corrective conformance merge: PR #199\n- Final review baseline: `1d7446308e4f2e2efa6ee57aa52747b938232ec0`",
+      "title": "Target"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 27,
+      "section_id": "deterministic-verification",
+      "text": "## Deterministic Verification\n\nPASS.\n\nThe corrected implementation passes `cargo fmt --all -- --check`, Clippy for all workspace targets/features with warnings denied, the full workspace test suite, strict EOS integrity verification, canonical-state consistency, and machine-document synchronization.\n\nWP-MVP-0002 has current first-class EOSV evidence bound to EXEC-0004. Execution acceptance is PASS and current stale evidence is zero.",
+      "title": "Deterministic Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 35,
+      "section_id": "scope-conformance",
+      "text": "## Scope Conformance\n\nPASS.\n\nProduct behavior remains bounded to deterministic workspace discovery in `monad-core`. The EOSR correction is narrowly confined to explicit `ReadDir` item-error handling plus its focused regression. No network access, repository-code execution, service/plugin boundary, or unrelated refactor was introduced.",
+      "title": "Scope Conformance"
+    },
+    {
+      "identifiers": [
+        "ADR-0002",
+        "ADR-0004",
+        "ADR-0005",
+        "FR-001",
+        "QR-001",
+        "QR-003"
+      ],
+      "level": 2,
+      "line_end": 57,
+      "line_start": 41,
+      "section_id": "requirements-specification-conformance",
+      "text": "## Requirements / Specification Conformance\n\nPASS.\n\nReview against FR-001; QR-001 and QR-003; ADR-0002, ADR-0004, ADR-0005; IFC-WORKSPACE-0001; and TECH-WORKSPACE-0001 confirms:\n\n- configured include patterns are applied after exclusions;\n- `.git/`, `.eos/`, `machine/`, `target/`, and configured exclusions are pruned;\n- canonical source paths are repository-relative `/`-separated paths;\n- root escape and unsafe symlink targets are rejected diagnostically;\n- overlapping matches yield one canonical source with merged provenance;\n- final source ordering is stable by canonical path/source kind;\n- unsupported broad-pattern source kinds produce deterministic diagnostics;\n- Markdown/YAML MVP source candidates are classified without parsing/execution;\n- per-entry filesystem enumeration errors now produce `UnreadableSource` diagnostics rather than silent omission;\n- discovery executes no repository code, package-manager command, plugin, or network operation.",
+      "title": "Requirements / Specification Conformance"
+    },
+    {
+      "identifiers": [
+        "ADR-0002",
+        "ADR-0004",
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 63,
+      "line_start": 58,
+      "section_id": "architecture-conformance",
+      "text": "## Architecture Conformance\n\nPASS.\n\nDiscovery semantics live in `monad-core`; configuration/root semantics remain shared with WP-MVP-0001; the implementation preserves the local-first single-runtime topology and safe deterministic ingestion boundary established by ADR-0002, ADR-0004, and ADR-0005.",
+      "title": "Architecture Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 75,
+      "line_start": 64,
+      "section_id": "acceptance-criteria-evidence",
+      "text": "## Acceptance Criteria Evidence\n\nAll seven WP-MVP-0002 acceptance criteria are satisfied:\n\n1. US-005 configured supported workspace candidates are discovered — PASS.\n2. US-006 ordering is stable across differing filesystem creation/enumeration order — PASS.\n3. US-007 unsupported/unsafe structures produce actionable diagnostics — PASS after EOSR-WP-MVP-0002-F001 correction.\n4. Default/configured exclusions prevent canonical ingestion — PASS.\n5. Overlapping patterns yield one canonical candidate — PASS.\n6. External/cyclic symlinks cannot escape root or create duplicate semantic sources — PASS.\n7. Repository code/network is never executed — PASS.",
+      "title": "Acceptance Criteria Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 81,
+      "line_start": 76,
+      "section_id": "test-validation-evidence",
+      "text": "## Test / Validation Evidence\n\nPASS.\n\nFocused coverage includes stable ordering/equivalent clones, overlapping provenance, default/configured exclusions, unsupported source kinds, inert repository content, globstar behavior, symlink aliases/external targets/cycles, invalid UTF-8 paths on Unix, and the EOSR regression proving directory-entry errors are preserved while valid entries retain stable order.",
+      "title": "Test / Validation Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 89,
+      "line_start": 82,
+      "section_id": "security-reliability-findings",
+      "text": "## Security / Reliability Findings\n\n**EOSR-WP-MVP-0002-F001 — RESOLVED.**\n\nInitial review found that `ReadDir` item failures were silently dropped. PR #199 replaced that behavior with explicit error retention and deterministic `UnreadableSource` diagnostics anchored to the containing repository-relative directory, while preserving sorted traversal of valid entries. The focused regression and full validation suite pass.\n\nNo blocking security or reliability finding remains.",
+      "title": "Security / Reliability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 95,
+      "line_start": 90,
+      "section_id": "traceability-findings",
+      "text": "## Traceability Findings\n\nPASS.\n\nTraceability is complete across the Work Packet, governing requirements/ADRs/specifications, EXEC-0004, EOSV evidence, initial EOSR finding, correction PR #199, and this final review disposition.",
+      "title": "Traceability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 99,
+      "line_start": 96,
+      "section_id": "blocking-findings",
+      "text": "## Blocking Findings\n\nNone.",
+      "title": "Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 103,
+      "line_start": 100,
+      "section_id": "non-blocking-findings",
+      "text": "## Non-Blocking Findings\n\nNone specific to WP-MVP-0002. Existing separate EOS issues #175, #176, #178, and #181 remain outside this packet.",
+      "title": "Non-Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 108,
+      "line_start": 104,
+      "section_id": "decision",
+      "text": "## Decision\n\n**ACCEPTED.**\n\nWP-MVP-0002 is technically acceptable for governed closure after its acceptance checklist is reconciled and evidence is refreshed for that semantic artifact change.",
+      "title": "Decision"
+    }
+  ],
+  "source": {
+    "bytes": 4824,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 108,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/WP-MVP-0002-REVIEW.md",
+    "sha256": "5c0abbf0fc0d30da967babf399b03a6df0e7ed466efd7eb800c1d099fedca12d"
+  }
+}
