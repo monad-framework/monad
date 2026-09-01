@@ -1,0 +1,252 @@
+{
+  "content": "# ADR-0007: Governed Execution Harness Architecture\n\n- **Status:** proposed\n- **Date:** 2026-09-01\n- **Decision owners:** Architecture Owner, Engineering Owner\n- **Reviewers:** Security Owner, Operations Owner, Product Owner, Verification Owner as affected\n- **Related:** ADR-0001, ADR-0005, ADR-0006, `governance/authority.md`, `governance/policy-engine.md`, `governance/execution-engine.md`, `governance/canonical-state-model.md`, `engineering/definition-of-ready.md`\n- **Supersedes:** none\n- **Superseded by:** none\n\n## Decision summary\n\nMonad SHALL establish a first-class **Governed Execution Harness** as the stable governance and execution boundary between Monad's authoritative engineering knowledge/EOS control plane and replaceable AI agent harnesses, models, tools, and execution environments.\n\nThe governing architectural rule is:\n\n> **Monad governs agent execution but does not prescribe agent cognition.**\n\nMonad SHALL own compilation of governed work into a versioned Execution Envelope; authority, policy, and capability resolution; mediated tool/effect execution; execution state and checkpoints; approval/escalation control; evidence and provenance capture; and verification-controlled completion. External agent harnesses such as Codex, Claude Code, and future executors SHALL remain replaceable adapters that may choose their own planning, reasoning, delegation, prompting, and model strategies within the envelope and SHALL NOT become authoritative lifecycle, policy, evidence, or completion authorities.\n\nA lightweight Monad reference agent MAY later be provided for dogfooding, conformance, and portability testing, but it SHALL implement the same adapter contract as external harnesses and SHALL NOT define the core architecture.\n\n## Context\n\nADR-0006 preserves EOS as the sole repository lifecycle/control plane while explicitly prioritizing harness/execution-role abstraction as an early Monad-native assimilation target. That decision also requires replaceable harnesses, bounded autonomy, human sovereignty, deterministic checks before probabilistic evaluation, and reconstructable execution evidence.\n\nCurrent AI coding systems combine several concerns that should not share one architectural owner: model inference, planning/reasoning loops, context assembly, tool invocation, permissions, workspace interaction, retries, review, and completion judgment. If Monad adopts one vendor harness or one agent-loop design as its native control plane, rapidly changing implementation assumptions become coupled to stable engineering-governance semantics.\n\nConversely, treating AI execution as only a prompt or shell-command integration would leave Monad's strongest existing concepts—authority, policy, capabilities, semantic dependencies, evidence, provenance, verification, and EOS lifecycle state—outside the actual execution boundary. That would make governed knowledge AI-readable but not reliably AI-executable.\n\nAn explicit decision is therefore required before introducing broader autonomous execution, cross-harness review, worker pools, or a native reference agent.\n\n## Decision drivers\n\n1. **Single authority:** EOS and canonical Monad artifacts remain the sole authoritative engineering control plane.\n2. **Governed effects:** consequential actions must pass explicit authority, policy, and capability checks.\n3. **Harness portability:** Codex, Claude Code, future agents, and a Monad reference agent must be substitutable without rewriting governance semantics.\n4. **Cognition neutrality:** Monad must not encode a particular agent planning/reasoning technique into its governing contracts.\n5. **Least privilege:** every execution receives only the capabilities and tools required for authorized work.\n6. **Auditability:** consequential operations and outcomes must be attributable to actor, execution, governing state, and evidence.\n7. **Verification authority:** completion must be determined from explicit verification obligations rather than model self-report.\n8. **Local-first operation:** the core must remain usable without requiring a cloud control plane.\n9. **Backend neutrality:** execution environments and model providers must remain replaceable behind contracts.\n10. **Fail-closed governance:** unresolved governing authority or capability must not silently broaden execution rights.\n11. **Recoverability:** long-running work needs explicit cancellation, checkpoint, retry, resume, and escalation semantics.\n12. **Incremental adoption:** existing bounded EOSE execution must remain viable while the new boundary is introduced.\n\n## Options considered\n\n### Option A — Build a monolithic Monad coding agent\n\nMonad would own the model loop, planning strategy, prompting, context handling, tools, permissions, verification, and user interaction as one integrated AI agent product.\n\n**Advantages**\n\n- maximum short-term control over user experience;\n- fewer adapter boundaries initially;\n- easier optimization around one execution strategy.\n\n**Disadvantages**\n\n- couples Monad to rapidly changing model and agent-loop assumptions;\n- duplicates mature external harness capabilities;\n- makes model/harness substitution expensive;\n- risks shifting Monad from governed engineering substrate toward a vendor-specific coding-agent product;\n- encourages cognition implementation details to leak into governance semantics.\n\n### Option B — Governed Execution Harness with pluggable agent adapters\n\nMonad owns the stable governance/execution boundary and exposes a versioned adapter contract to external or native agent harnesses. The agent receives a governed Execution Envelope and requests operations through mediated interfaces. Monad captures results/evidence and determines lifecycle transitions through verification and authority rules.\n\n**Advantages**\n\n- preserves Monad's differentiated governance role;\n- makes harnesses and models replaceable;\n- compiles governed engineering knowledge into executable constraints;\n- centralizes authority, policy, capability, evidence, and verification enforcement;\n- permits specialized agent harnesses to evolve independently;\n- supports both AI and non-AI executors behind the same governed effect boundary.\n\n**Disadvantages**\n\n- requires explicit protocol/schema design;\n- adds adapter and compatibility testing;\n- may limit harness-specific optimizations unless extension points are carefully designed;\n- introduces execution-state and evidence overhead.\n\n### Option C — Keep harness integration external and prompt-based\n\nMonad would export context or instructions to external agents but would not introduce a first-class execution harness boundary.\n\n**Advantages**\n\n- least near-term implementation work;\n- no new protocol surface.\n\n**Disadvantages**\n\n- governance becomes advisory rather than enforceable at the action boundary;\n- permissions and completion semantics remain fragmented across tools;\n- weak provenance and reconstruction of agent effects;\n- no stable basis for cross-harness execution, evaluation, or controlled autonomy;\n- duplicates policy/context assembly in each integration.\n\n## Decision\n\nChoose **Option B — Governed Execution Harness with pluggable agent adapters**.\n\nThe Governed Execution Harness is a Monad subsystem, not a new lifecycle authority. EOS remains authoritative for work state and transition eligibility. The harness consumes governed state, executes authorized work, emits evidence/provenance, and requests or triggers EOS transitions only through established governance rules.\n\n### Required harness responsibilities\n\nThe first-class harness boundary SHALL include the following logical responsibilities. Implementations MAY combine them physically while preserving their contracts and invariants.\n\n1. **Context Compiler** — resolves the minimum authoritative engineering context required for the work.\n2. **Authority Resolver** — determines governing sources and accountable decision authority.\n3. **Policy Engine Integration** — evaluates execution and transition policy against canonical state.\n4. **Capability Broker** — derives least-privilege capabilities for the actor/executor.\n5. **Execution Envelope Compiler** — produces a versioned, immutable description of governed work inputs and obligations.\n6. **Tool Gateway** — mediates governed tool/effect requests and enforces capabilities/policy before execution.\n7. **Execution State and Checkpoint Manager** — tracks run identity, state, cancellation, retry, checkpoint, and resume semantics without replacing EOS canonical lifecycle state.\n8. **Approval and Escalation Controller** — stops or routes work when explicit authority, uncertainty, risk, or policy requires human or designated review.\n9. **Evidence and Provenance Recorder** — records sufficient inputs, requested operations, outcomes, verification evidence, and identities for reconstruction and audit.\n10. **Verification Controller** — evaluates explicit verification obligations and determines whether execution evidence is sufficient to claim completion.\n\n### Execution Envelope\n\nEach governed execution SHALL be derived from a versioned **Execution Envelope**. The envelope is a compiled artifact, not a second source of truth. It references or snapshots the governing state necessary to make one execution deterministic and auditable.\n\nThe envelope SHALL support, at minimum:\n\n- envelope schema/version;\n- execution/run identity;\n- intent and governed work subject;\n- governing requirements, specifications, ADRs, decisions, and policies;\n- architectural and operational constraints;\n- relevant evidence and unresolved claims/decisions;\n- actor/executor identity and role;\n- granted capabilities and explicit prohibitions;\n- permitted tools/interfaces and execution environment constraints;\n- acceptance criteria and verification obligations;\n- approval gates and escalation conditions;\n- budgets/limits where applicable;\n- provenance/evidence obligations;\n- completion criteria;\n- hashes or equivalent identifiers sufficient to detect governing-state drift.\n\nThe exact serialized schema is deferred to a technical specification and schema tranche.\n\n### Agent Harness Adapter boundary\n\nAn agent adapter SHALL be able to:\n\n- receive a versioned Execution Envelope or a capability-limited projection of it;\n- initialize/resume a governed execution session;\n- request approved operations/tools through the Tool Gateway;\n- receive operation results and diagnostics;\n- emit candidate outputs, progress state, questions, and escalation requests;\n- submit evidence or references to evidence produced by governed operations;\n- request verification;\n- terminate, cancel, or yield control according to protocol.\n\nAn adapter SHALL NOT be allowed to:\n\n- broaden its own capabilities;\n- redefine authoritative requirements/policies;\n- directly mark EOS work accepted/complete;\n- bypass the Tool Gateway for governed effects while claiming a governed execution;\n- silently replace governing context after the envelope has been compiled;\n- make its private planning/reasoning representation part of Monad's normative contract.\n\n### Cognition-neutral contract\n\nMonad SHALL constrain externally observable intent, capabilities, operations, effects, evidence, verification, and lifecycle transitions. Monad SHALL NOT require a specific internal agent planning, reasoning, reflection, delegation, or prompting strategy unless a future separately governed feature explicitly requires one for conformance.\n\nThis keeps governance stable while models and harnesses improve.\n\n### Reference agent\n\nA Monad reference agent MAY be implemented after the adapter and envelope contracts are stable enough to test. It exists to:\n\n- dogfood the adapter contract;\n- prove that Monad is not dependent on an external proprietary harness;\n- provide deterministic/conformance fixtures where feasible;\n- exercise local-first execution;\n- support evaluation across model/harness combinations.\n\nIt SHALL NOT receive privileged governance APIs unavailable to conforming external adapters unless those privileges are separately specified as an explicit trusted-system role.\n\n### Evaluation harness\n\nEvaluation is related but distinct from governed execution. Monad SHOULD provide a separate evaluation/conformance harness capable of replaying controlled tasks against multiple model/harness combinations and scoring correctness, requirement satisfaction, policy compliance, unauthorized actions, provenance completeness, architectural drift, cost/resource use, human intervention, and reproducibility.\n\nEvaluation results MAY inform policy and harness selection but SHALL NOT create a second production execution authority.\n\n## Consequences\n\n### Positive\n\n- Governed engineering knowledge becomes executable rather than merely available as model context.\n- External harness innovation can be adopted without transferring lifecycle authority to external products.\n- Agent/model substitution becomes a contract compatibility problem rather than an architecture rewrite.\n- Least privilege, provenance, evidence, and verification become common behavior across executors.\n- Human approval/escalation can be represented explicitly rather than through ad hoc confirmation dialogs.\n- The same boundary can govern human, scripted, and AI executors where appropriate.\n- Cross-harness independent review and comparative evaluation gain a stable foundation.\n\n### Negative\n\n- Monad must design and version new envelope, adapter, execution-state, and evidence contracts.\n- Every supported external harness requires an adapter and conformance maintenance.\n- Full mediation may be impossible for effects performed outside Monad-controlled environments; such effects must be marked external/unverified rather than silently treated as governed.\n- Rich context compilation and evidence retention can increase latency, storage, and operational complexity.\n\n### Neutral or follow-on\n\n- Existing `./scripts/eos codex` behavior may continue temporarily but should converge on the generic adapter boundary.\n- A Claude Code adapter, Codex adapter, or other adapter is an implementation choice, not an architectural dependency.\n- Multi-agent delegation remains deferred; when introduced, child executions must inherit or narrow—not broaden—the parent authority/capability envelope.\n- Requirements, threat model, schema catalog, traceability, and implementation Work Packets require follow-on amendments before production activation.\n\n## Security, privacy, and operations\n\nThe harness creates a critical trust boundary because model-generated requests may cause external effects. Governed effects MUST be authorized independently of model assertions. Capability decisions MUST default to denial when governing state is absent, invalid, stale beyond policy, or contradictory in a way that prevents safe resolution.\n\nSensitive context SHOULD be minimized before projection to external model providers. Provider/network permissions, transcript retention, secret exposure, filesystem scope, process execution, and external-service access require explicit policy. Raw private model reasoning is neither required nor sufficient audit evidence; auditability is based on governed inputs, observable requests/actions, outcomes, approvals, evidence, and verification.\n\nExecution cancellation, timeout, resource budget, checkpoint integrity, stale-envelope detection, tool failure, partial-effect recovery, and incident reconstruction must be testable operational behaviors.\n\n## Migration and rollback\n\nMigration is additive and staged:\n\n1. define envelope and adapter contracts without changing current execution behavior;\n2. implement envelope compilation and dry-run inspection;\n3. route one existing bounded executor through the adapter/gateway boundary;\n4. add evidence/verification integration;\n5. introduce additional external adapters;\n6. add the reference agent and evaluation harness only after contract conformance is demonstrated.\n\nExisting direct executor commands remain available during compatibility migration unless separately deprecated. Rollback removes the new routing path and returns to the prior bounded EOSE behavior; canonical EOS state and already-recorded evidence remain intact.\n\nNo migration stage may make an external harness the sole owner of canonical execution state.\n\n## Validation\n\nThis decision is validated when all of the following are demonstrated:\n\n- a versioned Execution Envelope can be compiled deterministically from a fixed governed repository state;\n- at least two materially different executor/harness implementations can consume the same governed contract without governance-semantic changes;\n- prohibited or ungranted tool operations fail closed;\n- governing-state drift is detected before consequential execution or completion;\n- consequential effects are attributable to execution, actor, envelope, operation, and resulting evidence;\n- verification, not executor self-report, controls the governed completion claim;\n- cancellation/checkpoint/resume semantics preserve auditability;\n- existing EOS strict verification remains authoritative;\n- the core remains usable in a local-first configuration without mandatory cloud orchestration.\n\nReconsider this ADR if the adapter boundary proves unable to preserve key harness capabilities without unsafe bypasses, or if evidence shows the abstraction materially reduces correctness/reliability compared with a more specialized architecture without delivering meaningful portability or governance value.\n\n## References\n\n- ADR-0006: EOS Sovereignty and External SDLC Assimilation\n- `governance/authority.md`\n- `governance/canonical-state-model.md`\n- `governance/policy-engine.md`\n- `governance/execution-engine.md`\n- `engineering/definition-of-ready.md`\n",
+  "document_id": "doc:architecture%2Fdecisions%2FADR-0007-governed-execution-harness.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0001",
+    "ADR-0005",
+    "ADR-0006",
+    "ADR-0007"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "architecture",
+    "normative": true,
+    "summary": "Monad SHALL establish a first-class Governed Execution Harness as the stable governance and execution boundary between Monad's authoritative engineering knowledge/EOS control plane and replaceable AI agent harnesses, models, tools, and execution environments.",
+    "title": "ADR-0007: Governed Execution Harness Architecture"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0001",
+        "ADR-0005",
+        "ADR-0006",
+        "ADR-0007"
+      ],
+      "level": 1,
+      "line_end": 10,
+      "line_start": 1,
+      "section_id": "adr-0007-governed-execution-harness-architecture",
+      "text": "# ADR-0007: Governed Execution Harness Architecture\n\n- **Status:** proposed\n- **Date:** 2026-09-01\n- **Decision owners:** Architecture Owner, Engineering Owner\n- **Reviewers:** Security Owner, Operations Owner, Product Owner, Verification Owner as affected\n- **Related:** ADR-0001, ADR-0005, ADR-0006, `governance/authority.md`, `governance/policy-engine.md`, `governance/execution-engine.md`, `governance/canonical-state-model.md`, `engineering/definition-of-ready.md`\n- **Supersedes:** none\n- **Superseded by:** none",
+      "title": "ADR-0007: Governed Execution Harness Architecture"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 11,
+      "section_id": "decision-summary",
+      "text": "## Decision summary\n\nMonad SHALL establish a first-class **Governed Execution Harness** as the stable governance and execution boundary between Monad's authoritative engineering knowledge/EOS control plane and replaceable AI agent harnesses, models, tools, and execution environments.\n\nThe governing architectural rule is:\n\n> **Monad governs agent execution but does not prescribe agent cognition.**\n\nMonad SHALL own compilation of governed work into a versioned Execution Envelope; authority, policy, and capability resolution; mediated tool/effect execution; execution state and checkpoints; approval/escalation control; evidence and provenance capture; and verification-controlled completion. External agent harnesses such as Codex, Claude Code, and future executors SHALL remain replaceable adapters that may choose their own planning, reasoning, delegation, prompting, and model strategies within the envelope and SHALL NOT become authoritative lifecycle, policy, evidence, or completion authorities.\n\nA lightweight Monad reference agent MAY later be provided for dogfooding, conformance, and portability testing, but it SHALL implement the same adapter contract as external harnesses and SHALL NOT define the core architecture.",
+      "title": "Decision summary"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 32,
+      "line_start": 23,
+      "section_id": "context",
+      "text": "## Context\n\nADR-0006 preserves EOS as the sole repository lifecycle/control plane while explicitly prioritizing harness/execution-role abstraction as an early Monad-native assimilation target. That decision also requires replaceable harnesses, bounded autonomy, human sovereignty, deterministic checks before probabilistic evaluation, and reconstructable execution evidence.\n\nCurrent AI coding systems combine several concerns that should not share one architectural owner: model inference, planning/reasoning loops, context assembly, tool invocation, permissions, workspace interaction, retries, review, and completion judgment. If Monad adopts one vendor harness or one agent-loop design as its native control plane, rapidly changing implementation assumptions become coupled to stable engineering-governance semantics.\n\nConversely, treating AI execution as only a prompt or shell-command integration would leave Monad's strongest existing concepts—authority, policy, capabilities, semantic dependencies, evidence, provenance, verification, and EOS lifecycle state—outside the actual execution boundary. That would make governed knowledge AI-readable but not reliably AI-executable.\n\nAn explicit decision is therefore required before introducing broader autonomous execution, cross-harness review, worker pools, or a native reference agent.",
+      "title": "Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 33,
+      "section_id": "decision-drivers",
+      "text": "## Decision drivers\n\n1. **Single authority:** EOS and canonical Monad artifacts remain the sole authoritative engineering control plane.\n2. **Governed effects:** consequential actions must pass explicit authority, policy, and capability checks.\n3. **Harness portability:** Codex, Claude Code, future agents, and a Monad reference agent must be substitutable without rewriting governance semantics.\n4. **Cognition neutrality:** Monad must not encode a particular agent planning/reasoning technique into its governing contracts.\n5. **Least privilege:** every execution receives only the capabilities and tools required for authorized work.\n6. **Auditability:** consequential operations and outcomes must be attributable to actor, execution, governing state, and evidence.\n7. **Verification authority:** completion must be determined from explicit verification obligations rather than model self-report.\n8. **Local-first operation:** the core must remain usable without requiring a cloud control plane.\n9. **Backend neutrality:** execution environments and model providers must remain replaceable behind contracts.\n10. **Fail-closed governance:** unresolved governing authority or capability must not silently broaden execution rights.\n11. **Recoverability:** long-running work needs explicit cancellation, checkpoint, retry, resume, and escalation semantics.\n12. **Incremental adoption:** existing bounded EOSE execution must remain viable while the new boundary is introduced.",
+      "title": "Decision drivers"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 48,
+      "section_id": "options-considered",
+      "text": "## Options considered",
+      "title": "Options considered"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 67,
+      "line_start": 50,
+      "section_id": "option-a-build-a-monolithic-monad-coding-agent",
+      "text": "### Option A — Build a monolithic Monad coding agent\n\nMonad would own the model loop, planning strategy, prompting, context handling, tools, permissions, verification, and user interaction as one integrated AI agent product.\n\n**Advantages**\n\n- maximum short-term control over user experience;\n- fewer adapter boundaries initially;\n- easier optimization around one execution strategy.\n\n**Disadvantages**\n\n- couples Monad to rapidly changing model and agent-loop assumptions;\n- duplicates mature external harness capabilities;\n- makes model/harness substitution expensive;\n- risks shifting Monad from governed engineering substrate toward a vendor-specific coding-agent product;\n- encourages cognition implementation details to leak into governance semantics.",
+      "title": "Option A — Build a monolithic Monad coding agent"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 87,
+      "line_start": 68,
+      "section_id": "option-b-governed-execution-harness-with-pluggable-agent-adapters",
+      "text": "### Option B — Governed Execution Harness with pluggable agent adapters\n\nMonad owns the stable governance/execution boundary and exposes a versioned adapter contract to external or native agent harnesses. The agent receives a governed Execution Envelope and requests operations through mediated interfaces. Monad captures results/evidence and determines lifecycle transitions through verification and authority rules.\n\n**Advantages**\n\n- preserves Monad's differentiated governance role;\n- makes harnesses and models replaceable;\n- compiles governed engineering knowledge into executable constraints;\n- centralizes authority, policy, capability, evidence, and verification enforcement;\n- permits specialized agent harnesses to evolve independently;\n- supports both AI and non-AI executors behind the same governed effect boundary.\n\n**Disadvantages**\n\n- requires explicit protocol/schema design;\n- adds adapter and compatibility testing;\n- may limit harness-specific optimizations unless extension points are carefully designed;\n- introduces execution-state and evidence overhead.",
+      "title": "Option B — Governed Execution Harness with pluggable agent adapters"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 104,
+      "line_start": 88,
+      "section_id": "option-c-keep-harness-integration-external-and-prompt-based",
+      "text": "### Option C — Keep harness integration external and prompt-based\n\nMonad would export context or instructions to external agents but would not introduce a first-class execution harness boundary.\n\n**Advantages**\n\n- least near-term implementation work;\n- no new protocol surface.\n\n**Disadvantages**\n\n- governance becomes advisory rather than enforceable at the action boundary;\n- permissions and completion semantics remain fragmented across tools;\n- weak provenance and reconstruction of agent effects;\n- no stable basis for cross-harness execution, evaluation, or controlled autonomy;\n- duplicates policy/context assembly in each integration.",
+      "title": "Option C — Keep harness integration external and prompt-based"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 110,
+      "line_start": 105,
+      "section_id": "decision",
+      "text": "## Decision\n\nChoose **Option B — Governed Execution Harness with pluggable agent adapters**.\n\nThe Governed Execution Harness is a Monad subsystem, not a new lifecycle authority. EOS remains authoritative for work state and transition eligibility. The harness consumes governed state, executes authorized work, emits evidence/provenance, and requests or triggers EOS transitions only through established governance rules.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 125,
+      "line_start": 111,
+      "section_id": "required-harness-responsibilities",
+      "text": "### Required harness responsibilities\n\nThe first-class harness boundary SHALL include the following logical responsibilities. Implementations MAY combine them physically while preserving their contracts and invariants.\n\n1. **Context Compiler** — resolves the minimum authoritative engineering context required for the work.\n2. **Authority Resolver** — determines governing sources and accountable decision authority.\n3. **Policy Engine Integration** — evaluates execution and transition policy against canonical state.\n4. **Capability Broker** — derives least-privilege capabilities for the actor/executor.\n5. **Execution Envelope Compiler** — produces a versioned, immutable description of governed work inputs and obligations.\n6. **Tool Gateway** — mediates governed tool/effect requests and enforces capabilities/policy before execution.\n7. **Execution State and Checkpoint Manager** — tracks run identity, state, cancellation, retry, checkpoint, and resume semantics without replacing EOS canonical lifecycle state.\n8. **Approval and Escalation Controller** — stops or routes work when explicit authority, uncertainty, risk, or policy requires human or designated review.\n9. **Evidence and Provenance Recorder** — records sufficient inputs, requested operations, outcomes, verification evidence, and identities for reconstruction and audit.\n10. **Verification Controller** — evaluates explicit verification obligations and determines whether execution evidence is sufficient to claim completion.",
+      "title": "Required harness responsibilities"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 149,
+      "line_start": 126,
+      "section_id": "execution-envelope",
+      "text": "### Execution Envelope\n\nEach governed execution SHALL be derived from a versioned **Execution Envelope**. The envelope is a compiled artifact, not a second source of truth. It references or snapshots the governing state necessary to make one execution deterministic and auditable.\n\nThe envelope SHALL support, at minimum:\n\n- envelope schema/version;\n- execution/run identity;\n- intent and governed work subject;\n- governing requirements, specifications, ADRs, decisions, and policies;\n- architectural and operational constraints;\n- relevant evidence and unresolved claims/decisions;\n- actor/executor identity and role;\n- granted capabilities and explicit prohibitions;\n- permitted tools/interfaces and execution environment constraints;\n- acceptance criteria and verification obligations;\n- approval gates and escalation conditions;\n- budgets/limits where applicable;\n- provenance/evidence obligations;\n- completion criteria;\n- hashes or equivalent identifiers sufficient to detect governing-state drift.\n\nThe exact serialized schema is deferred to a technical specification and schema tranche.",
+      "title": "Execution Envelope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 171,
+      "line_start": 150,
+      "section_id": "agent-harness-adapter-boundary",
+      "text": "### Agent Harness Adapter boundary\n\nAn agent adapter SHALL be able to:\n\n- receive a versioned Execution Envelope or a capability-limited projection of it;\n- initialize/resume a governed execution session;\n- request approved operations/tools through the Tool Gateway;\n- receive operation results and diagnostics;\n- emit candidate outputs, progress state, questions, and escalation requests;\n- submit evidence or references to evidence produced by governed operations;\n- request verification;\n- terminate, cancel, or yield control according to protocol.\n\nAn adapter SHALL NOT be allowed to:\n\n- broaden its own capabilities;\n- redefine authoritative requirements/policies;\n- directly mark EOS work accepted/complete;\n- bypass the Tool Gateway for governed effects while claiming a governed execution;\n- silently replace governing context after the envelope has been compiled;\n- make its private planning/reasoning representation part of Monad's normative contract.",
+      "title": "Agent Harness Adapter boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 177,
+      "line_start": 172,
+      "section_id": "cognition-neutral-contract",
+      "text": "### Cognition-neutral contract\n\nMonad SHALL constrain externally observable intent, capabilities, operations, effects, evidence, verification, and lifecycle transitions. Monad SHALL NOT require a specific internal agent planning, reasoning, reflection, delegation, or prompting strategy unless a future separately governed feature explicitly requires one for conformance.\n\nThis keeps governance stable while models and harnesses improve.",
+      "title": "Cognition-neutral contract"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 189,
+      "line_start": 178,
+      "section_id": "reference-agent",
+      "text": "### Reference agent\n\nA Monad reference agent MAY be implemented after the adapter and envelope contracts are stable enough to test. It exists to:\n\n- dogfood the adapter contract;\n- prove that Monad is not dependent on an external proprietary harness;\n- provide deterministic/conformance fixtures where feasible;\n- exercise local-first execution;\n- support evaluation across model/harness combinations.\n\nIt SHALL NOT receive privileged governance APIs unavailable to conforming external adapters unless those privileges are separately specified as an explicit trusted-system role.",
+      "title": "Reference agent"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 195,
+      "line_start": 190,
+      "section_id": "evaluation-harness",
+      "text": "### Evaluation harness\n\nEvaluation is related but distinct from governed execution. Monad SHOULD provide a separate evaluation/conformance harness capable of replaying controlled tasks against multiple model/harness combinations and scoring correctness, requirement satisfaction, policy compliance, unauthorized actions, provenance completeness, architectural drift, cost/resource use, human intervention, and reproducibility.\n\nEvaluation results MAY inform policy and harness selection but SHALL NOT create a second production execution authority.",
+      "title": "Evaluation harness"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 197,
+      "line_start": 196,
+      "section_id": "consequences",
+      "text": "## Consequences",
+      "title": "Consequences"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 207,
+      "line_start": 198,
+      "section_id": "positive",
+      "text": "### Positive\n\n- Governed engineering knowledge becomes executable rather than merely available as model context.\n- External harness innovation can be adopted without transferring lifecycle authority to external products.\n- Agent/model substitution becomes a contract compatibility problem rather than an architecture rewrite.\n- Least privilege, provenance, evidence, and verification become common behavior across executors.\n- Human approval/escalation can be represented explicitly rather than through ad hoc confirmation dialogs.\n- The same boundary can govern human, scripted, and AI executors where appropriate.\n- Cross-harness independent review and comparative evaluation gain a stable foundation.",
+      "title": "Positive"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 214,
+      "line_start": 208,
+      "section_id": "negative",
+      "text": "### Negative\n\n- Monad must design and version new envelope, adapter, execution-state, and evidence contracts.\n- Every supported external harness requires an adapter and conformance maintenance.\n- Full mediation may be impossible for effects performed outside Monad-controlled environments; such effects must be marked external/unverified rather than silently treated as governed.\n- Rich context compilation and evidence retention can increase latency, storage, and operational complexity.",
+      "title": "Negative"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 221,
+      "line_start": 215,
+      "section_id": "neutral-or-follow-on",
+      "text": "### Neutral or follow-on\n\n- Existing `./scripts/eos codex` behavior may continue temporarily but should converge on the generic adapter boundary.\n- A Claude Code adapter, Codex adapter, or other adapter is an implementation choice, not an architectural dependency.\n- Multi-agent delegation remains deferred; when introduced, child executions must inherit or narrow—not broaden—the parent authority/capability envelope.\n- Requirements, threat model, schema catalog, traceability, and implementation Work Packets require follow-on amendments before production activation.",
+      "title": "Neutral or follow-on"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 229,
+      "line_start": 222,
+      "section_id": "security-privacy-and-operations",
+      "text": "## Security, privacy, and operations\n\nThe harness creates a critical trust boundary because model-generated requests may cause external effects. Governed effects MUST be authorized independently of model assertions. Capability decisions MUST default to denial when governing state is absent, invalid, stale beyond policy, or contradictory in a way that prevents safe resolution.\n\nSensitive context SHOULD be minimized before projection to external model providers. Provider/network permissions, transcript retention, secret exposure, filesystem scope, process execution, and external-service access require explicit policy. Raw private model reasoning is neither required nor sufficient audit evidence; auditability is based on governed inputs, observable requests/actions, outcomes, approvals, evidence, and verification.\n\nExecution cancellation, timeout, resource budget, checkpoint integrity, stale-envelope detection, tool failure, partial-effect recovery, and incident reconstruction must be testable operational behaviors.",
+      "title": "Security, privacy, and operations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 244,
+      "line_start": 230,
+      "section_id": "migration-and-rollback",
+      "text": "## Migration and rollback\n\nMigration is additive and staged:\n\n1. define envelope and adapter contracts without changing current execution behavior;\n2. implement envelope compilation and dry-run inspection;\n3. route one existing bounded executor through the adapter/gateway boundary;\n4. add evidence/verification integration;\n5. introduce additional external adapters;\n6. add the reference agent and evaluation harness only after contract conformance is demonstrated.\n\nExisting direct executor commands remain available during compatibility migration unless separately deprecated. Rollback removes the new routing path and returns to the prior bounded EOSE behavior; canonical EOS state and already-recorded evidence remain intact.\n\nNo migration stage may make an external harness the sole owner of canonical execution state.",
+      "title": "Migration and rollback"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 260,
+      "line_start": 245,
+      "section_id": "validation",
+      "text": "## Validation\n\nThis decision is validated when all of the following are demonstrated:\n\n- a versioned Execution Envelope can be compiled deterministically from a fixed governed repository state;\n- at least two materially different executor/harness implementations can consume the same governed contract without governance-semantic changes;\n- prohibited or ungranted tool operations fail closed;\n- governing-state drift is detected before consequential execution or completion;\n- consequential effects are attributable to execution, actor, envelope, operation, and resulting evidence;\n- verification, not executor self-report, controls the governed completion claim;\n- cancellation/checkpoint/resume semantics preserve auditability;\n- existing EOS strict verification remains authoritative;\n- the core remains usable in a local-first configuration without mandatory cloud orchestration.\n\nReconsider this ADR if the adapter boundary proves unable to preserve key harness capabilities without unsafe bypasses, or if evidence shows the abstraction materially reduces correctness/reliability compared with a more specialized architecture without delivering meaningful portability or governance value.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 268,
+      "line_start": 261,
+      "section_id": "references",
+      "text": "## References\n\n- ADR-0006: EOS Sovereignty and External SDLC Assimilation\n- `governance/authority.md`\n- `governance/canonical-state-model.md`\n- `governance/policy-engine.md`\n- `governance/execution-engine.md`\n- `engineering/definition-of-ready.md`",
+      "title": "References"
+    }
+  ],
+  "source": {
+    "bytes": 17753,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 268,
+    "media_type": "text/markdown",
+    "path": "architecture/decisions/ADR-0007-governed-execution-harness.md",
+    "sha256": "452efde48315e29e0e079cbf2487620843abacbe4b16a03a38fc7979c8686172"
+  }
+}

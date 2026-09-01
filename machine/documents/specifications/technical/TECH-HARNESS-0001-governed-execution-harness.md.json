@@ -1,0 +1,344 @@
+{
+  "content": "# TECH-HARNESS-0001: Governed Execution Harness\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Related requirements:** FR-007, FR-010, FR-012, FR-014, FR-015, FR-017, FR-022, FR-023, FR-024, FR-029, FR-037, FR-038, FR-040, FR-041, QR-001, QR-003, QR-004, QR-007, QR-010, QR-014, QR-021, QR-022, QR-023  \n**Governing ADRs:** ADR-0006, ADR-0007\n\n## Purpose and scope\n\nDefines the minimum normative behavior of Monad's Governed Execution Harness (GEH): compilation of governed work into an Execution Envelope, capability- and policy-mediated operation execution, run-state management, evidence/provenance capture, escalation, and verification-controlled completion.\n\nThis specification defines the stable execution-governance boundary. It does not prescribe model selection, prompting, internal reasoning/planning techniques, IDE behavior, or a particular third-party agent harness.\n\n## Architectural invariant\n\n**Monad governs agent execution but does not prescribe agent cognition.**\n\nThe harness governs observable intent, inputs, authority, capabilities, operations, effects, evidence, verification, and lifecycle transitions. An executor remains free to choose internal planning/reasoning behavior so long as it conforms to the governed boundary.\n\n## Preconditions\n\nA governed execution MAY begin only when:\n\n1. a resolvable work subject/intent exists;\n2. the governing EOS/canonical state is readable and passes the minimum integrity checks required by policy;\n3. accountable actor/executor identity can be established;\n4. applicable authority and policy can be resolved sufficiently to determine execution rights;\n5. a versioned Execution Envelope can be compiled;\n6. required approval gates that precede execution are satisfied.\n\nIf a precondition cannot be established, the harness MUST fail closed or route the execution to an explicit escalation state. It MUST NOT infer broader authority from missing data.\n\n## Logical components\n\nAn implementation MUST provide behavior equivalent to the following logical components. Components MAY share a process/module and MAY be implemented incrementally.\n\n1. **Context Compiler** — produces the minimum authoritative context projection required for the governed work.\n2. **Authority Resolver** — resolves which artifacts/actors control disputed or consequential decisions.\n3. **Policy Integration** — evaluates governing policies before operations and transitions.\n4. **Capability Broker** — produces explicit least-privilege grants/prohibitions.\n5. **Execution Envelope Compiler** — freezes the governed execution input contract.\n6. **Tool Gateway** — mediates consequential executor operations.\n7. **Run-State/Checkpoint Manager** — manages harness-local execution state without replacing EOS canonical lifecycle state.\n8. **Approval/Escalation Controller** — routes cases that exceed delegated authority or policy.\n9. **Evidence/Provenance Recorder** — captures attributable observable evidence.\n10. **Verification Controller** — evaluates completion obligations and emits verification results.\n\n## Execution Envelope\n\n### Identity and immutability\n\nEach envelope MUST have:\n\n- a globally or repository-uniquely distinguishable `envelope_id`;\n- a schema/version identifier;\n- a `run_id` or execution identity when bound to a run;\n- a creation timestamp or deterministic logical time reference as appropriate;\n- identifiers/hashes sufficient to detect material governing-state drift.\n\nAfter a run begins, the bound envelope MUST be immutable. A material governing-state change requiring different authority, policy, constraints, or acceptance obligations MUST cause one of:\n\n1. run suspension and explicit recompilation into a new envelope/version;\n2. escalation for authority review;\n3. cancellation.\n\nThe harness MUST NOT silently mutate the envelope in place.\n\n### Minimum envelope domains\n\nThe serialized schema SHALL be defined separately, but the envelope model MUST be able to represent at least:\n\n#### Work\n\n- intent;\n- work subject(s);\n- requested outcome;\n- scope boundaries;\n- dependencies/prerequisites when known.\n\n#### Governance\n\n- governing requirements;\n- governing specifications;\n- governing ADRs/decisions;\n- applicable policies;\n- accountable authority;\n- unresolved decisions/claims that may affect execution;\n- governing-state identity/digest.\n\n#### Actor and capabilities\n\n- initiating actor;\n- executor identity/role;\n- granted capabilities;\n- explicit prohibitions;\n- delegation constraints;\n- approval authority and escalation targets where applicable.\n\n#### Environment and tools\n\n- allowed tool/interface identifiers;\n- filesystem/workspace boundaries;\n- process/network/service constraints;\n- environment identity sufficient for reproducibility policy;\n- secrets/credential references as capabilities, never raw secret values in the envelope unless explicitly required and policy-authorized.\n\n#### Quality and completion\n\n- acceptance criteria;\n- verification obligations;\n- required evidence classes;\n- approval gates;\n- escalation conditions;\n- completion criteria.\n\n#### Resource controls\n\nWhere policy requires, the envelope MUST represent applicable time, cost, token/model, operation-count, concurrency, storage, or other budgets/limits.\n\n## Run lifecycle\n\nA conforming harness MUST support the following conceptual lifecycle:\n\n`requested -> compiling -> ready -> running -> {waiting_approval | waiting_input | verifying | suspended | failed | cancelled} -> {running | completed | failed | cancelled}`\n\nExact state names MAY differ, but the implementation MUST preserve distinguishable semantics for:\n\n- envelope compilation;\n- ready but not yet executing;\n- active execution;\n- waiting for external authority/input;\n- verification;\n- suspension/checkpoint;\n- failure;\n- cancellation;\n- governed completion.\n\nHarness run state MUST NOT replace Work Packet/EOS lifecycle state. The harness MAY project or request EOS transitions only through the existing governance boundary.\n\n## Operation request model\n\nAn executor MUST request consequential effects through the Tool Gateway or an equivalent mediated operation interface when claiming governed execution.\n\nEach governed operation request MUST be attributable to:\n\n- `run_id`;\n- envelope identity/version;\n- executor/actor identity;\n- requested capability/tool;\n- operation type;\n- target/resource scope;\n- material parameters or a canonical digest of them;\n- causal parent/delegation identity where applicable.\n\nBefore execution, the gateway MUST evaluate at minimum:\n\n1. envelope validity and stale-state policy;\n2. capability grant/prohibition;\n3. applicable policy;\n4. target/scope containment;\n5. required approval state;\n6. resource-budget constraints where applicable.\n\nA denied operation MUST produce an attributable diagnostic/evidence record and MUST NOT be executed through the governed path.\n\n## External and unmediated effects\n\nMonad cannot guarantee mediation of effects performed outside a Monad-controlled boundary. If an executor performs or claims an external effect that cannot be verified through the gateway, the harness MUST classify it explicitly as external, unverified, partially verified, or equivalent according to evidence policy.\n\nSuch an effect MUST NOT be silently promoted to governed/verified status solely because the executor reports success.\n\n## Context compilation\n\nThe Context Compiler MUST prefer authoritative, applicable, and sufficiently fresh governed knowledge over broad repository dumping.\n\nCompilation SHOULD:\n\n- select the minimum context needed to execute safely;\n- preserve source identity and authority/provenance references;\n- distinguish normative constraints from explanatory/non-authoritative material;\n- expose unresolved conflicts rather than silently choosing a convenient source;\n- minimize sensitive information before projection to external providers;\n- produce a reproducible compilation record or digest where feasible.\n\nThe compiled context MAY be rendered differently for different adapters/models, but semantic governing obligations MUST remain equivalent.\n\n## Capability semantics\n\nCapabilities MUST be explicit and least-privilege.\n\n1. Missing capability grants MUST be treated as denied.\n2. A child/delegated execution MUST NOT receive broader capabilities than its parent unless a separate accountable authority explicitly grants them.\n3. Capability checks MUST be independent of executor/model assertions.\n4. Capability grants SHOULD be scoped by operation, target/resource, duration/run, environment, and other constraints needed to make the grant safe.\n5. Secrets, network access, production effects, release/publish actions, destructive filesystem operations, and governance mutation SHOULD require separate high-sensitivity capabilities/policies.\n\n## Approval and escalation\n\nThe harness MUST support explicit escalation without treating escalation as execution failure.\n\nEscalation conditions MAY include:\n\n- unresolved or contradictory governing authority;\n- requested operation outside delegated capability;\n- material scope expansion;\n- policy-required human approval;\n- high-risk or irreversible effect;\n- stale governing state;\n- failed verification requiring a decision rather than another retry;\n- resource/budget threshold;\n- executor uncertainty surfaced according to policy.\n\nApproval MUST be attributable to an authorized actor and bound to the relevant run/envelope/decision scope.\n\n## Evidence and provenance\n\nThe harness MUST record sufficient observable information to reconstruct governed execution without requiring storage of private model reasoning.\n\nAt minimum, evidence/provenance MUST support attribution of:\n\n- envelope and governing-state identity;\n- initiating actor and executor identity;\n- approvals/escalations;\n- consequential operation requests;\n- policy/capability decision result;\n- effect result/status;\n- produced artifacts or artifact digests where applicable;\n- verification inputs/results;\n- terminal run state.\n\nTranscript storage MAY be configurable and MUST NOT be the sole evidence mechanism.\n\n## Verification and completion\n\nAn executor's declaration that work is complete is advisory only.\n\nA governed `completed` state MUST require the Verification Controller to establish that the envelope's completion and verification obligations have been satisfied to the level required by policy.\n\nVerification MAY include deterministic tests, structural/semantic checks, review evidence, independent harness review, human approval, runtime observation, reproducibility checks, or other governed evidence.\n\nIf required verification cannot be performed, the run MUST remain incomplete, fail, or escalate according to policy. It MUST NOT default to success.\n\n## Failure, retry, checkpoint, and recovery\n\nThe harness MUST distinguish operation failure, executor failure, verification failure, policy denial, stale-envelope suspension, cancellation, and escalation.\n\nRetry behavior MUST NOT broaden capabilities or erase prior evidence.\n\nCheckpoint/resume MUST preserve:\n\n- original run/envelope identity or an explicit parent/successor relationship;\n- previously executed consequential effects;\n- evidence already produced;\n- remaining budgets/limits where applicable;\n- governing-state drift detection before resumed consequential work.\n\nCancellation MUST prevent new governed operations after the cancellation becomes authoritative, except operations explicitly required and authorized for safe rollback/recovery.\n\n## Adapter neutrality\n\nThe GEH MUST NOT require a specific model provider or agent harness.\n\nAdapters MAY optimize context presentation, streaming, tool-call transport, or session handling, but MUST NOT alter governing semantics.\n\nAdapter-specific extensions MUST be namespaced/versioned and MUST NOT weaken core policy/capability/verification requirements.\n\n## Local-first and backend-neutral operation\n\nThe core envelope compiler, policy/capability checks required for local governed work, operation mediation, evidence capture, and verification control SHOULD operate without mandatory dependence on a hosted Monad service.\n\nRemote models, CI systems, cloud sandboxes, or provider APIs MAY be used as tools/environments when explicitly authorized.\n\n## Security requirements\n\n1. The gateway MUST treat executor/model output as untrusted input.\n2. Tool arguments MUST be validated against capability and target constraints before execution.\n3. Governing-state ambiguity MUST fail closed when it prevents a safe decision.\n4. Sensitive context projection MUST honor policy and provider/network boundaries.\n5. Secret material MUST be redacted from ordinary evidence records unless policy explicitly requires protected retention.\n6. Evidence records MUST be tamper-evident or integrity-verifiable when required by governance policy.\n7. Stale/replayed envelopes MUST be detectable.\n8. Adapter identity/version and material executor configuration SHOULD be recorded when needed for reproducibility/accountability.\n\n## Conformance verification\n\nInitial conformance fixtures MUST cover:\n\n1. deterministic envelope compilation from identical governed state;\n2. stale governing-state detection;\n3. denied ungranted capability;\n4. denied explicitly prohibited operation;\n5. scoped filesystem/tool success inside grant boundaries;\n6. approval-gated operation pause and authorized resume;\n7. failed verification preventing completion;\n8. executor-reported success without evidence remaining incomplete;\n9. cancellation preventing subsequent governed effects;\n10. checkpoint/resume preserving prior effect/evidence history;\n11. child delegation narrowing capabilities;\n12. two distinct adapter implementations receiving semantically equivalent governing obligations;\n13. local-first execution with no mandatory cloud control-plane dependency.\n\n## Implementation sequence\n\nImplementation SHOULD proceed in the following order:\n\n1. define typed envelope/run/operation/result contracts;\n2. implement deterministic envelope compilation and inspect/dry-run output;\n3. implement capability/policy-mediated Tool Gateway for one bounded local operation family;\n4. add run-state/checkpoint/cancellation semantics;\n5. integrate evidence/provenance recording;\n6. integrate verification-controlled completion;\n7. implement one external harness adapter;\n8. implement a second materially different adapter to validate portability;\n9. add reference agent only after adapter conformance is proven;\n10. add separate evaluation/conformance harness.\n\n## Deferred specifications\n\nThe following are intentionally deferred to separate artifacts:\n\n- serialized Execution Envelope schema;\n- generic Agent Harness Adapter interface/protocol;\n- tool/capability schema extensions;\n- evidence/provenance event schema;\n- evaluation benchmark format;\n- provider-specific adapters;\n- multi-agent delegation/orchestration policy.\n",
+  "document_id": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006",
+    "ADR-0007",
+    "FR-007",
+    "FR-010",
+    "FR-012",
+    "FR-014",
+    "FR-015",
+    "FR-017",
+    "FR-022",
+    "FR-023",
+    "FR-024",
+    "FR-029",
+    "FR-037",
+    "FR-038",
+    "FR-040",
+    "FR-041",
+    "QR-001",
+    "QR-003",
+    "QR-004",
+    "QR-007",
+    "QR-010",
+    "QR-014",
+    "QR-021",
+    "QR-022",
+    "QR-023"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "specification",
+    "normative": true,
+    "summary": "Status: proposed Version: 0.1.0 Owner: Monad Core / EOS Related requirements: FR-007, FR-010, FR-012, FR-014, FR-015, FR-017, FR-022, FR-023, FR-024, FR-029, FR-037, FR-038, FR-040, FR-041, QR-001, QR-003, QR-004, QR-007, QR-010, QR-014, QR-021, QR-022, QR-023 Governing ADRs: ADR-0006, ADR-0007",
+    "title": "TECH-HARNESS-0001: Governed Execution Harness"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0006",
+        "ADR-0007",
+        "FR-007",
+        "FR-010",
+        "FR-012",
+        "FR-014",
+        "FR-015",
+        "FR-017",
+        "FR-022",
+        "FR-023",
+        "FR-024",
+        "FR-029",
+        "FR-037",
+        "FR-038",
+        "FR-040",
+        "FR-041",
+        "QR-001",
+        "QR-003",
+        "QR-004",
+        "QR-007",
+        "QR-010",
+        "QR-014",
+        "QR-021",
+        "QR-022",
+        "QR-023"
+      ],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "tech-harness-0001-governed-execution-harness",
+      "text": "# TECH-HARNESS-0001: Governed Execution Harness\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Related requirements:** FR-007, FR-010, FR-012, FR-014, FR-015, FR-017, FR-022, FR-023, FR-024, FR-029, FR-037, FR-038, FR-040, FR-041, QR-001, QR-003, QR-004, QR-007, QR-010, QR-014, QR-021, QR-022, QR-023  \n**Governing ADRs:** ADR-0006, ADR-0007",
+      "title": "TECH-HARNESS-0001: Governed Execution Harness"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 9,
+      "section_id": "purpose-and-scope",
+      "text": "## Purpose and scope\n\nDefines the minimum normative behavior of Monad's Governed Execution Harness (GEH): compilation of governed work into an Execution Envelope, capability- and policy-mediated operation execution, run-state management, evidence/provenance capture, escalation, and verification-controlled completion.\n\nThis specification defines the stable execution-governance boundary. It does not prescribe model selection, prompting, internal reasoning/planning techniques, IDE behavior, or a particular third-party agent harness.",
+      "title": "Purpose and scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 20,
+      "line_start": 15,
+      "section_id": "architectural-invariant",
+      "text": "## Architectural invariant\n\n**Monad governs agent execution but does not prescribe agent cognition.**\n\nThe harness governs observable intent, inputs, authority, capabilities, operations, effects, evidence, verification, and lifecycle transitions. An executor remains free to choose internal planning/reasoning behavior so long as it conforms to the governed boundary.",
+      "title": "Architectural invariant"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 21,
+      "section_id": "preconditions",
+      "text": "## Preconditions\n\nA governed execution MAY begin only when:\n\n1. a resolvable work subject/intent exists;\n2. the governing EOS/canonical state is readable and passes the minimum integrity checks required by policy;\n3. accountable actor/executor identity can be established;\n4. applicable authority and policy can be resolved sufficiently to determine execution rights;\n5. a versioned Execution Envelope can be compiled;\n6. required approval gates that precede execution are satisfied.\n\nIf a precondition cannot be established, the harness MUST fail closed or route the execution to an explicit escalation state. It MUST NOT infer broader authority from missing data.",
+      "title": "Preconditions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 34,
+      "section_id": "logical-components",
+      "text": "## Logical components\n\nAn implementation MUST provide behavior equivalent to the following logical components. Components MAY share a process/module and MAY be implemented incrementally.\n\n1. **Context Compiler** — produces the minimum authoritative context projection required for the governed work.\n2. **Authority Resolver** — resolves which artifacts/actors control disputed or consequential decisions.\n3. **Policy Integration** — evaluates governing policies before operations and transitions.\n4. **Capability Broker** — produces explicit least-privilege grants/prohibitions.\n5. **Execution Envelope Compiler** — freezes the governed execution input contract.\n6. **Tool Gateway** — mediates consequential executor operations.\n7. **Run-State/Checkpoint Manager** — manages harness-local execution state without replacing EOS canonical lifecycle state.\n8. **Approval/Escalation Controller** — routes cases that exceed delegated authority or policy.\n9. **Evidence/Provenance Recorder** — captures attributable observable evidence.\n10. **Verification Controller** — evaluates completion obligations and emits verification results.",
+      "title": "Logical components"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 49,
+      "section_id": "execution-envelope",
+      "text": "## Execution Envelope",
+      "title": "Execution Envelope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 68,
+      "line_start": 51,
+      "section_id": "identity-and-immutability",
+      "text": "### Identity and immutability\n\nEach envelope MUST have:\n\n- a globally or repository-uniquely distinguishable `envelope_id`;\n- a schema/version identifier;\n- a `run_id` or execution identity when bound to a run;\n- a creation timestamp or deterministic logical time reference as appropriate;\n- identifiers/hashes sufficient to detect material governing-state drift.\n\nAfter a run begins, the bound envelope MUST be immutable. A material governing-state change requiring different authority, policy, constraints, or acceptance obligations MUST cause one of:\n\n1. run suspension and explicit recompilation into a new envelope/version;\n2. escalation for authority review;\n3. cancellation.\n\nThe harness MUST NOT silently mutate the envelope in place.",
+      "title": "Identity and immutability"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 72,
+      "line_start": 69,
+      "section_id": "minimum-envelope-domains",
+      "text": "### Minimum envelope domains\n\nThe serialized schema SHALL be defined separately, but the envelope model MUST be able to represent at least:",
+      "title": "Minimum envelope domains"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 80,
+      "line_start": 73,
+      "section_id": "work",
+      "text": "#### Work\n\n- intent;\n- work subject(s);\n- requested outcome;\n- scope boundaries;\n- dependencies/prerequisites when known.",
+      "title": "Work"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 90,
+      "line_start": 81,
+      "section_id": "governance",
+      "text": "#### Governance\n\n- governing requirements;\n- governing specifications;\n- governing ADRs/decisions;\n- applicable policies;\n- accountable authority;\n- unresolved decisions/claims that may affect execution;\n- governing-state identity/digest.",
+      "title": "Governance"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 99,
+      "line_start": 91,
+      "section_id": "actor-and-capabilities",
+      "text": "#### Actor and capabilities\n\n- initiating actor;\n- executor identity/role;\n- granted capabilities;\n- explicit prohibitions;\n- delegation constraints;\n- approval authority and escalation targets where applicable.",
+      "title": "Actor and capabilities"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 107,
+      "line_start": 100,
+      "section_id": "environment-and-tools",
+      "text": "#### Environment and tools\n\n- allowed tool/interface identifiers;\n- filesystem/workspace boundaries;\n- process/network/service constraints;\n- environment identity sufficient for reproducibility policy;\n- secrets/credential references as capabilities, never raw secret values in the envelope unless explicitly required and policy-authorized.",
+      "title": "Environment and tools"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 116,
+      "line_start": 108,
+      "section_id": "quality-and-completion",
+      "text": "#### Quality and completion\n\n- acceptance criteria;\n- verification obligations;\n- required evidence classes;\n- approval gates;\n- escalation conditions;\n- completion criteria.",
+      "title": "Quality and completion"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 120,
+      "line_start": 117,
+      "section_id": "resource-controls",
+      "text": "#### Resource controls\n\nWhere policy requires, the envelope MUST represent applicable time, cost, token/model, operation-count, concurrency, storage, or other budgets/limits.",
+      "title": "Resource controls"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 140,
+      "line_start": 121,
+      "section_id": "run-lifecycle",
+      "text": "## Run lifecycle\n\nA conforming harness MUST support the following conceptual lifecycle:\n\n`requested -> compiling -> ready -> running -> {waiting_approval | waiting_input | verifying | suspended | failed | cancelled} -> {running | completed | failed | cancelled}`\n\nExact state names MAY differ, but the implementation MUST preserve distinguishable semantics for:\n\n- envelope compilation;\n- ready but not yet executing;\n- active execution;\n- waiting for external authority/input;\n- verification;\n- suspension/checkpoint;\n- failure;\n- cancellation;\n- governed completion.\n\nHarness run state MUST NOT replace Work Packet/EOS lifecycle state. The harness MAY project or request EOS transitions only through the existing governance boundary.",
+      "title": "Run lifecycle"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 166,
+      "line_start": 141,
+      "section_id": "operation-request-model",
+      "text": "## Operation request model\n\nAn executor MUST request consequential effects through the Tool Gateway or an equivalent mediated operation interface when claiming governed execution.\n\nEach governed operation request MUST be attributable to:\n\n- `run_id`;\n- envelope identity/version;\n- executor/actor identity;\n- requested capability/tool;\n- operation type;\n- target/resource scope;\n- material parameters or a canonical digest of them;\n- causal parent/delegation identity where applicable.\n\nBefore execution, the gateway MUST evaluate at minimum:\n\n1. envelope validity and stale-state policy;\n2. capability grant/prohibition;\n3. applicable policy;\n4. target/scope containment;\n5. required approval state;\n6. resource-budget constraints where applicable.\n\nA denied operation MUST produce an attributable diagnostic/evidence record and MUST NOT be executed through the governed path.",
+      "title": "Operation request model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 172,
+      "line_start": 167,
+      "section_id": "external-and-unmediated-effects",
+      "text": "## External and unmediated effects\n\nMonad cannot guarantee mediation of effects performed outside a Monad-controlled boundary. If an executor performs or claims an external effect that cannot be verified through the gateway, the harness MUST classify it explicitly as external, unverified, partially verified, or equivalent according to evidence policy.\n\nSuch an effect MUST NOT be silently promoted to governed/verified status solely because the executor reports success.",
+      "title": "External and unmediated effects"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 187,
+      "line_start": 173,
+      "section_id": "context-compilation",
+      "text": "## Context compilation\n\nThe Context Compiler MUST prefer authoritative, applicable, and sufficiently fresh governed knowledge over broad repository dumping.\n\nCompilation SHOULD:\n\n- select the minimum context needed to execute safely;\n- preserve source identity and authority/provenance references;\n- distinguish normative constraints from explanatory/non-authoritative material;\n- expose unresolved conflicts rather than silently choosing a convenient source;\n- minimize sensitive information before projection to external providers;\n- produce a reproducible compilation record or digest where feasible.\n\nThe compiled context MAY be rendered differently for different adapters/models, but semantic governing obligations MUST remain equivalent.",
+      "title": "Context compilation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 197,
+      "line_start": 188,
+      "section_id": "capability-semantics",
+      "text": "## Capability semantics\n\nCapabilities MUST be explicit and least-privilege.\n\n1. Missing capability grants MUST be treated as denied.\n2. A child/delegated execution MUST NOT receive broader capabilities than its parent unless a separate accountable authority explicitly grants them.\n3. Capability checks MUST be independent of executor/model assertions.\n4. Capability grants SHOULD be scoped by operation, target/resource, duration/run, environment, and other constraints needed to make the grant safe.\n5. Secrets, network access, production effects, release/publish actions, destructive filesystem operations, and governance mutation SHOULD require separate high-sensitivity capabilities/policies.",
+      "title": "Capability semantics"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 215,
+      "line_start": 198,
+      "section_id": "approval-and-escalation",
+      "text": "## Approval and escalation\n\nThe harness MUST support explicit escalation without treating escalation as execution failure.\n\nEscalation conditions MAY include:\n\n- unresolved or contradictory governing authority;\n- requested operation outside delegated capability;\n- material scope expansion;\n- policy-required human approval;\n- high-risk or irreversible effect;\n- stale governing state;\n- failed verification requiring a decision rather than another retry;\n- resource/budget threshold;\n- executor uncertainty surfaced according to policy.\n\nApproval MUST be attributable to an authorized actor and bound to the relevant run/envelope/decision scope.",
+      "title": "Approval and escalation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 233,
+      "line_start": 216,
+      "section_id": "evidence-and-provenance",
+      "text": "## Evidence and provenance\n\nThe harness MUST record sufficient observable information to reconstruct governed execution without requiring storage of private model reasoning.\n\nAt minimum, evidence/provenance MUST support attribution of:\n\n- envelope and governing-state identity;\n- initiating actor and executor identity;\n- approvals/escalations;\n- consequential operation requests;\n- policy/capability decision result;\n- effect result/status;\n- produced artifacts or artifact digests where applicable;\n- verification inputs/results;\n- terminal run state.\n\nTranscript storage MAY be configurable and MUST NOT be the sole evidence mechanism.",
+      "title": "Evidence and provenance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 243,
+      "line_start": 234,
+      "section_id": "verification-and-completion",
+      "text": "## Verification and completion\n\nAn executor's declaration that work is complete is advisory only.\n\nA governed `completed` state MUST require the Verification Controller to establish that the envelope's completion and verification obligations have been satisfied to the level required by policy.\n\nVerification MAY include deterministic tests, structural/semantic checks, review evidence, independent harness review, human approval, runtime observation, reproducibility checks, or other governed evidence.\n\nIf required verification cannot be performed, the run MUST remain incomplete, fail, or escalate according to policy. It MUST NOT default to success.",
+      "title": "Verification and completion"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 259,
+      "line_start": 244,
+      "section_id": "failure-retry-checkpoint-and-recovery",
+      "text": "## Failure, retry, checkpoint, and recovery\n\nThe harness MUST distinguish operation failure, executor failure, verification failure, policy denial, stale-envelope suspension, cancellation, and escalation.\n\nRetry behavior MUST NOT broaden capabilities or erase prior evidence.\n\nCheckpoint/resume MUST preserve:\n\n- original run/envelope identity or an explicit parent/successor relationship;\n- previously executed consequential effects;\n- evidence already produced;\n- remaining budgets/limits where applicable;\n- governing-state drift detection before resumed consequential work.\n\nCancellation MUST prevent new governed operations after the cancellation becomes authoritative, except operations explicitly required and authorized for safe rollback/recovery.",
+      "title": "Failure, retry, checkpoint, and recovery"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 267,
+      "line_start": 260,
+      "section_id": "adapter-neutrality",
+      "text": "## Adapter neutrality\n\nThe GEH MUST NOT require a specific model provider or agent harness.\n\nAdapters MAY optimize context presentation, streaming, tool-call transport, or session handling, but MUST NOT alter governing semantics.\n\nAdapter-specific extensions MUST be namespaced/versioned and MUST NOT weaken core policy/capability/verification requirements.",
+      "title": "Adapter neutrality"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 273,
+      "line_start": 268,
+      "section_id": "local-first-and-backend-neutral-operation",
+      "text": "## Local-first and backend-neutral operation\n\nThe core envelope compiler, policy/capability checks required for local governed work, operation mediation, evidence capture, and verification control SHOULD operate without mandatory dependence on a hosted Monad service.\n\nRemote models, CI systems, cloud sandboxes, or provider APIs MAY be used as tools/environments when explicitly authorized.",
+      "title": "Local-first and backend-neutral operation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 284,
+      "line_start": 274,
+      "section_id": "security-requirements",
+      "text": "## Security requirements\n\n1. The gateway MUST treat executor/model output as untrusted input.\n2. Tool arguments MUST be validated against capability and target constraints before execution.\n3. Governing-state ambiguity MUST fail closed when it prevents a safe decision.\n4. Sensitive context projection MUST honor policy and provider/network boundaries.\n5. Secret material MUST be redacted from ordinary evidence records unless policy explicitly requires protected retention.\n6. Evidence records MUST be tamper-evident or integrity-verifiable when required by governance policy.\n7. Stale/replayed envelopes MUST be detectable.\n8. Adapter identity/version and material executor configuration SHOULD be recorded when needed for reproducibility/accountability.",
+      "title": "Security requirements"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 302,
+      "line_start": 285,
+      "section_id": "conformance-verification",
+      "text": "## Conformance verification\n\nInitial conformance fixtures MUST cover:\n\n1. deterministic envelope compilation from identical governed state;\n2. stale governing-state detection;\n3. denied ungranted capability;\n4. denied explicitly prohibited operation;\n5. scoped filesystem/tool success inside grant boundaries;\n6. approval-gated operation pause and authorized resume;\n7. failed verification preventing completion;\n8. executor-reported success without evidence remaining incomplete;\n9. cancellation preventing subsequent governed effects;\n10. checkpoint/resume preserving prior effect/evidence history;\n11. child delegation narrowing capabilities;\n12. two distinct adapter implementations receiving semantically equivalent governing obligations;\n13. local-first execution with no mandatory cloud control-plane dependency.",
+      "title": "Conformance verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 317,
+      "line_start": 303,
+      "section_id": "implementation-sequence",
+      "text": "## Implementation sequence\n\nImplementation SHOULD proceed in the following order:\n\n1. define typed envelope/run/operation/result contracts;\n2. implement deterministic envelope compilation and inspect/dry-run output;\n3. implement capability/policy-mediated Tool Gateway for one bounded local operation family;\n4. add run-state/checkpoint/cancellation semantics;\n5. integrate evidence/provenance recording;\n6. integrate verification-controlled completion;\n7. implement one external harness adapter;\n8. implement a second materially different adapter to validate portability;\n9. add reference agent only after adapter conformance is proven;\n10. add separate evaluation/conformance harness.",
+      "title": "Implementation sequence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 328,
+      "line_start": 318,
+      "section_id": "deferred-specifications",
+      "text": "## Deferred specifications\n\nThe following are intentionally deferred to separate artifacts:\n\n- serialized Execution Envelope schema;\n- generic Agent Harness Adapter interface/protocol;\n- tool/capability schema extensions;\n- evidence/provenance event schema;\n- evaluation benchmark format;\n- provider-specific adapters;\n- multi-agent delegation/orchestration policy.",
+      "title": "Deferred specifications"
+    }
+  ],
+  "source": {
+    "bytes": 14895,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 328,
+    "media_type": "text/markdown",
+    "path": "specifications/technical/TECH-HARNESS-0001-governed-execution-harness.md",
+    "sha256": "ec7cb85ec28cc1f6fc046e26c9650ac368642f6393f80cdb6cdc20556f9d87ba"
+  }
+}

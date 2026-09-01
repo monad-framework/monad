@@ -2221,6 +2221,26 @@
       "type": "declares"
     },
     {
+      "source": "doc:architecture%2Fdecisions%2FADR-0007-governed-execution-harness.md",
+      "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:architecture%2Fdecisions%2FADR-0007-governed-execution-harness.md",
+      "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
+      "source": "doc:architecture%2Fdecisions%2FADR-0007-governed-execution-harness.md",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
+      "source": "doc:architecture%2Fdecisions%2FADR-0007-governed-execution-harness.md",
+      "target": "identifier:ADR-0007",
+      "type": "declares"
+    },
+    {
       "source": "doc:architecture%2Fdecisions%2FREADME.md",
       "target": "identifier:ADR-0000",
       "type": "declares"
@@ -2543,6 +2563,11 @@
     {
       "source": "doc:bootstrap-project.sh",
       "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:crates%2Fmonad-core%2Fsrc%2Fharness.rs",
+      "target": "identifier:ADR-0007",
       "type": "declares"
     },
     {
@@ -4506,6 +4531,16 @@
       "type": "declares"
     },
     {
+      "source": "doc:product%2Fcapabilities.md",
+      "target": "identifier:C-46",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fcapabilities.md",
+      "target": "identifier:C-47",
+      "type": "declares"
+    },
+    {
       "source": "doc:product%2Fpersonas.md",
       "target": "identifier:P-01",
       "type": "declares"
@@ -4712,6 +4747,36 @@
     },
     {
       "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-037",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-038",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-039",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-040",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-041",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:FR-042",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
       "target": "identifier:P-256",
       "type": "declares"
     },
@@ -4813,6 +4878,21 @@
     {
       "source": "doc:product%2Fproduct-requirements.md",
       "target": "identifier:QR-020",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:QR-021",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:QR-022",
+      "type": "declares"
+    },
+    {
+      "source": "doc:product%2Fproduct-requirements.md",
+      "target": "identifier:QR-023",
       "type": "declares"
     },
     {
@@ -4986,6 +5066,76 @@
       "type": "declares"
     },
     {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:ADR-0007",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:FR-014",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:FR-016",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:FR-017",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:FR-022",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:FR-039",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:FR-040",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:FR-041",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:QR-007",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:QR-010",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:QR-014",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:QR-021",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:QR-022",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "target": "identifier:QR-023",
+      "type": "declares"
+    },
+    {
       "source": "doc:specifications%2Finterfaces%2FIFC-WORKSPACE-0001-repository-root-and-effective-configuration.md",
       "target": "identifier:ADR-0002",
       "type": "declares"
@@ -5008,6 +5158,131 @@
     {
       "source": "doc:specifications%2Finterfaces%2FIFC-WORKSPACE-0001-repository-root-and-effective-configuration.md",
       "target": "identifier:QR-006",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:ADR-0007",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-007",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-010",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-012",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-014",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-015",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-017",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-022",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-023",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-024",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-029",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-037",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-038",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-040",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:FR-041",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:QR-001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:QR-003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:QR-004",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:QR-007",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:QR-010",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:QR-014",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:QR-021",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:QR-022",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "target": "identifier:QR-023",
       "type": "declares"
     },
     {
@@ -9245,6 +9520,14 @@
     },
     {
       "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Feos-evidence-refresh.yml",
+      "normative": false,
+      "source_path": ".github/workflows/eos-evidence-refresh.yml",
+      "title": "Eos Evidence Refresh",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
       "id": "doc:.github%2Fworkflows%2Feos-integrity.yml",
       "normative": false,
       "source_path": ".github/workflows/eos-integrity.yml",
@@ -9457,6 +9740,14 @@
       "normative": true,
       "source_path": "architecture/decisions/ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md",
       "title": "ADR-0006: EOS Sovereignty and External SDLC Assimilation",
+      "type": "document"
+    },
+    {
+      "document_type": "architecture",
+      "id": "doc:architecture%2Fdecisions%2FADR-0007-governed-execution-harness.md",
+      "normative": true,
+      "source_path": "architecture/decisions/ADR-0007-governed-execution-harness.md",
+      "title": "ADR-0007: Governed Execution Harness Architecture",
       "type": "document"
     },
     {
@@ -15525,6 +15816,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:crates%2Fmonad-core%2Fsrc%2Fharness.rs",
+      "normative": false,
+      "source_path": "crates/monad-core/src/harness.rs",
+      "title": "Harness",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:crates%2Fmonad-core%2Fsrc%2Fidentity.rs",
       "normative": false,
       "source_path": "crates/monad-core/src/identity.rs",
@@ -19317,10 +19616,26 @@
     },
     {
       "document_type": "specification",
+      "id": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "normative": true,
+      "source_path": "specifications/interfaces/IFC-HARNESS-0001-agent-harness-adapter.md",
+      "title": "IFC-HARNESS-0001: Agent Harness Adapter Interface",
+      "type": "document"
+    },
+    {
+      "document_type": "specification",
       "id": "doc:specifications%2Finterfaces%2FIFC-WORKSPACE-0001-repository-root-and-effective-configuration.md",
       "normative": true,
       "source_path": "specifications/interfaces/IFC-WORKSPACE-0001-repository-root-and-effective-configuration.md",
       "title": "IFC-WORKSPACE-0001: Repository Root and Effective Configuration",
+      "type": "document"
+    },
+    {
+      "document_type": "specification",
+      "id": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "normative": true,
+      "source_path": "specifications/technical/TECH-HARNESS-0001-governed-execution-harness.md",
+      "title": "TECH-HARNESS-0001: Governed Execution Harness",
       "type": "document"
     },
     {
@@ -19903,6 +20218,16 @@
       "value": "C-45"
     },
     {
+      "id": "identifier:C-46",
+      "type": "identifier",
+      "value": "C-46"
+    },
+    {
+      "id": "identifier:C-47",
+      "type": "identifier",
+      "value": "C-47"
+    },
+    {
       "id": "identifier:EXP-0001",
       "type": "identifier",
       "value": "EXP-0001"
@@ -20303,6 +20628,31 @@
       "value": "FR-037"
     },
     {
+      "id": "identifier:FR-038",
+      "type": "identifier",
+      "value": "FR-038"
+    },
+    {
+      "id": "identifier:FR-039",
+      "type": "identifier",
+      "value": "FR-039"
+    },
+    {
+      "id": "identifier:FR-040",
+      "type": "identifier",
+      "value": "FR-040"
+    },
+    {
+      "id": "identifier:FR-041",
+      "type": "identifier",
+      "value": "FR-041"
+    },
+    {
+      "id": "identifier:FR-042",
+      "type": "identifier",
+      "value": "FR-042"
+    },
+    {
       "id": "identifier:G-001",
       "type": "identifier",
       "value": "G-001"
@@ -20536,6 +20886,21 @@
       "id": "identifier:QR-020",
       "type": "identifier",
       "value": "QR-020"
+    },
+    {
+      "id": "identifier:QR-021",
+      "type": "identifier",
+      "value": "QR-021"
+    },
+    {
+      "id": "identifier:QR-022",
+      "type": "identifier",
+      "value": "QR-022"
+    },
+    {
+      "id": "identifier:QR-023",
+      "type": "identifier",
+      "value": "QR-023"
     },
     {
       "id": "identifier:R-001",
@@ -20779,5 +21144,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "a6c6e0c1760cff275fb1a59b6341116673c15a3ec4123d7085474f681178438c"
+  "source_tree_sha256": "3c5a7386fc3c05a3ca354cb09d9676efcfaf41d0766a7cae879a7e906e603e88"
 }
