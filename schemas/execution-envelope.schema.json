@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:monad:schema:execution-envelope:0.1.0",
+  "title": "Monad Execution Envelope",
+  "description": "Machine-validatable representation of DATA-HARNESS-0001 version 0.1.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope_id",
+    "envelope_digest",
+    "schema_version",
+    "work_subject",
+    "intent",
+    "requested_outcome",
+    "governing_state_digest",
+    "governed_references",
+    "initiating_actor",
+    "executor",
+    "granted_capabilities",
+    "prohibited_capabilities",
+    "allowed_tools",
+    "environment_constraints",
+    "acceptance_criteria",
+    "verification_obligations",
+    "approval_gates",
+    "escalation_conditions",
+    "completion_criteria",
+    "resource_limits"
+  ],
+  "properties": {
+    "envelope_id": {
+      "type": "string",
+      "pattern": "^env-v1-[0-9a-f]{64}$"
+    },
+    "envelope_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "work_subject": {
+      "$ref": "#/$defs/nonEmptyString"
+    },
+    "intent": {
+      "$ref": "#/$defs/nonEmptyString"
+    },
+    "requested_outcome": {
+      "$ref": "#/$defs/nonEmptyString"
+    },
+    "governing_state_digest": {
+      "$ref": "#/$defs/nonEmptyString"
+    },
+    "governed_references": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/governedReference"
+      }
+    },
+    "initiating_actor": {
+      "$ref": "#/$defs/actorIdentity"
+    },
+    "executor": {
+      "$ref": "#/$defs/actorIdentity"
+    },
+    "granted_capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/capabilityGrant"
+      }
+    },
+    "prohibited_capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/capabilityGrant"
+      }
+    },
+    "allowed_tools": {
+      "$ref": "#/$defs/stringSet"
+    },
+    "environment_constraints": {
+      "$ref": "#/$defs/stringSet"
+    },
+    "acceptance_criteria": {
+      "$ref": "#/$defs/stringSet"
+    },
+    "verification_obligations": {
+      "$ref": "#/$defs/stringSet"
+    },
+    "approval_gates": {
+      "$ref": "#/$defs/stringSet"
+    },
+    "escalation_conditions": {
+      "$ref": "#/$defs/stringSet"
+    },
+    "completion_criteria": {
+      "$ref": "#/$defs/stringSet"
+    },
+    "resource_limits": {
+      "type": "object",
+      "propertyNames": {
+        "minLength": 1,
+        "pattern": "\\S"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/nonEmptyString"
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "stringSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      }
+    },
+    "governedReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "identifier"
+      ],
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "identifier": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "content_digest": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "actorIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor_id",
+        "role"
+      ],
+      "properties": {
+        "actor_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "role": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "capabilityGrant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability",
+        "scope"
+      ],
+      "properties": {
+        "capability": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    }
+  }
+}
