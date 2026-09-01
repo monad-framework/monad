@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"projectionVersion\": 1,\n  \"sourceRepository\": \"monad-framework/monad\",\n  \"sourceBranch\": \"main\",\n  \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"generatedAt\": \"2026-09-01T18:00:00Z\",\n  \"records\": [\n    {\n      \"destinationPath\": \"content/generated/monad/canonical/README.md\",\n      \"mode\": \"MIRROR\",\n      \"policyRuleId\": \"MIRROR-ROOT-README\",\n      \"inputs\": [\n        {\n          \"path\": \"README.md\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        }\n      ]\n    },\n    {\n      \"destinationPath\": \"content/generated/monad/state/project.json\",\n      \"mode\": \"DERIVE\",\n      \"policyRuleId\": \"DERIVE-PROJECT\",\n      \"inputs\": [\n        {\n          \"path\": \"README.md\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        },\n        {\n          \"path\": \"VERSION\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        }\n      ]\n    }\n  ]\n}\n",
+  "document_id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fprovenance-basic.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for tests/publication/fixtures/valid/provenance-basic.json.",
+    "title": "Provenance Basic"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 35,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"projectionVersion\": 1,\n  \"sourceRepository\": \"monad-framework/monad\",\n  \"sourceBranch\": \"main\",\n  \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"generatedAt\": \"2026-09-01T18:00:00Z\",\n  \"records\": [\n    {\n      \"destinationPath\": \"content/generated/monad/canonical/README.md\",\n      \"mode\": \"MIRROR\",\n      \"policyRuleId\": \"MIRROR-ROOT-README\",\n      \"inputs\": [\n        {\n          \"path\": \"README.md\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        }\n      ]\n    },\n    {\n      \"destinationPath\": \"content/generated/monad/state/project.json\",\n      \"mode\": \"DERIVE\",\n      \"policyRuleId\": \"DERIVE-PROJECT\",\n      \"inputs\": [\n        {\n          \"path\": \"README.md\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        },\n        {\n          \"path\": \"VERSION\",\n          \"blob\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n        }\n      ]\n    }\n  ]\n}",
+      "title": "Provenance Basic"
+    }
+  ],
+  "source": {
+    "bytes": 912,
+    "canonical": true,
+    "language": "json",
+    "lines": 35,
+    "media_type": "application/json",
+    "path": "tests/publication/fixtures/valid/provenance-basic.json",
+    "sha256": "69f14e097c9c3ad43b912d64567fc38a4473d6f7335e94fc0323bb07718538e4"
+  }
+}

@@ -5871,6 +5871,11 @@
       "type": "declares"
     },
     {
+      "source": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fsite-state-research.json",
+      "target": "identifier:RQ-001",
+      "type": "declares"
+    },
+    {
       "source": "doc:tools%2Feos%2Feos.py",
       "target": "identifier:AC-001",
       "type": "declares"
@@ -20556,6 +20561,14 @@
     },
     {
       "document_type": "automation",
+      "id": "doc:scripts%2Frequirements%2Fpublication-validation.txt",
+      "normative": false,
+      "source_path": "scripts/requirements/publication-validation.txt",
+      "title": "Publication Validation",
+      "type": "document"
+    },
+    {
+      "document_type": "automation",
       "id": "doc:scripts%2Fsetup-github-owner.sh",
       "normative": false,
       "source_path": "scripts/setup-github-owner.sh",
@@ -20616,6 +20629,14 @@
       "normative": false,
       "source_path": "scripts/test-sync-machine-docs-worktree.py",
       "title": "Test Sync Machine Docs Worktree",
+      "type": "document"
+    },
+    {
+      "document_type": "automation",
+      "id": "doc:scripts%2Fvalidate-publication.py",
+      "normative": false,
+      "source_path": "scripts/validate-publication.py",
+      "title": "Validate Publication",
       "type": "document"
     },
     {
@@ -20824,6 +20845,150 @@
       "normative": true,
       "source_path": "testing/strategy.md",
       "title": "Test Strategy",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2FREADME.md",
+      "normative": false,
+      "source_path": "tests/publication/README.md",
+      "title": "Publication Validation Fixtures",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fmanifest-missing-policy-rule.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/invalid/manifest-missing-policy-rule.json",
+      "title": "Manifest Missing Policy Rule",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fprojection-missing-required.yaml",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/invalid/projection-missing-required.yaml",
+      "title": "Projection Missing Required",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fprovenance-empty-inputs.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/invalid/provenance-empty-inputs.json",
+      "title": "Provenance Empty Inputs",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fsite-state-project-invalid-commit.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/invalid/site-state-project-invalid-commit.json",
+      "title": "Site State Project Invalid Commit",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Finvalid%2Fsite-state-verification-invalid-status.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/invalid/site-state-verification-invalid-status.json",
+      "title": "Site State Verification Invalid Status",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fmanifest-basic.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/valid/manifest-basic.json",
+      "title": "Manifest Basic",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fprovenance-basic.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/valid/provenance-basic.json",
+      "title": "Provenance Basic",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fsite-state-artifacts.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/valid/site-state-artifacts.json",
+      "title": "Site State Artifacts",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fsite-state-evolution.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/valid/site-state-evolution.json",
+      "title": "Site State Evolution",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fsite-state-milestones.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/valid/site-state-milestones.json",
+      "title": "Site State Milestones",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fsite-state-project.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/valid/site-state-project.json",
+      "title": "Site State Project",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fsite-state-releases.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/valid/site-state-releases.json",
+      "title": "Site State Releases",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fsite-state-research.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/valid/site-state-research.json",
+      "title": "Site State Research",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fsite-state-risks.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/valid/site-state-risks.json",
+      "title": "Site State Risks",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fsite-state-roadmap.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/valid/site-state-roadmap.json",
+      "title": "Site State Roadmap",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fsite-state-verification.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/valid/site-state-verification.json",
+      "title": "Site State Verification",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:tests%2Fpublication%2Ffixtures%2Fvalid%2Fsite-state-work-packets.json",
+      "normative": false,
+      "source_path": "tests/publication/fixtures/valid/site-state-work-packets.json",
+      "title": "Site State Work Packets",
       "type": "document"
     },
     {
@@ -22297,5 +22462,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "76459858b245e32f5ab809c68b688cc52f2e60b7f34d93958d86b474a1aaefdb"
+  "source_tree_sha256": "32e96ddcfd07679bf3b1b1d30210ffe63e7a0c3751207ce319b792a01de20247"
 }
