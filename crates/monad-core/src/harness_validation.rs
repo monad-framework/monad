@@ -162,12 +162,12 @@ impl ExecutionEnvelopeDocument {
             granted_capabilities: self
                 .granted_capabilities
                 .iter()
-                .map(|grant| CapabilityGrant::new(&grant.capability, &grant.scope))
+                .map(|grant| CapabilityGrant::new(grant.capability.clone(), grant.scope.clone()))
                 .collect(),
             prohibited_capabilities: self
                 .prohibited_capabilities
                 .iter()
-                .map(|grant| CapabilityGrant::new(&grant.capability, &grant.scope))
+                .map(|grant| CapabilityGrant::new(grant.capability.clone(), grant.scope.clone()))
                 .collect(),
             allowed_tools: self.allowed_tools.clone(),
             environment_constraints: self.environment_constraints.clone(),
@@ -190,29 +190,12 @@ pub struct EnvelopeValidationContext {
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum EnvelopeValidationError {
-    UnsupportedSchemaVersion {
-        found: String,
-        supported: String,
-    },
-    EmptyRequiredValue {
-        field: String,
-    },
-    EnvelopeDigestMismatch {
-        expected: String,
-        actual: String,
-    },
-    EnvelopeIdMismatch {
-        expected: String,
-        actual: String,
-    },
-    GoverningStateStale {
-        bound: String,
-        current: String,
-    },
-    CapabilityConflict {
-        capability: String,
-        scope: String,
-    },
+    UnsupportedSchemaVersion { found: String, supported: String },
+    EmptyRequiredValue { field: String },
+    EnvelopeDigestMismatch { expected: String, actual: String },
+    EnvelopeIdMismatch { expected: String, actual: String },
+    GoverningStateStale { bound: String, current: String },
+    CapabilityConflict { capability: String, scope: String },
 }
 
 impl fmt::Display for EnvelopeValidationError {
@@ -225,7 +208,10 @@ impl fmt::Display for EnvelopeValidationError {
                 )
             }
             Self::EmptyRequiredValue { field } => {
-                write!(formatter, "required execution-envelope value {field:?} is empty")
+                write!(
+                    formatter,
+                    "required execution-envelope value {field:?} is empty"
+                )
             }
             Self::EnvelopeDigestMismatch { expected, actual } => {
                 write!(
@@ -428,7 +414,11 @@ fn validate_required_values(
         }
     }
 
-    validate_capabilities("granted_capabilities", &document.granted_capabilities, errors);
+    validate_capabilities(
+        "granted_capabilities",
+        &document.granted_capabilities,
+        errors,
+    );
     validate_capabilities(
         "prohibited_capabilities",
         &document.prohibited_capabilities,
@@ -472,19 +462,11 @@ fn validate_capabilities(
             &grant.capability,
             errors,
         );
-        required(
-            &format!("{field}[{index}].scope"),
-            &grant.scope,
-            errors,
-        );
+        required(&format!("{field}[{index}].scope"), &grant.scope, errors);
     }
 }
 
-fn validate_strings(
-    field: &str,
-    values: &[String],
-    errors: &mut Vec<EnvelopeValidationError>,
-) {
+fn validate_strings(field: &str, values: &[String], errors: &mut Vec<EnvelopeValidationError>) {
     for (index, value) in values.iter().enumerate() {
         required(&format!("{field}[{index}]"), value, errors);
     }
@@ -546,7 +528,9 @@ mod tests {
         let mut reordered = draft();
         reordered.governed_references.reverse();
         reordered.allowed_tools.push("filesystem".into());
-        reordered.acceptance_criteria.push("C0 fixtures pass".into());
+        reordered
+            .acceptance_criteria
+            .push("C0 fixtures pass".into());
         let right = compile_execution_envelope(reordered);
 
         assert_eq!(left.envelope_id(), right.envelope_id());
@@ -571,11 +555,9 @@ mod tests {
         document.envelope_digest = "0".repeat(64);
         document.envelope_id = format!("env-v1-{}", "1".repeat(64));
 
-        let errors = validate_execution_envelope_document(
-            &document,
-            &EnvelopeValidationContext::default(),
-        )
-        .expect_err("mismatched identity must fail closed");
+        let errors =
+            validate_execution_envelope_document(&document, &EnvelopeValidationContext::default())
+                .expect_err("mismatched identity must fail closed");
 
         assert!(has_error(&errors, |error| matches!(
             error,
@@ -593,11 +575,9 @@ mod tests {
         let mut document = ExecutionEnvelopeDocument::from(&envelope);
         document.schema_version = "9.0.0".into();
 
-        let errors = validate_execution_envelope_document(
-            &document,
-            &EnvelopeValidationContext::default(),
-        )
-        .expect_err("unsupported schema must fail closed");
+        let errors =
+            validate_execution_envelope_document(&document, &EnvelopeValidationContext::default())
+                .expect_err("unsupported schema must fail closed");
 
         assert!(has_error(&errors, |error| matches!(
             error,
@@ -613,11 +593,9 @@ mod tests {
         let envelope = compile_execution_envelope(conflicting);
         let document = ExecutionEnvelopeDocument::from(&envelope);
 
-        let errors = validate_execution_envelope_document(
-            &document,
-            &EnvelopeValidationContext::default(),
-        )
-        .expect_err("contradictory capability must fail closed");
+        let errors =
+            validate_execution_envelope_document(&document, &EnvelopeValidationContext::default())
+                .expect_err("contradictory capability must fail closed");
 
         assert!(has_error(&errors, |error| matches!(
             error,
@@ -672,11 +650,9 @@ mod tests {
         let mut document = ExecutionEnvelopeDocument::from(&envelope);
         document.executor.actor_id.clear();
 
-        let errors = validate_execution_envelope_document(
-            &document,
-            &EnvelopeValidationContext::default(),
-        )
-        .expect_err("empty required actor identity must be rejected");
+        let errors =
+            validate_execution_envelope_document(&document, &EnvelopeValidationContext::default())
+                .expect_err("empty required actor identity must be rejected");
 
         assert!(has_error(&errors, |error| matches!(
             error,
@@ -706,11 +682,9 @@ mod tests {
             .insert("unapproved_extension".into(), serde_json::json!(true));
 
         let malformed = serde_json::to_string(&value).expect("serialize mutated value");
-        let error = parse_execution_envelope_json(
-            &malformed,
-            &EnvelopeValidationContext::default(),
-        )
-        .expect_err("unknown field must not silently extend mandatory semantics");
+        let error =
+            parse_execution_envelope_json(&malformed, &EnvelopeValidationContext::default())
+                .expect_err("unknown field must not silently extend mandatory semantics");
 
         assert!(matches!(error, ExecutionEnvelopeJsonError::Decode(_)));
     }
