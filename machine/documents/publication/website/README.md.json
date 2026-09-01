@@ -1,0 +1,220 @@
+{
+  "content": "# Monad Website Publication Projection\n\nThis directory contains the executable policy governing publication of Monad engineering knowledge to the public AIC Fumadocs website.\n\nThe normative contract for this projection is:\n\n* `MONAD-PUB-001 — Monad Publication Projection Contract`\n* `specifications/publication/MONAD-PUB-001-publication-projection-contract.md`\n\n## Purpose\n\nMonad is the authority for its governed engineering knowledge.\n\nThe AIC Fumadocs website is a downstream publication surface. It must not independently determine Monad architecture, requirements, project status, lifecycle state, verification status, or other governed engineering facts.\n\nThis directory defines how authoritative Monad state is transformed into a deterministic public projection.\n\nThe intended relationship is:\n\n```text\nCanonical Monad engineering knowledge\n            |\n            v\nMONAD-PUB-001\n            |\n            v\npublication/website/projection.yaml\n            |\n            v\ndeterministic publication exporter\n            |\n            v\nAIC Fumadocs publication projection\n```\n\n## Authority\n\n`MONAD-PUB-001` is normative.\n\n`projection.yaml` is executable policy implementing that specification.\n\nIf this configuration conflicts with the normative publication specification, the normative specification wins and this configuration must be corrected.\n\nNeither this configuration nor the generated website projection may supersede canonical Monad engineering knowledge.\n\n## Files\n\n### `projection.yaml`\n\nDefines:\n\n* source repository identity;\n* destination repository identity;\n* publishable branch policy;\n* publication dispositions;\n* deterministic transformations;\n* provenance requirements;\n* generated-content ownership;\n* explicit source-to-destination mappings;\n* derived-state inputs and outputs;\n* live-state boundaries;\n* exclusion rules;\n* reconciliation constraints;\n* deletion behavior;\n* conflict behavior;\n* publication invariants.\n\nThe configuration follows a deny-by-default policy.\n\nA source path that is not explicitly admitted is excluded from publication.\n\n## Publication dispositions\n\nEvery source is assigned one of five dispositions.\n\n### `MIRROR`\n\nPublishes the engineering meaning of a canonical source artifact without changing that meaning.\n\nPermitted transformations include:\n\n* Markdown-to-MDX conversion;\n* publication frontmatter injection;\n* internal-link rewriting;\n* provenance metadata;\n* presentation wrappers;\n* navigation metadata.\n\nA mirror must not:\n\n* rewrite normative meaning;\n* change lifecycle state;\n* summarize away requirements;\n* reinterpret decisions;\n* use AI to modify canonical engineering meaning.\n\n### `DERIVE`\n\nProduces deterministic state from one or more authoritative inputs.\n\nExamples include:\n\n* current project state;\n* roadmap state;\n* Work Packet summaries;\n* milestone state;\n* release state;\n* verification state;\n* artifact indexes;\n* evolution state.\n\nDerived state must be reproducible from declared inputs.\n\n### `LIVE`\n\nRetrieves bounded operational facts whose freshness matters independently of the static publication projection.\n\nExamples include:\n\n* current `main` commit;\n* CI state;\n* latest release;\n* open pull-request count;\n* publication lag.\n\nLive operational state does not override canonical engineering state.\n\n### `EDITORIAL`\n\nIdentifies content owned by the publication repository.\n\nExamples include:\n\n* articles;\n* essays;\n* Building Monad narrative;\n* editorial engineering journal content.\n\nThe Monad publication process must not overwrite editorial content.\n\n### `EXCLUDE`\n\nExplicitly prevents a source from automatic publication.\n\nExcluded sources may still contribute narrowly defined derived metadata when another rule explicitly authorizes that use.\n\n## Generated state\n\nThe canonical machine-readable website projection is expected beneath:\n\n```text\ncontent/generated/monad/\n├── manifest.json\n├── provenance.json\n├── canonical/\n└── state/\n    ├── project.json\n    ├── roadmap.json\n    ├── work-packets.json\n    ├── milestones.json\n    ├── risks.json\n    ├── releases.json\n    ├── verification.json\n    ├── artifacts.json\n    ├── research.json\n    └── evolution.json\n```\n\nRendered mirror pages may also exist elsewhere under `content/docs/`, `content/changelogs/`, and the explicitly reserved `content/journal/monad-source/` namespace.\n\nAny rendered file managed by the projection must be represented in the projection manifest even when its destination is outside `content/generated/monad/`.\n\n## Provenance\n\nEvery generated mirror must be traceable to the exact source revision.\n\nAt minimum, generated mirror metadata records:\n\n```yaml\nprojection: mirror\nsource_repository: monad-framework/monad\nsource_path: <path>\nsource_commit: <40-character-sha>\nsource_blob: <blob-sha>\nprojection_version: 1\ngenerated: true\n```\n\nThe publication manifest additionally records the generated content hash and destination path.\n\n## Branch policy\n\nOnly the authoritative `main` branch may become current public Monad state.\n\nContent from feature branches, pull requests, local worktrees, speculative branches, or other non-authoritative branches must not be presented as current Monad state.\n\nDraft or proposed artifacts that exist on `main` may be published, but their actual lifecycle status must be preserved.\n\nPublication does not imply acceptance.\n\n## AI boundary\n\nAI may assist with explaining published information.\n\nAI must not determine:\n\n* canonical status;\n* lifecycle status;\n* acceptance;\n* authority;\n* verification success;\n* release readiness;\n* project completion;\n* requirement satisfaction.\n\nThose facts must come from deterministic governed inputs.\n\n## Generated-content ownership\n\nProjection-managed files are machine-owned.\n\nManual changes to a projection-managed file are not merged with regenerated output.\n\nThey must instead fail drift verification and be corrected at the authoritative source or publication-policy layer.\n\nEditorial files remain publication-owned and must not be modified by synchronization.\n\n## Deletion and rename semantics\n\nProjection output is inventory-based.\n\nEvery successful publication produces a complete manifest of projection-managed output.\n\nIf a previously generated artifact is absent from the next valid manifest because the authoritative source was removed, renamed, or reclassified, the obsolete generated destination must be removed.\n\nDeletion is limited to files previously recorded as projection-managed.\n\nEditorial files must never be deleted by this mechanism.\n\n## Reconciliation\n\nEvent-driven synchronization is not sufficient by itself.\n\nThe eventual implementation must also support reconciliation that independently compares:\n\n```text\nlatest publishable Monad main SHA\n            vs.\ncurrently projected Monad SHA\n```\n\nA missed repository event, failed workflow, temporary authentication failure, or interrupted deployment must therefore be recoverable without manual reconstruction of state.\n\n## Implementation order\n\nThe publication system should be implemented in this order:\n\n```text\nMONAD-PUB-001\n    ↓\nprojection.yaml\n    ↓\npublication-state schemas\n    ↓\nsource exporter\n    ↓\nlocal deterministic verification\n    ↓\nFumadocs consumer\n    ↓\nrendering and provenance UI\n    ↓\ncross-repository eventing\n    ↓\nreconciliation\n    ↓\nlive operational state\n```\n\nGitHub automation should not become the semantic definition of the projection.\n\nThe mapping policy belongs here.\n\n## Required invariants\n\nThe implementation must preserve the invariants established by `MONAD-PUB-001`:\n\n1. Single authority.\n2. Exact provenance.\n3. Deterministic projection.\n4. No silent conflict.\n5. Deletion propagation.\n6. Editorial preservation.\n7. Deny by default.\n8. No state regression.\n9. Honest freshness.\n10. No AI authority.\n11. `main`-only current state.\n12. Local reproducibility.\n\n## Current implementation status\n\nThis directory initially establishes publication policy only.\n\nThe exporter, publication-state schemas, Fumadocs synchronization consumer, CI automation, reconciliation mechanism, and live-state endpoint are downstream implementation work and must conform to this policy.\n",
+  "document_id": "doc:publication%2Fwebsite%2FREADME.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "This directory contains the executable policy governing publication of Monad engineering knowledge to the public AIC Fumadocs website.",
+    "title": "Monad Website Publication Projection"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "monad-website-publication-projection",
+      "text": "# Monad Website Publication Projection\n\nThis directory contains the executable policy governing publication of Monad engineering knowledge to the public AIC Fumadocs website.\n\nThe normative contract for this projection is:\n\n* `MONAD-PUB-001 — Monad Publication Projection Contract`\n* `specifications/publication/MONAD-PUB-001-publication-projection-contract.md`",
+      "title": "Monad Website Publication Projection"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 10,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nMonad is the authority for its governed engineering knowledge.\n\nThe AIC Fumadocs website is a downstream publication surface. It must not independently determine Monad architecture, requirements, project status, lifecycle state, verification status, or other governed engineering facts.\n\nThis directory defines how authoritative Monad state is transformed into a deterministic public projection.\n\nThe intended relationship is:\n\n```text\nCanonical Monad engineering knowledge\n            |\n            v\nMONAD-PUB-001\n            |\n            v\npublication/website/projection.yaml\n            |\n            v\ndeterministic publication exporter\n            |\n            v\nAIC Fumadocs publication projection\n```",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 45,
+      "line_start": 36,
+      "section_id": "authority",
+      "text": "## Authority\n\n`MONAD-PUB-001` is normative.\n\n`projection.yaml` is executable policy implementing that specification.\n\nIf this configuration conflicts with the normative publication specification, the normative specification wins and this configuration must be corrected.\n\nNeither this configuration nor the generated website projection may supersede canonical Monad engineering knowledge.",
+      "title": "Authority"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 46,
+      "section_id": "files",
+      "text": "## Files",
+      "title": "Files"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 71,
+      "line_start": 48,
+      "section_id": "projection-yaml",
+      "text": "### `projection.yaml`\n\nDefines:\n\n* source repository identity;\n* destination repository identity;\n* publishable branch policy;\n* publication dispositions;\n* deterministic transformations;\n* provenance requirements;\n* generated-content ownership;\n* explicit source-to-destination mappings;\n* derived-state inputs and outputs;\n* live-state boundaries;\n* exclusion rules;\n* reconciliation constraints;\n* deletion behavior;\n* conflict behavior;\n* publication invariants.\n\nThe configuration follows a deny-by-default policy.\n\nA source path that is not explicitly admitted is excluded from publication.",
+      "title": "`projection.yaml`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 75,
+      "line_start": 72,
+      "section_id": "publication-dispositions",
+      "text": "## Publication dispositions\n\nEvery source is assigned one of five dispositions.",
+      "title": "Publication dispositions"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 96,
+      "line_start": 76,
+      "section_id": "mirror",
+      "text": "### `MIRROR`\n\nPublishes the engineering meaning of a canonical source artifact without changing that meaning.\n\nPermitted transformations include:\n\n* Markdown-to-MDX conversion;\n* publication frontmatter injection;\n* internal-link rewriting;\n* provenance metadata;\n* presentation wrappers;\n* navigation metadata.\n\nA mirror must not:\n\n* rewrite normative meaning;\n* change lifecycle state;\n* summarize away requirements;\n* reinterpret decisions;\n* use AI to modify canonical engineering meaning.",
+      "title": "`MIRROR`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 113,
+      "line_start": 97,
+      "section_id": "derive",
+      "text": "### `DERIVE`\n\nProduces deterministic state from one or more authoritative inputs.\n\nExamples include:\n\n* current project state;\n* roadmap state;\n* Work Packet summaries;\n* milestone state;\n* release state;\n* verification state;\n* artifact indexes;\n* evolution state.\n\nDerived state must be reproducible from declared inputs.",
+      "title": "`DERIVE`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 127,
+      "line_start": 114,
+      "section_id": "live",
+      "text": "### `LIVE`\n\nRetrieves bounded operational facts whose freshness matters independently of the static publication projection.\n\nExamples include:\n\n* current `main` commit;\n* CI state;\n* latest release;\n* open pull-request count;\n* publication lag.\n\nLive operational state does not override canonical engineering state.",
+      "title": "`LIVE`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 140,
+      "line_start": 128,
+      "section_id": "editorial",
+      "text": "### `EDITORIAL`\n\nIdentifies content owned by the publication repository.\n\nExamples include:\n\n* articles;\n* essays;\n* Building Monad narrative;\n* editorial engineering journal content.\n\nThe Monad publication process must not overwrite editorial content.",
+      "title": "`EDITORIAL`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 146,
+      "line_start": 141,
+      "section_id": "exclude",
+      "text": "### `EXCLUDE`\n\nExplicitly prevents a source from automatic publication.\n\nExcluded sources may still contribute narrowly defined derived metadata when another rule explicitly authorizes that use.",
+      "title": "`EXCLUDE`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 172,
+      "line_start": 147,
+      "section_id": "generated-state",
+      "text": "## Generated state\n\nThe canonical machine-readable website projection is expected beneath:\n\n```text\ncontent/generated/monad/\n├── manifest.json\n├── provenance.json\n├── canonical/\n└── state/\n    ├── project.json\n    ├── roadmap.json\n    ├── work-packets.json\n    ├── milestones.json\n    ├── risks.json\n    ├── releases.json\n    ├── verification.json\n    ├── artifacts.json\n    ├── research.json\n    └── evolution.json\n```\n\nRendered mirror pages may also exist elsewhere under `content/docs/`, `content/changelogs/`, and the explicitly reserved `content/journal/monad-source/` namespace.\n\nAny rendered file managed by the projection must be represented in the projection manifest even when its destination is outside `content/generated/monad/`.",
+      "title": "Generated state"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 190,
+      "line_start": 173,
+      "section_id": "provenance",
+      "text": "## Provenance\n\nEvery generated mirror must be traceable to the exact source revision.\n\nAt minimum, generated mirror metadata records:\n\n```yaml\nprojection: mirror\nsource_repository: monad-framework/monad\nsource_path: <path>\nsource_commit: <40-character-sha>\nsource_blob: <blob-sha>\nprojection_version: 1\ngenerated: true\n```\n\nThe publication manifest additionally records the generated content hash and destination path.",
+      "title": "Provenance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 200,
+      "line_start": 191,
+      "section_id": "branch-policy",
+      "text": "## Branch policy\n\nOnly the authoritative `main` branch may become current public Monad state.\n\nContent from feature branches, pull requests, local worktrees, speculative branches, or other non-authoritative branches must not be presented as current Monad state.\n\nDraft or proposed artifacts that exist on `main` may be published, but their actual lifecycle status must be preserved.\n\nPublication does not imply acceptance.",
+      "title": "Branch policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 217,
+      "line_start": 201,
+      "section_id": "ai-boundary",
+      "text": "## AI boundary\n\nAI may assist with explaining published information.\n\nAI must not determine:\n\n* canonical status;\n* lifecycle status;\n* acceptance;\n* authority;\n* verification success;\n* release readiness;\n* project completion;\n* requirement satisfaction.\n\nThose facts must come from deterministic governed inputs.",
+      "title": "AI boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 227,
+      "line_start": 218,
+      "section_id": "generated-content-ownership",
+      "text": "## Generated-content ownership\n\nProjection-managed files are machine-owned.\n\nManual changes to a projection-managed file are not merged with regenerated output.\n\nThey must instead fail drift verification and be corrected at the authoritative source or publication-policy layer.\n\nEditorial files remain publication-owned and must not be modified by synchronization.",
+      "title": "Generated-content ownership"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 239,
+      "line_start": 228,
+      "section_id": "deletion-and-rename-semantics",
+      "text": "## Deletion and rename semantics\n\nProjection output is inventory-based.\n\nEvery successful publication produces a complete manifest of projection-managed output.\n\nIf a previously generated artifact is absent from the next valid manifest because the authoritative source was removed, renamed, or reclassified, the obsolete generated destination must be removed.\n\nDeletion is limited to files previously recorded as projection-managed.\n\nEditorial files must never be deleted by this mechanism.",
+      "title": "Deletion and rename semantics"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 253,
+      "line_start": 240,
+      "section_id": "reconciliation",
+      "text": "## Reconciliation\n\nEvent-driven synchronization is not sufficient by itself.\n\nThe eventual implementation must also support reconciliation that independently compares:\n\n```text\nlatest publishable Monad main SHA\n            vs.\ncurrently projected Monad SHA\n```\n\nA missed repository event, failed workflow, temporary authentication failure, or interrupted deployment must therefore be recoverable without manual reconstruction of state.",
+      "title": "Reconciliation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 283,
+      "line_start": 254,
+      "section_id": "implementation-order",
+      "text": "## Implementation order\n\nThe publication system should be implemented in this order:\n\n```text\nMONAD-PUB-001\n    ↓\nprojection.yaml\n    ↓\npublication-state schemas\n    ↓\nsource exporter\n    ↓\nlocal deterministic verification\n    ↓\nFumadocs consumer\n    ↓\nrendering and provenance UI\n    ↓\ncross-repository eventing\n    ↓\nreconciliation\n    ↓\nlive operational state\n```\n\nGitHub automation should not become the semantic definition of the projection.\n\nThe mapping policy belongs here.",
+      "title": "Implementation order"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 300,
+      "line_start": 284,
+      "section_id": "required-invariants",
+      "text": "## Required invariants\n\nThe implementation must preserve the invariants established by `MONAD-PUB-001`:\n\n1. Single authority.\n2. Exact provenance.\n3. Deterministic projection.\n4. No silent conflict.\n5. Deletion propagation.\n6. Editorial preservation.\n7. Deny by default.\n8. No state regression.\n9. Honest freshness.\n10. No AI authority.\n11. `main`-only current state.\n12. Local reproducibility.",
+      "title": "Required invariants"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 305,
+      "line_start": 301,
+      "section_id": "current-implementation-status",
+      "text": "## Current implementation status\n\nThis directory initially establishes publication policy only.\n\nThe exporter, publication-state schemas, Fumadocs synchronization consumer, CI automation, reconciliation mechanism, and live-state endpoint are downstream implementation work and must conform to this policy.",
+      "title": "Current implementation status"
+    }
+  ],
+  "source": {
+    "bytes": 8239,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 305,
+    "media_type": "text/markdown",
+    "path": "publication/website/README.md",
+    "sha256": "642947844a198b186c0b555edb5aabd40442712dd94908057b08233dac304bfa"
+  }
+}
