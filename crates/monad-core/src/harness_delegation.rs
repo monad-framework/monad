@@ -90,7 +90,11 @@ pub fn assess_delegation(
     }
 
     for requested_tool in &request.requested_tools {
-        if parent.allowed_tools().iter().any(|tool| tool == requested_tool) {
+        if parent
+            .allowed_tools()
+            .iter()
+            .any(|tool| tool == requested_tool)
+        {
             continue;
         }
 
@@ -175,10 +179,7 @@ mod tests {
                 "workspace.read",
                 "workspace/README.md",
             )],
-            prohibited_capabilities: vec![CapabilityGrant::new(
-                "release.publish",
-                "production",
-            )],
+            prohibited_capabilities: vec![CapabilityGrant::new("release.publish", "production")],
             allowed_tools: vec!["workspace".into()],
             environment_constraints: vec![],
             acceptance_criteria: vec![],
@@ -206,11 +207,7 @@ mod tests {
             "workspace/README.md",
         ));
 
-        let decision = assess_delegation(
-            &parent,
-            &request,
-            &DelegationAuthorityContext::default(),
-        );
+        let decision = assess_delegation(&parent, &request, &DelegationAuthorityContext::default());
 
         assert_eq!(decision.disposition, DelegationDisposition::Allowed);
     }
@@ -223,11 +220,7 @@ mod tests {
             "workspace/README.md",
         ));
 
-        let decision = assess_delegation(
-            &parent,
-            &request,
-            &DelegationAuthorityContext::default(),
-        );
+        let decision = assess_delegation(&parent, &request, &DelegationAuthorityContext::default());
 
         assert_eq!(
             decision.disposition,
