@@ -1666,6 +1666,16 @@
       "type": "declares"
     },
     {
+      "source": "doc:.eos%2Fstate%2Fcanonical.json",
+      "target": "identifier:WC-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fstate%2Fcanonical.json",
+      "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
       "source": "doc:.eos%2Fstate%2Fcurrent.json",
       "target": "identifier:ADR-0006",
       "type": "declares"
@@ -2593,6 +2603,71 @@
     {
       "source": "doc:engineering%2Fchanges%2FCR-0001.md",
       "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:ADR-0007",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:FR-007",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:FR-012",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:FR-013",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:FR-014",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:FR-015",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:FR-016",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:FR-023",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:FR-024",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:FR-037",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:QR-008",
+      "type": "declares"
+    },
+    {
+      "source": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "target": "identifier:QR-010",
       "type": "declares"
     },
     {
@@ -8906,6 +8981,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fstate%2Fcanonical.json",
+      "normative": false,
+      "source_path": ".eos/state/canonical.json",
+      "title": "Canonical",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fstate%2Fcurrent.json",
       "normative": false,
       "source_path": ".eos/state/current.json",
@@ -8990,6 +9073,14 @@
       "normative": false,
       "source_path": ".eos/state-model.json",
       "title": "State Model",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fsync%2Fgithub-projection.json",
+      "normative": false,
+      "source_path": ".eos/sync/github-projection.json",
+      "title": "Github Projection",
       "type": "document"
     },
     {
@@ -9158,6 +9249,14 @@
       "normative": false,
       "source_path": ".github/workflows/eos-integrity.yml",
       "title": "Eos Integrity",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Feos-state-integrity.yml",
+      "normative": false,
+      "source_path": ".github/workflows/eos-state-integrity.yml",
+      "title": "Eos State Integrity",
       "type": "document"
     },
     {
@@ -15490,6 +15589,14 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Fchanges%2FCR-0003.md",
+      "normative": true,
+      "source_path": "engineering/changes/CR-0003.md",
+      "title": "CR-0003 — Establish Monad AI-Driven Engineering Operating Model",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Fdefinition-of-done.md",
       "normative": true,
       "source_path": "engineering/definition-of-done.md",
@@ -19338,6 +19445,14 @@
     },
     {
       "document_type": "tooling",
+      "id": "doc:tools%2Feos%2Fstate_model.py",
+      "normative": false,
+      "source_path": "tools/eos/state_model.py",
+      "title": "State Model",
+      "type": "document"
+    },
+    {
+      "document_type": "tooling",
       "id": "doc:tools%2Feos%2Ftest_canonical_reconciliation.py",
       "normative": false,
       "source_path": "tools/eos/test_canonical_reconciliation.py",
@@ -20183,6 +20298,11 @@
       "value": "FR-036"
     },
     {
+      "id": "identifier:FR-037",
+      "type": "identifier",
+      "value": "FR-037"
+    },
+    {
       "id": "identifier:G-001",
       "type": "identifier",
       "value": "G-001"
@@ -20659,5 +20779,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "d1705fa0210f9b7bd9ede0f88512f584df2d82fb6c5cb0e34339ea0ad6e073e1"
+  "source_tree_sha256": "a6c6e0c1760cff275fb1a59b6341116673c15a3ec4123d7085474f681178438c"
 }
