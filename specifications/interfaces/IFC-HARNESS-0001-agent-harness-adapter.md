@@ -3,7 +3,7 @@
 **Status:** proposed  
 **Version:** 0.1.0  
 **Owner:** Monad Core / EOS  
-**Related requirements:** pending harness requirements tranche  
+**Related requirements:** FR-014, FR-016, FR-017, FR-022, FR-039, FR-040, FR-041, QR-007, QR-010, QR-014, QR-021, QR-022, QR-023  
 **Governing ADR:** ADR-0007  
 **Governing technical specification:** TECH-HARNESS-0001
 
