@@ -200,6 +200,16 @@ Schedule independent internal work in parallel using dependency/conflict analysi
 
 Maintain declared benchmark profiles including a long-range target of at least 10,000 lightweight internal scheduler/graph operations per second and eligible local governed-state transitions at or below 400 ms p95 once inputs are available.
 
+## Governed execution harness
+
+### C-46 — Governed Execution Harness and Execution Envelopes
+
+Compile bounded work and applicable governed knowledge into immutable, content-addressed Execution Envelopes; mediate consequential operations through authority, policy, least-privilege capability, approval/escalation, evidence/provenance, checkpoint/recovery, and independent verification controls; and expose a stable adapter boundary that keeps executor cognition and vendor-specific harness behavior replaceable.
+
+### C-47 — Harness conformance and comparative evaluation
+
+Run versioned governed conformance/evaluation fixtures across materially different agent-harness/model combinations and compare correctness, requirement satisfaction, policy compliance, unauthorized-operation attempts, evidence/provenance completeness, verification outcome, reproducibility, resource use, and human intervention without turning evaluation results into execution authority.
+
 ## Capability boundary
 
-MVP Release 1 directly requires C-01 through foundations of C-13 as defined by `MVP-RELEASE-1.md`. C-14 through C-45 form the governed post-MVP capability roadmap. Their presence in the product baseline does not authorize implementation or expand MVP scope automatically.
+MVP Release 1 directly requires C-01 through foundations of C-13 as defined by `MVP-RELEASE-1.md`. C-14 through C-47 form the governed post-MVP capability roadmap. Their presence in the product baseline does not authorize implementation or expand MVP scope automatically.
