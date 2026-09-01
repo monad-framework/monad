@@ -1,0 +1,40 @@
+{
+  "content": "# Governed Execution C1 Runtime Coverage\n\nThis implementation tranche covers the remaining deterministic C1 conformance fixtures:\n\n- GEH-CF-018 checkpoint and resume with unchanged authority;\n- GEH-CF-019 resume blocked by material authority drift;\n- GEH-CF-020 non-idempotent retry suppression;\n- GEH-CF-021 executor completion without required evidence;\n- GEH-CF-022 failed mandatory verification;\n- GEH-CF-023 evidence-backed governed completion;\n- GEH-CF-024 external or unmediated effect classification;\n- GEH-CF-025 prompt or repository injection cannot create authority;\n- GEH-CF-026 child delegation cannot amplify authority without a separately attributable accountable grant.\n\nThe Execution Envelope remains immutable. Mutable run history, replay state, checkpoints, completion evidence, external effect claims, and delegation decisions are represented as separate governed runtime records.\n",
+  "document_id": "doc:testing%2Fgoverned-execution-c1-runtime.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "quality-assurance",
+    "normative": true,
+    "summary": "This implementation tranche covers the remaining deterministic C1 conformance fixtures:",
+    "title": "Governed Execution C1 Runtime Coverage"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 1,
+      "section_id": "governed-execution-c1-runtime-coverage",
+      "text": "# Governed Execution C1 Runtime Coverage\n\nThis implementation tranche covers the remaining deterministic C1 conformance fixtures:\n\n- GEH-CF-018 checkpoint and resume with unchanged authority;\n- GEH-CF-019 resume blocked by material authority drift;\n- GEH-CF-020 non-idempotent retry suppression;\n- GEH-CF-021 executor completion without required evidence;\n- GEH-CF-022 failed mandatory verification;\n- GEH-CF-023 evidence-backed governed completion;\n- GEH-CF-024 external or unmediated effect classification;\n- GEH-CF-025 prompt or repository injection cannot create authority;\n- GEH-CF-026 child delegation cannot amplify authority without a separately attributable accountable grant.\n\nThe Execution Envelope remains immutable. Mutable run history, replay state, checkpoints, completion evidence, external effect claims, and delegation decisions are represented as separate governed runtime records.",
+      "title": "Governed Execution C1 Runtime Coverage"
+    }
+  ],
+  "source": {
+    "bytes": 901,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 15,
+    "media_type": "text/markdown",
+    "path": "testing/governed-execution-c1-runtime.md",
+    "sha256": "b71080938ee200b6c5df9b973ef7a830350c0cd48e5ef5f06c49cff7eab5e45c"
+  }
+}
