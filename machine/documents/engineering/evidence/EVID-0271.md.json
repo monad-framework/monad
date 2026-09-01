@@ -1,5 +1,5 @@
 {
-  "content": "---\nartifact_id: \"EVID-0271\"\ntitle: \"Verification Evidence EVID-0271\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"VALIDATED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-08-26\"\nupdated: \"2026-08-26\"\n---\n\n# EVID-0271 — Verification Evidence\n\n- Target: WP-MVP-0002\n- Execution: EXEC-0004\n- Profile: wp\n- Validator: eos-integrity\n- Kind: integrity\n- Result: PASSED\n- Exit code: 0\n- Source fingerprint: `9d26a895f348e3b579aa94e1dd1b3bff7ca751aa554f3d77ce6ec81ba0905a00`\n- Environment fingerprint: `1cadd6e72ec13ed8f9704c54199297820bcff4d10bff30ddbc7b2fd97b3076fa`\n- Machine evidence: `.eos/evidence/EVID-0271.json`\n- Machine evidence SHA-256: `da6caa501b8cbaa5d0968ab2e3ec621b306491eec61b537d8c95bd334e58c9b4`\n- Covers: (not explicitly mapped)\n\n## Command\n\n`eos-core:verify --strict`\n\n## Output Digest\n\n`96f5de356f63cf8f4c71a80c6405741a6dbdf950a63a512c0f982042cb915932`\n\nThe full bounded output and structured details are retained in the machine evidence artifact.\n",
+  "content": "---\nartifact_id: \"EVID-0271\"\ntitle: \"Verification Evidence EVID-0271\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"SUPERSEDED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-08-26\"\nupdated: \"2026-09-01\"\n---\n\n# EVID-0271 — Verification Evidence\n\n- Target: WP-MVP-0002\n- Execution: EXEC-0004\n- Profile: wp\n- Validator: eos-integrity\n- Kind: integrity\n- Result: PASSED\n- Exit code: 0\n- Source fingerprint: `9d26a895f348e3b579aa94e1dd1b3bff7ca751aa554f3d77ce6ec81ba0905a00`\n- Environment fingerprint: `1cadd6e72ec13ed8f9704c54199297820bcff4d10bff30ddbc7b2fd97b3076fa`\n- Machine evidence: `.eos/evidence/EVID-0271.json`\n- Machine evidence SHA-256: `da6caa501b8cbaa5d0968ab2e3ec621b306491eec61b537d8c95bd334e58c9b4`\n- Covers: (not explicitly mapped)\n\n## Command\n\n`eos-core:verify --strict`\n\n## Output Digest\n\n`96f5de356f63cf8f4c71a80c6405741a6dbdf950a63a512c0f982042cb915932`\n\nThe full bounded output and structured details are retained in the machine evidence artifact.\n",
   "document_id": "doc:engineering%2Fevidence%2FEVID-0271.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "--- artifactid: \"EVID-0271\" title: \"Verification Evidence EVID-0271\" type: \"verification-evidence\" version: \"1.0.0\" status: \"VALIDATED\" authority: \"evidence-authoritative\" created: \"2026-08-26\" updated: \"2026-08-26\" ---",
+    "summary": "--- artifactid: \"EVID-0271\" title: \"Verification Evidence EVID-0271\" type: \"verification-evidence\" version: \"1.0.0\" status: \"SUPERSEDED\" authority: \"evidence-authoritative\" created: \"2026-08-26\" updated: \"2026-09-01\" ---",
     "title": "EVID-0271 — Verification Evidence"
   },
   "relations": [],
@@ -24,7 +24,7 @@
       "line_end": 11,
       "line_start": 1,
       "section_id": "preamble",
-      "text": "---\nartifact_id: \"EVID-0271\"\ntitle: \"Verification Evidence EVID-0271\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"VALIDATED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-08-26\"\nupdated: \"2026-08-26\"\n---",
+      "text": "---\nartifact_id: \"EVID-0271\"\ntitle: \"Verification Evidence EVID-0271\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"SUPERSEDED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-08-26\"\nupdated: \"2026-09-01\"\n---",
       "title": "Preamble"
     },
     {
@@ -56,12 +56,12 @@
     }
   ],
   "source": {
-    "bytes": 981,
+    "bytes": 982,
     "canonical": true,
     "language": "markdown",
     "lines": 35,
     "media_type": "text/markdown",
     "path": "engineering/evidence/EVID-0271.md",
-    "sha256": "995cbaf2b162bb2f1ba9ceed6ce78ca74e170604cceabe9b80528bdf28bb92b2"
+    "sha256": "543ab5e79c55546bc22fa4a4a750b84213f077bfa0a15e0eb29f0e9da95f67c1"
   }
 }

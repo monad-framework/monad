@@ -1,0 +1,80 @@
+name: EOS evidence refresh
+
+on:
+  workflow_dispatch:
+    inputs:
+      targets:
+        description: "Space-separated EOS targets to revalidate"
+        required: true
+        default: "WP-MVP-0001 WP-MVP-0002 WP-MVP-0003 WP-MVP-0004"
+      profile:
+        description: "EOS validation profile"
+        required: true
+        default: "wp"
+  push:
+    branches:
+      - "fix/eos-stale-mvp-evidence"
+    paths:
+      - ".eos/refresh-evidence.trigger"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eos-evidence-refresh-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      EOS_ACTOR: eos-evidence-refresh
+      TARGETS: ${{ inputs.targets || 'WP-MVP-0001 WP-MVP-0002 WP-MVP-0003 WP-MVP-0004' }}
+      PROFILE: ${{ inputs.profile || 'wp' }}
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Refresh governed evidence
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          for target in $TARGETS; do
+            ./scripts/eos validate "$target" --profile "$PROFILE"
+          done
+
+      - name: Regenerate trace before machine projection
+        run: python3 tools/eos/trace_integrity.py --write
+
+      - name: Regenerate machine documents from settled trace
+        run: python3 scripts/sync-machine-docs.py --write
+
+      - name: Verify refreshed governed state
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+          ./scripts/eos verify --strict
+
+      - name: Commit refreshed evidence and projections
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git add .eos engineering/evidence machine
+          if ! git diff --quiet; then
+            echo "Unexpected unstaged changes outside governed evidence/projection paths:" >&2
+            git status --short >&2
+            exit 1
+          fi
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(eos): refresh stale MVP verification evidence"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
