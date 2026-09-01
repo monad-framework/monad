@@ -41,18 +41,22 @@ Version `0.1.0` contains the following fields.
 
 - `work_subject` — governed work/artifact subject identifier;
 - `intent` — bounded statement of what the executor is authorized to attempt;
-- `requested_outcome` — expected work product or state outcome.
+- `requested_outcome` — expected work product or state outcome;
+- `scope_boundaries` — explicit canonical scope constraints that bound the work;
+- `dependencies` — normalized governed references whose satisfaction or availability constrains this work.
 
 ### Governing state
 
 - `governing_state_digest` — identity/digest of the canonical governing state from which the envelope was compiled;
-- `governed_references` — normalized references to requirements, ADRs, specifications, policies, evidence, work artifacts, or other governed objects whose semantics apply to execution.
+- `governed_references` — normalized references to requirements, ADRs, specifications, policies, authority records, evidence, work artifacts, environment identities, or other governed objects whose semantics apply to execution.
 
 Each governed reference contains:
 
 - `kind`;
 - `identifier`;
 - optional `content_digest` when content/freshness identity is required.
+
+The generic reference representation is intentional in version `0.1.0`: governance categories remain typed by `kind` without duplicating the same canonical object across parallel envelope-specific structures.
 
 ### Actors
 
@@ -66,34 +70,36 @@ Each actor contains:
 
 An executor identity MAY identify an adapter/service/automation role rather than a model name. Provider/model/session identity belongs in run/evidence records when required and MUST NOT silently redefine the envelope's authority semantics.
 
-### Capability contract
+### Capability and delegation contract
 
 - `granted_capabilities` — explicit least-privilege grants;
-- `prohibited_capabilities` — explicit denials/prohibitions.
+- `prohibited_capabilities` — explicit denials/prohibitions;
+- `delegation_constraints` — canonical restrictions on delegation, subagents, child execution, or capability inheritance.
 
 Each capability entry contains:
 
 - `capability` — capability identifier;
 - `scope` — canonical scope expression.
 
-Absence from `granted_capabilities` MUST NOT be interpreted as permission. Explicit prohibition takes precedence over a conflicting grant until accountable policy/authority recompiles a non-conflicting envelope.
+Absence from `granted_capabilities` MUST NOT be interpreted as permission. Explicit prohibition takes precedence over a conflicting grant until accountable policy/authority recompiles a non-conflicting envelope. Delegation MUST NOT broaden authority beyond the envelope.
 
 ### Tool and environment contract
 
 - `allowed_tools` — tool/interface identifiers available to the governed execution;
 - `environment_constraints` — canonical constraints that govern the execution environment.
 
-Raw secret values MUST NOT appear in these fields. Secret access is represented through governed capability/reference mechanisms.
+Environment identities, reproducibility profiles, or other governed environment objects MAY be included through `governed_references`. Raw secret values MUST NOT appear in these fields. Secret access is represented through governed capability/reference mechanisms.
 
-### Quality, approval, and completion contract
+### Quality, evidence, approval, and completion contract
 
 - `acceptance_criteria`;
 - `verification_obligations`;
+- `evidence_obligations`;
 - `approval_gates`;
 - `escalation_conditions`;
 - `completion_criteria`.
 
-These collections express obligations, not executor suggestions. Executor-reported completion cannot erase or satisfy them by assertion.
+These collections express obligations, not executor suggestions. Executor-reported completion cannot erase or satisfy them by assertion. Evidence obligations describe evidence that must be captured or made attributable; they are distinct from verification obligations that determine how candidate outcomes are evaluated.
 
 ### Resource contract
 
@@ -105,9 +111,9 @@ Version `0.1.0` intentionally uses string values so policy-specific units and ri
 
 Before digest calculation and serialization as a compiled envelope:
 
-1. `governed_references` MUST be sorted by `(kind, identifier, content_digest)` and exact duplicates removed;
+1. `dependencies` and `governed_references` MUST each be sorted by `(kind, identifier, content_digest)` and exact duplicates removed;
 2. capability collections MUST be sorted by `(capability, scope)` and exact duplicates removed;
-3. `allowed_tools`, `environment_constraints`, `acceptance_criteria`, `verification_obligations`, `approval_gates`, `escalation_conditions`, and `completion_criteria` MUST be lexicographically sorted and exact duplicates removed;
+3. `scope_boundaries`, `delegation_constraints`, `allowed_tools`, `environment_constraints`, `acceptance_criteria`, `verification_obligations`, `evidence_obligations`, `approval_gates`, `escalation_conditions`, and `completion_criteria` MUST be lexicographically sorted and exact duplicates removed;
 4. `resource_limits` keys MUST be unique and serialized in lexical key order by canonical producers;
 5. producers MUST preserve exact string bytes after any upstream domain-specific canonicalization; envelope compilation MUST NOT silently rewrite human meaning;
 6. incidental source traversal order MUST NOT affect the resulting envelope.
@@ -127,24 +133,28 @@ The digest input MUST encode fields in the following semantic order:
 3. `work_subject`;
 4. `intent`;
 5. `requested_outcome`;
-6. `governing_state_digest`;
-7. normalized governed references;
-8. initiating actor fields;
-9. executor actor fields;
-10. normalized granted capabilities;
-11. normalized prohibited capabilities;
-12. normalized allowed tools;
-13. normalized environment constraints;
-14. normalized acceptance criteria;
-15. normalized verification obligations;
-16. normalized approval gates;
-17. normalized escalation conditions;
-18. normalized completion criteria;
-19. normalized resource-limit entries.
+6. normalized scope boundaries;
+7. normalized dependencies;
+8. `governing_state_digest`;
+9. normalized governed references;
+10. initiating actor fields;
+11. executor actor fields;
+12. normalized granted capabilities;
+13. normalized prohibited capabilities;
+14. normalized delegation constraints;
+15. normalized allowed tools;
+16. normalized environment constraints;
+17. normalized acceptance criteria;
+18. normalized verification obligations;
+19. normalized evidence obligations;
+20. normalized approval gates;
+21. normalized escalation conditions;
+22. normalized completion criteria;
+23. normalized resource-limit entries.
 
 For v1, scalar strings are encoded as an unsigned 64-bit big-endian byte length followed by exact UTF-8 bytes. Collection sizes are encoded as unsigned 64-bit big-endian integers. Optional strings are prefixed by one byte (`0x00` absent, `0x01` present), followed by normal string encoding when present. The final digest is SHA-256 over this domain-separated byte stream.
 
-`run_id`, binding/logical time, adapter session identity, checkpoints, operation results, evidence, and verification results MUST NOT participate in the envelope digest.
+`run_id`, binding/logical time, adapter session identity, checkpoints, operation results, produced evidence, and verification results MUST NOT participate in the envelope digest. The **obligation to produce evidence** is envelope semantics; the evidence produced during execution is runtime history.
 
 ## Run binding
 
@@ -194,7 +204,7 @@ Conformance tests MUST cover at least:
 2. different run IDs/binding times bound to the same envelope do not change envelope identity;
 3. set-like input reordering/duplication does not change identity;
 4. material governing-state change changes identity;
-5. material authority/capability/acceptance/verification change changes identity;
+5. material authority/capability/scope/acceptance/evidence/verification change changes identity;
 6. serialized output conforms to `schemas/execution-envelope.schema.json`;
 7. malformed envelope ID/digest combinations are rejected by semantic validation;
 8. unknown schema-version incompatibility fails explicitly;
