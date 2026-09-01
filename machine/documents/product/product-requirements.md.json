@@ -1,5 +1,5 @@
 {
-  "content": "# Product Requirements\n\n**Status:** Expanded product baseline  \n**Release focus:** MVP Release 1 plus governed post-MVP capability expansion\n\n## Objective\n\nDeliver a local-first Monad implementation that compiles canonical engineering knowledge into a deterministic semantic model and evolves that model into a governed engineering operating system for human and bounded-agent inspection, validation, query/explanation, execution planning, automation, observability, deployment, and ecosystem integration.\n\nMVP Release 1 remains the first release gate. Post-MVP requirements are commitments to the product direction, not authorization to bypass the current rolling-wave backlog, Work Packet, ADR, specification, security, or evidence gates.\n\n## Functional requirements\n\n### FR-001 — Discover a Monad repository\n\nMonad MUST identify the repository/workspace root, effective configuration, supported canonical artifacts, and relevant toolchain/workspace structure.\n\n**Acceptance:** repeated discovery of an unchanged reference repository yields equivalent identities/order; unsupported or malformed configuration produces actionable diagnostics.\n\n### FR-002 — Ingest canonical engineering artifacts\n\nMonad MUST parse supported canonical Markdown and structured configuration without requiring an LLM.\n\n**Acceptance:** source path/hash, sections, metadata, stable identifiers, and references are preserved; malformed input cannot silently become valid semantic state.\n\n### FR-003 — Construct the Monad Semantic Graph\n\nMonad MUST represent supported engineering entities and typed relationships with deterministic identity and provenance.\n\n**Acceptance:** equivalent input yields equivalent canonical graph; every derived node/edge can identify its source/rule; unresolved relationships remain explicit.\n\n### FR-004 — Validate structural and semantic invariants\n\nMonad MUST evaluate approved rules for identity uniqueness, required metadata, reference resolution, authority/status consistency, machine-projection freshness, policy, and other governed invariants.\n\n**Acceptance:** findings have stable code, severity, source/entity, explanation, and remediation context; valid repositories pass deterministically.\n\n### FR-005 — Query semantic relationships\n\nMonad MUST support bounded graph queries including references, dependents, governing artifacts, unresolved entities, and traceability gaps.\n\n**Acceptance:** query results are stable for unchanged input and include provenance sufficient to inspect the canonical basis.\n\n### FR-006 — Explain engineering meaning\n\nMonad MUST explain why a supported artifact/entity exists or what governs/depends on it by traversing explicit graph relationships rather than inventing undocumented causal claims.\n\n**Acceptance:** explanations enumerate the relationship/evidence path and distinguish missing knowledge from negative answers.\n\n### FR-007 — Produce bounded agent context\n\nGiven a valid authorized Work Packet, Monad MUST produce a context package containing applicable scope, governing artifacts, constraints/prohibitions, relevant graph neighborhood, acceptance criteria, and validation commands while excluding unrelated content by default.\n\n**Acceptance:** context-package membership is deterministic/explainable; excluded secret paths remain excluded; missing authority blocks an implementation-ready package.\n\n### FR-008 — Expose a coherent CLI\n\nMonad MUST expose a coherent local CLI for repository inspection, validation, graph/query, explanation, context generation, diagnostics, and later approved execution/automation capabilities with human-readable and structured output where automation requires it.\n\n### FR-009 — Preserve reproducibility evidence\n\nMonad MUST record enough version/input/configuration identity to reproduce semantic output and diagnose divergence.\n\n### FR-010 — Integrate without replacing native tools\n\nWhere validation or execution delegates to a native tool, Monad MUST expose the invocation/evidence and preserve the native result rather than reinterpreting a failure as success.\n\n### FR-011 — Measure workspace intelligence\n\nMonad MUST provide an explainable 0–100 workspace-intelligence score with explicit maturity tiers derived from governed evidence across memory/knowledge, agent intelligence, execution/automation, health, and governance dimensions.\n\n**Acceptance:** score inputs, weights, tier thresholds, historical changes, and missing evidence are inspectable and reproducible.\n\n### FR-012 — Unify memory, intelligence, and execution\n\nMonad MUST support a unified workspace-intelligence model in which governed memory informs bounded agent reasoning, reasoning may propose or trigger authorized execution, and execution produces provenance-rich memory/evidence.\n\n### FR-013 — Maintain anti-hallucination engineering memory\n\nAgent-facing memory MUST distinguish canonical fact, derived fact, proposal, uncertain inference, stale knowledge, and contradiction; multiple agents may contribute evidence but cannot silently promote probabilistic output to canonical truth.\n\n### FR-014 — Orchestrate dependency-aware agent work\n\nMonad MUST be able to dispatch bounded developer-agent work through an explicit dependency graph, with concurrency, cancellation, resource limits, authorization, and evidence capture. Autonomous orchestration MUST begin behind an explicit experimental capability gate.\n\n### FR-015 — Enforce progressive autonomy\n\nAgents MUST operate under named autonomy levels beginning with advisory behavior. Promotion to stronger execution authority MUST require objective reliability evidence, explicit policy, and reversible human approval. Operators remain decision stewards for unresolved authority, risk, architecture, and release decisions.\n\n### FR-016 — Support cross-harness review\n\nMonad MUST support independent parallel review by multiple configured agent/model harnesses, preserve reviewer provenance, surface disagreement, and prevent reviewer consensus from overriding canonical human/governance authority.\n\n### FR-017 — Route AI work by capability, cost, and policy\n\nMonad MUST support multiple AI providers and local models through a provider-neutral contract and route work using declared capability, complexity, privacy, cost, latency, and policy constraints.\n\n### FR-018 — Provide a governed automation and integration layer\n\nMonad MUST provide a resource model, adapter contract, and reactive workflow model for external systems. The ecosystem MUST be able to grow to a broad catalog of pre-built integrations without embedding third-party semantics into the core.\n\n### FR-019 — Automate verified pull-request lifecycle operations\n\nMonad MUST be able to create pull requests from verified completed work under explicit policy, isolated worktrees/branches, rebase-first integration rules where configured, and complete evidence linkage. Automatic PR creation MUST NOT imply automatic merge authority.\n\n### FR-020 — Produce signed change attestations\n\nMonad MUST support DSSE-compatible signed attestations for governed changes and release evidence, including policy that can require valid attestations before protected-branch integration.\n\n### FR-021 — Support cryptographic agility and strong identity\n\nMonad MUST support versioned cryptographic profiles capable of Ed25519, P-256, secp256k1, and post-quantum ML-DSA where appropriate; multi-party approval/signature policies; key rotation; and WebAuthn/passkey-backed identity for hosted or privileged control surfaces. No single algorithm becomes permanent semantic authority.\n\n### FR-022 — Defend agent and prompt boundaries\n\nMonad MUST detect or contain prompt-injection attempts, mask secrets in logs/context/output, sandbox agent capabilities, enforce least authority, and prohibit unapproved tool/resource escalation.\n\n### FR-023 — Provide declarative governance, change control, and audit\n\nMonad MUST support declarative quality/autonomy/compliance policies, formal governed resources, Definition-of-Ready and Definition-of-Done gates, change submission/review/approval/rollback, and a complete tamper-evident audit trail linking humans, agents, decisions, executions, evidence, and resulting artifacts.\n\n### FR-024 — Provide operational health and execution observability\n\nMonad MUST expose knowledge-graph health, stale/zombie/decaying relationships, agent execution history, input context, output diff, verification results, duration, token/cost data where available, and OpenTelemetry-compatible logs/metrics/traces.\n\n### FR-025 — Support privacy-governed hosted analytics\n\nWhere a hosted/public surface is enabled, Monad MAY provide opt-in visitor/session analytics including traffic source, coarse geography, device class, and usage behavior. Analytics MUST be separable from the local core and governed by privacy/data-retention policy.\n\n### FR-026 — Support deployable shared experiences\n\nApproved hosted surfaces MUST support automated deployment, shareable endpoints, custom domains, access controls, and optional gallery/registry publication without making hosting mandatory for core operation.\n\n### FR-027 — Clone and restore complete workspace state\n\nMonad MUST support provenance-preserving cloning/templates of a complete governed workspace configuration and one-step restoration of prior versioned states where the underlying canonical source permits it.\n\n### FR-028 — Support enterprise deployment modes\n\nMonad MUST support a path to air-gapped/no-exfiltration operation, on-premises deployment, and optional AWS/GCP/Azure deployment without making any cloud provider mandatory.\n\n### FR-029 — Provide reproducible environment profiles\n\nMonad MUST support container and Nix-based environment profiles where required to reproduce builds, validation, agent execution, and release evidence.\n\n### FR-030 — Manage governed files and media\n\nMonad MUST support content-addressed upload/storage/reference of documents and media needed by engineering workflows, with provenance, classification, retention, access policy, and explicit controls over AI processing.\n\n### FR-031 — Provide MCP and IDE integration surfaces\n\nMonad MUST provide an MCP server and an LSP/IDE integration path so external clients can query, navigate, validate, explain, and request bounded context without redefining semantic authority.\n\n### FR-032 — Provide an extensible plugin ecosystem\n\nMonad MUST establish versioned plugin SDK, registry, and curated pack contracts. Plugins remain explicit capabilities with provenance, compatibility, permission, and signature policy.\n\n### FR-033 — Support pluggable graph/vector storage\n\nThe architecture MUST permit local-first defaults plus versioned adapters for graph/vector backends such as Neo4j, Neptune, JanusGraph, pgvector, Pinecone, and Weaviate when scale or deployment requirements justify them.\n\n### FR-034 — Support multi-vector memory and semantic/result-aware caching\n\nMonad MUST be able to represent multiple vector spaces for code, data, and business/engineering semantics and cache embeddings/completions/results with explicit tenant/workspace isolation, provenance, invalidation, and privacy boundaries.\n\n### FR-035 — Support optional external runtime compatibility profiles\n\nThe adapter architecture MUST permit optional compatibility profiles for external bytecode/runtime ecosystems. An EVM bytecode-compatibility profile MAY be implemented as an isolated adapter, but it MUST NOT contaminate or redefine Monad core semantics.\n\n### FR-036 — Support deterministic parallel execution and scale benchmarks\n\nMonad MUST support dependency/conflict-aware parallel execution of independent internal work and define benchmark profiles for throughput and state finalization. A long-range benchmark target is at least 10,000 lightweight scheduler/graph operations per second on declared reference hardware, and eligible local control-state transitions SHOULD finalize within 400 ms p95 once their inputs are available. External tool/network latency is excluded from these internal targets.\n\n## Quality requirements\n\n### QR-001 — Determinism\n\nOrdering, identity, canonical serialization, diagnostics, policy decisions, and reproducible execution records must not depend on filesystem enumeration order, wall-clock time, randomized IDs, or ungoverned LLM output.\n\n### QR-002 — Performance\n\nReference budgets for startup, parse/graph build, query latency, context generation, execution scheduling, state finalization, and memory must be measured on declared reference profiles; regressions above approved thresholds fail the applicable performance gate.\n\n### QR-003 — Security\n\nThe system follows least privilege/context, defends against path traversal/symlink and untrusted-input hazards, avoids executing repository content during inspection unless explicitly authorized, and produces no secret-bearing diagnostics/context by default.\n\n### QR-004 — Reliability\n\nPartial/corrupt caches or generated state must be detectable and recoverable by rebuilding from canonical inputs. Remote calls and agent orchestration use bounded retries, exponential backoff where safe, idempotency semantics, and circuit breakers to prevent cascading failure.\n\n### QR-005 — Compatibility\n\nStable KIR/configuration/CLI/plugin/registry/MCP/LSP/adapter surfaces MUST use explicit versioning and compatibility policies before external stability is promised.\n\n### QR-006 — Operability\n\nDoctor/diagnostic paths must distinguish configuration/toolchain/environment, semantic-repository, provider, integration, policy, security, and deployment failures.\n\n### QR-007 — Maintainability\n\nCompiler/graph/query/context/policy/execution/observation/integration concerns have explicit boundaries and conformance fixtures so implementations can evolve without changing semantics accidentally.\n\n### QR-008 — Progressive trust\n\nAgent trust is earned from evidence and can be demoted. No agent begins with hard-mandatory or unrestricted authority.\n\n### QR-009 — Cryptographic agility\n\nAttestation and identity mechanisms must permit algorithm/version rotation, post-quantum migration, multi-party policies, and revocation without rewriting semantic history.\n\n### QR-010 — Auditability\n\nConsequential human/agent actions, decisions, state transitions, policy evaluations, attestations, and execution results must be reconstructable from durable evidence and tamper-evident logs.\n\n### QR-011 — Prompt and secret safety\n\nUntrusted instructions must not silently expand capability. Secret material must be minimized, detected/masked where feasible, and excluded from shared caches and agent context unless explicitly authorized.\n\n### QR-012 — Observability\n\nOperational components must expose structured logs, metrics, and traces through OpenTelemetry-compatible boundaries where applicable, with correlation to Work Packets/executions/evidence.\n\n### QR-013 — Portability\n\nThe local core remains usable offline. Optional deployment surfaces support major developer platforms, containers, Nix, air-gapped/on-prem operation, and multiple clouds through explicit compatibility profiles.\n\n### QR-014 — Provider independence\n\nNo single AI provider, hosted graph database, cloud vendor, or automation vendor is required for canonical core operation.\n\n### QR-015 — High-throughput scalability\n\nParallel internal execution, graph operations, caching, and observation paths must scale by measured evidence. The 10,000-operations/second target in FR-036 is a stretch benchmark, not permission to weaken determinism, safety, or external-tool authority.\n\n### QR-016 — Local state finalization\n\nEligible local governed state transitions should meet the 400 ms p95 target from FR-036 on declared reference profiles; slower transitions must remain correct, observable, and explicitly reported rather than falsely finalized.\n\n### QR-017 — Resilience\n\nExternal providers/integrations use bounded retry, exponential backoff, circuit breakers, timeout/cancellation, and failure isolation appropriate to idempotency and side-effect risk.\n\n### QR-018 — Modular-first evolution\n\nMonad modularizes stable contracts before repository/service splitting. Ecosystem repositories and distributed services are introduced only when ownership, deployment, scaling, or compatibility evidence justifies them.\n\n### QR-019 — Privacy and tenant isolation\n\nHosted analytics, vector memory, caches, files, integrations, and agent records must maintain explicit workspace/tenant boundaries, retention rules, and data-classification policy.\n\n### QR-020 — Accessibility of evidence\n\nDashboards, scores, automation, and AI summaries cannot become the sole source of truth; users must be able to reach the underlying governed evidence and explanations.\n\n## Release gates\n\n### MVP Release 1\n\nMVP Release 1 remains governed by `MVP-RELEASE-1.md`. New post-MVP capabilities do not expand the MVP merely because they are now planned.\n\n### Post-MVP expansion\n\nA post-MVP capability may enter execution only when its Epic/Feature/Work Packet is refined, governing ADR/specification authority is explicit, threat/privacy implications are dispositioned, exact validation/evidence requirements exist, and parent lifecycle gates authorize execution.\n",
+  "content": "# Product Requirements\n\n**Status:** Expanded product baseline  \n**Release focus:** MVP Release 1 plus governed post-MVP capability expansion\n\n## Objective\n\nDeliver a local-first Monad implementation that compiles canonical engineering knowledge into a deterministic semantic model and evolves that model into a governed engineering operating system for human and bounded-agent inspection, validation, query/explanation, execution planning, automation, observability, deployment, and ecosystem integration.\n\nMVP Release 1 remains the first release gate. Post-MVP requirements are commitments to the product direction, not authorization to bypass the current rolling-wave backlog, Work Packet, ADR, specification, security, or evidence gates.\n\n## Functional requirements\n\n### FR-001 — Discover a Monad repository\n\nMonad MUST identify the repository/workspace root, effective configuration, supported canonical artifacts, and relevant toolchain/workspace structure.\n\n**Acceptance:** repeated discovery of an unchanged reference repository yields equivalent identities/order; unsupported or malformed configuration produces actionable diagnostics.\n\n### FR-002 — Ingest canonical engineering artifacts\n\nMonad MUST parse supported canonical Markdown and structured configuration without requiring an LLM.\n\n**Acceptance:** source path/hash, sections, metadata, stable identifiers, and references are preserved; malformed input cannot silently become valid semantic state.\n\n### FR-003 — Construct the Monad Semantic Graph\n\nMonad MUST represent supported engineering entities and typed relationships with deterministic identity and provenance.\n\n**Acceptance:** equivalent input yields equivalent canonical graph; every derived node/edge can identify its source/rule; unresolved relationships remain explicit.\n\n### FR-004 — Validate structural and semantic invariants\n\nMonad MUST evaluate approved rules for identity uniqueness, required metadata, reference resolution, authority/status consistency, machine-projection freshness, policy, and other governed invariants.\n\n**Acceptance:** findings have stable code, severity, source/entity, explanation, and remediation context; valid repositories pass deterministically.\n\n### FR-005 — Query semantic relationships\n\nMonad MUST support bounded graph queries including references, dependents, governing artifacts, unresolved entities, and traceability gaps.\n\n**Acceptance:** query results are stable for unchanged input and include provenance sufficient to inspect the canonical basis.\n\n### FR-006 — Explain engineering meaning\n\nMonad MUST explain why a supported artifact/entity exists or what governs/depends on it by traversing explicit graph relationships rather than inventing undocumented causal claims.\n\n**Acceptance:** explanations enumerate the relationship/evidence path and distinguish missing knowledge from negative answers.\n\n### FR-007 — Produce bounded agent context\n\nGiven a valid authorized Work Packet, Monad MUST produce a context package containing applicable scope, governing artifacts, constraints/prohibitions, relevant graph neighborhood, acceptance criteria, and validation commands while excluding unrelated content by default. When that context is used for governed execution, its authoritative inputs MUST be incorporated by identity into the bound Execution Envelope rather than treated as independent execution authority.\n\n**Acceptance:** context-package membership is deterministic/explainable; excluded secret paths remain excluded; missing authority blocks an implementation-ready package; material governing-context drift after a run is bound is detectable by the execution-governance boundary.\n\n### FR-008 — Expose a coherent CLI\n\nMonad MUST expose a coherent local CLI for repository inspection, validation, graph/query, explanation, context generation, diagnostics, and later approved execution/automation capabilities with human-readable and structured output where automation requires it.\n\n### FR-009 — Preserve reproducibility evidence\n\nMonad MUST record enough version/input/configuration identity to reproduce semantic output and diagnose divergence.\n\n### FR-010 — Integrate without replacing native tools\n\nWhere validation or execution delegates to a native tool, Monad MUST expose the invocation/evidence and preserve the native result rather than reinterpreting a failure as success. A consequential native-tool invocation that claims governed execution MUST be requested through the applicable capability/policy-mediated execution boundary rather than bypassing it.\n\n**Acceptance:** denied or unavailable authority prevents the governed effect before invocation; native results remain attributable to the requesting run/operation and are preserved as evidence without semantic rewriting.\n\n### FR-011 — Measure workspace intelligence\n\nMonad MUST provide an explainable 0–100 workspace-intelligence score with explicit maturity tiers derived from governed evidence across memory/knowledge, agent intelligence, execution/automation, health, and governance dimensions.\n\n**Acceptance:** score inputs, weights, tier thresholds, historical changes, and missing evidence are inspectable and reproducible.\n\n### FR-012 — Unify memory, intelligence, and execution\n\nMonad MUST support a unified workspace-intelligence model in which governed memory informs bounded agent reasoning, reasoning may propose or request execution through the governed execution boundary, and authorized execution produces provenance-rich memory/evidence.\n\n### FR-013 — Maintain anti-hallucination engineering memory\n\nAgent-facing memory MUST distinguish canonical fact, derived fact, proposal, uncertain inference, stale knowledge, and contradiction; multiple agents may contribute evidence but cannot silently promote probabilistic output to canonical truth.\n\n### FR-014 — Orchestrate dependency-aware agent work\n\nMonad MUST be able to dispatch bounded developer-agent work through an explicit dependency graph, with concurrency, cancellation, resource limits, authorization, and evidence capture. Each governed executable unit MUST be bound to explicit execution authority and capabilities; delegation or subagent creation MUST NOT broaden those grants. Autonomous orchestration MUST begin behind an explicit experimental capability gate.\n\n### FR-015 — Enforce progressive autonomy\n\nAgents MUST operate under named autonomy levels beginning with advisory behavior. Promotion to stronger execution authority MUST require objective reliability evidence, explicit policy, and reversible human approval. Autonomy level MUST constrain the capabilities and approval/escalation rules applied at the governed execution boundary rather than acting as an executor-controlled preference. Operators remain decision stewards for unresolved authority, risk, architecture, and release decisions.\n\n### FR-016 — Support cross-harness review\n\nMonad MUST support independent parallel review by multiple configured agent/model harnesses, preserve reviewer provenance, surface disagreement, and prevent reviewer consensus or any individual executor's self-report from overriding canonical human/governance authority or verification-controlled completion.\n\n### FR-017 — Route AI work by capability, cost, and policy\n\nMonad MUST support multiple AI providers and local models through a provider-neutral contract and route work using declared capability, complexity, privacy, cost, latency, and policy constraints. Routing MAY select a model, provider, or agent harness but MUST NOT modify the governing Execution Envelope or broaden granted authority as a side effect of selection.\n\n### FR-018 — Provide a governed automation and integration layer\n\nMonad MUST provide a resource model, adapter contract, and reactive workflow model for external systems. The ecosystem MUST be able to grow to a broad catalog of pre-built integrations without embedding third-party semantics into the core.\n\n### FR-019 — Automate verified pull-request lifecycle operations\n\nMonad MUST be able to create pull requests from verified completed work under explicit policy, isolated worktrees/branches, rebase-first integration rules where configured, and complete evidence linkage. Automatic PR creation MUST NOT imply automatic merge authority.\n\n### FR-020 — Produce signed change attestations\n\nMonad MUST support DSSE-compatible signed attestations for governed changes and release evidence, including policy that can require valid attestations before protected-branch integration.\n\n### FR-021 — Support cryptographic agility and strong identity\n\nMonad MUST support versioned cryptographic profiles capable of Ed25519, P-256, secp256k1, and post-quantum ML-DSA where appropriate; multi-party approval/signature policies; key rotation; and WebAuthn/passkey-backed identity for hosted or privileged control surfaces. No single algorithm becomes permanent semantic authority.\n\n### FR-022 — Defend agent and prompt boundaries\n\nMonad MUST detect or contain prompt-injection attempts, mask secrets in logs/context/output, sandbox agent capabilities, enforce least authority, and prohibit unapproved tool/resource escalation. Untrusted executor input or private reasoning MUST NOT be able to expand an Execution Envelope, create capabilities, suppress mandatory policy checks, or convert a denied operation into an authorized effect.\n\n### FR-023 — Provide declarative governance, change control, and audit\n\nMonad MUST support declarative quality/autonomy/compliance policies, formal governed resources, Definition-of-Ready and Definition-of-Done gates, change submission/review/approval/rollback, and a complete tamper-evident audit trail linking humans, agents, decisions, execution envelopes, capability/policy decisions, operations/effects, executions, evidence, verification, and resulting artifacts.\n\n### FR-024 — Provide operational health and execution observability\n\nMonad MUST expose knowledge-graph health, stale/zombie/decaying relationships, agent execution history, bound Execution Envelope identity, capability/policy decisions, mediated operation/effect history, checkpoints/escalations, input context, output diff, verification results, duration, token/cost data where available, and OpenTelemetry-compatible logs/metrics/traces.\n\n### FR-025 — Support privacy-governed hosted analytics\n\nWhere a hosted/public surface is enabled, Monad MAY provide opt-in visitor/session analytics including traffic source, coarse geography, device class, and usage behavior. Analytics MUST be separable from the local core and governed by privacy/data-retention policy.\n\n### FR-026 — Support deployable shared experiences\n\nApproved hosted surfaces MUST support automated deployment, shareable endpoints, custom domains, access controls, and optional gallery/registry publication without making hosting mandatory for core operation.\n\n### FR-027 — Clone and restore complete workspace state\n\nMonad MUST support provenance-preserving cloning/templates of a complete governed workspace configuration and one-step restoration of prior versioned states where the underlying canonical source permits it.\n\n### FR-028 — Support enterprise deployment modes\n\nMonad MUST support a path to air-gapped/no-exfiltration operation, on-premises deployment, and optional AWS/GCP/Azure deployment without making any cloud provider mandatory.\n\n### FR-029 — Provide reproducible environment profiles\n\nMonad MUST support container and Nix-based environment profiles where required to reproduce builds, validation, agent execution, and release evidence. Governed execution MUST be able to bind or reference the applicable environment identity in its Execution Envelope and evidence when reproducibility policy requires it.\n\n### FR-030 — Manage governed files and media\n\nMonad MUST support content-addressed upload/storage/reference of documents and media needed by engineering workflows, with provenance, classification, retention, access policy, and explicit controls over AI processing.\n\n### FR-031 — Provide MCP and IDE integration surfaces\n\nMonad MUST provide an MCP server and an LSP/IDE integration path so external clients can query, navigate, validate, explain, and request bounded context without redefining semantic authority.\n\n### FR-032 — Provide an extensible plugin ecosystem\n\nMonad MUST establish versioned plugin SDK, registry, and curated pack contracts. Plugins remain explicit capabilities with provenance, compatibility, permission, and signature policy.\n\n### FR-033 — Support pluggable graph/vector storage\n\nThe architecture MUST permit local-first defaults plus versioned adapters for graph/vector backends such as Neo4j, Neptune, JanusGraph, pgvector, Pinecone, and Weaviate when scale or deployment requirements justify them.\n\n### FR-034 — Support multi-vector memory and semantic/result-aware caching\n\nMonad MUST be able to represent multiple vector spaces for code, data, and business/engineering semantics and cache embeddings/completions/results with explicit tenant/workspace isolation, provenance, invalidation, and privacy boundaries.\n\n### FR-035 — Support optional external runtime compatibility profiles\n\nThe adapter architecture MUST permit optional compatibility profiles for external bytecode/runtime ecosystems. An EVM bytecode-compatibility profile MAY be implemented as an isolated adapter, but it MUST NOT contaminate or redefine Monad core semantics.\n\n### FR-036 — Support deterministic parallel execution and scale benchmarks\n\nMonad MUST support dependency/conflict-aware parallel execution of independent internal work and define benchmark profiles for throughput and state finalization. A long-range benchmark target is at least 10,000 lightweight scheduler/graph operations per second on declared reference hardware, and eligible local control-state transitions SHOULD finalize within 400 ms p95 once their inputs are available. External tool/network latency is excluded from these internal targets.\n\n### FR-037 — Compile governed Execution Envelopes\n\nBefore a governed run begins, Monad MUST compile the bounded work intent and applicable canonical engineering knowledge into a versioned, immutable, content-addressed Execution Envelope that identifies the governing state, actor/executor, authority, capabilities/prohibitions, tools/environment constraints, acceptance criteria, verification obligations, approval/escalation rules, evidence obligations, and applicable resource limits.\n\n**Acceptance:** equivalent governed inputs produce an equivalent canonical envelope identity; a material change to governing authority, policy, constraints, acceptance, or other envelope-defining input changes the envelope identity; a bound envelope cannot be silently mutated in place.\n\n### FR-038 — Mediate governed execution through a fail-closed harness\n\nAny consequential agent, automation, or tool effect that claims Monad-governed execution MUST be requested through the Governed Execution Harness or a semantically conforming boundary that evaluates the bound Execution Envelope, current policy/authority state, and explicit capabilities before allowing the effect.\n\n**Acceptance:** missing, stale, ambiguous, denied, expired, or incompatible authority/capability state cannot be interpreted as permission; denied operations produce attributable diagnostics/evidence and no governed effect; successful effects remain attributable to the requesting run and operation.\n\n### FR-039 — Support replaceable agent harnesses through a stable adapter contract\n\nMonad MUST provide a versioned agent/executor harness adapter contract that permits materially different model-driven, scripted, or human-driven executors to consume the same governed execution semantics without becoming authoritative for policy, capability grants, evidence validity, verification, or EOS lifecycle state.\n\n**Acceptance:** adapter compatibility is negotiated before a run is bound; an adapter unable to represent a mandatory envelope obligation fails explicitly rather than weakening governance; switching compatible adapters does not require changing canonical Monad authority semantics.\n\n### FR-040 — Verify completion independently of executor claims\n\nExecutor-reported success or completion MUST be treated as a candidate terminal request, not authoritative completion. Monad MUST evaluate the bound acceptance criteria, verification obligations, required evidence, and approval gates before a governed run can become verified/complete or drive an authoritative EOS completion transition.\n\n**Acceptance:** an executor cannot mark governed work complete solely by self-report; failed or missing verification prevents authoritative completion; verification results identify the obligations and evidence evaluated.\n\n### FR-041 — Recover execution without losing governing identity\n\nMonad MUST support bounded checkpoint, cancellation, resume/recovery, and governing-state drift handling for long-running or interruptible governed execution. Recovery MUST preserve or explicitly replace the bound Execution Envelope and MUST NOT silently resume under materially changed authority, policy, constraints, or acceptance obligations.\n\n**Acceptance:** resumable state identifies the run, envelope, adapter/executor compatibility state where required, and relevant evidence; material governing drift causes suspension/recompilation, escalation, cancellation, or another explicit governed outcome rather than silent continuation.\n\n### FR-042 — Evaluate harness and model combinations under governed conformance\n\nMonad MUST support a verification/evaluation capability that can execute equivalent governed task fixtures against different compatible agent-harness/model combinations and measure requirement satisfaction, policy compliance, unauthorized-operation attempts, evidence/provenance completeness, verification outcome, reproducibility characteristics, cost/latency where available, and human intervention.\n\n**Acceptance:** evaluation uses versioned fixtures and governed envelopes; results preserve the tested adapter/model/configuration identity; model or harness ranking cannot override canonical authority and does not itself grant production execution rights.\n\n## Quality requirements\n\n### QR-001 — Determinism\n\nOrdering, identity, canonical serialization, Execution Envelope compilation, diagnostics, policy/capability decisions, and reproducible execution records must not depend on filesystem enumeration order, wall-clock time, randomized IDs, or ungoverned LLM output where deterministic semantics are required.\n\n### QR-002 — Performance\n\nReference budgets for startup, parse/graph build, query latency, context generation, execution scheduling, state finalization, and memory must be measured on declared reference profiles; regressions above approved thresholds fail the applicable performance gate.\n\n### QR-003 — Security\n\nThe system follows least privilege/context, defends against path traversal/symlink and untrusted-input hazards, avoids executing repository content during inspection unless explicitly authorized, produces no secret-bearing diagnostics/context by default, and fails closed when a consequential governed effect lacks sufficient authority, policy, or capability evidence.\n\n### QR-004 — Reliability\n\nPartial/corrupt caches or generated state must be detectable and recoverable by rebuilding from canonical inputs. Remote calls and agent orchestration use bounded retries, exponential backoff where safe, idempotency semantics, checkpoints where appropriate, and circuit breakers to prevent cascading failure. Recovery must not silently change governing execution semantics.\n\n### QR-005 — Compatibility\n\nStable KIR/configuration/CLI/plugin/registry/MCP/LSP/adapter surfaces MUST use explicit versioning and compatibility policies before external stability is promised.\n\n### QR-006 — Operability\n\nDoctor/diagnostic paths must distinguish configuration/toolchain/environment, semantic-repository, provider, integration, policy, security, and deployment failures.\n\n### QR-007 — Maintainability\n\nCompiler/graph/query/context/policy/execution/observation/integration concerns have explicit boundaries and conformance fixtures so implementations can evolve without changing semantics accidentally. Governed execution semantics must remain separable from replaceable model reasoning, prompting strategy, and agent-harness internals.\n\n### QR-008 — Progressive trust\n\nAgent trust is earned from evidence and can be demoted. No agent begins with hard-mandatory or unrestricted authority.\n\n### QR-009 — Cryptographic agility\n\nAttestation and identity mechanisms must permit algorithm/version rotation, post-quantum migration, multi-party policies, and revocation without rewriting semantic history.\n\n### QR-010 — Auditability\n\nConsequential human/agent actions, decisions, state transitions, Execution Envelopes, capability/policy evaluations, operations/effects, checkpoints/escalations, attestations, evidence, and verification results must be reconstructable from durable evidence and tamper-evident logs without requiring private model chain-of-thought.\n\n### QR-011 — Prompt and secret safety\n\nUntrusted instructions must not silently expand capability. Secret material must be minimized, detected/masked where feasible, and excluded from shared caches and agent context unless explicitly authorized.\n\n### QR-012 — Observability\n\nOperational components must expose structured logs, metrics, and traces through OpenTelemetry-compatible boundaries where applicable, with correlation to Work Packets/executions/evidence.\n\n### QR-013 — Portability\n\nThe local core remains usable offline. Optional deployment surfaces support major developer platforms, containers, Nix, air-gapped/on-prem operation, and multiple clouds through explicit compatibility profiles.\n\n### QR-014 — Provider and harness independence\n\nNo single AI provider, model family, agent harness, hosted graph database, cloud vendor, or automation vendor is required for canonical core operation or authoritative governed-execution semantics.\n\n### QR-015 — High-throughput scalability\n\nParallel internal execution, graph operations, caching, and observation paths must scale by measured evidence. The 10,000-operations/second target in FR-036 is a stretch benchmark, not permission to weaken determinism, safety, or external-tool authority.\n\n### QR-016 — Local state finalization\n\nEligible local governed state transitions should meet the 400 ms p95 target from FR-036 on declared reference profiles; slower transitions must remain correct, observable, and explicitly reported rather than falsely finalized.\n\n### QR-017 — Resilience\n\nExternal providers/integrations use bounded retry, exponential backoff, circuit breakers, timeout/cancellation, and failure isolation appropriate to idempotency and side-effect risk.\n\n### QR-018 — Modular-first evolution\n\nMonad modularizes stable contracts before repository/service splitting. Ecosystem repositories and distributed services are introduced only when ownership, deployment, scaling, or compatibility evidence justifies them.\n\n### QR-019 — Privacy and tenant isolation\n\nHosted analytics, vector memory, caches, files, integrations, and agent records must maintain explicit workspace/tenant boundaries, retention rules, and data-classification policy.\n\n### QR-020 — Accessibility of evidence\n\nDashboards, scores, automation, and AI summaries cannot become the sole source of truth; users must be able to reach the underlying governed evidence and explanations.\n\n### QR-021 — Fail-closed execution governance\n\nGoverned execution must deny, suspend, or explicitly escalate when mandatory authority, policy, capability, compatibility, approval, or governing-state validity cannot be established. Absence or ambiguity must never be treated as implicit permission.\n\n### QR-022 — Cognition independence\n\nNormative Monad execution contracts must govern observable intent, authority, operations, effects, evidence, verification, and state transitions without depending on a particular private reasoning representation, prompting technique, planner/executor pattern, reflection loop, or chain-of-thought disclosure.\n\n### QR-023 — Governed execution reproducibility\n\nGiven equivalent canonical governed inputs and declared deterministic configuration, Monad must reproduce equivalent Execution Envelope identity and governance decisions. Nondeterministic executor/model outputs must be attributable and captured as results/evidence rather than falsely normalized into deterministic semantic truth.\n\n## Release gates\n\n### MVP Release 1\n\nMVP Release 1 remains governed by `MVP-RELEASE-1.md`. New post-MVP capabilities do not expand the MVP merely because they are now planned.\n\n### Post-MVP expansion\n\nA post-MVP capability may enter execution only when its Epic/Feature/Work Packet is refined, governing ADR/specification authority is explicit, threat/privacy implications are dispositioned, exact validation/evidence requirements exist, and parent lifecycle gates authorize execution.\n\nFR-037 through FR-042 and their associated quality requirements are post-MVP governed execution commitments. Their inclusion in this baseline does not authorize production activation of the Governed Execution Harness; activation remains subject to the same lifecycle, security, verification, and evidence gates.\n",
   "document_id": "doc:product%2Fproduct-requirements.md",
   "generation": {
     "deterministic": true,
@@ -43,6 +43,12 @@
     "FR-034",
     "FR-035",
     "FR-036",
+    "FR-037",
+    "FR-038",
+    "FR-039",
+    "FR-040",
+    "FR-041",
+    "FR-042",
     "P-256",
     "QR-001",
     "QR-002",
@@ -63,7 +69,10 @@
     "QR-017",
     "QR-018",
     "QR-019",
-    "QR-020"
+    "QR-020",
+    "QR-021",
+    "QR-022",
+    "QR-023"
   ],
   "links": [],
   "metadata": {
@@ -177,7 +186,7 @@
       "line_end": 55,
       "line_start": 50,
       "section_id": "fr-007-produce-bounded-agent-context",
-      "text": "### FR-007 — Produce bounded agent context\n\nGiven a valid authorized Work Packet, Monad MUST produce a context package containing applicable scope, governing artifacts, constraints/prohibitions, relevant graph neighborhood, acceptance criteria, and validation commands while excluding unrelated content by default.\n\n**Acceptance:** context-package membership is deterministic/explainable; excluded secret paths remain excluded; missing authority blocks an implementation-ready package.",
+      "text": "### FR-007 — Produce bounded agent context\n\nGiven a valid authorized Work Packet, Monad MUST produce a context package containing applicable scope, governing artifacts, constraints/prohibitions, relevant graph neighborhood, acceptance criteria, and validation commands while excluding unrelated content by default. When that context is used for governed execution, its authoritative inputs MUST be incorporated by identity into the bound Execution Envelope rather than treated as independent execution authority.\n\n**Acceptance:** context-package membership is deterministic/explainable; excluded secret paths remain excluded; missing authority blocks an implementation-ready package; material governing-context drift after a run is bound is detectable by the execution-governance boundary.",
       "title": "FR-007 — Produce bounded agent context"
     },
     {
@@ -207,10 +216,10 @@
         "FR-010"
       ],
       "level": 3,
-      "line_end": 67,
+      "line_end": 69,
       "line_start": 64,
       "section_id": "fr-010-integrate-without-replacing-native-tools",
-      "text": "### FR-010 — Integrate without replacing native tools\n\nWhere validation or execution delegates to a native tool, Monad MUST expose the invocation/evidence and preserve the native result rather than reinterpreting a failure as success.",
+      "text": "### FR-010 — Integrate without replacing native tools\n\nWhere validation or execution delegates to a native tool, Monad MUST expose the invocation/evidence and preserve the native result rather than reinterpreting a failure as success. A consequential native-tool invocation that claims governed execution MUST be requested through the applicable capability/policy-mediated execution boundary rather than bypassing it.\n\n**Acceptance:** denied or unavailable authority prevents the governed effect before invocation; native results remain attributable to the requesting run/operation and are preserved as evidence without semantic rewriting.",
       "title": "FR-010 — Integrate without replacing native tools"
     },
     {
@@ -218,8 +227,8 @@
         "FR-011"
       ],
       "level": 3,
-      "line_end": 73,
-      "line_start": 68,
+      "line_end": 75,
+      "line_start": 70,
       "section_id": "fr-011-measure-workspace-intelligence",
       "text": "### FR-011 — Measure workspace intelligence\n\nMonad MUST provide an explainable 0–100 workspace-intelligence score with explicit maturity tiers derived from governed evidence across memory/knowledge, agent intelligence, execution/automation, health, and governance dimensions.\n\n**Acceptance:** score inputs, weights, tier thresholds, historical changes, and missing evidence are inspectable and reproducible.",
       "title": "FR-011 — Measure workspace intelligence"
@@ -229,10 +238,10 @@
         "FR-012"
       ],
       "level": 3,
-      "line_end": 77,
-      "line_start": 74,
+      "line_end": 79,
+      "line_start": 76,
       "section_id": "fr-012-unify-memory-intelligence-and-execution",
-      "text": "### FR-012 — Unify memory, intelligence, and execution\n\nMonad MUST support a unified workspace-intelligence model in which governed memory informs bounded agent reasoning, reasoning may propose or trigger authorized execution, and execution produces provenance-rich memory/evidence.",
+      "text": "### FR-012 — Unify memory, intelligence, and execution\n\nMonad MUST support a unified workspace-intelligence model in which governed memory informs bounded agent reasoning, reasoning may propose or request execution through the governed execution boundary, and authorized execution produces provenance-rich memory/evidence.",
       "title": "FR-012 — Unify memory, intelligence, and execution"
     },
     {
@@ -240,8 +249,8 @@
         "FR-013"
       ],
       "level": 3,
-      "line_end": 81,
-      "line_start": 78,
+      "line_end": 83,
+      "line_start": 80,
       "section_id": "fr-013-maintain-anti-hallucination-engineering-memory",
       "text": "### FR-013 — Maintain anti-hallucination engineering memory\n\nAgent-facing memory MUST distinguish canonical fact, derived fact, proposal, uncertain inference, stale knowledge, and contradiction; multiple agents may contribute evidence but cannot silently promote probabilistic output to canonical truth.",
       "title": "FR-013 — Maintain anti-hallucination engineering memory"
@@ -251,10 +260,10 @@
         "FR-014"
       ],
       "level": 3,
-      "line_end": 85,
-      "line_start": 82,
+      "line_end": 87,
+      "line_start": 84,
       "section_id": "fr-014-orchestrate-dependency-aware-agent-work",
-      "text": "### FR-014 — Orchestrate dependency-aware agent work\n\nMonad MUST be able to dispatch bounded developer-agent work through an explicit dependency graph, with concurrency, cancellation, resource limits, authorization, and evidence capture. Autonomous orchestration MUST begin behind an explicit experimental capability gate.",
+      "text": "### FR-014 — Orchestrate dependency-aware agent work\n\nMonad MUST be able to dispatch bounded developer-agent work through an explicit dependency graph, with concurrency, cancellation, resource limits, authorization, and evidence capture. Each governed executable unit MUST be bound to explicit execution authority and capabilities; delegation or subagent creation MUST NOT broaden those grants. Autonomous orchestration MUST begin behind an explicit experimental capability gate.",
       "title": "FR-014 — Orchestrate dependency-aware agent work"
     },
     {
@@ -262,10 +271,10 @@
         "FR-015"
       ],
       "level": 3,
-      "line_end": 89,
-      "line_start": 86,
+      "line_end": 91,
+      "line_start": 88,
       "section_id": "fr-015-enforce-progressive-autonomy",
-      "text": "### FR-015 — Enforce progressive autonomy\n\nAgents MUST operate under named autonomy levels beginning with advisory behavior. Promotion to stronger execution authority MUST require objective reliability evidence, explicit policy, and reversible human approval. Operators remain decision stewards for unresolved authority, risk, architecture, and release decisions.",
+      "text": "### FR-015 — Enforce progressive autonomy\n\nAgents MUST operate under named autonomy levels beginning with advisory behavior. Promotion to stronger execution authority MUST require objective reliability evidence, explicit policy, and reversible human approval. Autonomy level MUST constrain the capabilities and approval/escalation rules applied at the governed execution boundary rather than acting as an executor-controlled preference. Operators remain decision stewards for unresolved authority, risk, architecture, and release decisions.",
       "title": "FR-015 — Enforce progressive autonomy"
     },
     {
@@ -273,10 +282,10 @@
         "FR-016"
       ],
       "level": 3,
-      "line_end": 93,
-      "line_start": 90,
+      "line_end": 95,
+      "line_start": 92,
       "section_id": "fr-016-support-cross-harness-review",
-      "text": "### FR-016 — Support cross-harness review\n\nMonad MUST support independent parallel review by multiple configured agent/model harnesses, preserve reviewer provenance, surface disagreement, and prevent reviewer consensus from overriding canonical human/governance authority.",
+      "text": "### FR-016 — Support cross-harness review\n\nMonad MUST support independent parallel review by multiple configured agent/model harnesses, preserve reviewer provenance, surface disagreement, and prevent reviewer consensus or any individual executor's self-report from overriding canonical human/governance authority or verification-controlled completion.",
       "title": "FR-016 — Support cross-harness review"
     },
     {
@@ -284,10 +293,10 @@
         "FR-017"
       ],
       "level": 3,
-      "line_end": 97,
-      "line_start": 94,
+      "line_end": 99,
+      "line_start": 96,
       "section_id": "fr-017-route-ai-work-by-capability-cost-and-policy",
-      "text": "### FR-017 — Route AI work by capability, cost, and policy\n\nMonad MUST support multiple AI providers and local models through a provider-neutral contract and route work using declared capability, complexity, privacy, cost, latency, and policy constraints.",
+      "text": "### FR-017 — Route AI work by capability, cost, and policy\n\nMonad MUST support multiple AI providers and local models through a provider-neutral contract and route work using declared capability, complexity, privacy, cost, latency, and policy constraints. Routing MAY select a model, provider, or agent harness but MUST NOT modify the governing Execution Envelope or broaden granted authority as a side effect of selection.",
       "title": "FR-017 — Route AI work by capability, cost, and policy"
     },
     {
@@ -295,8 +304,8 @@
         "FR-018"
       ],
       "level": 3,
-      "line_end": 101,
-      "line_start": 98,
+      "line_end": 103,
+      "line_start": 100,
       "section_id": "fr-018-provide-a-governed-automation-and-integration-layer",
       "text": "### FR-018 — Provide a governed automation and integration layer\n\nMonad MUST provide a resource model, adapter contract, and reactive workflow model for external systems. The ecosystem MUST be able to grow to a broad catalog of pre-built integrations without embedding third-party semantics into the core.",
       "title": "FR-018 — Provide a governed automation and integration layer"
@@ -306,8 +315,8 @@
         "FR-019"
       ],
       "level": 3,
-      "line_end": 105,
-      "line_start": 102,
+      "line_end": 107,
+      "line_start": 104,
       "section_id": "fr-019-automate-verified-pull-request-lifecycle-operations",
       "text": "### FR-019 — Automate verified pull-request lifecycle operations\n\nMonad MUST be able to create pull requests from verified completed work under explicit policy, isolated worktrees/branches, rebase-first integration rules where configured, and complete evidence linkage. Automatic PR creation MUST NOT imply automatic merge authority.",
       "title": "FR-019 — Automate verified pull-request lifecycle operations"
@@ -317,8 +326,8 @@
         "FR-020"
       ],
       "level": 3,
-      "line_end": 109,
-      "line_start": 106,
+      "line_end": 111,
+      "line_start": 108,
       "section_id": "fr-020-produce-signed-change-attestations",
       "text": "### FR-020 — Produce signed change attestations\n\nMonad MUST support DSSE-compatible signed attestations for governed changes and release evidence, including policy that can require valid attestations before protected-branch integration.",
       "title": "FR-020 — Produce signed change attestations"
@@ -329,8 +338,8 @@
         "P-256"
       ],
       "level": 3,
-      "line_end": 113,
-      "line_start": 110,
+      "line_end": 115,
+      "line_start": 112,
       "section_id": "fr-021-support-cryptographic-agility-and-strong-identity",
       "text": "### FR-021 — Support cryptographic agility and strong identity\n\nMonad MUST support versioned cryptographic profiles capable of Ed25519, P-256, secp256k1, and post-quantum ML-DSA where appropriate; multi-party approval/signature policies; key rotation; and WebAuthn/passkey-backed identity for hosted or privileged control surfaces. No single algorithm becomes permanent semantic authority.",
       "title": "FR-021 — Support cryptographic agility and strong identity"
@@ -340,10 +349,10 @@
         "FR-022"
       ],
       "level": 3,
-      "line_end": 117,
-      "line_start": 114,
+      "line_end": 119,
+      "line_start": 116,
       "section_id": "fr-022-defend-agent-and-prompt-boundaries",
-      "text": "### FR-022 — Defend agent and prompt boundaries\n\nMonad MUST detect or contain prompt-injection attempts, mask secrets in logs/context/output, sandbox agent capabilities, enforce least authority, and prohibit unapproved tool/resource escalation.",
+      "text": "### FR-022 — Defend agent and prompt boundaries\n\nMonad MUST detect or contain prompt-injection attempts, mask secrets in logs/context/output, sandbox agent capabilities, enforce least authority, and prohibit unapproved tool/resource escalation. Untrusted executor input or private reasoning MUST NOT be able to expand an Execution Envelope, create capabilities, suppress mandatory policy checks, or convert a denied operation into an authorized effect.",
       "title": "FR-022 — Defend agent and prompt boundaries"
     },
     {
@@ -351,10 +360,10 @@
         "FR-023"
       ],
       "level": 3,
-      "line_end": 121,
-      "line_start": 118,
+      "line_end": 123,
+      "line_start": 120,
       "section_id": "fr-023-provide-declarative-governance-change-control-and-audit",
-      "text": "### FR-023 — Provide declarative governance, change control, and audit\n\nMonad MUST support declarative quality/autonomy/compliance policies, formal governed resources, Definition-of-Ready and Definition-of-Done gates, change submission/review/approval/rollback, and a complete tamper-evident audit trail linking humans, agents, decisions, executions, evidence, and resulting artifacts.",
+      "text": "### FR-023 — Provide declarative governance, change control, and audit\n\nMonad MUST support declarative quality/autonomy/compliance policies, formal governed resources, Definition-of-Ready and Definition-of-Done gates, change submission/review/approval/rollback, and a complete tamper-evident audit trail linking humans, agents, decisions, execution envelopes, capability/policy decisions, operations/effects, executions, evidence, verification, and resulting artifacts.",
       "title": "FR-023 — Provide declarative governance, change control, and audit"
     },
     {
@@ -362,10 +371,10 @@
         "FR-024"
       ],
       "level": 3,
-      "line_end": 125,
-      "line_start": 122,
+      "line_end": 127,
+      "line_start": 124,
       "section_id": "fr-024-provide-operational-health-and-execution-observability",
-      "text": "### FR-024 — Provide operational health and execution observability\n\nMonad MUST expose knowledge-graph health, stale/zombie/decaying relationships, agent execution history, input context, output diff, verification results, duration, token/cost data where available, and OpenTelemetry-compatible logs/metrics/traces.",
+      "text": "### FR-024 — Provide operational health and execution observability\n\nMonad MUST expose knowledge-graph health, stale/zombie/decaying relationships, agent execution history, bound Execution Envelope identity, capability/policy decisions, mediated operation/effect history, checkpoints/escalations, input context, output diff, verification results, duration, token/cost data where available, and OpenTelemetry-compatible logs/metrics/traces.",
       "title": "FR-024 — Provide operational health and execution observability"
     },
     {
@@ -373,8 +382,8 @@
         "FR-025"
       ],
       "level": 3,
-      "line_end": 129,
-      "line_start": 126,
+      "line_end": 131,
+      "line_start": 128,
       "section_id": "fr-025-support-privacy-governed-hosted-analytics",
       "text": "### FR-025 — Support privacy-governed hosted analytics\n\nWhere a hosted/public surface is enabled, Monad MAY provide opt-in visitor/session analytics including traffic source, coarse geography, device class, and usage behavior. Analytics MUST be separable from the local core and governed by privacy/data-retention policy.",
       "title": "FR-025 — Support privacy-governed hosted analytics"
@@ -384,8 +393,8 @@
         "FR-026"
       ],
       "level": 3,
-      "line_end": 133,
-      "line_start": 130,
+      "line_end": 135,
+      "line_start": 132,
       "section_id": "fr-026-support-deployable-shared-experiences",
       "text": "### FR-026 — Support deployable shared experiences\n\nApproved hosted surfaces MUST support automated deployment, shareable endpoints, custom domains, access controls, and optional gallery/registry publication without making hosting mandatory for core operation.",
       "title": "FR-026 — Support deployable shared experiences"
@@ -395,8 +404,8 @@
         "FR-027"
       ],
       "level": 3,
-      "line_end": 137,
-      "line_start": 134,
+      "line_end": 139,
+      "line_start": 136,
       "section_id": "fr-027-clone-and-restore-complete-workspace-state",
       "text": "### FR-027 — Clone and restore complete workspace state\n\nMonad MUST support provenance-preserving cloning/templates of a complete governed workspace configuration and one-step restoration of prior versioned states where the underlying canonical source permits it.",
       "title": "FR-027 — Clone and restore complete workspace state"
@@ -406,8 +415,8 @@
         "FR-028"
       ],
       "level": 3,
-      "line_end": 141,
-      "line_start": 138,
+      "line_end": 143,
+      "line_start": 140,
       "section_id": "fr-028-support-enterprise-deployment-modes",
       "text": "### FR-028 — Support enterprise deployment modes\n\nMonad MUST support a path to air-gapped/no-exfiltration operation, on-premises deployment, and optional AWS/GCP/Azure deployment without making any cloud provider mandatory.",
       "title": "FR-028 — Support enterprise deployment modes"
@@ -417,10 +426,10 @@
         "FR-029"
       ],
       "level": 3,
-      "line_end": 145,
-      "line_start": 142,
+      "line_end": 147,
+      "line_start": 144,
       "section_id": "fr-029-provide-reproducible-environment-profiles",
-      "text": "### FR-029 — Provide reproducible environment profiles\n\nMonad MUST support container and Nix-based environment profiles where required to reproduce builds, validation, agent execution, and release evidence.",
+      "text": "### FR-029 — Provide reproducible environment profiles\n\nMonad MUST support container and Nix-based environment profiles where required to reproduce builds, validation, agent execution, and release evidence. Governed execution MUST be able to bind or reference the applicable environment identity in its Execution Envelope and evidence when reproducibility policy requires it.",
       "title": "FR-029 — Provide reproducible environment profiles"
     },
     {
@@ -428,8 +437,8 @@
         "FR-030"
       ],
       "level": 3,
-      "line_end": 149,
-      "line_start": 146,
+      "line_end": 151,
+      "line_start": 148,
       "section_id": "fr-030-manage-governed-files-and-media",
       "text": "### FR-030 — Manage governed files and media\n\nMonad MUST support content-addressed upload/storage/reference of documents and media needed by engineering workflows, with provenance, classification, retention, access policy, and explicit controls over AI processing.",
       "title": "FR-030 — Manage governed files and media"
@@ -439,8 +448,8 @@
         "FR-031"
       ],
       "level": 3,
-      "line_end": 153,
-      "line_start": 150,
+      "line_end": 155,
+      "line_start": 152,
       "section_id": "fr-031-provide-mcp-and-ide-integration-surfaces",
       "text": "### FR-031 — Provide MCP and IDE integration surfaces\n\nMonad MUST provide an MCP server and an LSP/IDE integration path so external clients can query, navigate, validate, explain, and request bounded context without redefining semantic authority.",
       "title": "FR-031 — Provide MCP and IDE integration surfaces"
@@ -450,8 +459,8 @@
         "FR-032"
       ],
       "level": 3,
-      "line_end": 157,
-      "line_start": 154,
+      "line_end": 159,
+      "line_start": 156,
       "section_id": "fr-032-provide-an-extensible-plugin-ecosystem",
       "text": "### FR-032 — Provide an extensible plugin ecosystem\n\nMonad MUST establish versioned plugin SDK, registry, and curated pack contracts. Plugins remain explicit capabilities with provenance, compatibility, permission, and signature policy.",
       "title": "FR-032 — Provide an extensible plugin ecosystem"
@@ -461,8 +470,8 @@
         "FR-033"
       ],
       "level": 3,
-      "line_end": 161,
-      "line_start": 158,
+      "line_end": 163,
+      "line_start": 160,
       "section_id": "fr-033-support-pluggable-graph-vector-storage",
       "text": "### FR-033 — Support pluggable graph/vector storage\n\nThe architecture MUST permit local-first defaults plus versioned adapters for graph/vector backends such as Neo4j, Neptune, JanusGraph, pgvector, Pinecone, and Weaviate when scale or deployment requirements justify them.",
       "title": "FR-033 — Support pluggable graph/vector storage"
@@ -472,8 +481,8 @@
         "FR-034"
       ],
       "level": 3,
-      "line_end": 165,
-      "line_start": 162,
+      "line_end": 167,
+      "line_start": 164,
       "section_id": "fr-034-support-multi-vector-memory-and-semantic-result-aware-caching",
       "text": "### FR-034 — Support multi-vector memory and semantic/result-aware caching\n\nMonad MUST be able to represent multiple vector spaces for code, data, and business/engineering semantics and cache embeddings/completions/results with explicit tenant/workspace isolation, provenance, invalidation, and privacy boundaries.",
       "title": "FR-034 — Support multi-vector memory and semantic/result-aware caching"
@@ -483,8 +492,8 @@
         "FR-035"
       ],
       "level": 3,
-      "line_end": 169,
-      "line_start": 166,
+      "line_end": 171,
+      "line_start": 168,
       "section_id": "fr-035-support-optional-external-runtime-compatibility-profiles",
       "text": "### FR-035 — Support optional external runtime compatibility profiles\n\nThe adapter architecture MUST permit optional compatibility profiles for external bytecode/runtime ecosystems. An EVM bytecode-compatibility profile MAY be implemented as an isolated adapter, but it MUST NOT contaminate or redefine Monad core semantics.",
       "title": "FR-035 — Support optional external runtime compatibility profiles"
@@ -494,17 +503,83 @@
         "FR-036"
       ],
       "level": 3,
-      "line_end": 173,
-      "line_start": 170,
+      "line_end": 175,
+      "line_start": 172,
       "section_id": "fr-036-support-deterministic-parallel-execution-and-scale-benchmarks",
       "text": "### FR-036 — Support deterministic parallel execution and scale benchmarks\n\nMonad MUST support dependency/conflict-aware parallel execution of independent internal work and define benchmark profiles for throughput and state finalization. A long-range benchmark target is at least 10,000 lightweight scheduler/graph operations per second on declared reference hardware, and eligible local control-state transitions SHOULD finalize within 400 ms p95 once their inputs are available. External tool/network latency is excluded from these internal targets.",
       "title": "FR-036 — Support deterministic parallel execution and scale benchmarks"
     },
     {
+      "identifiers": [
+        "FR-037"
+      ],
+      "level": 3,
+      "line_end": 181,
+      "line_start": 176,
+      "section_id": "fr-037-compile-governed-execution-envelopes",
+      "text": "### FR-037 — Compile governed Execution Envelopes\n\nBefore a governed run begins, Monad MUST compile the bounded work intent and applicable canonical engineering knowledge into a versioned, immutable, content-addressed Execution Envelope that identifies the governing state, actor/executor, authority, capabilities/prohibitions, tools/environment constraints, acceptance criteria, verification obligations, approval/escalation rules, evidence obligations, and applicable resource limits.\n\n**Acceptance:** equivalent governed inputs produce an equivalent canonical envelope identity; a material change to governing authority, policy, constraints, acceptance, or other envelope-defining input changes the envelope identity; a bound envelope cannot be silently mutated in place.",
+      "title": "FR-037 — Compile governed Execution Envelopes"
+    },
+    {
+      "identifiers": [
+        "FR-038"
+      ],
+      "level": 3,
+      "line_end": 187,
+      "line_start": 182,
+      "section_id": "fr-038-mediate-governed-execution-through-a-fail-closed-harness",
+      "text": "### FR-038 — Mediate governed execution through a fail-closed harness\n\nAny consequential agent, automation, or tool effect that claims Monad-governed execution MUST be requested through the Governed Execution Harness or a semantically conforming boundary that evaluates the bound Execution Envelope, current policy/authority state, and explicit capabilities before allowing the effect.\n\n**Acceptance:** missing, stale, ambiguous, denied, expired, or incompatible authority/capability state cannot be interpreted as permission; denied operations produce attributable diagnostics/evidence and no governed effect; successful effects remain attributable to the requesting run and operation.",
+      "title": "FR-038 — Mediate governed execution through a fail-closed harness"
+    },
+    {
+      "identifiers": [
+        "FR-039"
+      ],
+      "level": 3,
+      "line_end": 193,
+      "line_start": 188,
+      "section_id": "fr-039-support-replaceable-agent-harnesses-through-a-stable-adapter-contract",
+      "text": "### FR-039 — Support replaceable agent harnesses through a stable adapter contract\n\nMonad MUST provide a versioned agent/executor harness adapter contract that permits materially different model-driven, scripted, or human-driven executors to consume the same governed execution semantics without becoming authoritative for policy, capability grants, evidence validity, verification, or EOS lifecycle state.\n\n**Acceptance:** adapter compatibility is negotiated before a run is bound; an adapter unable to represent a mandatory envelope obligation fails explicitly rather than weakening governance; switching compatible adapters does not require changing canonical Monad authority semantics.",
+      "title": "FR-039 — Support replaceable agent harnesses through a stable adapter contract"
+    },
+    {
+      "identifiers": [
+        "FR-040"
+      ],
+      "level": 3,
+      "line_end": 199,
+      "line_start": 194,
+      "section_id": "fr-040-verify-completion-independently-of-executor-claims",
+      "text": "### FR-040 — Verify completion independently of executor claims\n\nExecutor-reported success or completion MUST be treated as a candidate terminal request, not authoritative completion. Monad MUST evaluate the bound acceptance criteria, verification obligations, required evidence, and approval gates before a governed run can become verified/complete or drive an authoritative EOS completion transition.\n\n**Acceptance:** an executor cannot mark governed work complete solely by self-report; failed or missing verification prevents authoritative completion; verification results identify the obligations and evidence evaluated.",
+      "title": "FR-040 — Verify completion independently of executor claims"
+    },
+    {
+      "identifiers": [
+        "FR-041"
+      ],
+      "level": 3,
+      "line_end": 205,
+      "line_start": 200,
+      "section_id": "fr-041-recover-execution-without-losing-governing-identity",
+      "text": "### FR-041 — Recover execution without losing governing identity\n\nMonad MUST support bounded checkpoint, cancellation, resume/recovery, and governing-state drift handling for long-running or interruptible governed execution. Recovery MUST preserve or explicitly replace the bound Execution Envelope and MUST NOT silently resume under materially changed authority, policy, constraints, or acceptance obligations.\n\n**Acceptance:** resumable state identifies the run, envelope, adapter/executor compatibility state where required, and relevant evidence; material governing drift causes suspension/recompilation, escalation, cancellation, or another explicit governed outcome rather than silent continuation.",
+      "title": "FR-041 — Recover execution without losing governing identity"
+    },
+    {
+      "identifiers": [
+        "FR-042"
+      ],
+      "level": 3,
+      "line_end": 211,
+      "line_start": 206,
+      "section_id": "fr-042-evaluate-harness-and-model-combinations-under-governed-conformance",
+      "text": "### FR-042 — Evaluate harness and model combinations under governed conformance\n\nMonad MUST support a verification/evaluation capability that can execute equivalent governed task fixtures against different compatible agent-harness/model combinations and measure requirement satisfaction, policy compliance, unauthorized-operation attempts, evidence/provenance completeness, verification outcome, reproducibility characteristics, cost/latency where available, and human intervention.\n\n**Acceptance:** evaluation uses versioned fixtures and governed envelopes; results preserve the tested adapter/model/configuration identity; model or harness ranking cannot override canonical authority and does not itself grant production execution rights.",
+      "title": "FR-042 — Evaluate harness and model combinations under governed conformance"
+    },
+    {
       "identifiers": [],
       "level": 2,
-      "line_end": 175,
-      "line_start": 174,
+      "line_end": 213,
+      "line_start": 212,
       "section_id": "quality-requirements",
       "text": "## Quality requirements",
       "title": "Quality requirements"
@@ -514,10 +589,10 @@
         "QR-001"
       ],
       "level": 3,
-      "line_end": 179,
-      "line_start": 176,
+      "line_end": 217,
+      "line_start": 214,
       "section_id": "qr-001-determinism",
-      "text": "### QR-001 — Determinism\n\nOrdering, identity, canonical serialization, diagnostics, policy decisions, and reproducible execution records must not depend on filesystem enumeration order, wall-clock time, randomized IDs, or ungoverned LLM output.",
+      "text": "### QR-001 — Determinism\n\nOrdering, identity, canonical serialization, Execution Envelope compilation, diagnostics, policy/capability decisions, and reproducible execution records must not depend on filesystem enumeration order, wall-clock time, randomized IDs, or ungoverned LLM output where deterministic semantics are required.",
       "title": "QR-001 — Determinism"
     },
     {
@@ -525,8 +600,8 @@
         "QR-002"
       ],
       "level": 3,
-      "line_end": 183,
-      "line_start": 180,
+      "line_end": 221,
+      "line_start": 218,
       "section_id": "qr-002-performance",
       "text": "### QR-002 — Performance\n\nReference budgets for startup, parse/graph build, query latency, context generation, execution scheduling, state finalization, and memory must be measured on declared reference profiles; regressions above approved thresholds fail the applicable performance gate.",
       "title": "QR-002 — Performance"
@@ -536,10 +611,10 @@
         "QR-003"
       ],
       "level": 3,
-      "line_end": 187,
-      "line_start": 184,
+      "line_end": 225,
+      "line_start": 222,
       "section_id": "qr-003-security",
-      "text": "### QR-003 — Security\n\nThe system follows least privilege/context, defends against path traversal/symlink and untrusted-input hazards, avoids executing repository content during inspection unless explicitly authorized, and produces no secret-bearing diagnostics/context by default.",
+      "text": "### QR-003 — Security\n\nThe system follows least privilege/context, defends against path traversal/symlink and untrusted-input hazards, avoids executing repository content during inspection unless explicitly authorized, produces no secret-bearing diagnostics/context by default, and fails closed when a consequential governed effect lacks sufficient authority, policy, or capability evidence.",
       "title": "QR-003 — Security"
     },
     {
@@ -547,10 +622,10 @@
         "QR-004"
       ],
       "level": 3,
-      "line_end": 191,
-      "line_start": 188,
+      "line_end": 229,
+      "line_start": 226,
       "section_id": "qr-004-reliability",
-      "text": "### QR-004 — Reliability\n\nPartial/corrupt caches or generated state must be detectable and recoverable by rebuilding from canonical inputs. Remote calls and agent orchestration use bounded retries, exponential backoff where safe, idempotency semantics, and circuit breakers to prevent cascading failure.",
+      "text": "### QR-004 — Reliability\n\nPartial/corrupt caches or generated state must be detectable and recoverable by rebuilding from canonical inputs. Remote calls and agent orchestration use bounded retries, exponential backoff where safe, idempotency semantics, checkpoints where appropriate, and circuit breakers to prevent cascading failure. Recovery must not silently change governing execution semantics.",
       "title": "QR-004 — Reliability"
     },
     {
@@ -558,8 +633,8 @@
         "QR-005"
       ],
       "level": 3,
-      "line_end": 195,
-      "line_start": 192,
+      "line_end": 233,
+      "line_start": 230,
       "section_id": "qr-005-compatibility",
       "text": "### QR-005 — Compatibility\n\nStable KIR/configuration/CLI/plugin/registry/MCP/LSP/adapter surfaces MUST use explicit versioning and compatibility policies before external stability is promised.",
       "title": "QR-005 — Compatibility"
@@ -569,8 +644,8 @@
         "QR-006"
       ],
       "level": 3,
-      "line_end": 199,
-      "line_start": 196,
+      "line_end": 237,
+      "line_start": 234,
       "section_id": "qr-006-operability",
       "text": "### QR-006 — Operability\n\nDoctor/diagnostic paths must distinguish configuration/toolchain/environment, semantic-repository, provider, integration, policy, security, and deployment failures.",
       "title": "QR-006 — Operability"
@@ -580,10 +655,10 @@
         "QR-007"
       ],
       "level": 3,
-      "line_end": 203,
-      "line_start": 200,
+      "line_end": 241,
+      "line_start": 238,
       "section_id": "qr-007-maintainability",
-      "text": "### QR-007 — Maintainability\n\nCompiler/graph/query/context/policy/execution/observation/integration concerns have explicit boundaries and conformance fixtures so implementations can evolve without changing semantics accidentally.",
+      "text": "### QR-007 — Maintainability\n\nCompiler/graph/query/context/policy/execution/observation/integration concerns have explicit boundaries and conformance fixtures so implementations can evolve without changing semantics accidentally. Governed execution semantics must remain separable from replaceable model reasoning, prompting strategy, and agent-harness internals.",
       "title": "QR-007 — Maintainability"
     },
     {
@@ -591,8 +666,8 @@
         "QR-008"
       ],
       "level": 3,
-      "line_end": 207,
-      "line_start": 204,
+      "line_end": 245,
+      "line_start": 242,
       "section_id": "qr-008-progressive-trust",
       "text": "### QR-008 — Progressive trust\n\nAgent trust is earned from evidence and can be demoted. No agent begins with hard-mandatory or unrestricted authority.",
       "title": "QR-008 — Progressive trust"
@@ -602,8 +677,8 @@
         "QR-009"
       ],
       "level": 3,
-      "line_end": 211,
-      "line_start": 208,
+      "line_end": 249,
+      "line_start": 246,
       "section_id": "qr-009-cryptographic-agility",
       "text": "### QR-009 — Cryptographic agility\n\nAttestation and identity mechanisms must permit algorithm/version rotation, post-quantum migration, multi-party policies, and revocation without rewriting semantic history.",
       "title": "QR-009 — Cryptographic agility"
@@ -613,10 +688,10 @@
         "QR-010"
       ],
       "level": 3,
-      "line_end": 215,
-      "line_start": 212,
+      "line_end": 253,
+      "line_start": 250,
       "section_id": "qr-010-auditability",
-      "text": "### QR-010 — Auditability\n\nConsequential human/agent actions, decisions, state transitions, policy evaluations, attestations, and execution results must be reconstructable from durable evidence and tamper-evident logs.",
+      "text": "### QR-010 — Auditability\n\nConsequential human/agent actions, decisions, state transitions, Execution Envelopes, capability/policy evaluations, operations/effects, checkpoints/escalations, attestations, evidence, and verification results must be reconstructable from durable evidence and tamper-evident logs without requiring private model chain-of-thought.",
       "title": "QR-010 — Auditability"
     },
     {
@@ -624,8 +699,8 @@
         "QR-011"
       ],
       "level": 3,
-      "line_end": 219,
-      "line_start": 216,
+      "line_end": 257,
+      "line_start": 254,
       "section_id": "qr-011-prompt-and-secret-safety",
       "text": "### QR-011 — Prompt and secret safety\n\nUntrusted instructions must not silently expand capability. Secret material must be minimized, detected/masked where feasible, and excluded from shared caches and agent context unless explicitly authorized.",
       "title": "QR-011 — Prompt and secret safety"
@@ -635,8 +710,8 @@
         "QR-012"
       ],
       "level": 3,
-      "line_end": 223,
-      "line_start": 220,
+      "line_end": 261,
+      "line_start": 258,
       "section_id": "qr-012-observability",
       "text": "### QR-012 — Observability\n\nOperational components must expose structured logs, metrics, and traces through OpenTelemetry-compatible boundaries where applicable, with correlation to Work Packets/executions/evidence.",
       "title": "QR-012 — Observability"
@@ -646,8 +721,8 @@
         "QR-013"
       ],
       "level": 3,
-      "line_end": 227,
-      "line_start": 224,
+      "line_end": 265,
+      "line_start": 262,
       "section_id": "qr-013-portability",
       "text": "### QR-013 — Portability\n\nThe local core remains usable offline. Optional deployment surfaces support major developer platforms, containers, Nix, air-gapped/on-prem operation, and multiple clouds through explicit compatibility profiles.",
       "title": "QR-013 — Portability"
@@ -657,11 +732,11 @@
         "QR-014"
       ],
       "level": 3,
-      "line_end": 231,
-      "line_start": 228,
-      "section_id": "qr-014-provider-independence",
-      "text": "### QR-014 — Provider independence\n\nNo single AI provider, hosted graph database, cloud vendor, or automation vendor is required for canonical core operation.",
-      "title": "QR-014 — Provider independence"
+      "line_end": 269,
+      "line_start": 266,
+      "section_id": "qr-014-provider-and-harness-independence",
+      "text": "### QR-014 — Provider and harness independence\n\nNo single AI provider, model family, agent harness, hosted graph database, cloud vendor, or automation vendor is required for canonical core operation or authoritative governed-execution semantics.",
+      "title": "QR-014 — Provider and harness independence"
     },
     {
       "identifiers": [
@@ -669,8 +744,8 @@
         "QR-015"
       ],
       "level": 3,
-      "line_end": 235,
-      "line_start": 232,
+      "line_end": 273,
+      "line_start": 270,
       "section_id": "qr-015-high-throughput-scalability",
       "text": "### QR-015 — High-throughput scalability\n\nParallel internal execution, graph operations, caching, and observation paths must scale by measured evidence. The 10,000-operations/second target in FR-036 is a stretch benchmark, not permission to weaken determinism, safety, or external-tool authority.",
       "title": "QR-015 — High-throughput scalability"
@@ -681,8 +756,8 @@
         "QR-016"
       ],
       "level": 3,
-      "line_end": 239,
-      "line_start": 236,
+      "line_end": 277,
+      "line_start": 274,
       "section_id": "qr-016-local-state-finalization",
       "text": "### QR-016 — Local state finalization\n\nEligible local governed state transitions should meet the 400 ms p95 target from FR-036 on declared reference profiles; slower transitions must remain correct, observable, and explicitly reported rather than falsely finalized.",
       "title": "QR-016 — Local state finalization"
@@ -692,8 +767,8 @@
         "QR-017"
       ],
       "level": 3,
-      "line_end": 243,
-      "line_start": 240,
+      "line_end": 281,
+      "line_start": 278,
       "section_id": "qr-017-resilience",
       "text": "### QR-017 — Resilience\n\nExternal providers/integrations use bounded retry, exponential backoff, circuit breakers, timeout/cancellation, and failure isolation appropriate to idempotency and side-effect risk.",
       "title": "QR-017 — Resilience"
@@ -703,8 +778,8 @@
         "QR-018"
       ],
       "level": 3,
-      "line_end": 247,
-      "line_start": 244,
+      "line_end": 285,
+      "line_start": 282,
       "section_id": "qr-018-modular-first-evolution",
       "text": "### QR-018 — Modular-first evolution\n\nMonad modularizes stable contracts before repository/service splitting. Ecosystem repositories and distributed services are introduced only when ownership, deployment, scaling, or compatibility evidence justifies them.",
       "title": "QR-018 — Modular-first evolution"
@@ -714,8 +789,8 @@
         "QR-019"
       ],
       "level": 3,
-      "line_end": 251,
-      "line_start": 248,
+      "line_end": 289,
+      "line_start": 286,
       "section_id": "qr-019-privacy-and-tenant-isolation",
       "text": "### QR-019 — Privacy and tenant isolation\n\nHosted analytics, vector memory, caches, files, integrations, and agent records must maintain explicit workspace/tenant boundaries, retention rules, and data-classification policy.",
       "title": "QR-019 — Privacy and tenant isolation"
@@ -725,17 +800,50 @@
         "QR-020"
       ],
       "level": 3,
-      "line_end": 255,
-      "line_start": 252,
+      "line_end": 293,
+      "line_start": 290,
       "section_id": "qr-020-accessibility-of-evidence",
       "text": "### QR-020 — Accessibility of evidence\n\nDashboards, scores, automation, and AI summaries cannot become the sole source of truth; users must be able to reach the underlying governed evidence and explanations.",
       "title": "QR-020 — Accessibility of evidence"
     },
     {
+      "identifiers": [
+        "QR-021"
+      ],
+      "level": 3,
+      "line_end": 297,
+      "line_start": 294,
+      "section_id": "qr-021-fail-closed-execution-governance",
+      "text": "### QR-021 — Fail-closed execution governance\n\nGoverned execution must deny, suspend, or explicitly escalate when mandatory authority, policy, capability, compatibility, approval, or governing-state validity cannot be established. Absence or ambiguity must never be treated as implicit permission.",
+      "title": "QR-021 — Fail-closed execution governance"
+    },
+    {
+      "identifiers": [
+        "QR-022"
+      ],
+      "level": 3,
+      "line_end": 301,
+      "line_start": 298,
+      "section_id": "qr-022-cognition-independence",
+      "text": "### QR-022 — Cognition independence\n\nNormative Monad execution contracts must govern observable intent, authority, operations, effects, evidence, verification, and state transitions without depending on a particular private reasoning representation, prompting technique, planner/executor pattern, reflection loop, or chain-of-thought disclosure.",
+      "title": "QR-022 — Cognition independence"
+    },
+    {
+      "identifiers": [
+        "QR-023"
+      ],
+      "level": 3,
+      "line_end": 305,
+      "line_start": 302,
+      "section_id": "qr-023-governed-execution-reproducibility",
+      "text": "### QR-023 — Governed execution reproducibility\n\nGiven equivalent canonical governed inputs and declared deterministic configuration, Monad must reproduce equivalent Execution Envelope identity and governance decisions. Nondeterministic executor/model outputs must be attributable and captured as results/evidence rather than falsely normalized into deterministic semantic truth.",
+      "title": "QR-023 — Governed execution reproducibility"
+    },
+    {
       "identifiers": [],
       "level": 2,
-      "line_end": 257,
-      "line_start": 256,
+      "line_end": 307,
+      "line_start": 306,
       "section_id": "release-gates",
       "text": "## Release gates",
       "title": "Release gates"
@@ -743,29 +851,32 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 261,
-      "line_start": 258,
+      "line_end": 311,
+      "line_start": 308,
       "section_id": "mvp-release-1",
       "text": "### MVP Release 1\n\nMVP Release 1 remains governed by `MVP-RELEASE-1.md`. New post-MVP capabilities do not expand the MVP merely because they are now planned.",
       "title": "MVP Release 1"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "FR-037",
+        "FR-042"
+      ],
       "level": 3,
-      "line_end": 264,
-      "line_start": 262,
+      "line_end": 316,
+      "line_start": 312,
       "section_id": "post-mvp-expansion",
-      "text": "### Post-MVP expansion\n\nA post-MVP capability may enter execution only when its Epic/Feature/Work Packet is refined, governing ADR/specification authority is explicit, threat/privacy implications are dispositioned, exact validation/evidence requirements exist, and parent lifecycle gates authorize execution.",
+      "text": "### Post-MVP expansion\n\nA post-MVP capability may enter execution only when its Epic/Feature/Work Packet is refined, governing ADR/specification authority is explicit, threat/privacy implications are dispositioned, exact validation/evidence requirements exist, and parent lifecycle gates authorize execution.\n\nFR-037 through FR-042 and their associated quality requirements are post-MVP governed execution commitments. Their inclusion in this baseline does not authorize production activation of the Governed Execution Harness; activation remains subject to the same lifecycle, security, verification, and evidence gates.",
       "title": "Post-MVP expansion"
     }
   ],
   "source": {
-    "bytes": 17281,
+    "bytes": 25436,
     "canonical": true,
     "language": "markdown",
-    "lines": 264,
+    "lines": 316,
     "media_type": "text/markdown",
     "path": "product/product-requirements.md",
-    "sha256": "7c54b14322dd76870677f1b7809e7d94b1f86c3806fade0a2545065ea591cdbe"
+    "sha256": "762be1cccce6decf64d90679e8d5f1b86d0eea0462e68158f1c725d40c525db5"
   }
 }
