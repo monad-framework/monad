@@ -1,5 +1,5 @@
 {
-  "content": "//! Deterministic, side-effect-free Monad workspace bootstrap semantics.\n\npub mod discovery;\npub mod harness;\npub mod harness_gateway;\npub mod harness_validation;\npub mod identity;\npub mod markdown;\npub mod workspace;\n",
+  "content": "//! Deterministic, side-effect-free Monad workspace bootstrap semantics.\n//!\n//! Governed execution keeps compilation, untrusted serialization validation,\n//! effect mediation, run-local recovery, verification, effect classification,\n//! and delegation as distinct boundaries so transport or executor behavior\n//! cannot silently create authority.\n\npub mod discovery;\npub mod harness;\npub mod harness_delegation;\npub mod harness_effects;\npub mod harness_gateway;\npub mod harness_runtime;\npub mod harness_validation;\npub mod harness_verification;\npub mod identity;\npub mod markdown;\npub mod workspace;\n",
   "document_id": "doc:crates%2Fmonad-core%2Fsrc%2Flib.rs",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 9,
+      "line_end": 18,
       "line_start": 1,
       "section_id": "content",
-      "text": "//! Deterministic, side-effect-free Monad workspace bootstrap semantics.\n\npub mod discovery;\npub mod harness;\npub mod harness_gateway;\npub mod harness_validation;\npub mod identity;\npub mod markdown;\npub mod workspace;",
+      "text": "//! Deterministic, side-effect-free Monad workspace bootstrap semantics.\n//!\n//! Governed execution keeps compilation, untrusted serialization validation,\n//! effect mediation, run-local recovery, verification, effect classification,\n//! and delegation as distinct boundaries so transport or executor behavior\n//! cannot silently create authority.\n\npub mod discovery;\npub mod harness;\npub mod harness_delegation;\npub mod harness_effects;\npub mod harness_gateway;\npub mod harness_runtime;\npub mod harness_validation;\npub mod harness_verification;\npub mod identity;\npub mod markdown;\npub mod workspace;",
       "title": "Lib"
     }
   ],
   "source": {
-    "bytes": 218,
+    "bytes": 601,
     "canonical": true,
     "language": "rust",
-    "lines": 9,
+    "lines": 18,
     "media_type": "text/plain",
     "path": "crates/monad-core/src/lib.rs",
-    "sha256": "3c2614a81aed69baf7543c98a72668eb8f98f2060318d881ecc9464a01810fec"
+    "sha256": "b74a47f54116811cdfabf5fd40c0325d93e9acae70d31e0cfb6d461a0da2f9ed"
   }
 }
