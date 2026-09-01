@@ -66,6 +66,39 @@
         "schema_version": "2.0.0",
         "updated_at": "2026-08-26T09:53:14Z",
         "version": "1.0.1"
+      },
+      "CR-0003": {
+        "authority_level": "L3_BINDING",
+        "created_at": "2026-09-01T17:32:30Z",
+        "entity_type": "ChangeRequest",
+        "id": "CR-0003",
+        "kind": "CR",
+        "lifecycle_state": "APPROVED",
+        "operational_metadata": {
+          "github_url": "",
+          "path": "engineering/changes/CR-0003.md",
+          "summary": "Establish Monad AI-Driven Engineering Operating Model",
+          "target": "ADR-0006"
+        },
+        "provenance": {
+          "created_by": "EOS canonical-state adapter",
+          "generation_method": "EOS canonical-state capture",
+          "origin": "AUTOMATION",
+          "source_refs": [
+            ".eos/change-requests.tsv",
+            "engineering/changes/CR-0003.md",
+            ".eos/events.jsonl"
+          ]
+        },
+        "relationships": [
+          {
+            "target_id": "ADR-0006",
+            "type": "AFFECTS"
+          }
+        ],
+        "schema_version": "2.0.0",
+        "updated_at": "2026-09-01T17:33:13Z",
+        "version": "1.0.1"
       }
     },
     "MNT": {
@@ -540,7 +573,7 @@
     }
   },
   "model": "EOS-SINGLE-CANONICAL-STATE-1",
-  "revision": 54,
+  "revision": 56,
   "schema_version": "1.0.0",
-  "updated_at": "2026-08-26T14:23:47Z"
+  "updated_at": "2026-09-01T17:33:14Z"
 }
