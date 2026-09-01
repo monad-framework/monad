@@ -1,0 +1,46 @@
+{
+  "content": "{\n  \"schema_version\": \"1.0.0\",\n  \"revision\": 1,\n  \"updated_at\": \"2026-08-12T15:31:00Z\",\n  \"entities\": {\n    \"PI-001\": {\n      \"id\": \"PI-001\", \"entity_type\": \"PI\", \"version\": \"0.1.0\", \"lifecycle_state\": \"DRAFT\",\n      \"title\": \"Architecture Baseline\", \"artifact_path\": \"engineering/increments/PI-001.md\",\n      \"created_at\": \"2026-08-12T00:00:00Z\", \"updated_at\": \"2026-08-12T00:00:00Z\",\n      \"relationships\": [], \"authority_level\": \"L2_NORMATIVE\",\n      \"provenance\": {\"origin\": \"MIGRATION\", \"created_by\": \"EOS\", \"source_refs\": [\".eos/program-increments.tsv\", \".eos/events.jsonl\", \"engineering/increments/PI-001.md\"], \"generation_method\": \"single-canonical-state-migration\"},\n      \"projection\": {\"tsv\": {\"registry\": \".eos/program-increments.tsv\"}, \"github\": {\"url\": \"\"}}\n    },\n    \"WC-0001\": {\n      \"id\": \"WC-0001\", \"entity_type\": \"WC\", \"version\": \"0.1.0\", \"lifecycle_state\": \"DRAFT\",\n      \"title\": \"Architecture and Boundaries\", \"artifact_path\": \"engineering/work-cycles/WC-0001.md\",\n      \"created_at\": \"2026-08-12T00:00:00Z\", \"updated_at\": \"2026-08-12T00:00:00Z\",\n      \"relationships\": [{\"type\": \"BELONGS_TO\", \"target_id\": \"PI-001\", \"target_type\": \"PI\"}], \"authority_level\": \"L2_NORMATIVE\",\n      \"provenance\": {\"origin\": \"MIGRATION\", \"created_by\": \"EOS\", \"source_refs\": [\".eos/work-cycles.tsv\", \".eos/events.jsonl\", \"engineering/work-cycles/WC-0001.md\"], \"generation_method\": \"single-canonical-state-migration\"},\n      \"projection\": {\"tsv\": {\"registry\": \".eos/work-cycles.tsv\"}, \"github\": {\"url\": \"\"}}\n    },\n    \"WP-0001\": {\n      \"id\": \"WP-0001\", \"entity_type\": \"WP\", \"version\": \"0.1.0\", \"lifecycle_state\": \"DRAFT\",\n      \"title\": \"Architecture Baseline\", \"artifact_path\": \"engineering/work-packets/WP-0001.md\",\n      \"created_at\": \"2026-08-12T00:00:00Z\", \"updated_at\": \"2026-08-12T00:00:00Z\",\n      \"relationships\": [{\"type\": \"BELONGS_TO\", \"target_id\": \"WC-0001\", \"target_type\": \"WC\"}, {\"type\": \"BELONGS_TO\", \"target_id\": \"PI-001\", \"target_type\": \"PI\"}], \"authority_level\": \"L2_NORMATIVE\",\n      \"provenance\": {\"origin\": \"MIGRATION\", \"created_by\": \"EOS\", \"source_refs\": [\".eos/work-packets.tsv\", \".eos/events.jsonl\", \"engineering/work-packets/WP-0001.md\"], \"generation_method\": \"single-canonical-state-migration\"},\n      \"projection\": {\"tsv\": {\"registry\": \".eos/work-packets.tsv\"}, \"github\": {\"url\": \"\"}}\n    }\n  }\n}\n",
+  "document_id": "doc:.eos%2Fstate%2Fcanonical.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WC-0001",
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for .eos/state/canonical.json.",
+    "title": "Canonical"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "WC-0001",
+        "WP-0001"
+      ],
+      "level": 1,
+      "line_end": 31,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"schema_version\": \"1.0.0\",\n  \"revision\": 1,\n  \"updated_at\": \"2026-08-12T15:31:00Z\",\n  \"entities\": {\n    \"PI-001\": {\n      \"id\": \"PI-001\", \"entity_type\": \"PI\", \"version\": \"0.1.0\", \"lifecycle_state\": \"DRAFT\",\n      \"title\": \"Architecture Baseline\", \"artifact_path\": \"engineering/increments/PI-001.md\",\n      \"created_at\": \"2026-08-12T00:00:00Z\", \"updated_at\": \"2026-08-12T00:00:00Z\",\n      \"relationships\": [], \"authority_level\": \"L2_NORMATIVE\",\n      \"provenance\": {\"origin\": \"MIGRATION\", \"created_by\": \"EOS\", \"source_refs\": [\".eos/program-increments.tsv\", \".eos/events.jsonl\", \"engineering/increments/PI-001.md\"], \"generation_method\": \"single-canonical-state-migration\"},\n      \"projection\": {\"tsv\": {\"registry\": \".eos/program-increments.tsv\"}, \"github\": {\"url\": \"\"}}\n    },\n    \"WC-0001\": {\n      \"id\": \"WC-0001\", \"entity_type\": \"WC\", \"version\": \"0.1.0\", \"lifecycle_state\": \"DRAFT\",\n      \"title\": \"Architecture and Boundaries\", \"artifact_path\": \"engineering/work-cycles/WC-0001.md\",\n      \"created_at\": \"2026-08-12T00:00:00Z\", \"updated_at\": \"2026-08-12T00:00:00Z\",\n      \"relationships\": [{\"type\": \"BELONGS_TO\", \"target_id\": \"PI-001\", \"target_type\": \"PI\"}], \"authority_level\": \"L2_NORMATIVE\",\n      \"provenance\": {\"origin\": \"MIGRATION\", \"created_by\": \"EOS\", \"source_refs\": [\".eos/work-cycles.tsv\", \".eos/events.jsonl\", \"engineering/work-cycles/WC-0001.md\"], \"generation_method\": \"single-canonical-state-migration\"},\n      \"projection\": {\"tsv\": {\"registry\": \".eos/work-cycles.tsv\"}, \"github\": {\"url\": \"\"}}\n    },\n    \"WP-0001\": {\n      \"id\": \"WP-0001\", \"entity_type\": \"WP\", \"version\": \"0.1.0\", \"lifecycle_state\": \"DRAFT\",\n      \"title\": \"Architecture Baseline\", \"artifact_path\": \"engineering/work-packets/WP-0001.md\",\n      \"created_at\": \"2026-08-12T00:00:00Z\", \"updated_at\": \"2026-08-12T00:00:00Z\",\n      \"relationships\": [{\"type\": \"BELONGS_TO\", \"target_id\": \"WC-0001\", \"target_type\": \"WC\"}, {\"type\": \"BELONGS_TO\", \"target_id\": \"PI-001\", \"target_type\": \"PI\"}], \"authority_level\": \"L2_NORMATIVE\",\n      \"provenance\": {\"origin\": \"MIGRATION\", \"created_by\": \"EOS\", \"source_refs\": [\".eos/work-packets.tsv\", \".eos/events.jsonl\", \"engineering/work-packets/WP-0001.md\"], \"generation_method\": \"single-canonical-state-migration\"},\n      \"projection\": {\"tsv\": {\"registry\": \".eos/work-packets.tsv\"}, \"github\": {\"url\": \"\"}}\n    }\n  }\n}",
+      "title": "Canonical"
+    }
+  ],
+  "source": {
+    "bytes": 2329,
+    "canonical": true,
+    "language": "json",
+    "lines": 31,
+    "media_type": "application/json",
+    "path": ".eos/state/canonical.json",
+    "sha256": "e4a7de4087affef86706914750cc7124b001f4254accf63747f4e4cae220c074"
+  }
+}

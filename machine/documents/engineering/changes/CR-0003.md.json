@@ -1,0 +1,341 @@
+{
+  "content": "---\nartifact_id: \"CR-0003\"\ntitle: \"Establish Monad AI-Driven Engineering Operating Model\"\ntype: \"change-request\"\nversion: \"0.1.0\"\nstatus: \"PROPOSED\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-09-01\"\nupdated: \"2026-09-01\"\n---\n\n# CR-0003 — Establish Monad AI-Driven Engineering Operating Model\n\n**State:** PROPOSED\n**Date:** 2026-09-01  \n**Authority required:** Project Steward / Architecture Owner, with affected Product, Engineering, Security, and Operations authority  \n**Change class:** Architecture / requirements / EOS lifecycle / governance / specification baseline\n\n## Summary\n\nEstablish a Monad-native AI-Driven Engineering Operating Model that makes AI proactive in engineering workflow analysis, planning, clarification, artifact generation, and bounded execution while preserving EOS as the sole lifecycle/control plane, human-sovereign authority for consequential decisions, deterministic policy gates, evidence-based acceptance, and one canonical operational state.\n\nThe target operating principle is:\n\n> **AI drives the work. EOS governs the work. Humans govern consequential meaning and authority. Evidence governs acceptance.**\n\nThe model is architectural composition rather than adoption of an external development lifecycle. It extends the selective-assimilation direction accepted by ADR-0006 and CR-0001 and the post-MVP product direction accepted by CR-0002 without reopening the active MVP implementation path.\n\n## Decision pressure\n\nMonad already contains the principal primitives required for governed AI-driven engineering: canonical engineering knowledge, explicit authority levels, provenance, typed trace relationships, Work Packets, dependency-aware planning, policy gates, bounded execution, verification evidence, review, change control, and a single canonical EOS operational state.\n\nThe current product requirements also commit Monad to bounded agent context, unified memory/intelligence/execution, anti-hallucination memory, dependency-aware agent work, progressive autonomy, cross-harness review, provider-neutral AI routing, declarative governance/audit, and execution observability.\n\nWhat is not yet explicit is the cross-layer operating model that determines how those capabilities work together. In particular, Monad requires a normative answer to these questions:\n\n1. May AI proactively initiate engineering analysis and workflow progression rather than act only as a passive assistant?\n2. How does AI initiative remain distinct from engineering authority?\n3. How are adaptive engineering pathways derived without creating a second lifecycle?\n4. When must ambiguity become a governed decision instead of an AI assumption?\n5. How do planning, approval, execution, verification, and review remain reconstructably traceable across different AI providers and harnesses?\n6. How does higher autonomy remain bounded, evidence-backed, observable, and revocable?\n7. How do operations and verification evidence feed future AI reasoning without becoming canonical truth automatically?\n\nWithout an explicit operating model, these concerns risk being implemented independently and inconsistently across EOSP, EOSE, EOSV, EOSR, policy, agent contracts, observability, and later orchestration work.\n\n## Governing foundation\n\nThis change is constrained by existing authority, especially:\n\n- `architecture/decisions/ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md`;\n- `engineering/changes/CR-0001.md`;\n- `engineering/changes/CR-0002.md`;\n- `governance/canonical-state-model.md`;\n- `governance/authority.md`;\n- `governance/decision-process.md`;\n- `governance/planning-engine.md`;\n- `governance/policy-engine.md`;\n- `governance/execution-engine.md`;\n- `engineering/lifecycle/README.md`;\n- `engineering/definition-of-ready.md`;\n- `product/product-requirements.md`.\n\nADR-0006 remains authoritative and is not superseded by this change. Its decision meaning MUST remain intact.\n\n## Proposed operating model\n\nFormally:\n\n```text\nMonad AI-Driven Engineering Operating Model\n=\nMonad Semantic Authority\n+ EOS Governance\n+ AI-Driven Workflow Initiative\n+ Bounded AI Execution\n+ Human Sovereignty\n+ Evidence-Based Closure\n```\n\nFundamental distinctions:\n\n```text\nAI initiative != AI authority\nAI output != canonical engineering truth\nHuman sovereignty != mandatory human micromanagement\n```\n\nThe target governed loop is:\n\n```text\nINTENT\n  -> CONTEXT COMPILATION\n  -> PLAN\n  -> CLARIFY\n  -> DECIDE\n  -> AUTHORIZE\n  -> EXECUTE\n  -> VERIFY\n  -> REVIEW\n  -> INTEGRATE / RELEASE / OPERATE\n  -> OBSERVE\n  -> LEARN\n  -> REPLAN\n```\n\nThe inner AI-driven loop is:\n\n```text\nPROPOSE -> CLARIFY -> DECIDE -> APPROVE -> EXECUTE -> VERIFY\n```\n\nThis loop operates inside EOS. It MUST NOT become a ninth EOS lifecycle layer or a parallel control plane.\n\n## Scope\n\nIf approved, this change authorizes normative design and planning for the following surfaces.\n\n### Architecture\n\nCreate a new ADR, expected to be `ADR-0007`, establishing AI-driven, human-governed engineering as the preferred EOS operating model where suitable AI capability is available.\n\nThe ADR will extend and apply ADR-0006; it will not supersede it.\n\n### Cross-layer operating model\n\nCreate a governance-authoritative operating-model artifact, expected to be `EOS-AI-0001`, spanning EOSB, EOSP, EOSE, EOSV, EOSR, EOSC, EOSL, and EOSM without adding another lifecycle layer.\n\n### Product requirements\n\nRefine existing requirements that already own the relevant concerns, expected to include:\n\n- FR-007 — bounded agent context;\n- FR-012 — memory/intelligence/execution loop;\n- FR-013 — anti-hallucination engineering memory;\n- FR-014 — dependency-aware agent work;\n- FR-015 — progressive autonomy;\n- FR-016 — cross-harness review;\n- FR-023 — declarative governance/change control/audit;\n- FR-024 — operational and execution observability;\n- QR-008 — progressive trust;\n- QR-010 — auditability.\n\nAdd one product requirement for the currently missing concern, expected to be:\n\n- `FR-037 — Provide Adaptive AI-Driven Engineering Workflow Planning`.\n\nThe new requirement will require an inspectable proposed engineering pathway derived from governed intent, repository context, lifecycle state, risk, complexity, dependencies, outstanding decisions, evidence, and policy while preserving mandatory EOS gates and authority.\n\n### Specifications\n\nEstablish an initial AI-engineering specification tranche, expected to include:\n\n- `FUN-AIENG-0001 — Adaptive Engineering Workflow`;\n- `IFC-AIENG-0001 — Engineering Agent Contract`;\n- `SEC-AIENG-0001 — Autonomy, Authority, and Approval Gates`.\n\nThe exact paths and IDs remain subject to repository verification and specification conventions at the time of creation.\n\n### EOS and governance documentation\n\nRefine the existing lifecycle and governance contracts where required, including planning, execution, verification, review, change control, authority, decision processing, policy, and Definition of Ready.\n\n### Traceability and baseline\n\nUpdate the specification baseline and applicable artifact/index/trace projections so the new operating model, requirements, and specifications are explicitly connected.\n\n## Normative invariants to establish\n\nThe design SHALL establish requirements equivalent to the following invariants:\n\n1. **Intent traceability.** Every governed execution traces to authorized engineering intent.\n2. **Initiative without authority.** AI may initiate analysis, planning, clarification, recommendations, and proposed transitions without obtaining approval authority merely by doing so.\n3. **Ambiguity escalation.** Material ambiguity is surfaced rather than silently resolved for consequential product, architecture, security, governance, legal, operational, or irreversible decisions.\n4. **Adaptive workflow.** Engineering breadth and depth adapt to risk, complexity, lifecycle state, dependencies, evidence, and uncertainty.\n5. **Explainable rigor.** Materially skipped, reordered, added, or deepened activities are explainable.\n6. **Native decision semantics.** Consequential decisions use existing Monad authority, Decision, Approval, ADR, Change Request, Review, and related native semantics.\n7. **No probabilistic promotion.** AI output does not become normative because of confidence, repetition, or model identity.\n8. **Bounded execution.** Execution remains inside authorized Work Packet, scope, environment, capability, and autonomy boundaries.\n9. **Governing drift.** Material governing-input drift invalidates or suspends stale execution authority.\n10. **Evidence independence.** Executor assertions and self-tests are not sufficient proof where independent verification is required.\n11. **Independent review.** Review independence is enforceable according to policy, consequence, and risk.\n12. **Reconstructability.** Consequential planning, decisions, approvals, execution, verification, review, changes, and acceptance are reconstructably traceable.\n13. **Transcript non-authority.** Raw AI transcripts are not mandatory canonical engineering state.\n14. **Provider neutrality.** AI provider, model, harness, or vendor identity does not become semantic authority.\n15. **Progressive autonomy.** Higher autonomy is explicit, evidence-backed, bounded, observable, policy-controlled, and revocable.\n16. **Evidence feedback.** Engineering and operational evidence may inform later reasoning but retains its actual authority classification.\n\n## Canonical-model constraints\n\nThis change MUST NOT introduce a parallel AI state model.\n\n`.eos/state/current.json` remains the sole current EOS operational authority under the canonical-state model.\n\nThe design MUST reuse existing Monad concepts before introducing new canonical entity families. In particular, plans, decisions, approvals, dependencies, reviews, evidence, traceability, Work Packets, Work Cycles, Program Increments, and Change Requests should continue to use existing native concepts such as `DEC`, `APR`, `DEP`, `REV`, `EVID`, `TRC`, `WP`, `WC`, `PI`, and `CR` where those semantics are sufficient.\n\nThe change MUST NOT create canonical families merely because AI is involved, including parallel `AI-PLAN`, `AI-TASK`, `AI-DECISION`, `AI-APPROVAL`, `AI-EVIDENCE`, `AI-WORKFLOW`, or `AI-CONTEXT` stores without a separately demonstrated semantic gap and governed decision.\n\n## Autonomy model\n\nAI-assisted, AI-driven, and bounded AI-autonomous work SHALL be treated as profiles within one Monad operating model rather than competing lifecycle methodologies.\n\nAutonomy controls binding action and delegated capability. It does not determine whether an AI may inspect, reason, identify ambiguity, generate options, or make recommendations.\n\nGreater analytical capability does not automatically confer greater authority.\n\nHuman-sovereign authority remains grounded in accountability, governance, delegated authority, risk ownership, mission, and irreversible consequences rather than an assumption that humans will always possess superior analytical ability.\n\n## Relationship to external AI-driven development models\n\nExternal AI-driven development frameworks are design donors and compatibility targets only.\n\nUseful concepts MAY be assimilated, including:\n\n- AI-initiated workflow analysis;\n- AI-generated plans;\n- proactive clarification;\n- adaptive workflow breadth and depth;\n- human disposition of consequential decisions;\n- bounded execution after authorization;\n- persistent governed context;\n- end-to-end traceability;\n- explicit verification and review.\n\nExternal lifecycle names, task hierarchies, dependency graphs, approval stores, evidence stores, canonical state, or vendor-specific steering mechanisms MUST NOT become competing Monad authority.\n\n## Required conformance scenarios\n\nThe normative tranche must define or trace acceptance behavior for at least:\n\n1. a small low-risk reversible change receiving a lightweight pathway;\n2. ambiguous product intent requiring an explicit decision instead of AI guessing;\n3. architecture change discovered during execution routing through EOSC;\n4. bounded autonomous execution of an explicitly authorized low-risk Work Packet;\n5. security-sensitive work increasing required rigor and authority;\n6. independent review that cannot be satisfied by trivial executor self-review;\n7. governing-input drift invalidating a stale execution contract;\n8. AI provider failure without corruption of canonical engineering state;\n9. an authorized human denial causing replanning rather than repeated pressure for the rejected outcome;\n10. verification evidence invalidating an assumption and routing to replanning/change control.\n\n## Expected machine impact\n\nNo immediate machine-state or product-runtime implementation is authorized by this Change Request.\n\nAfter normative design stabilizes, later separately authorized implementation may determine that changes are required to:\n\n- deterministic policy predicates;\n- context/execution/review contract schemas;\n- adaptive-pathway representation;\n- plan/context/governing-input fingerprints;\n- provider-neutral executor/harness abstraction;\n- decision/approval gate checks;\n- review-independence checks;\n- observability records;\n- conformance fixtures;\n- CLI operations.\n\nThose changes are not pre-authorized merely by appearing in this list. Existing models SHALL be extended before new infrastructure is invented.\n\n## Active-program protection\n\n1. `PI-MVP-001` remains the active MVP Program Increment.\n2. `WC-MVP-0002` remains the active Work Cycle at the time this proposal is created.\n3. `WP-MVP-0005` is currently authorized for the Structured Monad configuration parser and does not authorize this work.\n4. This change MUST NOT broaden `WP-MVP-0005` or alter its execution contract.\n5. The AI-driven operating-model tranche is a parallel governance/planning stream until separately planned and authorized.\n6. Product-runtime source changes are out of scope for this Change Request.\n\n## Expected governing sequence\n\nIf this Change Request is approved, the expected sequence is:\n\n```text\nCR-0003 approval\n  -> ADR-0007 proposal/acceptance\n  -> EOS-AI-0001 operating-model baseline\n  -> requirement refinements + FR-037\n  -> specification-baseline update\n  -> FUN-AIENG-0001 / IFC-AIENG-0001 / SEC-AIENG-0001\n  -> EOS/governance contract refinements\n  -> traceability and conformance review\n  -> EOSP implementation planning\n  -> separately authorized WC/WP execution\n```\n\nThe exact EOS planning decomposition SHALL be derived from the repository state after normative contracts stabilize.\n\n## Alternatives\n\n### Alternative A — Keep AI as an informal assistant convention\n\nContinue using AI through prompts and executor-specific workflows without a cross-layer operating model.\n\n**Rejected direction.** This leaves initiative, authority, clarification, adaptive planning, autonomy, review independence, and evidence feedback underspecified and likely to diverge across implementations.\n\n### Alternative B — Adopt an external AI-DLC/AI-SDLC lifecycle directly\n\nInstall or model an external lifecycle alongside EOS.\n\n**Rejected.** This conflicts with ADR-0006 and risks duplicate lifecycle state, task hierarchy, authority, evidence, and orchestration semantics.\n\n### Alternative C — Treat fully autonomous development as the target lifecycle\n\nPermit sufficiently capable AI to plan, decide, execute, verify, and accept work as one autonomous authority.\n\n**Rejected.** Analytical capability is not equivalent to delegated authority or accountable risk ownership. This also collapses separation of execution, verification, review, and acceptance.\n\n### Alternative D — Monad-native AI-driven, human-governed, evidence-closed operating model\n\nAllow AI to drive analysis and authorized engineering activity while EOS controls lifecycle transitions, native authority controls consequential decisions, and evidence/review control acceptance.\n\n**Recommended.** This composes existing Monad capabilities without creating a competing source of truth.\n\n## Risks\n\n1. **Over-governance.** Adaptive planning could become ceremony rather than reducing it. Mitigation: require lightweight pathways for low-risk reversible work and explainable depth escalation.\n2. **Authority ambiguity.** Proactive AI behavior could be mistaken for approval. Mitigation: make recommendation, decision, approval, authorization, execution, verification, and acceptance distinct states/records.\n3. **Autonomy escalation.** Implementation may grant broader capability before evidence supports it. Mitigation: progressive trust, explicit capability grants, revocation, independent verification, and risk-class policy.\n4. **Duplicate semantics.** New AI-specific objects may reproduce existing DEC/APR/DEP/EVID/REV/TRC/WP concepts. Mitigation: reuse native entities by default and require a separate semantic-gap justification for additions.\n5. **Provider coupling.** A convenient executor may leak provider-specific concepts into architecture. Mitigation: provider-neutral contracts with adapters.\n6. **Audit overload or sensitive transcripts.** Capturing every model interaction could create excessive or sensitive records. Mitigation: preserve material structured decisions/evidence/provenance while keeping raw transcript retention configurable and non-canonical.\n7. **MVP disruption.** A broad EOS program could interrupt the semantic-kernel critical path. Mitigation: keep the tranche parallel and separately planned; do not broaden active MVP packets.\n8. **Policy complexity.** Too many dynamic gates could reduce determinism. Mitigation: retain constrained deterministic predicates and explicit authority classes.\n\n## Validation required before implementation planning\n\nBefore implementation Work Packets are authorized, the normative tranche should demonstrate that:\n\n- ADR-0006 remains intact and authoritative;\n- no second lifecycle or current-state authority has been introduced;\n- AI initiative and binding authority are explicitly distinct;\n- the adaptive pathway preserves mandatory EOS gates;\n- material ambiguity can block only affected work and route to native decision semantics;\n- requirement/specification traceability is complete;\n- executor/reviewer independence can be expressed without provider lock-in;\n- stale governing inputs invalidate execution authority;\n- raw transcripts are not required as canonical state;\n- provider failure does not invalidate canonical engineering state;\n- all required conformance scenarios have a normative owner;\n- existing MVP scope and current authorized Work Packets remain unchanged;\n- repository integrity and EOS strict verification pass after any later machine-level implementation.\n\n## Registry and canonical-state note\n\nThis file records the proposed change on the working branch. Creation of this proposal MUST NOT be interpreted as an approved EOS lifecycle transition. The `.eos/change-requests.tsv` projection, `.eos/state/current.json`, event ledger, and related machine state MUST be updated only through the repository's governed EOS transition mechanism rather than manually altered to fabricate approval or canonical state.\n\n## Decision\n\n**Decision:** PENDING\n\n**Authority:** Project Steward / Architecture Owner, with affected authority consultation\n\n**Authority statement:** Not yet granted.\n\nApproval of this Change Request would authorize the normative architecture, requirements, specification, lifecycle-documentation, governance-documentation, and planning work described above. It would NOT authorize product-runtime implementation, bypass Work Packet readiness/authorization gates, modify the active MVP critical path, or grant AI new runtime privileges by itself.\n",
+  "document_id": "doc:engineering%2Fchanges%2FCR-0003.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006",
+    "ADR-0007",
+    "FR-007",
+    "FR-012",
+    "FR-013",
+    "FR-014",
+    "FR-015",
+    "FR-016",
+    "FR-023",
+    "FR-024",
+    "FR-037",
+    "QR-008",
+    "QR-010"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"CR-0003\" title: \"Establish Monad AI-Driven Engineering Operating Model\" type: \"change-request\" version: \"0.1.0\" status: \"PROPOSED\" authority: \"governance-authoritative\" created: \"2026-09-01\" updated: \"2026-09-01\" ---",
+    "title": "CR-0003 — Establish Monad AI-Driven Engineering Operating Model"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"CR-0003\"\ntitle: \"Establish Monad AI-Driven Engineering Operating Model\"\ntype: \"change-request\"\nversion: \"0.1.0\"\nstatus: \"PROPOSED\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-09-01\"\nupdated: \"2026-09-01\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 18,
+      "line_start": 12,
+      "section_id": "cr-0003-establish-monad-ai-driven-engineering-operating-model",
+      "text": "# CR-0003 — Establish Monad AI-Driven Engineering Operating Model\n\n**State:** PROPOSED\n**Date:** 2026-09-01  \n**Authority required:** Project Steward / Architecture Owner, with affected Product, Engineering, Security, and Operations authority  \n**Change class:** Architecture / requirements / EOS lifecycle / governance / specification baseline",
+      "title": "CR-0003 — Establish Monad AI-Driven Engineering Operating Model"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 28,
+      "line_start": 19,
+      "section_id": "summary",
+      "text": "## Summary\n\nEstablish a Monad-native AI-Driven Engineering Operating Model that makes AI proactive in engineering workflow analysis, planning, clarification, artifact generation, and bounded execution while preserving EOS as the sole lifecycle/control plane, human-sovereign authority for consequential decisions, deterministic policy gates, evidence-based acceptance, and one canonical operational state.\n\nThe target operating principle is:\n\n> **AI drives the work. EOS governs the work. Humans govern consequential meaning and authority. Evidence governs acceptance.**\n\nThe model is architectural composition rather than adoption of an external development lifecycle. It extends the selective-assimilation direction accepted by ADR-0006 and CR-0001 and the post-MVP product direction accepted by CR-0002 without reopening the active MVP implementation path.",
+      "title": "Summary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 29,
+      "section_id": "decision-pressure",
+      "text": "## Decision pressure\n\nMonad already contains the principal primitives required for governed AI-driven engineering: canonical engineering knowledge, explicit authority levels, provenance, typed trace relationships, Work Packets, dependency-aware planning, policy gates, bounded execution, verification evidence, review, change control, and a single canonical EOS operational state.\n\nThe current product requirements also commit Monad to bounded agent context, unified memory/intelligence/execution, anti-hallucination memory, dependency-aware agent work, progressive autonomy, cross-harness review, provider-neutral AI routing, declarative governance/audit, and execution observability.\n\nWhat is not yet explicit is the cross-layer operating model that determines how those capabilities work together. In particular, Monad requires a normative answer to these questions:\n\n1. May AI proactively initiate engineering analysis and workflow progression rather than act only as a passive assistant?\n2. How does AI initiative remain distinct from engineering authority?\n3. How are adaptive engineering pathways derived without creating a second lifecycle?\n4. When must ambiguity become a governed decision instead of an AI assumption?\n5. How do planning, approval, execution, verification, and review remain reconstructably traceable across different AI providers and harnesses?\n6. How does higher autonomy remain bounded, evidence-backed, observable, and revocable?\n7. How do operations and verification evidence feed future AI reasoning without becoming canonical truth automatically?\n\nWithout an explicit operating model, these concerns risk being implemented independently and inconsistently across EOSP, EOSE, EOSV, EOSR, policy, agent contracts, observability, and later orchestration work.",
+      "title": "Decision pressure"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 65,
+      "line_start": 47,
+      "section_id": "governing-foundation",
+      "text": "## Governing foundation\n\nThis change is constrained by existing authority, especially:\n\n- `architecture/decisions/ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md`;\n- `engineering/changes/CR-0001.md`;\n- `engineering/changes/CR-0002.md`;\n- `governance/canonical-state-model.md`;\n- `governance/authority.md`;\n- `governance/decision-process.md`;\n- `governance/planning-engine.md`;\n- `governance/policy-engine.md`;\n- `governance/execution-engine.md`;\n- `engineering/lifecycle/README.md`;\n- `engineering/definition-of-ready.md`;\n- `product/product-requirements.md`.\n\nADR-0006 remains authoritative and is not superseded by this change. Its decision meaning MUST remain intact.",
+      "title": "Governing foundation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 114,
+      "line_start": 66,
+      "section_id": "proposed-operating-model",
+      "text": "## Proposed operating model\n\nFormally:\n\n```text\nMonad AI-Driven Engineering Operating Model\n=\nMonad Semantic Authority\n+ EOS Governance\n+ AI-Driven Workflow Initiative\n+ Bounded AI Execution\n+ Human Sovereignty\n+ Evidence-Based Closure\n```\n\nFundamental distinctions:\n\n```text\nAI initiative != AI authority\nAI output != canonical engineering truth\nHuman sovereignty != mandatory human micromanagement\n```\n\nThe target governed loop is:\n\n```text\nINTENT\n  -> CONTEXT COMPILATION\n  -> PLAN\n  -> CLARIFY\n  -> DECIDE\n  -> AUTHORIZE\n  -> EXECUTE\n  -> VERIFY\n  -> REVIEW\n  -> INTEGRATE / RELEASE / OPERATE\n  -> OBSERVE\n  -> LEARN\n  -> REPLAN\n```\n\nThe inner AI-driven loop is:\n\n```text\nPROPOSE -> CLARIFY -> DECIDE -> APPROVE -> EXECUTE -> VERIFY\n```\n\nThis loop operates inside EOS. It MUST NOT become a ninth EOS lifecycle layer or a parallel control plane.",
+      "title": "Proposed operating model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 118,
+      "line_start": 115,
+      "section_id": "scope",
+      "text": "## Scope\n\nIf approved, this change authorizes normative design and planning for the following surfaces.",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [
+        "ADR-0006",
+        "ADR-0007"
+      ],
+      "level": 3,
+      "line_end": 124,
+      "line_start": 119,
+      "section_id": "architecture",
+      "text": "### Architecture\n\nCreate a new ADR, expected to be `ADR-0007`, establishing AI-driven, human-governed engineering as the preferred EOS operating model where suitable AI capability is available.\n\nThe ADR will extend and apply ADR-0006; it will not supersede it.",
+      "title": "Architecture"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 128,
+      "line_start": 125,
+      "section_id": "cross-layer-operating-model",
+      "text": "### Cross-layer operating model\n\nCreate a governance-authoritative operating-model artifact, expected to be `EOS-AI-0001`, spanning EOSB, EOSP, EOSE, EOSV, EOSR, EOSC, EOSL, and EOSM without adding another lifecycle layer.",
+      "title": "Cross-layer operating model"
+    },
+    {
+      "identifiers": [
+        "FR-007",
+        "FR-012",
+        "FR-013",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-023",
+        "FR-024",
+        "FR-037",
+        "QR-008",
+        "QR-010"
+      ],
+      "level": 3,
+      "line_end": 149,
+      "line_start": 129,
+      "section_id": "product-requirements",
+      "text": "### Product requirements\n\nRefine existing requirements that already own the relevant concerns, expected to include:\n\n- FR-007 — bounded agent context;\n- FR-012 — memory/intelligence/execution loop;\n- FR-013 — anti-hallucination engineering memory;\n- FR-014 — dependency-aware agent work;\n- FR-015 — progressive autonomy;\n- FR-016 — cross-harness review;\n- FR-023 — declarative governance/change control/audit;\n- FR-024 — operational and execution observability;\n- QR-008 — progressive trust;\n- QR-010 — auditability.\n\nAdd one product requirement for the currently missing concern, expected to be:\n\n- `FR-037 — Provide Adaptive AI-Driven Engineering Workflow Planning`.\n\nThe new requirement will require an inspectable proposed engineering pathway derived from governed intent, repository context, lifecycle state, risk, complexity, dependencies, outstanding decisions, evidence, and policy while preserving mandatory EOS gates and authority.",
+      "title": "Product requirements"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 159,
+      "line_start": 150,
+      "section_id": "specifications",
+      "text": "### Specifications\n\nEstablish an initial AI-engineering specification tranche, expected to include:\n\n- `FUN-AIENG-0001 — Adaptive Engineering Workflow`;\n- `IFC-AIENG-0001 — Engineering Agent Contract`;\n- `SEC-AIENG-0001 — Autonomy, Authority, and Approval Gates`.\n\nThe exact paths and IDs remain subject to repository verification and specification conventions at the time of creation.",
+      "title": "Specifications"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 163,
+      "line_start": 160,
+      "section_id": "eos-and-governance-documentation",
+      "text": "### EOS and governance documentation\n\nRefine the existing lifecycle and governance contracts where required, including planning, execution, verification, review, change control, authority, decision processing, policy, and Definition of Ready.",
+      "title": "EOS and governance documentation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 167,
+      "line_start": 164,
+      "section_id": "traceability-and-baseline",
+      "text": "### Traceability and baseline\n\nUpdate the specification baseline and applicable artifact/index/trace projections so the new operating model, requirements, and specifications are explicitly connected.",
+      "title": "Traceability and baseline"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 188,
+      "line_start": 168,
+      "section_id": "normative-invariants-to-establish",
+      "text": "## Normative invariants to establish\n\nThe design SHALL establish requirements equivalent to the following invariants:\n\n1. **Intent traceability.** Every governed execution traces to authorized engineering intent.\n2. **Initiative without authority.** AI may initiate analysis, planning, clarification, recommendations, and proposed transitions without obtaining approval authority merely by doing so.\n3. **Ambiguity escalation.** Material ambiguity is surfaced rather than silently resolved for consequential product, architecture, security, governance, legal, operational, or irreversible decisions.\n4. **Adaptive workflow.** Engineering breadth and depth adapt to risk, complexity, lifecycle state, dependencies, evidence, and uncertainty.\n5. **Explainable rigor.** Materially skipped, reordered, added, or deepened activities are explainable.\n6. **Native decision semantics.** Consequential decisions use existing Monad authority, Decision, Approval, ADR, Change Request, Review, and related native semantics.\n7. **No probabilistic promotion.** AI output does not become normative because of confidence, repetition, or model identity.\n8. **Bounded execution.** Execution remains inside authorized Work Packet, scope, environment, capability, and autonomy boundaries.\n9. **Governing drift.** Material governing-input drift invalidates or suspends stale execution authority.\n10. **Evidence independence.** Executor assertions and self-tests are not sufficient proof where independent verification is required.\n11. **Independent review.** Review independence is enforceable according to policy, consequence, and risk.\n12. **Reconstructability.** Consequential planning, decisions, approvals, execution, verification, review, changes, and acceptance are reconstructably traceable.\n13. **Transcript non-authority.** Raw AI transcripts are not mandatory canonical engineering state.\n14. **Provider neutrality.** AI provider, model, harness, or vendor identity does not become semantic authority.\n15. **Progressive autonomy.** Higher autonomy is explicit, evidence-backed, bounded, observable, policy-controlled, and revocable.\n16. **Evidence feedback.** Engineering and operational evidence may inform later reasoning but retains its actual authority classification.",
+      "title": "Normative invariants to establish"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 198,
+      "line_start": 189,
+      "section_id": "canonical-model-constraints",
+      "text": "## Canonical-model constraints\n\nThis change MUST NOT introduce a parallel AI state model.\n\n`.eos/state/current.json` remains the sole current EOS operational authority under the canonical-state model.\n\nThe design MUST reuse existing Monad concepts before introducing new canonical entity families. In particular, plans, decisions, approvals, dependencies, reviews, evidence, traceability, Work Packets, Work Cycles, Program Increments, and Change Requests should continue to use existing native concepts such as `DEC`, `APR`, `DEP`, `REV`, `EVID`, `TRC`, `WP`, `WC`, `PI`, and `CR` where those semantics are sufficient.\n\nThe change MUST NOT create canonical families merely because AI is involved, including parallel `AI-PLAN`, `AI-TASK`, `AI-DECISION`, `AI-APPROVAL`, `AI-EVIDENCE`, `AI-WORKFLOW`, or `AI-CONTEXT` stores without a separately demonstrated semantic gap and governed decision.",
+      "title": "Canonical-model constraints"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 208,
+      "line_start": 199,
+      "section_id": "autonomy-model",
+      "text": "## Autonomy model\n\nAI-assisted, AI-driven, and bounded AI-autonomous work SHALL be treated as profiles within one Monad operating model rather than competing lifecycle methodologies.\n\nAutonomy controls binding action and delegated capability. It does not determine whether an AI may inspect, reason, identify ambiguity, generate options, or make recommendations.\n\nGreater analytical capability does not automatically confer greater authority.\n\nHuman-sovereign authority remains grounded in accountability, governance, delegated authority, risk ownership, mission, and irreversible consequences rather than an assumption that humans will always possess superior analytical ability.",
+      "title": "Autonomy model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 226,
+      "line_start": 209,
+      "section_id": "relationship-to-external-ai-driven-development-models",
+      "text": "## Relationship to external AI-driven development models\n\nExternal AI-driven development frameworks are design donors and compatibility targets only.\n\nUseful concepts MAY be assimilated, including:\n\n- AI-initiated workflow analysis;\n- AI-generated plans;\n- proactive clarification;\n- adaptive workflow breadth and depth;\n- human disposition of consequential decisions;\n- bounded execution after authorization;\n- persistent governed context;\n- end-to-end traceability;\n- explicit verification and review.\n\nExternal lifecycle names, task hierarchies, dependency graphs, approval stores, evidence stores, canonical state, or vendor-specific steering mechanisms MUST NOT become competing Monad authority.",
+      "title": "Relationship to external AI-driven development models"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 241,
+      "line_start": 227,
+      "section_id": "required-conformance-scenarios",
+      "text": "## Required conformance scenarios\n\nThe normative tranche must define or trace acceptance behavior for at least:\n\n1. a small low-risk reversible change receiving a lightweight pathway;\n2. ambiguous product intent requiring an explicit decision instead of AI guessing;\n3. architecture change discovered during execution routing through EOSC;\n4. bounded autonomous execution of an explicitly authorized low-risk Work Packet;\n5. security-sensitive work increasing required rigor and authority;\n6. independent review that cannot be satisfied by trivial executor self-review;\n7. governing-input drift invalidating a stale execution contract;\n8. AI provider failure without corruption of canonical engineering state;\n9. an authorized human denial causing replanning rather than repeated pressure for the rejected outcome;\n10. verification evidence invalidating an assumption and routing to replanning/change control.",
+      "title": "Required conformance scenarios"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 260,
+      "line_start": 242,
+      "section_id": "expected-machine-impact",
+      "text": "## Expected machine impact\n\nNo immediate machine-state or product-runtime implementation is authorized by this Change Request.\n\nAfter normative design stabilizes, later separately authorized implementation may determine that changes are required to:\n\n- deterministic policy predicates;\n- context/execution/review contract schemas;\n- adaptive-pathway representation;\n- plan/context/governing-input fingerprints;\n- provider-neutral executor/harness abstraction;\n- decision/approval gate checks;\n- review-independence checks;\n- observability records;\n- conformance fixtures;\n- CLI operations.\n\nThose changes are not pre-authorized merely by appearing in this list. Existing models SHALL be extended before new infrastructure is invented.",
+      "title": "Expected machine impact"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 269,
+      "line_start": 261,
+      "section_id": "active-program-protection",
+      "text": "## Active-program protection\n\n1. `PI-MVP-001` remains the active MVP Program Increment.\n2. `WC-MVP-0002` remains the active Work Cycle at the time this proposal is created.\n3. `WP-MVP-0005` is currently authorized for the Structured Monad configuration parser and does not authorize this work.\n4. This change MUST NOT broaden `WP-MVP-0005` or alter its execution contract.\n5. The AI-driven operating-model tranche is a parallel governance/planning stream until separately planned and authorized.\n6. Product-runtime source changes are out of scope for this Change Request.",
+      "title": "Active-program protection"
+    },
+    {
+      "identifiers": [
+        "ADR-0007",
+        "FR-037"
+      ],
+      "level": 2,
+      "line_end": 288,
+      "line_start": 270,
+      "section_id": "expected-governing-sequence",
+      "text": "## Expected governing sequence\n\nIf this Change Request is approved, the expected sequence is:\n\n```text\nCR-0003 approval\n  -> ADR-0007 proposal/acceptance\n  -> EOS-AI-0001 operating-model baseline\n  -> requirement refinements + FR-037\n  -> specification-baseline update\n  -> FUN-AIENG-0001 / IFC-AIENG-0001 / SEC-AIENG-0001\n  -> EOS/governance contract refinements\n  -> traceability and conformance review\n  -> EOSP implementation planning\n  -> separately authorized WC/WP execution\n```\n\nThe exact EOS planning decomposition SHALL be derived from the repository state after normative contracts stabilize.",
+      "title": "Expected governing sequence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 290,
+      "line_start": 289,
+      "section_id": "alternatives",
+      "text": "## Alternatives",
+      "title": "Alternatives"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 296,
+      "line_start": 291,
+      "section_id": "alternative-a-keep-ai-as-an-informal-assistant-convention",
+      "text": "### Alternative A — Keep AI as an informal assistant convention\n\nContinue using AI through prompts and executor-specific workflows without a cross-layer operating model.\n\n**Rejected direction.** This leaves initiative, authority, clarification, adaptive planning, autonomy, review independence, and evidence feedback underspecified and likely to diverge across implementations.",
+      "title": "Alternative A — Keep AI as an informal assistant convention"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 3,
+      "line_end": 302,
+      "line_start": 297,
+      "section_id": "alternative-b-adopt-an-external-ai-dlc-ai-sdlc-lifecycle-directly",
+      "text": "### Alternative B — Adopt an external AI-DLC/AI-SDLC lifecycle directly\n\nInstall or model an external lifecycle alongside EOS.\n\n**Rejected.** This conflicts with ADR-0006 and risks duplicate lifecycle state, task hierarchy, authority, evidence, and orchestration semantics.",
+      "title": "Alternative B — Adopt an external AI-DLC/AI-SDLC lifecycle directly"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 308,
+      "line_start": 303,
+      "section_id": "alternative-c-treat-fully-autonomous-development-as-the-target-lifecycle",
+      "text": "### Alternative C — Treat fully autonomous development as the target lifecycle\n\nPermit sufficiently capable AI to plan, decide, execute, verify, and accept work as one autonomous authority.\n\n**Rejected.** Analytical capability is not equivalent to delegated authority or accountable risk ownership. This also collapses separation of execution, verification, review, and acceptance.",
+      "title": "Alternative C — Treat fully autonomous development as the target lifecycle"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 314,
+      "line_start": 309,
+      "section_id": "alternative-d-monad-native-ai-driven-human-governed-evidence-closed-operating-model",
+      "text": "### Alternative D — Monad-native AI-driven, human-governed, evidence-closed operating model\n\nAllow AI to drive analysis and authorized engineering activity while EOS controls lifecycle transitions, native authority controls consequential decisions, and evidence/review control acceptance.\n\n**Recommended.** This composes existing Monad capabilities without creating a competing source of truth.",
+      "title": "Alternative D — Monad-native AI-driven, human-governed, evidence-closed operating model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 325,
+      "line_start": 315,
+      "section_id": "risks",
+      "text": "## Risks\n\n1. **Over-governance.** Adaptive planning could become ceremony rather than reducing it. Mitigation: require lightweight pathways for low-risk reversible work and explainable depth escalation.\n2. **Authority ambiguity.** Proactive AI behavior could be mistaken for approval. Mitigation: make recommendation, decision, approval, authorization, execution, verification, and acceptance distinct states/records.\n3. **Autonomy escalation.** Implementation may grant broader capability before evidence supports it. Mitigation: progressive trust, explicit capability grants, revocation, independent verification, and risk-class policy.\n4. **Duplicate semantics.** New AI-specific objects may reproduce existing DEC/APR/DEP/EVID/REV/TRC/WP concepts. Mitigation: reuse native entities by default and require a separate semantic-gap justification for additions.\n5. **Provider coupling.** A convenient executor may leak provider-specific concepts into architecture. Mitigation: provider-neutral contracts with adapters.\n6. **Audit overload or sensitive transcripts.** Capturing every model interaction could create excessive or sensitive records. Mitigation: preserve material structured decisions/evidence/provenance while keeping raw transcript retention configurable and non-canonical.\n7. **MVP disruption.** A broad EOS program could interrupt the semantic-kernel critical path. Mitigation: keep the tranche parallel and separately planned; do not broaden active MVP packets.\n8. **Policy complexity.** Too many dynamic gates could reduce determinism. Mitigation: retain constrained deterministic predicates and explicit authority classes.",
+      "title": "Risks"
+    },
+    {
+      "identifiers": [
+        "ADR-0006"
+      ],
+      "level": 2,
+      "line_end": 343,
+      "line_start": 326,
+      "section_id": "validation-required-before-implementation-planning",
+      "text": "## Validation required before implementation planning\n\nBefore implementation Work Packets are authorized, the normative tranche should demonstrate that:\n\n- ADR-0006 remains intact and authoritative;\n- no second lifecycle or current-state authority has been introduced;\n- AI initiative and binding authority are explicitly distinct;\n- the adaptive pathway preserves mandatory EOS gates;\n- material ambiguity can block only affected work and route to native decision semantics;\n- requirement/specification traceability is complete;\n- executor/reviewer independence can be expressed without provider lock-in;\n- stale governing inputs invalidate execution authority;\n- raw transcripts are not required as canonical state;\n- provider failure does not invalidate canonical engineering state;\n- all required conformance scenarios have a normative owner;\n- existing MVP scope and current authorized Work Packets remain unchanged;\n- repository integrity and EOS strict verification pass after any later machine-level implementation.",
+      "title": "Validation required before implementation planning"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 347,
+      "line_start": 344,
+      "section_id": "registry-and-canonical-state-note",
+      "text": "## Registry and canonical-state note\n\nThis file records the proposed change on the working branch. Creation of this proposal MUST NOT be interpreted as an approved EOS lifecycle transition. The `.eos/change-requests.tsv` projection, `.eos/state/current.json`, event ledger, and related machine state MUST be updated only through the repository's governed EOS transition mechanism rather than manually altered to fabricate approval or canonical state.",
+      "title": "Registry and canonical-state note"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 356,
+      "line_start": 348,
+      "section_id": "decision",
+      "text": "## Decision\n\n**Decision:** PENDING\n\n**Authority:** Project Steward / Architecture Owner, with affected authority consultation\n\n**Authority statement:** Not yet granted.\n\nApproval of this Change Request would authorize the normative architecture, requirements, specification, lifecycle-documentation, governance-documentation, and planning work described above. It would NOT authorize product-runtime implementation, bypass Work Packet readiness/authorization gates, modify the active MVP critical path, or grant AI new runtime privileges by itself.",
+      "title": "Decision"
+    }
+  ],
+  "source": {
+    "bytes": 19656,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 356,
+    "media_type": "text/markdown",
+    "path": "engineering/changes/CR-0003.md",
+    "sha256": "781deeda2c23fea71eb4b0cd6a70e197671ee665723e1a9019d0c5571e00b85a"
+  }
+}
