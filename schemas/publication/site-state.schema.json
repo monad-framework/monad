@@ -1,0 +1,875 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:monad:schema:publication:site-state:1",
+  "title": "Monad Publication Site State",
+  "description": "Schema family for deterministic machine-readable state documents consumed by the Monad public website.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/projectState"
+    },
+    {
+      "$ref": "#/$defs/roadmapState"
+    },
+    {
+      "$ref": "#/$defs/workPacketsState"
+    },
+    {
+      "$ref": "#/$defs/milestonesState"
+    },
+    {
+      "$ref": "#/$defs/risksState"
+    },
+    {
+      "$ref": "#/$defs/releasesState"
+    },
+    {
+      "$ref": "#/$defs/verificationState"
+    },
+    {
+      "$ref": "#/$defs/artifactsState"
+    },
+    {
+      "$ref": "#/$defs/researchState"
+    },
+    {
+      "$ref": "#/$defs/evolutionState"
+    }
+  ],
+  "$defs": {
+    "gitCommit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nullableString": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "idArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "uniqueItems": true
+    },
+    "documentMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "sourceCommit",
+        "generatedAt"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitCommit"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "fragment": {
+          "$ref": "#/$defs/nullableString"
+        }
+      }
+    },
+    "statusValue": {
+      "type": "string",
+      "minLength": 1
+    },
+    "projectState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "sourceCommit",
+        "generatedAt",
+        "identity",
+        "status"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "project"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitCommit"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "repository"
+          ],
+          "properties": {
+            "name": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "repository": {
+              "const": "monad-framework/monad"
+            },
+            "description": {
+              "$ref": "#/$defs/nullableString"
+            }
+          }
+        },
+        "version": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "status": {
+          "$ref": "#/$defs/statusValue"
+        },
+        "phase": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "productGoal": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "activeIncrement": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "activeWorkCycle": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "activeWorkPackets": {
+          "$ref": "#/$defs/idArray"
+        },
+        "nextGate": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "blockers": {
+          "$ref": "#/$defs/idArray"
+        },
+        "implementation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cargo": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "packageName": {
+                  "$ref": "#/$defs/nullableString"
+                },
+                "packageVersion": {
+                  "$ref": "#/$defs/nullableString"
+                },
+                "workspaceMembers": {
+                  "$ref": "#/$defs/idArray"
+                }
+              }
+            }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        }
+      }
+    },
+    "roadmapItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "type",
+        "status",
+        "sourcePath"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "$ref": "#/$defs/statusValue"
+        },
+        "sequence": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "targetDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "forecast": {
+          "type": "boolean"
+        },
+        "parentId": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "sourcePath": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "roadmapState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "sourceCommit",
+        "generatedAt",
+        "items"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "roadmap"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitCommit"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/roadmapItem"
+          }
+        }
+      }
+    },
+    "workPacket": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "status",
+        "sourcePath"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "$ref": "#/$defs/statusValue"
+        },
+        "authorizationState": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "workCycle": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "increment": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "objective": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "nextGate": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "blockedBy": {
+          "$ref": "#/$defs/idArray"
+        },
+        "sourcePath": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "workPacketsState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "sourceCommit",
+        "generatedAt",
+        "items"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "work-packets"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitCommit"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "active": {
+          "$ref": "#/$defs/idArray"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/workPacket"
+          }
+        }
+      }
+    },
+    "milestone": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "status",
+        "sourcePath"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "$ref": "#/$defs/statusValue"
+        },
+        "targetDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "forecast": {
+          "type": "boolean"
+        },
+        "sourcePath": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "milestonesState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "sourceCommit",
+        "generatedAt",
+        "items"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "milestones"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitCommit"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/milestone"
+          }
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "status",
+        "sourcePath"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "$ref": "#/$defs/statusValue"
+        },
+        "severity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "likelihood": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "owner": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "mitigation": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "sourcePath": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "risksState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "sourceCommit",
+        "generatedAt",
+        "items"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "risks"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitCommit"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/risk"
+          }
+        }
+      }
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status"
+      ],
+      "properties": {
+        "version": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "$ref": "#/$defs/statusValue"
+        },
+        "releasedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sourcePath": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "sourceTag": {
+          "$ref": "#/$defs/nullableString"
+        }
+      }
+    },
+    "releasesState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "sourceCommit",
+        "generatedAt",
+        "releases"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "releases"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitCommit"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "currentVersion": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "latestRelease": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "releases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/release"
+          }
+        }
+      }
+    },
+    "verificationGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "name": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "enum": [
+            "unknown",
+            "pending",
+            "passed",
+            "failed",
+            "blocked",
+            "not_applicable"
+          ]
+        },
+        "evidence": {
+          "$ref": "#/$defs/idArray"
+        },
+        "sourcePath": {
+          "$ref": "#/$defs/nullableString"
+        }
+      }
+    },
+    "verificationState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "sourceCommit",
+        "generatedAt",
+        "overallStatus",
+        "gates"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "verification"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitCommit"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "overallStatus": {
+          "enum": [
+            "unknown",
+            "pending",
+            "passed",
+            "failed",
+            "blocked"
+          ]
+        },
+        "gates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verificationGate"
+          }
+        }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sourcePath"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "title": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "type": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "sourcePath": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "destinationPath": {
+          "$ref": "#/$defs/nullableString"
+        }
+      }
+    },
+    "artifactsState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "sourceCommit",
+        "generatedAt",
+        "items"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "artifacts"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitCommit"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifact"
+          }
+        }
+      }
+    },
+    "researchQuestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "question",
+        "status",
+        "sourcePath"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "question": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "$ref": "#/$defs/statusValue"
+        },
+        "sourcePath": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "researchRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "status",
+        "sourcePath"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "$ref": "#/$defs/statusValue"
+        },
+        "sourcePath": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "researchState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "sourceCommit",
+        "generatedAt",
+        "openQuestions",
+        "experiments",
+        "findings"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "research"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitCommit"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "openQuestions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/researchQuestion"
+          }
+        },
+        "experiments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/researchRecord"
+          }
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/researchRecord"
+          }
+        }
+      }
+    },
+    "evolutionEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "summary"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "occurredAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sourcePath": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "commit": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/gitCommit"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "externalReference": {
+          "$ref": "#/$defs/nullableString"
+        }
+      }
+    },
+    "evolutionState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "sourceCommit",
+        "generatedAt",
+        "events"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "evolution"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitCommit"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evolutionEvent"
+          }
+        }
+      }
+    }
+  }
+}

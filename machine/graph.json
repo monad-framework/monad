@@ -1591,6 +1591,11 @@
       "type": "declares"
     },
     {
+      "source": "doc:.eos%2Fhistory%2Fengineering%2Fchanges%2FCR-0003%2Fv0.1.0.md",
+      "target": "identifier:ADR-0006",
+      "type": "declares"
+    },
+    {
       "source": "doc:.eos%2Fhistory%2Fengineering%2Fincrements%2FPI-001%2Fv0.1.0.md",
       "target": "identifier:WC-0001",
       "type": "declares"
@@ -5246,6 +5251,16 @@
       "type": "declares"
     },
     {
+      "source": "doc:specifications%2Fpublication%2FMONAD-PUB-001-publication-projection-contract.md",
+      "target": "identifier:ADR-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:specifications%2Fpublication%2FMONAD-PUB-001-publication-projection-contract.md",
+      "target": "identifier:ADR-0017",
+      "type": "declares"
+    },
+    {
       "source": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
       "target": "identifier:ADR-0006",
       "type": "declares"
@@ -8673,6 +8688,14 @@
       "normative": false,
       "source_path": ".eos/history/engineering/changes/CR-0002/v0.1.0.md",
       "title": "CR-0002 — Expand Monad capability and roadmap baseline",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fhistory%2Fengineering%2Fchanges%2FCR-0003%2Fv0.1.0.md",
+      "normative": false,
+      "source_path": ".eos/history/engineering/changes/CR-0003/v0.1.0.md",
+      "title": "CR-0003 — Establish Monad AI-Driven Engineering Operating Model",
       "type": "document"
     },
     {
@@ -19900,6 +19923,22 @@
       "type": "document"
     },
     {
+      "document_type": "project-source",
+      "id": "doc:publication%2Fwebsite%2FREADME.md",
+      "normative": false,
+      "source_path": "publication/website/README.md",
+      "title": "Monad Website Publication Projection",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:publication%2Fwebsite%2Fprojection.yaml",
+      "normative": false,
+      "source_path": "publication/website/projection.yaml",
+      "title": "Projection",
+      "type": "document"
+    },
+    {
       "document_type": "research",
       "id": "doc:research%2FREADME.md",
       "normative": false,
@@ -19913,6 +19952,38 @@
       "normative": false,
       "source_path": "research/questions.md",
       "title": "Research Questions",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:schemas%2Fpublication%2Fmanifest.schema.json",
+      "normative": false,
+      "source_path": "schemas/publication/manifest.schema.json",
+      "title": "Manifest.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:schemas%2Fpublication%2Fprojection.schema.json",
+      "normative": false,
+      "source_path": "schemas/publication/projection.schema.json",
+      "title": "Projection.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:schemas%2Fpublication%2Fprovenance.schema.json",
+      "normative": false,
+      "source_path": "schemas/publication/provenance.schema.json",
+      "title": "Provenance.Schema",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:schemas%2Fpublication%2Fsite-state.schema.json",
+      "normative": false,
+      "source_path": "schemas/publication/site-state.schema.json",
+      "title": "Site State.Schema",
       "type": "document"
     },
     {
@@ -20105,6 +20176,22 @@
       "normative": true,
       "source_path": "specifications/interfaces/IFC-WORKSPACE-0001-repository-root-and-effective-configuration.md",
       "title": "IFC-WORKSPACE-0001: Repository Root and Effective Configuration",
+      "type": "document"
+    },
+    {
+      "document_type": "specification",
+      "id": "doc:specifications%2Fpublication%2FMONAD-PUB-001-publication-projection-contract.md",
+      "normative": true,
+      "source_path": "specifications/publication/MONAD-PUB-001-publication-projection-contract.md",
+      "title": "Monad Publication Projection Contract",
+      "type": "document"
+    },
+    {
+      "document_type": "specification",
+      "id": "doc:specifications%2Fpublication%2FREADME.md",
+      "normative": true,
+      "source_path": "specifications/publication/README.md",
+      "title": "Publication Specifications",
       "type": "document"
     },
     {
@@ -20433,6 +20520,11 @@
       "id": "identifier:ADR-0014",
       "type": "identifier",
       "value": "ADR-0014"
+    },
+    {
+      "id": "identifier:ADR-0017",
+      "type": "identifier",
+      "value": "ADR-0017"
     },
     {
       "id": "identifier:ADR-8888",
@@ -21621,5 +21713,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "1a175dbc9234c074cfd1ac9b56777a39f83b6b4154235369ca2111ab47af335b"
+  "source_tree_sha256": "33ff647090db40240982b352b81134fe08919331219229812d6ea381bf473600"
 }

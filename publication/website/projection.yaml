@@ -1,0 +1,1301 @@
+version: 1
+
+projection:
+  id: MONAD-WEB-PROJECTION-001
+  name: Monad Website Publication Projection
+  status: draft
+
+  contract:
+    id: MONAD-PUB-001
+    path: specifications/publication/MONAD-PUB-001-publication-projection-contract.md
+
+  source:
+    repository: monad-framework/monad
+    branch: main
+
+  destination:
+    repository: monad-framework/aic-fumadocs-app
+    generated_root: content/generated/monad
+    public_generated_root: public/generated/monad
+
+defaults:
+  disposition: EXCLUDE
+  current_state_branch: main
+  preserve_source_status: true
+  deterministic: true
+  ai_authority: forbidden
+  deletion_strategy: manifest_inventory
+  conflict_strategy: fail
+  overwrite_editorial_content: false
+  allow_state_regression: false
+
+provenance:
+  required: true
+
+  mirror_frontmatter:
+    projection: mirror
+    source_repository: monad-framework/monad
+    source_path: "${source.path}"
+    source_commit: "${source.commit}"
+    source_blob: "${source.blob}"
+    projection_version: 1
+    generated: true
+
+  manifest_fields:
+    - sourcePath
+    - sourceBlob
+    - sourceCommit
+    - destinationPath
+    - mode
+    - contentHash
+
+generated_state:
+  manifest: content/generated/monad/manifest.json
+  provenance: content/generated/monad/provenance.json
+
+  canonical_root: content/generated/monad/canonical
+
+  state:
+    project: content/generated/monad/state/project.json
+    roadmap: content/generated/monad/state/roadmap.json
+    work_packets: content/generated/monad/state/work-packets.json
+    milestones: content/generated/monad/state/milestones.json
+    risks: content/generated/monad/state/risks.json
+    releases: content/generated/monad/state/releases.json
+    verification: content/generated/monad/state/verification.json
+    artifacts: content/generated/monad/state/artifacts.json
+    research: content/generated/monad/state/research.json
+    evolution: content/generated/monad/state/evolution.json
+
+transformations:
+  markdown_mirror:
+    - markdown_to_mdx
+    - preserve_semantics
+    - preserve_lifecycle_status
+    - inject_projection_frontmatter
+    - rewrite_internal_links
+    - record_provenance
+    - record_manifest_entry
+
+  markdown_archive:
+    - preserve_semantics
+    - preserve_lifecycle_status
+    - record_provenance
+    - record_manifest_entry
+
+  plain_text_to_mdx:
+    - wrap_plain_text
+    - inject_projection_frontmatter
+    - record_provenance
+    - record_manifest_entry
+
+  structured_copy:
+    - copy_bytes
+    - record_provenance
+    - record_manifest_entry
+
+ownership:
+  editorial:
+    - content/articles/**
+    - content/building-monad/**
+    - content/journal/**
+
+  editorial_exceptions:
+    - content/journal/monad-source/**
+
+  site_owned:
+    - app/**
+    - components/**
+    - lib/**
+    - public/**
+
+  site_owned_exceptions:
+    - public/generated/monad/**
+
+  generated_namespaces:
+    - content/generated/monad/**
+    - public/generated/monad/**
+    - content/journal/monad-source/**
+
+  protected_existing_content:
+    - content/docs/000*.mdx
+    - content/docs/AIEOS-*.mdx
+
+publication_policy:
+  current_state:
+    permitted_source_branches:
+      - main
+
+    forbidden_as_current:
+      - pull_request
+      - feature_branch
+      - local_worktree
+      - detached_head
+      - speculative_projection
+
+  lifecycle:
+    publish_draft_on_main: true
+    publish_proposed_on_main: true
+    publication_implies_acceptance: false
+    source_status_is_authoritative: true
+
+  artificial_intelligence:
+    may_explain_deterministic_state: true
+
+    may_determine:
+      authority: false
+      lifecycle_status: false
+      acceptance: false
+      verification_result: false
+      release_readiness: false
+      requirement_satisfaction: false
+      project_completion: false
+
+mirror:
+  # ---------------------------------------------------------------------------
+  # Repository root
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-ROOT-README
+    source: README.md
+    destination: content/generated/monad/canonical/README.md
+    transformation: markdown_archive
+
+  - id: MIRROR-ROOT-CHANGELOG
+    source: CHANGELOG.md
+    destination: content/changelogs/monad.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ROOT-LICENSE
+    source: LICENSE
+    destination: content/docs/project/community/license.mdx
+    transformation: plain_text_to_mdx
+
+  - id: MIRROR-ROOT-CONTRIBUTING
+    source: CONTRIBUTING.md
+    destination: content/docs/project/community/contributing.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ROOT-CODE-OF-CONDUCT
+    source: CODE_OF_CONDUCT.md
+    destination: content/docs/project/community/code-of-conduct.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ROOT-SECURITY
+    source: SECURITY.md
+    destination: content/docs/system/security/reporting.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ROOT-SYSTEM-DESCRIPTION
+    source: system-description.md
+    destination: content/docs/system/concepts/target-system-description.mdx
+    transformation: markdown_mirror
+    publication_metadata:
+      target_state_description: true
+
+  - id: MIRROR-ROOT-IDEA
+    source: idea.md
+    destination: content/journal/monad-source/idea.mdx
+    transformation: markdown_mirror
+    publication_metadata:
+      historical_source: true
+
+  # ---------------------------------------------------------------------------
+  # Vision
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-VISION-README
+    source: vision/README.md
+    destination: content/docs/system/concepts/vision.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-VISION-PRODUCT-VISION
+    source: vision/product-vision.md
+    destination: content/docs/system/concepts/product-vision.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-VISION-PROBLEM
+    source: vision/problem-statement.md
+    destination: content/docs/system/concepts/problem-statement.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-VISION-GOALS
+    source: vision/goals.md
+    destination: content/docs/system/concepts/goals.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-VISION-NON-GOALS
+    source: vision/non-goals.md
+    destination: content/docs/system/concepts/non-goals.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-VISION-PRINCIPLES
+    source: vision/principles.md
+    destination: content/docs/system/concepts/principles.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-VISION-SUCCESS
+    source: vision/success-criteria.md
+    destination: content/docs/system/concepts/success-criteria.mdx
+    transformation: markdown_mirror
+
+  # ---------------------------------------------------------------------------
+  # Product
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-PRODUCT-README
+    source: product/README.md
+    destination: content/docs/system/concepts/product.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-PRODUCT-GOAL
+    source: product/PRODUCT-GOAL.md
+    destination: content/docs/project/product-goal.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-PRODUCT-MVP-RELEASE
+    source: product/MVP-RELEASE-1.md
+    destination: content/docs/project/mvp-release-1.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-PRODUCT-POST-MVP
+    source: product/POST-MVP-PRODUCT-GOALS.md
+    destination: content/docs/project/post-mvp-goals.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-PRODUCT-CAPABILITIES
+    source: product/capabilities.md
+    destination: content/docs/system/concepts/capabilities.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-PRODUCT-CONSTRAINTS
+    source: product/constraints.md
+    destination: content/docs/system/concepts/constraints.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-PRODUCT-PERSONAS
+    source: product/personas.md
+    destination: content/docs/system/concepts/personas.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-PRODUCT-USE-CASES
+    source: product/use-cases.md
+    destination: content/docs/system/concepts/use-cases.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-PRODUCT-USER-JOURNEYS
+    source: product/user-journeys.md
+    destination: content/docs/system/concepts/user-journeys.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-PRODUCT-REQUIREMENTS
+    source: product/product-requirements.md
+    destination: content/docs/artifacts/requirements/product-requirements.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-PRODUCT-ROADMAP-CANONICAL
+    source: product/roadmap.md
+    destination: content/generated/monad/canonical/product/roadmap.md
+    transformation: markdown_archive
+
+  - id: MIRROR-PRODUCT-BACKLOG-CANONICAL
+    source: product/backlog/**
+    destination: content/generated/monad/canonical/product/backlog/
+    destination_strategy: preserve_relative_path
+    transformation: markdown_archive
+
+  # ---------------------------------------------------------------------------
+  # Architecture
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-ARCHITECTURE-README
+    source: architecture/README.md
+    destination: content/docs/system/architecture/index.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ARCHITECTURE-OVERVIEW
+    source: architecture/overview.md
+    destination: content/docs/system/architecture/overview.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ARCHITECTURE-CONTEXT
+    source: architecture/context.md
+    destination: content/docs/system/architecture/context.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ARCHITECTURE-PRINCIPLES
+    source: architecture/principles.md
+    destination: content/docs/system/architecture/principles.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ARCHITECTURE-QUALITY-ATTRIBUTES
+    source: architecture/quality-attributes.md
+    destination: content/docs/system/architecture/quality-attributes.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ARCHITECTURE-BOUNDARIES
+    source: architecture/system-boundaries.md
+    destination: content/docs/system/architecture/system-boundaries.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ARCHITECTURE-DECISIONS
+    source: architecture/decisions/**/*.md
+    destination: content/docs/artifacts/decisions/
+    destination_strategy: preserve_relative_path
+    relative_to: architecture/decisions
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ARCHITECTURE-DIAGRAMS
+    source: architecture/diagrams/**
+    destination: public/generated/monad/architecture/diagrams/
+    destination_strategy: preserve_relative_path
+    relative_to: architecture/diagrams
+    transformation: structured_copy
+
+  - id: MIRROR-ARCHITECTURE-EXPLORATIONS
+    source: architecture/explorations/**/*.md
+    destination: content/docs/system/architecture/explorations/
+    destination_strategy: preserve_relative_path
+    relative_to: architecture/explorations
+    extension: .mdx
+    transformation: markdown_mirror
+    publication_metadata:
+      preserve_nonaccepted_status: true
+
+  # ---------------------------------------------------------------------------
+  # Specifications
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-SPECIFICATIONS-README
+    source: specifications/README.md
+    destination: content/docs/artifacts/specifications/index.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-SPECIFICATIONS-BASELINE
+    source: specifications/baseline.md
+    destination: content/docs/artifacts/specifications/baseline.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-SPECIFICATIONS-MKE
+    source: specifications/MKE/**/*.md
+    destination: content/docs/artifacts/specifications/MKE/
+    destination_strategy: preserve_relative_path
+    relative_to: specifications/MKE
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-SPECIFICATIONS-DATA
+    source: specifications/data/**/*.md
+    destination: content/docs/artifacts/specifications/data/
+    destination_strategy: preserve_relative_path
+    relative_to: specifications/data
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-SPECIFICATIONS-INTERFACES
+    source: specifications/interfaces/**/*.md
+    destination: content/docs/artifacts/specifications/interfaces/
+    destination_strategy: preserve_relative_path
+    relative_to: specifications/interfaces
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-SPECIFICATIONS-TECHNICAL
+    source: specifications/technical/**/*.md
+    destination: content/docs/artifacts/specifications/technical/
+    destination_strategy: preserve_relative_path
+    relative_to: specifications/technical
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-SPECIFICATIONS-PUBLICATION
+    source: specifications/publication/**/*.md
+    destination: content/docs/artifacts/specifications/publication/
+    destination_strategy: preserve_relative_path
+    relative_to: specifications/publication
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-SPECIFICATION-STRUCTURED-ASSETS
+    source:
+      - specifications/**/*.json
+      - specifications/**/*.yaml
+      - specifications/**/*.yml
+    destination: public/generated/monad/specifications/
+    destination_strategy: preserve_relative_path
+    relative_to: specifications
+    transformation: structured_copy
+
+  # ---------------------------------------------------------------------------
+  # Artifact system
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-ARTIFACT-SYSTEM-README
+    source: artifact-system/README.md
+    destination: content/docs/artifacts/catalog/index.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ARTIFACT-SYSTEM-MARKDOWN
+    source: artifact-system/**/*.md
+    exclude:
+      - artifact-system/README.md
+    destination: content/docs/artifacts/catalog/
+    destination_strategy: preserve_relative_path
+    relative_to: artifact-system
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ARTIFACT-SYSTEM-STRUCTURED
+    source:
+      - artifact-system/**/*.json
+      - artifact-system/**/*.yaml
+      - artifact-system/**/*.yml
+    destination: public/generated/monad/artifact-system/
+    destination_strategy: preserve_relative_path
+    relative_to: artifact-system
+    transformation: structured_copy
+
+  # ---------------------------------------------------------------------------
+  # Governance
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-GOVERNANCE-README
+    source: governance/README.md
+    destination: content/docs/system/governance/index.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-AUTHORITY
+    source: governance/authority.md
+    destination: content/docs/system/governance/authority.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-CANONICAL-STATE
+    source: governance/canonical-state-model.md
+    destination: content/docs/system/governance/canonical-state-model.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-CHANGE-CONTROL
+    source: governance/change-control.md
+    destination: content/docs/system/governance/change-control.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-DECISION-PROCESS
+    source: governance/decision-process.md
+    destination: content/docs/system/governance/decision-process.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-DOCUMENT-LIFECYCLE
+    source: governance/document-lifecycle.md
+    destination: content/docs/system/governance/document-lifecycle.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-EXECUTION-ENGINE
+    source: governance/execution-engine.md
+    destination: content/docs/system/execution/execution-engine.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-PLANNING-ENGINE
+    source: governance/planning-engine.md
+    destination: content/docs/system/execution/planning-engine.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-POLICY-ENGINE
+    source: governance/policy-engine.md
+    destination: content/docs/system/governance/policy-engine.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-OVERRIDE-POLICY
+    source: governance/override-policy.md
+    destination: content/docs/system/governance/override-policy.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-RESPONSIBILITY
+    source: governance/responsibility-model.md
+    destination: content/docs/system/governance/responsibility-model.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-TERMINOLOGY
+    source: governance/terminology.md
+    destination: content/docs/system/glossary/terminology.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-TRACEABILITY
+    source: governance/traceability-graph.md
+    destination: content/docs/artifacts/traceability/graph.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-EVENT-LEDGER
+    source: governance/event-ledger.md
+    destination: content/docs/system/execution/event-ledger.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-GITHUB
+    source: governance/github-integration.md
+    destination: content/docs/system/integrations/github.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-GOVERNANCE-FUTURE
+    source: governance/*.md
+    exclude:
+      - governance/README.md
+      - governance/authority.md
+      - governance/canonical-state-model.md
+      - governance/change-control.md
+      - governance/decision-process.md
+      - governance/document-lifecycle.md
+      - governance/execution-engine.md
+      - governance/planning-engine.md
+      - governance/policy-engine.md
+      - governance/override-policy.md
+      - governance/responsibility-model.md
+      - governance/terminology.md
+      - governance/traceability-graph.md
+      - governance/event-ledger.md
+      - governance/github-integration.md
+    destination: content/docs/system/governance/
+    destination_strategy: preserve_basename
+    extension: .mdx
+    transformation: markdown_mirror
+
+  # ---------------------------------------------------------------------------
+  # Engineering
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-ENGINEERING-PROJECT-STATUS-CANONICAL
+    source: engineering/project-status.md
+    destination: content/generated/monad/canonical/engineering/project-status.md
+    transformation: markdown_archive
+
+  - id: MIRROR-ENGINEERING-PLAN
+    source: engineering/engineering-plan.md
+    destination: content/docs/project/engineering-plan.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-DOR
+    source: engineering/definition-of-ready.md
+    destination: content/docs/system/governance/definition-of-ready.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-DOD
+    source: engineering/definition-of-done.md
+    destination: content/docs/system/governance/definition-of-done.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-INCREMENTS
+    source: engineering/increments/**/*.md
+    destination: content/docs/project/increments/
+    destination_strategy: preserve_relative_path
+    relative_to: engineering/increments
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-MILESTONES
+    source: engineering/milestones/**/*.md
+    destination: content/docs/project/milestones/
+    destination_strategy: preserve_relative_path
+    relative_to: engineering/milestones
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-WORK-CYCLES
+    source: engineering/work-cycles/**/*.md
+    destination: content/docs/project/work-cycles/
+    destination_strategy: preserve_relative_path
+    relative_to: engineering/work-cycles
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-LIFECYCLE
+    source: engineering/lifecycle/**/*.md
+    destination: content/docs/system/execution/lifecycle/
+    destination_strategy: preserve_relative_path
+    relative_to: engineering/lifecycle
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-MAINTENANCE
+    source: engineering/maintenance/**/*.md
+    destination: content/docs/system/execution/maintenance/
+    destination_strategy: preserve_relative_path
+    relative_to: engineering/maintenance
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-WORK-PACKETS
+    source: engineering/work-packets/*.md
+    destination: content/docs/project/work-packets/
+    destination_strategy: preserve_basename
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-RISKS
+    source: engineering/risks/**/*.md
+    destination: content/docs/project/risks/
+    destination_strategy: preserve_relative_path
+    relative_to: engineering/risks
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-REVIEWS
+    source: engineering/reviews/**/*.md
+    destination: content/docs/artifacts/reviews/
+    destination_strategy: preserve_relative_path
+    relative_to: engineering/reviews
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-EVIDENCE
+    source: engineering/evidence/**/*.md
+    destination: content/docs/artifacts/evidence/
+    destination_strategy: preserve_relative_path
+    relative_to: engineering/evidence
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-CHANGES
+    source: engineering/changes/**/*.md
+    destination: content/docs/project/changes/
+    destination_strategy: preserve_relative_path
+    relative_to: engineering/changes
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-EOS
+    source: engineering/eos/**/*.md
+    destination: content/docs/system/governance/eos/
+    destination_strategy: preserve_relative_path
+    relative_to: engineering/eos
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-GITHUB
+    source: engineering/github/**/*.md
+    destination: content/docs/system/integrations/github/
+    destination_strategy: preserve_relative_path
+    relative_to: engineering/github
+    extension: .mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-ENGINEERING-STABILIZATION
+    source: engineering/stabilization/**/*.md
+    destination: content/docs/project/stabilization/
+    destination_strategy: preserve_relative_path
+    relative_to: engineering/stabilization
+    extension: .mdx
+    transformation: markdown_mirror
+
+  # ---------------------------------------------------------------------------
+  # Research
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-RESEARCH-README
+    source: research/README.md
+    destination: content/docs/project/research.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-RESEARCH-QUESTIONS
+    source: research/questions.md
+    destination: content/docs/project/open-questions.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-RESEARCH-EXPERIMENTS
+    source: research/experiments/**/*.md
+    destination: content/docs/artifacts/experiments/
+    destination_strategy: preserve_relative_path
+    relative_to: research/experiments
+    extension: .mdx
+    transformation: markdown_mirror
+    optional_source_family: true
+
+  - id: MIRROR-RESEARCH-EVIDENCE
+    source: research/evidence/**/*.md
+    destination: content/docs/artifacts/evidence/research/
+    destination_strategy: preserve_relative_path
+    relative_to: research/evidence
+    extension: .mdx
+    transformation: markdown_mirror
+    optional_source_family: true
+
+  - id: MIRROR-RESEARCH-FINDINGS
+    source: research/findings/**/*.md
+    destination: content/docs/artifacts/evidence/findings/
+    destination_strategy: preserve_relative_path
+    relative_to: research/findings
+    extension: .mdx
+    transformation: markdown_mirror
+    optional_source_family: true
+
+  # ---------------------------------------------------------------------------
+  # Security
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-SECURITY-README
+    source: security/README.md
+    destination: content/docs/system/security/index.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-SECURITY-MODEL
+    source: security/security-model.md
+    destination: content/docs/system/security/security-model.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-SECURITY-THREAT-MODEL
+    source: security/threat-model.md
+    destination: content/docs/system/security/threat-model.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-SECURITY-SUPPLY-CHAIN
+    source: security/supply-chain.md
+    destination: content/docs/system/security/supply-chain.mdx
+    transformation: markdown_mirror
+
+  # ---------------------------------------------------------------------------
+  # Testing and verification
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-TESTING-README
+    source: testing/README.md
+    destination: content/docs/artifacts/verification/index.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-TESTING-STRATEGY
+    source: testing/strategy.md
+    destination: content/docs/artifacts/verification/test-strategy.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-TESTING-ACCEPTANCE
+    source: testing/acceptance.md
+    destination: content/docs/artifacts/verification/acceptance.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-TESTING-PERFORMANCE
+    source: testing/performance.md
+    destination: content/docs/artifacts/verification/performance.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-TESTING-QUALITY-GATES
+    source: testing/quality-gates.md
+    destination: content/docs/artifacts/verification/quality-gates.mdx
+    transformation: markdown_mirror
+
+  # ---------------------------------------------------------------------------
+  # Operations
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-OPERATIONS-README
+    source: operations/README.md
+    destination: content/docs/system/operations/index.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-OPERATIONS-DEPLOYMENT
+    source: operations/deployment.md
+    destination: content/docs/system/operations/deployment.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-OPERATIONS-ENVIRONMENTS
+    source: operations/environments.md
+    destination: content/docs/system/operations/environments.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-OPERATIONS-INCIDENT-RESPONSE
+    source: operations/incident-response.md
+    destination: content/docs/system/operations/incident-response.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-OPERATIONS-OBSERVABILITY
+    source: operations/observability.md
+    destination: content/docs/system/operations/observability.mdx
+    transformation: markdown_mirror
+
+  - id: MIRROR-OPERATIONS-RELIABILITY
+    source: operations/reliability.md
+    destination: content/docs/system/operations/reliability.mdx
+    transformation: markdown_mirror
+
+  # ---------------------------------------------------------------------------
+  # Monad journal
+  # ---------------------------------------------------------------------------
+
+  - id: MIRROR-JOURNAL
+    source: journal/**/*.md
+    destination: content/journal/monad-source/
+    destination_strategy: preserve_relative_path
+    relative_to: journal
+    extension: .mdx
+    transformation: markdown_mirror
+    publication_metadata:
+      source_journal: true
+
+derive:
+  - id: DERIVE-SYSTEM-OVERVIEW
+    output: content/docs/system/index.mdx
+    producer: system_overview
+    inputs:
+      - README.md
+    fields:
+      - system_identity
+      - system_category
+      - current_phase
+      - authority_model
+
+  - id: DERIVE-PROJECT
+    output: content/generated/monad/state/project.json
+    producer: project_state
+    inputs:
+      - README.md
+      - VERSION
+      - product/PRODUCT-GOAL.md
+      - engineering/project-status.md
+      - engineering/work-packets/**
+      - product/backlog/**
+      - engineering/milestones/**
+      - .eos/**
+    eos_access: selected_state_only
+
+  - id: DERIVE-PROJECT-INDEX
+    output: content/docs/project/index.mdx
+    producer: project_page
+    state_inputs:
+      - content/generated/monad/state/project.json
+      - content/generated/monad/state/work-packets.json
+      - content/generated/monad/state/milestones.json
+      - content/generated/monad/state/risks.json
+      - content/generated/monad/state/verification.json
+
+  - id: DERIVE-PROJECT-NOW
+    output: content/docs/project/now.mdx
+    producer: project_now_page
+    inputs:
+      - engineering/project-status.md
+      - engineering/work-packets/**
+      - product/backlog/**
+      - engineering/milestones/**
+      - .eos/**
+    eos_access: selected_state_only
+    outputs:
+      - active_increment
+      - active_work_cycle
+      - active_work_packets
+      - current_objective
+      - next_gate
+      - blockers
+
+  - id: DERIVE-PROJECT-STATUS
+    output: content/docs/project/status.mdx
+    producer: project_status_page
+    inputs:
+      - engineering/project-status.md
+      - product/backlog/**
+      - engineering/work-packets/**
+      - engineering/risks/**
+      - testing/**
+      - VERSION
+      - CHANGELOG.md
+      - .eos/**
+    eos_access: selected_state_only
+
+  - id: DERIVE-ROADMAP-STATE
+    output: content/generated/monad/state/roadmap.json
+    producer: roadmap_state
+    inputs:
+      - product/roadmap.md
+      - product/backlog/**
+      - engineering/milestones/**
+      - engineering/increments/**
+
+  - id: DERIVE-ROADMAP-PAGE
+    output: content/docs/project/roadmap.mdx
+    producer: roadmap_page
+    state_inputs:
+      - content/generated/monad/state/roadmap.json
+
+  - id: DERIVE-WORK-PACKETS
+    output: content/generated/monad/state/work-packets.json
+    producer: work_packet_state
+    inputs:
+      - engineering/work-packets/**
+      - product/backlog/**
+      - .eos/**
+    eos_access: selected_state_only
+
+  - id: DERIVE-WORK-PACKETS-INDEX
+    output: content/docs/project/work-packets/index.mdx
+    producer: work_packet_index_page
+    state_inputs:
+      - content/generated/monad/state/work-packets.json
+
+  - id: DERIVE-MILESTONES
+    output: content/generated/monad/state/milestones.json
+    producer: milestone_state
+    inputs:
+      - engineering/milestones/**
+      - engineering/increments/**
+      - product/backlog/**
+      - .eos/**
+    eos_access: selected_state_only
+
+  - id: DERIVE-RISKS
+    output: content/generated/monad/state/risks.json
+    producer: risk_state
+    inputs:
+      - engineering/risks/**
+
+  - id: DERIVE-RISKS-INDEX
+    output: content/docs/project/risks/index.mdx
+    producer: risk_index_page
+    state_inputs:
+      - content/generated/monad/state/risks.json
+
+  - id: DERIVE-RELEASES
+    output: content/generated/monad/state/releases.json
+    producer: release_state
+    inputs:
+      - VERSION
+      - CHANGELOG.md
+      - product/MVP-RELEASE-1.md
+      - engineering/**
+      - .eos/**
+    eos_access: selected_state_only
+    external_inputs:
+      - github_releases
+
+  - id: DERIVE-RELEASES-PAGE
+    output: content/docs/project/releases.mdx
+    producer: releases_page
+    state_inputs:
+      - content/generated/monad/state/releases.json
+
+  - id: DERIVE-VERIFICATION
+    output: content/generated/monad/state/verification.json
+    producer: verification_state
+    inputs:
+      - testing/**
+      - engineering/evidence/**
+      - engineering/reviews/**
+      - engineering/work-packets/**
+      - .eos/**
+    eos_access: verification_state_only
+
+  - id: DERIVE-ARTIFACT-INDEX
+    output: content/generated/monad/state/artifacts.json
+    producer: artifact_index
+    inputs:
+      - architecture/decisions/**
+      - specifications/**
+      - artifact-system/**
+      - engineering/evidence/**
+      - engineering/reviews/**
+      - testing/**
+      - research/**
+
+  - id: DERIVE-RESEARCH
+    output: content/generated/monad/state/research.json
+    producer: research_state
+    inputs:
+      - research/**
+
+  - id: DERIVE-EVOLUTION
+    output: content/generated/monad/state/evolution.json
+    producer: evolution_state
+    inputs:
+      - architecture/decisions/**
+      - specifications/**
+      - product/**
+      - engineering/changes/**
+      - engineering/work-packets/**
+      - engineering/milestones/**
+      - engineering/increments/**
+      - engineering/evidence/**
+      - testing/**
+      - VERSION
+      - CHANGELOG.md
+    external_inputs:
+      - merged_pull_requests
+
+  - id: DERIVE-VERSION
+    producer: project_version
+    input: VERSION
+    target:
+      document: content/generated/monad/state/project.json
+      pointer: /version
+
+  - id: DERIVE-MONAD-TOML-IDENTITY
+    producer: project_identity
+    input: monad.toml
+    allowed_fields:
+      - name
+      - version
+      - description
+    target:
+      document: content/generated/monad/state/project.json
+      pointer: /identity
+
+  - id: DERIVE-CARGO-METADATA
+    producer: cargo_metadata
+    input: Cargo.toml
+    allowed_fields:
+      - package.name
+      - package.version
+      - workspace.members
+    target:
+      document: content/generated/monad/state/project.json
+      pointer: /implementation/cargo
+
+live:
+  endpoint:
+    destination: app/api/monad/status/route.ts
+    schema: publication_live_status
+
+  allowed_sources:
+    - github_repository
+    - github_actions
+    - github_pull_requests
+    - github_releases
+
+  fields:
+    - repository
+    - branch
+    - headSha
+    - projectedSha
+    - latestRelease
+    - ciState
+    - openPullRequests
+    - lastProjectionAt
+    - lagSeconds
+    - freshness
+
+  forbidden_behavior:
+    - expose_arbitrary_github_api_response
+    - override_canonical_status
+    - override_lifecycle_state
+    - override_verification_result
+    - override_release_readiness
+
+editorial:
+  paths:
+    - content/articles/**
+    - content/building-monad/**
+    - content/journal/**
+
+  exceptions:
+    - content/journal/monad-source/**
+
+  snapshot_policy:
+    state_claiming_articles_should_declare:
+      field: monad_snapshot
+      value: source_commit
+
+    historical_articles:
+      rewrite_on_new_projection: false
+      show_snapshot: true
+      link_to_current_state: true
+
+exclude:
+  # Raw machine and control state.
+  - machine/**
+  - .eos/**
+  - .github/**
+  - .monad/**
+
+  # Implementation source.
+  - crates/**
+  - scripts/**
+  - tools/**
+  - completions/**
+  - bootstrap-*.sh
+
+  # Repository-local implementation/control files.
+  - Cargo.lock
+  - next-steps.md
+  - .editorconfig
+  - .gitattributes
+  - .gitignore
+  - .githubignore
+
+  # Agent/operator prompt material.
+  - engineering/prompts/**
+
+  # Any sensitive security material not explicitly admitted by a MIRROR rule.
+  - security/private/**
+  - security/internal/**
+  - security/secrets/**
+
+selected_excluded_inputs:
+  # These sources remain excluded from direct publication but may provide the
+  # narrowly bounded deterministic facts authorized by DERIVE rules.
+  .eos:
+    allowed_derived_facts:
+      - active_work_packet
+      - work_packet_authorization_state
+      - work_packet_closed_state
+      - active_work_cycle
+      - verification_result
+      - release_readiness
+
+    forbidden_publication:
+      - raw_control_state
+      - agent_context
+      - internal_prompt_context
+      - transient_execution_context
+      - secrets
+
+  machine:
+    allowed_uses:
+      - validation
+      - consistency_check
+      - projection_input_verification
+
+    authoritative: false
+    direct_publication: false
+
+eventing:
+  source_event:
+    repository: monad-framework/monad
+    branch: main
+    event: push
+
+  dispatch:
+    payload_fields:
+      - repository
+      - sourceCommit
+      - projectionVersion
+
+    payload_is_authoritative_content: false
+
+  consumer_requirements:
+    retrieve_exact_commit: true
+    verify_source_commit: true
+    reject_non_main_current_state: true
+    reject_state_regression: true
+
+  ordering:
+    strategy: branch_ancestry
+    reject_older_projection: true
+
+reconciliation:
+  enabled: true
+
+  comparison:
+    source: latest_publishable_main_sha
+    destination: projected_sha
+
+  self_heal:
+    missed_event: true
+    failed_workflow: true
+    temporary_authentication_failure: true
+    interrupted_deployment: true
+
+freshness:
+  states:
+    CURRENT:
+      max_lag_seconds: 300
+
+    SYNCING:
+      condition: projection_workflow_active
+
+    STALE:
+      min_lag_seconds: 301
+      max_lag_seconds: 600
+
+    FAILED:
+      min_lag_seconds: 601
+
+  stale_display:
+    show_projected_sha: true
+    show_source_sha: true
+    show_last_successful_projection: true
+
+deletion:
+  strategy: manifest_inventory
+
+  requirements:
+    previous_manifest_required: true
+    delete_only_previously_managed_files: true
+    delete_editorial_files: false
+    propagate_source_removals: true
+    propagate_source_renames: true
+
+conflicts:
+  generated_file_modified_manually:
+    action: fail
+
+  source_and_destination_disagree:
+    action: regenerate_from_authoritative_source
+
+  canonical_and_live_state_disagree:
+    action: surface_conflict
+    canonical_state_remains_authoritative: true
+
+  canonical_and_machine_projection_disagree:
+    action: fail
+    canonical_state_remains_authoritative: true
+
+manifest:
+  path: content/generated/monad/manifest.json
+  complete_inventory: true
+
+  artifact_fields:
+    - sourcePath
+    - sourceBlob
+    - sourceCommit
+    - destinationPath
+    - mode
+    - contentHash
+
+  projection_fields:
+    - projectionVersion
+    - sourceRepository
+    - sourceBranch
+    - sourceCommit
+    - generatedAt
+    - artifacts
+
+invariants:
+  - id: PPC-INV-001
+    name: Single authority
+    assertion: generated_monad_fact_requires_authoritative_monad_source
+
+  - id: PPC-INV-002
+    name: Exact provenance
+    assertion: generated_output_must_identify_exact_source_revision
+
+  - id: PPC-INV-003
+    name: Determinism
+    assertion: same_source_commit_and_projection_version_produce_same_semantic_output
+
+  - id: PPC-INV-004
+    name: No silent conflict
+    assertion: conflicting_state_must_fail_or_be_explicitly_surfaced
+
+  - id: PPC-INV-005
+    name: Deletion propagation
+    assertion: obsolete_managed_projection_output_must_be_removed
+
+  - id: PPC-INV-006
+    name: Editorial preservation
+    assertion: projection_must_not_overwrite_editorial_content
+
+  - id: PPC-INV-007
+    name: Deny by default
+    assertion: unclassified_source_paths_are_excluded
+
+  - id: PPC-INV-008
+    name: No state regression
+    assertion: older_source_revision_must_not_replace_newer_projected_main_state
+
+  - id: PPC-INV-009
+    name: Honest freshness
+    assertion: stale_or_failed_projection_state_must_be_visible
+
+  - id: PPC-INV-010
+    name: No AI authority
+    assertion: ai_must_not_determine_governed_state
+
+  - id: PPC-INV-011
+    name: Main-only current state
+    assertion: only_authoritative_main_may_be_presented_as_current
+
+  - id: PPC-INV-012
+    name: Local reproducibility
+    assertion: publication_projection_must_be_reproducible_without_github_actions

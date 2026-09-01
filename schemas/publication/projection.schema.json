@@ -1,0 +1,606 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:monad:schema:publication:projection:1",
+  "title": "Monad Website Publication Projection Policy",
+  "description": "Validates publication/website/projection.yaml, the executable policy implementing MONAD-PUB-001.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "projection",
+    "defaults",
+    "provenance",
+    "generated_state",
+    "transformations",
+    "ownership",
+    "publication_policy",
+    "mirror",
+    "derive",
+    "live",
+    "editorial",
+    "exclude",
+    "selected_excluded_inputs",
+    "eventing",
+    "reconciliation",
+    "freshness",
+    "deletion",
+    "conflicts",
+    "manifest",
+    "invariants"
+  ],
+  "properties": {
+    "version": { "const": 1 },
+    "projection": { "$ref": "#/$defs/projectionIdentity" },
+    "defaults": { "$ref": "#/$defs/defaults" },
+    "provenance": { "$ref": "#/$defs/provenancePolicy" },
+    "generated_state": { "$ref": "#/$defs/generatedState" },
+    "transformations": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/transformation" }
+    },
+    "ownership": { "$ref": "#/$defs/ownership" },
+    "publication_policy": { "$ref": "#/$defs/publicationPolicy" },
+    "mirror": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/mirrorRule" }
+    },
+    "derive": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/deriveRule" }
+    },
+    "live": { "$ref": "#/$defs/livePolicy" },
+    "editorial": { "$ref": "#/$defs/editorialPolicy" },
+    "exclude": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/pathPattern" },
+      "uniqueItems": true
+    },
+    "selected_excluded_inputs": { "$ref": "#/$defs/selectedExcludedInputs" },
+    "eventing": { "$ref": "#/$defs/eventing" },
+    "reconciliation": { "$ref": "#/$defs/reconciliation" },
+    "freshness": { "$ref": "#/$defs/freshness" },
+    "deletion": { "$ref": "#/$defs/deletion" },
+    "conflicts": { "$ref": "#/$defs/conflicts" },
+    "manifest": { "$ref": "#/$defs/manifestPolicy" },
+    "invariants": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/invariant" }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pathPattern": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pathOrPaths": {
+      "oneOf": [
+        { "$ref": "#/$defs/pathPattern" },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/pathPattern" },
+          "uniqueItems": true
+        }
+      ]
+    },
+    "stringArray": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEmptyString" },
+      "uniqueItems": true
+    },
+    "projectionIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "status", "contract", "source", "destination"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "status": { "enum": ["draft", "proposed", "accepted", "deprecated", "retired"] },
+        "contract": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "path"],
+          "properties": {
+            "id": { "const": "MONAD-PUB-001" },
+            "path": { "const": "specifications/publication/MONAD-PUB-001-publication-projection-contract.md" }
+          }
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["repository", "branch"],
+          "properties": {
+            "repository": { "const": "monad-framework/monad" },
+            "branch": { "const": "main" }
+          }
+        },
+        "destination": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["repository", "generated_root", "public_generated_root"],
+          "properties": {
+            "repository": { "const": "monad-framework/aic-fumadocs-app" },
+            "generated_root": { "const": "content/generated/monad" },
+            "public_generated_root": { "const": "public/generated/monad" }
+          }
+        }
+      }
+    },
+    "defaults": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "disposition",
+        "current_state_branch",
+        "preserve_source_status",
+        "deterministic",
+        "ai_authority",
+        "deletion_strategy",
+        "conflict_strategy",
+        "overwrite_editorial_content",
+        "allow_state_regression"
+      ],
+      "properties": {
+        "disposition": { "const": "EXCLUDE" },
+        "current_state_branch": { "const": "main" },
+        "preserve_source_status": { "const": true },
+        "deterministic": { "const": true },
+        "ai_authority": { "const": "forbidden" },
+        "deletion_strategy": { "const": "manifest_inventory" },
+        "conflict_strategy": { "enum": ["fail", "surface"] },
+        "overwrite_editorial_content": { "const": false },
+        "allow_state_regression": { "const": false }
+      }
+    },
+    "provenancePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "mirror_frontmatter", "manifest_fields"],
+      "properties": {
+        "required": { "const": true },
+        "mirror_frontmatter": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "projection",
+            "source_repository",
+            "source_path",
+            "source_commit",
+            "source_blob",
+            "projection_version",
+            "generated"
+          ],
+          "properties": {
+            "projection": { "const": "mirror" },
+            "source_repository": { "const": "monad-framework/monad" },
+            "source_path": { "$ref": "#/$defs/nonEmptyString" },
+            "source_commit": { "$ref": "#/$defs/nonEmptyString" },
+            "source_blob": { "$ref": "#/$defs/nonEmptyString" },
+            "projection_version": { "const": 1 },
+            "generated": { "const": true }
+          }
+        },
+        "manifest_fields": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "sourcePath",
+              "sourceBlob",
+              "sourceCommit",
+              "destinationPath",
+              "mode",
+              "contentHash"
+            ]
+          },
+          "uniqueItems": true,
+          "allOf": [
+            { "contains": { "const": "sourcePath" } },
+            { "contains": { "const": "sourceBlob" } },
+            { "contains": { "const": "sourceCommit" } },
+            { "contains": { "const": "destinationPath" } },
+            { "contains": { "const": "mode" } },
+            { "contains": { "const": "contentHash" } }
+          ]
+        }
+      }
+    },
+    "generatedState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifest", "provenance", "canonical_root", "state"],
+      "properties": {
+        "manifest": { "const": "content/generated/monad/manifest.json" },
+        "provenance": { "const": "content/generated/monad/provenance.json" },
+        "canonical_root": { "const": "content/generated/monad/canonical" },
+        "state": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "project",
+            "roadmap",
+            "work_packets",
+            "milestones",
+            "risks",
+            "releases",
+            "verification",
+            "artifacts",
+            "research",
+            "evolution"
+          ],
+          "properties": {
+            "project": { "const": "content/generated/monad/state/project.json" },
+            "roadmap": { "const": "content/generated/monad/state/roadmap.json" },
+            "work_packets": { "const": "content/generated/monad/state/work-packets.json" },
+            "milestones": { "const": "content/generated/monad/state/milestones.json" },
+            "risks": { "const": "content/generated/monad/state/risks.json" },
+            "releases": { "const": "content/generated/monad/state/releases.json" },
+            "verification": { "const": "content/generated/monad/state/verification.json" },
+            "artifacts": { "const": "content/generated/monad/state/artifacts.json" },
+            "research": { "const": "content/generated/monad/state/research.json" },
+            "evolution": { "const": "content/generated/monad/state/evolution.json" }
+          }
+        }
+      }
+    },
+    "transformation": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "ownership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["editorial", "editorial_exceptions", "site_owned", "site_owned_exceptions", "generated_namespaces", "protected_existing_content"],
+      "properties": {
+        "editorial": { "$ref": "#/$defs/stringArray" },
+        "editorial_exceptions": { "$ref": "#/$defs/stringArray" },
+        "site_owned": { "$ref": "#/$defs/stringArray" },
+        "site_owned_exceptions": { "$ref": "#/$defs/stringArray" },
+        "generated_namespaces": { "$ref": "#/$defs/stringArray" },
+        "protected_existing_content": { "$ref": "#/$defs/stringArray" }
+      }
+    },
+    "publicationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["current_state", "lifecycle", "artificial_intelligence"],
+      "properties": {
+        "current_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["permitted_source_branches", "forbidden_as_current"],
+          "properties": {
+            "permitted_source_branches": { "$ref": "#/$defs/stringArray" },
+            "forbidden_as_current": { "$ref": "#/$defs/stringArray" }
+          }
+        },
+        "lifecycle": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["publish_draft_on_main", "publish_proposed_on_main", "publication_implies_acceptance", "source_status_is_authoritative"],
+          "properties": {
+            "publish_draft_on_main": { "type": "boolean" },
+            "publish_proposed_on_main": { "type": "boolean" },
+            "publication_implies_acceptance": { "const": false },
+            "source_status_is_authoritative": { "const": true }
+          }
+        },
+        "artificial_intelligence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["may_explain_deterministic_state", "may_determine"],
+          "properties": {
+            "may_explain_deterministic_state": { "type": "boolean" },
+            "may_determine": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": { "const": false }
+            }
+          }
+        }
+      }
+    },
+    "mirrorRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source", "destination", "transformation"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^MIRROR-[A-Z0-9-]+$" },
+        "source": { "$ref": "#/$defs/pathOrPaths" },
+        "exclude": { "$ref": "#/$defs/stringArray" },
+        "destination": { "$ref": "#/$defs/pathPattern" },
+        "destination_strategy": { "enum": ["preserve_relative_path", "preserve_basename"] },
+        "relative_to": { "$ref": "#/$defs/pathPattern" },
+        "extension": { "type": "string", "pattern": "^\\.[A-Za-z0-9]+$" },
+        "transformation": { "$ref": "#/$defs/nonEmptyString" },
+        "publication_metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["string", "number", "integer", "boolean", "null"]
+          }
+        },
+        "optional_source_family": { "type": "boolean" }
+      }
+    },
+    "deriveRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "producer"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^DERIVE-[A-Z0-9-]+$" },
+        "output": { "$ref": "#/$defs/pathPattern" },
+        "producer": { "$ref": "#/$defs/nonEmptyString" },
+        "inputs": { "$ref": "#/$defs/stringArray" },
+        "state_inputs": { "$ref": "#/$defs/stringArray" },
+        "external_inputs": { "$ref": "#/$defs/stringArray" },
+        "eos_access": { "$ref": "#/$defs/nonEmptyString" },
+        "fields": { "$ref": "#/$defs/stringArray" },
+        "outputs": { "$ref": "#/$defs/stringArray" },
+        "input": { "$ref": "#/$defs/pathPattern" },
+        "allowed_fields": { "$ref": "#/$defs/stringArray" },
+        "target": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["document", "pointer"],
+          "properties": {
+            "document": { "$ref": "#/$defs/pathPattern" },
+            "pointer": { "type": "string", "pattern": "^/" }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            { "required": ["output"] },
+            { "required": ["target"] }
+          ]
+        },
+        {
+          "anyOf": [
+            { "required": ["inputs"] },
+            { "required": ["state_inputs"] },
+            { "required": ["input"] }
+          ]
+        }
+      ]
+    },
+    "livePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["endpoint", "allowed_sources", "fields", "forbidden_behavior"],
+      "properties": {
+        "endpoint": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["destination", "schema"],
+          "properties": {
+            "destination": { "$ref": "#/$defs/pathPattern" },
+            "schema": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "allowed_sources": { "$ref": "#/$defs/stringArray" },
+        "fields": { "$ref": "#/$defs/stringArray" },
+        "forbidden_behavior": { "$ref": "#/$defs/stringArray" }
+      }
+    },
+    "editorialPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["paths", "exceptions", "snapshot_policy"],
+      "properties": {
+        "paths": { "$ref": "#/$defs/stringArray" },
+        "exceptions": { "$ref": "#/$defs/stringArray" },
+        "snapshot_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state_claiming_articles_should_declare", "historical_articles"],
+          "properties": {
+            "state_claiming_articles_should_declare": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["field", "value"],
+              "properties": {
+                "field": { "$ref": "#/$defs/nonEmptyString" },
+                "value": { "$ref": "#/$defs/nonEmptyString" }
+              }
+            },
+            "historical_articles": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["rewrite_on_new_projection", "show_snapshot", "link_to_current_state"],
+              "properties": {
+                "rewrite_on_new_projection": { "const": false },
+                "show_snapshot": { "type": "boolean" },
+                "link_to_current_state": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "selectedExcludedInputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [".eos", "machine"],
+      "properties": {
+        ".eos": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["allowed_derived_facts", "forbidden_publication"],
+          "properties": {
+            "allowed_derived_facts": { "$ref": "#/$defs/stringArray" },
+            "forbidden_publication": { "$ref": "#/$defs/stringArray" }
+          }
+        },
+        "machine": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["allowed_uses", "authoritative", "direct_publication"],
+          "properties": {
+            "allowed_uses": { "$ref": "#/$defs/stringArray" },
+            "authoritative": { "const": false },
+            "direct_publication": { "const": false }
+          }
+        }
+      }
+    },
+    "eventing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_event", "dispatch", "consumer_requirements", "ordering"],
+      "properties": {
+        "source_event": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["repository", "branch", "event"],
+          "properties": {
+            "repository": { "const": "monad-framework/monad" },
+            "branch": { "const": "main" },
+            "event": { "const": "push" }
+          }
+        },
+        "dispatch": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["payload_fields", "payload_is_authoritative_content"],
+          "properties": {
+            "payload_fields": { "$ref": "#/$defs/stringArray" },
+            "payload_is_authoritative_content": { "const": false }
+          }
+        },
+        "consumer_requirements": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "const": true }
+        },
+        "ordering": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["strategy", "reject_older_projection"],
+          "properties": {
+            "strategy": { "const": "branch_ancestry" },
+            "reject_older_projection": { "const": true }
+          }
+        }
+      }
+    },
+    "reconciliation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "comparison", "self_heal"],
+      "properties": {
+        "enabled": { "const": true },
+        "comparison": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "destination"],
+          "properties": {
+            "source": { "const": "latest_publishable_main_sha" },
+            "destination": { "const": "projected_sha" }
+          }
+        },
+        "self_heal": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "const": true }
+        }
+      }
+    },
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["states", "stale_display"],
+      "properties": {
+        "states": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["CURRENT", "SYNCING", "STALE", "FAILED"],
+          "properties": {
+            "CURRENT": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["max_lag_seconds"],
+              "properties": { "max_lag_seconds": { "type": "integer", "minimum": 0 } }
+            },
+            "SYNCING": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["condition"],
+              "properties": { "condition": { "$ref": "#/$defs/nonEmptyString" } }
+            },
+            "STALE": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["min_lag_seconds", "max_lag_seconds"],
+              "properties": {
+                "min_lag_seconds": { "type": "integer", "minimum": 0 },
+                "max_lag_seconds": { "type": "integer", "minimum": 0 }
+              }
+            },
+            "FAILED": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["min_lag_seconds"],
+              "properties": { "min_lag_seconds": { "type": "integer", "minimum": 0 } }
+            }
+          }
+        },
+        "stale_display": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "const": true }
+        }
+      }
+    },
+    "deletion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy", "requirements"],
+      "properties": {
+        "strategy": { "const": "manifest_inventory" },
+        "requirements": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "type": "boolean" }
+        }
+      }
+    },
+    "conflicts": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": ["string", "boolean"]
+        }
+      }
+    },
+    "manifestPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "complete_inventory", "artifact_fields", "projection_fields"],
+      "properties": {
+        "path": { "const": "content/generated/monad/manifest.json" },
+        "complete_inventory": { "const": true },
+        "artifact_fields": { "$ref": "#/$defs/stringArray" },
+        "projection_fields": { "$ref": "#/$defs/stringArray" }
+      }
+    },
+    "invariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "assertion"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^PPC-INV-[0-9]{3}$" },
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "assertion": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    }
+  }
+}
