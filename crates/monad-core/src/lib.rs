@@ -9,6 +9,7 @@
 pub mod discovery;
 pub mod harness;
 pub mod harness_adapter;
+pub mod harness_codex_adapter;
 pub mod harness_delegation;
 pub mod harness_effects;
 pub mod harness_gateway;
