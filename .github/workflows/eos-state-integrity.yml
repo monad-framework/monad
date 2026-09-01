@@ -16,5 +16,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      # The repository's sole operational state authority is the canonical
+      # controller exposed through scripts/eos. The legacy state_model.py
+      # verifier still projects the superseded event-ledger authority model.
       - name: Verify canonical state and projections
-        run: python tools/eos/state_model.py verify
+        run: ./scripts/eos state status
