@@ -1,0 +1,40 @@
+{
+  "content": "name: Governed execution C0\n\non:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"specifications/data/DATA-HARNESS-0001-execution-envelope.md\"\n      - \"specifications/data/execution-envelope.schema.json\"\n      - \"testing/governed-execution-conformance.md\"\n      - \".github/workflows/governed-execution-c0.yml\"\n  push:\n    branches: [main]\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"specifications/data/DATA-HARNESS-0001-execution-envelope.md\"\n      - \"specifications/data/execution-envelope.schema.json\"\n      - \"testing/governed-execution-conformance.md\"\n      - \".github/workflows/governed-execution-c0.yml\"\n\npermissions:\n  contents: read\n\njobs:\n  c0:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Verify formatting\n        run: cargo fmt --check\n      - name: Run monad-core governed-execution conformance tests\n        run: cargo test -p monad-core harness_validation\n",
+  "document_id": "doc:.github%2Fworkflows%2Fgoverned-execution-c0.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/governed-execution-c0.yml.",
+    "title": "Governed Execution C0"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 35,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Governed execution C0\n\non:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"specifications/data/DATA-HARNESS-0001-execution-envelope.md\"\n      - \"specifications/data/execution-envelope.schema.json\"\n      - \"testing/governed-execution-conformance.md\"\n      - \".github/workflows/governed-execution-c0.yml\"\n  push:\n    branches: [main]\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"specifications/data/DATA-HARNESS-0001-execution-envelope.md\"\n      - \"specifications/data/execution-envelope.schema.json\"\n      - \"testing/governed-execution-conformance.md\"\n      - \".github/workflows/governed-execution-c0.yml\"\n\npermissions:\n  contents: read\n\njobs:\n  c0:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Verify formatting\n        run: cargo fmt --check\n      - name: Run monad-core governed-execution conformance tests\n        run: cargo test -p monad-core harness_validation",
+      "title": "Governed Execution C0"
+    }
+  ],
+  "source": {
+    "bytes": 1022,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 35,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/governed-execution-c0.yml",
+    "sha256": "96611aa13522c7fe193dd5c20d0738ff30aa9909cce5a1a9513963b4c8db6886"
+  }
+}

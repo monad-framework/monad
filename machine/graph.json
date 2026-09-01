@@ -1732,6 +1732,11 @@
     },
     {
       "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:ADR-0007",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
       "target": "identifier:ADR-0014",
       "type": "declares"
     },
@@ -2567,6 +2572,11 @@
     },
     {
       "source": "doc:crates%2Fmonad-core%2Fsrc%2Fharness.rs",
+      "target": "identifier:ADR-0007",
+      "type": "declares"
+    },
+    {
+      "source": "doc:crates%2Fmonad-core%2Fsrc%2Fharness_validation.rs",
       "target": "identifier:ADR-0007",
       "type": "declares"
     },
@@ -9824,6 +9834,14 @@
     },
     {
       "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Fgoverned-execution-c0.yml",
+      "normative": false,
+      "source_path": ".github/workflows/governed-execution-c0.yml",
+      "title": "Governed Execution C0",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
       "id": "doc:.github%2Fworkflows%2Fmachine-workflow-projection.yml",
       "normative": false,
       "source_path": ".github/workflows/machine-workflow-projection.yml",
@@ -16096,6 +16114,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:crates%2Fmonad-core%2Fsrc%2Fharness_validation.rs",
+      "normative": false,
+      "source_path": "crates/monad-core/src/harness_validation.rs",
+      "title": "Harness Validation",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:crates%2Fmonad-core%2Fsrc%2Fidentity.rs",
       "normative": false,
       "source_path": "crates/monad-core/src/identity.rs",
@@ -21480,5 +21506,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "be98d57b6744b825f905b9890ecab42e25ce7b5c2e2de35b3d7fc6d6bea96f2f"
+  "source_tree_sha256": "682f96203713e5e161cc7ccef30c03f6f90fdf7d98375adc86eca1b0fadfe2a3"
 }

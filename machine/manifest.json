@@ -6139,15 +6139,15 @@
     },
     {
       "companion_path": "machine/documents/.eos/trace-edges.tsv.json",
-      "companion_sha256": "54dcfc1025f8079f9618e9b3780ae85e17b2e646b83f3e923aa5f0db62a5b569",
+      "companion_sha256": "1113a7818236eb34c36b0a2bbf38dd96337099aa581c02edd2834c08c8a088cf",
       "document_id": "doc:.eos%2Ftrace-edges.tsv",
       "document_type": "project-source",
-      "identifier_count": 62,
+      "identifier_count": 63,
       "normative": false,
       "relation_count": 0,
       "section_count": 1,
       "source_path": ".eos/trace-edges.tsv",
-      "source_sha256": "58441785304baf02f4e4d223f7bc6686dda3800af63ba01c64d7b9ce883313c3",
+      "source_sha256": "e109997f382161b97c8923cae72ff185c25904fa08ba7a9a05b839a1f89a5869",
       "title": "Trace Edges"
     },
     {
@@ -6435,6 +6435,19 @@
       "source_path": ".github/workflows/github-tracking-sync.yml",
       "source_sha256": "085a08a3383001ad0870b32ccce9818a5d1ba47a1ed0d5364c3c38dfee59d823",
       "title": "Github Tracking Sync"
+    },
+    {
+      "companion_path": "machine/documents/.github/workflows/governed-execution-c0.yml.json",
+      "companion_sha256": "dad9c937455891856762eb7d970424b709f003b4001d352cba1172796162a9e7",
+      "document_id": "doc:.github%2Fworkflows%2Fgoverned-execution-c0.yml",
+      "document_type": "continuous-integration",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".github/workflows/governed-execution-c0.yml",
+      "source_sha256": "96611aa13522c7fe193dd5c20d0738ff30aa9909cce5a1a9513963b4c8db6886",
+      "title": "Governed Execution C0"
     },
     {
       "companion_path": "machine/documents/.github/workflows/machine-workflow-projection.yml.json",
@@ -16591,7 +16604,7 @@
     },
     {
       "companion_path": "machine/documents/crates/monad-core/Cargo.toml.json",
-      "companion_sha256": "4ccaadb8de187e590eee95f0b13e9f3d7578fae5817ccc419c416d1377037c24",
+      "companion_sha256": "610c63d4ff8835514c48398b5b8fe64501b18c5ff51a643e9aa5fec3d4f3f6be",
       "document_id": "doc:crates%2Fmonad-core%2FCargo.toml",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -16599,7 +16612,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "crates/monad-core/Cargo.toml",
-      "source_sha256": "ef06d73b11af4e67c9db93c6706034341aa537209f25d991f20528ab452fd146",
+      "source_sha256": "960a8ef1a05954c334bf0ab56cceef10c99542c63731191831deb195a33d0893",
       "title": "Cargo"
     },
     {
@@ -16629,6 +16642,19 @@
       "title": "Harness"
     },
     {
+      "companion_path": "machine/documents/crates/monad-core/src/harness_validation.rs.json",
+      "companion_sha256": "c7384033aca31ce29381109b9754d4126d12fce2598cf2d7ecd14a294c6d62d2",
+      "document_id": "doc:crates%2Fmonad-core%2Fsrc%2Fharness_validation.rs",
+      "document_type": "project-source",
+      "identifier_count": 1,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "crates/monad-core/src/harness_validation.rs",
+      "source_sha256": "de2c287b2bf44807a21ce168a95e30521316ea1acffee1a0b27541fb6c91f4e6",
+      "title": "Harness Validation"
+    },
+    {
       "companion_path": "machine/documents/crates/monad-core/src/identity.rs.json",
       "companion_sha256": "bba247ae60019202ad6a7a6ef9c38406a539ec652b03e9d96ab190d13dc7f2eb",
       "document_id": "doc:crates%2Fmonad-core%2Fsrc%2Fidentity.rs",
@@ -16643,7 +16669,7 @@
     },
     {
       "companion_path": "machine/documents/crates/monad-core/src/lib.rs.json",
-      "companion_sha256": "d3360070f16a021c418aab5f0dff425f8347232bf501745df48abd5c1ea71d1e",
+      "companion_sha256": "73bf11c68da013c0c9c93034b8db438ea64f99e071be0639e802da909c2be420",
       "document_id": "doc:crates%2Fmonad-core%2Fsrc%2Flib.rs",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -16651,7 +16677,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "crates/monad-core/src/lib.rs",
-      "source_sha256": "572ed2dace034d8d2a277009d765a0605113dd40a3873a4ae282e6049ba43402",
+      "source_sha256": "37684e56b96c4179abe9f6a03b2707de70ab28366f5dcae6408f1e11dc41ba36",
       "title": "Lib"
     },
     {
@@ -23240,7 +23266,7 @@
   },
   "schema": "machine/schemas/manifest.schema.json",
   "schema_version": "1.0.0",
-  "source_count": 1787,
+  "source_count": 1789,
   "source_root": ".",
-  "source_tree_sha256": "be98d57b6744b825f905b9890ecab42e25ce7b5c2e2de35b3d7fc6d6bea96f2f"
+  "source_tree_sha256": "682f96203713e5e161cc7ccef30c03f6f90fdf7d98375adc86eca1b0fadfe2a3"
 }
