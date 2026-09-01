@@ -6749,6 +6749,19 @@
       "title": "ADR-0006: EOS Sovereignty and External SDLC Assimilation"
     },
     {
+      "companion_path": "machine/documents/architecture/decisions/ADR-0007-governed-execution-harness.md.json",
+      "companion_sha256": "5ec29d3ceeb1caa661ce59628937e95af7ff5b6a7ec5a75150f92b10a62b8492",
+      "document_id": "doc:architecture%2Fdecisions%2FADR-0007-governed-execution-harness.md",
+      "document_type": "architecture",
+      "identifier_count": 4,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 23,
+      "source_path": "architecture/decisions/ADR-0007-governed-execution-harness.md",
+      "source_sha256": "452efde48315e29e0e079cbf2487620843abacbe4b16a03a38fc7979c8686172",
+      "title": "ADR-0007: Governed Execution Harness Architecture"
+    },
+    {
       "companion_path": "machine/documents/architecture/decisions/README.md.json",
       "companion_sha256": "cf8067306a800e410e9fc5036a8023da5e3b5331366ec827fb584df81cd07216",
       "document_id": "doc:architecture%2Fdecisions%2FREADME.md",
@@ -16603,6 +16616,19 @@
       "title": "Discovery"
     },
     {
+      "companion_path": "machine/documents/crates/monad-core/src/harness.rs.json",
+      "companion_sha256": "234692ea301c96eb4a94ab7d2f8702823fd260c4c8ba8863dcb5bd0ebef4cc50",
+      "document_id": "doc:crates%2Fmonad-core%2Fsrc%2Fharness.rs",
+      "document_type": "project-source",
+      "identifier_count": 1,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "crates/monad-core/src/harness.rs",
+      "source_sha256": "51873aebe4e27e476e8bf494c6100bc426a33c3de5a4c0dee78d1f1c48fdf9ae",
+      "title": "Harness"
+    },
+    {
       "companion_path": "machine/documents/crates/monad-core/src/identity.rs.json",
       "companion_sha256": "bba247ae60019202ad6a7a6ef9c38406a539ec652b03e9d96ab190d13dc7f2eb",
       "document_id": "doc:crates%2Fmonad-core%2Fsrc%2Fidentity.rs",
@@ -16617,7 +16643,7 @@
     },
     {
       "companion_path": "machine/documents/crates/monad-core/src/lib.rs.json",
-      "companion_sha256": "dea65cf1baa4d091210ffd33ed29ce7dbc5707d94aaaf56b37b37989ee381786",
+      "companion_sha256": "d3360070f16a021c418aab5f0dff425f8347232bf501745df48abd5c1ea71d1e",
       "document_id": "doc:crates%2Fmonad-core%2Fsrc%2Flib.rs",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -16625,7 +16651,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "crates/monad-core/src/lib.rs",
-      "source_sha256": "037590f846ae08979f4fd92cf91a21fbaf4f9ce19e65fd8444844150edb9981c",
+      "source_sha256": "572ed2dace034d8d2a277009d765a0605113dd40a3873a4ae282e6049ba43402",
       "title": "Lib"
     },
     {
@@ -22363,15 +22389,15 @@
     },
     {
       "companion_path": "machine/documents/product/capabilities.md.json",
-      "companion_sha256": "020da134800bf69e8e9ae19bb7a75d605977563f241955c5419d02357d73cd26",
+      "companion_sha256": "8f3fce65eb6ee376dc6315f61cc3461258abbc74e17330ad97ae03b7b9b21100",
       "document_id": "doc:product%2Fcapabilities.md",
       "document_type": "product",
-      "identifier_count": 45,
+      "identifier_count": 47,
       "normative": true,
       "relation_count": 0,
-      "section_count": 56,
+      "section_count": 59,
       "source_path": "product/capabilities.md",
-      "source_sha256": "9d88e55227e674f2270448d3fa8a9f55df7bd055529d0e757f5846d8547f9758",
+      "source_sha256": "ede3be97f61bbbf55e7321d74158ef773d0a1f325d8257c3c59c98e5b4ecee5d",
       "title": "Product Capabilities"
     },
     {
@@ -22402,15 +22428,15 @@
     },
     {
       "companion_path": "machine/documents/product/product-requirements.md.json",
-      "companion_sha256": "f329b5169e5294f0e6b0f2866190b2b1404792198f8c93a9a721ff38e1cd2211",
+      "companion_sha256": "605a09d294ad00f31b7c27439807e9423a1b8a1f62770b56e3f13b9039d1e505",
       "document_id": "doc:product%2Fproduct-requirements.md",
       "document_type": "product",
-      "identifier_count": 57,
+      "identifier_count": 66,
       "normative": true,
       "relation_count": 0,
-      "section_count": 63,
+      "section_count": 72,
       "source_path": "product/product-requirements.md",
-      "source_sha256": "7c54b14322dd76870677f1b7809e7d94b1f86c3806fade0a2545065ea591cdbe",
+      "source_sha256": "762be1cccce6decf64d90679e8d5f1b86d0eea0462e68158f1c725d40c525db5",
       "title": "Product Requirements"
     },
     {
@@ -22701,15 +22727,15 @@
     },
     {
       "companion_path": "machine/documents/security/threat-model.md.json",
-      "companion_sha256": "0964dbe35c1dcb210ca0c88aaec83ad6fc41afe024520a821f05c692d7c6d8ce",
+      "companion_sha256": "f0f926d4af0c31e5f31b594e1000c3f197617eb463289e81b971dbf683cc8f1c",
       "document_id": "doc:security%2Fthreat-model.md",
       "document_type": "security",
-      "identifier_count": 10,
+      "identifier_count": 18,
       "normative": true,
       "relation_count": 0,
-      "section_count": 8,
+      "section_count": 9,
       "source_path": "security/threat-model.md",
-      "source_sha256": "869f4590e79709282d5cdde2a3a7567f50f13c8fd60f22a459e6536240273b68",
+      "source_sha256": "31bb774732a360003b9d95ca493c9ebd45919de639e4fcc1543247ad3529aa9d",
       "title": "Threat Model"
     },
     {
@@ -22752,6 +22778,19 @@
       "title": "Initial Specification Baseline"
     },
     {
+      "companion_path": "machine/documents/specifications/data/DATA-HARNESS-0001-execution-envelope.md.json",
+      "companion_sha256": "bb3a9e7c6c92c664fcc7cc395e6b6e09002f7184f3eedafb05cb1d1e9de5e5e0",
+      "document_id": "doc:specifications%2Fdata%2FDATA-HARNESS-0001-execution-envelope.md",
+      "document_type": "specification",
+      "identifier_count": 20,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 14,
+      "source_path": "specifications/data/DATA-HARNESS-0001-execution-envelope.md",
+      "source_sha256": "f4c0c22658589ac9d2bff08e406a34b6cc0dbf31ab6569ff66f1cfa562d5a70c",
+      "title": "DATA-HARNESS-0001: Execution Envelope Data Contract"
+    },
+    {
       "companion_path": "machine/documents/specifications/data/DATA-SOURCE-0001-stable-source-document-identity.md.json",
       "companion_sha256": "5ee3325708487779c34b6adf635ade895dd8701deb9717eb586de8e8bca9a055",
       "document_id": "doc:specifications%2Fdata%2FDATA-SOURCE-0001-stable-source-document-identity.md",
@@ -22765,6 +22804,32 @@
       "title": "DATA-SOURCE-0001: Stable Source and Document Identity"
     },
     {
+      "companion_path": "machine/documents/specifications/data/execution-envelope.schema.json.json",
+      "companion_sha256": "4095965999925ccd876f63e63887d36441c003a4cbe6577fff620b55bb67653c",
+      "document_id": "doc:specifications%2Fdata%2Fexecution-envelope.schema.json",
+      "document_type": "specification",
+      "identifier_count": 0,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "specifications/data/execution-envelope.schema.json",
+      "source_sha256": "1f66fe6530d2ed2667efbd02ed992c079716e9f1e10ccf9e37885adb93dc09ce",
+      "title": "Execution Envelope.Schema"
+    },
+    {
+      "companion_path": "machine/documents/specifications/interfaces/IFC-HARNESS-0001-agent-harness-adapter.md.json",
+      "companion_sha256": "29ea31aaa915b897b3b16a3cdcf1f530562f7691e759903f5f1ee4af074853ec",
+      "document_id": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+      "document_type": "specification",
+      "identifier_count": 14,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 25,
+      "source_path": "specifications/interfaces/IFC-HARNESS-0001-agent-harness-adapter.md",
+      "source_sha256": "3b69114a1e415817e0224d3b62623591e79f7e93b9be1d32300b96860eeb8559",
+      "title": "IFC-HARNESS-0001: Agent Harness Adapter Interface"
+    },
+    {
       "companion_path": "machine/documents/specifications/interfaces/IFC-WORKSPACE-0001-repository-root-and-effective-configuration.md.json",
       "companion_sha256": "44f5aadf373b7d30f662d3d4cd4fd185ca7cff3f5fc2916e93082bcb670090eb",
       "document_id": "doc:specifications%2Finterfaces%2FIFC-WORKSPACE-0001-repository-root-and-effective-configuration.md",
@@ -22776,6 +22841,19 @@
       "source_path": "specifications/interfaces/IFC-WORKSPACE-0001-repository-root-and-effective-configuration.md",
       "source_sha256": "0af47f101f79283026b89fff6f930479b53927fc8b36f1bc16e0397aa7e90e2b",
       "title": "IFC-WORKSPACE-0001: Repository Root and Effective Configuration"
+    },
+    {
+      "companion_path": "machine/documents/specifications/technical/TECH-HARNESS-0001-governed-execution-harness.md.json",
+      "companion_sha256": "3e323569610a997bc5805382b0aace1ef6fdacc53f84a853d94aae797e31241d",
+      "document_id": "doc:specifications%2Ftechnical%2FTECH-HARNESS-0001-governed-execution-harness.md",
+      "document_type": "specification",
+      "identifier_count": 25,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 29,
+      "source_path": "specifications/technical/TECH-HARNESS-0001-governed-execution-harness.md",
+      "source_sha256": "ec7cb85ec28cc1f6fc046e26c9650ac368642f6393f80cdb6cdc20556f9d87ba",
+      "title": "TECH-HARNESS-0001: Governed Execution Harness"
     },
     {
       "companion_path": "machine/documents/specifications/technical/TECH-INGEST-0001-markdown-engineering-artifact-parsing.md.json",
@@ -22867,6 +22945,19 @@
       "source_path": "testing/acceptance.md",
       "source_sha256": "31ccc3074591a7c409f7d03fe1b7846aac763d5b33c7431fb947826859035638",
       "title": "Acceptance Model"
+    },
+    {
+      "companion_path": "machine/documents/testing/governed-execution-conformance.md.json",
+      "companion_sha256": "f9a35acad6f57345b1d3abecf14ad5cd102f5f5abfa19e9e4591b0eac0f3fcf0",
+      "document_id": "doc:testing%2Fgoverned-execution-conformance.md",
+      "document_type": "quality-assurance",
+      "identifier_count": 28,
+      "normative": true,
+      "relation_count": 0,
+      "section_count": 14,
+      "source_path": "testing/governed-execution-conformance.md",
+      "source_sha256": "58239751e45088f9aa44c238fe6404107efa1250794327df01430cb88a64d83e",
+      "title": "Governed Execution Conformance Matrix"
     },
     {
       "companion_path": "machine/documents/testing/performance.md.json",
@@ -23149,7 +23240,7 @@
   },
   "schema": "machine/schemas/manifest.schema.json",
   "schema_version": "1.0.0",
-  "source_count": 1780,
+  "source_count": 1787,
   "source_root": ".",
-  "source_tree_sha256": "a6c6e0c1760cff275fb1a59b6341116673c15a3ec4123d7085474f681178438c"
+  "source_tree_sha256": "be98d57b6744b825f905b9890ecab42e25ce7b5c2e2de35b3d7fc6d6bea96f2f"
 }

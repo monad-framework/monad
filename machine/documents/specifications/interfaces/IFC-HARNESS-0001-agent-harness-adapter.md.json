@@ -1,0 +1,286 @@
+{
+  "content": "# IFC-HARNESS-0001: Agent Harness Adapter Interface\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Related requirements:** FR-014, FR-016, FR-017, FR-022, FR-039, FR-040, FR-041, QR-007, QR-010, QR-014, QR-021, QR-022, QR-023  \n**Governing ADR:** ADR-0007  \n**Governing technical specification:** TECH-HARNESS-0001\n\n## Purpose and scope\n\nDefines the transport-neutral interface between Monad's Governed Execution Harness (GEH) and a replaceable agent/executor harness. The interface permits Codex, Claude Code, future agent harnesses, scripted executors, and a future Monad reference agent to consume the same governed execution contract without becoming authoritative for policy, capability, evidence, verification, or EOS lifecycle state.\n\nThis interface specifies semantic messages and obligations, not a wire protocol. JSON-RPC, MCP, process stdio, local IPC, HTTP, embedded library calls, or another transport MAY implement the interface if the resulting semantics conform.\n\n## Definitions\n\n- **GEH:** Monad Governed Execution Harness.\n- **Adapter:** integration layer translating between a specific executor/harness API and this interface.\n- **Executor:** the model-driven, scripted, or human-driven system performing work through the adapter.\n- **Execution Envelope:** immutable governed execution contract compiled by Monad.\n- **Operation:** requested consequential effect mediated by Monad.\n- **Observation:** result/diagnostic returned to the executor without granting additional authority.\n- **Candidate output:** executor-produced work product that has not yet been accepted by Monad verification.\n- **Escalation:** explicit transfer of a decision/request to accountable authority.\n\n## Interface invariants\n\n1. The adapter MUST NOT broaden, reinterpret, or silently omit governing obligations in the Execution Envelope.\n2. The adapter MUST NOT grant capabilities to itself or its executor.\n3. Consequential governed effects MUST be requested through the GEH operation interface.\n4. Executor-reported completion MUST be treated as a request for verification, not authoritative completion.\n5. The adapter MUST preserve attributable run/session identity on every operation, escalation, and terminal request.\n6. Adapter-specific state MUST NOT become a second authoritative EOS lifecycle state.\n7. Private executor planning/reasoning representations MUST NOT be required by this interface.\n8. If an adapter cannot represent a mandatory envelope obligation, initialization MUST fail with an incompatibility diagnostic rather than silently degrade governance.\n\n## Adapter descriptor\n\nBefore execution, an adapter MUST expose a descriptor containing at least:\n\n- `adapter_id` — stable adapter family identifier;\n- `adapter_version` — implementation/version identifier;\n- supported interface version(s);\n- supported envelope version(s);\n- executor/harness family when known;\n- supported operation transport modes;\n- checkpoint/resume capability;\n- cancellation capability;\n- streaming capability where relevant;\n- delegation/subagent capability where relevant;\n- declared extension namespaces;\n- material limitations that affect conformance.\n\nThe GEH MUST validate compatibility before binding a run to an adapter.\n\n## Required semantic operations\n\nA conforming adapter interface MUST support semantic equivalents of the following operations.\n\n### `initialize`\n\nBinds an adapter/executor session to a governed run and Execution Envelope.\n\n**Input:**\n\n- run identity;\n- envelope or authorized projection;\n- interface/protocol version;\n- GEH capability/tool descriptors available to this run;\n- optional resumable checkpoint reference.\n\n**Output:**\n\n- accepted/rejected;\n- adapter session identity;\n- negotiated versions/extensions;\n- compatibility diagnostics;\n- optional executor configuration fingerprint required by policy.\n\nThe adapter MUST reject initialization when it cannot honor a mandatory envelope constraint.\n\n### `next`\n\nAllows the executor to produce its next externally observable request or output. Implementations MAY use request/response, event streaming, callback, or equivalent transport.\n\nThe executor MAY emit one or more of:\n\n- operation request;\n- candidate output/artifact reference;\n- progress/status observation;\n- question/input request;\n- escalation request;\n- verification request;\n- checkpoint request;\n- yield/idle state;\n- cancellation request;\n- terminal failure request.\n\nNo emitted message creates authority by itself.\n\n### `operation.request`\n\nRequests a governed operation through the Tool Gateway.\n\nThe request MUST include or inherit:\n\n- run/session identity;\n- operation/tool identifier;\n- target/resource scope;\n- parameters or canonical parameter representation;\n- expected result shape where applicable;\n- causal/delegation identity where applicable;\n- idempotency/replay token when required by operation policy.\n\nThe GEH validates authority/capability/policy and returns an `operation.result`.\n\n### `operation.result`\n\nReturns the observable result of an operation request.\n\nThe result MUST distinguish at least:\n\n- executed-success;\n- executed-failure;\n- denied-policy;\n- denied-capability;\n- denied-scope;\n- waiting-approval;\n- stale-envelope/suspended;\n- cancelled;\n- transport/tool failure;\n- indeterminate/external verification state where applicable.\n\nA denied result MUST NOT be represented to the executor as though the operation executed.\n\n### `input.request`\n\nRequests additional information or a decision that the executor cannot obtain within its authorized context/capabilities.\n\nThe request MUST identify:\n\n- the question/decision needed;\n- why it blocks or materially affects execution;\n- requested authority/actor when known;\n- whether work can continue safely without the answer.\n\nThe GEH decides whether to provide context, escalate, suspend, or deny.\n\n### `escalate`\n\nRequests transfer of a decision or action to accountable authority.\n\nThe adapter SHOULD include:\n\n- issue/decision statement;\n- relevant evidence references;\n- options or constraints when available;\n- execution impact;\n- requested decision scope.\n\nEscalation MUST preserve the run and envelope relationship and MUST NOT be treated as an implicit failure.\n\n### `checkpoint`\n\nRequests or reports a resumable execution checkpoint.\n\nA checkpoint MUST be bound to:\n\n- run identity;\n- envelope identity/version;\n- adapter/session identity;\n- last acknowledged governed operation/event;\n- adapter-specific opaque state if needed;\n- integrity digest where required.\n\nOpaque adapter checkpoint data MAY be stored, but Monad MUST separately retain authoritative operation/evidence history.\n\n### `verify`\n\nRequests evaluation of current candidate outputs/evidence against the envelope's verification obligations.\n\nThe adapter MAY provide:\n\n- candidate output references;\n- evidence references;\n- executor-declared claims about what was completed.\n\nThe Verification Controller determines the result independently. The response MUST distinguish passed, failed, incomplete, blocked, and escalation-required states where applicable.\n\n### `complete.request`\n\nIndicates that the executor believes no further work is required.\n\nThis request MUST NOT directly set the run or EOS work item to completed. The GEH MUST invoke verification/approval rules first.\n\n### `cancel`\n\nRequests termination of the run. The GEH remains authoritative for cancellation state and any required recovery/rollback operations.\n\n## Event identity and ordering\n\nEvery consequential adapter/GEH exchange MUST have an event/message identity sufficient for deduplication and audit reconstruction.\n\nWithin a run, the interface MUST provide either:\n\n- a monotonic logical sequence number; or\n- a causal ordering mechanism sufficient to reconstruct dependencies between requests/results.\n\nRetries MUST NOT cause a previously executed non-idempotent operation to be executed again unless the operation contract explicitly permits replay.\n\n## Error model\n\nThe interface MUST distinguish protocol/incompatibility errors from governed execution outcomes.\n\nProtocol/incompatibility errors include:\n\n- unsupported interface version;\n- unsupported mandatory envelope feature;\n- malformed message;\n- unknown mandatory field/semantic extension;\n- invalid run/session identity;\n- ordering/replay violation;\n- adapter crash/disconnect.\n\nGoverned execution outcomes include policy denial, capability denial, verification failure, approval wait, escalation, tool failure, and cancellation. These MUST NOT be collapsed into generic protocol errors.\n\n## Extensions\n\nAdapter- or provider-specific extensions MUST:\n\n1. use a namespaced identifier;\n2. declare whether the extension is optional or mandatory;\n3. be negotiated during initialization;\n4. preserve core GEH invariants;\n5. fail compatibility checks if mandatory semantics cannot be honored.\n\nAn extension MUST NOT weaken capability, policy, evidence, or verification requirements defined by the core contract.\n\n## Context projection\n\nThe adapter MAY receive either the complete Execution Envelope or a semantically equivalent, capability-limited projection optimized for that executor/provider.\n\nA projection MUST preserve all obligations relevant to the executor. Sensitive data MAY be omitted or replaced by mediated references when the executor does not require direct access.\n\nThe adapter MUST NOT infer that omitted information is unconstrained.\n\n## Delegation and subagents\n\nDelegation support is optional in interface version 0.1.0.\n\nIf supported:\n\n1. every child execution MUST receive a child run/session identity;\n2. child capabilities MUST be equal to or narrower than the parent unless separately granted by accountable Monad authority;\n3. child operation/evidence history MUST remain attributable;\n4. the parent adapter MUST NOT use subagents as a path around Tool Gateway mediation;\n5. recursive delegation limits MAY be imposed by policy/budget.\n\nFull multi-agent orchestration semantics are deferred.\n\n## Cancellation and disconnect behavior\n\nThe adapter MUST support best-effort cancellation notification. Once the GEH marks a run cancelled/suspended, new operation requests MUST be rejected except explicitly authorized recovery operations.\n\nAfter transport disconnect, the adapter MUST NOT assume the previous session remains authorized. Resume requires GEH validation of run state, envelope freshness, checkpoint integrity, and applicable policy.\n\n## Compatibility\n\nInterface compatibility is versioned independently from any provider SDK.\n\nA backward-compatible change MAY add optional fields/events whose absence preserves existing semantics. Removing/renaming mandatory semantics, changing authorization meaning, changing completion authority, or permitting previously prohibited bypass behavior requires a new incompatible interface version.\n\nProvider SDK/API churn SHOULD be absorbed by provider-specific adapter implementations without changing this interface when governing semantics are unchanged.\n\n## Verification\n\nConformance fixtures MUST include:\n\n1. compatible initialization;\n2. incompatible mandatory envelope feature rejection;\n3. capability-denied operation represented distinctly from tool failure;\n4. policy approval wait and resume;\n5. stale-envelope suspension;\n6. operation idempotency/replay handling;\n7. executor complete request followed by independent verification failure;\n8. escalation without run failure;\n9. checkpoint/disconnect/resume;\n10. cancellation blocking new operations;\n11. optional extension negotiation;\n12. mandatory extension incompatibility;\n13. child delegation with narrowed capabilities;\n14. two adapter families executing the same conformance scenario under semantically equivalent envelopes.\n\n## Initial adapter targets\n\nThe first production implementation SHOULD target one existing executor already used by Monad so migration can be incremental. A second materially different harness SHOULD then be implemented specifically to test whether the interface is genuinely portable rather than accidentally shaped around the first adapter.\n\nThe Monad reference agent SHOULD follow only after those two integrations establish the contract's independence from any one external harness.\n",
+  "document_id": "doc:specifications%2Finterfaces%2FIFC-HARNESS-0001-agent-harness-adapter.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0007",
+    "FR-014",
+    "FR-016",
+    "FR-017",
+    "FR-022",
+    "FR-039",
+    "FR-040",
+    "FR-041",
+    "QR-007",
+    "QR-010",
+    "QR-014",
+    "QR-021",
+    "QR-022",
+    "QR-023"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "specification",
+    "normative": true,
+    "summary": "Status: proposed Version: 0.1.0 Owner: Monad Core / EOS Related requirements: FR-014, FR-016, FR-017, FR-022, FR-039, FR-040, FR-041, QR-007, QR-010, QR-014, QR-021, QR-022, QR-023 Governing ADR: ADR-0007 Governing technical specification: TECH-HARNESS-0001",
+    "title": "IFC-HARNESS-0001: Agent Harness Adapter Interface"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0007",
+        "FR-014",
+        "FR-016",
+        "FR-017",
+        "FR-022",
+        "FR-039",
+        "FR-040",
+        "FR-041",
+        "QR-007",
+        "QR-010",
+        "QR-014",
+        "QR-021",
+        "QR-022",
+        "QR-023"
+      ],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "ifc-harness-0001-agent-harness-adapter-interface",
+      "text": "# IFC-HARNESS-0001: Agent Harness Adapter Interface\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Related requirements:** FR-014, FR-016, FR-017, FR-022, FR-039, FR-040, FR-041, QR-007, QR-010, QR-014, QR-021, QR-022, QR-023  \n**Governing ADR:** ADR-0007  \n**Governing technical specification:** TECH-HARNESS-0001",
+      "title": "IFC-HARNESS-0001: Agent Harness Adapter Interface"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 10,
+      "section_id": "purpose-and-scope",
+      "text": "## Purpose and scope\n\nDefines the transport-neutral interface between Monad's Governed Execution Harness (GEH) and a replaceable agent/executor harness. The interface permits Codex, Claude Code, future agent harnesses, scripted executors, and a future Monad reference agent to consume the same governed execution contract without becoming authoritative for policy, capability, evidence, verification, or EOS lifecycle state.\n\nThis interface specifies semantic messages and obligations, not a wire protocol. JSON-RPC, MCP, process stdio, local IPC, HTTP, embedded library calls, or another transport MAY implement the interface if the resulting semantics conform.",
+      "title": "Purpose and scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 16,
+      "section_id": "definitions",
+      "text": "## Definitions\n\n- **GEH:** Monad Governed Execution Harness.\n- **Adapter:** integration layer translating between a specific executor/harness API and this interface.\n- **Executor:** the model-driven, scripted, or human-driven system performing work through the adapter.\n- **Execution Envelope:** immutable governed execution contract compiled by Monad.\n- **Operation:** requested consequential effect mediated by Monad.\n- **Observation:** result/diagnostic returned to the executor without granting additional authority.\n- **Candidate output:** executor-produced work product that has not yet been accepted by Monad verification.\n- **Escalation:** explicit transfer of a decision/request to accountable authority.",
+      "title": "Definitions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 27,
+      "section_id": "interface-invariants",
+      "text": "## Interface invariants\n\n1. The adapter MUST NOT broaden, reinterpret, or silently omit governing obligations in the Execution Envelope.\n2. The adapter MUST NOT grant capabilities to itself or its executor.\n3. Consequential governed effects MUST be requested through the GEH operation interface.\n4. Executor-reported completion MUST be treated as a request for verification, not authoritative completion.\n5. The adapter MUST preserve attributable run/session identity on every operation, escalation, and terminal request.\n6. Adapter-specific state MUST NOT become a second authoritative EOS lifecycle state.\n7. Private executor planning/reasoning representations MUST NOT be required by this interface.\n8. If an adapter cannot represent a mandatory envelope obligation, initialization MUST fail with an incompatibility diagnostic rather than silently degrade governance.",
+      "title": "Interface invariants"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 38,
+      "section_id": "adapter-descriptor",
+      "text": "## Adapter descriptor\n\nBefore execution, an adapter MUST expose a descriptor containing at least:\n\n- `adapter_id` — stable adapter family identifier;\n- `adapter_version` — implementation/version identifier;\n- supported interface version(s);\n- supported envelope version(s);\n- executor/harness family when known;\n- supported operation transport modes;\n- checkpoint/resume capability;\n- cancellation capability;\n- streaming capability where relevant;\n- delegation/subagent capability where relevant;\n- declared extension namespaces;\n- material limitations that affect conformance.\n\nThe GEH MUST validate compatibility before binding a run to an adapter.",
+      "title": "Adapter descriptor"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 57,
+      "section_id": "required-semantic-operations",
+      "text": "## Required semantic operations\n\nA conforming adapter interface MUST support semantic equivalents of the following operations.",
+      "title": "Required semantic operations"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 82,
+      "line_start": 61,
+      "section_id": "initialize",
+      "text": "### `initialize`\n\nBinds an adapter/executor session to a governed run and Execution Envelope.\n\n**Input:**\n\n- run identity;\n- envelope or authorized projection;\n- interface/protocol version;\n- GEH capability/tool descriptors available to this run;\n- optional resumable checkpoint reference.\n\n**Output:**\n\n- accepted/rejected;\n- adapter session identity;\n- negotiated versions/extensions;\n- compatibility diagnostics;\n- optional executor configuration fingerprint required by policy.\n\nThe adapter MUST reject initialization when it cannot honor a mandatory envelope constraint.",
+      "title": "`initialize`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 101,
+      "line_start": 83,
+      "section_id": "next",
+      "text": "### `next`\n\nAllows the executor to produce its next externally observable request or output. Implementations MAY use request/response, event streaming, callback, or equivalent transport.\n\nThe executor MAY emit one or more of:\n\n- operation request;\n- candidate output/artifact reference;\n- progress/status observation;\n- question/input request;\n- escalation request;\n- verification request;\n- checkpoint request;\n- yield/idle state;\n- cancellation request;\n- terminal failure request.\n\nNo emitted message creates authority by itself.",
+      "title": "`next`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 117,
+      "line_start": 102,
+      "section_id": "operation-request",
+      "text": "### `operation.request`\n\nRequests a governed operation through the Tool Gateway.\n\nThe request MUST include or inherit:\n\n- run/session identity;\n- operation/tool identifier;\n- target/resource scope;\n- parameters or canonical parameter representation;\n- expected result shape where applicable;\n- causal/delegation identity where applicable;\n- idempotency/replay token when required by operation policy.\n\nThe GEH validates authority/capability/policy and returns an `operation.result`.",
+      "title": "`operation.request`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 136,
+      "line_start": 118,
+      "section_id": "operation-result",
+      "text": "### `operation.result`\n\nReturns the observable result of an operation request.\n\nThe result MUST distinguish at least:\n\n- executed-success;\n- executed-failure;\n- denied-policy;\n- denied-capability;\n- denied-scope;\n- waiting-approval;\n- stale-envelope/suspended;\n- cancelled;\n- transport/tool failure;\n- indeterminate/external verification state where applicable.\n\nA denied result MUST NOT be represented to the executor as though the operation executed.",
+      "title": "`operation.result`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 149,
+      "line_start": 137,
+      "section_id": "input-request",
+      "text": "### `input.request`\n\nRequests additional information or a decision that the executor cannot obtain within its authorized context/capabilities.\n\nThe request MUST identify:\n\n- the question/decision needed;\n- why it blocks or materially affects execution;\n- requested authority/actor when known;\n- whether work can continue safely without the answer.\n\nThe GEH decides whether to provide context, escalate, suspend, or deny.",
+      "title": "`input.request`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 163,
+      "line_start": 150,
+      "section_id": "escalate",
+      "text": "### `escalate`\n\nRequests transfer of a decision or action to accountable authority.\n\nThe adapter SHOULD include:\n\n- issue/decision statement;\n- relevant evidence references;\n- options or constraints when available;\n- execution impact;\n- requested decision scope.\n\nEscalation MUST preserve the run and envelope relationship and MUST NOT be treated as an implicit failure.",
+      "title": "`escalate`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 178,
+      "line_start": 164,
+      "section_id": "checkpoint",
+      "text": "### `checkpoint`\n\nRequests or reports a resumable execution checkpoint.\n\nA checkpoint MUST be bound to:\n\n- run identity;\n- envelope identity/version;\n- adapter/session identity;\n- last acknowledged governed operation/event;\n- adapter-specific opaque state if needed;\n- integrity digest where required.\n\nOpaque adapter checkpoint data MAY be stored, but Monad MUST separately retain authoritative operation/evidence history.",
+      "title": "`checkpoint`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 190,
+      "line_start": 179,
+      "section_id": "verify",
+      "text": "### `verify`\n\nRequests evaluation of current candidate outputs/evidence against the envelope's verification obligations.\n\nThe adapter MAY provide:\n\n- candidate output references;\n- evidence references;\n- executor-declared claims about what was completed.\n\nThe Verification Controller determines the result independently. The response MUST distinguish passed, failed, incomplete, blocked, and escalation-required states where applicable.",
+      "title": "`verify`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 196,
+      "line_start": 191,
+      "section_id": "complete-request",
+      "text": "### `complete.request`\n\nIndicates that the executor believes no further work is required.\n\nThis request MUST NOT directly set the run or EOS work item to completed. The GEH MUST invoke verification/approval rules first.",
+      "title": "`complete.request`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 200,
+      "line_start": 197,
+      "section_id": "cancel",
+      "text": "### `cancel`\n\nRequests termination of the run. The GEH remains authoritative for cancellation state and any required recovery/rollback operations.",
+      "title": "`cancel`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 211,
+      "line_start": 201,
+      "section_id": "event-identity-and-ordering",
+      "text": "## Event identity and ordering\n\nEvery consequential adapter/GEH exchange MUST have an event/message identity sufficient for deduplication and audit reconstruction.\n\nWithin a run, the interface MUST provide either:\n\n- a monotonic logical sequence number; or\n- a causal ordering mechanism sufficient to reconstruct dependencies between requests/results.\n\nRetries MUST NOT cause a previously executed non-idempotent operation to be executed again unless the operation contract explicitly permits replay.",
+      "title": "Event identity and ordering"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 227,
+      "line_start": 212,
+      "section_id": "error-model",
+      "text": "## Error model\n\nThe interface MUST distinguish protocol/incompatibility errors from governed execution outcomes.\n\nProtocol/incompatibility errors include:\n\n- unsupported interface version;\n- unsupported mandatory envelope feature;\n- malformed message;\n- unknown mandatory field/semantic extension;\n- invalid run/session identity;\n- ordering/replay violation;\n- adapter crash/disconnect.\n\nGoverned execution outcomes include policy denial, capability denial, verification failure, approval wait, escalation, tool failure, and cancellation. These MUST NOT be collapsed into generic protocol errors.",
+      "title": "Error model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 239,
+      "line_start": 228,
+      "section_id": "extensions",
+      "text": "## Extensions\n\nAdapter- or provider-specific extensions MUST:\n\n1. use a namespaced identifier;\n2. declare whether the extension is optional or mandatory;\n3. be negotiated during initialization;\n4. preserve core GEH invariants;\n5. fail compatibility checks if mandatory semantics cannot be honored.\n\nAn extension MUST NOT weaken capability, policy, evidence, or verification requirements defined by the core contract.",
+      "title": "Extensions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 247,
+      "line_start": 240,
+      "section_id": "context-projection",
+      "text": "## Context projection\n\nThe adapter MAY receive either the complete Execution Envelope or a semantically equivalent, capability-limited projection optimized for that executor/provider.\n\nA projection MUST preserve all obligations relevant to the executor. Sensitive data MAY be omitted or replaced by mediated references when the executor does not require direct access.\n\nThe adapter MUST NOT infer that omitted information is unconstrained.",
+      "title": "Context projection"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 261,
+      "line_start": 248,
+      "section_id": "delegation-and-subagents",
+      "text": "## Delegation and subagents\n\nDelegation support is optional in interface version 0.1.0.\n\nIf supported:\n\n1. every child execution MUST receive a child run/session identity;\n2. child capabilities MUST be equal to or narrower than the parent unless separately granted by accountable Monad authority;\n3. child operation/evidence history MUST remain attributable;\n4. the parent adapter MUST NOT use subagents as a path around Tool Gateway mediation;\n5. recursive delegation limits MAY be imposed by policy/budget.\n\nFull multi-agent orchestration semantics are deferred.",
+      "title": "Delegation and subagents"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 267,
+      "line_start": 262,
+      "section_id": "cancellation-and-disconnect-behavior",
+      "text": "## Cancellation and disconnect behavior\n\nThe adapter MUST support best-effort cancellation notification. Once the GEH marks a run cancelled/suspended, new operation requests MUST be rejected except explicitly authorized recovery operations.\n\nAfter transport disconnect, the adapter MUST NOT assume the previous session remains authorized. Resume requires GEH validation of run state, envelope freshness, checkpoint integrity, and applicable policy.",
+      "title": "Cancellation and disconnect behavior"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 275,
+      "line_start": 268,
+      "section_id": "compatibility",
+      "text": "## Compatibility\n\nInterface compatibility is versioned independently from any provider SDK.\n\nA backward-compatible change MAY add optional fields/events whose absence preserves existing semantics. Removing/renaming mandatory semantics, changing authorization meaning, changing completion authority, or permitting previously prohibited bypass behavior requires a new incompatible interface version.\n\nProvider SDK/API churn SHOULD be absorbed by provider-specific adapter implementations without changing this interface when governing semantics are unchanged.",
+      "title": "Compatibility"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 294,
+      "line_start": 276,
+      "section_id": "verification",
+      "text": "## Verification\n\nConformance fixtures MUST include:\n\n1. compatible initialization;\n2. incompatible mandatory envelope feature rejection;\n3. capability-denied operation represented distinctly from tool failure;\n4. policy approval wait and resume;\n5. stale-envelope suspension;\n6. operation idempotency/replay handling;\n7. executor complete request followed by independent verification failure;\n8. escalation without run failure;\n9. checkpoint/disconnect/resume;\n10. cancellation blocking new operations;\n11. optional extension negotiation;\n12. mandatory extension incompatibility;\n13. child delegation with narrowed capabilities;\n14. two adapter families executing the same conformance scenario under semantically equivalent envelopes.",
+      "title": "Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 299,
+      "line_start": 295,
+      "section_id": "initial-adapter-targets",
+      "text": "## Initial adapter targets\n\nThe first production implementation SHOULD target one existing executor already used by Monad so migration can be incremental. A second materially different harness SHOULD then be implemented specifically to test whether the interface is genuinely portable rather than accidentally shaped around the first adapter.\n\nThe Monad reference agent SHOULD follow only after those two integrations establish the contract's independence from any one external harness.",
+      "title": "Initial adapter targets"
+    }
+  ],
+  "source": {
+    "bytes": 12214,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 299,
+    "media_type": "text/markdown",
+    "path": "specifications/interfaces/IFC-HARNESS-0001-agent-harness-adapter.md",
+    "sha256": "3b69114a1e415817e0224d3b62623591e79f7e93b9be1d32300b96860eeb8559"
+  }
+}

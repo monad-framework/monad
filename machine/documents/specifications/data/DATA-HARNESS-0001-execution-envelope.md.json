@@ -1,0 +1,199 @@
+{
+  "content": "# DATA-HARNESS-0001: Execution Envelope Data Contract\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Related requirements:** FR-007, FR-017, FR-023, FR-024, FR-029, FR-037, FR-038, FR-039, FR-040, FR-041, FR-042, QR-001, QR-003, QR-010, QR-014, QR-021, QR-022, QR-023  \n**Governing ADRs:** ADR-0006, ADR-0007  \n**Governing technical specification:** TECH-HARNESS-0001  \n**Related interface:** IFC-HARNESS-0001\n\n## Purpose and scope\n\nDefines the canonical serialized data contract for a Monad Execution Envelope. The envelope is the immutable, inspectable contract that binds bounded work to the governing engineering state, actors, capabilities, tools, environment constraints, acceptance obligations, approvals, escalation rules, completion rules, and resource limits under which governed execution may occur.\n\nThis specification defines semantic fields, canonicalization, identity, compatibility, and validation. It does not define executor cognition, transport, provider-specific prompting, or the operation/evidence event formats that occur after a run begins.\n\n## Core invariants\n\n1. A bound Execution Envelope MUST be immutable.\n2. The envelope MUST identify the exact governing state used to compile it.\n3. Missing mandatory authority or capability data MUST NOT be interpreted as permission.\n4. Set-like fields MUST have deterministic canonical ordering and duplicate elimination before identity is derived.\n5. Equivalent serialized semantic content under the same schema version MUST yield the same envelope digest and identifier.\n6. Any material change to an identity-bearing field MUST yield a different envelope digest and identifier.\n7. Private model reasoning or chain-of-thought MUST NOT be a required envelope field.\n8. Raw secrets SHOULD NOT appear in an envelope; secret access SHOULD be represented through governed capability/reference semantics.\n\n## Canonical top-level object\n\nVersion `0.1.0` MUST support the following top-level members:\n\n| Field | Type | Required | Semantics |\n| --- | --- | --- | --- |\n| `envelope_id` | string | yes | Content-derived envelope identifier. Version 0.1.0 uses `env-v1-<sha256-hex>`. |\n| `envelope_digest` | string | yes | Lowercase SHA-256 hexadecimal digest of canonical identity-bearing content. |\n| `schema_version` | string | yes | Execution Envelope schema version. |\n| `run_id` | string | yes | Governed run identity to which this envelope is bound. |\n| `logical_time` | string | yes | Governed logical/temporal binding used by the compiler. |\n| `work_subject` | string | yes | Stable identifier of the bounded work subject. |\n| `intent` | string | yes | Human/governance-legible statement of intended work. |\n| `requested_outcome` | string | yes | Expected result of the bounded work. |\n| `governing_state_digest` | string | yes | Digest/identity of the authoritative governing state used for compilation. |\n| `governed_references` | array | yes | Applicable requirements, specifications, ADRs, policies, evidence, or other governed references. |\n| `initiating_actor` | object | yes | Accountable actor that initiated/authorized the governed run. |\n| `executor` | object | yes | Actor identity representing the bound executor/adapter role. |\n| `granted_capabilities` | array | yes | Explicit positive grants. Absence of a grant is denial. |\n| `prohibited_capabilities` | array | yes | Explicit prohibitions retained for audit and conflict detection. |\n| `allowed_tools` | array[string] | yes | Tool/interface identifiers eligible for mediated use. |\n| `environment_constraints` | array[string] | yes | Reproducibility, filesystem, network, process, service, or environment restrictions. |\n| `acceptance_criteria` | array[string] | yes | Observable criteria governing candidate acceptance. |\n| `verification_obligations` | array[string] | yes | Required verification checks/evidence classes. |\n| `approval_gates` | array[string] | yes | Approvals required before defined effects/transitions. |\n| `escalation_conditions` | array[string] | yes | Conditions requiring suspension/transfer to accountable authority. |\n| `completion_criteria` | array[string] | yes | Conditions required before governed completion may be established. |\n| `resource_limits` | object[string,string] | yes | Named execution budgets/limits expressed in canonical policy-defined units. |\n\nAn implementation MAY add optional fields in a backward-compatible schema revision only when their absence preserves existing authorization, verification, and identity semantics. Unknown mandatory semantics require an incompatible schema version or negotiated extension.\n\n## Governed reference\n\nEach `governed_references` entry MUST contain:\n\n- `kind`: governed artifact/reference class;\n- `identifier`: stable identifier within that class;\n- optional `content_digest`: immutable content identity when available or required by policy.\n\nA reference without a content digest MAY be valid when the governing state digest is sufficient to bind resolution, but policy MAY require per-reference digests for high-consequence execution.\n\n## Actor identity\n\n`initiating_actor` and `executor` MUST contain:\n\n- `actor_id`: stable attributable actor identity;\n- `role`: role under which the actor participates in this run.\n\nActor identity does not itself grant authority. Authority and capabilities are independently resolved by Monad governance.\n\n## Capability grant\n\nEach capability entry MUST contain:\n\n- `capability`: versioned capability identifier;\n- `scope`: canonical scope expression.\n\nA capability entry MUST NOT be interpreted more broadly than its declared scope. If a capability appears in both granted and prohibited collections for an overlapping scope, the compiler or pre-execution validator MUST fail closed unless an explicit precedence rule in governing policy resolves the conflict.\n\n## Canonicalization and identity\n\nVersion `0.1.0` uses the domain separator `monad.execution-envelope.v1` and SHA-256.\n\nBefore digest derivation, the compiler MUST normalize these set-like fields by deterministic ascending order and duplicate elimination:\n\n- `governed_references`;\n- `granted_capabilities`;\n- `prohibited_capabilities`;\n- `allowed_tools`;\n- `environment_constraints`;\n- `acceptance_criteria`;\n- `verification_obligations`;\n- `approval_gates`;\n- `escalation_conditions`;\n- `completion_criteria`.\n\n`resource_limits` MUST be traversed in deterministic key order.\n\nThe identity-bearing sequence for version `0.1.0` is:\n\n1. `schema_version`;\n2. `run_id`;\n3. `logical_time`;\n4. `work_subject`;\n5. `intent`;\n6. `requested_outcome`;\n7. `governing_state_digest`;\n8. normalized governed references including optional content digests;\n9. initiating actor identity and role;\n10. executor identity and role;\n11. normalized granted capabilities;\n12. normalized prohibited capabilities;\n13. normalized allowed tools;\n14. normalized environment constraints;\n15. normalized acceptance criteria;\n16. normalized verification obligations;\n17. normalized approval gates;\n18. normalized escalation conditions;\n19. normalized completion criteria;\n20. deterministically ordered resource limits.\n\nThe compiler MUST length-frame strings/collections or use an equivalently unambiguous canonical encoding. The digest MUST NOT be calculated from ordinary pretty-printed JSON whose whitespace, object-key order, or serializer settings can vary.\n\n`envelope_digest` and `envelope_id` are derived outputs and MUST NOT participate recursively in their own digest calculation.\n\n## Validation\n\nAn envelope is invalid for governed execution when any of the following holds:\n\n- required field missing or malformed;\n- unsupported schema version;\n- envelope identifier does not match the derived digest;\n- governing state cannot be resolved or fails applicable freshness policy;\n- required governed reference cannot be resolved;\n- actor/executor identity cannot be established;\n- contradictory capability state cannot be safely resolved;\n- mandatory acceptance, verification, approval, or completion obligation cannot be represented;\n- resource-limit syntax cannot be interpreted under applicable policy;\n- adapter cannot support mandatory envelope semantics.\n\nInvalid envelopes MUST fail closed before consequential governed effects.\n\n## Immutability and succession\n\nA bound envelope MUST NOT be edited in place. Material change requires compilation of a new envelope.\n\nWhen a run is suspended and later resumes under a replacement envelope, durable execution evidence MUST preserve the predecessor/successor relationship and identify which operations occurred under each envelope.\n\n## Serialization\n\nThe default interchange representation SHOULD be UTF-8 JSON using snake_case field names matching this specification. Other representations MAY be supported if they preserve all semantics and round-trip to the same canonical identity-bearing values.\n\nSerialization intended for human inspection MAY include presentation-only metadata, but presentation metadata MUST be explicitly non-authoritative and MUST NOT silently affect the envelope digest.\n\n## Compatibility\n\nSchema versions are independent from provider, adapter, and model versions.\n\nBackward-compatible revisions MAY add optional representational conveniences whose absence cannot weaken governance. Any change that alters field meaning, digest semantics, authority/capability interpretation, verification meaning, or mandatory obligations requires explicit compatibility treatment and normally a new incompatible schema version/domain separator.\n\n## Security and privacy\n\n- Treat all executor/provider-originated data as untrusted.\n- Never infer capability from the presence of a tool alone.\n- Minimize sensitive context before serialization to external adapters/providers.\n- Prefer opaque secret/capability references over secret values.\n- Detect stale or replayed envelopes before consequential effects.\n- Preserve integrity-verifiable envelope identity in execution evidence.\n\n## Verification\n\nConformance MUST demonstrate:\n\n1. deterministic identity for equivalent normalized inputs;\n2. identity change after every material identity-bearing field change;\n3. order/duplicate normalization for set-like fields;\n4. deterministic resource-limit ordering;\n5. identifier/digest mismatch rejection;\n6. unsupported schema-version rejection;\n7. stale governing-state rejection/suspension according to policy;\n8. contradictory capability state fails closed;\n9. secret references can be represented without embedding raw secret material;\n10. JSON round-trip preserves semantic values and identity;\n11. two conforming adapter implementations can consume semantically equivalent envelope obligations;\n12. private chain-of-thought is not required to compile, execute, verify, or audit an envelope.\n",
+  "document_id": "doc:specifications%2Fdata%2FDATA-HARNESS-0001-execution-envelope.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006",
+    "ADR-0007",
+    "FR-007",
+    "FR-017",
+    "FR-023",
+    "FR-024",
+    "FR-029",
+    "FR-037",
+    "FR-038",
+    "FR-039",
+    "FR-040",
+    "FR-041",
+    "FR-042",
+    "QR-001",
+    "QR-003",
+    "QR-010",
+    "QR-014",
+    "QR-021",
+    "QR-022",
+    "QR-023"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "specification",
+    "normative": true,
+    "summary": "Status: proposed Version: 0.1.0 Owner: Monad Core / EOS Related requirements: FR-007, FR-017, FR-023, FR-024, FR-029, FR-037, FR-038, FR-039, FR-040, FR-041, FR-042, QR-001, QR-003, QR-010, QR-014, QR-021, QR-022, QR-023 Governing ADRs: ADR-0006, ADR-0007 Governing technical specification: TECH-HARNESS-0001 Related interface: IFC-HARNESS-0001",
+    "title": "DATA-HARNESS-0001: Execution Envelope Data Contract"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0006",
+        "ADR-0007",
+        "FR-007",
+        "FR-017",
+        "FR-023",
+        "FR-024",
+        "FR-029",
+        "FR-037",
+        "FR-038",
+        "FR-039",
+        "FR-040",
+        "FR-041",
+        "FR-042",
+        "QR-001",
+        "QR-003",
+        "QR-010",
+        "QR-014",
+        "QR-021",
+        "QR-022",
+        "QR-023"
+      ],
+      "level": 1,
+      "line_end": 10,
+      "line_start": 1,
+      "section_id": "data-harness-0001-execution-envelope-data-contract",
+      "text": "# DATA-HARNESS-0001: Execution Envelope Data Contract\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Related requirements:** FR-007, FR-017, FR-023, FR-024, FR-029, FR-037, FR-038, FR-039, FR-040, FR-041, FR-042, QR-001, QR-003, QR-010, QR-014, QR-021, QR-022, QR-023  \n**Governing ADRs:** ADR-0006, ADR-0007  \n**Governing technical specification:** TECH-HARNESS-0001  \n**Related interface:** IFC-HARNESS-0001",
+      "title": "DATA-HARNESS-0001: Execution Envelope Data Contract"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 16,
+      "line_start": 11,
+      "section_id": "purpose-and-scope",
+      "text": "## Purpose and scope\n\nDefines the canonical serialized data contract for a Monad Execution Envelope. The envelope is the immutable, inspectable contract that binds bounded work to the governing engineering state, actors, capabilities, tools, environment constraints, acceptance obligations, approvals, escalation rules, completion rules, and resource limits under which governed execution may occur.\n\nThis specification defines semantic fields, canonicalization, identity, compatibility, and validation. It does not define executor cognition, transport, provider-specific prompting, or the operation/evidence event formats that occur after a run begins.",
+      "title": "Purpose and scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 17,
+      "section_id": "core-invariants",
+      "text": "## Core invariants\n\n1. A bound Execution Envelope MUST be immutable.\n2. The envelope MUST identify the exact governing state used to compile it.\n3. Missing mandatory authority or capability data MUST NOT be interpreted as permission.\n4. Set-like fields MUST have deterministic canonical ordering and duplicate elimination before identity is derived.\n5. Equivalent serialized semantic content under the same schema version MUST yield the same envelope digest and identifier.\n6. Any material change to an identity-bearing field MUST yield a different envelope digest and identifier.\n7. Private model reasoning or chain-of-thought MUST NOT be a required envelope field.\n8. Raw secrets SHOULD NOT appear in an envelope; secret access SHOULD be represented through governed capability/reference semantics.",
+      "title": "Core invariants"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 58,
+      "line_start": 28,
+      "section_id": "canonical-top-level-object",
+      "text": "## Canonical top-level object\n\nVersion `0.1.0` MUST support the following top-level members:\n\n| Field | Type | Required | Semantics |\n| --- | --- | --- | --- |\n| `envelope_id` | string | yes | Content-derived envelope identifier. Version 0.1.0 uses `env-v1-<sha256-hex>`. |\n| `envelope_digest` | string | yes | Lowercase SHA-256 hexadecimal digest of canonical identity-bearing content. |\n| `schema_version` | string | yes | Execution Envelope schema version. |\n| `run_id` | string | yes | Governed run identity to which this envelope is bound. |\n| `logical_time` | string | yes | Governed logical/temporal binding used by the compiler. |\n| `work_subject` | string | yes | Stable identifier of the bounded work subject. |\n| `intent` | string | yes | Human/governance-legible statement of intended work. |\n| `requested_outcome` | string | yes | Expected result of the bounded work. |\n| `governing_state_digest` | string | yes | Digest/identity of the authoritative governing state used for compilation. |\n| `governed_references` | array | yes | Applicable requirements, specifications, ADRs, policies, evidence, or other governed references. |\n| `initiating_actor` | object | yes | Accountable actor that initiated/authorized the governed run. |\n| `executor` | object | yes | Actor identity representing the bound executor/adapter role. |\n| `granted_capabilities` | array | yes | Explicit positive grants. Absence of a grant is denial. |\n| `prohibited_capabilities` | array | yes | Explicit prohibitions retained for audit and conflict detection. |\n| `allowed_tools` | array[string] | yes | Tool/interface identifiers eligible for mediated use. |\n| `environment_constraints` | array[string] | yes | Reproducibility, filesystem, network, process, service, or environment restrictions. |\n| `acceptance_criteria` | array[string] | yes | Observable criteria governing candidate acceptance. |\n| `verification_obligations` | array[string] | yes | Required verification checks/evidence classes. |\n| `approval_gates` | array[string] | yes | Approvals required before defined effects/transitions. |\n| `escalation_conditions` | array[string] | yes | Conditions requiring suspension/transfer to accountable authority. |\n| `completion_criteria` | array[string] | yes | Conditions required before governed completion may be established. |\n| `resource_limits` | object[string,string] | yes | Named execution budgets/limits expressed in canonical policy-defined units. |\n\nAn implementation MAY add optional fields in a backward-compatible schema revision only when their absence preserves existing authorization, verification, and identity semantics. Unknown mandatory semantics require an incompatible schema version or negotiated extension.",
+      "title": "Canonical top-level object"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 59,
+      "section_id": "governed-reference",
+      "text": "## Governed reference\n\nEach `governed_references` entry MUST contain:\n\n- `kind`: governed artifact/reference class;\n- `identifier`: stable identifier within that class;\n- optional `content_digest`: immutable content identity when available or required by policy.\n\nA reference without a content digest MAY be valid when the governing state digest is sufficient to bind resolution, but policy MAY require per-reference digests for high-consequence execution.",
+      "title": "Governed reference"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 77,
+      "line_start": 69,
+      "section_id": "actor-identity",
+      "text": "## Actor identity\n\n`initiating_actor` and `executor` MUST contain:\n\n- `actor_id`: stable attributable actor identity;\n- `role`: role under which the actor participates in this run.\n\nActor identity does not itself grant authority. Authority and capabilities are independently resolved by Monad governance.",
+      "title": "Actor identity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 86,
+      "line_start": 78,
+      "section_id": "capability-grant",
+      "text": "## Capability grant\n\nEach capability entry MUST contain:\n\n- `capability`: versioned capability identifier;\n- `scope`: canonical scope expression.\n\nA capability entry MUST NOT be interpreted more broadly than its declared scope. If a capability appears in both granted and prohibited collections for an overlapping scope, the compiler or pre-execution validator MUST fail closed unless an explicit precedence rule in governing policy resolves the conflict.",
+      "title": "Capability grant"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 132,
+      "line_start": 87,
+      "section_id": "canonicalization-and-identity",
+      "text": "## Canonicalization and identity\n\nVersion `0.1.0` uses the domain separator `monad.execution-envelope.v1` and SHA-256.\n\nBefore digest derivation, the compiler MUST normalize these set-like fields by deterministic ascending order and duplicate elimination:\n\n- `governed_references`;\n- `granted_capabilities`;\n- `prohibited_capabilities`;\n- `allowed_tools`;\n- `environment_constraints`;\n- `acceptance_criteria`;\n- `verification_obligations`;\n- `approval_gates`;\n- `escalation_conditions`;\n- `completion_criteria`.\n\n`resource_limits` MUST be traversed in deterministic key order.\n\nThe identity-bearing sequence for version `0.1.0` is:\n\n1. `schema_version`;\n2. `run_id`;\n3. `logical_time`;\n4. `work_subject`;\n5. `intent`;\n6. `requested_outcome`;\n7. `governing_state_digest`;\n8. normalized governed references including optional content digests;\n9. initiating actor identity and role;\n10. executor identity and role;\n11. normalized granted capabilities;\n12. normalized prohibited capabilities;\n13. normalized allowed tools;\n14. normalized environment constraints;\n15. normalized acceptance criteria;\n16. normalized verification obligations;\n17. normalized approval gates;\n18. normalized escalation conditions;\n19. normalized completion criteria;\n20. deterministically ordered resource limits.\n\nThe compiler MUST length-frame strings/collections or use an equivalently unambiguous canonical encoding. The digest MUST NOT be calculated from ordinary pretty-printed JSON whose whitespace, object-key order, or serializer settings can vary.\n\n`envelope_digest` and `envelope_id` are derived outputs and MUST NOT participate recursively in their own digest calculation.",
+      "title": "Canonicalization and identity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 149,
+      "line_start": 133,
+      "section_id": "validation",
+      "text": "## Validation\n\nAn envelope is invalid for governed execution when any of the following holds:\n\n- required field missing or malformed;\n- unsupported schema version;\n- envelope identifier does not match the derived digest;\n- governing state cannot be resolved or fails applicable freshness policy;\n- required governed reference cannot be resolved;\n- actor/executor identity cannot be established;\n- contradictory capability state cannot be safely resolved;\n- mandatory acceptance, verification, approval, or completion obligation cannot be represented;\n- resource-limit syntax cannot be interpreted under applicable policy;\n- adapter cannot support mandatory envelope semantics.\n\nInvalid envelopes MUST fail closed before consequential governed effects.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 155,
+      "line_start": 150,
+      "section_id": "immutability-and-succession",
+      "text": "## Immutability and succession\n\nA bound envelope MUST NOT be edited in place. Material change requires compilation of a new envelope.\n\nWhen a run is suspended and later resumes under a replacement envelope, durable execution evidence MUST preserve the predecessor/successor relationship and identify which operations occurred under each envelope.",
+      "title": "Immutability and succession"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 161,
+      "line_start": 156,
+      "section_id": "serialization",
+      "text": "## Serialization\n\nThe default interchange representation SHOULD be UTF-8 JSON using snake_case field names matching this specification. Other representations MAY be supported if they preserve all semantics and round-trip to the same canonical identity-bearing values.\n\nSerialization intended for human inspection MAY include presentation-only metadata, but presentation metadata MUST be explicitly non-authoritative and MUST NOT silently affect the envelope digest.",
+      "title": "Serialization"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 167,
+      "line_start": 162,
+      "section_id": "compatibility",
+      "text": "## Compatibility\n\nSchema versions are independent from provider, adapter, and model versions.\n\nBackward-compatible revisions MAY add optional representational conveniences whose absence cannot weaken governance. Any change that alters field meaning, digest semantics, authority/capability interpretation, verification meaning, or mandatory obligations requires explicit compatibility treatment and normally a new incompatible schema version/domain separator.",
+      "title": "Compatibility"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 176,
+      "line_start": 168,
+      "section_id": "security-and-privacy",
+      "text": "## Security and privacy\n\n- Treat all executor/provider-originated data as untrusted.\n- Never infer capability from the presence of a tool alone.\n- Minimize sensitive context before serialization to external adapters/providers.\n- Prefer opaque secret/capability references over secret values.\n- Detect stale or replayed envelopes before consequential effects.\n- Preserve integrity-verifiable envelope identity in execution evidence.",
+      "title": "Security and privacy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 192,
+      "line_start": 177,
+      "section_id": "verification",
+      "text": "## Verification\n\nConformance MUST demonstrate:\n\n1. deterministic identity for equivalent normalized inputs;\n2. identity change after every material identity-bearing field change;\n3. order/duplicate normalization for set-like fields;\n4. deterministic resource-limit ordering;\n5. identifier/digest mismatch rejection;\n6. unsupported schema-version rejection;\n7. stale governing-state rejection/suspension according to policy;\n8. contradictory capability state fails closed;\n9. secret references can be represented without embedding raw secret material;\n10. JSON round-trip preserves semantic values and identity;\n11. two conforming adapter implementations can consume semantically equivalent envelope obligations;\n12. private chain-of-thought is not required to compile, execute, verify, or audit an envelope.",
+      "title": "Verification"
+    }
+  ],
+  "source": {
+    "bytes": 10776,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 192,
+    "media_type": "text/markdown",
+    "path": "specifications/data/DATA-HARNESS-0001-execution-envelope.md",
+    "sha256": "f4c0c22658589ac9d2bff08e406a34b6cc0dbf31ab6569ff66f1cfa562d5a70c"
+  }
+}
