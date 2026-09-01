@@ -1,5 +1,5 @@
 {
-  "content": "//! Deterministic, side-effect-free Monad workspace bootstrap semantics.\n//!\n//! Governed execution keeps compilation, untrusted serialization validation,\n//! effect mediation, run-local recovery, verification, effect classification,\n//! delegation, and bounded workspace observation as distinct boundaries so\n//! transport or executor behavior cannot silently create authority.\n\npub mod discovery;\npub mod harness;\npub mod harness_delegation;\npub mod harness_effects;\npub mod harness_gateway;\npub mod harness_runtime;\npub mod harness_validation;\npub mod harness_verification;\npub mod harness_workspace_read;\npub mod identity;\npub mod markdown;\npub mod workspace;\n",
+  "content": "//! Deterministic, side-effect-free Monad workspace bootstrap semantics.\n//!\n//! Governed execution keeps compilation, untrusted serialization validation,\n//! effect mediation, run-local recovery, verification, effect classification,\n//! delegation, bounded workspace observation, and adapter-session transport as\n//! distinct boundaries so transport or executor behavior cannot silently create\n//! authority.\n\npub mod discovery;\npub mod harness;\npub mod harness_adapter;\npub mod harness_delegation;\npub mod harness_effects;\npub mod harness_gateway;\npub mod harness_runtime;\npub mod harness_validation;\npub mod harness_verification;\npub mod harness_workspace_read;\npub mod identity;\npub mod markdown;\npub mod workspace;\n",
   "document_id": "doc:crates%2Fmonad-core%2Fsrc%2Flib.rs",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 19,
+      "line_end": 21,
       "line_start": 1,
       "section_id": "content",
-      "text": "//! Deterministic, side-effect-free Monad workspace bootstrap semantics.\n//!\n//! Governed execution keeps compilation, untrusted serialization validation,\n//! effect mediation, run-local recovery, verification, effect classification,\n//! delegation, and bounded workspace observation as distinct boundaries so\n//! transport or executor behavior cannot silently create authority.\n\npub mod discovery;\npub mod harness;\npub mod harness_delegation;\npub mod harness_effects;\npub mod harness_gateway;\npub mod harness_runtime;\npub mod harness_validation;\npub mod harness_verification;\npub mod harness_workspace_read;\npub mod identity;\npub mod markdown;\npub mod workspace;",
+      "text": "//! Deterministic, side-effect-free Monad workspace bootstrap semantics.\n//!\n//! Governed execution keeps compilation, untrusted serialization validation,\n//! effect mediation, run-local recovery, verification, effect classification,\n//! delegation, bounded workspace observation, and adapter-session transport as\n//! distinct boundaries so transport or executor behavior cannot silently create\n//! authority.\n\npub mod discovery;\npub mod harness;\npub mod harness_adapter;\npub mod harness_delegation;\npub mod harness_effects;\npub mod harness_gateway;\npub mod harness_runtime;\npub mod harness_validation;\npub mod harness_verification;\npub mod harness_workspace_read;\npub mod identity;\npub mod markdown;\npub mod workspace;",
       "title": "Lib"
     }
   ],
   "source": {
-    "bytes": 664,
+    "bytes": 720,
     "canonical": true,
     "language": "rust",
-    "lines": 19,
+    "lines": 21,
     "media_type": "text/plain",
     "path": "crates/monad-core/src/lib.rs",
-    "sha256": "b87d1da4412919308cb783d58db3188f79b6dce62676b5c727e745b7281d588c"
+    "sha256": "e68b3ff2004324fbc31f66c928191f9894d31c48bf2757c21a6f6a3f6951b559"
   }
 }

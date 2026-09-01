@@ -1,0 +1,103 @@
+{
+  "content": "# Governed Execution C2 Adapter Foundation Coverage\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Interface:** IFC-HARNESS-0001  \n**Conformance matrix:** `testing/governed-execution-conformance.md`\n\n## Purpose\n\nRecords the transport-neutral Monad-side adapter session/runtime foundation required before a concrete external executor adapter can claim C2 conformance.\n\nThis tranche deliberately does **not** certify Codex, Claude Code, or any other external harness as C2-conforming. It encodes the reusable C2 semantics once so every concrete adapter must pass the same compatibility, operation, completion, resume, and cancellation rules rather than reimplementing them provider-by-provider.\n\n## Existing Codex/EOS boundary\n\nThe current EOSE v2 `codex` command already provides valuable governed execution infrastructure:\n\n- execution identity;\n- isolated branch/worktree preparation;\n- governing-input fingerprints and freshness checks;\n- bounded work-packet scope;\n- environment capture;\n- a structured completion-result claim;\n- independent comparison of declared and actual Git changes;\n- EOS execution lifecycle transitions and verification.\n\nIt does not currently provide a live IFC-HARNESS adapter transport. In particular, the command renders a Codex-specific execution contract but does not negotiate an adapter/interface version, bind a live adapter session, transport per-operation requests/results through the GEH Tool Gateway, persist adapter checkpoint identity, or implement explicit adapter disconnect/resume semantics.\n\nTherefore those existing EOSE contracts remain authoritative historical/governance machinery but MUST NOT be relabeled as C2 conformance.\n\n## Foundation semantics\n\nThe C2 foundation provides:\n\n1. versioned `AdapterDescriptor` declarations;\n2. exact interface-version and Execution Envelope-version compatibility checks;\n3. explicit transport-mode compatibility;\n4. mandatory adapter-feature negotiation;\n5. namespaced mandatory-extension negotiation;\n6. immutable run/envelope binding for each adapter session;\n7. protocol errors distinct from governed execution outcomes;\n8. operation responses that preserve C1 `OperationResult` dispositions;\n9. a transient observation transport type separate from durable governed evidence;\n10. executor completion requests routed through the independent C1 Verification Controller;\n11. disconnect/resume rebinding through the C1 checkpoint/freshness/history validator;\n12. cancellation expressed as a governed operation result rather than a generic protocol failure.\n\n## C2 fixture foundation\n\nThe reusable tests implement the semantics required by GEH-CF-030 through GEH-CF-036:\n\n- **GEH-CF-030** — compatible initialization binds one adapter session to one run/envelope;\n- **GEH-CF-031** — missing mandatory adapter capability/feature explicitly rejects initialization;\n- **GEH-CF-032** — governed capability denial remains distinct from backend/tool failure;\n- **GEH-CF-033** — `complete.request` invokes independent verification and does not directly complete the run;\n- **GEH-CF-034** — disconnected-session resume requires checkpoint, history, envelope, and governing-state revalidation;\n- **GEH-CF-035** — unsupported mandatory namespaced extension explicitly rejects initialization;\n- **GEH-CF-036** — an operation attempted after authoritative cancellation returns the governed `cancelled` disposition and never reaches the backend.\n\nA concrete adapter MUST exercise these semantics with its own descriptor, transport, executor identity/configuration, and lifecycle integration before that adapter/version is C2-conforming.\n\n## Observation boundary\n\nAdapter observations are executor-facing transport data, not automatic durable evidence. The initial generic observation type supports UTF-8 workspace text while preserving resource identity, byte length, and content digest.\n\nSerializability for transport MUST NOT be interpreted as an evidence-retention requirement. Evidence/provenance policy remains independently authoritative over durable retention.\n\n## Protocol versus governance\n\nThe foundation distinguishes malformed or invalid adapter/session exchanges from valid requests that governance denies.\n\nExamples of protocol failures include:\n\n- missing event identity;\n- inactive/disconnected session use;\n- session-to-envelope binding mismatch;\n- operation-to-session binding mismatch.\n\nExamples of governed outcomes include:\n\n- denied capability;\n- denied policy;\n- denied scope;\n- waiting approval;\n- stale envelope;\n- cancellation;\n- backend/tool failure.\n\nAn adapter MUST NOT collapse these categories into one generic failure channel.\n\n## Next concrete adapter\n\nAfter this foundation is independently green, the first concrete adapter SHOULD wrap the existing Monad/EOSE Codex execution path while preserving EOS sovereignty.\n\nThat adapter must add a real session/transport boundary rather than treating the historical `.codex` contract rendering alone as adapter conformance. Provider/CLI-specific details belong in the Codex adapter and MUST NOT alter the generic C2 semantics established here.\n",
+  "document_id": "doc:testing%2Fgoverned-execution-c2-adapter-foundation.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "quality-assurance",
+    "normative": true,
+    "summary": "Status: proposed Version: 0.1.0 Owner: Monad Core / EOS Interface: IFC-HARNESS-0001 Conformance matrix: testing/governed-execution-conformance.md",
+    "title": "Governed Execution C2 Adapter Foundation Coverage"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "governed-execution-c2-adapter-foundation-coverage",
+      "text": "# Governed Execution C2 Adapter Foundation Coverage\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Interface:** IFC-HARNESS-0001  \n**Conformance matrix:** `testing/governed-execution-conformance.md`",
+      "title": "Governed Execution C2 Adapter Foundation Coverage"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 9,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nRecords the transport-neutral Monad-side adapter session/runtime foundation required before a concrete external executor adapter can claim C2 conformance.\n\nThis tranche deliberately does **not** certify Codex, Claude Code, or any other external harness as C2-conforming. It encodes the reusable C2 semantics once so every concrete adapter must pass the same compatibility, operation, completion, resume, and cancellation rules rather than reimplementing them provider-by-provider.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 15,
+      "section_id": "existing-codex-eos-boundary",
+      "text": "## Existing Codex/EOS boundary\n\nThe current EOSE v2 `codex` command already provides valuable governed execution infrastructure:\n\n- execution identity;\n- isolated branch/worktree preparation;\n- governing-input fingerprints and freshness checks;\n- bounded work-packet scope;\n- environment capture;\n- a structured completion-result claim;\n- independent comparison of declared and actual Git changes;\n- EOS execution lifecycle transitions and verification.\n\nIt does not currently provide a live IFC-HARNESS adapter transport. In particular, the command renders a Codex-specific execution contract but does not negotiate an adapter/interface version, bind a live adapter session, transport per-operation requests/results through the GEH Tool Gateway, persist adapter checkpoint identity, or implement explicit adapter disconnect/resume semantics.\n\nTherefore those existing EOSE contracts remain authoritative historical/governance machinery but MUST NOT be relabeled as C2 conformance.",
+      "title": "Existing Codex/EOS boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 32,
+      "section_id": "foundation-semantics",
+      "text": "## Foundation semantics\n\nThe C2 foundation provides:\n\n1. versioned `AdapterDescriptor` declarations;\n2. exact interface-version and Execution Envelope-version compatibility checks;\n3. explicit transport-mode compatibility;\n4. mandatory adapter-feature negotiation;\n5. namespaced mandatory-extension negotiation;\n6. immutable run/envelope binding for each adapter session;\n7. protocol errors distinct from governed execution outcomes;\n8. operation responses that preserve C1 `OperationResult` dispositions;\n9. a transient observation transport type separate from durable governed evidence;\n10. executor completion requests routed through the independent C1 Verification Controller;\n11. disconnect/resume rebinding through the C1 checkpoint/freshness/history validator;\n12. cancellation expressed as a governed operation result rather than a generic protocol failure.",
+      "title": "Foundation semantics"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 62,
+      "line_start": 49,
+      "section_id": "c2-fixture-foundation",
+      "text": "## C2 fixture foundation\n\nThe reusable tests implement the semantics required by GEH-CF-030 through GEH-CF-036:\n\n- **GEH-CF-030** — compatible initialization binds one adapter session to one run/envelope;\n- **GEH-CF-031** — missing mandatory adapter capability/feature explicitly rejects initialization;\n- **GEH-CF-032** — governed capability denial remains distinct from backend/tool failure;\n- **GEH-CF-033** — `complete.request` invokes independent verification and does not directly complete the run;\n- **GEH-CF-034** — disconnected-session resume requires checkpoint, history, envelope, and governing-state revalidation;\n- **GEH-CF-035** — unsupported mandatory namespaced extension explicitly rejects initialization;\n- **GEH-CF-036** — an operation attempted after authoritative cancellation returns the governed `cancelled` disposition and never reaches the backend.\n\nA concrete adapter MUST exercise these semantics with its own descriptor, transport, executor identity/configuration, and lifecycle integration before that adapter/version is C2-conforming.",
+      "title": "C2 fixture foundation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 63,
+      "section_id": "observation-boundary",
+      "text": "## Observation boundary\n\nAdapter observations are executor-facing transport data, not automatic durable evidence. The initial generic observation type supports UTF-8 workspace text while preserving resource identity, byte length, and content digest.\n\nSerializability for transport MUST NOT be interpreted as an evidence-retention requirement. Evidence/provenance policy remains independently authoritative over durable retention.",
+      "title": "Observation boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 91,
+      "line_start": 69,
+      "section_id": "protocol-versus-governance",
+      "text": "## Protocol versus governance\n\nThe foundation distinguishes malformed or invalid adapter/session exchanges from valid requests that governance denies.\n\nExamples of protocol failures include:\n\n- missing event identity;\n- inactive/disconnected session use;\n- session-to-envelope binding mismatch;\n- operation-to-session binding mismatch.\n\nExamples of governed outcomes include:\n\n- denied capability;\n- denied policy;\n- denied scope;\n- waiting approval;\n- stale envelope;\n- cancellation;\n- backend/tool failure.\n\nAn adapter MUST NOT collapse these categories into one generic failure channel.",
+      "title": "Protocol versus governance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 96,
+      "line_start": 92,
+      "section_id": "next-concrete-adapter",
+      "text": "## Next concrete adapter\n\nAfter this foundation is independently green, the first concrete adapter SHOULD wrap the existing Monad/EOSE Codex execution path while preserving EOS sovereignty.\n\nThat adapter must add a real session/transport boundary rather than treating the historical `.codex` contract rendering alone as adapter conformance. Provider/CLI-specific details belong in the Codex adapter and MUST NOT alter the generic C2 semantics established here.",
+      "title": "Next concrete adapter"
+    }
+  ],
+  "source": {
+    "bytes": 5137,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 96,
+    "media_type": "text/markdown",
+    "path": "testing/governed-execution-c2-adapter-foundation.md",
+    "sha256": "9b6ff40e52cf1583af7d8c29e5a5632427e9253b62f804d301792fce9ce17fad"
+  }
+}
