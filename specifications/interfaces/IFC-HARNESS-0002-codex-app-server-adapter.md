@@ -1,7 +1,7 @@
 # IFC-HARNESS-0002: Codex App Server Adapter Profile
 
 **Status:** proposed  
-**Version:** 0.1.0  
+**Version:** 0.1.1  
 **Owner:** Monad Core / EOS  
 **Parent interface:** IFC-HARNESS-0001  
 **Governing ADR:** ADR-0007  
@@ -14,7 +14,7 @@ Defines Monad's first concrete C2 external-harness adapter profile for OpenAI Co
 
 This profile binds Codex to the generic `IFC-HARNESS-0001` semantics. It does not make Codex, App Server, model output, a Codex thread, or a Codex turn authoritative for Monad capability, policy, evidence, verification, or EOS lifecycle state.
 
-Version 0.1.0 is deliberately read-only. The only model-invocable governed operation exposed by this profile is the already-defined `workspace.read_text` operation from `TECH-HARNESS-0002`.
+Version 0.1.x is deliberately read-only. The only model-invocable governed operation exposed by this profile is the already-defined `workspace.read_text` operation from `TECH-HARNESS-0002`.
 
 ## External protocol basis
 
@@ -116,7 +116,7 @@ Its model-authored arguments are exactly:
 }
 ```
 
-Unknown argument fields are rejected in version 0.1.0.
+Unknown argument fields are rejected in version 0.1.x.
 
 In particular, model-authored arguments cannot set or override:
 
@@ -231,7 +231,9 @@ The first read-only dogfood profile MUST NOT rely on Codex built-in command exec
 
 Those tools MAY exist in the provider runtime, but a conforming Monad launch configuration must restrict or disable them sufficiently that they cannot form an unmediated alternate effect path while the run is represented as governed.
 
-If that cannot be demonstrated for the selected App Server configuration, the read-only dogfood run is not eligible for governed-execution claims.
+A runtime SHOULD additionally reject an observed provider-native consequential server request or item lifecycle event as a protocol/confinement failure rather than allow the run to continue under a governed label.
+
+If provider-effect confinement cannot be demonstrated for the selected App Server configuration and build, the read-only dogfood run is not eligible for governed-execution claims.
 
 ## Inference transport versus governed effects
 
@@ -249,22 +251,59 @@ Launching `codex app-server`, managing child-process stdio, provider authenticat
 
 That integration MUST NOT bypass the adapter/session or Tool Gateway boundaries defined here.
 
+The initial implementation of that effectful boundary is `crates/monad-codex-runtime`. Its existence does not move provider-specific process or transport semantics into `monad-core`.
+
+## Effectful runtime profile
+
+The initial App Server runtime profile MUST:
+
+- perform the `initialize` / `initialized` connection handshake;
+- request the experimental API needed for dynamic tools;
+- create an ephemeral provider thread beneath the already-bound Monad C2 session;
+- keep the provider runtime working directory independent from the governed workspace;
+- request empty App Server runtime-workspace roots and environments for the restricted profile;
+- register only the Monad dynamic tool required by this interface profile;
+- disable known provider-native consequential surfaces where the selected Codex runtime exposes supported controls;
+- route `item/tool/call` through the deterministic adapter kernel;
+- return provider-facing transient results without changing evidence classification;
+- map `turn/completed` to independent Monad verification;
+- reject unexpected provider approval/server requests rather than interpreting them as Monad grants;
+- fail closed when an observed provider-native consequential item starts outside the Monad Tool Gateway.
+
+These runtime controls are necessary defense in depth. They MUST NOT be treated as sufficient activation evidence until the selected live provider build passes the separate provider-effect confinement gate described below.
+
 ## Conformance fixtures
 
-The first Codex-specific fixture tranche is:
+The first Codex-specific deterministic fixture tranche is:
 
 - **GEH-CF-037** — Codex profile initialization negotiates the mandatory App Server dynamic-tools profile;
 - **GEH-CF-038** — Codex dynamic `workspace.read_text` request is reconstructed from bound authority, exact-scope mediated, and cannot smuggle broader authority through arguments;
 - **GEH-CF-039** — Codex turn completion is routed to independent verification rather than direct governed completion.
 
-The complete generic C2 foundation fixtures GEH-CF-030 through GEH-CF-036 remain required for this adapter version.
+The effectful runtime refines those scenarios with:
+
+- **GEH-CF-037-RUNTIME** — App Server handshake, dynamic-tool registration, and restricted provider-thread setup;
+- **GEH-CF-038-RUNTIME** — App Server wire request mediation plus fail-closed handling of unexpected or provider-native alternate effect paths;
+- **GEH-CF-039-RUNTIME** — App Server turn completion remains subordinate to independent Monad verification.
+
+The complete generic C2 foundation fixtures GEH-CF-030 through GEH-CF-036 remain required for this adapter version. Runtime subfixtures are specified in `testing/governed-execution-c2-codex-runtime.md`.
+
+## Live governed-execution activation gate
+
+Passing deterministic adapter tests and effectful runtime protocol tests is necessary but not sufficient to certify a live Codex run as governed execution.
+
+Before the first read-only live dogfood run may carry a governed-execution claim, the selected Codex/App Server build MUST pass a machine-verifiable provider-effect confinement activation fixture under adversarial attempts to observe or mutate governed repository content through provider-native paths.
+
+The activation proof MAY use a Codex permission profile, process-level filesystem isolation, or another enforceable mechanism. It MUST demonstrate that the selected mechanism is actually effective for the launched runtime. Prompt instructions or a configuration request that is not verified at runtime are insufficient.
+
+If the activation proof is unavailable, incompatible, ambiguous, or fails, the runtime MUST remain blocked from live governed dogfood activation.
 
 ## Explicit exclusions
 
-Version 0.1.0 does not authorize or implement:
+Version 0.1.x does not authorize or implement:
 
 - workspace writes;
-- arbitrary shell/process execution;
+- arbitrary shell/process execution as governed effects;
 - model-requested network access;
 - deployment or release effects;
 - governance mutation;
@@ -276,12 +315,12 @@ Version 0.1.0 does not authorize or implement:
 
 ## Next implementation layer
 
-After this deterministic adapter kernel is green, the next slice SHOULD implement the effectful App Server client/runtime integration that:
+With the deterministic adapter kernel and effectful App Server runtime bridge in place, the next slice SHOULD establish provider-effect confinement and then perform the first attributable read-only dogfood run:
 
-1. launches or connects to a pinned/identified Codex App Server;
-2. completes App Server initialization with required capability negotiation;
-3. starts a restricted read-only thread with the Monad dynamic tool registered;
-4. translates `item/tool/call` requests through this adapter kernel;
-5. returns transient governed results to Codex;
-6. routes turn completion to Monad verification;
-7. performs one read-only dogfood run with attributable evidence.
+1. select and identify the Codex/App Server build under test;
+2. define an enforceable provider-effect confinement profile independent of prompt behavior;
+3. attempt adversarial provider-native reads/effects against governed repository content;
+4. prove those alternate paths are denied while the Monad dynamic read path remains functional;
+5. retain the activation/conformance evidence;
+6. only after that proof, execute one real read-only governed dogfood task through `monad_workspace_read_text`;
+7. route provider completion through Monad verification and retain attributable execution evidence.
