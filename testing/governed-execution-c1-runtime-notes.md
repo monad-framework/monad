@@ -1,1 +1,0 @@
-The runtime tranche intentionally keeps mutable execution history outside the immutable Execution Envelope and treats replay, checkpoint, verification, external-effect classification, and delegation as separate governed records.
