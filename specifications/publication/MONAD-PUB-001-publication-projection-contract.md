@@ -2,7 +2,7 @@
 
 title: "Monad Publication Projection Contract"
 specification ID: "MONAD-PUB-001"
-version: "0.1.1"
+version: "0.1.0"
 status: "Draft"
 classification: "Normative Publication Projection Contract"
 parent: "Monad Engineering Knowledge and Governance System"
@@ -840,81 +840,15 @@ It SHALL NOT expose arbitrary GitHub API responses.
 
 ---
 
-# 30. Projection metadata envelope and manifest
+# 30. Projection manifest
 
-Every deterministic projection run SHALL create the publication metadata envelope:
-
-```text
-content/generated/monad/
-├── manifest.json
-└── provenance.json
-```
-
-These two files describe the projection itself.
-
-They are metadata about projection-managed content and SHALL NOT be treated as ordinary projection-managed content artifacts.
-
-The metadata envelope SHALL be acyclic.
-
-Accordingly:
-
-* `manifest.json` SHALL NOT contain an artifact entry for itself;
-* `manifest.json` SHALL NOT contain an artifact entry for `provenance.json`;
-* `provenance.json` SHALL NOT contain a provenance record for itself;
-* `provenance.json` SHALL NOT contain a provenance record for `manifest.json`;
-* the two metadata-envelope files SHALL NOT contain content hashes that require either file to hash itself directly or indirectly.
-
-This avoids impossible recursive dependencies such as:
-
-```text
-manifest
-    contains hash(manifest)
-            ↑
-            └──────────── recursive
-```
-
-or:
-
-```text
-manifest
-    contains hash(provenance)
-            ↑
-provenance
-    contains hash(manifest)
-```
-
-The projection metadata model SHALL therefore be:
-
-```text
-Projection metadata envelope
-├── manifest.json
-├── provenance.json
-│
-└── describes
-      ↓
-projection-managed content artifacts
-```
-
-## 30.1 Manifest inventory scope
-
-`manifest.json` SHALL contain the complete inventory of projection-managed **content outputs**, excluding the metadata envelope itself.
-
-The inventory SHALL include every generated `MIRROR` and `DERIVE` output that the destination synchronizer is permitted to create, replace, verify, or delete.
-
-The inventory SHALL NOT include:
+Every projection run SHALL create:
 
 ```text
 content/generated/monad/manifest.json
-content/generated/monad/provenance.json
 ```
 
-The exclusion of those two files does not make the manifest incomplete.
-
-For purposes of this contract:
-
-> complete inventory means complete inventory of projection-managed content artifacts, excluding the projection metadata envelope.
-
-The minimum manifest structure SHALL be:
+Minimum schema:
 
 ```json
 {
@@ -922,55 +856,20 @@ The minimum manifest structure SHALL be:
   "sourceRepository": "monad-framework/monad",
   "sourceBranch": "main",
   "sourceCommit": "<sha>",
-  "generatedAt": "<deterministic-source-derived-timestamp>",
+  "generatedAt": "<timestamp>",
   "artifacts": [
     {
       "sourcePath": "architecture/decisions/ADR-0001.md",
       "sourceBlob": "<sha>",
-      "sourceCommit": "<sha>",
       "destinationPath": "content/docs/artifacts/decisions/ADR-0001.mdx",
       "mode": "MIRROR",
-      "contentHash": "<sha256>",
-      "policyRuleId": "MIRROR-ARCHITECTURE-DECISIONS"
+      "contentHash": "<sha256>"
     }
   ]
 }
 ```
 
-A `DERIVE` artifact SHALL additionally identify its concrete contributing inputs as required by the publication manifest schema.
-
-## 30.2 Provenance inventory scope
-
-`provenance.json` SHALL record provenance for projection-managed content outputs.
-
-Its records SHALL correspond to generated content governed by `MIRROR` or `DERIVE` policy rules.
-
-The provenance record set SHALL exclude:
-
-```text
-content/generated/monad/manifest.json
-content/generated/monad/provenance.json
-```
-
-The metadata envelope itself is instead bound to the projection through:
-
-* the exact source repository;
-* source branch;
-* source commit;
-* projection version;
-* deterministic generation timestamp;
-* governing publication contract;
-* executable projection policy.
-
-## 30.3 Deterministic metadata
-
-Static publication metadata SHALL be deterministic for a specified source commit and projection version.
-
-Wall-clock execution time SHALL NOT alter otherwise identical static projection output.
-
-Where a generated timestamp is required, it SHALL be derived deterministically from source state, such as the authoritative source commit timestamp.
-
-Runtime `LIVE` operational state is outside this static determinism rule and SHALL remain explicitly distinguishable from static projection state.
+The manifest SHALL be the complete inventory of generated publication state.
 
 ---
 
@@ -1400,12 +1299,6 @@ Only publishable state descended from the authoritative `main` branch may be pre
 ### PPC-INV-012 — Local reproducibility
 
 A developer must be able to reproduce the same projection locally from a specified Monad commit.
-
-### PPC-INV-013 — Acyclic metadata envelope
-
-`manifest.json` and `provenance.json` MUST remain outside their own artifact and provenance inventories.
-
-Neither metadata-envelope file may directly or indirectly require its own content hash for construction.
 
 ---
 
