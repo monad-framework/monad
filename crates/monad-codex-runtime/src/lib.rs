@@ -24,9 +24,7 @@ use std::{
 
 use monad_core::{
     harness::ExecutionEnvelope,
-    harness_adapter::{
-        AdapterCompletionResponse, AdapterInitializationOutcome, AdapterSessionId,
-    },
+    harness_adapter::{AdapterCompletionResponse, AdapterInitializationOutcome, AdapterSessionId},
     harness_codex_adapter::{
         CODEX_ADAPTER_ID, CODEX_ADAPTER_VERSION, CODEX_WORKSPACE_READ_TOOL, CodexAdapterSession,
         CodexDynamicToolCallDocument, CodexDynamicToolContentItem, CodexDynamicToolResponse,
@@ -67,10 +65,16 @@ impl fmt::Display for CodexRuntimeError {
                 write!(formatter, "Codex App Server JSON was invalid: {diagnostic}")
             }
             Self::Protocol(diagnostic) => {
-                write!(formatter, "Codex App Server protocol failed closed: {diagnostic}")
+                write!(
+                    formatter,
+                    "Codex App Server protocol failed closed: {diagnostic}"
+                )
             }
             Self::Adapter(diagnostic) => {
-                write!(formatter, "Monad Codex adapter rejected the request: {diagnostic}")
+                write!(
+                    formatter,
+                    "Monad Codex adapter rejected the request: {diagnostic}"
+                )
             }
             Self::ExecutorBindingMismatch { expected, actual } => write!(
                 formatter,
@@ -385,7 +389,9 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
             .and_then(Value::as_str)
             .filter(|value| !value.trim().is_empty())
             .ok_or_else(|| {
-                CodexRuntimeError::Protocol("turn/start response omitted a non-empty turn.id".into())
+                CodexRuntimeError::Protocol(
+                    "turn/start response omitted a non-empty turn.id".into(),
+                )
             })?
             .to_owned();
 
@@ -460,9 +466,7 @@ impl<T: AppServerTransport> CodexAppServerRuntime<T> {
                         .get("threadId")
                         .and_then(Value::as_str)
                         .ok_or_else(|| {
-                            CodexRuntimeError::Protocol(
-                                "turn/completed omitted threadId".into(),
-                            )
+                            CodexRuntimeError::Protocol("turn/completed omitted threadId".into())
                         })?;
                     let completed_turn = params
                         .pointer("/turn/id")
@@ -843,11 +847,13 @@ mod tests {
         json!({ "id": 3, "result": { "turn": { "id": "turn_runtime_0001" } } })
     }
 
-    fn started_runtime() -> (CodexAppServerRuntime<ScriptedTransport>, ExecutionEnvelope, TestWorkspace) {
-        let transport = ScriptedTransport::with_incoming(vec![
-            initialize_response(),
-            thread_start_response(),
-        ]);
+    fn started_runtime() -> (
+        CodexAppServerRuntime<ScriptedTransport>,
+        ExecutionEnvelope,
+        TestWorkspace,
+    ) {
+        let transport =
+            ScriptedTransport::with_incoming(vec![initialize_response(), thread_start_response()]);
         let mut runtime = CodexAppServerRuntime::new(transport);
         runtime.initialize_connection().unwrap();
         let envelope = envelope("README.md");
@@ -864,10 +870,8 @@ mod tests {
 
     #[test]
     fn geh_cf_037_runtime_initialization_enables_dynamic_tools_and_restricts_native_surfaces() {
-        let transport = ScriptedTransport::with_incoming(vec![
-            initialize_response(),
-            thread_start_response(),
-        ]);
+        let transport =
+            ScriptedTransport::with_incoming(vec![initialize_response(), thread_start_response()]);
         let mut runtime = CodexAppServerRuntime::new(transport);
         let identity = runtime.initialize_connection().unwrap();
         let envelope = envelope("README.md");
@@ -884,10 +888,7 @@ mod tests {
         assert_eq!(session.thread_id(), "thr_runtime_0001");
         let sent = &runtime.transport().sent;
         assert_eq!(sent[0]["method"], APP_SERVER_INITIALIZE);
-        assert_eq!(
-            sent[0]["params"]["capabilities"]["experimentalApi"],
-            true
-        );
+        assert_eq!(sent[0]["params"]["capabilities"]["experimentalApi"], true);
         assert_eq!(sent[1]["method"], APP_SERVER_INITIALIZED);
         assert_eq!(sent[2]["method"], APP_SERVER_THREAD_START);
         assert_eq!(
