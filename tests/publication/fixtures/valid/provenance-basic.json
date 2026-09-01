@@ -1,0 +1,35 @@
+{
+  "projectionVersion": 1,
+  "sourceRepository": "monad-framework/monad",
+  "sourceBranch": "main",
+  "sourceCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "generatedAt": "2026-09-01T18:00:00Z",
+  "records": [
+    {
+      "destinationPath": "content/generated/monad/canonical/README.md",
+      "mode": "MIRROR",
+      "policyRuleId": "MIRROR-ROOT-README",
+      "inputs": [
+        {
+          "path": "README.md",
+          "blob": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        }
+      ]
+    },
+    {
+      "destinationPath": "content/generated/monad/state/project.json",
+      "mode": "DERIVE",
+      "policyRuleId": "DERIVE-PROJECT",
+      "inputs": [
+        {
+          "path": "README.md",
+          "blob": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        {
+          "path": "VERSION",
+          "blob": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        }
+      ]
+    }
+  ]
+}
