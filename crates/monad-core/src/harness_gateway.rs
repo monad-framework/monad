@@ -204,7 +204,11 @@ pub fn mediate_operation<B: OperationBackend>(
         "run is in the running state",
     ));
 
-    if !envelope.allowed_tools().iter().any(|tool| tool == &request.tool) {
+    if !envelope
+        .allowed_tools()
+        .iter()
+        .any(|tool| tool == &request.tool)
+    {
         return denied(
             request,
             OperationDisposition::DeniedCapability,
@@ -216,6 +220,27 @@ pub fn mediate_operation<B: OperationBackend>(
     checks.push(passed(
         GovernanceCheckKind::ToolEligibility,
         "requested tool is allowed by the envelope",
+    ));
+
+    if envelope
+        .prohibited_capabilities()
+        .iter()
+        .any(|prohibition| {
+            prohibition.capability == request.capability
+                && prohibition.scope == request.target_scope
+        })
+    {
+        return denied(
+            request,
+            OperationDisposition::DeniedCapability,
+            checks,
+            GovernanceCheckKind::CapabilityProhibition,
+            "requested capability and exact target scope are explicitly prohibited",
+        );
+    }
+    checks.push(passed(
+        GovernanceCheckKind::CapabilityProhibition,
+        "no exact capability prohibition applies",
     ));
 
     let matching_capability = envelope
@@ -239,22 +264,6 @@ pub fn mediate_operation<B: OperationBackend>(
     checks.push(passed(
         GovernanceCheckKind::CapabilityGrant,
         "requested capability is explicitly granted",
-    ));
-
-    if envelope.prohibited_capabilities().iter().any(|prohibition| {
-        prohibition.capability == request.capability && prohibition.scope == request.target_scope
-    }) {
-        return denied(
-            request,
-            OperationDisposition::DeniedCapability,
-            checks,
-            GovernanceCheckKind::CapabilityProhibition,
-            "requested capability and exact target scope are explicitly prohibited",
-        );
-    }
-    checks.push(passed(
-        GovernanceCheckKind::CapabilityProhibition,
-        "no exact capability prohibition applies",
     ));
 
     if !matching_capability
@@ -293,11 +302,12 @@ pub fn mediate_operation<B: OperationBackend>(
         }
     }
 
-    if let Some(missing_gate) = envelope
-        .approval_gates()
-        .iter()
-        .find(|gate| !context.approved_gates.iter().any(|approved| approved == *gate))
-    {
+    if let Some(missing_gate) = envelope.approval_gates().iter().find(|gate| {
+        !context
+            .approved_gates
+            .iter()
+            .any(|approved| approved == *gate)
+    }) {
         return waiting_approval(
             request,
             checks,
@@ -518,7 +528,10 @@ mod tests {
 
         let outcome = mediate_operation(&envelope, &request, &context(), &mut backend);
 
-        assert_eq!(outcome.result.disposition, OperationDisposition::ExecutedSuccess);
+        assert_eq!(
+            outcome.result.disposition,
+            OperationDisposition::ExecutedSuccess
+        );
         assert_eq!(backend.calls, vec![request.operation_id]);
         assert!(!outcome.decision.checks.is_empty());
     }
@@ -532,7 +545,10 @@ mod tests {
 
         let outcome = mediate_operation(&envelope, &request, &context(), &mut backend);
 
-        assert_eq!(outcome.result.disposition, OperationDisposition::DeniedCapability);
+        assert_eq!(
+            outcome.result.disposition,
+            OperationDisposition::DeniedCapability
+        );
         assert!(backend.calls.is_empty());
     }
 
@@ -545,8 +561,15 @@ mod tests {
 
         let outcome = mediate_operation(&envelope, &request, &context(), &mut backend);
 
-        assert_eq!(outcome.result.disposition, OperationDisposition::DeniedCapability);
+        assert_eq!(
+            outcome.result.disposition,
+            OperationDisposition::DeniedCapability
+        );
         assert!(backend.calls.is_empty());
+        assert!(outcome.decision.checks.iter().any(|check| {
+            check.kind == GovernanceCheckKind::CapabilityProhibition
+                && check.outcome == GovernanceCheckOutcome::Failed
+        }));
     }
 
     #[test]
@@ -558,53 +581,31 @@ mod tests {
 
         let outcome = mediate_operation(&envelope, &request, &context(), &mut backend);
 
-        assert_eq!(outcome.result.disposition, OperationDisposition::DeniedScope);
+        assert_eq!(
+            outcome.result.disposition,
+            OperationDisposition::DeniedScope
+        );
         assert!(backend.calls.is_empty());
     }
 
     #[test]
     fn geh_cf_014_missing_required_approval_waits_without_effect() {
-        let mut draft = ExecutionEnvelopeDraft {
-            schema_version: "0.1.0".into(),
-            run_id: RunId("run-c1-approval".into()),
-            logical_time: "2026-09-01T12:00:00Z".into(),
-            work_subject: "WP-HARNESS-C1".into(),
-            intent: "require approval".into(),
-            requested_outcome: "approval-gated operation".into(),
-            governing_state_digest: "state-c1".into(),
-            governed_references: vec![],
-            initiating_actor: ActorIdentity::new("human:owner", "engineering_owner"),
-            executor: ActorIdentity::new("adapter:test", "executor"),
-            granted_capabilities: vec![CapabilityGrant::new(
-                "workspace.read",
-                "workspace/README.md",
-            )],
-            prohibited_capabilities: vec![],
-            allowed_tools: vec!["workspace".into()],
-            environment_constraints: vec![],
-            acceptance_criteria: vec![],
-            verification_obligations: vec![],
-            approval_gates: vec!["human:read-sensitive".into()],
-            escalation_conditions: vec![],
-            completion_criteria: vec![],
-            resource_limits: BTreeMap::new(),
-        };
-        let envelope = compile_execution_envelope(draft.clone());
+        let envelope = compile_execution_envelope(base_draft_with_approval());
         let request = request_for(&envelope);
         let mut backend = RecordingBackend::default();
 
         let outcome = mediate_operation(&envelope, &request, &context(), &mut backend);
 
-        assert_eq!(outcome.result.disposition, OperationDisposition::WaitingApproval);
+        assert_eq!(
+            outcome.result.disposition,
+            OperationDisposition::WaitingApproval
+        );
         assert!(backend.calls.is_empty());
-
-        draft.approval_gates.clear();
     }
 
     #[test]
     fn geh_cf_015_satisfied_approval_allows_same_request() {
-        let mut draft = base_draft_with_approval();
-        let envelope = compile_execution_envelope(draft.clone());
+        let envelope = compile_execution_envelope(base_draft_with_approval());
         let request = request_for(&envelope);
         let mut approved = context();
         approved.approved_gates = vec!["human:read-sensitive".into()];
@@ -612,10 +613,11 @@ mod tests {
 
         let outcome = mediate_operation(&envelope, &request, &approved, &mut backend);
 
-        assert_eq!(outcome.result.disposition, OperationDisposition::ExecutedSuccess);
+        assert_eq!(
+            outcome.result.disposition,
+            OperationDisposition::ExecutedSuccess
+        );
         assert_eq!(backend.calls.len(), 1);
-
-        draft.approval_gates.clear();
     }
 
     #[test]
@@ -628,7 +630,10 @@ mod tests {
 
         let outcome = mediate_operation(&envelope, &request, &stale, &mut backend);
 
-        assert_eq!(outcome.result.disposition, OperationDisposition::StaleEnvelope);
+        assert_eq!(
+            outcome.result.disposition,
+            OperationDisposition::StaleEnvelope
+        );
         assert!(backend.calls.is_empty());
     }
 
@@ -658,7 +663,10 @@ mod tests {
 
         let outcome = mediate_operation(&envelope, &request, &denied_context, &mut backend);
 
-        assert_eq!(outcome.result.disposition, OperationDisposition::DeniedPolicy);
+        assert_eq!(
+            outcome.result.disposition,
+            OperationDisposition::DeniedPolicy
+        );
         assert!(backend.calls.is_empty());
     }
 
