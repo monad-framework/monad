@@ -3,7 +3,7 @@ artifact_id: "REV-MNT-0006"
 title: "MNT-0006 Engineering Review"
 type: "review"
 version: "0.1.0"
-status: "In Review"
+status: "Accepted"
 authority: "review-authoritative"
 created: "2026-09-05"
 updated: "2026-09-05"
@@ -11,7 +11,7 @@ updated: "2026-09-05"
 
 # MNT-0006 — Engineering Review
 
-**Decision:** PENDING
+**Decision:** ACCEPTED
 
 ## Target
 
@@ -121,7 +121,7 @@ Automated verification:
 Canonical state tests: PASS
 Canonical reconciliation tests: PASS
 EOS wrapper dispatch: PASS
-````
+```
 
 Independent isolated verification:
 
@@ -196,7 +196,7 @@ The technical and verification evidence supports closure of MNT-0006.
 
 ## Decision
 
-**PENDING HUMAN PROJECT STEWARD DECISION**
+**ACCEPTED — HUMAN PROJECT STEWARD — 2026-09-05**
 
 Permitted final disposition:
 
@@ -204,4 +204,10 @@ Permitted final disposition:
 * `REJECTED` — return MNT-0006 to implementation;
 * `BLOCKED` — retain VERIFYING pending additional evidence.
 
-No closure authority is inferred from this review being prepared.
+Closure authority was explicitly granted by the Human Project Steward:
+
+> I approve MNT-0006 closure.
+
+Durable authority record:
+
+`engineering/reviews/DECISION-0007-2026-09-05-mnt-0006-closure-approval.md`
