@@ -1,6 +1,6 @@
 # SEC-AIENG-0001: Autonomy, Authority, and Approval Gates
 
-**Status:** draft
+**Status:** review
 **Version:** 0.1.0
 **Owner:** Monad Core / EOS
 **Reviewers:** Project Steward, Product Owner, Architecture Owner, Engineering Owner, Security Owner, Operations Owner, Verification Owner as affected

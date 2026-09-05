@@ -52,3 +52,36 @@ a specification defect, but they do not silently supersede the approved text.
 Every committed product requirement maps to at least one specification or a
 documented reason none is needed. Each normative rule maps to automated or
 manual evidence. Release review reports missing, failed, or waived evidence.
+
+## AI-Driven Engineering Specification Family
+
+The current AI-driven engineering normative tranche is:
+
+| ID | Class | Contract | Status |
+| --- | --- | --- | --- |
+| `FUN-AIENG-0001` | Functional | Adaptive Engineering Workflow | Review |
+| `IFC-AIENG-0001` | Interface | Engineering Agent Contract | Review |
+| `SEC-AIENG-0001` | Security | Autonomy, Authority, and Approval Gates | Review |
+
+The family is governed by accepted `ADR-0008` and `EOS-AI-0001`.
+
+The three specifications form one operating-model contract:
+
+```text
+FUN-AIENG-0001
+adaptive planning and replanning
+        │
+        ├───────────────┐
+        ↓               ↓
+IFC-AIENG-0001     SEC-AIENG-0001
+participant        autonomy / authority /
+interface          approval / revocation
+        │               │
+        └───────┬───────┘
+                ↓
+       existing EOS governance
+                ↓
+       governed execution
+
+The AIENG family does not create a new lifecycle, authority system, canonical
+state, decision system, approval system, or evidence system.

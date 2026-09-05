@@ -1,6 +1,6 @@
 # IFC-AIENG-0001: Engineering Agent Contract
 
-**Status:** draft
+**Status:** review
 **Version:** 0.1.0
 **Owner:** Monad Core / EOS
 **Reviewers:** Product Owner, Architecture Owner, Engineering Owner, Security Owner, Operations Owner, Verification Owner as affected

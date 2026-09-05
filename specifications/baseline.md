@@ -4,7 +4,7 @@ artifact_id: "SPEC-BASE-0001"
 title: "Specification Baseline"
 type: "specification"
 version: "0.1.0"
-status: "Draft"
+status: "Review"
 authority: "specification-authoritative"
 created: "2026-08-12"
 updated: "2026-09-05"
@@ -173,3 +173,23 @@ accepted architecture
 → separately authorized WC/WP
 → implementation
 ```
+
+## Known Machine-Traceability Identity Gap
+
+The human-authored product and specification conventions currently identify
+requirements as `FR-*` / `QR-*` and specifications as class-specific
+`FUN-*` / `IFC-*` / `SEC-*` identifiers.
+
+The EOS canonical domain model currently defines canonical Requirement and
+Specification entity namespaces as `REQ-*` and `SPEC-*`.
+
+This mismatch does not invalidate the semantic requirement/specification
+relationships established by this baseline, but it prevents this baseline from
+claiming complete canonical machine-level REQ/SPEC identity coverage until the
+namespace/convention relationship is explicitly reconciled.
+
+The reconciliation MUST preserve existing human-authored identifiers and
+history and MUST NOT silently renumber accepted requirements or specifications.
+
+Resolution of this gap is required before the AIENG tranche claims complete
+machine-level traceability or proceeds into implementation planning.
