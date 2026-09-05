@@ -19,6 +19,30 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterable
 
+TOOLS_EOS_DIR = Path(__file__).resolve().parent
+if str(TOOLS_EOS_DIR) not in sys.path:
+    sys.path.insert(0, str(TOOLS_EOS_DIR))
+
+from identity_families import (
+    REQUIREMENT_ID_PATTERN,
+    SPECIFICATION_ID_PATTERN,
+)
+
+ID_RE = re.compile(
+    r"\b(?:"
+    + REQUIREMENT_ID_PATTERN
+    + r"|"
+    + SPECIFICATION_ID_PATTERN
+    + r"|CAP-[A-Z0-9][A-Z0-9-]*"
+    + r"|QA-[A-Z0-9][A-Z0-9-]*"
+    + r"|ADR-\d{4}"
+    + r"|PI-\d{3}"
+    + r"|WC-\d{4}"
+    + r"|WP(?:-[A-Z][A-Z0-9]*)?-\d{4}"
+    + r"|RISK-\d{3,4}"
+    + r")\b"
+)
+
 UTC = dt.timezone.utc
 EXEC_FIELDS = [
     "id", "path", "target", "status", "branch", "worktree", "baseline_commit",
