@@ -19,19 +19,31 @@ def write_fake(path: Path, label: str) -> None:
         "from pathlib import Path\n"
         "log = Path(os.environ['EOS_DISPATCH_LOG'])\n"
         f"label = {label!r}\n"
+        "args = sys.argv[1:]\n"
         "with log.open('a', encoding='utf-8') as f:\n"
-        "    f.write(label + ':' + ' '.join(sys.argv[1:]) + '\\n')\n"
-        "print(label + ' ' + ' '.join(sys.argv[1:]))\n",
+        "    f.write(label + ':' + ' '.join(args) + '\\n')\n"
+        "print(label + ' ' + ' '.join(args))\n"
+        "fail_label = os.environ.get('EOS_FAIL_LABEL', '')\n"
+        "fail_action = os.environ.get('EOS_FAIL_ACTION', '')\n"
+        "action = args[0] if args else ''\n"
+        "if label == fail_label and (not fail_action or action == fail_action):\n"
+        "    raise SystemExit(int(os.environ.get('EOS_FAIL_CODE', '9')))\n",
         encoding="utf-8",
     )
 
 
-def run_case(root: Path, args: list[str]) -> tuple[int, list[str], str]:
+def run_case(
+    root: Path,
+    args: list[str],
+    env_overrides: dict[str, str] | None = None,
+) -> tuple[int, list[str], str]:
     log = root / "dispatch.log"
     if log.exists():
         log.unlink()
     env = dict(os.environ)
     env["EOS_DISPATCH_LOG"] = str(log)
+    if env_overrides:
+        env.update(env_overrides)
     proc = subprocess.run(
         ["bash", str(root / "scripts" / "eos"), *args],
         cwd=root,
@@ -69,6 +81,100 @@ def main() -> int:
             lines,
             ["canonical:pre -- next", "legacy:next", "canonical:post -- next"],
         )
+
+        rc, lines, output = run_case(
+            root,
+            ["next"],
+            {
+                "EOS_FAIL_LABEL": "legacy",
+                "EOS_FAIL_CODE": "7",
+            },
+        )
+        if rc != 7:
+            raise AssertionError(
+                f"runtime failure should preserve runtime rc 7: {output}"
+            )
+        expect(
+            "runtime failure rollback dispatch",
+            lines,
+            [
+                "canonical:pre -- next",
+                "legacy:next",
+                "canonical:rollback-transaction --reason "
+                "selected runtime exited with status 7 -- next",
+            ],
+        )
+
+        rc, lines, output = run_case(
+            root,
+            ["next"],
+            {
+                "EOS_FAIL_LABEL": "canonical",
+                "EOS_FAIL_ACTION": "post",
+                "EOS_FAIL_CODE": "9",
+            },
+        )
+        if rc != 9:
+            raise AssertionError(
+                f"post failure should preserve post rc 9: {output}"
+            )
+        expect(
+            "post failure rollback dispatch",
+            lines,
+            [
+                "canonical:pre -- next",
+                "legacy:next",
+                "canonical:post -- next",
+                "canonical:rollback-transaction --reason "
+                "canonical post-validation exited with status 9 -- next",
+            ],
+        )
+
+
+        rc, lines, output = run_case(
+            root,
+            ["next"],
+            {
+                "EOS_FAIL_LABEL": "legacy",
+                "EOS_FAIL_CODE": "7",
+                "EOS_FAIL_ACTION": "",
+            },
+        )
+
+        # Reconfigure the fake canonical runtime so rollback itself fails.
+        canonical = root / "tools" / "eos" / "canonical_state.py"
+        original = canonical.read_text(encoding="utf-8")
+        canonical.write_text(
+            original.replace(
+                "action = args[0] if args else ''\\n",
+                "action = args[0] if args else ''\\n"
+                "if action == 'rollback-transaction':\\n"
+                "    raise SystemExit(12)\\n",
+            ),
+            encoding="utf-8",
+        )
+
+        rc, lines, output = run_case(
+            root,
+            ["next"],
+            {
+                "EOS_FAIL_LABEL": "legacy",
+                "EOS_FAIL_CODE": "7",
+            },
+        )
+
+        if rc != 2:
+            raise AssertionError(
+                "rollback failure must fail closed with wrapper rc 2: "
+                + output
+            )
+
+        if "explicit recovery is required" not in output:
+            raise AssertionError(
+                "rollback failure did not emit recovery-required diagnostic: "
+                + output
+            )
+
 
         rc, lines, output = run_case(root, ["verify", "--strict"])
         if rc != 0:

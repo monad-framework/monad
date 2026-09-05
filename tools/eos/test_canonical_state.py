@@ -134,6 +134,401 @@ class CanonicalStateTests(unittest.TestCase):
         self.assertEqual("AUTHORIZED", state["entities"]["PI"]["PI-001"]["lifecycle_state"])
         self.assertEqual([], self.cs.projection_drift(state))
 
+    def test_rejected_transition_rolls_back_exactly(self) -> None:
+        command = ["authorize", "PI-001"]
+        args = argparse.Namespace(command=command)
+
+        unrelated = self.root / "unrelated-user-work.txt"
+        unrelated.write_text("preserve me exactly\n", encoding="utf-8")
+
+        tracked = [
+            self.root / ".eos/events.jsonl",
+            self.root / ".eos/program-increments.tsv",
+            self.root / ".eos/state/current.json",
+            self.root / ".eos/state/projections.json",
+            self.root / "engineering/increments/PI-001.md",
+        ]
+        before = {path: path.read_bytes() for path in tracked}
+        unrelated_before = unrelated.read_bytes()
+
+        self.cs.cmd_pre(args)
+
+        with (self.root / ".eos/events.jsonl").open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps({
+                "event_type": "STATE_TRANSITION",
+                "entity_kind": "PI",
+                "target": "PI-001",
+                "from_state": "DRAFT",
+                "to_state": "AUTHORIZED",
+            }) + "\n")
+
+        rows = self.cs.read_tsv(self.root / ".eos/program-increments.tsv")
+        rows[0]["status"] = "AUTHORIZED"
+        rows[0]["updated"] = "2026-08-12T12:30:00Z"
+        (self.root / ".eos/program-increments.tsv").write_bytes(
+            self.cs.render_tsv(self.cs.REGISTRY_FIELDS["PI"], rows)
+        )
+
+        # Leave Markdown at DRAFT so post-validation rejects the transaction.
+        with self.assertRaises(self.cs.StateError):
+            self.cs.cmd_post(args)
+
+        rollback_args = argparse.Namespace(
+            command=command,
+            reason="test rejected transition",
+        )
+        self.assertEqual(0, self.cs.cmd_rollback_transaction(rollback_args))
+
+        for target, payload in before.items():
+            self.assertEqual(payload, target.read_bytes(), target)
+
+        self.assertEqual(unrelated_before, unrelated.read_bytes())
+        self.assertFalse(self.cs.TRANSACTION_PATH.exists())
+        self.assertEqual([], self.cs.projection_drift(self.cs.load_state()))
+
+    def test_rejected_entity_creation_removes_new_artifact(self) -> None:
+        command = ["maintain", "create", "bug", "test"]
+        args = argparse.Namespace(command=command)
+
+        maintenance_tsv = self.root / ".eos/maintenance.tsv"
+        before_tsv = maintenance_tsv.read_bytes()
+        before_events = (self.root / ".eos/events.jsonl").read_bytes()
+
+        self.cs.cmd_pre(args)
+
+        artifact = self.root / "engineering/maintenance/MNT-0001.md"
+        artifact.parent.mkdir(parents=True, exist_ok=True)
+        artifact.write_text(
+            "# MNT-0001\n\n**State:** OPEN\n",
+            encoding="utf-8",
+        )
+
+        rows = self.cs.read_tsv(maintenance_tsv)
+        rows.append({
+            "id": "MNT-0001",
+            "path": "engineering/maintenance/MNT-0001.md",
+            "type": "bug",
+            "summary": "test",
+            "status": "OPEN",
+            "created": "2026-08-12T12:30:00Z",
+            "updated": "2026-08-12T12:30:00Z",
+            "github_url": "",
+        })
+        maintenance_tsv.write_bytes(
+            self.cs.render_tsv(self.cs.REGISTRY_FIELDS["MNT"], rows)
+        )
+
+        # Deliberately omit ENTITY_CREATED from the event ledger.
+        with self.assertRaises(self.cs.StateError):
+            self.cs.cmd_post(args)
+
+        rollback_args = argparse.Namespace(
+            command=command,
+            reason="test rejected creation",
+        )
+        self.assertEqual(0, self.cs.cmd_rollback_transaction(rollback_args))
+
+        self.assertFalse(artifact.exists())
+        self.assertEqual(before_tsv, maintenance_tsv.read_bytes())
+        self.assertEqual(
+            before_events,
+            (self.root / ".eos/events.jsonl").read_bytes(),
+        )
+        self.assertEqual([], self.cs.projection_drift(self.cs.load_state()))
+
+
+    def test_rejected_transition_can_be_rolled_back_exactly(self) -> None:
+        command = ["authorize", "PI-001"]
+        args = argparse.Namespace(command=command)
+
+        # Pre-existing dirty user work inside engineering must survive rollback.
+        dirty = self.root / "engineering/local-user-note.txt"
+        dirty.write_text("pre-existing dirty work\n", encoding="utf-8")
+
+        protected = [
+            self.root / ".eos/events.jsonl",
+            self.root / ".eos/program-increments.tsv",
+            self.root / ".eos/state/current.json",
+            self.root / ".eos/state/projections.json",
+            self.root / "engineering/increments/PI-001.md",
+            dirty,
+        ]
+        before = {item: item.read_bytes() for item in protected}
+
+        self.cs.cmd_pre(args)
+
+        with (self.root / ".eos/events.jsonl").open(
+            "a", encoding="utf-8"
+        ) as handle:
+            handle.write(json.dumps({
+                "event_type": "STATE_TRANSITION",
+                "entity_kind": "PI",
+                "target": "PI-001",
+                "from_state": "DRAFT",
+                "to_state": "AUTHORIZED",
+            }) + "\n")
+
+        rows = self.cs.read_tsv(
+            self.root / ".eos/program-increments.tsv"
+        )
+        rows[0]["status"] = "AUTHORIZED"
+        rows[0]["updated"] = "2026-08-12T12:30:00Z"
+        (
+            self.root / ".eos/program-increments.tsv"
+        ).write_bytes(
+            self.cs.render_tsv(
+                self.cs.REGISTRY_FIELDS["PI"],
+                rows,
+            )
+        )
+
+        # Deliberately leave Markdown at DRAFT so canonical post capture fails.
+        with self.assertRaises(self.cs.StateError):
+            self.cs.cmd_post(args)
+
+        self.assertTrue(self.cs.TRANSACTION_PATH.exists())
+
+        rollback_args = argparse.Namespace(
+            command=command,
+            reason="test rejected lifecycle transition",
+        )
+        self.assertEqual(
+            0,
+            self.cs.cmd_rollback_transaction(rollback_args),
+        )
+
+        for item, payload in before.items():
+            self.assertEqual(
+                payload,
+                item.read_bytes(),
+                f"rollback mismatch: {item}",
+            )
+
+        self.assertFalse(self.cs.TRANSACTION_PATH.exists())
+        self.assertEqual(
+            [],
+            self.cs.projection_drift(self.cs.load_state()),
+        )
+
+    def test_rejected_entity_creation_removes_transaction_artifact(self) -> None:
+        command = ["maintain", "create", "bug", "atomicity-test"]
+        args = argparse.Namespace(command=command)
+
+        maintenance = self.root / ".eos/maintenance.tsv"
+        events = self.root / ".eos/events.jsonl"
+
+        before_maintenance = maintenance.read_bytes()
+        before_events = events.read_bytes()
+
+        self.cs.cmd_pre(args)
+
+        artifact = (
+            self.root
+            / "engineering/maintenance/MNT-0001.md"
+        )
+        artifact.parent.mkdir(parents=True, exist_ok=True)
+        artifact.write_text(
+            "---\n"
+            'artifact_id: "MNT-0001"\n'
+            'status: "OPEN"\n'
+            "---\n\n"
+            "# MNT-0001\n\n"
+            "**State:** OPEN\n",
+            encoding="utf-8",
+        )
+
+        rows = self.cs.read_tsv(maintenance)
+        rows.append({
+            "id": "MNT-0001",
+            "path": "engineering/maintenance/MNT-0001.md",
+            "type": "bug",
+            "summary": "atomicity-test",
+            "status": "OPEN",
+            "created": "2026-08-12T12:30:00Z",
+            "updated": "2026-08-12T12:30:00Z",
+            "github_url": "",
+        })
+        maintenance.write_bytes(
+            self.cs.render_tsv(
+                self.cs.REGISTRY_FIELDS["MNT"],
+                rows,
+            )
+        )
+
+        # No ENTITY_CREATED event: post capture must reject the mutation.
+        with self.assertRaises(self.cs.StateError):
+            self.cs.cmd_post(args)
+
+        rollback_args = argparse.Namespace(
+            command=command,
+            reason="test rejected entity creation",
+        )
+        self.assertEqual(
+            0,
+            self.cs.cmd_rollback_transaction(rollback_args),
+        )
+
+        self.assertFalse(artifact.exists())
+        self.assertEqual(
+            before_maintenance,
+            maintenance.read_bytes(),
+        )
+        self.assertEqual(
+            before_events,
+            events.read_bytes(),
+        )
+        self.assertEqual(
+            [],
+            self.cs.projection_drift(self.cs.load_state()),
+        )
+
+
+    def test_successful_transaction_removes_receipt_and_before_images(self) -> None:
+        args = argparse.Namespace(command=["authorize", "PI-001"])
+
+        self.cs.cmd_pre(args)
+
+        tx = self.cs.load_transaction()
+        backup_dir = self.root / tx["backup_dir"]
+
+        self.assertTrue(self.cs.TRANSACTION_PATH.exists())
+        self.assertTrue(backup_dir.exists())
+
+        with (self.root / ".eos/events.jsonl").open(
+            "a", encoding="utf-8"
+        ) as handle:
+            handle.write(json.dumps({
+                "event_type": "STATE_TRANSITION",
+                "entity_kind": "PI",
+                "target": "PI-001",
+                "from_state": "DRAFT",
+                "to_state": "AUTHORIZED",
+            }) + "\n")
+
+        rows = self.cs.read_tsv(
+            self.root / ".eos/program-increments.tsv"
+        )
+        rows[0]["status"] = "AUTHORIZED"
+        rows[0]["updated"] = "2026-08-12T12:30:00Z"
+
+        (
+            self.root / ".eos/program-increments.tsv"
+        ).write_bytes(
+            self.cs.render_tsv(
+                self.cs.REGISTRY_FIELDS["PI"],
+                rows,
+            )
+        )
+
+        self.cs.set_markdown_state(
+            self.root / "engineering/increments/PI-001.md",
+            "AUTHORIZED",
+        )
+
+        self.assertEqual(0, self.cs.cmd_post(args))
+
+        self.assertFalse(self.cs.TRANSACTION_PATH.exists())
+        self.assertFalse(backup_dir.exists())
+
+        state = self.cs.load_state()
+
+        self.assertEqual(
+            "AUTHORIZED",
+            state["entities"]["PI"]["PI-001"]["lifecycle_state"],
+        )
+        self.assertEqual(
+            [],
+            self.cs.projection_drift(state),
+        )
+
+    def test_corrupt_before_image_causes_fail_closed_rollback(self) -> None:
+        command = ["authorize", "PI-001"]
+        args = argparse.Namespace(command=command)
+
+        self.cs.cmd_pre(args)
+
+        tx = self.cs.load_transaction()
+        backup_dir = self.root / tx["backup_dir"]
+        manifest = self.cs.load_json(
+            backup_dir / "manifest.json"
+        )
+
+        self.assertTrue(manifest["files"])
+
+        first = manifest["files"][0]["path"]
+        before_image = backup_dir / "files" / first
+
+        before_image.write_bytes(
+            before_image.read_bytes() + b"\nCORRUPTED\n"
+        )
+
+        with self.assertRaises(self.cs.StateError):
+            self.cs.rollback_transaction(
+                command,
+                "forced corrupt before-image test",
+            )
+
+        # Fail-closed recovery material must remain available.
+        self.assertTrue(self.cs.TRANSACTION_PATH.exists())
+        self.assertTrue(backup_dir.exists())
+
+    def test_rollback_preserves_preexisting_dirty_governance_bytes(self) -> None:
+        command = ["authorize", "PI-001"]
+        args = argparse.Namespace(command=command)
+
+        dirty = self.root / "engineering/preexisting-dirty-note.md"
+        dirty.write_text(
+            "user-authored dirty content\n",
+            encoding="utf-8",
+        )
+        dirty_before = dirty.read_bytes()
+
+        self.cs.cmd_pre(args)
+
+        with (self.root / ".eos/events.jsonl").open(
+            "a", encoding="utf-8"
+        ) as handle:
+            handle.write(json.dumps({
+                "event_type": "STATE_TRANSITION",
+                "entity_kind": "PI",
+                "target": "PI-001",
+                "from_state": "DRAFT",
+                "to_state": "AUTHORIZED",
+            }) + "\n")
+
+        rows = self.cs.read_tsv(
+            self.root / ".eos/program-increments.tsv"
+        )
+        rows[0]["status"] = "AUTHORIZED"
+
+        (
+            self.root / ".eos/program-increments.tsv"
+        ).write_bytes(
+            self.cs.render_tsv(
+                self.cs.REGISTRY_FIELDS["PI"],
+                rows,
+            )
+        )
+
+        # Post must reject because Markdown remains DRAFT.
+        with self.assertRaises(self.cs.StateError):
+            self.cs.cmd_post(args)
+
+        self.cs.rollback_transaction(
+            command,
+            "dirty working tree preservation test",
+        )
+
+        self.assertEqual(
+            dirty_before,
+            dirty.read_bytes(),
+        )
+        self.assertEqual(
+            [],
+            self.cs.projection_drift(self.cs.load_state()),
+        )
+
+
     def test_projection_repair_is_one_way_from_canonical(self) -> None:
         path = self.root / "engineering/increments/PI-001.md"
         path.write_text("# PI-001\n\n**State:** PLANNED\n", encoding="utf-8")

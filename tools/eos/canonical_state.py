@@ -11,6 +11,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import uuid
 from pathlib import Path
 from typing import Iterable
 
@@ -82,6 +83,9 @@ CANONICAL_PATH = STATE_DIR / "current.json"
 PROJECTIONS_PATH = STATE_DIR / "projections.json"
 TRANSACTION_PATH = EOS / "cache" / "canonical-state-transaction.json"
 EVENTS_PATH = EOS / "events.jsonl"
+
+TRANSACTION_BACKUP_ROOT = EOS / "cache" / "canonical-state-transactions"
+LAST_ROLLBACK_PATH = EOS / "cache" / "canonical-state-last-rollback.json"
 
 def now_iso() -> str:
     return dt.datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
@@ -529,7 +533,101 @@ def assert_clean(
 def event_count() -> int:
     return len(read_events())
 
+def _path_is_under(path: Path, parent: Path) -> bool:
+    try:
+        path.relative_to(parent)
+        return True
+    except ValueError:
+        return False
+
+
+def _transaction_rel(path: Path) -> str:
+    return path.relative_to(ROOT).as_posix()
+
+
+def transaction_snapshot_files(command: list[str]) -> list[Path]:
+    """
+    Return the local governance surfaces owned by an EOS transaction.
+
+    We intentionally snapshot the whole .eos and engineering trees, except the
+    transaction cache itself. This makes rollback exact for lifecycle state,
+    generated evidence/contracts/history, reviews, and newly created governed
+    artifacts while preserving unrelated working-tree files outside those
+    governance roots.
+
+    Commands that explicitly version/rollback another governed artifact also
+    include that target path.
+    """
+    files: set[Path] = set()
+    cache = EOS / "cache"
+
+    for base in (EOS, ROOT / "engineering"):
+        if not base.exists():
+            continue
+        for candidate in base.rglob("*"):
+            if not candidate.is_file():
+                continue
+            if _path_is_under(candidate, cache):
+                continue
+            try:
+                candidate.relative_to(ROOT)
+            except ValueError:
+                continue
+            files.add(candidate)
+
+    if command and command[0] in {"version", "rollback"} and len(command) > 1:
+        candidate = (ROOT / command[1]).resolve()
+        try:
+            candidate.relative_to(ROOT)
+        except ValueError:
+            raise StateError(
+                f"Transaction target escapes repository: {command[1]}"
+            )
+        if candidate.exists() and candidate.is_file():
+            files.add(candidate)
+
+    return sorted(files, key=lambda p: _transaction_rel(p))
+
+
+def _snapshot_transaction_files(command: list[str]) -> tuple[Path, list[dict[str, str]]]:
+    backup_id = uuid.uuid4().hex
+    backup_dir = TRANSACTION_BACKUP_ROOT / backup_id
+    files_dir = backup_dir / "files"
+    files_dir.mkdir(parents=True, exist_ok=False)
+
+    entries: list[dict[str, str]] = []
+
+    try:
+        for source in transaction_snapshot_files(command):
+            relpath = _transaction_rel(source)
+            destination = files_dir / relpath
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, destination)
+            entries.append(
+                {
+                    "path": relpath,
+                    "sha256": sha256_file(destination),
+                }
+            )
+
+        write_json_atomic(
+            backup_dir / "manifest.json",
+            {
+                "schema_version": SCHEMA_VERSION,
+                "command": command,
+                "files": entries,
+            },
+        )
+    except Exception:
+        shutil.rmtree(backup_dir, ignore_errors=True)
+        raise
+
+    return backup_dir, entries
+
+
 def save_transaction(command: list[str], state: dict) -> None:
+    backup_dir, entries = _snapshot_transaction_files(command)
+
     payload = {
         "schema_version": SCHEMA_VERSION,
         "started_at": now_iso(),
@@ -537,8 +635,139 @@ def save_transaction(command: list[str], state: dict) -> None:
         "canonical_digest": canonical_digest(state),
         "event_count": event_count(),
         "command": command,
+        "backup_dir": _transaction_rel(backup_dir),
+        "snapshot_files": len(entries),
     }
-    write_json_atomic(TRANSACTION_PATH, payload)
+
+    try:
+        write_json_atomic(TRANSACTION_PATH, payload)
+    except Exception:
+        shutil.rmtree(backup_dir, ignore_errors=True)
+        raise
+
+
+def _transaction_backup(tx: dict) -> tuple[Path, dict]:
+    value = str(tx.get("backup_dir", "")).strip()
+    if not value:
+        raise StateError("Transaction receipt has no backup_dir")
+
+    backup_dir = (ROOT / value).resolve()
+    expected_root = TRANSACTION_BACKUP_ROOT.resolve()
+
+    try:
+        backup_dir.relative_to(expected_root)
+    except ValueError as exc:
+        raise StateError(
+            f"Transaction backup escapes canonical backup root: {value}"
+        ) from exc
+
+    manifest_path = backup_dir / "manifest.json"
+    if not manifest_path.exists():
+        raise StateError(
+            f"Transaction backup manifest is missing: {manifest_path}"
+        )
+
+    manifest = load_json(manifest_path)
+    if manifest.get("command") != tx.get("command"):
+        raise StateError("Transaction backup command does not match receipt")
+
+    return backup_dir, manifest
+
+
+def _verify_transaction_backup(backup_dir: Path, manifest: dict) -> None:
+    files_dir = backup_dir / "files"
+
+    for entry in manifest.get("files", []):
+        relpath = entry.get("path", "")
+        expected_sha = entry.get("sha256", "")
+
+        if not relpath or not expected_sha:
+            raise StateError("Malformed transaction backup entry")
+
+        source = files_dir / relpath
+        if not source.exists():
+            raise StateError(
+                f"Transaction backup file is missing: {relpath}"
+            )
+
+        actual = sha256_file(source)
+        if actual != expected_sha:
+            raise StateError(
+                f"Transaction backup checksum mismatch: {relpath}"
+            )
+
+
+def rollback_transaction(command: list[str], reason: str) -> None:
+    tx = load_transaction()
+
+    if tx.get("command") != command:
+        raise StateError(
+            "Rollback command does not match active canonical transaction"
+        )
+
+    backup_dir, manifest = _transaction_backup(tx)
+
+    # Validate every before-image before changing the live tree.
+    _verify_transaction_backup(backup_dir, manifest)
+
+    pre_paths = {
+        str(entry["path"])
+        for entry in manifest.get("files", [])
+    }
+
+    try:
+        # Remove transaction-created files from transaction-owned surfaces.
+        for current in reversed(transaction_snapshot_files(command)):
+            relpath = _transaction_rel(current)
+            if relpath not in pre_paths:
+                current.unlink()
+
+        # Restore every pre-transaction before-image byte-for-byte.
+        files_dir = backup_dir / "files"
+
+        for entry in manifest.get("files", []):
+            relpath = str(entry["path"])
+            source = files_dir / relpath
+            destination = ROOT / relpath
+
+            destination.parent.mkdir(parents=True, exist_ok=True)
+
+            if destination.exists() and destination.is_dir():
+                shutil.rmtree(destination)
+
+            shutil.copy2(source, destination)
+
+        # A successful rollback must itself converge to the canonical snapshot.
+        state = load_state()
+        assert_clean(state)
+
+    except Exception as exc:
+        raise StateError(
+            "Canonical transaction rollback failed; transaction receipt and "
+            f"backup were preserved for explicit recovery: {exc}"
+        ) from exc
+
+    diagnostic = {
+        "schema_version": SCHEMA_VERSION,
+        "rolled_back_at": now_iso(),
+        "command": command,
+        "reason": reason,
+        "canonical_revision": tx.get("canonical_revision"),
+        "canonical_digest": tx.get("canonical_digest"),
+    }
+
+    remove_transaction()
+    shutil.rmtree(backup_dir, ignore_errors=True)
+    write_json_atomic(LAST_ROLLBACK_PATH, diagnostic)
+
+
+def finish_transaction() -> None:
+    tx = load_transaction()
+    backup_dir, _ = _transaction_backup(tx)
+
+    remove_transaction()
+    shutil.rmtree(backup_dir, ignore_errors=True)
+
 
 def load_transaction() -> dict:
     return load_json(TRANSACTION_PATH)
@@ -638,7 +867,6 @@ def capture_successful_transaction(command: list[str]) -> bool:
     github_receipts = old_manifest.get("github", {}).get("receipts", {})
     manifest = local_projection_snapshot(new_state, github_receipts)
     write_json_atomic(PROJECTIONS_PATH, manifest)
-    remove_transaction()
     return changed
 
 def cmd_pre(args: argparse.Namespace) -> int:
@@ -665,22 +893,42 @@ def cmd_post(args: argparse.Namespace) -> int:
     command = list(args.command)
     if command and command[0] == "--":
         command = command[1:]
+
     changed = capture_successful_transaction(command)
     state = load_state()
+
     if command and command[0] == "github-sync" and "--apply" in command:
         refresh_github_receipts(state)
+
     assert_clean(state)
     github_stale = github_local_drift(state)
+
+    # Commit the transaction only after every local consistency check succeeds.
+    finish_transaction()
+
     print(
         f"EOS canonical state: revision {state['revision']} "
         f"({'advanced' if changed else 'unchanged'}); local projections consistent."
     )
+
     if github_stale:
         print("EOS GitHub projection requires synchronization:", file=sys.stderr)
         for item in github_stale:
             print(f"  WARN {item}", file=sys.stderr)
         print("  Run: ./scripts/eos github-sync --apply", file=sys.stderr)
+
     return 0
+
+
+def cmd_rollback_transaction(args: argparse.Namespace) -> int:
+    command = list(args.command)
+    if command and command[0] == "--":
+        command = command[1:]
+
+    rollback_transaction(command, args.reason)
+    print("EOS canonical transaction rolled back; local projections consistent.")
+    return 0
+
 
 def project_from_canonical(state: dict, *, apply: bool) -> list[str]:
     actions: list[str] = []
@@ -1001,6 +1249,11 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("post", help=argparse.SUPPRESS)
     p.add_argument("command", nargs=argparse.REMAINDER)
     p.set_defaults(func=cmd_post)
+
+    p = sub.add_parser("rollback-transaction", help=argparse.SUPPRESS)
+    p.add_argument("--reason", required=True)
+    p.add_argument("command", nargs=argparse.REMAINDER)
+    p.set_defaults(func=cmd_rollback_transaction)
     p = sub.add_parser("status", help="Check canonical state and all local projections")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_status)
