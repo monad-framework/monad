@@ -81,6 +81,71 @@ class IdentifierFamilyTests(unittest.TestCase):
             set(VERIFICATION.ID_RE.findall(text)),
         )
 
+    def test_family_patterns_reject_noncanonical_suffixes(self):
+        invalid = (
+            "FR-43",
+            "FR-0043",
+            "QR-10",
+            "REQ-FOO",
+            "REQ-FOO-V01",
+            "FUN-AIENG-V01",
+            "FUN-AIENG-V09",
+            "IFC-AIENG-V02",
+            "SEC-AIENG-V06",
+            "DATA-SOURCE-0001-",
+            "FUN-AIENG-0001-",
+        )
+
+        for identifier in invalid:
+            with self.subTest(identifier=identifier):
+                self.assertFalse(
+                    CORE.is_requirement_id(identifier)
+                    if identifier.startswith(
+                        ("REQ-", "FR-", "QR-")
+                    )
+                    else CORE.is_specification_id(identifier)
+                )
+
+    def test_filename_separator_is_not_part_of_spec_identity(self):
+        cases = {
+            "DATA-SOURCE-0001-stable-source-document-identity.md":
+                "DATA-SOURCE-0001",
+            "FUN-AIENG-0001-adaptive-engineering-workflow.md":
+                "FUN-AIENG-0001",
+            "IFC-AIENG-0001-engineering-agent-contract.md":
+                "IFC-AIENG-0001",
+            "SEC-AIENG-0001-autonomy-authority-and-approval-gates.md":
+                "SEC-AIENG-0001",
+        }
+
+        for filename, expected in cases.items():
+            with self.subTest(filename=filename):
+                match = CORE.ID_RE.search(
+                    Path(filename).stem
+                )
+                self.assertIsNotNone(match)
+                self.assertEqual(
+                    expected,
+                    match.group(0),
+                )
+
+    def test_verification_scenario_ids_are_not_specifications(self):
+        for identifier in (
+            "FUN-AIENG-V01",
+            "FUN-AIENG-V09",
+            "IFC-AIENG-V02",
+            "IFC-AIENG-V10",
+            "SEC-AIENG-V01",
+            "SEC-AIENG-V11",
+        ):
+            with self.subTest(identifier=identifier):
+                self.assertFalse(
+                    CORE.is_specification_id(identifier)
+                )
+                self.assertIsNone(
+                    CORE.ID_RE.fullmatch(identifier)
+                )
+
     def test_native_requirement_edge_inference(self):
         self.assertEqual(
             "implements",

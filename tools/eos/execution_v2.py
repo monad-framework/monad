@@ -19,6 +19,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterable
 
+
 TOOLS_EOS_DIR = Path(__file__).resolve().parent
 if str(TOOLS_EOS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_EOS_DIR))
@@ -293,7 +294,6 @@ def artifact_path_for_id(target: str) -> Path | None:
     return None
 
 
-ID_RE = re.compile(r"\b(?:REQ-[A-Z0-9][A-Z0-9-]*|CAP-[A-Z0-9][A-Z0-9-]*|QA-[A-Z0-9][A-Z0-9-]*|ADR-\d{4}|SPEC-[A-Z0-9][A-Z0-9-]*|PI-\d{3}|WC-\d{4}|WP(?:-[A-Z][A-Z0-9]*)?-\d{4}|RISK-\d{3,4})\b")
 
 
 def referenced_ids(path: Path) -> list[str]:
