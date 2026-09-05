@@ -49,9 +49,9 @@ Monad MUST explain why a supported artifact/entity exists or what governs/depend
 
 ### FR-007 — Produce bounded agent context
 
-Given a valid authorized Work Packet, Monad MUST produce a context package containing applicable scope, governing artifacts, constraints/prohibitions, relevant graph neighborhood, acceptance criteria, and validation commands while excluding unrelated content by default. When that context is used for governed execution, its authoritative inputs MUST be incorporated by identity into the bound Execution Envelope rather than treated as independent execution authority.
+Given governed engineering intent, a planning subject, or a valid authorized Work Packet, Monad MUST produce a bounded context package containing applicable scope, governing artifacts with their authority/status, lifecycle state, constraints/prohibitions, relevant graph neighborhood, dependencies, unresolved decisions, relevant evidence, acceptance criteria, and validation commands while excluding unrelated content by default. The context package MUST preserve enough provenance and classification to distinguish canonical, derived, proposed, stale, contradictory, and merely informative material. When that context is used for governed execution, its authoritative inputs MUST be incorporated by identity into the bound Execution Envelope rather than treated as independent execution authority.
 
-**Acceptance:** context-package membership is deterministic/explainable; excluded secret paths remain excluded; missing authority blocks an implementation-ready package; material governing-context drift after a run is bound is detectable by the execution-governance boundary.
+**Acceptance:** context-package membership and source basis are deterministic/explainable where deterministic semantics apply; excluded secret paths remain excluded; planning context may exist before execution authorization, but missing authority blocks an implementation-ready executable package; material governing-context drift after a run is bound is detectable by the execution-governance boundary.
 
 ### FR-008 — Expose a coherent CLI
 
@@ -75,23 +75,23 @@ Monad MUST provide an explainable 0–100 workspace-intelligence score with expl
 
 ### FR-012 — Unify memory, intelligence, and execution
 
-Monad MUST support a unified workspace-intelligence model in which governed memory informs bounded agent reasoning, reasoning may propose or request execution through the governed execution boundary, and authorized execution produces provenance-rich memory/evidence.
+Monad MUST support a unified workspace-intelligence model in which governed memory informs bounded human and agent reasoning; reasoning MAY proactively identify next useful engineering actions, propose adaptive pathways, surface ambiguity, request clarification, recommend decisions, or request execution through the governed execution boundary; and authorized execution produces provenance-rich memory/evidence. Reasoning output remains non-binding until the applicable native decision, approval, authority, policy, and lifecycle requirements are satisfied.
 
 ### FR-013 — Maintain anti-hallucination engineering memory
 
-Agent-facing memory MUST distinguish canonical fact, derived fact, proposal, uncertain inference, stale knowledge, and contradiction; multiple agents may contribute evidence but cannot silently promote probabilistic output to canonical truth.
+Agent-facing memory MUST distinguish canonical fact, derived fact, proposal, decision, approval, evidence/observation, uncertain inference, stale knowledge, and contradiction; multiple agents may contribute evidence but cannot silently promote probabilistic output to canonical truth. Verification, review, operational, and execution evidence MAY change future recommendations or planning inputs while retaining its actual provenance and authority classification rather than silently rewriting governing engineering meaning.
 
 ### FR-014 — Orchestrate dependency-aware agent work
 
-Monad MUST be able to dispatch bounded developer-agent work through an explicit dependency graph, with concurrency, cancellation, resource limits, authorization, and evidence capture. Each governed executable unit MUST be bound to explicit execution authority and capabilities; delegation or subagent creation MUST NOT broaden those grants. Autonomous orchestration MUST begin behind an explicit experimental capability gate.
+Monad MUST be able to propose, sequence, and dispatch bounded developer-agent work through an explicit dependency graph, with concurrency, cancellation, resource limits, authorization, and evidence capture. AI-driven planning MAY identify dependency-aware next actions and parallelizable work, but emergent work outside authorized scope MUST route to EOSP or EOSC rather than being silently absorbed into execution. Each governed executable unit MUST be bound to explicit execution authority and capabilities; delegation or subagent creation MUST NOT broaden those grants. Autonomous orchestration MUST begin behind an explicit experimental capability gate.
 
 ### FR-015 — Enforce progressive autonomy
 
-Agents MUST operate under named autonomy levels beginning with advisory behavior. Promotion to stronger execution authority MUST require objective reliability evidence, explicit policy, and reversible human approval. Autonomy level MUST constrain the capabilities and approval/escalation rules applied at the governed execution boundary rather than acting as an executor-controlled preference. Operators remain decision stewards for unresolved authority, risk, architecture, and release decisions.
+Agents MUST operate under named autonomy profiles supporting at least AI-assisted, AI-driven, and bounded AI-autonomous operation, beginning without unrestricted execution authority. Promotion to stronger execution authority MUST require objective evidence relevant to the class of work being delegated, explicit policy, bounded scope, observable behavior, and reversible human approval or delegation. Autonomy MUST be revocable and MUST constrain capabilities, resource boundaries, approval thresholds, and escalation rules applied at the governed execution boundary rather than acting as an executor-controlled preference. Trust earned for one materially distinct class of work MUST NOT automatically authorize another. Operators remain decision stewards for unresolved authority, risk, architecture, security, irreversible, and release decisions.
 
 ### FR-016 — Support cross-harness review
 
-Monad MUST support independent parallel review by multiple configured agent/model harnesses, preserve reviewer provenance, surface disagreement, and prevent reviewer consensus or any individual executor's self-report from overriding canonical human/governance authority or verification-controlled completion.
+Monad MUST support governed independent review by multiple configured agent/model/human review participants, preserve reviewer provenance, surface disagreement, and prevent reviewer consensus or any individual executor's self-report from overriding canonical human/governance authority or verification-controlled completion. Required independence MUST be evaluated according to policy and MUST NOT be satisfied merely by invoking the same executor, model, provider, harness, or materially identical review context a second time.
 
 ### FR-017 — Route AI work by capability, cost, and policy
 
@@ -119,11 +119,11 @@ Monad MUST detect or contain prompt-injection attempts, mask secrets in logs/con
 
 ### FR-023 — Provide declarative governance, change control, and audit
 
-Monad MUST support declarative quality/autonomy/compliance policies, formal governed resources, Definition-of-Ready and Definition-of-Done gates, change submission/review/approval/rollback, and a complete tamper-evident audit trail linking humans, agents, decisions, execution envelopes, capability/policy decisions, operations/effects, executions, evidence, verification, and resulting artifacts.
+Monad MUST support declarative quality/autonomy/compliance policies, formal governed resources, Definition-of-Ready and Definition-of-Done gates, adaptive-pathway governance, change submission/review/approval/rollback, and a complete tamper-evident audit trail linking governed intent, compiled-context identity, proposed pathway and material rationale, material questions, humans, agents, decisions, approvals/denials, authorization, execution envelopes, capability/policy decisions, operations/effects, executions, evidence, verification, review, resulting artifacts, and acceptance. AI recommendations or pathway proposals MUST NOT create authority or bypass native EOS decision/change semantics.
 
 ### FR-024 — Provide operational health and execution observability
 
-Monad MUST expose knowledge-graph health, stale/zombie/decaying relationships, agent execution history, bound Execution Envelope identity, capability/policy decisions, mediated operation/effect history, checkpoints/escalations, input context, output diff, verification results, duration, token/cost data where available, and OpenTelemetry-compatible logs/metrics/traces.
+Monad MUST expose knowledge-graph health, stale/zombie/decaying relationships, agent execution history, proposed adaptive-pathway identity/rationale where persisted, compiled-context identity, autonomy profile, bound Execution Envelope identity, capability/policy decisions, mediated operation/effect history, material clarifications/decisions, checkpoints/escalations, governing-input drift, replanning events, input context, output diff, verification/review results, provider/harness identity where relevant, duration, token/cost data where available, and OpenTelemetry-compatible logs/metrics/traces.
 
 ### FR-025 — Support privacy-governed hosted analytics
 
@@ -209,6 +209,16 @@ Monad MUST support a verification/evaluation capability that can execute equival
 
 **Acceptance:** evaluation uses versioned fixtures and governed envelopes; results preserve the tested adapter/model/configuration identity; model or harness ranking cannot override canonical authority and does not itself grant production execution rights.
 
+### FR-043 — Provide Adaptive AI-Driven Engineering Workflow Planning
+
+Monad MUST produce an inspectable proposed engineering pathway from governed intent, repository context, lifecycle state, authority, policy, risk, complexity, uncertainty, reversibility, dependencies, unresolved decisions, available evidence, and the applicable autonomy profile. The pathway MAY adapt the breadth, ordering, and rigor of optional engineering activities, but MUST identify material questions and decision points, required authority/approval boundaries, expected verification and review obligations, and sufficient structured rationale for material changes in rigor. It MUST operate inside EOS and MUST NOT create a competing lifecycle, bypass mandatory EOS gates, silently broaden authorized scope, or infer authority from an AI recommendation.
+
+When a proposed pathway reaches governed execution, the existing execution-governance requirements beginning with FR-037 continue to govern Execution Envelope compilation, mediated execution, executor compatibility, independent completion verification, and recovery.
+
+**Acceptance:** a low-risk reversible change can receive a lightweight pathway without bypassing mandatory gates; material ambiguity produces an explicit clarification/decision route instead of an inferred consequential answer; security-sensitive or otherwise high-consequence work can increase required rigor and authority; material governing-input drift causes pathway reevaluation, replanning, suspension, or change control as applicable; a governed human denial is respected as an input to replanning rather than triggering repeated pressure for the rejected outcome; and material pathway changes are traceable to the governing evidence, decision, risk, policy, or context change that caused them.
+
+**Identifier allocation note:** CR-0003, ADR-0008, EOS-AI-0001, and their acceptance records anticipated this concern as `FR-037` before the live requirement allocation was re-verified. The current product baseline already assigns `FR-037` through `FR-042` to governed execution-harness requirements. `FR-043` therefore realizes the same adaptive-workflow requirement without changing its approved semantic scope.
+
 ## Quality requirements
 
 ### QR-001 — Determinism
@@ -241,7 +251,7 @@ Compiler/graph/query/context/policy/execution/observation/integration concerns h
 
 ### QR-008 — Progressive trust
 
-Agent trust is earned from evidence and can be demoted. No agent begins with hard-mandatory or unrestricted authority.
+Agent trust is earned from evidence relevant to the class of work being delegated, remains explicitly scoped, and can be demoted or revoked. Success in one materially different domain does not automatically grant authority in another. No agent begins with hard-mandatory or unrestricted authority.
 
 ### QR-009 — Cryptographic agility
 
@@ -249,7 +259,7 @@ Attestation and identity mechanisms must permit algorithm/version rotation, post
 
 ### QR-010 — Auditability
 
-Consequential human/agent actions, decisions, state transitions, Execution Envelopes, capability/policy evaluations, operations/effects, checkpoints/escalations, attestations, evidence, and verification results must be reconstructable from durable evidence and tamper-evident logs without requiring private model chain-of-thought.
+Consequential governed intent, compiled-context identity, adaptive pathway/rationale, material questions, human/agent actions, decisions, approvals/denials, authorizations, state transitions, Execution Envelopes, capability/policy evaluations, operations/effects, checkpoints/escalations, replanning, attestations, evidence, verification, review, and acceptance results must be reconstructable from durable evidence and tamper-evident logs without requiring private model chain-of-thought.
 
 ### QR-011 — Prompt and secret safety
 
