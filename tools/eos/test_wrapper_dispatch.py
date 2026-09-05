@@ -26,6 +26,8 @@ def write_fake(path: Path, label: str) -> None:
         "fail_label = os.environ.get('EOS_FAIL_LABEL', '')\n"
         "fail_action = os.environ.get('EOS_FAIL_ACTION', '')\n"
         "action = args[0] if args else ''\n"
+        "if label == 'canonical' and action == 'rollback-transaction' and os.environ.get('EOS_FAIL_ROLLBACK') == '1':\n"
+        "    raise SystemExit(int(os.environ.get('EOS_ROLLBACK_FAIL_CODE', '12')))\n"
         "if label == fail_label and (not fail_action or action == fail_action):\n"
         "    raise SystemExit(int(os.environ.get('EOS_FAIL_CODE', '9')))\n",
         encoding="utf-8",
@@ -137,29 +139,8 @@ def main() -> int:
             {
                 "EOS_FAIL_LABEL": "legacy",
                 "EOS_FAIL_CODE": "7",
-                "EOS_FAIL_ACTION": "",
-            },
-        )
-
-        # Reconfigure the fake canonical runtime so rollback itself fails.
-        canonical = root / "tools" / "eos" / "canonical_state.py"
-        original = canonical.read_text(encoding="utf-8")
-        canonical.write_text(
-            original.replace(
-                "action = args[0] if args else ''\\n",
-                "action = args[0] if args else ''\\n"
-                "if action == 'rollback-transaction':\\n"
-                "    raise SystemExit(12)\\n",
-            ),
-            encoding="utf-8",
-        )
-
-        rc, lines, output = run_case(
-            root,
-            ["next"],
-            {
-                "EOS_FAIL_LABEL": "legacy",
-                "EOS_FAIL_CODE": "7",
+                "EOS_FAIL_ROLLBACK": "1",
+                "EOS_ROLLBACK_FAIL_CODE": "12",
             },
         )
 
@@ -175,6 +156,16 @@ def main() -> int:
                 + output
             )
 
+        expect(
+            "rollback failure dispatch",
+            lines,
+            [
+                "canonical:pre -- next",
+                "legacy:next",
+                "canonical:rollback-transaction --reason "
+                "selected runtime exited with status 7 -- next",
+            ],
+        )
 
         rc, lines, output = run_case(root, ["verify", "--strict"])
         if rc != 0:
