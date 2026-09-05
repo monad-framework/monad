@@ -6,9 +6,8 @@ version: "0.1.0"
 status: "Draft"
 authority: "governance-authoritative"
 created: "2026-08-12"
-updated: "2026-08-12"
+updated: "2026-09-05"
 ---
-
 # EOSP — Planning
 
 ## Purpose
@@ -37,3 +36,32 @@ traceable execution units.
 ./scripts/eos authorize WC-0002
 ./scripts/eos authorize WP-CORE-0001
 ```
+
+## AI-Driven Planning Participation
+
+EOSP is the lifecycle owner for adaptive engineering planning defined by
+`EOS-AI-0001` and `FUN-AIENG-0001`.
+
+An AI engineering participant MAY proactively:
+
+- inspect governed planning state;
+- compile relevant planning context;
+- identify dependencies and sequencing;
+- propose an adaptive engineering pathway;
+- identify material ambiguity;
+- recommend decisions or escalation;
+- recommend decomposition, parallelism, or additional investigation;
+- propose replanning when evidence or governing inputs change.
+
+A proposed pathway is planning evidence, not lifecycle authority.
+
+Adaptive planning MAY vary optional activity depth according to risk,
+consequence, uncertainty, reversibility, dependencies, evidence, policy, and
+autonomy profile, but MUST NOT bypass mandatory EOS gates, required authority,
+blocking decisions, verification obligations, or review requirements.
+
+Material ambiguity affecting consequential engineering meaning MUST route to
+clarification or native decision semantics rather than being silently resolved
+by AI inference.
+
+Readiness remains distinct from authorization.

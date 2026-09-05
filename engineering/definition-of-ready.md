@@ -89,3 +89,27 @@ contain harm. The incident commander records the authority, scope, risk,
 capability boundary, and verification plan. Missing traceability, tests,
 documentation, audit evidence, and follow-up work are restored immediately after
 stabilization.
+
+## Additional AI-Driven Engineering Readiness Checks
+
+For work executed under the AI-driven operating model:
+
+- [ ] The applicable autonomy profile is explicit: AI-assisted, AI-driven, or
+      bounded AI-autonomous.
+- [ ] The governed context basis is identifiable and preserves authority,
+      freshness, provenance, and material unresolved contradictions.
+- [ ] Material ambiguity has been resolved or has an explicit
+      clarification/decision route.
+- [ ] The proposed engineering pathway identifies mandatory gates and does not
+      treat optional pathway adaptation as authority to bypass them.
+- [ ] Consequential AI decisions/effects are bounded by explicit authority,
+      capability, policy, and escalation conditions.
+- [ ] Any bounded AI-autonomous delegation defines scope, limits, evidence,
+      reporting, revocation, and expiration/termination behavior as applicable.
+- [ ] Governing-input drift has an explicit suspend, recompile, reauthorize,
+      replan, EOSC, or cancellation disposition.
+- [ ] Required review independence is defined in a way that cannot be satisfied
+      through trivial executor self-review.
+- [ ] Executor completion cannot satisfy acceptance solely through self-report.
+- [ ] Provider/model/harness replacement does not broaden authority or weaken
+      governing obligations.

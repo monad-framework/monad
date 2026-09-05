@@ -6,9 +6,8 @@ version: "0.1.0"
 status: "Draft"
 authority: "governance-authoritative"
 created: "2026-08-12"
-updated: "2026-08-12"
+updated: "2026-09-05"
 ---
-
 # EOSV — Verification
 
 ## Purpose
@@ -34,3 +33,31 @@ specifications, quality attributes, and acceptance criteria.
 ```
 
 Repository validation commands are configured in `.eos/validation.commands`.
+
+## AI-Driven Verification Participation
+
+AI MAY assist EOSV by:
+
+- recommending validators or validation profiles;
+- invoking authorized validators;
+- analyzing failures;
+- identifying likely causes;
+- recommending additional evidence;
+- interpreting verification results.
+
+AI interpretation is not verification authority.
+
+An AI participant MUST NOT:
+
+- fabricate verification evidence;
+- rewrite failed evidence into passing evidence;
+- promote stale evidence to current;
+- override deterministic validator results because the model disagrees;
+- use executor self-report as sufficient independent proof where independent
+  evidence is required.
+
+Verification evidence retains its actual provenance, freshness, validator,
+scope, and result.
+
+Evidence MAY influence replanning while remaining evidence rather than silently
+becoming requirements, policy, architecture, or approval.
