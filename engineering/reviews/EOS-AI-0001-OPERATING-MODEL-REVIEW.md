@@ -4,7 +4,7 @@
 **Subject:** `engineering/lifecycle/EOS-AI-0001-ai-driven-engineering-operating-model.md`
 **Governing ADR:** ADR-0008 — AI-Driven Engineering as the Default EOS Operating Model
 **Change authority:** CR-0003 — Establish Monad AI-Driven Engineering Operating Model
-**Disposition:** **PASS — RECOMMEND ACCEPTANCE**
+**Disposition:** **PASS — ACCEPTED**
 
 ## Purpose
 
@@ -283,4 +283,6 @@ Acceptance should not authorize product-runtime implementation and should not al
 
 ## Decision
 
-**PENDING HUMAN GOVERNANCE ACCEPTANCE**
+**ACCEPTED — Human Project Steward / Architecture Owner, 2026-09-05.**
+
+Acceptance evidence: `engineering/reviews/DECISION-0004-2026-09-05-eos-ai-0001-acceptance.md`

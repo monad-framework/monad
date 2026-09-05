@@ -3,10 +3,11 @@ artifact_id: "EOS-AI-0001"
 title: "AI-Driven Engineering Operating Model"
 type: "governance"
 version: "0.1.0"
-status: "Draft"
+status: "Accepted"
 authority: "governance-authoritative"
 created: "2026-09-05"
 updated: "2026-09-05"
+acceptance_evidence: "engineering/reviews/DECISION-0004-2026-09-05-eos-ai-0001-acceptance.md"
 ---
 
 # EOS-AI-0001 — AI-Driven Engineering Operating Model
