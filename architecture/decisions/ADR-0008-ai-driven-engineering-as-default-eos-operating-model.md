@@ -1,12 +1,13 @@
 # ADR-0008: AI-Driven Engineering as the Default EOS Operating Model
 
-* **Status:** proposed
+* **Status:** Accepted
 * **Date:** 2026-09-05
 * **Decision owners:** Architecture Owner, Engineering Owner
 * **Reviewers:** Project Steward, Product Owner, Security Owner, Operations Owner, Verification Owner as affected
 * **Related:** ADR-0006, ADR-0007, CR-0003, `governance/authority.md`, `governance/canonical-state-model.md`, `governance/decision-process.md`, `governance/planning-engine.md`, `governance/policy-engine.md`, `governance/execution-engine.md`, `engineering/lifecycle/README.md`, `engineering/definition-of-ready.md`, `product/product-requirements.md`
 * **Supersedes:** none
 * **Superseded by:** none
+* **Acceptance evidence:** `engineering/reviews/DECISION-0003-2026-09-05-adr-0008-acceptance.md`
 
 ## Decision summary
 

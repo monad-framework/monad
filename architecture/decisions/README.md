@@ -38,7 +38,7 @@ Statuses are Proposed, Accepted, Rejected, Deprecated, and Superseded. Accepted 
 | [`ADR-0005`](ADR-0005-mvp-core-implementation-topology.md) | MVP Core Implementation Topology | Accepted | 2026-08-12 | — |
 | [`ADR-0006`](ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md) | EOS Sovereignty and External SDLC Assimilation | Accepted | 2026-08-13 | — |
 | [`ADR-0007`](ADR-0007-governed-execution-harness.md) | Governed Execution Harness Architecture | Proposed | 2026-09-01 | — |
-| [`ADR-0008`](ADR-0008-ai-driven-engineering-as-default-eos-operating-model.md) | AI-Driven Engineering as the Default EOS Operating Model | Proposed | 2026-09-05 | — |
+| [`ADR-0008`](ADR-0008-ai-driven-engineering-as-default-eos-operating-model.md) | AI-Driven Engineering as the Default EOS Operating Model | Accepted | 2026-09-05 | — |
 
 ## Machine and EOS projections
 
