@@ -59,9 +59,9 @@ The current AI-driven engineering normative tranche is:
 
 | ID | Class | Contract | Status |
 | --- | --- | --- | --- |
-| `FUN-AIENG-0001` | Functional | Adaptive Engineering Workflow | Review |
-| `IFC-AIENG-0001` | Interface | Engineering Agent Contract | Review |
-| `SEC-AIENG-0001` | Security | Autonomy, Authority, and Approval Gates | Review |
+| `FUN-AIENG-0001` | Functional | Adaptive Engineering Workflow | Approved |
+| `IFC-AIENG-0001` | Interface | Engineering Agent Contract | Approved |
+| `SEC-AIENG-0001` | Security | Autonomy, Authority, and Approval Gates | Approved |
 
 The family is governed by accepted `ADR-0008` and `EOS-AI-0001`.
 

@@ -1,6 +1,6 @@
 # SEC-AIENG-0001: Autonomy, Authority, and Approval Gates
 
-**Status:** review
+**Status:** approved
 **Version:** 0.1.0
 **Owner:** Monad Core / EOS
 **Reviewers:** Project Steward, Product Owner, Architecture Owner, Engineering Owner, Security Owner, Operations Owner, Verification Owner as affected
@@ -9,6 +9,7 @@
 **Governing operating model:** EOS-AI-0001
 **Related specifications:** FUN-AIENG-0001, IFC-AIENG-0001, TECH-HARNESS-0001, IFC-HARNESS-0001
 **Change authority:** CR-0003
+**Approval evidence:** `engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md`
 
 ## Purpose and scope
 

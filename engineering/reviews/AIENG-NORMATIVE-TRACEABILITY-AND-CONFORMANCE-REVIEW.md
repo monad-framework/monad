@@ -5,7 +5,7 @@
 **Architecture authority:** ADR-0008 — Accepted
 **Operating-model authority:** EOS-AI-0001 — Accepted
 **Specifications reviewed:** FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001
-**Disposition:** **PASS — RECOMMEND APPROVAL WITH TRACEABILITY FOLLOW-UP**
+**Disposition:** **PASS — APPROVED WITH TRACEABILITY FOLLOW-UP**
 
 ## Purpose
 
@@ -461,4 +461,8 @@ Approval does not authorize runtime implementation.
 
 ## Decision
 
-**PENDING HUMAN GOVERNANCE APPROVAL**
+**APPROVED — Human Project Steward / Architecture Owner, 2026-09-05.**
+
+Approval evidence: `engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md`
+
+`AIENG-TRC-001` remains OPEN FOLLOW-UP.

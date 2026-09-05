@@ -1,6 +1,6 @@
 # FUN-AIENG-0001: Adaptive Engineering Workflow
 
-**Status:** review
+**Status:** approved
 **Version:** 0.1.0
 **Owner:** Monad Core / EOS
 **Reviewers:** Product Owner, Architecture Owner, Engineering Owner, Security Owner, Operations Owner, Verification Owner as affected
@@ -8,6 +8,7 @@
 **Governing ADRs:** ADR-0006, ADR-0008
 **Governing operating model:** EOS-AI-0001
 **Change authority:** CR-0003
+**Approval evidence:** `engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md`
 
 ## Purpose and scope
 

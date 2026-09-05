@@ -4,10 +4,11 @@ artifact_id: "SPEC-BASE-0001"
 title: "Specification Baseline"
 type: "specification"
 version: "0.1.0"
-status: "Review"
+status: "Approved"
 authority: "specification-authoritative"
 created: "2026-08-12"
 updated: "2026-09-05"
+approval_evidence: "engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md"
 ---------------------
 
 # Specification Baseline
