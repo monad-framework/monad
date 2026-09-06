@@ -52,12 +52,17 @@ ensure_project() {
     fields_json="$(gh project field-list "$p" --owner "$ORG" --format json --limit 100)"
   }
 
-  ensure_field "Item Type" SINGLE_SELECT "Epic,Feature,Story,Enabler,Work Packet,Bug,Change Request"
+  ensure_field "Item Type" SINGLE_SELECT "Initiative,Epic,Feature,Story,Enabler,Work Packet,Bug,Defect,Change Request"
+  ensure_field "Product Goal" TEXT
+  ensure_field "Initiative" TEXT
+  ensure_field "Epic" TEXT
   ensure_field "Priority" SINGLE_SELECT "P0,P1,P2,P3"
   ensure_field "Criticality" SINGLE_SELECT "C0,C1,C2,C3,C4,C5"
   ensure_field "Product Area" TEXT
+  ensure_field "Domain" TEXT
   ensure_field "Increment" TEXT
   ensure_field "Sprint" TEXT
+  ensure_field "Lifecycle" SINGLE_SELECT "Backlog,Refining,Ready,Authorized,Running,Review,Verified,Closed,Blocked"
   ensure_field "Story Points" NUMBER
   ensure_field "Risk" SINGLE_SELECT "Critical,High,Medium,Low"
   ensure_field "Executor" SINGLE_SELECT "Human,ChatGPT,Codex,Mixed"
