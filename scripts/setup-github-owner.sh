@@ -97,10 +97,11 @@ exact=[f for f in fields if (f.get("name") or "").casefold() == requested.casefo
 field=exact[0] if exact else next((f for f in fields if key(f.get("name")) == key(requested)), None)
 if not field:
     raise SystemExit(0)
+field_name=field.get("name") or requested
 have={(o.get("name") or "").casefold() for o in field.get("options", []) or []}
 for option in wanted:
     if option.casefold() not in have:
-        print(f"NOTE: Project field {field.get(chr(34)+chr(110)+chr(97)+chr(109)+chr(101)+chr(34), requested)!r} is missing single-select option {option!r}. Add it once in the Project UI and rerun the sync.", file=sys.stderr)
+        print(f"NOTE: Project field {field_name!r} is missing single-select option {option!r}. Add it once in the Project UI and rerun the sync.", file=sys.stderr)
 ' "$name" "$options" <<<"$fields_json"
   }
 
