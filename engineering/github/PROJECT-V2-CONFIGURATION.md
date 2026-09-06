@@ -145,6 +145,10 @@ The owner setup script:
 - creates/reuses the Project;
 - links the repository;
 - creates missing fields;
-- adds repository Issues idempotently.
+- adds repository Issues idempotently;
+- derives Product Goal, Initiative, Epic, Work Packet, Work Cycle projection, item type, and explicit lifecycle metadata from the existing issue corpus;
+- populates those Project fields idempotently with `gh project item-edit` where the corresponding canonical/projection data is explicit;
+- leaves unrelated control-plane defects unforced into product hierarchy fields;
+- warns when a legacy single-select field needs a one-time new option added in the Project UI.
 
 View layout remains an explicit UI configuration because it is presentation rather than canonical authority. If GitHub later exposes a sufficiently stable supported automation path for views, it may be added without changing the canonical planning model.
