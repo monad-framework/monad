@@ -1,5 +1,5 @@
 {
-  "content": "# Monad Initiative Catalog\n\n**Status:** Proposed baseline\n**Scope:** PG-001 — MVP Release 1\n\nThis catalog adds an outcome-oriented Initiative layer between Product Goals and Epics. Initiatives are finite program outcomes. They are not permanent architectural domains, implementation components, Work Cycles, or Work Packets.\n\n## Planning hierarchy\n\n`Product Goal → Initiative → Epic → Feature → Story / Enabler → Task`\n\nExecution remains orthogonal:\n\n`Program Increment → Work Cycle → Work Packet → Execution → Verification / Evidence`\n\nEngineering knowledge and governance also remain orthogonal, including requirements, ADRs, specifications, policies, claims, evidence, provenance, and architecture.\n\n## INIT-001 — Establish the Execution-Ready Monad Foundation\n\n**Outcome:** Monad's product definition, architectural authority, machine knowledge, and execution-control environment are coherent enough for routine MVP work.\n\n### Epics\n\n- `EPIC-001` — Foundation Stabilization\n\n### Exit condition\n\nFoundation stabilization is accepted and routine MVP execution can proceed under coherent product, architecture, machine-knowledge, EOS, and GitHub projection rules.\n\n## INIT-002 — Compile Canonical Engineering Knowledge\n\n**Outcome:** Monad can discover a repository, ingest canonical engineering artifacts, resolve identities and references, construct a stable semantic graph, and produce canonical interchange state.\n\n### Epics\n\n- `EPIC-002` — Workspace & Configuration\n- `EPIC-003` — Canonical Knowledge Ingestion\n- `EPIC-004` — Monad Semantic Graph\n- `EPIC-005` — KIR & Canonical Interchange\n\n### Exit condition\n\nA supported repository can be deterministically discovered and transformed from canonical engineering source into provenance-rich, validated semantic state with stable identity, references, graph structure, and interchange representation.\n\n## INIT-003 — Validate, Query, and Explain Engineering State\n\n**Outcome:** Monad can detect invalid or contradictory engineering knowledge and let humans or machines understand relationships, dependencies, authority, evidence, and missing knowledge.\n\n### Epics\n\n- `EPIC-006` — Diagnostics & Conformance\n- `EPIC-007` — Query & Explanation\n\n### Exit condition\n\nUsers and agents can identify semantic/conformance failures and traverse or explain governing, dependency, evidence, and traceability paths with deterministic results.\n\n## INIT-004 — Deliver Governed Human and AI Interaction\n\n**Outcome:** Humans and bounded AI agents can interact with Monad through a coherent local interface and obtain minimal, governed, explainable engineering context.\n\n### Epics\n\n- `EPIC-008` — AI Agent Context & Governance\n- `EPIC-009` — CLI & Developer Experience\n\n### Exit condition\n\nWork Packets can produce deterministic bounded agent context and MVP capabilities are accessible through a stable, scriptable, understandable CLI contract.\n\n## INIT-005 — Prove Trustworthy Engineering Intelligence\n\n**Outcome:** Monad behaves deterministically and securely, understands change impact, invokes native validation appropriately, and can successfully reason about its own development.\n\n### Epics\n\n- `EPIC-010` — Determinism, Security & Performance\n- `EPIC-011` — Change Intelligence & Native Validation\n- `EPIC-012` — Dogfooding & GitHub Projection\n\n### Exit condition\n\nThe semantic kernel passes repeatability, threat, and performance baselines; semantic change can scope native validation; and Monad can inspect its own repository and project useful engineering state into GitHub.\n\n## INIT-006 — Ship Monad MVP Release 1\n\n**Outcome:** An independent user can install, understand, execute, verify, and trust a complete MVP Release 1.\n\n### Epics\n\n- `EPIC-013` — Packaging, Documentation & Provenance\n- `EPIC-014` — MVP Acceptance & Release\n\n### Exit condition\n\nA traceable release candidate passes end-to-end acceptance and security/release-readiness gates, satisfies `PG-001`, and is released with installation guidance, reference documentation, provenance, and reproducible release evidence.\n\n## Initiative mapping\n\n| Initiative | Epics |\n| --- | --- |\n| `INIT-001` — Establish the Execution-Ready Monad Foundation | `EPIC-001` |\n| `INIT-002` — Compile Canonical Engineering Knowledge | `EPIC-002`–`EPIC-005` |\n| `INIT-003` — Validate, Query, and Explain Engineering State | `EPIC-006`–`EPIC-007` |\n| `INIT-004` — Deliver Governed Human and AI Interaction | `EPIC-008`–`EPIC-009` |\n| `INIT-005` — Prove Trustworthy Engineering Intelligence | `EPIC-010`–`EPIC-012` |\n| `INIT-006` — Ship Monad MVP Release 1 | `EPIC-013`–`EPIC-014` |\n\n## Projection rule\n\nCanonical Git/EOS artifacts remain authoritative. GitHub Issues and GitHub Projects are coordination projections and must not redefine initiative, epic, Work Packet, lifecycle, or verification truth.",
+  "content": "# Monad Initiative Catalog\n\n**Status:** Proposed baseline  \n**Scope:** PG-001 through PG-004\n\nThis catalog adds an outcome-oriented Initiative layer between Product Goals and Epics. Initiatives are finite program outcomes. They are not permanent architectural domains, implementation components, Work Cycles, or Work Packets.\n\n## Planning hierarchy\n\n`Product Goal → Initiative → Epic → Feature → Story / Enabler → Task`\n\nExecution remains orthogonal:\n\n`Program Increment → Work Cycle → Work Packet → Execution → Verification / Evidence`\n\nEngineering knowledge and governance also remain orthogonal, including requirements, ADRs, specifications, policies, claims, evidence, provenance, and architecture.\n\n# PG-001 — MVP Release 1\n\n## INIT-001 — Establish the Execution-Ready Monad Foundation\n\n**Outcome:** Monad's product definition, architectural authority, machine knowledge, and execution-control environment are coherent enough for routine MVP work.\n\n### Epics\n\n- `EPIC-001` — Foundation Stabilization\n\n### Exit condition\n\nFoundation stabilization is accepted and routine MVP execution can proceed under coherent product, architecture, machine-knowledge, EOS, and GitHub projection rules.\n\n## INIT-002 — Compile Canonical Engineering Knowledge\n\n**Outcome:** Monad can discover a repository, ingest canonical engineering artifacts, resolve identities and references, construct a stable semantic graph, and produce canonical interchange state.\n\n### Epics\n\n- `EPIC-002` — Workspace & Configuration\n- `EPIC-003` — Canonical Knowledge Ingestion\n- `EPIC-004` — Monad Semantic Graph\n- `EPIC-005` — KIR & Canonical Interchange\n\n### Exit condition\n\nA supported repository can be deterministically discovered and transformed from canonical engineering source into provenance-rich, validated semantic state with stable identity, references, graph structure, and interchange representation.\n\n## INIT-003 — Validate, Query, and Explain Engineering State\n\n**Outcome:** Monad can detect invalid or contradictory engineering knowledge and let humans or machines understand relationships, dependencies, authority, evidence, and missing knowledge.\n\n### Epics\n\n- `EPIC-006` — Diagnostics & Conformance\n- `EPIC-007` — Query & Explanation\n\n### Exit condition\n\nUsers and agents can identify semantic/conformance failures and traverse or explain governing, dependency, evidence, and traceability paths with deterministic results.\n\n## INIT-004 — Deliver Governed Human and AI Interaction\n\n**Outcome:** Humans and bounded AI agents can interact with Monad through a coherent local interface and obtain minimal, governed, explainable engineering context.\n\n### Epics\n\n- `EPIC-008` — AI Agent Context & Governance\n- `EPIC-009` — CLI & Developer Experience\n\n### Exit condition\n\nWork Packets can produce deterministic bounded agent context and MVP capabilities are accessible through a stable, scriptable, understandable CLI contract.\n\n## INIT-005 — Prove Trustworthy Engineering Intelligence\n\n**Outcome:** Monad behaves deterministically and securely, understands change impact, invokes native validation appropriately, and can successfully reason about its own development.\n\n### Epics\n\n- `EPIC-010` — Determinism, Security & Performance\n- `EPIC-011` — Change Intelligence & Native Validation\n- `EPIC-012` — Dogfooding & GitHub Projection\n\n### Exit condition\n\nThe semantic kernel passes repeatability, threat, and performance baselines; semantic change can scope native validation; and Monad can inspect its own repository and project useful engineering state into GitHub.\n\n## INIT-006 — Ship Monad MVP Release 1\n\n**Outcome:** An independent user can install, understand, execute, verify, and trust a complete MVP Release 1.\n\n### Epics\n\n- `EPIC-013` — Packaging, Documentation & Provenance\n- `EPIC-014` — MVP Acceptance & Release\n\n### Exit condition\n\nA traceable release candidate passes end-to-end acceptance and security/release-readiness gates, satisfies `PG-001`, and is released with installation guidance, reference documentation, provenance, and reproducible release evidence.\n\n# PG-002 — Living Workspace Intelligence\n\n## INIT-007 — Build Living Workspace Intelligence\n\n**Outcome:** Monad can measure, explain, maintain, and improve the quality of governed engineering memory without converting probabilistic inference into canonical truth.\n\n### Epics\n\n- `EPIC-015` — Workspace Intelligence & Memory\n\n### Exit condition\n\nWorkspace intelligence, maturity, memory states, health/decay signals, vector memory, caching, and accepted-evidence learning are reproducible, explainable, provenance-preserving, and explicitly distinguish canonical from derived or uncertain state.\n\n## INIT-008 — Orchestrate and Integrate Bounded Autonomous Work\n\n**Outcome:** Monad can coordinate dependency-aware agents and automation across governed integrations while keeping autonomy evidence-based, bounded, reviewable, and reversible.\n\n### Epics\n\n- `EPIC-016` — Autonomous Agent Orchestration\n- `EPIC-017` — Automation & Integration Ecosystem\n\n### Exit condition\n\nAgents can be dispatched through explicit dependencies and capabilities, autonomy can be promoted or demoted from evidence, independent reviewers and provider routing preserve provenance, integrations operate through governed contracts, and automated PR/workflow outcomes become durable evidence.\n\n# PG-003 — Governed Autonomous Engineering\n\n## INIT-009 — Establish Cryptographic and Identity Trust\n\n**Outcome:** Consequential engineering actions can be attributed, authenticated, bounded, and independently attested through strong identity, cryptographic, and AI-input security controls.\n\n### Epics\n\n- `EPIC-018` — Security, Identity & Attestation\n\n### Exit condition\n\nSigned attestations, crypto-agile profiles, key lifecycle controls, RBAC/passkey identity, prompt-injection defenses, secret handling, and least-authority capability boundaries are enforceable and verifiable for consequential operations.\n\n## INIT-010 — Govern and Operate Autonomous Engineering\n\n**Outcome:** Autonomous engineering activity is controlled by declarative policy and formal change/audit mechanisms and is observable enough to reconstruct, evaluate, and operate safely.\n\n### Epics\n\n- `EPIC-019` — Policy, Change Control & Audit\n- `EPIC-020` — Observability, Analytics & Operations\n\n### Exit condition\n\nPolicy governs readiness, done, autonomy, compliance, and resources; change/rollback/restore and tamper-evident audit reconstruct consequential history; and correlated telemetry and execution analytics make governed autonomous behavior inspectable without weakening local-first privacy boundaries.\n\n# PG-004 — Enterprise Ecosystem and Scale\n\n## INIT-011 — Deploy and Port Governed Workspaces\n\n**Outcome:** Monad workspaces can be deployed, cloned, restored, and moved across local, air-gapped, on-premises, and optional cloud environments without losing governance, provenance, or reproducibility.\n\n### Epics\n\n- `EPIC-021` — Deployment, Portability & Workspace Lifecycle\n\n### Exit condition\n\nApproved deployment modes, custom/shared surfaces, workspace clone/restore, air-gap and cloud/on-prem profiles, reproducible Docker/Nix environments, and governed file/media handling are explicit, testable, and preserve the local-first core.\n\n## INIT-012 — Extend Monad Through Ecosystem Interfaces\n\n**Outcome:** External tools, IDEs, plugins, storage systems, and optional runtimes can interact with Monad through versioned, scoped interfaces without redefining canonical truth.\n\n### Epics\n\n- `EPIC-022` — Developer & Ecosystem Integration Surfaces\n\n### Exit condition\n\nMCP, LSP/IDE, plugin/registry/pack, graph/vector storage, and optional runtime adapter contracts are versioned, authority-scoped, provenance-aware, isolated, and interoperable while Monad's semantic core remains authoritative.\n\n## INIT-013 — Scale Deterministic Monad Execution\n\n**Outcome:** Monad can increase execution parallelism and throughput while preserving deterministic state transitions, evidence ordering, isolation, cache correctness, and measurable performance contracts.\n\n### Epics\n\n- `EPIC-023` — Performance, Parallelism & Scale\n\n### Exit condition\n\nParallel scheduling respects dependencies/conflicts, commit/evidence ordering remains deterministic, performance/finality targets are measured against declared reference profiles, and scale-out caching preserves workspace/tenant isolation and invalidation semantics.\n\n## INIT-014 — Ship Monad Release 2\n\n**Outcome:** The expanded living-intelligence, governed-autonomy, enterprise, ecosystem, and scale capabilities are accepted as one coherent Release 2 without weakening the MVP baseline.\n\n### Epics\n\n- `EPIC-024` — Expanded Acceptance & Release\n\n### Exit condition\n\nEnd-to-end intelligence, autonomy, enterprise/offline, security, attestation, scale, migration, provenance, and release-readiness acceptance is satisfied for PG-002 through PG-004 and Release 2 is dispositioned from reproducible evidence.\n\n## Initiative mapping\n\n| Product Goal | Initiative | Epics |\n| --- | --- | --- |\n| `PG-001` | `INIT-001` — Establish the Execution-Ready Monad Foundation | `EPIC-001` |\n| `PG-001` | `INIT-002` — Compile Canonical Engineering Knowledge | `EPIC-002`–`EPIC-005` |\n| `PG-001` | `INIT-003` — Validate, Query, and Explain Engineering State | `EPIC-006`–`EPIC-007` |\n| `PG-001` | `INIT-004` — Deliver Governed Human and AI Interaction | `EPIC-008`–`EPIC-009` |\n| `PG-001` | `INIT-005` — Prove Trustworthy Engineering Intelligence | `EPIC-010`–`EPIC-012` |\n| `PG-001` | `INIT-006` — Ship Monad MVP Release 1 | `EPIC-013`–`EPIC-014` |\n| `PG-002` | `INIT-007` — Build Living Workspace Intelligence | `EPIC-015` |\n| `PG-002` | `INIT-008` — Orchestrate and Integrate Bounded Autonomous Work | `EPIC-016`–`EPIC-017` |\n| `PG-003` | `INIT-009` — Establish Cryptographic and Identity Trust | `EPIC-018` |\n| `PG-003` | `INIT-010` — Govern and Operate Autonomous Engineering | `EPIC-019`–`EPIC-020` |\n| `PG-004` | `INIT-011` — Deploy and Port Governed Workspaces | `EPIC-021` |\n| `PG-004` | `INIT-012` — Extend Monad Through Ecosystem Interfaces | `EPIC-022` |\n| `PG-004` | `INIT-013` — Scale Deterministic Monad Execution | `EPIC-023` |\n| `PG-004` | `INIT-014` — Ship Monad Release 2 | `EPIC-024` |\n\n## Projection rule\n\nCanonical Git/EOS artifacts remain authoritative. GitHub Issues and GitHub Projects are coordination projections and must not redefine initiative, epic, Work Packet, lifecycle, or verification truth.\n",
   "document_id": "doc:product%2Finitiatives.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "product",
     "normative": true,
-    "summary": "Status: Proposed baseline Scope: PG-001 — MVP Release 1",
+    "summary": "Status: Proposed baseline Scope: PG-001 through PG-004",
     "title": "Monad Initiative Catalog"
   },
   "relations": [],
@@ -24,7 +24,7 @@
       "line_end": 7,
       "line_start": 1,
       "section_id": "monad-initiative-catalog",
-      "text": "# Monad Initiative Catalog\n\n**Status:** Proposed baseline\n**Scope:** PG-001 — MVP Release 1\n\nThis catalog adds an outcome-oriented Initiative layer between Product Goals and Epics. Initiatives are finite program outcomes. They are not permanent architectural domains, implementation components, Work Cycles, or Work Packets.",
+      "text": "# Monad Initiative Catalog\n\n**Status:** Proposed baseline  \n**Scope:** PG-001 through PG-004\n\nThis catalog adds an outcome-oriented Initiative layer between Product Goals and Epics. Initiatives are finite program outcomes. They are not permanent architectural domains, implementation components, Work Cycles, or Work Packets.",
       "title": "Monad Initiative Catalog"
     },
     {
@@ -38,9 +38,18 @@
     },
     {
       "identifiers": [],
-      "level": 2,
-      "line_end": 21,
+      "level": 1,
+      "line_end": 19,
       "line_start": 18,
+      "section_id": "pg-001-mvp-release-1",
+      "text": "# PG-001 — MVP Release 1",
+      "title": "PG-001 — MVP Release 1"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 20,
       "section_id": "init-001-establish-the-execution-ready-monad-foundation",
       "text": "## INIT-001 — Establish the Execution-Ready Monad Foundation\n\n**Outcome:** Monad's product definition, architectural authority, machine knowledge, and execution-control environment are coherent enough for routine MVP work.",
       "title": "INIT-001 — Establish the Execution-Ready Monad Foundation"
@@ -48,8 +57,8 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 25,
-      "line_start": 22,
+      "line_end": 27,
+      "line_start": 24,
       "section_id": "epics",
       "text": "### Epics\n\n- `EPIC-001` — Foundation Stabilization",
       "title": "Epics"
@@ -57,8 +66,8 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 29,
-      "line_start": 26,
+      "line_end": 31,
+      "line_start": 28,
       "section_id": "exit-condition",
       "text": "### Exit condition\n\nFoundation stabilization is accepted and routine MVP execution can proceed under coherent product, architecture, machine-knowledge, EOS, and GitHub projection rules.",
       "title": "Exit condition"
@@ -66,8 +75,8 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 33,
-      "line_start": 30,
+      "line_end": 35,
+      "line_start": 32,
       "section_id": "init-002-compile-canonical-engineering-knowledge",
       "text": "## INIT-002 — Compile Canonical Engineering Knowledge\n\n**Outcome:** Monad can discover a repository, ingest canonical engineering artifacts, resolve identities and references, construct a stable semantic graph, and produce canonical interchange state.",
       "title": "INIT-002 — Compile Canonical Engineering Knowledge"
@@ -75,8 +84,8 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 40,
-      "line_start": 34,
+      "line_end": 42,
+      "line_start": 36,
       "section_id": "epics-2",
       "text": "### Epics\n\n- `EPIC-002` — Workspace & Configuration\n- `EPIC-003` — Canonical Knowledge Ingestion\n- `EPIC-004` — Monad Semantic Graph\n- `EPIC-005` — KIR & Canonical Interchange",
       "title": "Epics"
@@ -84,8 +93,8 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 44,
-      "line_start": 41,
+      "line_end": 46,
+      "line_start": 43,
       "section_id": "exit-condition-2",
       "text": "### Exit condition\n\nA supported repository can be deterministically discovered and transformed from canonical engineering source into provenance-rich, validated semantic state with stable identity, references, graph structure, and interchange representation.",
       "title": "Exit condition"
@@ -93,8 +102,8 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 48,
-      "line_start": 45,
+      "line_end": 50,
+      "line_start": 47,
       "section_id": "init-003-validate-query-and-explain-engineering-state",
       "text": "## INIT-003 — Validate, Query, and Explain Engineering State\n\n**Outcome:** Monad can detect invalid or contradictory engineering knowledge and let humans or machines understand relationships, dependencies, authority, evidence, and missing knowledge.",
       "title": "INIT-003 — Validate, Query, and Explain Engineering State"
@@ -102,8 +111,8 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 53,
-      "line_start": 49,
+      "line_end": 55,
+      "line_start": 51,
       "section_id": "epics-3",
       "text": "### Epics\n\n- `EPIC-006` — Diagnostics & Conformance\n- `EPIC-007` — Query & Explanation",
       "title": "Epics"
@@ -111,8 +120,8 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 57,
-      "line_start": 54,
+      "line_end": 59,
+      "line_start": 56,
       "section_id": "exit-condition-3",
       "text": "### Exit condition\n\nUsers and agents can identify semantic/conformance failures and traverse or explain governing, dependency, evidence, and traceability paths with deterministic results.",
       "title": "Exit condition"
@@ -120,8 +129,8 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 61,
-      "line_start": 58,
+      "line_end": 63,
+      "line_start": 60,
       "section_id": "init-004-deliver-governed-human-and-ai-interaction",
       "text": "## INIT-004 — Deliver Governed Human and AI Interaction\n\n**Outcome:** Humans and bounded AI agents can interact with Monad through a coherent local interface and obtain minimal, governed, explainable engineering context.",
       "title": "INIT-004 — Deliver Governed Human and AI Interaction"
@@ -129,8 +138,8 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 66,
-      "line_start": 62,
+      "line_end": 68,
+      "line_start": 64,
       "section_id": "epics-4",
       "text": "### Epics\n\n- `EPIC-008` — AI Agent Context & Governance\n- `EPIC-009` — CLI & Developer Experience",
       "title": "Epics"
@@ -138,8 +147,8 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 70,
-      "line_start": 67,
+      "line_end": 72,
+      "line_start": 69,
       "section_id": "exit-condition-4",
       "text": "### Exit condition\n\nWork Packets can produce deterministic bounded agent context and MVP capabilities are accessible through a stable, scriptable, understandable CLI contract.",
       "title": "Exit condition"
@@ -147,8 +156,8 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 74,
-      "line_start": 71,
+      "line_end": 76,
+      "line_start": 73,
       "section_id": "init-005-prove-trustworthy-engineering-intelligence",
       "text": "## INIT-005 — Prove Trustworthy Engineering Intelligence\n\n**Outcome:** Monad behaves deterministically and securely, understands change impact, invokes native validation appropriately, and can successfully reason about its own development.",
       "title": "INIT-005 — Prove Trustworthy Engineering Intelligence"
@@ -156,8 +165,8 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 80,
-      "line_start": 75,
+      "line_end": 82,
+      "line_start": 77,
       "section_id": "epics-5",
       "text": "### Epics\n\n- `EPIC-010` — Determinism, Security & Performance\n- `EPIC-011` — Change Intelligence & Native Validation\n- `EPIC-012` — Dogfooding & GitHub Projection",
       "title": "Epics"
@@ -165,8 +174,8 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 84,
-      "line_start": 81,
+      "line_end": 86,
+      "line_start": 83,
       "section_id": "exit-condition-5",
       "text": "### Exit condition\n\nThe semantic kernel passes repeatability, threat, and performance baselines; semantic change can scope native validation; and Monad can inspect its own repository and project useful engineering state into GitHub.",
       "title": "Exit condition"
@@ -174,8 +183,8 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 88,
-      "line_start": 85,
+      "line_end": 90,
+      "line_start": 87,
       "section_id": "init-006-ship-monad-mvp-release-1",
       "text": "## INIT-006 — Ship Monad MVP Release 1\n\n**Outcome:** An independent user can install, understand, execute, verify, and trust a complete MVP Release 1.",
       "title": "INIT-006 — Ship Monad MVP Release 1"
@@ -183,8 +192,8 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 93,
-      "line_start": 89,
+      "line_end": 95,
+      "line_start": 91,
       "section_id": "epics-6",
       "text": "### Epics\n\n- `EPIC-013` — Packaging, Documentation & Provenance\n- `EPIC-014` — MVP Acceptance & Release",
       "title": "Epics"
@@ -192,38 +201,281 @@
     {
       "identifiers": [],
       "level": 3,
-      "line_end": 97,
-      "line_start": 94,
+      "line_end": 99,
+      "line_start": 96,
       "section_id": "exit-condition-6",
       "text": "### Exit condition\n\nA traceable release candidate passes end-to-end acceptance and security/release-readiness gates, satisfies `PG-001`, and is released with installation guidance, reference documentation, provenance, and reproducible release evidence.",
       "title": "Exit condition"
     },
     {
       "identifiers": [],
+      "level": 1,
+      "line_end": 101,
+      "line_start": 100,
+      "section_id": "pg-002-living-workspace-intelligence",
+      "text": "# PG-002 — Living Workspace Intelligence",
+      "title": "PG-002 — Living Workspace Intelligence"
+    },
+    {
+      "identifiers": [],
       "level": 2,
-      "line_end": 108,
-      "line_start": 98,
+      "line_end": 105,
+      "line_start": 102,
+      "section_id": "init-007-build-living-workspace-intelligence",
+      "text": "## INIT-007 — Build Living Workspace Intelligence\n\n**Outcome:** Monad can measure, explain, maintain, and improve the quality of governed engineering memory without converting probabilistic inference into canonical truth.",
+      "title": "INIT-007 — Build Living Workspace Intelligence"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 109,
+      "line_start": 106,
+      "section_id": "epics-7",
+      "text": "### Epics\n\n- `EPIC-015` — Workspace Intelligence & Memory",
+      "title": "Epics"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 113,
+      "line_start": 110,
+      "section_id": "exit-condition-7",
+      "text": "### Exit condition\n\nWorkspace intelligence, maturity, memory states, health/decay signals, vector memory, caching, and accepted-evidence learning are reproducible, explainable, provenance-preserving, and explicitly distinguish canonical from derived or uncertain state.",
+      "title": "Exit condition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 117,
+      "line_start": 114,
+      "section_id": "init-008-orchestrate-and-integrate-bounded-autonomous-work",
+      "text": "## INIT-008 — Orchestrate and Integrate Bounded Autonomous Work\n\n**Outcome:** Monad can coordinate dependency-aware agents and automation across governed integrations while keeping autonomy evidence-based, bounded, reviewable, and reversible.",
+      "title": "INIT-008 — Orchestrate and Integrate Bounded Autonomous Work"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 122,
+      "line_start": 118,
+      "section_id": "epics-8",
+      "text": "### Epics\n\n- `EPIC-016` — Autonomous Agent Orchestration\n- `EPIC-017` — Automation & Integration Ecosystem",
+      "title": "Epics"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 126,
+      "line_start": 123,
+      "section_id": "exit-condition-8",
+      "text": "### Exit condition\n\nAgents can be dispatched through explicit dependencies and capabilities, autonomy can be promoted or demoted from evidence, independent reviewers and provider routing preserve provenance, integrations operate through governed contracts, and automated PR/workflow outcomes become durable evidence.",
+      "title": "Exit condition"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 128,
+      "line_start": 127,
+      "section_id": "pg-003-governed-autonomous-engineering",
+      "text": "# PG-003 — Governed Autonomous Engineering",
+      "title": "PG-003 — Governed Autonomous Engineering"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 132,
+      "line_start": 129,
+      "section_id": "init-009-establish-cryptographic-and-identity-trust",
+      "text": "## INIT-009 — Establish Cryptographic and Identity Trust\n\n**Outcome:** Consequential engineering actions can be attributed, authenticated, bounded, and independently attested through strong identity, cryptographic, and AI-input security controls.",
+      "title": "INIT-009 — Establish Cryptographic and Identity Trust"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 136,
+      "line_start": 133,
+      "section_id": "epics-9",
+      "text": "### Epics\n\n- `EPIC-018` — Security, Identity & Attestation",
+      "title": "Epics"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 140,
+      "line_start": 137,
+      "section_id": "exit-condition-9",
+      "text": "### Exit condition\n\nSigned attestations, crypto-agile profiles, key lifecycle controls, RBAC/passkey identity, prompt-injection defenses, secret handling, and least-authority capability boundaries are enforceable and verifiable for consequential operations.",
+      "title": "Exit condition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 144,
+      "line_start": 141,
+      "section_id": "init-010-govern-and-operate-autonomous-engineering",
+      "text": "## INIT-010 — Govern and Operate Autonomous Engineering\n\n**Outcome:** Autonomous engineering activity is controlled by declarative policy and formal change/audit mechanisms and is observable enough to reconstruct, evaluate, and operate safely.",
+      "title": "INIT-010 — Govern and Operate Autonomous Engineering"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 149,
+      "line_start": 145,
+      "section_id": "epics-10",
+      "text": "### Epics\n\n- `EPIC-019` — Policy, Change Control & Audit\n- `EPIC-020` — Observability, Analytics & Operations",
+      "title": "Epics"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 153,
+      "line_start": 150,
+      "section_id": "exit-condition-10",
+      "text": "### Exit condition\n\nPolicy governs readiness, done, autonomy, compliance, and resources; change/rollback/restore and tamper-evident audit reconstruct consequential history; and correlated telemetry and execution analytics make governed autonomous behavior inspectable without weakening local-first privacy boundaries.",
+      "title": "Exit condition"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 155,
+      "line_start": 154,
+      "section_id": "pg-004-enterprise-ecosystem-and-scale",
+      "text": "# PG-004 — Enterprise Ecosystem and Scale",
+      "title": "PG-004 — Enterprise Ecosystem and Scale"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 159,
+      "line_start": 156,
+      "section_id": "init-011-deploy-and-port-governed-workspaces",
+      "text": "## INIT-011 — Deploy and Port Governed Workspaces\n\n**Outcome:** Monad workspaces can be deployed, cloned, restored, and moved across local, air-gapped, on-premises, and optional cloud environments without losing governance, provenance, or reproducibility.",
+      "title": "INIT-011 — Deploy and Port Governed Workspaces"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 163,
+      "line_start": 160,
+      "section_id": "epics-11",
+      "text": "### Epics\n\n- `EPIC-021` — Deployment, Portability & Workspace Lifecycle",
+      "title": "Epics"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 167,
+      "line_start": 164,
+      "section_id": "exit-condition-11",
+      "text": "### Exit condition\n\nApproved deployment modes, custom/shared surfaces, workspace clone/restore, air-gap and cloud/on-prem profiles, reproducible Docker/Nix environments, and governed file/media handling are explicit, testable, and preserve the local-first core.",
+      "title": "Exit condition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 171,
+      "line_start": 168,
+      "section_id": "init-012-extend-monad-through-ecosystem-interfaces",
+      "text": "## INIT-012 — Extend Monad Through Ecosystem Interfaces\n\n**Outcome:** External tools, IDEs, plugins, storage systems, and optional runtimes can interact with Monad through versioned, scoped interfaces without redefining canonical truth.",
+      "title": "INIT-012 — Extend Monad Through Ecosystem Interfaces"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 175,
+      "line_start": 172,
+      "section_id": "epics-12",
+      "text": "### Epics\n\n- `EPIC-022` — Developer & Ecosystem Integration Surfaces",
+      "title": "Epics"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 179,
+      "line_start": 176,
+      "section_id": "exit-condition-12",
+      "text": "### Exit condition\n\nMCP, LSP/IDE, plugin/registry/pack, graph/vector storage, and optional runtime adapter contracts are versioned, authority-scoped, provenance-aware, isolated, and interoperable while Monad's semantic core remains authoritative.",
+      "title": "Exit condition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 183,
+      "line_start": 180,
+      "section_id": "init-013-scale-deterministic-monad-execution",
+      "text": "## INIT-013 — Scale Deterministic Monad Execution\n\n**Outcome:** Monad can increase execution parallelism and throughput while preserving deterministic state transitions, evidence ordering, isolation, cache correctness, and measurable performance contracts.",
+      "title": "INIT-013 — Scale Deterministic Monad Execution"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 187,
+      "line_start": 184,
+      "section_id": "epics-13",
+      "text": "### Epics\n\n- `EPIC-023` — Performance, Parallelism & Scale",
+      "title": "Epics"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 191,
+      "line_start": 188,
+      "section_id": "exit-condition-13",
+      "text": "### Exit condition\n\nParallel scheduling respects dependencies/conflicts, commit/evidence ordering remains deterministic, performance/finality targets are measured against declared reference profiles, and scale-out caching preserves workspace/tenant isolation and invalidation semantics.",
+      "title": "Exit condition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 195,
+      "line_start": 192,
+      "section_id": "init-014-ship-monad-release-2",
+      "text": "## INIT-014 — Ship Monad Release 2\n\n**Outcome:** The expanded living-intelligence, governed-autonomy, enterprise, ecosystem, and scale capabilities are accepted as one coherent Release 2 without weakening the MVP baseline.",
+      "title": "INIT-014 — Ship Monad Release 2"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 199,
+      "line_start": 196,
+      "section_id": "epics-14",
+      "text": "### Epics\n\n- `EPIC-024` — Expanded Acceptance & Release",
+      "title": "Epics"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 203,
+      "line_start": 200,
+      "section_id": "exit-condition-14",
+      "text": "### Exit condition\n\nEnd-to-end intelligence, autonomy, enterprise/offline, security, attestation, scale, migration, provenance, and release-readiness acceptance is satisfied for PG-002 through PG-004 and Release 2 is dispositioned from reproducible evidence.",
+      "title": "Exit condition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 222,
+      "line_start": 204,
       "section_id": "initiative-mapping",
-      "text": "## Initiative mapping\n\n| Initiative | Epics |\n| --- | --- |\n| `INIT-001` — Establish the Execution-Ready Monad Foundation | `EPIC-001` |\n| `INIT-002` — Compile Canonical Engineering Knowledge | `EPIC-002`–`EPIC-005` |\n| `INIT-003` — Validate, Query, and Explain Engineering State | `EPIC-006`–`EPIC-007` |\n| `INIT-004` — Deliver Governed Human and AI Interaction | `EPIC-008`–`EPIC-009` |\n| `INIT-005` — Prove Trustworthy Engineering Intelligence | `EPIC-010`–`EPIC-012` |\n| `INIT-006` — Ship Monad MVP Release 1 | `EPIC-013`–`EPIC-014` |",
+      "text": "## Initiative mapping\n\n| Product Goal | Initiative | Epics |\n| --- | --- | --- |\n| `PG-001` | `INIT-001` — Establish the Execution-Ready Monad Foundation | `EPIC-001` |\n| `PG-001` | `INIT-002` — Compile Canonical Engineering Knowledge | `EPIC-002`–`EPIC-005` |\n| `PG-001` | `INIT-003` — Validate, Query, and Explain Engineering State | `EPIC-006`–`EPIC-007` |\n| `PG-001` | `INIT-004` — Deliver Governed Human and AI Interaction | `EPIC-008`–`EPIC-009` |\n| `PG-001` | `INIT-005` — Prove Trustworthy Engineering Intelligence | `EPIC-010`–`EPIC-012` |\n| `PG-001` | `INIT-006` — Ship Monad MVP Release 1 | `EPIC-013`–`EPIC-014` |\n| `PG-002` | `INIT-007` — Build Living Workspace Intelligence | `EPIC-015` |\n| `PG-002` | `INIT-008` — Orchestrate and Integrate Bounded Autonomous Work | `EPIC-016`–`EPIC-017` |\n| `PG-003` | `INIT-009` — Establish Cryptographic and Identity Trust | `EPIC-018` |\n| `PG-003` | `INIT-010` — Govern and Operate Autonomous Engineering | `EPIC-019`–`EPIC-020` |\n| `PG-004` | `INIT-011` — Deploy and Port Governed Workspaces | `EPIC-021` |\n| `PG-004` | `INIT-012` — Extend Monad Through Ecosystem Interfaces | `EPIC-022` |\n| `PG-004` | `INIT-013` — Scale Deterministic Monad Execution | `EPIC-023` |\n| `PG-004` | `INIT-014` — Ship Monad Release 2 | `EPIC-024` |",
       "title": "Initiative mapping"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 111,
-      "line_start": 109,
+      "line_end": 225,
+      "line_start": 223,
       "section_id": "projection-rule",
       "text": "## Projection rule\n\nCanonical Git/EOS artifacts remain authoritative. GitHub Issues and GitHub Projects are coordination projections and must not redefine initiative, epic, Work Packet, lifecycle, or verification truth.",
       "title": "Projection rule"
     }
   ],
   "source": {
-    "bytes": 4873,
+    "bytes": 10596,
     "canonical": true,
     "language": "markdown",
-    "lines": 111,
+    "lines": 225,
     "media_type": "text/markdown",
     "path": "product/initiatives.md",
-    "sha256": "061232379f7658a11b290e3298bbefc7ec4e4f31672c57e2cc336ef10e21ec52"
+    "sha256": "55db3e08fe3f557b43369b43c64f7d2a786b0f5b97c21cfd6bdcadc8dc49fc5e"
   }
 }
