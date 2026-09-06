@@ -86,13 +86,16 @@ ensure_project() {
 
 sync_project_metadata() {
   local p="$1"
-  local issue_json projection
+  local issue_tmp projection
+  issue_tmp="$(mktemp)"
+  trap 'rm -f "$issue_tmp"' RETURN
 
-  issue_json="$(gh issue list -R "$ORG/$REPO" --state all --limit 1000 --json title,body,url,state)"
+  gh issue list -R "$ORG/$REPO" --state all --limit 1000 --json title,body,url,state >"$issue_tmp"
 
-  projection="$(python3 - "$issue_json" <<'PY'
+  projection="$(python3 - "$issue_tmp" <<'PY'
 import json,re,sys
-rows=json.loads(sys.argv[1])
+with open(sys.argv[1], encoding='utf-8') as f:
+    rows=json.load(f)
 
 def m(pattern, text):
     x=re.search(pattern, text or '', re.I|re.M)
@@ -133,7 +136,6 @@ def lifecycle(row):
 for row in rows:
     title=row.get('title') or ''
     body=row.get('body') or ''
-    text=title+'\n'+body
     item_type=kind(title)
     init=m(r'(INIT-\d{3})', title) if item_type == 'Initiative' else ''
     epic=m(r'(EPIC-\d{3})', title) if item_type == 'Epic' else m(r'Parent Epic:\s*`(EPIC-\d{3})`', body)
@@ -142,7 +144,7 @@ for row in rows:
     pg=m(r'Product Goal:\s*`([^`]+)`', body)
     if not pg and (init or epic):
         pg='PG-001'
-    wp=m(r'Work Packet:\s*`([^`]+)`', body) or m(r'/(WP-[A-Z0-9-]+)', title) or m(r'\b(WP-[A-Z0-9-]+)\b', title)
+    wp=m(r'Work Packet:\s*`([^`]+)`', body) or m(r'\b(WP-[A-Z0-9-]+)\b', title)
     sprint=m(r'(?:Work Cycle|Forecast Sprint):\s*`([^`]+)`', body)
     values=[row.get('url') or '',item_type,pg,init,epic,sprint,wp,lifecycle(row)]
     print('\t'.join(v.replace('\t',' ').replace('\n',' ') for v in values))
@@ -168,9 +170,19 @@ PY
     set_field "$url" "Lifecycle" "$lifecycle"
   done <<<"$projection"
 
-  if ! python3 -c 'import json,sys; d=json.load(sys.stdin); f=next((x for x in d.get("fields",[]) if x.get("name")=="Item Type"),{}); opts={o.get("name") for o in f.get("options",[])}; raise SystemExit(0 if "Initiative" in opts else 1)' <<<"$fields_json"; then
-    echo "NOTE: existing Item Type field does not expose an Initiative option. Add Initiative once in the Project UI; the next sync will populate it." >&2
-  fi
+  python3 -c '
+import json,sys
+required={"Initiative","Defect"}
+d=json.load(sys.stdin)
+f=next((x for x in d.get("fields",[]) if x.get("name")=="Item Type"),{})
+opts={o.get("name") for o in f.get("options",[])}
+missing=sorted(required-opts)
+print(",".join(missing))
+' <<<"$fields_json" | while IFS= read -r missing; do
+    if [[ -n "$missing" ]]; then
+      echo "NOTE: existing Item Type field is missing option(s): $missing. Add them once in the Project UI; the next sync will populate those items." >&2
+    fi
+  done
 }
 
 sync_wiki() {
