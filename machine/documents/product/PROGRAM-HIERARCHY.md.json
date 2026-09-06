@@ -1,0 +1,277 @@
+{
+  "content": "# Monad Program Hierarchy\n\n**Status:** Proposed canonical planning clarification  \n**Scope:** Product planning, governed execution, and GitHub projection\n\nMonad uses multiple related structures because product decomposition, execution scheduling, engineering authority, and verification answer different questions. These structures are linked, but they are not collapsed into one tree.\n\n## 1. Product planning hierarchy\n\nThe canonical product/value decomposition is:\n\n```text\nProduct Goal\n  └─ Initiative\n       └─ Epic\n            └─ Feature\n                 ├─ Story\n                 │    └─ Task\n                 └─ Enabler\n                      └─ Task\n```\n\n### Product Goal\n\nDefines a bounded product outcome and its acceptance boundary.\n\n### Initiative\n\nDefines a finite, outcome-oriented program grouping beneath a Product Goal. An Initiative is not an enduring architectural domain, a Program Increment, or a Work Cycle.\n\n### Epic\n\nDefines a substantial product/system outcome that advances an Initiative.\n\n### Feature\n\nDefines a reviewable product-sized capability or engineering outcome. Features are the principal bridge between product planning and governed implementation.\n\n### Story\n\nDefines an observable user, operator, agent, or system outcome that contributes to a Feature.\n\n### Enabler\n\nDefines necessary architectural, infrastructure, governance, research, or engineering-system work that enables a Feature but is not best expressed as a user Story.\n\n### Task\n\nDefines bounded execution decomposition needed to realize a Story or Enabler within an executable Work Packet context.\n\nTasks are deliberately rolling-wave. Monad does not pre-generate a project-wide speculative task inventory. Formal Tasks are refined as the governing Work Packet approaches Ready.\n\n## 2. Governed execution hierarchy\n\nExecution is orthogonal to the product hierarchy:\n\n```text\nProgram Increment\n  └─ Work Cycle\n       └─ Work Packet\n            └─ Execution\n                 ├─ implementation\n                 ├─ tests\n                 ├─ evidence\n                 └─ verification / review\n```\n\n### Program Increment\n\nDefines an integrated, potentially releasable advance that proves a bounded Product Goal outcome or retires material risk.\n\nCurrent namespaces are:\n\n- `PI-MVP-*` — MVP Release 1;\n- `PI-EXP-*` — approved CR-0002 post-MVP expansion;\n- historical bootstrap identifiers remain preserved;\n- future programs receive governed namespaces rather than reusing ambiguous historical IDs.\n\n### Work Cycle\n\nDefines a short execution and learning window. For the current roadmap, **Work Cycle == Sprint**. `WC-MVP-*` and `WC-EXP-*` are the canonical active namespaces.\n\n### Work Packet\n\nDefines the smallest authorized unit of governed project work. A Work Packet is independently ready, authorized, executed, reviewed, verified, and closed.\n\nA forecast assignment does not authorize a Work Packet. Ready does not imply Authorized; merged code does not imply Closed.\n\n### Execution\n\nRecords the actual bounded attempt to realize an authorized Work Packet, including actor, commands/actions, effects, evidence, review, and verification as applicable.\n\n## 3. How Feature and Work Packet relate\n\nFeature and Work Packet are intentionally different concepts:\n\n```text\nFeature\n  = product/value outcome\n\nWork Packet\n  = governed execution unit\n```\n\nThe current MVP and expanded rolling-wave backlogs usually pair a forecast Feature with one forecast Work Packet. That one-to-one projection is a planning convenience, not an ontology identity.\n\n```text\nFeature F-003-03\n        │\n        └── realized through ──► WP-MVP-0005\n```\n\nFuture refinement may legitimately produce:\n\n```text\none Feature\n  ├─ Work Packet A\n  └─ Work Packet B\n```\n\nwhen separate authorization, risk, verification, or review boundaries are required.\n\nA Work Packet should not span unrelated Features merely to reduce bookkeeping.\n\n## 4. Where Tasks belong\n\nTasks participate in both views without becoming an additional program-wide scheduling layer:\n\n```text\nProduct view\nStory / Enabler\n  └─ Task\n\nExecution view\nWork Packet\n  └─ bounded Tasks / tests / evidence actions\n```\n\nA Task therefore carries both product context and execution context when formalized. The Work Packet remains the governance boundary.\n\n## 5. Engineering authority is orthogonal\n\nRequirements, specifications, ADRs, policies, and architecture do not become parent levels in the product tree.\n\n```text\nRequirement ───── satisfied by ─────► Feature / Story\nSpecification ─── governs ──────────► Work Packet / implementation\nADR ───────────── constrains ───────► Work Packet / implementation\nPolicy ────────── controls ─────────► planning / execution / release\n```\n\nMany-to-many traceability is expected. A single requirement can span several Features; one Work Packet can be governed by several specifications and ADRs.\n\n## 6. Review, correction, and verification are control structures\n\n```text\nWork Packet\n  └─ Execution\n       └─ Review\n            └─ Finding\n                 ├─ no action\n                 ├─ Task\n                 ├─ Change / Correction Request\n                 └─ new Work Packet\n\nWork Packet\n  └─ Verification / Evidence\n       └─ closure decision\n```\n\nA finding or correction request is not a product hierarchy level. It creates or changes work according to its scope.\n\n## 7. Milestones and releases\n\nMilestones and releases describe delivery, not decomposition:\n\n- a **Milestone** records achievement of a meaningful program/product outcome;\n- a **Release** records shipped software and its accepted evidence;\n- either may span several Epics, Work Cycles, or Work Packets.\n\n## 8. Complete trace model\n\nMonad's planning and execution questions are therefore separated as follows:\n\n```text\nWHY\nProduct Goal / Requirement\n\nWHAT\nInitiative → Epic → Feature → Story / Enabler\n\nHOW\nSpecification / ADR / Policy\n\nWHEN / THROUGH WHAT EXECUTION\nProgram Increment → Work Cycle → Work Packet → Execution\n\nWHAT CONCRETE ACTIONS\nTask / test / evidence action\n\nDID IT WORK\nReview → Finding → Verification / Evidence → Closure → Release\n```\n\n## 9. Current MVP example\n\nThe current structured-configuration-parser work demonstrates the crosswalk:\n\n```text\nProduct planning\nPG-001\n  └─ INIT-002\n       └─ EPIC-003\n            └─ F-003-03\n                 ├─ US-015 — parse Monad config\n                 ├─ US-016 — schema errors\n                 └─ US-017 — deterministic normalization\n\nExecution planning\nPI-MVP-001\n  └─ WC-MVP-0002\n       └─ WP-MVP-0005\n            └─ bounded Tasks/tests/evidence refined in the packet\n```\n\nThe Feature and Work Packet are linked representations of the same forecast delivery slice, but the Feature expresses the outcome while the Work Packet carries executable authority and lifecycle state.\n\n## 10. Current roadmap namespaces\n\n### MVP Release 1\n\n- Product Goal: `PG-001`\n- Initiatives: `INIT-001` through `INIT-006`\n- Epics: `EPIC-001` through `EPIC-014`\n- Work Packets: `WP-STAB-0001`, `WP-MVP-0001` through `WP-MVP-0033`\n- Stories: `US-001` through `US-105`, plus `EN-001` through `EN-003`\n- Work Cycles: `WC-MVP-0000` through `WC-MVP-0012` in the forecast schedule\n- Program Increments: `PI-MVP-001` through `PI-MVP-003`\n\n### Approved post-MVP expansion\n\n- Product Goals: `PG-002` through `PG-004`\n- Epics: `EPIC-015` through `EPIC-024`\n- Work Packets: `WP-EXP-0001` through `WP-EXP-0040` in forecast catalogs\n- Stories: `US-106` through `US-237`\n- Work Cycles: `WC-EXP-0001` through `WC-EXP-0014`\n- Program Increments: `PI-EXP-001` through `PI-EXP-003`\n\nThe post-MVP backlog has not yet assigned a canonical Initiative layer. That mapping should be added through governed rolling-wave planning before those Epics approach active execution rather than invented as an incidental documentation change.\n\n## 11. Source-of-truth map\n\n| Concern | Canonical source |\n| --- | --- |\n| Current Product Goal | `product/PRODUCT-GOAL.md` |\n| Post-MVP Product Goals | `product/POST-MVP-PRODUCT-GOALS.md` |\n| MVP Initiatives | `product/initiatives.md` |\n| MVP backlog | `product/backlog/MVP-BACKLOG.md` |\n| Expanded backlog | `product/backlog/EXPANDED-BACKLOG.md` |\n| Program Increments | `engineering/increments/` |\n| Work Cycles | `engineering/work-cycles/` |\n| Work Packets | `engineering/work-packets/` |\n| Readiness / Done | `engineering/definition-of-ready.md`, `engineering/definition-of-done.md` |\n| GitHub projection | `engineering/github/PROJECT-V2-CONFIGURATION.md` |\n| Live lifecycle authority | canonical Git/EOS control state and evidence |\n\n## 12. GitHub projection rule\n\nGitHub Issues and Projects are coordination projections of this model, not replacement authority.\n\nThe desired visible product hierarchy is:\n\n```text\nInitiative\n  └─ Epic\n       └─ Feature\n            ├─ Story\n            │    └─ Task when refined\n            └─ Enabler\n                 └─ Task when refined\n```\n\nEach projected item may additionally carry orthogonal fields such as Product Goal, Program Increment, Work Cycle, Work Packet, lifecycle, specification, ADR, risk, executor, and target release.\n\nIf GitHub cannot represent one relationship cleanly, preserve the canonical identifier and relationship in Git/EOS rather than changing Monad's ontology to fit GitHub.\n",
+  "document_id": "doc:product%2FPROGRAM-HIERARCHY.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "EXP-0001",
+    "EXP-001",
+    "EXP-0014",
+    "EXP-003",
+    "EXP-0040"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "product",
+    "normative": true,
+    "summary": "Status: Proposed canonical planning clarification Scope: Product planning, governed execution, and GitHub projection",
+    "title": "Monad Program Hierarchy"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "monad-program-hierarchy",
+      "text": "# Monad Program Hierarchy\n\n**Status:** Proposed canonical planning clarification  \n**Scope:** Product planning, governed execution, and GitHub projection\n\nMonad uses multiple related structures because product decomposition, execution scheduling, engineering authority, and verification answer different questions. These structures are linked, but they are not collapsed into one tree.",
+      "title": "Monad Program Hierarchy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 8,
+      "section_id": "1-product-planning-hierarchy",
+      "text": "## 1. Product planning hierarchy\n\nThe canonical product/value decomposition is:\n\n```text\nProduct Goal\n  └─ Initiative\n       └─ Epic\n            └─ Feature\n                 ├─ Story\n                 │    └─ Task\n                 └─ Enabler\n                      └─ Task\n```",
+      "title": "1. Product planning hierarchy"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 26,
+      "line_start": 23,
+      "section_id": "product-goal",
+      "text": "### Product Goal\n\nDefines a bounded product outcome and its acceptance boundary.",
+      "title": "Product Goal"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 30,
+      "line_start": 27,
+      "section_id": "initiative",
+      "text": "### Initiative\n\nDefines a finite, outcome-oriented program grouping beneath a Product Goal. An Initiative is not an enduring architectural domain, a Program Increment, or a Work Cycle.",
+      "title": "Initiative"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 34,
+      "line_start": 31,
+      "section_id": "epic",
+      "text": "### Epic\n\nDefines a substantial product/system outcome that advances an Initiative.",
+      "title": "Epic"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 38,
+      "line_start": 35,
+      "section_id": "feature",
+      "text": "### Feature\n\nDefines a reviewable product-sized capability or engineering outcome. Features are the principal bridge between product planning and governed implementation.",
+      "title": "Feature"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 42,
+      "line_start": 39,
+      "section_id": "story",
+      "text": "### Story\n\nDefines an observable user, operator, agent, or system outcome that contributes to a Feature.",
+      "title": "Story"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 46,
+      "line_start": 43,
+      "section_id": "enabler",
+      "text": "### Enabler\n\nDefines necessary architectural, infrastructure, governance, research, or engineering-system work that enables a Feature but is not best expressed as a user Story.",
+      "title": "Enabler"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 52,
+      "line_start": 47,
+      "section_id": "task",
+      "text": "### Task\n\nDefines bounded execution decomposition needed to realize a Story or Enabler within an executable Work Packet context.\n\nTasks are deliberately rolling-wave. Monad does not pre-generate a project-wide speculative task inventory. Formal Tasks are refined as the governing Work Packet approaches Ready.",
+      "title": "Task"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 53,
+      "section_id": "2-governed-execution-hierarchy",
+      "text": "## 2. Governed execution hierarchy\n\nExecution is orthogonal to the product hierarchy:\n\n```text\nProgram Increment\n  └─ Work Cycle\n       └─ Work Packet\n            └─ Execution\n                 ├─ implementation\n                 ├─ tests\n                 ├─ evidence\n                 └─ verification / review\n```",
+      "title": "2. Governed execution hierarchy"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 78,
+      "line_start": 68,
+      "section_id": "program-increment",
+      "text": "### Program Increment\n\nDefines an integrated, potentially releasable advance that proves a bounded Product Goal outcome or retires material risk.\n\nCurrent namespaces are:\n\n- `PI-MVP-*` — MVP Release 1;\n- `PI-EXP-*` — approved CR-0002 post-MVP expansion;\n- historical bootstrap identifiers remain preserved;\n- future programs receive governed namespaces rather than reusing ambiguous historical IDs.",
+      "title": "Program Increment"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 82,
+      "line_start": 79,
+      "section_id": "work-cycle",
+      "text": "### Work Cycle\n\nDefines a short execution and learning window. For the current roadmap, **Work Cycle == Sprint**. `WC-MVP-*` and `WC-EXP-*` are the canonical active namespaces.",
+      "title": "Work Cycle"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 88,
+      "line_start": 83,
+      "section_id": "work-packet",
+      "text": "### Work Packet\n\nDefines the smallest authorized unit of governed project work. A Work Packet is independently ready, authorized, executed, reviewed, verified, and closed.\n\nA forecast assignment does not authorize a Work Packet. Ready does not imply Authorized; merged code does not imply Closed.",
+      "title": "Work Packet"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 92,
+      "line_start": 89,
+      "section_id": "execution",
+      "text": "### Execution\n\nRecords the actual bounded attempt to realize an authorized Work Packet, including actor, commands/actions, effects, evidence, review, and verification as applicable.",
+      "title": "Execution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 124,
+      "line_start": 93,
+      "section_id": "3-how-feature-and-work-packet-relate",
+      "text": "## 3. How Feature and Work Packet relate\n\nFeature and Work Packet are intentionally different concepts:\n\n```text\nFeature\n  = product/value outcome\n\nWork Packet\n  = governed execution unit\n```\n\nThe current MVP and expanded rolling-wave backlogs usually pair a forecast Feature with one forecast Work Packet. That one-to-one projection is a planning convenience, not an ontology identity.\n\n```text\nFeature F-003-03\n        │\n        └── realized through ──► WP-MVP-0005\n```\n\nFuture refinement may legitimately produce:\n\n```text\none Feature\n  ├─ Work Packet A\n  └─ Work Packet B\n```\n\nwhen separate authorization, risk, verification, or review boundaries are required.\n\nA Work Packet should not span unrelated Features merely to reduce bookkeeping.",
+      "title": "3. How Feature and Work Packet relate"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 140,
+      "line_start": 125,
+      "section_id": "4-where-tasks-belong",
+      "text": "## 4. Where Tasks belong\n\nTasks participate in both views without becoming an additional program-wide scheduling layer:\n\n```text\nProduct view\nStory / Enabler\n  └─ Task\n\nExecution view\nWork Packet\n  └─ bounded Tasks / tests / evidence actions\n```\n\nA Task therefore carries both product context and execution context when formalized. The Work Packet remains the governance boundary.",
+      "title": "4. Where Tasks belong"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 153,
+      "line_start": 141,
+      "section_id": "5-engineering-authority-is-orthogonal",
+      "text": "## 5. Engineering authority is orthogonal\n\nRequirements, specifications, ADRs, policies, and architecture do not become parent levels in the product tree.\n\n```text\nRequirement ───── satisfied by ─────► Feature / Story\nSpecification ─── governs ──────────► Work Packet / implementation\nADR ───────────── constrains ───────► Work Packet / implementation\nPolicy ────────── controls ─────────► planning / execution / release\n```\n\nMany-to-many traceability is expected. A single requirement can span several Features; one Work Packet can be governed by several specifications and ADRs.",
+      "title": "5. Engineering authority is orthogonal"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 172,
+      "line_start": 154,
+      "section_id": "6-review-correction-and-verification-are-control-structures",
+      "text": "## 6. Review, correction, and verification are control structures\n\n```text\nWork Packet\n  └─ Execution\n       └─ Review\n            └─ Finding\n                 ├─ no action\n                 ├─ Task\n                 ├─ Change / Correction Request\n                 └─ new Work Packet\n\nWork Packet\n  └─ Verification / Evidence\n       └─ closure decision\n```\n\nA finding or correction request is not a product hierarchy level. It creates or changes work according to its scope.",
+      "title": "6. Review, correction, and verification are control structures"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 180,
+      "line_start": 173,
+      "section_id": "7-milestones-and-releases",
+      "text": "## 7. Milestones and releases\n\nMilestones and releases describe delivery, not decomposition:\n\n- a **Milestone** records achievement of a meaningful program/product outcome;\n- a **Release** records shipped software and its accepted evidence;\n- either may span several Epics, Work Cycles, or Work Packets.",
+      "title": "7. Milestones and releases"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 204,
+      "line_start": 181,
+      "section_id": "8-complete-trace-model",
+      "text": "## 8. Complete trace model\n\nMonad's planning and execution questions are therefore separated as follows:\n\n```text\nWHY\nProduct Goal / Requirement\n\nWHAT\nInitiative → Epic → Feature → Story / Enabler\n\nHOW\nSpecification / ADR / Policy\n\nWHEN / THROUGH WHAT EXECUTION\nProgram Increment → Work Cycle → Work Packet → Execution\n\nWHAT CONCRETE ACTIONS\nTask / test / evidence action\n\nDID IT WORK\nReview → Finding → Verification / Evidence → Closure → Release\n```",
+      "title": "8. Complete trace model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 227,
+      "line_start": 205,
+      "section_id": "9-current-mvp-example",
+      "text": "## 9. Current MVP example\n\nThe current structured-configuration-parser work demonstrates the crosswalk:\n\n```text\nProduct planning\nPG-001\n  └─ INIT-002\n       └─ EPIC-003\n            └─ F-003-03\n                 ├─ US-015 — parse Monad config\n                 ├─ US-016 — schema errors\n                 └─ US-017 — deterministic normalization\n\nExecution planning\nPI-MVP-001\n  └─ WC-MVP-0002\n       └─ WP-MVP-0005\n            └─ bounded Tasks/tests/evidence refined in the packet\n```\n\nThe Feature and Work Packet are linked representations of the same forecast delivery slice, but the Feature expresses the outcome while the Work Packet carries executable authority and lifecycle state.",
+      "title": "9. Current MVP example"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 229,
+      "line_start": 228,
+      "section_id": "10-current-roadmap-namespaces",
+      "text": "## 10. Current roadmap namespaces",
+      "title": "10. Current roadmap namespaces"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 239,
+      "line_start": 230,
+      "section_id": "mvp-release-1",
+      "text": "### MVP Release 1\n\n- Product Goal: `PG-001`\n- Initiatives: `INIT-001` through `INIT-006`\n- Epics: `EPIC-001` through `EPIC-014`\n- Work Packets: `WP-STAB-0001`, `WP-MVP-0001` through `WP-MVP-0033`\n- Stories: `US-001` through `US-105`, plus `EN-001` through `EN-003`\n- Work Cycles: `WC-MVP-0000` through `WC-MVP-0012` in the forecast schedule\n- Program Increments: `PI-MVP-001` through `PI-MVP-003`",
+      "title": "MVP Release 1"
+    },
+    {
+      "identifiers": [
+        "EXP-0001",
+        "EXP-001",
+        "EXP-0014",
+        "EXP-003",
+        "EXP-0040"
+      ],
+      "level": 3,
+      "line_end": 250,
+      "line_start": 240,
+      "section_id": "approved-post-mvp-expansion",
+      "text": "### Approved post-MVP expansion\n\n- Product Goals: `PG-002` through `PG-004`\n- Epics: `EPIC-015` through `EPIC-024`\n- Work Packets: `WP-EXP-0001` through `WP-EXP-0040` in forecast catalogs\n- Stories: `US-106` through `US-237`\n- Work Cycles: `WC-EXP-0001` through `WC-EXP-0014`\n- Program Increments: `PI-EXP-001` through `PI-EXP-003`\n\nThe post-MVP backlog has not yet assigned a canonical Initiative layer. That mapping should be added through governed rolling-wave planning before those Epics approach active execution rather than invented as an incidental documentation change.",
+      "title": "Approved post-MVP expansion"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 266,
+      "line_start": 251,
+      "section_id": "11-source-of-truth-map",
+      "text": "## 11. Source-of-truth map\n\n| Concern | Canonical source |\n| --- | --- |\n| Current Product Goal | `product/PRODUCT-GOAL.md` |\n| Post-MVP Product Goals | `product/POST-MVP-PRODUCT-GOALS.md` |\n| MVP Initiatives | `product/initiatives.md` |\n| MVP backlog | `product/backlog/MVP-BACKLOG.md` |\n| Expanded backlog | `product/backlog/EXPANDED-BACKLOG.md` |\n| Program Increments | `engineering/increments/` |\n| Work Cycles | `engineering/work-cycles/` |\n| Work Packets | `engineering/work-packets/` |\n| Readiness / Done | `engineering/definition-of-ready.md`, `engineering/definition-of-done.md` |\n| GitHub projection | `engineering/github/PROJECT-V2-CONFIGURATION.md` |\n| Live lifecycle authority | canonical Git/EOS control state and evidence |",
+      "title": "11. Source-of-truth map"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 285,
+      "line_start": 267,
+      "section_id": "12-github-projection-rule",
+      "text": "## 12. GitHub projection rule\n\nGitHub Issues and Projects are coordination projections of this model, not replacement authority.\n\nThe desired visible product hierarchy is:\n\n```text\nInitiative\n  └─ Epic\n       └─ Feature\n            ├─ Story\n            │    └─ Task when refined\n            └─ Enabler\n                 └─ Task when refined\n```\n\nEach projected item may additionally carry orthogonal fields such as Product Goal, Program Increment, Work Cycle, Work Packet, lifecycle, specification, ADR, risk, executor, and target release.\n\nIf GitHub cannot represent one relationship cleanly, preserve the canonical identifier and relationship in Git/EOS rather than changing Monad's ontology to fit GitHub.",
+      "title": "12. GitHub projection rule"
+    }
+  ],
+  "source": {
+    "bytes": 9589,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 285,
+    "media_type": "text/markdown",
+    "path": "product/PROGRAM-HIERARCHY.md",
+    "sha256": "29efc425a1106e0a39e58b581851b97c99336e8261881111ad1bd2fdb8dd2e29"
+  }
+}

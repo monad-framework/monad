@@ -1,0 +1,76 @@
+{
+  "content": "# Initiative GitHub Projection\n\n**Status:** Proposed coordination projection\n**Canonical initiative source:** `product/initiatives.md`\n\nGitHub Issues and GitHub Projects are coordination surfaces. They do not redefine canonical product, engineering, EOS lifecycle, or verification truth.\n\n## Initiative issue map\n\n| Initiative | GitHub issue |\n| --- | --- |\n| `INIT-001` | `#270` |\n| `INIT-002` | `#271` |\n| `INIT-003` | `#272` |\n| `INIT-004` | `#273` |\n| `INIT-005` | `#274` |\n| `INIT-006` | `#275` |\n\n## Epic to initiative mapping\n\n| Epic | Initiative | Initiative issue |\n| --- | --- | --- |\n| `EPIC-001` | `INIT-001` | `#270` |\n| `EPIC-002` | `INIT-002` | `#271` |\n| `EPIC-003` | `INIT-002` | `#271` |\n| `EPIC-004` | `INIT-002` | `#271` |\n| `EPIC-005` | `INIT-002` | `#271` |\n| `EPIC-006` | `INIT-003` | `#272` |\n| `EPIC-007` | `INIT-003` | `#272` |\n| `EPIC-008` | `INIT-004` | `#273` |\n| `EPIC-009` | `INIT-004` | `#273` |\n| `EPIC-010` | `INIT-005` | `#274` |\n| `EPIC-011` | `INIT-005` | `#274` |\n| `EPIC-012` | `INIT-005` | `#274` |\n| `EPIC-013` | `INIT-006` | `#275` |\n| `EPIC-014` | `INIT-006` | `#275` |\n\n## Recommended GitHub Project views\n\n1. Program — Initiative and overall progress.\n2. MVP Roadmap — Initiative → Epic → Feature.\n3. Current Work — Ready, Authorized, Running, Review, and Blocked items.\n4. Next Up — Ready and dependency-unblocked work.\n5. Work Cycles — grouped by `WC-MVP-*`.\n6. By Initiative — grouped by Initiative.\n7. By Epic — grouped by Epic.\n8. Work Packets — all WP-backed Features.\n9. Defects — EOS/control-plane and product defects.\n10. Release 1 — all work contributing to `PG-001`.\n11. Dogfooding — Monad-on-Monad work.\n12. AI / Agents — AI context, governance, and agent interaction work.\n13. Semantic Core — workspace, ingestion, identity, graph, KIR, diagnostics, and query.\n14. Recently Completed — recent closed/verified work.\n\n## Recommended Project fields\n\nKeep the GitHub Project projection intentionally small:\n\n- `Item Type`: Initiative, Epic, Feature, Story, Enabler, Work Packet, Bug, Defect, Change Request.\n- `Product Goal`: canonical PG identifier.\n- `Initiative`: canonical INIT identifier.\n- `Epic`: canonical EPIC identifier.\n- `Product Area`: product/capability classification.\n- `Domain`: orthogonal enduring domain classification.\n- `Increment`: program increment identifier.\n- `Sprint`: Work Cycle projection using `WC-*` identifiers.\n- `Lifecycle`: Backlog, Refining, Ready, Authorized, Running, Review, Verified, Closed, Blocked.\n- `Work Packet`: canonical WP identifier.\n- existing priority, criticality, risk, executor, governing artifact, release, and date fields.\n\nPlanning readiness, execution authorization, and verification/completion must not be collapsed into one ambiguous status when doing so would lose governed lifecycle semantics.\n",
+  "document_id": "doc:product%2Finitiative-github-projection.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "product",
+    "normative": true,
+    "summary": "Status: Proposed coordination projection Canonical initiative source: product/initiatives.md",
+    "title": "Initiative GitHub Projection"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "initiative-github-projection",
+      "text": "# Initiative GitHub Projection\n\n**Status:** Proposed coordination projection\n**Canonical initiative source:** `product/initiatives.md`\n\nGitHub Issues and GitHub Projects are coordination surfaces. They do not redefine canonical product, engineering, EOS lifecycle, or verification truth.",
+      "title": "Initiative GitHub Projection"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 8,
+      "section_id": "initiative-issue-map",
+      "text": "## Initiative issue map\n\n| Initiative | GitHub issue |\n| --- | --- |\n| `INIT-001` | `#270` |\n| `INIT-002` | `#271` |\n| `INIT-003` | `#272` |\n| `INIT-004` | `#273` |\n| `INIT-005` | `#274` |\n| `INIT-006` | `#275` |",
+      "title": "Initiative issue map"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 37,
+      "line_start": 19,
+      "section_id": "epic-to-initiative-mapping",
+      "text": "## Epic to initiative mapping\n\n| Epic | Initiative | Initiative issue |\n| --- | --- | --- |\n| `EPIC-001` | `INIT-001` | `#270` |\n| `EPIC-002` | `INIT-002` | `#271` |\n| `EPIC-003` | `INIT-002` | `#271` |\n| `EPIC-004` | `INIT-002` | `#271` |\n| `EPIC-005` | `INIT-002` | `#271` |\n| `EPIC-006` | `INIT-003` | `#272` |\n| `EPIC-007` | `INIT-003` | `#272` |\n| `EPIC-008` | `INIT-004` | `#273` |\n| `EPIC-009` | `INIT-004` | `#273` |\n| `EPIC-010` | `INIT-005` | `#274` |\n| `EPIC-011` | `INIT-005` | `#274` |\n| `EPIC-012` | `INIT-005` | `#274` |\n| `EPIC-013` | `INIT-006` | `#275` |\n| `EPIC-014` | `INIT-006` | `#275` |",
+      "title": "Epic to initiative mapping"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 38,
+      "section_id": "recommended-github-project-views",
+      "text": "## Recommended GitHub Project views\n\n1. Program — Initiative and overall progress.\n2. MVP Roadmap — Initiative → Epic → Feature.\n3. Current Work — Ready, Authorized, Running, Review, and Blocked items.\n4. Next Up — Ready and dependency-unblocked work.\n5. Work Cycles — grouped by `WC-MVP-*`.\n6. By Initiative — grouped by Initiative.\n7. By Epic — grouped by Epic.\n8. Work Packets — all WP-backed Features.\n9. Defects — EOS/control-plane and product defects.\n10. Release 1 — all work contributing to `PG-001`.\n11. Dogfooding — Monad-on-Monad work.\n12. AI / Agents — AI context, governance, and agent interaction work.\n13. Semantic Core — workspace, ingestion, identity, graph, KIR, diagnostics, and query.\n14. Recently Completed — recent closed/verified work.",
+      "title": "Recommended GitHub Project views"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 71,
+      "line_start": 55,
+      "section_id": "recommended-project-fields",
+      "text": "## Recommended Project fields\n\nKeep the GitHub Project projection intentionally small:\n\n- `Item Type`: Initiative, Epic, Feature, Story, Enabler, Work Packet, Bug, Defect, Change Request.\n- `Product Goal`: canonical PG identifier.\n- `Initiative`: canonical INIT identifier.\n- `Epic`: canonical EPIC identifier.\n- `Product Area`: product/capability classification.\n- `Domain`: orthogonal enduring domain classification.\n- `Increment`: program increment identifier.\n- `Sprint`: Work Cycle projection using `WC-*` identifiers.\n- `Lifecycle`: Backlog, Refining, Ready, Authorized, Running, Review, Verified, Closed, Blocked.\n- `Work Packet`: canonical WP identifier.\n- existing priority, criticality, risk, executor, governing artifact, release, and date fields.\n\nPlanning readiness, execution authorization, and verification/completion must not be collapsed into one ambiguous status when doing so would lose governed lifecycle semantics.",
+      "title": "Recommended Project fields"
+    }
+  ],
+  "source": {
+    "bytes": 2842,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 71,
+    "media_type": "text/markdown",
+    "path": "product/initiative-github-projection.md",
+    "sha256": "85e1882fb6df187ea4bb8b1a287555669527671a286c26cf2670f8729425acca"
+  }
+}
