@@ -240,13 +240,14 @@ The Feature and Work Packet are linked representations of the same forecast deli
 ### Approved post-MVP expansion
 
 - Product Goals: `PG-002` through `PG-004`
+- Initiatives: `INIT-007` through `INIT-014`
 - Epics: `EPIC-015` through `EPIC-024`
 - Work Packets: `WP-EXP-0001` through `WP-EXP-0040` in forecast catalogs
 - Stories: `US-106` through `US-237`
 - Work Cycles: `WC-EXP-0001` through `WC-EXP-0014`
 - Program Increments: `PI-EXP-001` through `PI-EXP-003`
 
-The post-MVP backlog has not yet assigned a canonical Initiative layer. That mapping should be added through governed rolling-wave planning before those Epics approach active execution rather than invented as an incidental documentation change.
+The canonical Initiative-to-Epic mapping for PG-001 through PG-004 is maintained in `product/initiatives.md`. Forecast Initiative assignment organizes approved product scope; it does not authorize any post-MVP Work Packet.
 
 ## 11. Source-of-truth map
 
@@ -254,7 +255,7 @@ The post-MVP backlog has not yet assigned a canonical Initiative layer. That map
 | --- | --- |
 | Current Product Goal | `product/PRODUCT-GOAL.md` |
 | Post-MVP Product Goals | `product/POST-MVP-PRODUCT-GOALS.md` |
-| MVP Initiatives | `product/initiatives.md` |
+| Initiatives | `product/initiatives.md` |
 | MVP backlog | `product/backlog/MVP-BACKLOG.md` |
 | Expanded backlog | `product/backlog/EXPANDED-BACKLOG.md` |
 | Program Increments | `engineering/increments/` |
