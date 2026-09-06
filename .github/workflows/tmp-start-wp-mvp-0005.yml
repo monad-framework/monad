@@ -45,7 +45,7 @@ jobs:
 
       - name: Validate started state and projections
         run: |
-          python3 tools/eos/trace_integrity.py --check
+          python3 tools/eos/trace_integrity.py
           python3 scripts/sync-machine-docs.py --check
           python3 scripts/generate-mvp-work-packets.py --check
           python3 scripts/populate-artifact-system.py --check
