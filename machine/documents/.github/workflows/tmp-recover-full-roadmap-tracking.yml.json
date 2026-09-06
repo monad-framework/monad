@@ -1,0 +1,40 @@
+{
+  "content": "name: Temporary recover full-roadmap tracking synchronizer\n\non:\n  push:\n    branches:\n      - tracking/full-roadmap-projection\n    paths:\n      - .github/workflows/tmp-recover-full-roadmap-tracking.yml\n\npermissions:\n  contents: write\n\njobs:\n  recover:\n    runs-on: ubuntu-latest\n    timeout-minutes: 20\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          ref: tracking/full-roadmap-projection\n          fetch-depth: 0\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - name: Let projection workflow settle and reconcile branch\n        run: |\n          sleep 15\n          git fetch origin tracking/full-roadmap-projection\n          git reset --hard origin/tracking/full-roadmap-projection\n      - name: Recover validated synchronizer from immutable machine projection\n        shell: bash\n        run: |\n          git show 3137890:machine/documents/.github/workflows/tmp-apply-full-roadmap-tracking.yml.json > /tmp/recovery.json\n          python3 - <<'PY'\n          import base64, gzip, json, re\n          from pathlib import Path\n          payload = json.loads(Path('/tmp/recovery.json').read_text())\n          text = payload['content']\n          match = re.search(r\"printf '%s' '([A-Za-z0-9+/=]+)' \\| base64 -d \\| gzip -dc > scripts/sync-github-tracking.py\", text)\n          if not match:\n              raise SystemExit('validated synchronizer payload not found')\n          data = gzip.decompress(base64.b64decode(match.group(1)))\n          Path('scripts/sync-github-tracking.py').write_bytes(data)\n          PY\n          python3 -m py_compile scripts/sync-github-tracking.py\n          python3 scripts/sync-github-tracking.py --validate\n      - name: Commit synchronizer source\n        run: |\n          git config user.name \"Thomas Carter\"\n          git config user.email \"monadframework@gmail.com\"\n          git add scripts/sync-github-tracking.py\n          if git diff --cached --quiet; then\n            echo \"Synchronizer already matches validated source.\"\n            exit 0\n          fi\n          git commit -m \"feat(github): synchronize full roadmap tracking source\"\n          git pull --rebase origin tracking/full-roadmap-projection\n          git push origin HEAD:tracking/full-roadmap-projection\n",
+  "document_id": "doc:.github%2Fworkflows%2Ftmp-recover-full-roadmap-tracking.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/tmp-recover-full-roadmap-tracking.yml.",
+    "title": "Tmp Recover Full Roadmap Tracking"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 58,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Temporary recover full-roadmap tracking synchronizer\n\non:\n  push:\n    branches:\n      - tracking/full-roadmap-projection\n    paths:\n      - .github/workflows/tmp-recover-full-roadmap-tracking.yml\n\npermissions:\n  contents: write\n\njobs:\n  recover:\n    runs-on: ubuntu-latest\n    timeout-minutes: 20\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          ref: tracking/full-roadmap-projection\n          fetch-depth: 0\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - name: Let projection workflow settle and reconcile branch\n        run: |\n          sleep 15\n          git fetch origin tracking/full-roadmap-projection\n          git reset --hard origin/tracking/full-roadmap-projection\n      - name: Recover validated synchronizer from immutable machine projection\n        shell: bash\n        run: |\n          git show 3137890:machine/documents/.github/workflows/tmp-apply-full-roadmap-tracking.yml.json > /tmp/recovery.json\n          python3 - <<'PY'\n          import base64, gzip, json, re\n          from pathlib import Path\n          payload = json.loads(Path('/tmp/recovery.json').read_text())\n          text = payload['content']\n          match = re.search(r\"printf '%s' '([A-Za-z0-9+/=]+)' \\| base64 -d \\| gzip -dc > scripts/sync-github-tracking.py\", text)\n          if not match:\n              raise SystemExit('validated synchronizer payload not found')\n          data = gzip.decompress(base64.b64decode(match.group(1)))\n          Path('scripts/sync-github-tracking.py').write_bytes(data)\n          PY\n          python3 -m py_compile scripts/sync-github-tracking.py\n          python3 scripts/sync-github-tracking.py --validate\n      - name: Commit synchronizer source\n        run: |\n          git config user.name \"Thomas Carter\"\n          git config user.email \"monadframework@gmail.com\"\n          git add scripts/sync-github-tracking.py\n          if git diff --cached --quiet; then\n            echo \"Synchronizer already matches validated source.\"\n            exit 0\n          fi\n          git commit -m \"feat(github): synchronize full roadmap tracking source\"\n          git pull --rebase origin tracking/full-roadmap-projection\n          git push origin HEAD:tracking/full-roadmap-projection",
+      "title": "Tmp Recover Full Roadmap Tracking"
+    }
+  ],
+  "source": {
+    "bytes": 2264,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 58,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/tmp-recover-full-roadmap-tracking.yml",
+    "sha256": "ae045fdd8b78da879dda71c9b945276480dbfbfabaa3ccad3ec071376b1eaa9c"
+  }
+}
