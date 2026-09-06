@@ -79,7 +79,98 @@ ensure_project() {
         [[ -n "$url" ]] && gh project item-add "$p" --owner "$ORG" --url "$url" >/dev/null || true
       done
 
+  sync_project_metadata "$p"
+
   echo "Project #$p synchronized. Create/verify views from engineering/github/PROJECT-V2-CONFIGURATION.md."
+}
+
+sync_project_metadata() {
+  local p="$1"
+  local issue_json projection
+
+  issue_json="$(gh issue list -R "$ORG/$REPO" --state all --limit 1000 --json title,body,url,state)"
+
+  projection="$(python3 - "$issue_json" <<'PY'
+import json,re,sys
+rows=json.loads(sys.argv[1])
+
+def m(pattern, text):
+    x=re.search(pattern, text or '', re.I|re.M)
+    return x.group(1).strip() if x else ''
+
+def epic_to_init(epic):
+    x=m(r'EPIC-(\d+)', epic)
+    if not x:
+        return ''
+    n=int(x)
+    if n == 1: return 'INIT-001'
+    if 2 <= n <= 5: return 'INIT-002'
+    if 6 <= n <= 7: return 'INIT-003'
+    if 8 <= n <= 9: return 'INIT-004'
+    if 10 <= n <= 12: return 'INIT-005'
+    if 13 <= n <= 14: return 'INIT-006'
+    return ''
+
+def kind(title):
+    x=m(r'^\[([^\]]+)\]', title)
+    aliases={'Defect':'Defect','Bug':'Bug','Initiative':'Initiative','Epic':'Epic','Feature':'Feature','Story':'Story','Enabler':'Enabler','Change Request':'Change Request'}
+    return aliases.get(x, '')
+
+def lifecycle(row):
+    body=row.get('body') or ''
+    state=(row.get('state') or '').upper()
+    upper=body.upper()
+    if state == 'CLOSED': return 'Closed'
+    if 'READY — NOT AUTHORIZED' in upper or 'READY - NOT AUTHORIZED' in upper: return 'Ready'
+    if 'REMAINS **BACKLOG**' in upper: return 'Backlog'
+    if '**BLOCKED' in upper: return 'Blocked'
+    if '**RUNNING' in upper: return 'Running'
+    if '**AUTHORIZED' in upper and 'NOT AUTHORIZED' not in upper: return 'Authorized'
+    if '**VERIFIED' in upper: return 'Verified'
+    if '**REVIEW' in upper: return 'Review'
+    return ''
+
+for row in rows:
+    title=row.get('title') or ''
+    body=row.get('body') or ''
+    text=title+'\n'+body
+    item_type=kind(title)
+    init=m(r'(INIT-\d{3})', title) if item_type == 'Initiative' else ''
+    epic=m(r'(EPIC-\d{3})', title) if item_type == 'Epic' else m(r'Parent Epic:\s*`(EPIC-\d{3})`', body)
+    if not init:
+        init=epic_to_init(epic)
+    pg=m(r'Product Goal:\s*`([^`]+)`', body)
+    if not pg and (init or epic):
+        pg='PG-001'
+    wp=m(r'Work Packet:\s*`([^`]+)`', body) or m(r'/(WP-[A-Z0-9-]+)', title) or m(r'\b(WP-[A-Z0-9-]+)\b', title)
+    sprint=m(r'(?:Work Cycle|Forecast Sprint):\s*`([^`]+)`', body)
+    values=[row.get('url') or '',item_type,pg,init,epic,sprint,wp,lifecycle(row)]
+    print('\t'.join(v.replace('\t',' ').replace('\n',' ') for v in values))
+PY
+)"
+
+  set_field() {
+    local url="$1" field="$2" value="$3"
+    [[ -z "$url" || -z "$value" ]] && return 0
+    if ! gh project item-edit "$p" --owner "$ORG" --url "$url" --field "$field" --value "$value" >/dev/null 2>&1; then
+      echo "WARN: could not set Project field '$field'='$value' for $url" >&2
+    fi
+  }
+
+  while IFS=$'\t' read -r url item_type product_goal initiative epic sprint work_packet lifecycle; do
+    [[ -n "$url" ]] || continue
+    set_field "$url" "Item Type" "$item_type"
+    set_field "$url" "Product Goal" "$product_goal"
+    set_field "$url" "Initiative" "$initiative"
+    set_field "$url" "Epic" "$epic"
+    set_field "$url" "Sprint" "$sprint"
+    set_field "$url" "Work Packet" "$work_packet"
+    set_field "$url" "Lifecycle" "$lifecycle"
+  done <<<"$projection"
+
+  if ! python3 -c 'import json,sys; d=json.load(sys.stdin); f=next((x for x in d.get("fields",[]) if x.get("name")=="Item Type"),{}); opts={o.get("name") for o in f.get("options",[])}; raise SystemExit(0 if "Initiative" in opts else 1)' <<<"$fields_json"; then
+    echo "NOTE: existing Item Type field does not expose an Initiative option. Add Initiative once in the Project UI; the next sync will populate it." >&2
+  fi
 }
 
 sync_wiki() {
