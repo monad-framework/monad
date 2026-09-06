@@ -31,13 +31,13 @@ A Feature and a Work Packet are linked but distinct. A Feature expresses the pla
 ## Canonical backlog layers
 
 - `MVP-BACKLOG.md` — PG-001 / MVP Release 1: INIT-001 through INIT-006, EPIC-001 through EPIC-014, WP-MVP-0001 through WP-MVP-0033, US-001 through US-105 plus EN-001 through EN-003.
-- `EXPANDED-BACKLOG.md` — approved post-MVP expansion under CR-0002: PG-002 through PG-004, EPIC-015 through EPIC-024, WP-EXP-0001 through WP-EXP-0040, US-106 through US-237. A post-MVP Initiative mapping has not yet been canonically assigned and must be introduced through governed rolling-wave planning before those Epics approach active execution.
+- `EXPANDED-BACKLOG.md` — approved post-MVP expansion under CR-0002: PG-002 through PG-004, INIT-007 through INIT-014, EPIC-015 through EPIC-024, WP-EXP-0001 through WP-EXP-0040, US-106 through US-237. Canonical Initiative-to-Epic ownership is defined in `../initiatives.md`.
 
-MVP remains first in execution order. The expanded backlog does not silently widen an active MVP Work Packet or Work Cycle.
+MVP remains first in execution order. The expanded backlog does not silently widen an active MVP Work Packet or Work Cycle, and forecast Initiative assignment does not authorize implementation.
 
 ## Refinement horizon
 
-- Current Product Goal Initiatives: defined as finite outcome groupings.
+- Product Goal Initiatives: defined as finite outcome groupings.
 - All planned Epics: defined and sequenced at outcome level.
 - All forecast Features: assigned to a forecast Increment and Work Cycle/Sprint.
 - Stories/Enablers: stable planning identifiers with acceptance intent.
@@ -54,4 +54,4 @@ A formal Task should retain both its product parent (`Story` or `Enabler`) and i
 
 ## Projection rule
 
-GitHub Issues/Projects may project this backlog for collaboration. Git files remain canonical for governing requirements, specifications, ADRs, Work Packets, Program Increments, Work Cycles, Product Goals, milestones, and release evidence. Projection drift must be reconciled; it never silently changes canonical status.
+GitHub Issues/Projects may project this backlog for collaboration. Git files remain canonical for governing requirements, specifications, ADRs, Work Packets, Program Increments, Work Cycles, Product Goals, Initiatives, milestones, and release evidence. Projection drift must be reconciled; it never silently changes canonical status.
