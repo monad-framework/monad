@@ -8,6 +8,9 @@ architecture and specifications govern how that promise is realized.
 
 | Document | Primary question | Output |
 | --- | --- | --- |
+| `PRODUCT-GOAL.md` | What outcome defines the current release? | Current Product Goal and achievement evidence |
+| `POST-MVP-PRODUCT-GOALS.md` | Which later outcomes are forecast without authorizing implementation? | Post-MVP Product Goal horizon |
+| `initiatives.md` | Which finite program outcomes organize the current Product Goal? | Initiative catalog and Epic mapping |
 | `product-requirements.md` | What must the release accomplish? | Prioritized, testable requirements |
 | `personas.md` | Whose goals and constraints matter? | Evidence-based user models |
 | `use-cases.md` | Which actor-system interactions are supported? | Bounded behavioral contracts |
@@ -15,6 +18,15 @@ architecture and specifications govern how that promise is realized.
 | `capabilities.md` | Which durable abilities must exist? | Capability map and ownership |
 | `constraints.md` | Which limits shape feasible solutions? | Explicit design and delivery bounds |
 | `roadmap.md` | In what outcome order will work occur? | Now/Next/Later investment sequence |
+| `backlog/MVP-BACKLOG.md` | How is the current MVP decomposed for rolling-wave delivery? | Epic, Feature, Work Packet, and Story forecast |
+
+## Planning hierarchy
+
+The primary product-planning hierarchy is:
+
+`Product Goal → Initiative → Epic → Feature → Story / Enabler → Task`
+
+Initiatives are finite outcome-oriented program groupings. Enduring capability/domain classifications, Program Increments, Work Cycles, Work Packets, executions, and engineering-governance artifacts remain orthogonal dimensions rather than extra hierarchy levels.
 
 ## Product decision flow
 
@@ -22,6 +34,11 @@ Research updates personas and problem evidence. Accepted evidence changes
 requirements and journeys. Requirements map to capabilities and specifications.
 Roadmap items are authorized only when they advance a goal and can be measured
 against the success criteria.
+
+Product Goals establish release outcomes. Initiatives organize finite program
+outcomes under a Product Goal. Epics and Features decompose those outcomes into
+planned delivery, while Work Packets govern executable realization near the
+active horizon.
 
 ## Requirement rules
 
