@@ -106,14 +106,6 @@ A traceable release candidate passes end-to-end acceptance and security/release-
 | `INIT-005` — Prove Trustworthy Engineering Intelligence | `EPIC-010`–`EPIC-012` |
 | `INIT-006` — Ship Monad MVP Release 1 | `EPIC-013`–`EPIC-014` |
 
-## Current position
-
-The current active MVP planning position is:
-
-`PG-001 → INIT-002 → EPIC-003 → F-003-03 / WP-MVP-0005`
-
-`WP-MVP-0005` is Ready but not Authorized. The next governed lifecycle action remains `WP_AUTHORIZE` unless canonical EOS state changes.
-
 ## Projection rule
 
 Canonical Git/EOS artifacts remain authoritative. GitHub Issues and GitHub Projects are coordination projections and must not redefine initiative, epic, Work Packet, lifecycle, or verification truth.
