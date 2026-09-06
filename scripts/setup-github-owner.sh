@@ -39,9 +39,27 @@ ensure_project() {
 
   local fields_json
   fields_json="$(gh project field-list "$p" --owner "$ORG" --format json --limit 100)"
+
+  resolve_field_name() {
+    local requested="$1"
+    python3 -c '
+import json,re,sys
+requested=sys.argv[1]
+def key(value):
+    return re.sub(r"[^a-z0-9]+", "", (value or "").lower())
+d=json.load(sys.stdin)
+wanted=key(requested)
+for field in d.get("fields", []):
+    if key(field.get("name")) == wanted:
+        print(field.get("name") or "")
+        break
+' "$requested" <<<"$fields_json"
+  }
+
   ensure_field() {
-    local name="$1" type="$2" options="${3:-}"
-    if python3 -c 'import json,sys; n=sys.argv[1]; d=json.load(sys.stdin); raise SystemExit(0 if any(f.get("name")==n for f in d.get("fields",[])) else 1)' "$name" <<<"$fields_json"; then
+    local name="$1" type="$2" options="${3:-}" existing
+    existing="$(resolve_field_name "$name")"
+    if [[ -n "$existing" ]]; then
       return
     fi
     if [[ "$type" == "SINGLE_SELECT" ]]; then
@@ -152,10 +170,15 @@ PY
 )"
 
   set_field() {
-    local url="$1" field="$2" value="$3"
+    local url="$1" field="$2" value="$3" actual_field
     [[ -z "$url" || -z "$value" ]] && return 0
-    if ! gh project item-edit "$p" --owner "$ORG" --url "$url" --field "$field" --value "$value" >/dev/null 2>&1; then
-      echo "WARN: could not set Project field '$field'='$value' for $url" >&2
+    actual_field="$(resolve_field_name "$field")"
+    if [[ -z "$actual_field" ]]; then
+      echo "WARN: Project field '$field' does not exist for $url" >&2
+      return 0
+    fi
+    if ! gh project item-edit "$p" --owner "$ORG" --url "$url" --field "$actual_field" --value "$value" >/dev/null 2>&1; then
+      echo "WARN: could not set Project field '$actual_field'='$value' for $url" >&2
     fi
   }
 
