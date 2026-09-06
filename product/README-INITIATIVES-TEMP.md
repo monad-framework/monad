@@ -1,0 +1,1 @@
+Temporary branch integration note: `product/initiatives.md` and `product/initiative-github-projection.md` establish the proposed Initiative layer for PG-001. Remove or fold this note before merge if a permanent index location is preferred.
