@@ -18,22 +18,22 @@ GitHub Issues and GitHub Projects are coordination surfaces. They do not redefin
 
 ## Epic to initiative mapping
 
-| Epic | Initiative |
-| --- | --- |
-| `EPIC-001` | `INIT-001` |
-| `EPIC-002` | `INIT-002` |
-| `EPIC-003` | `INIT-002` |
-| `EPIC-004` | `INIT-002` |
-| `EPIC-005` | `INIT-002` |
-| `EPIC-006` | `INIT-003` |
-| `EPIC-007` | `INIT-003` |
-| `EPIC-008` | `INIT-004` |
-| `EPIC-009` | `INIT-004` |
-| `EPIC-010` | `INIT-005` |
-| `EPIC-011` | `INIT-005` |
-| `EPIC-012` | `INIT-005` |
-| `EPIC-013` | `INIT-006` |
-| `EPIC-014` | `INIT-006` |
+| Epic | Initiative | Initiative issue |
+| --- | --- | --- |
+| `EPIC-001` | `INIT-001` | `#270` |
+| `EPIC-002` | `INIT-002` | `#271` |
+| `EPIC-003` | `INIT-002` | `#271` |
+| `EPIC-004` | `INIT-002` | `#271` |
+| `EPIC-005` | `INIT-002` | `#271` |
+| `EPIC-006` | `INIT-003` | `#272` |
+| `EPIC-007` | `INIT-003` | `#272` |
+| `EPIC-008` | `INIT-004` | `#273` |
+| `EPIC-009` | `INIT-004` | `#273` |
+| `EPIC-010` | `INIT-005` | `#274` |
+| `EPIC-011` | `INIT-005` | `#274` |
+| `EPIC-012` | `INIT-005` | `#274` |
+| `EPIC-013` | `INIT-006` | `#275` |
+| `EPIC-014` | `INIT-006` | `#275` |
 
 ## Recommended GitHub Project views
 
@@ -56,13 +56,16 @@ GitHub Issues and GitHub Projects are coordination surfaces. They do not redefin
 
 Keep the GitHub Project projection intentionally small:
 
-- `Type`: Initiative, Epic, Feature, Story, Enabler, Defect.
-- `Initiative`: INIT-001 through INIT-006.
-- `Epic`: EPIC-001 through EPIC-014.
-- `Product Goal`: PG-001 through PG-004 as later horizons enter the projection.
-- `Work Cycle`: WC identifier.
-- `Work Packet`: WP identifier.
+- `Item Type`: Initiative, Epic, Feature, Story, Enabler, Work Packet, Bug, Defect, Change Request.
+- `Product Goal`: canonical PG identifier.
+- `Initiative`: canonical INIT identifier.
+- `Epic`: canonical EPIC identifier.
+- `Product Area`: product/capability classification.
+- `Domain`: orthogonal enduring domain classification.
+- `Increment`: program increment identifier.
+- `Sprint`: Work Cycle projection using `WC-*` identifiers.
 - `Lifecycle`: Backlog, Refining, Ready, Authorized, Running, Review, Verified, Closed, Blocked.
-- `Domain`: orthogonal capability/domain classification.
+- `Work Packet`: canonical WP identifier.
+- existing priority, criticality, risk, executor, governing artifact, release, and date fields.
 
 Planning readiness, execution authorization, and verification/completion must not be collapsed into one ambiguous status when doing so would lose governed lifecycle semantics.
