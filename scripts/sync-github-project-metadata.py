@@ -37,11 +37,7 @@ def match(pattern: str, text: str) -> str:
 
 
 def epic_to_initiative(epic: str) -> str:
-    """Return the currently canonical PG-001 Initiative for an MVP Epic.
-
-    EPIC-015+ do not yet have a canonical Initiative mapping. Do not invent one
-    in a GitHub projection; governed post-MVP planning must define it first.
-    """
+    """Return the canonical Initiative for an Epic in the approved roadmap."""
     raw = match(r"EPIC-(\d+)", epic)
     if not raw:
         return ""
@@ -58,6 +54,38 @@ def epic_to_initiative(epic: str) -> str:
         return "INIT-005"
     if 13 <= number <= 14:
         return "INIT-006"
+    if number == 15:
+        return "INIT-007"
+    if 16 <= number <= 17:
+        return "INIT-008"
+    if number == 18:
+        return "INIT-009"
+    if 19 <= number <= 20:
+        return "INIT-010"
+    if number == 21:
+        return "INIT-011"
+    if number == 22:
+        return "INIT-012"
+    if number == 23:
+        return "INIT-013"
+    if number == 24:
+        return "INIT-014"
+    return ""
+
+
+def initiative_to_product_goal(initiative: str) -> str:
+    raw = match(r"INIT-(\d+)", initiative)
+    if not raw:
+        return ""
+    number = int(raw)
+    if 1 <= number <= 6:
+        return "PG-001"
+    if 7 <= number <= 8:
+        return "PG-002"
+    if 9 <= number <= 10:
+        return "PG-003"
+    if 11 <= number <= 14:
+        return "PG-004"
     return ""
 
 
@@ -126,8 +154,8 @@ def derive(row: dict[str, Any]) -> dict[str, str]:
         initiative = epic_to_initiative(epic)
 
     product_goal = match(r"Product Goal:\s*`([^`]+)`", body)
-    if not product_goal and (initiative or (epic and epic_to_initiative(epic))):
-        product_goal = "PG-001"
+    if not product_goal:
+        product_goal = initiative_to_product_goal(initiative)
 
     work_packet = (
         match(r"Work Packet:\s*`([^`]+)`", body)
