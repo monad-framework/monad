@@ -1,6 +1,6 @@
 # WP-MVP-0005 — Structured Monad configuration parser
 
-**Status:** AUTHORIZED
+**Status:** IN_PROGRESS
 **Epic:** EPIC-003  
 **Feature:** F-003-03  
 **Program Increment:** PI-MVP-001  
