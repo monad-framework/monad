@@ -13,7 +13,9 @@ The setup process MUST reuse a Project with this exact title if one already exis
 
 The Project is the portfolio and execution view over canonical Git engineering records and projected GitHub Issues. It is not an authority source for requirements, decisions, specifications, Initiative semantics, Work Packet semantics, EOS lifecycle state, or verification truth.
 
-The primary planning hierarchy projected into GitHub is:
+The canonical relationship among planning dimensions is defined in `product/PROGRAM-HIERARCHY.md`.
+
+The primary product-planning hierarchy projected into GitHub is:
 
 ```text
 Product Goal
@@ -21,12 +23,23 @@ Product Goal
        └─ Epic
             └─ Feature
                  ├─ Story
+                 │    └─ Task when refined
                  └─ Enabler
+                      └─ Task when refined
 ```
 
-Tasks are refined near the active execution horizon. Program Increments, Work Cycles, Work Packets, executions, verification/evidence, and engineering-governance artifacts remain orthogonal dimensions rather than additional permanent planning levels.
+Governed execution remains orthogonal:
 
-Canonical Initiative definitions and mappings live in `product/initiatives.md`.
+```text
+Program Increment
+  └─ Work Cycle
+       └─ Work Packet
+            └─ Execution / review / verification / evidence
+```
+
+A Feature and a Work Packet are linked but not identical. The current rolling-wave backlog commonly pairs one forecast Feature with one forecast Work Packet; the Feature expresses the product outcome while the Work Packet carries governed execution authority and lifecycle state.
+
+Canonical Initiative definitions and mappings live in `product/initiatives.md`. Current backlog mappings live in `product/backlog/`.
 
 ## Fields
 
@@ -34,16 +47,17 @@ Retain GitHub's built-in Title, Assignees, Status, Labels, Milestone, Repository
 
 | Field | Type | Values / meaning |
 | --- | --- | --- |
-| Item Type | Single select | Initiative, Epic, Feature, Story, Enabler, Work Packet, Bug, Defect, Change Request |
+| Item Type | Single select | Initiative, Epic, Feature, Story, Enabler, Task, Work Packet, Bug, Defect, Change Request |
 | Product Goal | Text | canonical PG identifier, e.g. PG-001 |
 | Initiative | Text | canonical Initiative identifier, e.g. INIT-002 |
 | Epic | Text | canonical Epic identifier, e.g. EPIC-003 |
+| Feature | Text | canonical Feature identifier, e.g. F-003-03 |
 | Priority | Single select | P0, P1, P2, P3 |
 | Criticality | Single select | C0, C1, C2, C3, C4, C5 |
 | Product Area | Text | product/capability area |
 | Domain | Text | orthogonal enduring domain such as identity, semantic graph, AI, CLI, verification |
-| Increment | Text | e.g. PI-MVP-001 |
-| Sprint | Text | Work Cycle projection, e.g. WC-MVP-0002; retained for GitHub planning compatibility |
+| Increment | Text | canonical Program Increment, e.g. PI-MVP-001 |
+| Work Cycle | Text | canonical Work Cycle, e.g. WC-MVP-0002 |
 | Lifecycle | Single select | Backlog, Refining, Ready, Authorized, Running, Review, Verified, Closed, Blocked |
 | Story Points | Number | optional relative estimate; never hours/productivity |
 | Risk | Single select | Critical, High, Medium, Low |
@@ -55,7 +69,19 @@ Retain GitHub's built-in Title, Assignees, Status, Labels, Milestone, Repository
 | Start Date | Date | forecast/actual start |
 | Target Date | Date | forecast target |
 
-`Product Goal`, `Initiative`, `Epic`, `Work Packet`, and lifecycle identifiers in GitHub are projections. Their canonical definitions remain in repository/EOS artifacts.
+`Product Goal`, `Initiative`, `Epic`, `Feature`, `Work Cycle`, `Work Packet`, and lifecycle identifiers in GitHub are projections. Their canonical definitions remain in repository/EOS artifacts.
+
+### Compatibility and field migration
+
+`Work Cycle` is the canonical Project field. The term `Sprint` remains a planning/UI compatibility synonym because Work Cycle == Sprint for the current roadmap, but setup/synchronization automation MUST NOT create or write a second competing Sprint field.
+
+Historical Project configurations may contain legacy fields such as `Work-Cycle`, `Work-Packet`, `Sprint`, or `PI` alongside the canonical `Work Cycle`, `Work Packet`, or `Increment` fields. During migration:
+
+1. projection automation prefers an exact canonical field name when present;
+2. a single punctuation-only legacy equivalent may be reused temporarily;
+3. ambiguous normalized duplicates must be reported rather than updated nondeterministically;
+4. once canonical field values have been verified, obsolete duplicate fields should be removed from the Project UI;
+5. deleting a Project field never deletes the canonical Git/EOS identifier or artifact.
 
 ## Status and lifecycle semantics
 
@@ -73,26 +99,27 @@ Scheduling alone does not authorize implementation. A Work Packet may become Rea
 
 Create these views in the Project UI after fields exist:
 
-1. **Program** — table/roadmap emphasizing Initiatives and overall PG-001 progress.
+1. **Program** — table/roadmap emphasizing Initiatives and overall Product Goal progress.
 2. **MVP Roadmap** — roadmap grouped by Initiative, showing Epics and Feature outcomes.
 3. **Current Work** — board/table for Ready, Authorized, Running, Review, and Blocked work.
 4. **Next Up** — Ready items that are not blocked and are near the active Work Cycle horizon.
-5. **Work Cycles** — grouped by Sprint/`WC-MVP-*`.
+5. **Work Cycles** — grouped by `Work Cycle` / `WC-MVP-*` or `WC-EXP-*`.
 6. **By Initiative** — grouped by Initiative.
 7. **By Epic** — grouped by Epic.
-8. **Work Packets** — Feature/Work Packet projections with Work Packet and Lifecycle visible.
-9. **Product Backlog** — non-Closed MVP items ordered by Priority then Work Cycle.
-10. **Defects** — Bug/Defect and engineering-control-plane maintenance work.
-11. **Blocked** — Lifecycle or Status Blocked.
-12. **Release 1** — all items contributing to `PG-001` / MVP Release 1.
-13. **Dogfooding** — Monad-on-Monad work, especially EPIC-012 and related defects/evidence.
-14. **AI / Agents** — AI context, agent governance, execution, and related work.
-15. **Semantic Core** — workspace, ingestion, identity, graph, KIR, diagnostics, query/explanation.
-16. **Architecture & Specs** — architecture, ADR, specification, requirement, or governance work.
-17. **Codex Queue** — `Executor:Codex` or `Executor:Mixed`, Ready/Authorized/Running only.
-18. **Release Readiness** — target MVP Release 1, focused on packaging, acceptance, risk, and verification.
-19. **Risks & Decisions** — Critical/High Risk and change/decision work.
-20. **Recently Completed** — recently Verified/Closed work.
+8. **By Feature** — grouped by Feature where useful for Stories/Enablers/Tasks.
+9. **Work Packets** — Feature/Work Packet projections with Work Packet and Lifecycle visible.
+10. **Product Backlog** — non-Closed MVP items ordered by Priority then Work Cycle.
+11. **Defects** — Bug/Defect and engineering-control-plane maintenance work.
+12. **Blocked** — Lifecycle or Status Blocked.
+13. **Release 1** — all items contributing to `PG-001` / MVP Release 1.
+14. **Dogfooding** — Monad-on-Monad work, especially EPIC-012 and related defects/evidence.
+15. **AI / Agents** — AI context, agent governance, execution, and related work.
+16. **Semantic Core** — workspace, ingestion, identity, graph, KIR, diagnostics, query/explanation.
+17. **Architecture & Specs** — architecture, ADR, specification, requirement, or governance work.
+18. **Codex Queue** — `Executor:Codex` or `Executor:Mixed`, Ready/Authorized/Running only.
+19. **Release Readiness** — target MVP Release 1, focused on packaging, acceptance, risk, and verification.
+20. **Risks & Decisions** — Critical/High Risk and change/decision work.
+21. **Recently Completed** — recently Verified/Closed work.
 
 The initial daily views should be **Program**, **MVP Roadmap**, **Current Work**, **Next Up**, **Defects**, and **Release 1**. The remainder are scoped projections for investigation and agent-assisted explanation.
 
@@ -103,10 +130,14 @@ Use native GitHub issue/sub-issue relationships where they are practical and do 
 ```text
 Initiative
   └─ Epic
-       └─ Feature / Work Packet projection
+       └─ Feature
             ├─ Story
+            │    └─ Task when refined
             └─ Enabler
+                 └─ Task when refined
 ```
+
+A Feature issue may carry its associated Work Packet identifier and execution fields. This does not make Work Packet an additional product-parent level.
 
 Do not create a Project-only hierarchy that contradicts canonical Initiative/Epic/Feature relationships. If native GitHub hierarchy cannot represent a level cleanly, preserve the canonical IDs in fields and issue metadata rather than changing Monad's ontology to fit GitHub.
 
@@ -117,7 +148,7 @@ Keep product-delivery hierarchy separate from control-plane maintenance/defect p
 ```text
 Monad Development
 ├─ Product Delivery
-│  └─ PG → Initiative → Epic → Feature → Story/Enabler
+│  └─ PG → Initiative → Epic → Feature → Story/Enabler → Task
 └─ Engineering System / Control Plane
    ├─ Defects
    ├─ Maintenance
@@ -144,11 +175,13 @@ The owner setup script:
 
 - creates/reuses the Project;
 - links the repository;
-- creates missing fields;
+- creates missing canonical fields;
+- does not create a separate Sprint field;
 - adds repository Issues idempotently;
-- derives Product Goal, Initiative, Epic, Work Packet, Work Cycle projection, item type, and explicit lifecycle metadata from the existing issue corpus;
+- derives Product Goal, Initiative, Epic, Feature, Work Packet, Work Cycle, item type, and explicit lifecycle metadata from the existing issue corpus;
 - populates those Project fields idempotently with `gh project item-edit` where the corresponding canonical/projection data is explicit;
 - leaves unrelated control-plane defects unforced into product hierarchy fields;
-- warns when a legacy single-select field needs a one-time new option added in the Project UI.
+- warns when a legacy single-select field needs a one-time new option added in the Project UI;
+- reports ambiguous duplicate field names rather than choosing nondeterministically.
 
 View layout remains an explicit UI configuration because it is presentation rather than canonical authority. If GitHub later exposes a sufficiently stable supported automation path for views, it may be added without changing the canonical planning model.
