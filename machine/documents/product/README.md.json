@@ -1,5 +1,5 @@
 {
-  "content": "# Product System\n\nThe product documents translate durable vision into a coherent, testable\npromise for specific users. They govern what the product does and why; the\narchitecture and specifications govern how that promise is realized.\n\n## Product baseline\n\n| Document | Primary question | Output |\n| --- | --- | --- |\n| `product-requirements.md` | What must the release accomplish? | Prioritized, testable requirements |\n| `personas.md` | Whose goals and constraints matter? | Evidence-based user models |\n| `use-cases.md` | Which actor-system interactions are supported? | Bounded behavioral contracts |\n| `user-journeys.md` | How does the experience unfold over time? | End-to-end journey and recovery paths |\n| `capabilities.md` | Which durable abilities must exist? | Capability map and ownership |\n| `constraints.md` | Which limits shape feasible solutions? | Explicit design and delivery bounds |\n| `roadmap.md` | In what outcome order will work occur? | Now/Next/Later investment sequence |\n\n## Product decision flow\n\nResearch updates personas and problem evidence. Accepted evidence changes\nrequirements and journeys. Requirements map to capabilities and specifications.\nRoadmap items are authorized only when they advance a goal and can be measured\nagainst the success criteria.\n\n## Requirement rules\n\n- Use stable identifiers; do not reuse retired IDs.\n- State observable behavior without prescribing internals unnecessarily.\n- Include preconditions, failure behavior, acceptance evidence, and priority.\n- Link nonfunctional expectations to quality-attribute scenarios.\n- Mark assumptions and unresolved decisions explicitly.\n- Trace every committed requirement to a user outcome and at least one test.\n\n## Baseline and change\n\nThe product baseline is approved at an increment boundary. Editorial\nclarifications may merge through normal review when they do not change meaning.\nScope, behavior, compatibility, risk, or acceptance changes use the change\ncontrol process and update affected plans, specifications, and tests.\n",
+  "content": "# Product System\n\nThe product documents translate durable vision into a coherent, testable\npromise for specific users. They govern what the product does and why; the\narchitecture and specifications govern how that promise is realized.\n\n## Product baseline\n\n| Document | Primary question | Output |\n| --- | --- | --- |\n| `PRODUCT-GOAL.md` | What outcome defines the current release? | Current Product Goal and achievement evidence |\n| `POST-MVP-PRODUCT-GOALS.md` | Which later outcomes are forecast without authorizing implementation? | Post-MVP Product Goal horizon |\n| `PROGRAM-HIERARCHY.md` | How do product planning, execution, authority, and verification relate? | Canonical hierarchy and cross-dimensional trace model |\n| `initiatives.md` | Which finite program outcomes organize the current Product Goal? | Initiative catalog and Epic mapping |\n| `product-requirements.md` | What must the release accomplish? | Prioritized, testable requirements |\n| `personas.md` | Whose goals and constraints matter? | Evidence-based user models |\n| `use-cases.md` | Which actor-system interactions are supported? | Bounded behavioral contracts |\n| `user-journeys.md` | How does the experience unfold over time? | End-to-end journey and recovery paths |\n| `capabilities.md` | Which durable abilities must exist? | Capability map and ownership |\n| `constraints.md` | Which limits shape feasible solutions? | Explicit design and delivery bounds |\n| `roadmap.md` | In what outcome order will work occur? | Now/Next/Later investment sequence |\n| `backlog/MVP-BACKLOG.md` | How is the current MVP decomposed for rolling-wave delivery? | Epic, Feature, Work Packet, and Story forecast |\n\n## Planning hierarchy\n\nThe primary product-planning hierarchy is:\n\n`Product Goal → Initiative → Epic → Feature → Story / Enabler → Task`\n\nExecution is an orthogonal hierarchy:\n\n`Program Increment → Work Cycle → Work Packet → Execution → Verification / Evidence`\n\nThe two views are joined by explicit trace relationships. In the current rolling-wave backlog, a Feature is commonly paired with a forecast Work Packet, but Feature and Work Packet are not the same ontology object: the Feature expresses a product/value outcome while the Work Packet carries governed execution authority and lifecycle state.\n\nSee `PROGRAM-HIERARCHY.md` for the normative planning clarification and cross-dimensional trace model.\n\nInitiatives are finite outcome-oriented program groupings. Enduring capability/domain classifications, Program Increments, Work Cycles, Work Packets, executions, and engineering-governance artifacts remain orthogonal dimensions rather than extra hierarchy levels.\n\n## Product decision flow\n\nResearch updates personas and problem evidence. Accepted evidence changes\nrequirements and journeys. Requirements map to capabilities and specifications.\nRoadmap items are authorized only when they advance a goal and can be measured\nagainst the success criteria.\n\nProduct Goals establish release outcomes. Initiatives organize finite program\noutcomes under a Product Goal. Epics and Features decompose those outcomes into\nplanned delivery, while Work Packets govern executable realization near the\nactive horizon.\n\n## Requirement rules\n\n- Use stable identifiers; do not reuse retired IDs.\n- State observable behavior without prescribing internals unnecessarily.\n- Include preconditions, failure behavior, acceptance evidence, and priority.\n- Link nonfunctional expectations to quality-attribute scenarios.\n- Mark assumptions and unresolved decisions explicitly.\n- Trace every committed requirement to a user outcome and at least one test.\n\n## Baseline and change\n\nThe product baseline is approved at an increment boundary. Editorial\nclarifications may merge through normal review when they do not change meaning.\nScope, behavior, compatibility, risk, or acceptance changes use the change\ncontrol process and update affected plans, specifications, and tests.\n",
   "document_id": "doc:product%2FREADME.md",
   "generation": {
     "deterministic": true,
@@ -30,26 +30,35 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 18,
+      "line_end": 23,
       "line_start": 7,
       "section_id": "product-baseline",
-      "text": "## Product baseline\n\n| Document | Primary question | Output |\n| --- | --- | --- |\n| `product-requirements.md` | What must the release accomplish? | Prioritized, testable requirements |\n| `personas.md` | Whose goals and constraints matter? | Evidence-based user models |\n| `use-cases.md` | Which actor-system interactions are supported? | Bounded behavioral contracts |\n| `user-journeys.md` | How does the experience unfold over time? | End-to-end journey and recovery paths |\n| `capabilities.md` | Which durable abilities must exist? | Capability map and ownership |\n| `constraints.md` | Which limits shape feasible solutions? | Explicit design and delivery bounds |\n| `roadmap.md` | In what outcome order will work occur? | Now/Next/Later investment sequence |",
+      "text": "## Product baseline\n\n| Document | Primary question | Output |\n| --- | --- | --- |\n| `PRODUCT-GOAL.md` | What outcome defines the current release? | Current Product Goal and achievement evidence |\n| `POST-MVP-PRODUCT-GOALS.md` | Which later outcomes are forecast without authorizing implementation? | Post-MVP Product Goal horizon |\n| `PROGRAM-HIERARCHY.md` | How do product planning, execution, authority, and verification relate? | Canonical hierarchy and cross-dimensional trace model |\n| `initiatives.md` | Which finite program outcomes organize the current Product Goal? | Initiative catalog and Epic mapping |\n| `product-requirements.md` | What must the release accomplish? | Prioritized, testable requirements |\n| `personas.md` | Whose goals and constraints matter? | Evidence-based user models |\n| `use-cases.md` | Which actor-system interactions are supported? | Bounded behavioral contracts |\n| `user-journeys.md` | How does the experience unfold over time? | End-to-end journey and recovery paths |\n| `capabilities.md` | Which durable abilities must exist? | Capability map and ownership |\n| `constraints.md` | Which limits shape feasible solutions? | Explicit design and delivery bounds |\n| `roadmap.md` | In what outcome order will work occur? | Now/Next/Later investment sequence |\n| `backlog/MVP-BACKLOG.md` | How is the current MVP decomposed for rolling-wave delivery? | Epic, Feature, Work Packet, and Story forecast |",
       "title": "Product baseline"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 25,
-      "line_start": 19,
+      "line_end": 39,
+      "line_start": 24,
+      "section_id": "planning-hierarchy",
+      "text": "## Planning hierarchy\n\nThe primary product-planning hierarchy is:\n\n`Product Goal → Initiative → Epic → Feature → Story / Enabler → Task`\n\nExecution is an orthogonal hierarchy:\n\n`Program Increment → Work Cycle → Work Packet → Execution → Verification / Evidence`\n\nThe two views are joined by explicit trace relationships. In the current rolling-wave backlog, a Feature is commonly paired with a forecast Work Packet, but Feature and Work Packet are not the same ontology object: the Feature expresses a product/value outcome while the Work Packet carries governed execution authority and lifecycle state.\n\nSee `PROGRAM-HIERARCHY.md` for the normative planning clarification and cross-dimensional trace model.\n\nInitiatives are finite outcome-oriented program groupings. Enduring capability/domain classifications, Program Increments, Work Cycles, Work Packets, executions, and engineering-governance artifacts remain orthogonal dimensions rather than extra hierarchy levels.",
+      "title": "Planning hierarchy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 51,
+      "line_start": 40,
       "section_id": "product-decision-flow",
-      "text": "## Product decision flow\n\nResearch updates personas and problem evidence. Accepted evidence changes\nrequirements and journeys. Requirements map to capabilities and specifications.\nRoadmap items are authorized only when they advance a goal and can be measured\nagainst the success criteria.",
+      "text": "## Product decision flow\n\nResearch updates personas and problem evidence. Accepted evidence changes\nrequirements and journeys. Requirements map to capabilities and specifications.\nRoadmap items are authorized only when they advance a goal and can be measured\nagainst the success criteria.\n\nProduct Goals establish release outcomes. Initiatives organize finite program\noutcomes under a Product Goal. Epics and Features decompose those outcomes into\nplanned delivery, while Work Packets govern executable realization near the\nactive horizon.",
       "title": "Product decision flow"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 34,
-      "line_start": 26,
+      "line_end": 60,
+      "line_start": 52,
       "section_id": "requirement-rules",
       "text": "## Requirement rules\n\n- Use stable identifiers; do not reuse retired IDs.\n- State observable behavior without prescribing internals unnecessarily.\n- Include preconditions, failure behavior, acceptance evidence, and priority.\n- Link nonfunctional expectations to quality-attribute scenarios.\n- Mark assumptions and unresolved decisions explicitly.\n- Trace every committed requirement to a user outcome and at least one test.",
       "title": "Requirement rules"
@@ -57,20 +66,20 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 40,
-      "line_start": 35,
+      "line_end": 66,
+      "line_start": 61,
       "section_id": "baseline-and-change",
       "text": "## Baseline and change\n\nThe product baseline is approved at an increment boundary. Editorial\nclarifications may merge through normal review when they do not change meaning.\nScope, behavior, compatibility, risk, or acceptance changes use the change\ncontrol process and update affected plans, specifications, and tests.",
       "title": "Baseline and change"
     }
   ],
   "source": {
-    "bytes": 2032,
+    "bytes": 3949,
     "canonical": true,
     "language": "markdown",
-    "lines": 40,
+    "lines": 66,
     "media_type": "text/markdown",
     "path": "product/README.md",
-    "sha256": "b82c1f32a429150b84ffd1578707b2822d84dc6f76e2217de0604ac5aad077a3"
+    "sha256": "2799d18089e9642a77c3e42f42fde5c432cd1d96ad4aaa7818c0f062e3582545"
   }
 }

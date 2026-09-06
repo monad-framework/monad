@@ -51,17 +51,28 @@ requested=sys.argv[1]
 def key(value):
     return re.sub(r"[^a-z0-9]+", "", (value or "").lower())
 d=json.load(sys.stdin)
+fields=d.get("fields", [])
+exact=[f for f in fields if (f.get("name") or "").casefold() == requested.casefold()]
+if exact:
+    print(exact[0].get("name") or "")
+    raise SystemExit(0)
 wanted=key(requested)
-for field in d.get("fields", []):
-    if key(field.get("name")) == wanted:
-        print(field.get("name") or "")
-        break
+matches=[f for f in fields if key(f.get("name")) == wanted]
+if len(matches) == 1:
+    print(matches[0].get("name") or "")
+elif len(matches) > 1:
+    names=", ".join(repr(f.get("name") or "") for f in matches)
+    print(f"AMBIGUOUS:{names}")
 ' "$requested" <<<"$fields_json"
   }
 
   ensure_field() {
     local name="$1" type="$2" options="${3:-}" existing
     existing="$(resolve_field_name "$name")"
+    if [[ "$existing" == AMBIGUOUS:* ]]; then
+      echo "ERROR: Project fields are ambiguous for '$name': ${existing#AMBIGUOUS:}. Remove obsolete duplicate fields before continuing." >&2
+      return 5
+    fi
     [[ -n "$existing" ]] && return 0
     echo "Creating missing Project field: $name"
     if [[ "$type" == "SINGLE_SELECT" ]]; then
@@ -72,17 +83,40 @@ for field in d.get("fields", []):
     fields_json="$(gh project field-list "$p" --owner "$ORG" --format json --limit 100)"
   }
 
+  warn_missing_select_options() {
+    local name="$1" options="$2"
+    python3 -c '
+import json,re,sys
+requested=sys.argv[1]
+wanted=[v for v in sys.argv[2].split(",") if v]
+def key(value):
+    return re.sub(r"[^a-z0-9]+", "", (value or "").lower())
+d=json.load(sys.stdin)
+fields=d.get("fields", [])
+exact=[f for f in fields if (f.get("name") or "").casefold() == requested.casefold()]
+field=exact[0] if exact else next((f for f in fields if key(f.get("name")) == key(requested)), None)
+if not field:
+    raise SystemExit(0)
+field_name=field.get("name") or requested
+have={(o.get("name") or "").casefold() for o in field.get("options", []) or []}
+for option in wanted:
+    if option.casefold() not in have:
+        print(f"NOTE: Project field {field_name!r} is missing single-select option {option!r}. Add it once in the Project UI and rerun the sync.", file=sys.stderr)
+' "$name" "$options" <<<"$fields_json"
+  }
+
   echo "Checking Project fields..."
-  ensure_field "Item Type" SINGLE_SELECT "Initiative,Epic,Feature,Story,Enabler,Work Packet,Bug,Defect,Change Request"
+  ensure_field "Item Type" SINGLE_SELECT "Initiative,Epic,Feature,Story,Enabler,Task,Work Packet,Bug,Defect,Change Request"
   ensure_field "Product Goal" TEXT
   ensure_field "Initiative" TEXT
   ensure_field "Epic" TEXT
+  ensure_field "Feature" TEXT
   ensure_field "Priority" SINGLE_SELECT "P0,P1,P2,P3"
   ensure_field "Criticality" SINGLE_SELECT "C0,C1,C2,C3,C4,C5"
   ensure_field "Product Area" TEXT
   ensure_field "Domain" TEXT
   ensure_field "Increment" TEXT
-  ensure_field "Sprint" TEXT
+  ensure_field "Work Cycle" TEXT
   ensure_field "Lifecycle" SINGLE_SELECT "Backlog,Refining,Ready,Authorized,Running,Review,Verified,Closed,Blocked"
   ensure_field "Story Points" NUMBER
   ensure_field "Risk" SINGLE_SELECT "Critical,High,Medium,Low"
@@ -93,6 +127,8 @@ for field in d.get("fields", []):
   ensure_field "Target Release" TEXT
   ensure_field "Start Date" DATE
   ensure_field "Target Date" DATE
+  warn_missing_select_options "Item Type" "Initiative,Epic,Feature,Story,Enabler,Task,Work Packet,Bug,Defect,Change Request"
+  warn_missing_select_options "Lifecycle" "Backlog,Refining,Ready,Authorized,Running,Review,Verified,Closed,Blocked"
   echo "Project fields OK."
 
   sync_project_items "$p"

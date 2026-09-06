@@ -10,6 +10,7 @@ architecture and specifications govern how that promise is realized.
 | --- | --- | --- |
 | `PRODUCT-GOAL.md` | What outcome defines the current release? | Current Product Goal and achievement evidence |
 | `POST-MVP-PRODUCT-GOALS.md` | Which later outcomes are forecast without authorizing implementation? | Post-MVP Product Goal horizon |
+| `PROGRAM-HIERARCHY.md` | How do product planning, execution, authority, and verification relate? | Canonical hierarchy and cross-dimensional trace model |
 | `initiatives.md` | Which finite program outcomes organize the current Product Goal? | Initiative catalog and Epic mapping |
 | `product-requirements.md` | What must the release accomplish? | Prioritized, testable requirements |
 | `personas.md` | Whose goals and constraints matter? | Evidence-based user models |
@@ -25,6 +26,14 @@ architecture and specifications govern how that promise is realized.
 The primary product-planning hierarchy is:
 
 `Product Goal → Initiative → Epic → Feature → Story / Enabler → Task`
+
+Execution is an orthogonal hierarchy:
+
+`Program Increment → Work Cycle → Work Packet → Execution → Verification / Evidence`
+
+The two views are joined by explicit trace relationships. In the current rolling-wave backlog, a Feature is commonly paired with a forecast Work Packet, but Feature and Work Packet are not the same ontology object: the Feature expresses a product/value outcome while the Work Packet carries governed execution authority and lifecycle state.
+
+See `PROGRAM-HIERARCHY.md` for the normative planning clarification and cross-dimensional trace model.
 
 Initiatives are finite outcome-oriented program groupings. Enduring capability/domain classifications, Program Increments, Work Cycles, Work Packets, executions, and engineering-governance artifacts remain orthogonal dimensions rather than extra hierarchy levels.
 
