@@ -1,0 +1,73 @@
+name: Temporary post-MVP initiative projection refresh
+
+on:
+  push:
+    branches:
+      - planning/post-mvp-initiative-catalog
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: planning/post-mvp-initiative-catalog
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Allow repository projection workflow to settle
+        run: sleep 15
+
+      - name: Reconcile latest branch state
+        run: |
+          git fetch origin planning/post-mvp-initiative-catalog
+          git reset --hard origin/planning/post-mvp-initiative-catalog
+
+      - name: Remove one-shot workflow from final tree
+        run: git rm .github/workflows/tmp-post-mvp-initiative-refresh.yml
+
+      - name: Refresh deterministic projections
+        run: |
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+
+      - name: Verify refreshed projections
+        run: |
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+          python3 scripts/generate-mvp-work-packets.py --check
+          python3 scripts/populate-artifact-system.py --check
+          python3 -m py_compile scripts/sync-github-project-metadata.py
+
+      - name: Commit, reconcile, and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: refresh generated post-MVP projections"
+          fi
+
+          git fetch origin planning/post-mvp-initiative-catalog
+          git rebase origin/planning/post-mvp-initiative-catalog
+
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+          git add -A
+          if ! git diff --cached --quiet; then
+            if git log -1 --format=%an | grep -Fqx 'github-actions[bot]'; then
+              git commit --amend --no-edit
+            else
+              git commit -m "chore: refresh generated post-MVP projections"
+            fi
+          fi
+
+          git push origin HEAD:planning/post-mvp-initiative-catalog
