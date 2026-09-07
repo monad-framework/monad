@@ -1,0 +1,122 @@
+name: AIENG Forward-Port Copy Pass
+
+on:
+  push:
+    branches:
+      - automation/aieng-forward-port-copy-20260907
+    paths:
+      - .github/workflows/aieng-forward-port-copy.yml
+
+permissions:
+  contents: write
+
+jobs:
+  forward-port:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout approved reconciliation baseline
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: 09e98c1689bc94541d52d9aa1e8d7933573dd8f5
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "Monad EOS Automation"
+          git config user.email "eos-automation@users.noreply.github.com"
+
+      - name: Fetch legacy source branch
+        run: git fetch origin eosp/ai-driven-engineering-operating-model
+
+      - name: Copy branch-only authoritative artifacts
+        run: |
+          set -euo pipefail
+          source_ref="origin/eosp/ai-driven-engineering-operating-model"
+          files=(
+            architecture/decisions/ADR-0008-ai-driven-engineering-as-default-eos-operating-model.md
+            engineering/lifecycle/EOS-AI-0001-ai-driven-engineering-operating-model.md
+            engineering/maintenance/MNT-0003.md
+            engineering/maintenance/MNT-0004.md
+            engineering/maintenance/MNT-0005.md
+            engineering/maintenance/MNT-0006.md
+            engineering/reviews/AIENG-NORMATIVE-TRACEABILITY-AND-CONFORMANCE-REVIEW.md
+            engineering/reviews/DECISION-0003-2026-09-05-adr-0008-acceptance.md
+            engineering/reviews/DECISION-0004-2026-09-05-eos-ai-0001-acceptance.md
+            engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md
+            engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md
+            engineering/reviews/DECISION-0007-2026-09-05-mnt-0006-closure-approval.md
+            engineering/reviews/DECISION-0008-2026-09-05-mnt-0005-closure-approval.md
+            engineering/reviews/DECISION-0009-2026-09-05-mnt-0003-implementation-approval.md
+            engineering/reviews/DECISION-0010-2026-09-07-mnt-0003-closure-approval.md
+            engineering/reviews/EOS-AI-0001-OPERATING-MODEL-REVIEW.md
+            engineering/reviews/MNT-0003-EVENT-LEDGER-MERGE-SAFETY-VERIFICATION.md
+            engineering/reviews/MNT-0003-REVIEW.md
+            engineering/reviews/MNT-0005-IDENTITY-RESOLUTION-VERIFICATION.md
+            engineering/reviews/MNT-0005-REVIEW.md
+            engineering/reviews/MNT-0006-CANONICAL-TRANSACTION-ATOMICITY-VERIFICATION.md
+            engineering/reviews/MNT-0006-REVIEW.md
+            specifications/functional/FUN-AIENG-0001-adaptive-engineering-workflow.md
+            specifications/interfaces/IFC-AIENG-0001-engineering-agent-contract.md
+            specifications/security/SEC-AIENG-0001-autonomy-authority-and-approval-gates.md
+            tools/eos/identity_families.py
+            tools/eos/test_identifier_families.py
+          )
+          for file in "${files[@]}"; do
+            if [ -e "$file" ]; then
+              echo "refusing to overwrite existing main-line file: $file" >&2
+              exit 31
+            fi
+            mkdir -p "$(dirname "$file")"
+            git show "$source_ref:$file" > "$file"
+          done
+
+      - name: Validate bounded copy
+        run: |
+          git diff --check
+          python3 tools/eos/test_identifier_families.py
+          python3 - <<'PY'
+          import subprocess
+          prohibited_prefixes = (
+              '.eos/evidence/',
+              'engineering/evidence/',
+              'machine/',
+          )
+          prohibited_exact = {
+              '.eos/artifacts.tsv',
+              '.eos/events.jsonl',
+              '.eos/evidence.tsv',
+              '.eos/state/current.json',
+              '.eos/state/projections.json',
+              '.eos/trace-edges.tsv',
+          }
+          changed = subprocess.check_output(['git', 'status', '--short'], text=True).splitlines()
+          paths = [line[3:] for line in changed if len(line) >= 4]
+          bad = sorted(
+              path for path in paths
+              if path in prohibited_exact or any(path.startswith(prefix) for prefix in prohibited_prefixes)
+          )
+          if bad:
+              raise SystemExit('prohibited generated/evidence import: ' + ', '.join(bad))
+          print(f'bounded authoritative copy: PASS ({len(paths)} paths)')
+          PY
+
+      - name: Commit authoritative forward-port
+        run: |
+          git add \
+            architecture/decisions/ADR-0008-ai-driven-engineering-as-default-eos-operating-model.md \
+            engineering/lifecycle/EOS-AI-0001-ai-driven-engineering-operating-model.md \
+            engineering/maintenance/MNT-0003.md \
+            engineering/maintenance/MNT-0004.md \
+            engineering/maintenance/MNT-0005.md \
+            engineering/maintenance/MNT-0006.md \
+            engineering/reviews \
+            specifications/functional/FUN-AIENG-0001-adaptive-engineering-workflow.md \
+            specifications/interfaces/IFC-AIENG-0001-engineering-agent-contract.md \
+            specifications/security/SEC-AIENG-0001-autonomy-authority-and-approval-gates.md \
+            tools/eos/identity_families.py \
+            tools/eos/test_identifier_families.py
+          git diff --cached --check
+          git commit -m "docs(eos): forward-port AIENG normative authority"
+
+      - name: Publish immutable copy result
+        run: git push origin HEAD:refs/heads/automation/aieng-forward-port-copy-result-20260907
