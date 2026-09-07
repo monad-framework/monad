@@ -1,0 +1,40 @@
+{
+  "content": "name: Governed execution C2 Codex live activation\n\non:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-codex-live-activation/**\"\n      - \"crates/monad-codex-confinement/**\"\n      - \"crates/monad-codex-runtime/**\"\n      - \"testing/governed-execution-c2-codex-live-activation.md\"\n      - \".github/workflows/governed-execution-c2-codex-live-activation.yml\"\n  workflow_dispatch:\n\npermissions:\n  contents: read\n\njobs:\n  activation-contract:\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - name: Checkout\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n      - name: Validate locked workspace graph\n        run: cargo metadata --locked --no-deps > /dev/null\n      - name: Check formatting\n        run: cargo fmt --check\n      - name: Test live activation binding\n        run: cargo test --locked -p monad-codex-live-activation\n      - name: Regress confinement certification\n        run: cargo test --locked -p monad-codex-confinement\n      - name: Regress Codex runtime\n        run: cargo test --locked -p monad-codex-runtime\n",
+  "document_id": "doc:.github%2Fworkflows%2Fgoverned-execution-c2-codex-live-activation.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/governed-execution-c2-codex-live-activation.yml.",
+    "title": "Governed Execution C2 Codex Live Activation"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 34,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Governed execution C2 Codex live activation\n\non:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-codex-live-activation/**\"\n      - \"crates/monad-codex-confinement/**\"\n      - \"crates/monad-codex-runtime/**\"\n      - \"testing/governed-execution-c2-codex-live-activation.md\"\n      - \".github/workflows/governed-execution-c2-codex-live-activation.yml\"\n  workflow_dispatch:\n\npermissions:\n  contents: read\n\njobs:\n  activation-contract:\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - name: Checkout\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n      - name: Validate locked workspace graph\n        run: cargo metadata --locked --no-deps > /dev/null\n      - name: Check formatting\n        run: cargo fmt --check\n      - name: Test live activation binding\n        run: cargo test --locked -p monad-codex-live-activation\n      - name: Regress confinement certification\n        run: cargo test --locked -p monad-codex-confinement\n      - name: Regress Codex runtime\n        run: cargo test --locked -p monad-codex-runtime",
+      "title": "Governed Execution C2 Codex Live Activation"
+    }
+  ],
+  "source": {
+    "bytes": 1110,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 34,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/governed-execution-c2-codex-live-activation.yml",
+    "sha256": "95784035a83d541b339de3ba02bcdae5ada4b8b38c268a898fe058296f3030a8"
+  }
+}
