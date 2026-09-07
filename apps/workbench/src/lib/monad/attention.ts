@@ -248,7 +248,8 @@ function statusObservation(input: {
     ...input,
     profile,
     dedupeKey:
-      input.dedupeKey ?? `${input.sourceKind}:${input.objectId}:${profile.state}`,
+      input.dedupeKey ??
+      `${input.sourceKind}:${input.objectId}:${profile.state}`,
   });
 }
 
