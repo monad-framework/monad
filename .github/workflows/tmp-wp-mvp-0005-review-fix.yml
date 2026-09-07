@@ -1,0 +1,128 @@
+name: Temporary WP-MVP-0005 review correction
+
+on:
+  push:
+    branches:
+      - ops/wp-mvp-0005-review-fix
+
+permissions:
+  contents: write
+
+jobs:
+  correct-and-recertify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      EOS_ACTOR: eos-evidence-refresh
+    steps:
+      - name: Check out current PR branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: wp/mvp-0005
+          fetch-depth: 0
+
+      - name: Verify expected starting head
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          test "$(git rev-parse HEAD)" = "7a24c4e5bd5696e1a69afc5cf2a3b4dddc8daeb3"
+
+      - name: Configure commit identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Apply bounded source-range path correction
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('crates/monad-core/src/config.rs')
+          text = path.read_text(encoding='utf-8')
+
+          replacements = [
+              (
+                  'use std::{collections::BTreeMap, str};',
+                  'use std::{collections::BTreeMap, fmt::Write as _, str};',
+              ),
+              (
+                  '    for (name, values) in &spanned.artifacts {\n        let path = format!("artifacts.{name}");',
+                  '    for (name, values) in &spanned.artifacts {\n        let path = format!("artifacts.{}", encode_path_segment(name));',
+              ),
+          ]
+
+          for old, new in replacements:
+              if text.count(old) != 1:
+                  raise SystemExit(f'expected exactly one occurrence of: {old!r}')
+              text = text.replace(old, new, 1)
+
+          marker = '''fn insert_range<T>(\n    ranges: &mut BTreeMap<String, SourceRange>,\n'''
+          helper = '''fn encode_path_segment(segment: &str) -> String {\n    let mut encoded = String::with_capacity(segment.len());\n    for byte in segment.as_bytes() {\n        match byte {\n            b'A'..=b'Z' | b'a'..=b'z' | b'0'..=b'9' | b'_' | b'-' => {\n                encoded.push(char::from(*byte));\n            }\n            byte => {\n                write!(&mut encoded, "%{byte:02X}")\n                    .expect("writing percent-encoded path segment to String cannot fail");\n            }\n        }\n    }\n    encoded\n}\n\n'''
+          if text.count(marker) != 1:
+              raise SystemExit('insert_range marker was not unique')
+          text = text.replace(marker, helper + marker, 1)
+
+          old_test = '''        let schema = &document.source_ranges["schema_version"];\n        assert_eq!(&VALID[schema.start_byte..schema.end_byte], "1");\n    }\n'''
+          new_test = '''        let schema = &document.source_ranges["schema_version"];\n        assert_eq!(&VALID[schema.start_byte..schema.end_byte], "1");\n\n        let colliding_names = r#"schema_version = 1\n[project]\nid = "range-collision"\nname = "Range Collision"\n\n[artifacts]\nfoo = ["a"]\n"foo[0]" = ["b"]\n"#;\n        let colliding_effective = effective(colliding_names, &CliOverrides::default());\n        let colliding_document =\n            parse_monad_configuration(colliding_names.as_bytes(), &colliding_effective)\n                .expect("parse colliding artifact names");\n        let foo_item = &colliding_document.source_ranges["artifacts.foo[0]"];\n        assert_eq!(\n            &colliding_names[foo_item.start_byte..foo_item.end_byte],\n            "\\\"a\\\""\n        );\n        let escaped_artifact =\n            &colliding_document.source_ranges["artifacts.foo%5B0%5D"];\n        assert_eq!(\n            &colliding_names[escaped_artifact.start_byte..escaped_artifact.end_byte],\n            "[\\\"b\\\"]"\n        );\n        let escaped_item =\n            &colliding_document.source_ranges["artifacts.foo%5B0%5D[0]"];\n        assert_eq!(\n            &colliding_names[escaped_item.start_byte..escaped_item.end_byte],\n            "\\\"b\\\""\n        );\n    }\n'''
+          if text.count(old_test) != 1:
+              raise SystemExit('range regression insertion point was not unique')
+          text = text.replace(old_test, new_test, 1)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Format and validate corrected product source
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cargo fmt --all
+          cargo fmt --all -- --check
+          cargo test -p monad-core 2>&1 | tee /tmp/monad-core-tests.log
+          grep -Eq 'test result: ok\. 131 passed; 0 failed' /tmp/monad-core-tests.log
+          cargo clippy -p monad-core --all-targets --all-features -- -D warnings -A clippy::large_enum_variant
+          git diff --check -- crates/monad-core/src/
+
+      - name: Synchronize source projections before recertification
+        run: |
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+
+      - name: Recertify shared predecessor verification scope
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          for target in WP-MVP-0001 WP-MVP-0002 WP-MVP-0003 WP-MVP-0004; do
+            ./scripts/eos validate "$target" --profile wp
+          done
+
+      - name: Regenerate settled governed projections
+        run: |
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+
+      - name: Verify corrected combined tree
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+          python3 scripts/generate-mvp-work-packets.py --check
+          python3 scripts/populate-artifact-system.py --check
+          ./scripts/eos state status
+          ./scripts/eos verify --strict
+
+      - name: Publish corrected PR head
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git add crates/monad-core/src/config.rs .eos engineering/evidence machine
+          if ! git diff --quiet; then
+            echo "Unexpected unstaged changes outside bounded correction/evidence/projection paths:" >&2
+            git status --short >&2
+            exit 1
+          fi
+          git diff --cached --check
+          git commit -m "fix(core): disambiguate config source-range paths"
+          git push origin HEAD:wp/mvp-0005
