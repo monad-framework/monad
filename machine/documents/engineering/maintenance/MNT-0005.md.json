@@ -1,0 +1,447 @@
+{
+  "content": "---\nartifact_id: \"MNT-0005\"\ntitle: \"EOS canonical REQ/SPEC identity model excludes repository-native requirement and specification identifiers\"\ntype: \"maintenance\"\nversion: \"0.1.0\"\nstatus: \"CLOSED\"\nauthority: \"planning-authoritative\"\ncreated: \"2026-09-05\"\nupdated: \"2026-09-05\"\n---\n\n# MNT-0005 — EOS canonical REQ/SPEC identity model excludes repository-native requirement and specification identifiers\n\n**State:** CLOSED\n## Type\n\nbug\n\n## Summary\n\nThe EOS canonical Requirement and Specification identity model recognizes only\n`REQ-*` and `SPEC-*` identifiers while the governed human-authored repository\nalready uses stable requirement and specification family identifiers outside\nthose prefixes.\n\nAs a result, valid governed artifacts are semantically present in the repository\nbut are incompletely represented by EOS machine traceability.\n\n## Origin\n\nThis defect was identified as:\n\n**AIENG-TRC-001 — Requirement/specification identifier namespace mismatch**\n\nduring the AIENG normative traceability and conformance review.\n\nThe AIENG normative specification baseline was subsequently approved while\nexplicitly preserving this finding as an unresolved pre-implementation\ntraceability obligation.\n\n## Governing Constraints\n\nThe resolution MUST preserve:\n\n* ADR-0003 stable governed document identity;\n* ADR-0006 EOS sovereignty;\n* ADR-0008 AI-driven engineering architecture;\n* EOS-AI-0001;\n* one canonical semantic identity per governed artifact;\n* existing repository history;\n* deterministic traceability;\n* backwards compatibility for already-valid `REQ-*` and `SPEC-*` identifiers.\n\nThe resolution MUST NOT:\n\n* silently renumber existing requirements;\n* silently renumber existing specifications;\n* create duplicate canonical identities for the same governed artifact;\n* introduce an independent alias registry as a second identity authority;\n* manufacture trace edges by manually editing `.eos/trace-edges.tsv`;\n* weaken duplicate-ID detection;\n* weaken stable-identity guarantees;\n* broaden this maintenance item into unrelated EOS redesign.\n\n## Current State\n\n### Canonical Requirement model\n\nThe canonical Requirement schema currently requires:\n\n```text\nREQ-*\n```\n\nand the EOS domain model likewise declares the Requirement namespace using the\n`REQ-*` form.\n\n### Canonical Specification model\n\nThe canonical Specification schema currently requires:\n\n```text\nSPEC-*\n```\n\nand the EOS domain model likewise declares the Specification namespace using the\n`SPEC-*` form.\n\n### Existing requirement identifiers\n\nThe governed product requirements corpus uses stable identifiers including:\n\n```text\nFR-*\nQR-*\n```\n\nThese represent requirement classes, not informal labels.\n\n### Existing specification identifiers\n\nThe governed specification corpus currently contains stable family identifiers\nincluding:\n\n```text\nFUN-*\nIFC-*\nSEC-*\nTECH-*\nDATA-*\nMKE-*\n```\n\nExamples include:\n\n```text\nFUN-AIENG-0001\nIFC-AIENG-0001\nSEC-AIENG-0001\nTECH-HARNESS-0001\nDATA-SOURCE-0001\nMKE-CORE-0001\n```\n\nThese identifiers are already part of repository history and governed\ncross-references.\n\n## Root Cause\n\nEOS currently conflates two different concepts:\n\n1. **entity type**, such as Requirement or Specification;\n2. **literal identifier prefix**, such as `REQ` or `SPEC`.\n\nThe repository architecture has evolved toward typed identifier families in\nwhich the prefix can also express a useful subtype.\n\nFor example:\n\n```text\nRequirement\n├── FR-*     functional requirement\n├── QR-*     quality requirement\n└── REQ-*    generic requirement\n\nSpecification\n├── FUN-*    functional specification\n├── IFC-*    interface specification\n├── SEC-*    security specification\n├── TECH-*   technical specification\n├── DATA-*   data specification\n├── MKE-*    Monad Knowledge Engine specification\n└── SPEC-*   generic specification\n```\n\nThe entity type and identifier family are therefore related but not identical.\n\n## Machine-Level Effects\n\nThe mismatch affects more than JSON Schema validation.\n\nThe legacy/current EOS trace implementation also contains prefix-specific\nbehavior for:\n\n* identifier extraction;\n* explicit relationship parsing;\n* source/target classification;\n* inferred edge types;\n* requirement coverage;\n* specification coverage;\n* Work Packet-to-requirement/specification trace classification;\n* impact classification.\n\nConsequently, repository-native IDs such as `FR-043` and\n`FUN-AIENG-0001` may appear in prose while remaining invisible to portions of\nthe canonical machine trace model.\n\n## Risk if Deferred\n\nIf deferred:\n\n1. semantic requirements/specifications remain underrepresented in machine\n   traceability;\n2. trace coverage can report misleading results;\n3. AIENG requirement-to-specification coverage cannot be claimed as complete;\n4. impact analysis may omit governed dependencies;\n5. stale-dependency propagation may miss affected artifacts;\n6. future implementation planning may consume incomplete governing context;\n7. machine and human views of engineering identity continue to diverge.\n\nBecause AI-driven engineering depends heavily on compiled governed context,\nleaving this mismatch unresolved would undermine one of the principal controls\nthe new operating model depends upon.\n\n## Recommended Resolution\n\n### Resolution principle\n\nTreat established repository-native IDs as **first-class canonical identifiers\nof their entity type**, not aliases for newly invented `REQ-*` or `SPEC-*`\nidentities.\n\nThe canonical entity type determines whether an artifact is a Requirement or\nSpecification.\n\nThe literal prefix may additionally encode a stable requirement/specification\nfamily.\n\n### Requirement identifier families\n\nRequirement identity SHOULD accept at least:\n\n```text\nREQ-*\nFR-*\nQR-*\n```\n\nwhere:\n\n* `REQ-*` remains the generic Requirement family;\n* `FR-*` remains a functional-requirement family;\n* `QR-*` remains a quality-requirement family.\n\n### Specification identifier families\n\nSpecification identity SHOULD accept the currently established families:\n\n```text\nSPEC-*\nFUN-*\nIFC-*\nSEC-*\nTECH-*\nDATA-*\nMKE-*\n```\n\nwhere `SPEC-*` remains available as the generic Specification family.\n\nBefore implementation, the repository MUST be scanned deterministically for\nany additional already-established specification family so that the repair does\nnot encode an incomplete hand-selected list.\n\n### Domain-model representation\n\nThe canonical domain model SHOULD distinguish:\n\n```text\nentity_type\n```\n\nfrom:\n\n```text\naccepted identifier families\n```\n\nrather than implying that one entity type must always have one literal prefix.\n\nThe domain model MAY retain `REQ` and `SPEC` as generic/default prefixes, but it\nSHOULD explicitly represent the accepted native prefixes or equivalent pattern.\n\n### Core schema changes\n\nUpdate:\n\n```text\n.eos/schemas/core/requirement.schema.json\n.eos/schemas/core/specification.schema.json\n```\n\nso valid existing repository-native IDs conform without changing their\nidentity.\n\nThe schemas MUST continue rejecting unrelated malformed IDs.\n\n### EOS identifier recognition\n\nUpdate EOS identifier recognition so the central identifier matcher recognizes\nthe canonical native Requirement and Specification families.\n\nThe implementation SHOULD centralize classification with semantic predicates\nequivalent to:\n\n```text\nis_requirement_id(id)\nis_specification_id(id)\n```\n\nrather than scattering repeated `startswith(\"REQ-\")` and\n`startswith(\"SPEC-\")` checks.\n\n### Trace inference\n\nTrace inference MUST treat:\n\n```text\nFR-*\nQR-*\n```\n\nas Requirement entities and:\n\n```text\nFUN-*\nIFC-*\nSEC-*\nTECH-*\nDATA-*\nMKE-*\nSPEC-*\n```\n\nas Specification entities.\n\nExisting semantic edge behavior must therefore apply consistently.\n\nExamples:\n\n```text\nWP -> FR/QR\n    implements\n\nWP -> FUN/IFC/SEC/TECH/DATA/MKE/SPEC\n    satisfies\n\nSpecification -> FR/QR\n    satisfies\n\nSpecification -> ADR/QA\n    constrained-by\n```\n\nExact edge direction remains governed by the existing trace contract.\n\n### Trace coverage\n\n`./scripts/eos trace coverage` MUST count repository-native Requirement and\nSpecification entities rather than only `REQ-*` and `SPEC-*`.\n\nThe resulting coverage metric MUST represent the actual governed corpus.\n\n### Artifact resolution\n\nAny EOS artifact-ID lookup that relies on the legacy identifier matcher MUST\nrecognize the expanded canonical families.\n\n### Staleness and impact analysis\n\nImpact and stale-dependency logic MUST operate on native Requirement and\nSpecification identifiers exactly as it currently does for `REQ-*` and\n`SPEC-*`.\n\n### Generated trace state\n\n`.eos/trace-edges.tsv` remains generated state.\n\nThe repair MUST rebuild it from canonical source artifacts.\n\nNo manual trace edges are authorized as part of the repair.\n\n## Compatibility\n\nThe repair MUST be additive.\n\nExisting:\n\n```text\nREQ-*\nSPEC-*\n```\n\nidentifiers remain valid.\n\nThe change does not redefine an existing stable artifact ID.\n\nIt expands the set of identifiers recognized for the existing Requirement and\nSpecification entity types.\n\n## Identity Semantics\n\nThis maintenance resolution is consistent with ADR-0003.\n\nADR-0003 establishes that an explicit governed identifier is the stable\nDocument ID where the artifact contract defines one.\n\nTherefore:\n\n```text\nFR-043\n```\n\nmust remain `FR-043`, and:\n\n```text\nFUN-AIENG-0001\n```\n\nmust remain `FUN-AIENG-0001`.\n\nCreating a second canonical `REQ-*` or `SPEC-*` identity for either artifact\nwould introduce unnecessary duplicate identity and mapping complexity.\n\n## Anticipated Affected Components\n\nAt minimum:\n\n```text\n.eos/domain-model.json\n.eos/schemas/core/requirement.schema.json\n.eos/schemas/core/specification.schema.json\ntools/eos/eos.py\n```\n\nThe implementation preflight MUST inspect other EOS modules for duplicated\nRequirement/Specification prefix assumptions, including:\n\n```text\ntools/eos/canonical_state.py\ntools/eos/execution_v2.py\ntools/eos/verification_v2.py\ntools/eos/state_model.py\ntools/eos/trace_integrity.py\n```\n\nOnly files demonstrated to contain affected behavior should be changed.\n\n## Verification Plan\n\nThe repair MUST include deterministic tests covering at least:\n\n### Requirement identity\n\nValid:\n\n```text\nREQ-FOO-0001\nFR-043\nQR-010\n```\n\nInvalid unrelated prefixes remain rejected.\n\n### Specification identity\n\nValid examples:\n\n```text\nSPEC-CORE-0001\nFUN-AIENG-0001\nIFC-AIENG-0001\nSEC-AIENG-0001\nTECH-HARNESS-0001\nDATA-SOURCE-0001\nMKE-CORE-0001\n```\n\n### Stable identity\n\nVerify no existing requirement or specification is renumbered or assigned a\nsecond canonical identity.\n\n### Duplicate detection\n\nDuplicate native explicit IDs remain fatal or otherwise fail closed according\nto the existing identity contract.\n\n### Trace extraction\n\nVerify references containing native Requirement and Specification identifiers\nare discovered.\n\n### Edge inference\n\nVerify native prefixes receive the same semantic relationship classes as their\nRequirement/Specification entity type.\n\n### Coverage\n\nVerify trace coverage includes native requirements and specifications.\n\nAt minimum, the AIENG baseline should become visible to machine traceability:\n\n```text\nFR-043\n  -> FUN-AIENG-0001\n  -> IFC-AIENG-0001\n  -> SEC-AIENG-0001\n```\n\naccording to the actual explicit/inferred relationships in the governed\nartifacts.\n\n### Impact analysis\n\nVerify impact traversal reaches downstream entities referenced through native\nRequirement and Specification IDs.\n\n### Generated-state determinism\n\nRebuilding trace state twice without source changes MUST produce identical\ngenerated bytes.\n\n### EOS integrity\n\nAfter implementation:\n\n```bash\n./scripts/eos state status\n./scripts/eos trace coverage\n./scripts/eos verify\n```\n\nmust remain consistent before strict verification/evidence refresh.\n\n## Completion Criteria\n\nMNT-0005 may close only when:\n\n* [ ] the accepted identifier-family semantics are implemented;\n* [ ] existing governed IDs remain unchanged;\n* [ ] Requirement schema validates established Requirement families;\n* [ ] Specification schema validates established Specification families;\n* [ ] EOS identifier extraction recognizes all accepted native families;\n* [ ] trace inference uses semantic Requirement/Specification classification;\n* [ ] trace coverage includes native requirements/specifications;\n* [ ] impact/staleness behavior recognizes native families;\n* [ ] deterministic tests cover the repaired behavior;\n* [ ] generated trace projection rebuilds deterministically;\n* [ ] AIENG-TRC-001 is demonstrably resolved;\n* [ ] EOS state remains consistent;\n* [ ] required verification evidence is captured;\n* [ ] maintenance closure review is accepted.\n\n## Closure Evidence\n\nImplementation checkpoints:\n\n- `a530c135c066c15ed08ef13d25d01d2cd7661e0e` — recognize native Requirement and Specification identifiers;\n- `c513606cff15ec8ec4605b1ecfab7b0345d7c699` — tighten native identifier semantics.\n\nVerification checkpoint:\n\n- `589d67478d1002c76116885ce203a099205ac41c` — verify native identity resolution.\n\nVerification review:\n\n- `engineering/reviews/MNT-0005-IDENTITY-RESOLUTION-VERIFICATION.md`\n- disposition: `PASS — RECOMMEND MNT-0005 CLOSURE`\n\nClosure review:\n\n- `engineering/reviews/MNT-0005-REVIEW.md`\n- disposition: `ACCEPTED`\n\nHuman closure authority:\n\n- `engineering/reviews/DECISION-0008-2026-09-05-mnt-0005-closure-approval.md`\n- explicit authority statement: `I approve MNT-0005 closure.`\n\nResolved finding:\n\n- `AIENG-TRC-001 — Requirement/specification identifier namespace mismatch`\n\nFinal lifecycle closure is performed through the ordinary EOS `MNT_CLOSE` gate.\n\n## Implementation Approval\n\n**APPROVED — 2026-09-05**\n\nApproval evidence:\n\n`engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md`\n\nThe Human Project Steward / Architecture Owner explicitly approved this\nmaintenance plan for implementation.\n\nImplementation remains bounded by this maintenance artifact, the approval\ndecision, applicable EOS authority, and required verification/review.\n\n## Implementation Authorization\n\n**SATISFIED — 2026-09-05**\n\nImplementation authority was explicitly granted by the Human Project Steward / Architecture Owner and durably recorded in:\n\n`engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md`\n\nThe authorized implementation remained bounded by MNT-0005 and completed under that authority.\n\nClosure authority is separately recorded in:\n\n`engineering/reviews/DECISION-0008-2026-09-05-mnt-0005-closure-approval.md`\n",
+  "document_id": "doc:engineering%2Fmaintenance%2FMNT-0005.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0003",
+    "ADR-0006",
+    "ADR-0008",
+    "FR-043",
+    "QR-010"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"MNT-0005\" title: \"EOS canonical REQ/SPEC identity model excludes repository-native requirement and specification identifiers\" type: \"maintenance\" version: \"0.1.0\" status: \"CLOSED\" authority: \"planning-authoritative\" created: \"2026-09-05\" updated: \"2026-09-05\" ---",
+    "title": "MNT-0005 — EOS canonical REQ/SPEC identity model excludes repository-native requirement and specification identifiers"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"MNT-0005\"\ntitle: \"EOS canonical REQ/SPEC identity model excludes repository-native requirement and specification identifiers\"\ntype: \"maintenance\"\nversion: \"0.1.0\"\nstatus: \"CLOSED\"\nauthority: \"planning-authoritative\"\ncreated: \"2026-09-05\"\nupdated: \"2026-09-05\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 14,
+      "line_start": 12,
+      "section_id": "mnt-0005-eos-canonical-req-spec-identity-model-excludes-repository-native-requirement-and-specification-identifiers",
+      "text": "# MNT-0005 — EOS canonical REQ/SPEC identity model excludes repository-native requirement and specification identifiers\n\n**State:** CLOSED",
+      "title": "MNT-0005 — EOS canonical REQ/SPEC identity model excludes repository-native requirement and specification identifiers"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 15,
+      "section_id": "type",
+      "text": "## Type\n\nbug",
+      "title": "Type"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 28,
+      "line_start": 19,
+      "section_id": "summary",
+      "text": "## Summary\n\nThe EOS canonical Requirement and Specification identity model recognizes only\n`REQ-*` and `SPEC-*` identifiers while the governed human-authored repository\nalready uses stable requirement and specification family identifiers outside\nthose prefixes.\n\nAs a result, valid governed artifacts are semantically present in the repository\nbut are incompletely represented by EOS machine traceability.",
+      "title": "Summary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 29,
+      "section_id": "origin",
+      "text": "## Origin\n\nThis defect was identified as:\n\n**AIENG-TRC-001 — Requirement/specification identifier namespace mismatch**\n\nduring the AIENG normative traceability and conformance review.\n\nThe AIENG normative specification baseline was subsequently approved while\nexplicitly preserving this finding as an unresolved pre-implementation\ntraceability obligation.",
+      "title": "Origin"
+    },
+    {
+      "identifiers": [
+        "ADR-0003",
+        "ADR-0006",
+        "ADR-0008"
+      ],
+      "level": 2,
+      "line_end": 64,
+      "line_start": 41,
+      "section_id": "governing-constraints",
+      "text": "## Governing Constraints\n\nThe resolution MUST preserve:\n\n* ADR-0003 stable governed document identity;\n* ADR-0006 EOS sovereignty;\n* ADR-0008 AI-driven engineering architecture;\n* EOS-AI-0001;\n* one canonical semantic identity per governed artifact;\n* existing repository history;\n* deterministic traceability;\n* backwards compatibility for already-valid `REQ-*` and `SPEC-*` identifiers.\n\nThe resolution MUST NOT:\n\n* silently renumber existing requirements;\n* silently renumber existing specifications;\n* create duplicate canonical identities for the same governed artifact;\n* introduce an independent alias registry as a second identity authority;\n* manufacture trace edges by manually editing `.eos/trace-edges.tsv`;\n* weaken duplicate-ID detection;\n* weaken stable-identity guarantees;\n* broaden this maintenance item into unrelated EOS redesign.",
+      "title": "Governing Constraints"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 66,
+      "line_start": 65,
+      "section_id": "current-state",
+      "text": "## Current State",
+      "title": "Current State"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 77,
+      "line_start": 67,
+      "section_id": "canonical-requirement-model",
+      "text": "### Canonical Requirement model\n\nThe canonical Requirement schema currently requires:\n\n```text\nREQ-*\n```\n\nand the EOS domain model likewise declares the Requirement namespace using the\n`REQ-*` form.",
+      "title": "Canonical Requirement model"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 88,
+      "line_start": 78,
+      "section_id": "canonical-specification-model",
+      "text": "### Canonical Specification model\n\nThe canonical Specification schema currently requires:\n\n```text\nSPEC-*\n```\n\nand the EOS domain model likewise declares the Specification namespace using the\n`SPEC-*` form.",
+      "title": "Canonical Specification model"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 99,
+      "line_start": 89,
+      "section_id": "existing-requirement-identifiers",
+      "text": "### Existing requirement identifiers\n\nThe governed product requirements corpus uses stable identifiers including:\n\n```text\nFR-*\nQR-*\n```\n\nThese represent requirement classes, not informal labels.",
+      "title": "Existing requirement identifiers"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 127,
+      "line_start": 100,
+      "section_id": "existing-specification-identifiers",
+      "text": "### Existing specification identifiers\n\nThe governed specification corpus currently contains stable family identifiers\nincluding:\n\n```text\nFUN-*\nIFC-*\nSEC-*\nTECH-*\nDATA-*\nMKE-*\n```\n\nExamples include:\n\n```text\nFUN-AIENG-0001\nIFC-AIENG-0001\nSEC-AIENG-0001\nTECH-HARNESS-0001\nDATA-SOURCE-0001\nMKE-CORE-0001\n```\n\nThese identifiers are already part of repository history and governed\ncross-references.",
+      "title": "Existing specification identifiers"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 157,
+      "line_start": 128,
+      "section_id": "root-cause",
+      "text": "## Root Cause\n\nEOS currently conflates two different concepts:\n\n1. **entity type**, such as Requirement or Specification;\n2. **literal identifier prefix**, such as `REQ` or `SPEC`.\n\nThe repository architecture has evolved toward typed identifier families in\nwhich the prefix can also express a useful subtype.\n\nFor example:\n\n```text\nRequirement\n├── FR-*     functional requirement\n├── QR-*     quality requirement\n└── REQ-*    generic requirement\n\nSpecification\n├── FUN-*    functional specification\n├── IFC-*    interface specification\n├── SEC-*    security specification\n├── TECH-*   technical specification\n├── DATA-*   data specification\n├── MKE-*    Monad Knowledge Engine specification\n└── SPEC-*   generic specification\n```\n\nThe entity type and identifier family are therefore related but not identical.",
+      "title": "Root Cause"
+    },
+    {
+      "identifiers": [
+        "FR-043"
+      ],
+      "level": 2,
+      "line_end": 177,
+      "line_start": 158,
+      "section_id": "machine-level-effects",
+      "text": "## Machine-Level Effects\n\nThe mismatch affects more than JSON Schema validation.\n\nThe legacy/current EOS trace implementation also contains prefix-specific\nbehavior for:\n\n* identifier extraction;\n* explicit relationship parsing;\n* source/target classification;\n* inferred edge types;\n* requirement coverage;\n* specification coverage;\n* Work Packet-to-requirement/specification trace classification;\n* impact classification.\n\nConsequently, repository-native IDs such as `FR-043` and\n`FUN-AIENG-0001` may appear in prose while remaining invisible to portions of\nthe canonical machine trace model.",
+      "title": "Machine-Level Effects"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 194,
+      "line_start": 178,
+      "section_id": "risk-if-deferred",
+      "text": "## Risk if Deferred\n\nIf deferred:\n\n1. semantic requirements/specifications remain underrepresented in machine\n   traceability;\n2. trace coverage can report misleading results;\n3. AIENG requirement-to-specification coverage cannot be claimed as complete;\n4. impact analysis may omit governed dependencies;\n5. stale-dependency propagation may miss affected artifacts;\n6. future implementation planning may consume incomplete governing context;\n7. machine and human views of engineering identity continue to diverge.\n\nBecause AI-driven engineering depends heavily on compiled governed context,\nleaving this mismatch unresolved would undermine one of the principal controls\nthe new operating model depends upon.",
+      "title": "Risk if Deferred"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 196,
+      "line_start": 195,
+      "section_id": "recommended-resolution",
+      "text": "## Recommended Resolution",
+      "title": "Recommended Resolution"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 208,
+      "line_start": 197,
+      "section_id": "resolution-principle",
+      "text": "### Resolution principle\n\nTreat established repository-native IDs as **first-class canonical identifiers\nof their entity type**, not aliases for newly invented `REQ-*` or `SPEC-*`\nidentities.\n\nThe canonical entity type determines whether an artifact is a Requirement or\nSpecification.\n\nThe literal prefix may additionally encode a stable requirement/specification\nfamily.",
+      "title": "Resolution principle"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 224,
+      "line_start": 209,
+      "section_id": "requirement-identifier-families",
+      "text": "### Requirement identifier families\n\nRequirement identity SHOULD accept at least:\n\n```text\nREQ-*\nFR-*\nQR-*\n```\n\nwhere:\n\n* `REQ-*` remains the generic Requirement family;\n* `FR-*` remains a functional-requirement family;\n* `QR-*` remains a quality-requirement family.",
+      "title": "Requirement identifier families"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 244,
+      "line_start": 225,
+      "section_id": "specification-identifier-families",
+      "text": "### Specification identifier families\n\nSpecification identity SHOULD accept the currently established families:\n\n```text\nSPEC-*\nFUN-*\nIFC-*\nSEC-*\nTECH-*\nDATA-*\nMKE-*\n```\n\nwhere `SPEC-*` remains available as the generic Specification family.\n\nBefore implementation, the repository MUST be scanned deterministically for\nany additional already-established specification family so that the repair does\nnot encode an incomplete hand-selected list.",
+      "title": "Specification identifier families"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 263,
+      "line_start": 245,
+      "section_id": "domain-model-representation",
+      "text": "### Domain-model representation\n\nThe canonical domain model SHOULD distinguish:\n\n```text\nentity_type\n```\n\nfrom:\n\n```text\naccepted identifier families\n```\n\nrather than implying that one entity type must always have one literal prefix.\n\nThe domain model MAY retain `REQ` and `SPEC` as generic/default prefixes, but it\nSHOULD explicitly represent the accepted native prefixes or equivalent pattern.",
+      "title": "Domain-model representation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 277,
+      "line_start": 264,
+      "section_id": "core-schema-changes",
+      "text": "### Core schema changes\n\nUpdate:\n\n```text\n.eos/schemas/core/requirement.schema.json\n.eos/schemas/core/specification.schema.json\n```\n\nso valid existing repository-native IDs conform without changing their\nidentity.\n\nThe schemas MUST continue rejecting unrelated malformed IDs.",
+      "title": "Core schema changes"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 293,
+      "line_start": 278,
+      "section_id": "eos-identifier-recognition",
+      "text": "### EOS identifier recognition\n\nUpdate EOS identifier recognition so the central identifier matcher recognizes\nthe canonical native Requirement and Specification families.\n\nThe implementation SHOULD centralize classification with semantic predicates\nequivalent to:\n\n```text\nis_requirement_id(id)\nis_specification_id(id)\n```\n\nrather than scattering repeated `startswith(\"REQ-\")` and\n`startswith(\"SPEC-\")` checks.",
+      "title": "EOS identifier recognition"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 336,
+      "line_start": 294,
+      "section_id": "trace-inference",
+      "text": "### Trace inference\n\nTrace inference MUST treat:\n\n```text\nFR-*\nQR-*\n```\n\nas Requirement entities and:\n\n```text\nFUN-*\nIFC-*\nSEC-*\nTECH-*\nDATA-*\nMKE-*\nSPEC-*\n```\n\nas Specification entities.\n\nExisting semantic edge behavior must therefore apply consistently.\n\nExamples:\n\n```text\nWP -> FR/QR\n    implements\n\nWP -> FUN/IFC/SEC/TECH/DATA/MKE/SPEC\n    satisfies\n\nSpecification -> FR/QR\n    satisfies\n\nSpecification -> ADR/QA\n    constrained-by\n```\n\nExact edge direction remains governed by the existing trace contract.",
+      "title": "Trace inference"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 343,
+      "line_start": 337,
+      "section_id": "trace-coverage",
+      "text": "### Trace coverage\n\n`./scripts/eos trace coverage` MUST count repository-native Requirement and\nSpecification entities rather than only `REQ-*` and `SPEC-*`.\n\nThe resulting coverage metric MUST represent the actual governed corpus.",
+      "title": "Trace coverage"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 348,
+      "line_start": 344,
+      "section_id": "artifact-resolution",
+      "text": "### Artifact resolution\n\nAny EOS artifact-ID lookup that relies on the legacy identifier matcher MUST\nrecognize the expanded canonical families.",
+      "title": "Artifact resolution"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 354,
+      "line_start": 349,
+      "section_id": "staleness-and-impact-analysis",
+      "text": "### Staleness and impact analysis\n\nImpact and stale-dependency logic MUST operate on native Requirement and\nSpecification identifiers exactly as it currently does for `REQ-*` and\n`SPEC-*`.",
+      "title": "Staleness and impact analysis"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 362,
+      "line_start": 355,
+      "section_id": "generated-trace-state",
+      "text": "### Generated trace state\n\n`.eos/trace-edges.tsv` remains generated state.\n\nThe repair MUST rebuild it from canonical source artifacts.\n\nNo manual trace edges are authorized as part of the repair.",
+      "title": "Generated trace state"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 380,
+      "line_start": 363,
+      "section_id": "compatibility",
+      "text": "## Compatibility\n\nThe repair MUST be additive.\n\nExisting:\n\n```text\nREQ-*\nSPEC-*\n```\n\nidentifiers remain valid.\n\nThe change does not redefine an existing stable artifact ID.\n\nIt expands the set of identifiers recognized for the existing Requirement and\nSpecification entity types.",
+      "title": "Compatibility"
+    },
+    {
+      "identifiers": [
+        "ADR-0003",
+        "FR-043"
+      ],
+      "level": 2,
+      "line_end": 404,
+      "line_start": 381,
+      "section_id": "identity-semantics",
+      "text": "## Identity Semantics\n\nThis maintenance resolution is consistent with ADR-0003.\n\nADR-0003 establishes that an explicit governed identifier is the stable\nDocument ID where the artifact contract defines one.\n\nTherefore:\n\n```text\nFR-043\n```\n\nmust remain `FR-043`, and:\n\n```text\nFUN-AIENG-0001\n```\n\nmust remain `FUN-AIENG-0001`.\n\nCreating a second canonical `REQ-*` or `SPEC-*` identity for either artifact\nwould introduce unnecessary duplicate identity and mapping complexity.",
+      "title": "Identity Semantics"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 428,
+      "line_start": 405,
+      "section_id": "anticipated-affected-components",
+      "text": "## Anticipated Affected Components\n\nAt minimum:\n\n```text\n.eos/domain-model.json\n.eos/schemas/core/requirement.schema.json\n.eos/schemas/core/specification.schema.json\ntools/eos/eos.py\n```\n\nThe implementation preflight MUST inspect other EOS modules for duplicated\nRequirement/Specification prefix assumptions, including:\n\n```text\ntools/eos/canonical_state.py\ntools/eos/execution_v2.py\ntools/eos/verification_v2.py\ntools/eos/state_model.py\ntools/eos/trace_integrity.py\n```\n\nOnly files demonstrated to contain affected behavior should be changed.",
+      "title": "Anticipated Affected Components"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 432,
+      "line_start": 429,
+      "section_id": "verification-plan",
+      "text": "## Verification Plan\n\nThe repair MUST include deterministic tests covering at least:",
+      "title": "Verification Plan"
+    },
+    {
+      "identifiers": [
+        "FR-043",
+        "QR-010"
+      ],
+      "level": 3,
+      "line_end": 444,
+      "line_start": 433,
+      "section_id": "requirement-identity",
+      "text": "### Requirement identity\n\nValid:\n\n```text\nREQ-FOO-0001\nFR-043\nQR-010\n```\n\nInvalid unrelated prefixes remain rejected.",
+      "title": "Requirement identity"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 458,
+      "line_start": 445,
+      "section_id": "specification-identity",
+      "text": "### Specification identity\n\nValid examples:\n\n```text\nSPEC-CORE-0001\nFUN-AIENG-0001\nIFC-AIENG-0001\nSEC-AIENG-0001\nTECH-HARNESS-0001\nDATA-SOURCE-0001\nMKE-CORE-0001\n```",
+      "title": "Specification identity"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 463,
+      "line_start": 459,
+      "section_id": "stable-identity",
+      "text": "### Stable identity\n\nVerify no existing requirement or specification is renumbered or assigned a\nsecond canonical identity.",
+      "title": "Stable identity"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 468,
+      "line_start": 464,
+      "section_id": "duplicate-detection",
+      "text": "### Duplicate detection\n\nDuplicate native explicit IDs remain fatal or otherwise fail closed according\nto the existing identity contract.",
+      "title": "Duplicate detection"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 473,
+      "line_start": 469,
+      "section_id": "trace-extraction",
+      "text": "### Trace extraction\n\nVerify references containing native Requirement and Specification identifiers\nare discovered.",
+      "title": "Trace extraction"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 478,
+      "line_start": 474,
+      "section_id": "edge-inference",
+      "text": "### Edge inference\n\nVerify native prefixes receive the same semantic relationship classes as their\nRequirement/Specification entity type.",
+      "title": "Edge inference"
+    },
+    {
+      "identifiers": [
+        "FR-043"
+      ],
+      "level": 3,
+      "line_end": 494,
+      "line_start": 479,
+      "section_id": "coverage",
+      "text": "### Coverage\n\nVerify trace coverage includes native requirements and specifications.\n\nAt minimum, the AIENG baseline should become visible to machine traceability:\n\n```text\nFR-043\n  -> FUN-AIENG-0001\n  -> IFC-AIENG-0001\n  -> SEC-AIENG-0001\n```\n\naccording to the actual explicit/inferred relationships in the governed\nartifacts.",
+      "title": "Coverage"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 499,
+      "line_start": 495,
+      "section_id": "impact-analysis",
+      "text": "### Impact analysis\n\nVerify impact traversal reaches downstream entities referenced through native\nRequirement and Specification IDs.",
+      "title": "Impact analysis"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 504,
+      "line_start": 500,
+      "section_id": "generated-state-determinism",
+      "text": "### Generated-state determinism\n\nRebuilding trace state twice without source changes MUST produce identical\ngenerated bytes.",
+      "title": "Generated-state determinism"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 516,
+      "line_start": 505,
+      "section_id": "eos-integrity",
+      "text": "### EOS integrity\n\nAfter implementation:\n\n```bash\n./scripts/eos state status\n./scripts/eos trace coverage\n./scripts/eos verify\n```\n\nmust remain consistent before strict verification/evidence refresh.",
+      "title": "EOS integrity"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 535,
+      "line_start": 517,
+      "section_id": "completion-criteria",
+      "text": "## Completion Criteria\n\nMNT-0005 may close only when:\n\n* [ ] the accepted identifier-family semantics are implemented;\n* [ ] existing governed IDs remain unchanged;\n* [ ] Requirement schema validates established Requirement families;\n* [ ] Specification schema validates established Specification families;\n* [ ] EOS identifier extraction recognizes all accepted native families;\n* [ ] trace inference uses semantic Requirement/Specification classification;\n* [ ] trace coverage includes native requirements/specifications;\n* [ ] impact/staleness behavior recognizes native families;\n* [ ] deterministic tests cover the repaired behavior;\n* [ ] generated trace projection rebuilds deterministically;\n* [ ] AIENG-TRC-001 is demonstrably resolved;\n* [ ] EOS state remains consistent;\n* [ ] required verification evidence is captured;\n* [ ] maintenance closure review is accepted.",
+      "title": "Completion Criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 567,
+      "line_start": 536,
+      "section_id": "closure-evidence",
+      "text": "## Closure Evidence\n\nImplementation checkpoints:\n\n- `a530c135c066c15ed08ef13d25d01d2cd7661e0e` — recognize native Requirement and Specification identifiers;\n- `c513606cff15ec8ec4605b1ecfab7b0345d7c699` — tighten native identifier semantics.\n\nVerification checkpoint:\n\n- `589d67478d1002c76116885ce203a099205ac41c` — verify native identity resolution.\n\nVerification review:\n\n- `engineering/reviews/MNT-0005-IDENTITY-RESOLUTION-VERIFICATION.md`\n- disposition: `PASS — RECOMMEND MNT-0005 CLOSURE`\n\nClosure review:\n\n- `engineering/reviews/MNT-0005-REVIEW.md`\n- disposition: `ACCEPTED`\n\nHuman closure authority:\n\n- `engineering/reviews/DECISION-0008-2026-09-05-mnt-0005-closure-approval.md`\n- explicit authority statement: `I approve MNT-0005 closure.`\n\nResolved finding:\n\n- `AIENG-TRC-001 — Requirement/specification identifier namespace mismatch`\n\nFinal lifecycle closure is performed through the ordinary EOS `MNT_CLOSE` gate.",
+      "title": "Closure Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 581,
+      "line_start": 568,
+      "section_id": "implementation-approval",
+      "text": "## Implementation Approval\n\n**APPROVED — 2026-09-05**\n\nApproval evidence:\n\n`engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md`\n\nThe Human Project Steward / Architecture Owner explicitly approved this\nmaintenance plan for implementation.\n\nImplementation remains bounded by this maintenance artifact, the approval\ndecision, applicable EOS authority, and required verification/review.",
+      "title": "Implementation Approval"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 594,
+      "line_start": 582,
+      "section_id": "implementation-authorization",
+      "text": "## Implementation Authorization\n\n**SATISFIED — 2026-09-05**\n\nImplementation authority was explicitly granted by the Human Project Steward / Architecture Owner and durably recorded in:\n\n`engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md`\n\nThe authorized implementation remained bounded by MNT-0005 and completed under that authority.\n\nClosure authority is separately recorded in:\n\n`engineering/reviews/DECISION-0008-2026-09-05-mnt-0005-closure-approval.md`",
+      "title": "Implementation Authorization"
+    }
+  ],
+  "source": {
+    "bytes": 14469,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 594,
+    "media_type": "text/markdown",
+    "path": "engineering/maintenance/MNT-0005.md",
+    "sha256": "32862661c253f4df9e21e0a79da8087b48ced1b517cfee72bfda428f45688b5a"
+  }
+}

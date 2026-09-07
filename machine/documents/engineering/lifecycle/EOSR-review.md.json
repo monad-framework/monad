@@ -1,5 +1,5 @@
 {
-  "content": "---\nartifact_id: \"EOSR\"\ntitle: \"EOSR Review\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSR — Review\n\n## Purpose\n\nDetermine whether work conforms to its governing intent and whether it may\nadvance, close, release, or must return to planning/change control.\n\n## Review Levels\n\n- work packet;\n- work cycle;\n- program increment;\n- architecture/change;\n- release readiness;\n- maintenance closure.\n\n## Primary Commands\n\n```bash\n./scripts/eos review WP-CORE-0001\n./scripts/eos close WP-CORE-0001\n./scripts/eos close-cycle WC-0003\n./scripts/eos close-pi PI-002\n```\n\nDeterministic checks are automated. Human authority is retained for final gates\nthat require risk acceptance or material tradeoffs.\n",
+  "content": "---\nartifact_id: \"EOSR\"\ntitle: \"EOSR Review\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSR — Review\n\n## Purpose\n\nDetermine whether work conforms to its governing intent and whether it may\nadvance, close, release, or must return to planning/change control.\n\n## Review Levels\n\n- work packet;\n- work cycle;\n- program increment;\n- architecture/change;\n- release readiness;\n- maintenance closure.\n\n## Primary Commands\n\n```bash\n./scripts/eos review WP-CORE-0001\n./scripts/eos close WP-CORE-0001\n./scripts/eos close-cycle WC-0003\n./scripts/eos close-pi PI-002\n```\n\nDeterministic checks are automated. Human authority is retained for final gates\nthat require risk acceptance or material tradeoffs.\n\n## AI-Driven Review Participation\n\nAI MAY participate in EOSR review when applicable policy permits it.\n\nWhere independent review is required, independence MUST be evaluated from the\nactual review relationship rather than assumed from a second model invocation.\n\nRelevant independence dimensions MAY include:\n\n- executor identity;\n- reviewer identity;\n- model;\n- provider;\n- harness;\n- context isolation;\n- prompt isolation;\n- organizational role;\n- human participation.\n\nA second invocation of the same model or harness MUST NOT automatically satisfy\nan independent-review obligation.\n\nAI review findings and dispositions are recommendations unless governance\nexplicitly delegates the applicable binding authority.\n\nReserved human acceptance, risk, architecture, security, operations, or release\nauthority remains reserved according to `governance/authority.md`.\n",
   "document_id": "doc:engineering%2Flifecycle%2FEOSR-review.md",
   "generation": {
     "deterministic": true,
@@ -61,20 +61,29 @@
         "WC-0003"
       ],
       "level": 2,
-      "line_end": 38,
+      "line_end": 39,
       "line_start": 28,
       "section_id": "primary-commands",
       "text": "## Primary Commands\n\n```bash\n./scripts/eos review WP-CORE-0001\n./scripts/eos close WP-CORE-0001\n./scripts/eos close-cycle WC-0003\n./scripts/eos close-pi PI-002\n```\n\nDeterministic checks are automated. Human authority is retained for final gates\nthat require risk acceptance or material tradeoffs.",
       "title": "Primary Commands"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 66,
+      "line_start": 40,
+      "section_id": "ai-driven-review-participation",
+      "text": "## AI-Driven Review Participation\n\nAI MAY participate in EOSR review when applicable policy permits it.\n\nWhere independent review is required, independence MUST be evaluated from the\nactual review relationship rather than assumed from a second model invocation.\n\nRelevant independence dimensions MAY include:\n\n- executor identity;\n- reviewer identity;\n- model;\n- provider;\n- harness;\n- context isolation;\n- prompt isolation;\n- organizational role;\n- human participation.\n\nA second invocation of the same model or harness MUST NOT automatically satisfy\nan independent-review obligation.\n\nAI review findings and dispositions are recommendations unless governance\nexplicitly delegates the applicable binding authority.\n\nReserved human acceptance, risk, architecture, security, operations, or release\nauthority remains reserved according to `governance/authority.md`.",
+      "title": "AI-Driven Review Participation"
     }
   ],
   "source": {
-    "bytes": 797,
+    "bytes": 1662,
     "canonical": true,
     "language": "markdown",
-    "lines": 38,
+    "lines": 66,
     "media_type": "text/markdown",
     "path": "engineering/lifecycle/EOSR-review.md",
-    "sha256": "1763b6ede4deed06b37a0ed3d86227ef9c3384bc73abd44804018d90a2d16d2e"
+    "sha256": "f4a3dcb7e45ed016bbc923e264d329605ce5cff702eee2cb46e55bcdd5aef4ef"
   }
 }

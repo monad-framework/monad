@@ -1,0 +1,274 @@
+{
+  "content": "---\ntitle: \"MNT-0006 Canonical Transaction Atomicity Verification\"\nartifact_id: \"MNT-0006-VERIFICATION\"\nversion: \"1.0.0\"\nstatus: \"COMPLETE\"\nclassification: \"Maintenance Verification Review\"\ntarget: \"MNT-0006\"\ndate: \"2026-09-05\"\ndisposition: \"PASS\"\n---\n\n# MNT-0006 — Canonical Transaction Atomicity Verification\n\n## Purpose\n\nThis review verifies the implementation of MNT-0006:\n\n> EOS canonical transaction failure leaves rejected projection and event mutations.\n\nThe required invariant is:\n\n> Either the entire EOS mutation is captured as one consistent canonical transaction, or all transaction-local mutations are automatically returned to their exact pre-transaction state.\n\nThis verification concerns local repository and EOS transaction atomicity. It does not claim distributed transaction atomicity for irreversible external effects such as GitHub writes, publication, release distribution, or other external systems.\n\n## Governing Approval\n\nImplementation was authorized by:\n\n- `engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md`\n\nThe approved sequencing required MNT-0006 to be implemented and verified before MNT-0005 proceeds.\n\n## Implementation Under Review\n\nPrimary implementation commits:\n\n- `2672b6969ed4cf258cf5851acf6f9d6e51364062` — `fix(eos): make canonical transactions locally atomic`\n- `3a1f67b825a4c7b1184a6e5a7fbd791488501ef2` — `fix(eos): correct transaction rollback verification`\n\nEvidence checkpoint:\n\n- `c186ff4c00fd9961e30fdccd57db26a44a493a8d` — `test(eos): checkpoint transaction atomicity evidence`\n\nPrincipal implementation surfaces:\n\n- `scripts/eos`\n- `tools/eos/canonical_state.py`\n- `tools/eos/test_canonical_state.py`\n- `tools/eos/test_wrapper_dispatch.py`\n\n## Implemented Transaction Semantics\n\nThe implementation establishes a transaction-scoped before-image mechanism for local EOS-governed mutation surfaces.\n\nAt canonical preflight:\n\n1. the current canonical revision and digest are recorded;\n2. local EOS/governance files potentially owned by the transaction are snapshotted;\n3. each before-image is checksummed;\n4. the transaction receipt references the snapshot set.\n\nOn successful execution:\n\n1. the selected EOS runtime executes;\n2. canonical post-validation checks projection consistency;\n3. canonical state is advanced only if the resulting state is valid;\n4. the active transaction receipt and before-images are removed only after postconditions succeed.\n\nOn rejected execution:\n\n1. all before-image checksums are validated before restoration;\n2. files created by the rejected transaction within transaction-owned surfaces are removed;\n3. pre-existing files are restored byte-for-byte;\n4. canonical/projection consistency is revalidated;\n5. successful rollback removes the active receipt and before-images;\n6. rollback failure retains recovery material and fails closed.\n\n## Automated Test Verification\n\nThe canonical-state suite verifies:\n\n- successful transaction progression;\n- rejected lifecycle transition rollback;\n- exact canonical/projection/event restoration;\n- rejected entity-creation rollback;\n- removal of transaction-created artifacts;\n- preservation of pre-existing dirty governance bytes;\n- successful receipt and before-image cleanup;\n- corrupt before-image detection;\n- fail-closed preservation of recovery material.\n\nThe wrapper-dispatch suite verifies:\n\n- normal runtime dispatch;\n- runtime failure rollback dispatch;\n- canonical post-validation failure rollback dispatch;\n- preservation of the original failure status when rollback succeeds;\n- fail-closed wrapper status when rollback itself fails;\n- explicit recovery-required diagnostics.\n\nObserved result:\n\n```text\nCanonical state tests: PASS\nCanonical reconciliation tests: PASS\nEOS wrapper dispatch: PASS\n````\n\n## Independent Isolated Fault Verification\n\nVerification was repeated against corrected implementation commit:\n\n`3a1f67b825a4c7b1184a6e5a7fbd791488501ef2`\n\nusing two disposable detached Git worktrees.\n\n### Scenario A — Canonical Post-Validation Failure\n\nFault injected:\n\n* runtime lifecycle mutation was allowed to proceed;\n* MNT-0006 TSV/event/visible lifecycle state moved toward `VERIFYING`;\n* frontmatter remained deliberately inconsistent at `IN_PROGRESS`.\n\nObserved rejection:\n\n```text\nERROR: Successful command left inconsistent projections; canonical state was NOT advanced:\n- MNT-0006 cannot be captured: TSV=VERIFYING frontmatter=IN_PROGRESS\n```\n\nObserved rollback:\n\n```text\nEOS canonical transaction rolled back; local projections consistent.\n```\n\nPost-rollback result:\n\n```text\nSCENARIO A: PASS\nRESULT: CONSISTENT\n```\n\nThe verification compared pre- and post-command fingerprints for:\n\n* `.eos/state/current.json`\n* `.eos/state/projections.json`\n* `.eos/maintenance.tsv`\n* `.eos/events.jsonl`\n* `engineering/maintenance/MNT-0006.md`\n* a pre-existing dirty governance file\n\nAll compared equal after rollback.\n\nThe test also verified:\n\n* MNT-0006 remained `IN_PROGRESS`;\n* no active transaction receipt remained;\n* no transaction backup directory remained;\n* a rollback diagnostic was retained.\n\n### Scenario B — Runtime Failure After Local Mutation\n\nFault injected:\n\n* the runtime first mutated the MNT-0006 lifecycle surfaces;\n* the runtime then deliberately raised an error before successful completion.\n\nObserved failure:\n\n```text\nERROR: forced MNT-0006 runtime failure after local mutation\n```\n\nObserved rollback:\n\n```text\nEOS canonical transaction rolled back; local projections consistent.\n```\n\nPost-rollback result:\n\n```text\nSCENARIO B: PASS\nRESULT: CONSISTENT\n```\n\nThe same canonical, registry, event, Markdown, and dirty-user bytes were verified unchanged after rollback.\n\nThe test also verified:\n\n* MNT-0006 remained `IN_PROGRESS`;\n* transaction-created local mutations did not survive;\n* no active transaction receipt remained;\n* no transaction backup directory remained.\n\n## Verified Invariants\n\n### INV-MNT6-01 — Canonical State Does Not Advance on Rejection\n\n**PASS**\n\nRejected transactions leave the canonical revision and digest unchanged.\n\n### INV-MNT6-02 — Projection Mutations Are Atomic\n\n**PASS**\n\nRejected TSV and Markdown lifecycle mutations are restored to their exact pre-transaction values.\n\n### INV-MNT6-03 — Event Mutations Are Atomic\n\n**PASS**\n\nEvents appended by rejected local transactions do not remain in the live event ledger after successful rollback.\n\n### INV-MNT6-04 — Created Artifacts Are Removed\n\n**PASS**\n\nFiles created solely by a rejected transaction within transaction-owned governance surfaces are removed.\n\n### INV-MNT6-05 — Pre-existing Dirty Work Is Preserved\n\n**PASS**\n\nFiles existing before the transaction are restored from transaction before-images rather than through Git reset or destructive repository-wide rollback.\n\n### INV-MNT6-06 — Rollback Failure Fails Closed\n\n**PASS**\n\nInvalid or unavailable before-images prevent rollback completion, retain recovery state, and require explicit recovery.\n\n### INV-MNT6-07 — Successful Transactions Clean Up Recovery State\n\n**PASS**\n\nA successful transaction removes its active receipt and transaction before-images only after canonical post-validation succeeds.\n\n### INV-MNT6-08 — Post-Rollback State Is Canonically Consistent\n\n**PASS**\n\nBoth isolated failure scenarios ended with:\n\n```text\nRESULT: CONSISTENT\n```\n\n## Scope Boundary\n\nThe implementation provides **local EOS transaction atomicity**.\n\nIt does not establish distributed atomic commit semantics for external side effects including:\n\n* GitHub mutations;\n* remote publication;\n* release distribution;\n* external APIs;\n* irreversible third-party operations.\n\nThose effects require separate idempotency, compensation, prepare/commit, or reconciliation semantics where applicable.\n\nThis limitation is not a failure of MNT-0006 because MNT-0006 addresses rejected mutation of the local canonical EOS transaction and its governed repository projections.\n\n## Relationship to MNT-0003\n\nMNT-0006 and MNT-0003 remain distinct:\n\n* MNT-0006 governs atomic rollback of the **current local transaction**.\n* MNT-0003 governs preservation and merge-safety of **divergent committed event histories**.\n\nThis verification does not close or supersede MNT-0003.\n\n## Findings\n\n### Finding MNT6-V01\n\nThe initial implementation omitted a module-scope `shutil` import.\n\nDisposition:\n\n**RESOLVED**\n\nCorrected by commit:\n\n`3a1f67b825a4c7b1184a6e5a7fbd791488501ef2`\n\n### Finding MNT6-V02\n\nThe initial wrapper rollback-failure test used brittle self-modification and did not reliably force canonical rollback failure.\n\nDisposition:\n\n**RESOLVED**\n\nThe test now uses explicit deterministic rollback-failure injection.\n\n### Finding MNT6-V03\n\nDistributed/external side-effect atomicity remains outside the implemented transaction boundary.\n\nDisposition:\n\n**NON-BLOCKING SCOPE BOUNDARY**\n\nAny future external-effect transaction semantics should be handled by the relevant integration, execution, synchronization, or publication design rather than broadening MNT-0006 retroactively.\n\n## Verification Disposition\n\n**PASS — RECOMMEND MNT-0006 CLOSURE**\n\nThe implementation satisfies the authorized MNT-0006 local canonical-transaction atomicity invariant.\n\nThe maintenance item may proceed through its remaining review/closure authority gate.\n\nNo runtime implementation authority beyond the scope already granted by DECISION-0006 is implied by this verification.\n\n## Next Sequenced Work\n\nAfter MNT-0006 is formally closed:\n\n1. begin MNT-0005 implementation;\n2. verify and close MNT-0005;\n3. rebuild machine traceability;\n4. execute the AIENG A–J conformance suite;\n5. establish stable normative verification/evidence;\n6. proceed to EOSP runtime implementation planning.\n",
+  "document_id": "doc:engineering%2Freviews%2FMNT-0006-CANONICAL-TRANSACTION-ATOMICITY-VERIFICATION.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- title: \"MNT-0006 Canonical Transaction Atomicity Verification\" artifactid: \"MNT-0006-VERIFICATION\" version: \"1.0.0\" status: \"COMPLETE\" classification: \"Maintenance Verification Review\" target: \"MNT-0006\" date: \"2026-09-05\" disposition: \"PASS\" ---",
+    "title": "MNT-0006 — Canonical Transaction Atomicity Verification"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\ntitle: \"MNT-0006 Canonical Transaction Atomicity Verification\"\nartifact_id: \"MNT-0006-VERIFICATION\"\nversion: \"1.0.0\"\nstatus: \"COMPLETE\"\nclassification: \"Maintenance Verification Review\"\ntarget: \"MNT-0006\"\ndate: \"2026-09-05\"\ndisposition: \"PASS\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 13,
+      "line_start": 12,
+      "section_id": "mnt-0006-canonical-transaction-atomicity-verification",
+      "text": "# MNT-0006 — Canonical Transaction Atomicity Verification",
+      "title": "MNT-0006 — Canonical Transaction Atomicity Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 14,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nThis review verifies the implementation of MNT-0006:\n\n> EOS canonical transaction failure leaves rejected projection and event mutations.\n\nThe required invariant is:\n\n> Either the entire EOS mutation is captured as one consistent canonical transaction, or all transaction-local mutations are automatically returned to their exact pre-transaction state.\n\nThis verification concerns local repository and EOS transaction atomicity. It does not claim distributed transaction atomicity for irreversible external effects such as GitHub writes, publication, release distribution, or other external systems.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 26,
+      "section_id": "governing-approval",
+      "text": "## Governing Approval\n\nImplementation was authorized by:\n\n- `engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md`\n\nThe approved sequencing required MNT-0006 to be implemented and verified before MNT-0005 proceeds.",
+      "title": "Governing Approval"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 51,
+      "line_start": 34,
+      "section_id": "implementation-under-review",
+      "text": "## Implementation Under Review\n\nPrimary implementation commits:\n\n- `2672b6969ed4cf258cf5851acf6f9d6e51364062` — `fix(eos): make canonical transactions locally atomic`\n- `3a1f67b825a4c7b1184a6e5a7fbd791488501ef2` — `fix(eos): correct transaction rollback verification`\n\nEvidence checkpoint:\n\n- `c186ff4c00fd9961e30fdccd57db26a44a493a8d` — `test(eos): checkpoint transaction atomicity evidence`\n\nPrincipal implementation surfaces:\n\n- `scripts/eos`\n- `tools/eos/canonical_state.py`\n- `tools/eos/test_canonical_state.py`\n- `tools/eos/test_wrapper_dispatch.py`",
+      "title": "Implementation Under Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 78,
+      "line_start": 52,
+      "section_id": "implemented-transaction-semantics",
+      "text": "## Implemented Transaction Semantics\n\nThe implementation establishes a transaction-scoped before-image mechanism for local EOS-governed mutation surfaces.\n\nAt canonical preflight:\n\n1. the current canonical revision and digest are recorded;\n2. local EOS/governance files potentially owned by the transaction are snapshotted;\n3. each before-image is checksummed;\n4. the transaction receipt references the snapshot set.\n\nOn successful execution:\n\n1. the selected EOS runtime executes;\n2. canonical post-validation checks projection consistency;\n3. canonical state is advanced only if the resulting state is valid;\n4. the active transaction receipt and before-images are removed only after postconditions succeed.\n\nOn rejected execution:\n\n1. all before-image checksums are validated before restoration;\n2. files created by the rejected transaction within transaction-owned surfaces are removed;\n3. pre-existing files are restored byte-for-byte;\n4. canonical/projection consistency is revalidated;\n5. successful rollback removes the active receipt and before-images;\n6. rollback failure retains recovery material and fails closed.",
+      "title": "Implemented Transaction Semantics"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 109,
+      "line_start": 79,
+      "section_id": "automated-test-verification",
+      "text": "## Automated Test Verification\n\nThe canonical-state suite verifies:\n\n- successful transaction progression;\n- rejected lifecycle transition rollback;\n- exact canonical/projection/event restoration;\n- rejected entity-creation rollback;\n- removal of transaction-created artifacts;\n- preservation of pre-existing dirty governance bytes;\n- successful receipt and before-image cleanup;\n- corrupt before-image detection;\n- fail-closed preservation of recovery material.\n\nThe wrapper-dispatch suite verifies:\n\n- normal runtime dispatch;\n- runtime failure rollback dispatch;\n- canonical post-validation failure rollback dispatch;\n- preservation of the original failure status when rollback succeeds;\n- fail-closed wrapper status when rollback itself fails;\n- explicit recovery-required diagnostics.\n\nObserved result:\n\n```text\nCanonical state tests: PASS\nCanonical reconciliation tests: PASS\nEOS wrapper dispatch: PASS\n````",
+      "title": "Automated Test Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 117,
+      "line_start": 110,
+      "section_id": "independent-isolated-fault-verification",
+      "text": "## Independent Isolated Fault Verification\n\nVerification was repeated against corrected implementation commit:\n\n`3a1f67b825a4c7b1184a6e5a7fbd791488501ef2`\n\nusing two disposable detached Git worktrees.",
+      "title": "Independent Isolated Fault Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 163,
+      "line_start": 118,
+      "section_id": "scenario-a-canonical-post-validation-failure",
+      "text": "### Scenario A — Canonical Post-Validation Failure\n\nFault injected:\n\n* runtime lifecycle mutation was allowed to proceed;\n* MNT-0006 TSV/event/visible lifecycle state moved toward `VERIFYING`;\n* frontmatter remained deliberately inconsistent at `IN_PROGRESS`.\n\nObserved rejection:\n\n```text\nERROR: Successful command left inconsistent projections; canonical state was NOT advanced:\n- MNT-0006 cannot be captured: TSV=VERIFYING frontmatter=IN_PROGRESS\n```\n\nObserved rollback:\n\n```text\nEOS canonical transaction rolled back; local projections consistent.\n```\n\nPost-rollback result:\n\n```text\nSCENARIO A: PASS\nRESULT: CONSISTENT\n```\n\nThe verification compared pre- and post-command fingerprints for:\n\n* `.eos/state/current.json`\n* `.eos/state/projections.json`\n* `.eos/maintenance.tsv`\n* `.eos/events.jsonl`\n* `engineering/maintenance/MNT-0006.md`\n* a pre-existing dirty governance file\n\nAll compared equal after rollback.\n\nThe test also verified:\n\n* MNT-0006 remained `IN_PROGRESS`;\n* no active transaction receipt remained;\n* no transaction backup directory remained;\n* a rollback diagnostic was retained.",
+      "title": "Scenario A — Canonical Post-Validation Failure"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 198,
+      "line_start": 164,
+      "section_id": "scenario-b-runtime-failure-after-local-mutation",
+      "text": "### Scenario B — Runtime Failure After Local Mutation\n\nFault injected:\n\n* the runtime first mutated the MNT-0006 lifecycle surfaces;\n* the runtime then deliberately raised an error before successful completion.\n\nObserved failure:\n\n```text\nERROR: forced MNT-0006 runtime failure after local mutation\n```\n\nObserved rollback:\n\n```text\nEOS canonical transaction rolled back; local projections consistent.\n```\n\nPost-rollback result:\n\n```text\nSCENARIO B: PASS\nRESULT: CONSISTENT\n```\n\nThe same canonical, registry, event, Markdown, and dirty-user bytes were verified unchanged after rollback.\n\nThe test also verified:\n\n* MNT-0006 remained `IN_PROGRESS`;\n* transaction-created local mutations did not survive;\n* no active transaction receipt remained;\n* no transaction backup directory remained.",
+      "title": "Scenario B — Runtime Failure After Local Mutation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 200,
+      "line_start": 199,
+      "section_id": "verified-invariants",
+      "text": "## Verified Invariants",
+      "title": "Verified Invariants"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 206,
+      "line_start": 201,
+      "section_id": "inv-mnt6-01-canonical-state-does-not-advance-on-rejection",
+      "text": "### INV-MNT6-01 — Canonical State Does Not Advance on Rejection\n\n**PASS**\n\nRejected transactions leave the canonical revision and digest unchanged.",
+      "title": "INV-MNT6-01 — Canonical State Does Not Advance on Rejection"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 212,
+      "line_start": 207,
+      "section_id": "inv-mnt6-02-projection-mutations-are-atomic",
+      "text": "### INV-MNT6-02 — Projection Mutations Are Atomic\n\n**PASS**\n\nRejected TSV and Markdown lifecycle mutations are restored to their exact pre-transaction values.",
+      "title": "INV-MNT6-02 — Projection Mutations Are Atomic"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 218,
+      "line_start": 213,
+      "section_id": "inv-mnt6-03-event-mutations-are-atomic",
+      "text": "### INV-MNT6-03 — Event Mutations Are Atomic\n\n**PASS**\n\nEvents appended by rejected local transactions do not remain in the live event ledger after successful rollback.",
+      "title": "INV-MNT6-03 — Event Mutations Are Atomic"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 224,
+      "line_start": 219,
+      "section_id": "inv-mnt6-04-created-artifacts-are-removed",
+      "text": "### INV-MNT6-04 — Created Artifacts Are Removed\n\n**PASS**\n\nFiles created solely by a rejected transaction within transaction-owned governance surfaces are removed.",
+      "title": "INV-MNT6-04 — Created Artifacts Are Removed"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 230,
+      "line_start": 225,
+      "section_id": "inv-mnt6-05-pre-existing-dirty-work-is-preserved",
+      "text": "### INV-MNT6-05 — Pre-existing Dirty Work Is Preserved\n\n**PASS**\n\nFiles existing before the transaction are restored from transaction before-images rather than through Git reset or destructive repository-wide rollback.",
+      "title": "INV-MNT6-05 — Pre-existing Dirty Work Is Preserved"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 236,
+      "line_start": 231,
+      "section_id": "inv-mnt6-06-rollback-failure-fails-closed",
+      "text": "### INV-MNT6-06 — Rollback Failure Fails Closed\n\n**PASS**\n\nInvalid or unavailable before-images prevent rollback completion, retain recovery state, and require explicit recovery.",
+      "title": "INV-MNT6-06 — Rollback Failure Fails Closed"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 242,
+      "line_start": 237,
+      "section_id": "inv-mnt6-07-successful-transactions-clean-up-recovery-state",
+      "text": "### INV-MNT6-07 — Successful Transactions Clean Up Recovery State\n\n**PASS**\n\nA successful transaction removes its active receipt and transaction before-images only after canonical post-validation succeeds.",
+      "title": "INV-MNT6-07 — Successful Transactions Clean Up Recovery State"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 252,
+      "line_start": 243,
+      "section_id": "inv-mnt6-08-post-rollback-state-is-canonically-consistent",
+      "text": "### INV-MNT6-08 — Post-Rollback State Is Canonically Consistent\n\n**PASS**\n\nBoth isolated failure scenarios ended with:\n\n```text\nRESULT: CONSISTENT\n```",
+      "title": "INV-MNT6-08 — Post-Rollback State Is Canonically Consistent"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 268,
+      "line_start": 253,
+      "section_id": "scope-boundary",
+      "text": "## Scope Boundary\n\nThe implementation provides **local EOS transaction atomicity**.\n\nIt does not establish distributed atomic commit semantics for external side effects including:\n\n* GitHub mutations;\n* remote publication;\n* release distribution;\n* external APIs;\n* irreversible third-party operations.\n\nThose effects require separate idempotency, compensation, prepare/commit, or reconciliation semantics where applicable.\n\nThis limitation is not a failure of MNT-0006 because MNT-0006 addresses rejected mutation of the local canonical EOS transaction and its governed repository projections.",
+      "title": "Scope Boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 277,
+      "line_start": 269,
+      "section_id": "relationship-to-mnt-0003",
+      "text": "## Relationship to MNT-0003\n\nMNT-0006 and MNT-0003 remain distinct:\n\n* MNT-0006 governs atomic rollback of the **current local transaction**.\n* MNT-0003 governs preservation and merge-safety of **divergent committed event histories**.\n\nThis verification does not close or supersede MNT-0003.",
+      "title": "Relationship to MNT-0003"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 279,
+      "line_start": 278,
+      "section_id": "findings",
+      "text": "## Findings",
+      "title": "Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 291,
+      "line_start": 280,
+      "section_id": "finding-mnt6-v01",
+      "text": "### Finding MNT6-V01\n\nThe initial implementation omitted a module-scope `shutil` import.\n\nDisposition:\n\n**RESOLVED**\n\nCorrected by commit:\n\n`3a1f67b825a4c7b1184a6e5a7fbd791488501ef2`",
+      "title": "Finding MNT6-V01"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 301,
+      "line_start": 292,
+      "section_id": "finding-mnt6-v02",
+      "text": "### Finding MNT6-V02\n\nThe initial wrapper rollback-failure test used brittle self-modification and did not reliably force canonical rollback failure.\n\nDisposition:\n\n**RESOLVED**\n\nThe test now uses explicit deterministic rollback-failure injection.",
+      "title": "Finding MNT6-V02"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 311,
+      "line_start": 302,
+      "section_id": "finding-mnt6-v03",
+      "text": "### Finding MNT6-V03\n\nDistributed/external side-effect atomicity remains outside the implemented transaction boundary.\n\nDisposition:\n\n**NON-BLOCKING SCOPE BOUNDARY**\n\nAny future external-effect transaction semantics should be handled by the relevant integration, execution, synchronization, or publication design rather than broadening MNT-0006 retroactively.",
+      "title": "Finding MNT6-V03"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 321,
+      "line_start": 312,
+      "section_id": "verification-disposition",
+      "text": "## Verification Disposition\n\n**PASS — RECOMMEND MNT-0006 CLOSURE**\n\nThe implementation satisfies the authorized MNT-0006 local canonical-transaction atomicity invariant.\n\nThe maintenance item may proceed through its remaining review/closure authority gate.\n\nNo runtime implementation authority beyond the scope already granted by DECISION-0006 is implied by this verification.",
+      "title": "Verification Disposition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 331,
+      "line_start": 322,
+      "section_id": "next-sequenced-work",
+      "text": "## Next Sequenced Work\n\nAfter MNT-0006 is formally closed:\n\n1. begin MNT-0005 implementation;\n2. verify and close MNT-0005;\n3. rebuild machine traceability;\n4. execute the AIENG A–J conformance suite;\n5. establish stable normative verification/evidence;\n6. proceed to EOSP runtime implementation planning.",
+      "title": "Next Sequenced Work"
+    }
+  ],
+  "source": {
+    "bytes": 9719,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 331,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/MNT-0006-CANONICAL-TRANSACTION-ATOMICITY-VERIFICATION.md",
+    "sha256": "763818f1aad4451161140c477007daf1619a07253132b739dbd1d2883eac3889"
+  }
+}

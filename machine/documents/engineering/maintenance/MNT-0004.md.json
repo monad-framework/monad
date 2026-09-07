@@ -1,0 +1,121 @@
+{
+  "content": "---\nartifact_id: \"MNT-0004\"\ntitle: \"EOS event ledger is not merge-safe across divergent append histories\"\ntype: \"maintenance\"\nversion: \"0.1.0\"\nstatus: \"CLOSED\"\nauthority: \"planning-authoritative\"\ncreated: \"2026-09-05\"\nupdated: \"2026-09-05\"\n---\n\n# MNT-0004 — EOS event ledger is not merge-safe across divergent append histories\n\n**State:** CLOSED\n\n## Type\n\nbug\n\n## Summary\n\nEOS event ledger is not merge-safe across divergent append histories\n\n## Context\n\nA merge of main into eosp/ai-driven-engineering-operating-model preserved CR-0003 canonical and registry state but silently removed its previously committed ENTITY_CREATED, STATE_TRANSITION, and DECISION_RECORDED events from .eos/events.jsonl. This broke lifecycle reconstructability until the exact historical events were recovered from Git. Required invariant: merge, synchronization, and reconciliation MUST NOT silently remove a previously recorded valid EOS event. Event reconciliation should preserve immutable events by event_id, fail closed on conflicting payloads for the same event_id, and verify lifecycle reconstruction after merge.\n\n## Affected Artifacts / Components\n\n- `engineering/maintenance/MNT-0003.md`\n- `engineering/maintenance/MNT-0004.md`\n- `.eos/maintenance.tsv`\n- `.eos/events.jsonl`\n- `.eos/state/current.json`\n- `.eos/state/projections.json`\n\n## Risk if Deferred\n\nLeaving MNT-0004 open would create two maintenance records that appear to own the same defect, fragmenting planning, traceability, and eventual closure evidence. MNT-0003 is the original record and remains the authoritative maintenance owner for this defect.\n\n## Proposed Resolution\n\nClose MNT-0004 as an accidentally created duplicate. Retain its lifecycle and event history for auditability. Continue all investigation, planning, implementation, verification, and closure of the underlying event-ledger merge-safety defect under MNT-0003 only.\n\n## Validation\n\nConfirmed that MNT-0003 predates MNT-0004 and describes the same event-ledger merge-safety defect. Confirmed that closing MNT-0004 does not resolve, defer, or alter MNT-0003.\n\n## Closure Evidence\n\nMNT-0003 remains OPEN as the single maintenance owner for the EOS event-ledger merge-safety defect. MNT-0004 is closed only as a duplicate record; no underlying defect remediation is claimed.\n",
+  "document_id": "doc:engineering%2Fmaintenance%2FMNT-0004.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"MNT-0004\" title: \"EOS event ledger is not merge-safe across divergent append histories\" type: \"maintenance\" version: \"0.1.0\" status: \"CLOSED\" authority: \"planning-authoritative\" created: \"2026-09-05\" updated: \"2026-09-05\" ---",
+    "title": "MNT-0004 — EOS event ledger is not merge-safe across divergent append histories"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"MNT-0004\"\ntitle: \"EOS event ledger is not merge-safe across divergent append histories\"\ntype: \"maintenance\"\nversion: \"0.1.0\"\nstatus: \"CLOSED\"\nauthority: \"planning-authoritative\"\ncreated: \"2026-09-05\"\nupdated: \"2026-09-05\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "mnt-0004-eos-event-ledger-is-not-merge-safe-across-divergent-append-histories",
+      "text": "# MNT-0004 — EOS event ledger is not merge-safe across divergent append histories\n\n**State:** CLOSED",
+      "title": "MNT-0004 — EOS event ledger is not merge-safe across divergent append histories"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 16,
+      "section_id": "type",
+      "text": "## Type\n\nbug",
+      "title": "Type"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 20,
+      "section_id": "summary",
+      "text": "## Summary\n\nEOS event ledger is not merge-safe across divergent append histories",
+      "title": "Summary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 24,
+      "section_id": "context",
+      "text": "## Context\n\nA merge of main into eosp/ai-driven-engineering-operating-model preserved CR-0003 canonical and registry state but silently removed its previously committed ENTITY_CREATED, STATE_TRANSITION, and DECISION_RECORDED events from .eos/events.jsonl. This broke lifecycle reconstructability until the exact historical events were recovered from Git. Required invariant: merge, synchronization, and reconciliation MUST NOT silently remove a previously recorded valid EOS event. Event reconciliation should preserve immutable events by event_id, fail closed on conflicting payloads for the same event_id, and verify lifecycle reconstruction after merge.",
+      "title": "Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 28,
+      "section_id": "affected-artifacts-components",
+      "text": "## Affected Artifacts / Components\n\n- `engineering/maintenance/MNT-0003.md`\n- `engineering/maintenance/MNT-0004.md`\n- `.eos/maintenance.tsv`\n- `.eos/events.jsonl`\n- `.eos/state/current.json`\n- `.eos/state/projections.json`",
+      "title": "Affected Artifacts / Components"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 40,
+      "line_start": 37,
+      "section_id": "risk-if-deferred",
+      "text": "## Risk if Deferred\n\nLeaving MNT-0004 open would create two maintenance records that appear to own the same defect, fragmenting planning, traceability, and eventual closure evidence. MNT-0003 is the original record and remains the authoritative maintenance owner for this defect.",
+      "title": "Risk if Deferred"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 41,
+      "section_id": "proposed-resolution",
+      "text": "## Proposed Resolution\n\nClose MNT-0004 as an accidentally created duplicate. Retain its lifecycle and event history for auditability. Continue all investigation, planning, implementation, verification, and closure of the underlying event-ledger merge-safety defect under MNT-0003 only.",
+      "title": "Proposed Resolution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 48,
+      "line_start": 45,
+      "section_id": "validation",
+      "text": "## Validation\n\nConfirmed that MNT-0003 predates MNT-0004 and describes the same event-ledger merge-safety defect. Confirmed that closing MNT-0004 does not resolve, defer, or alter MNT-0003.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 51,
+      "line_start": 49,
+      "section_id": "closure-evidence",
+      "text": "## Closure Evidence\n\nMNT-0003 remains OPEN as the single maintenance owner for the EOS event-ledger merge-safety defect. MNT-0004 is closed only as a duplicate record; no underlying defect remediation is claimed.",
+      "title": "Closure Evidence"
+    }
+  ],
+  "source": {
+    "bytes": 2299,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 51,
+    "media_type": "text/markdown",
+    "path": "engineering/maintenance/MNT-0004.md",
+    "sha256": "bb619d41266682aa9e1523901b517185cc8b89938ebbe1d29dd9673ae94a5462"
+  }
+}

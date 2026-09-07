@@ -1,5 +1,5 @@
 {
-  "content": "---\nartifact_id: \"EOSP\"\ntitle: \"EOSP Planning\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSP — Planning\n\n## Purpose\n\nConvert accepted product, architecture, and specification intent into bounded,\ntraceable execution units.\n\n## Managed Objects\n\n- milestones;\n- program increments;\n- work cycles;\n- work packets;\n- dependencies;\n- risks;\n- sequencing;\n- readiness gates.\n\n## Primary Commands\n\n```bash\n./scripts/eos plan PI-002\n./scripts/eos create-wc --pi PI-002\n./scripts/eos create-wp --wc WC-0002 --domain CORE\n./scripts/eos authorize PI-002\n./scripts/eos authorize WC-0002\n./scripts/eos authorize WP-CORE-0001\n```\n",
+  "content": "---\nartifact_id: \"EOSP\"\ntitle: \"EOSP Planning\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSP — Planning\n\n## Purpose\n\nConvert accepted product, architecture, and specification intent into bounded,\ntraceable execution units.\n\n## Managed Objects\n\n- milestones;\n- program increments;\n- work cycles;\n- work packets;\n- dependencies;\n- risks;\n- sequencing;\n- readiness gates.\n\n## Primary Commands\n\n```bash\n./scripts/eos plan PI-002\n./scripts/eos create-wc --pi PI-002\n./scripts/eos create-wp --wc WC-0002 --domain CORE\n./scripts/eos authorize PI-002\n./scripts/eos authorize WC-0002\n./scripts/eos authorize WP-CORE-0001\n```\n\n## AI-Driven Planning Participation\n\nEOSP is the lifecycle owner for adaptive engineering planning defined by\n`EOS-AI-0001` and `FUN-AIENG-0001`.\n\nAn AI engineering participant MAY proactively:\n\n- inspect governed planning state;\n- compile relevant planning context;\n- identify dependencies and sequencing;\n- propose an adaptive engineering pathway;\n- identify material ambiguity;\n- recommend decisions or escalation;\n- recommend decomposition, parallelism, or additional investigation;\n- propose replanning when evidence or governing inputs change.\n\nA proposed pathway is planning evidence, not lifecycle authority.\n\nAdaptive planning MAY vary optional activity depth according to risk,\nconsequence, uncertainty, reversibility, dependencies, evidence, policy, and\nautonomy profile, but MUST NOT bypass mandatory EOS gates, required authority,\nblocking decisions, verification obligations, or review requirements.\n\nMaterial ambiguity affecting consequential engineering meaning MUST route to\nclarification or native decision semantics rather than being silently resolved\nby AI inference.\n\nReadiness remains distinct from authorization.\n",
   "document_id": "doc:engineering%2Flifecycle%2FEOSP-planning.md",
   "generation": {
     "deterministic": true,
@@ -61,20 +61,29 @@
         "WC-0002"
       ],
       "level": 2,
-      "line_end": 39,
+      "line_end": 40,
       "line_start": 30,
       "section_id": "primary-commands",
       "text": "## Primary Commands\n\n```bash\n./scripts/eos plan PI-002\n./scripts/eos create-wc --pi PI-002\n./scripts/eos create-wp --wc WC-0002 --domain CORE\n./scripts/eos authorize PI-002\n./scripts/eos authorize WC-0002\n./scripts/eos authorize WP-CORE-0001\n```",
       "title": "Primary Commands"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 41,
+      "section_id": "ai-driven-planning-participation",
+      "text": "## AI-Driven Planning Participation\n\nEOSP is the lifecycle owner for adaptive engineering planning defined by\n`EOS-AI-0001` and `FUN-AIENG-0001`.\n\nAn AI engineering participant MAY proactively:\n\n- inspect governed planning state;\n- compile relevant planning context;\n- identify dependencies and sequencing;\n- propose an adaptive engineering pathway;\n- identify material ambiguity;\n- recommend decisions or escalation;\n- recommend decomposition, parallelism, or additional investigation;\n- propose replanning when evidence or governing inputs change.\n\nA proposed pathway is planning evidence, not lifecycle authority.\n\nAdaptive planning MAY vary optional activity depth according to risk,\nconsequence, uncertainty, reversibility, dependencies, evidence, policy, and\nautonomy profile, but MUST NOT bypass mandatory EOS gates, required authority,\nblocking decisions, verification obligations, or review requirements.\n\nMaterial ambiguity affecting consequential engineering meaning MUST route to\nclarification or native decision semantics rather than being silently resolved\nby AI inference.\n\nReadiness remains distinct from authorization.",
+      "title": "AI-Driven Planning Participation"
     }
   ],
   "source": {
-    "bytes": 723,
+    "bytes": 1860,
     "canonical": true,
     "language": "markdown",
-    "lines": 39,
+    "lines": 68,
     "media_type": "text/markdown",
     "path": "engineering/lifecycle/EOSP-planning.md",
-    "sha256": "3b2e4caf60a4b6d4f50a92b1c7f8d6a072c430ce772c2e253c3b60896b3eaf24"
+    "sha256": "e61ad314cbea4c25d1b2eb5187cb83beadfa1e82660ec21a9d0568c903d3cb6a"
   }
 }

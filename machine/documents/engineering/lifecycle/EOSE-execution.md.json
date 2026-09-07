@@ -1,5 +1,5 @@
 {
-  "content": "---\nartifact_id: \"EOSE\"\ntitle: \"EOSE Execution\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSE — Execution\n\n## Purpose\n\nExecute authorized work without allowing implementation convenience to redefine\nproduct or architecture policy.\n\n## Work Packet Contract\n\n```bash\n./scripts/eos start WP-CORE-0001\n./scripts/eos codex WP-CORE-0001\n```\n\nThe Codex contract includes the authorized work packet, related governing\nartifacts, repository state, scope constraints, validation requirements, and the\nrequired completion report.\n\n## Escalation Rule\n\nIf implementation requires changing a governing requirement, specification,\nADR, security constraint, or authorized scope, execution stops and enters EOSC.\n",
+  "content": "---\nartifact_id: \"EOSE\"\ntitle: \"EOSE Execution\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSE — Execution\n\n## Purpose\n\nExecute authorized work without allowing implementation convenience to redefine\nproduct or architecture policy.\n\n## Work Packet Contract\n\n```bash\n./scripts/eos start WP-CORE-0001\n./scripts/eos codex WP-CORE-0001\n```\n\nThe Codex contract includes the authorized work packet, related governing\nartifacts, repository state, scope constraints, validation requirements, and the\nrequired completion report.\n\n## Escalation Rule\n\nIf implementation requires changing a governing requirement, specification,\nADR, security constraint, or authorized scope, execution stops and enters EOSC.\n\n## AI-Driven Execution Participation\n\nAI-driven engineering does not alter EOSE authority boundaries.\n\nAn AI executor MAY progress authorized work without synchronous human\nintervention only inside the applicable scope, authority, capability, policy,\nenvironment, resource, and autonomy boundaries.\n\nAn executor MUST NOT:\n\n- infer execution authority from a pathway proposal;\n- self-grant capabilities or stronger autonomy;\n- broaden authorized Work Packet scope;\n- treat tool availability as permission;\n- silently continue under materially stale governing inputs;\n- treat its own completion claim as verified or accepted completion.\n\nWhen execution depends on governing context, material governing-input drift\ninvalidates or suspends the affected execution authority and requires\nrecompilation, reauthorization, replanning, EOSC, or another explicit governed\ndisposition.\n\nConsequential execution requested by an AI participant MUST hand off through\nthe applicable governed execution boundary rather than treating participant\ninitiative as execution authority.\n",
   "document_id": "doc:engineering%2Flifecycle%2FEOSE-execution.md",
   "generation": {
     "deterministic": true,
@@ -57,20 +57,29 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 33,
+      "line_end": 34,
       "line_start": 30,
       "section_id": "escalation-rule",
       "text": "## Escalation Rule\n\nIf implementation requires changing a governing requirement, specification,\nADR, security constraint, or authorized scope, execution stops and enters EOSC.",
       "title": "Escalation Rule"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 59,
+      "line_start": 35,
+      "section_id": "ai-driven-execution-participation",
+      "text": "## AI-Driven Execution Participation\n\nAI-driven engineering does not alter EOSE authority boundaries.\n\nAn AI executor MAY progress authorized work without synchronous human\nintervention only inside the applicable scope, authority, capability, policy,\nenvironment, resource, and autonomy boundaries.\n\nAn executor MUST NOT:\n\n- infer execution authority from a pathway proposal;\n- self-grant capabilities or stronger autonomy;\n- broaden authorized Work Packet scope;\n- treat tool availability as permission;\n- silently continue under materially stale governing inputs;\n- treat its own completion claim as verified or accepted completion.\n\nWhen execution depends on governing context, material governing-input drift\ninvalidates or suspends the affected execution authority and requires\nrecompilation, reauthorization, replanning, EOSC, or another explicit governed\ndisposition.\n\nConsequential execution requested by an AI participant MUST hand off through\nthe applicable governed execution boundary rather than treating participant\ninitiative as execution authority.",
+      "title": "AI-Driven Execution Participation"
     }
   ],
   "source": {
-    "bytes": 803,
+    "bytes": 1867,
     "canonical": true,
     "language": "markdown",
-    "lines": 33,
+    "lines": 59,
     "media_type": "text/markdown",
     "path": "engineering/lifecycle/EOSE-execution.md",
-    "sha256": "ff50ea05de7d730ee966fad45c005d3114251e0f57704fc42471c5dbce94ff79"
+    "sha256": "52c8e4cf33689a9d11a0066646a92e6adfdabf76d02035c5dcdfb2437435d13b"
   }
 }
