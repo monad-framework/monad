@@ -1,0 +1,134 @@
+name: AIENG Shared Normative Integration
+
+on:
+  push:
+    branches:
+      - automation/aieng-shared-docs-20260907
+    paths:
+      - .github/workflows/aieng-shared-docs.yml
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout reconciliation baseline
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: 7fcbd3d64cf4cb158f1ead98c56131015be887e9
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "Monad EOS Automation"
+          git config user.email "eos-automation@users.noreply.github.com"
+
+      - name: Fetch source history
+        run: git fetch origin eosp/ai-driven-engineering-operating-model
+
+      - name: Replay approved shared-document deltas
+        run: |
+          set -euo pipefail
+          apply_delta() {
+            local parent="$1"
+            local commit="$2"
+            shift 2
+            git diff --binary "$parent" "$commit" -- "$@" | git apply -3 --whitespace=fix
+          }
+
+          apply_delta \
+            10274bc9bab505c101226c13a3b319f42927f27d \
+            d095e8a38e122b16059f56ae992c7e375573858a \
+            architecture/decisions/README.md
+
+          apply_delta \
+            660860197d63d932716f1cfe0a4132fbdc549f71 \
+            76d42f7de053a16f316f4d3bf1f7702446269fe3 \
+            product/product-requirements.md
+
+          apply_delta \
+            76d42f7de053a16f316f4d3bf1f7702446269fe3 \
+            7da98632ccfa28c5503dc783f0a12967282a88aa \
+            specifications/baseline.md
+
+          apply_delta \
+            06130de11445db6be48553301cb401cd5bf38df3 \
+            8fa2e709bc5629e9ca50c251c1cd70d67ee59046 \
+            engineering/definition-of-ready.md \
+            engineering/lifecycle/EOSC-change-control.md \
+            engineering/lifecycle/EOSE-execution.md \
+            engineering/lifecycle/EOSP-planning.md \
+            engineering/lifecycle/EOSR-review.md \
+            engineering/lifecycle/EOSV-verification.md \
+            governance/authority.md \
+            governance/decision-process.md \
+            governance/planning-engine.md \
+            governance/policy-engine.md
+
+      - name: Normalize and validate shared docs
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+          changed = subprocess.check_output(['git','diff','--name-only'], text=True).splitlines()
+          for raw in changed:
+              path = Path(raw)
+              if path.suffix != '.md':
+                  continue
+              text = path.read_text(encoding='utf-8')
+              normalized = '\n'.join(line.rstrip(' \t') for line in text.splitlines())
+              if text.endswith('\n'):
+                  normalized += '\n'
+              path.write_text(normalized, encoding='utf-8')
+          PY
+          git diff --check
+          python3 - <<'PY'
+          import subprocess
+          allowed = {
+            'architecture/decisions/README.md',
+            'product/product-requirements.md',
+            'specifications/baseline.md',
+            'engineering/definition-of-ready.md',
+            'engineering/lifecycle/EOSC-change-control.md',
+            'engineering/lifecycle/EOSE-execution.md',
+            'engineering/lifecycle/EOSP-planning.md',
+            'engineering/lifecycle/EOSR-review.md',
+            'engineering/lifecycle/EOSV-verification.md',
+            'governance/authority.md',
+            'governance/decision-process.md',
+            'governance/planning-engine.md',
+            'governance/policy-engine.md',
+          }
+          observed = set(subprocess.check_output(['git','diff','--name-only'], text=True).splitlines())
+          unexpected = sorted(observed - allowed)
+          if unexpected:
+              raise SystemExit('unexpected shared-doc changes: ' + ', '.join(unexpected))
+          missing = sorted(allowed - observed)
+          if missing:
+              print('unchanged/already-equivalent paths: ' + ', '.join(missing))
+          print('shared normative delta boundary: PASS')
+          PY
+
+      - name: Commit shared normative integration
+        run: |
+          git add \
+            architecture/decisions/README.md \
+            product/product-requirements.md \
+            specifications/baseline.md \
+            engineering/definition-of-ready.md \
+            engineering/lifecycle/EOSC-change-control.md \
+            engineering/lifecycle/EOSE-execution.md \
+            engineering/lifecycle/EOSP-planning.md \
+            engineering/lifecycle/EOSR-review.md \
+            engineering/lifecycle/EOSV-verification.md \
+            governance/authority.md \
+            governance/decision-process.md \
+            governance/planning-engine.md \
+            governance/policy-engine.md
+          git diff --cached --check
+          git commit -m "docs(eos): integrate AI-driven operating model on main lineage"
+
+      - name: Publish immutable integration result
+        run: git push origin HEAD:refs/heads/automation/aieng-shared-docs-result-20260907
