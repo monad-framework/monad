@@ -1,0 +1,64 @@
+name: MNT-0003 Green Replay
+
+on:
+  push:
+    branches:
+      - automation/mnt-0003-green-replay-20260907
+    paths:
+      - .github/workflows/mnt-0003-green-replay.yml
+
+permissions:
+  contents: write
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout replay branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: automation/mnt-0003-green-replay-20260907
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "Monad EOS Automation"
+          git config user.email "eos-automation@users.noreply.github.com"
+
+      - name: Apply validated production integration
+        run: |
+          python3 tools/eos/mnt0003_integrate_patch.py
+          python3 tools/eos/mnt0003_integrate_fix.py
+
+      - name: Validate exact production file set
+        run: |
+          python3 -m py_compile \
+            tools/eos/event_ledger.py \
+            tools/eos/canonical_state.py \
+            tools/eos/verification_v2.py \
+            scripts/reconcile-eos-canonical-state.py \
+            tools/eos/test_event_ledger_merge.py
+          python3 tools/eos/test_event_ledger_merge.py
+          python3 tools/eos/test_canonical_state.py
+          python3 tools/eos/test_canonical_reconciliation.py
+          python3 tools/eos/test_wrapper_dispatch.py
+          python3 tools/eos/test_identifier_families.py
+          ./scripts/eos state status
+          python3 scripts/reconcile-eos-canonical-state.py
+          ./scripts/eos verify
+          git diff --check -- . ':!.eos/*.tsv'
+
+      - name: Commit green production files
+        run: |
+          git add \
+            tools/eos/event_ledger.py \
+            tools/eos/canonical_state.py \
+            tools/eos/verification_v2.py \
+            scripts/reconcile-eos-canonical-state.py \
+            tools/eos/test_event_ledger_merge.py
+          git diff --cached --check
+          git commit -m "fix(eos): enforce event history integrity"
+
+      - name: Publish immutable green result ref
+        run: |
+          git push origin HEAD:refs/heads/automation/mnt-0003-green-result-20260907
