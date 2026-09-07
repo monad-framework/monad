@@ -28,44 +28,99 @@ jobs:
       - name: Fetch source history
         run: git fetch origin eosp/ai-driven-engineering-operating-model
 
-      - name: Replay approved shared-document deltas
+      - name: Reconcile ADR index
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('architecture/decisions/README.md')
+          text = path.read_text(encoding='utf-8')
+          anchor = '| [`ADR-0006`](ADR-0006-eos-sovereignty-and-external-sdlc-assimilation.md) | EOS Sovereignty and External SDLC Assimilation | Accepted | 2026-08-13 | — |'
+          rows = [
+              '| [`ADR-0007`](ADR-0007-governed-execution-harness.md) | Governed Execution Harness Architecture | Proposed | 2026-09-01 | — |',
+              '| [`ADR-0008`](ADR-0008-ai-driven-engineering-as-default-eos-operating-model.md) | AI-Driven Engineering as the Default EOS Operating Model | Accepted | 2026-09-05 | — |',
+          ]
+          if anchor not in text:
+              raise SystemExit('ADR-0006 index anchor not found')
+          insertion = anchor + '\n' + '\n'.join(row for row in rows if row not in text)
+          text = text.replace(anchor, insertion, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Replay approved requirement delta
         run: |
           set -euo pipefail
-          apply_delta() {
-            local parent="$1"
-            local commit="$2"
-            shift 2
-            git diff --binary "$parent" "$commit" -- "$@" | git apply -3 --whitespace=fix
-          }
-
-          apply_delta \
-            10274bc9bab505c101226c13a3b319f42927f27d \
-            d095e8a38e122b16059f56ae992c7e375573858a \
-            architecture/decisions/README.md
-
-          apply_delta \
+          git diff --binary \
             660860197d63d932716f1cfe0a4132fbdc549f71 \
             76d42f7de053a16f316f4d3bf1f7702446269fe3 \
-            product/product-requirements.md
+            -- product/product-requirements.md \
+            | git apply --whitespace=fix
 
-          apply_delta \
-            76d42f7de053a16f316f4d3bf1f7702446269fe3 \
-            7da98632ccfa28c5503dc783f0a12967282a88aa \
-            specifications/baseline.md
+      - name: Reconcile approved specification baseline
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
 
-          apply_delta \
-            06130de11445db6be48553301cb401cd5bf38df3 \
-            8fa2e709bc5629e9ca50c251c1cd70d67ee59046 \
-            engineering/definition-of-ready.md \
-            engineering/lifecycle/EOSC-change-control.md \
-            engineering/lifecycle/EOSE-execution.md \
-            engineering/lifecycle/EOSP-planning.md \
-            engineering/lifecycle/EOSR-review.md \
-            engineering/lifecycle/EOSV-verification.md \
-            governance/authority.md \
-            governance/decision-process.md \
-            governance/planning-engine.md \
-            governance/policy-engine.md
+          source = subprocess.check_output(
+              ['git', 'show', 'origin/eosp/ai-driven-engineering-operating-model:specifications/baseline.md'],
+              text=True,
+          )
+          source = source.replace('---------------------', '---', 1)
+          marker = '## Known Machine-Traceability Identity Gap'
+          if marker in source:
+              source = source.split(marker, 1)[0].rstrip() + '''\n\n## Machine-Traceability Identity Reconciliation\n\nThe identifier-family mismatch recorded during the original AIENG baseline review was resolved by `MNT-0005`. Repository-native Requirement identifiers (`FR-*`, `QR-*`, and `REQ-*`) and Specification identifiers (`FUN-*`, `IFC-*`, `SEC-*`, `TECH-*`, `DATA-*`, `MKE-*`, and `SPEC-*`) are first-class canonical identities of their existing entity type. Existing governed identifiers were preserved; no alias namespace or renumbering was introduced.\n\nDedicated verification is recorded in `engineering/reviews/MNT-0005-IDENTITY-RESOLUTION-VERIFICATION.md`, and human closure authority is recorded in `engineering/reviews/DECISION-0008-2026-09-05-mnt-0005-closure-approval.md`.\n\nThe original finding `AIENG-TRC-001` is therefore **RESOLVED**. This resolution does not itself authorize AIENG runtime implementation.\n'''
+          source = source.replace('| `FUN-AIENG-0001` | Functional | Adaptive engineering pathway, clarification, replanning, and workflow progression | Draft          |', '| `FUN-AIENG-0001` | Functional | Adaptive engineering pathway, clarification, replanning, and workflow progression | Approved       |')
+          source = source.replace('| `IFC-AIENG-0001` | Interface  | Provider-neutral engineering-agent interaction contract                           | Draft          |', '| `IFC-AIENG-0001` | Interface  | Provider-neutral engineering-agent interaction contract                           | Approved       |')
+          source = source.replace('| `SEC-AIENG-0001` | Security   | Autonomy, authority, delegation, approval, revocation, and fail-closed boundaries | Draft          |', '| `SEC-AIENG-0001` | Security   | Autonomy, authority, delegation, approval, revocation, and fail-closed boundaries | Approved       |')
+          Path('specifications/baseline.md').write_text(source, encoding='utf-8')
+          PY
+
+      - name: Append AI-driven lifecycle and governance sections
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          source_ref = 'origin/eosp/ai-driven-engineering-operating-model'
+          targets = {
+              'engineering/definition-of-ready.md': '## Additional AI-Driven Engineering Readiness Checks',
+              'engineering/lifecycle/EOSC-change-control.md': '## AI-Driven Replanning and Governing Drift',
+              'engineering/lifecycle/EOSE-execution.md': '## AI-Driven Execution Participation',
+              'engineering/lifecycle/EOSP-planning.md': '## AI-Driven Planning Participation',
+              'engineering/lifecycle/EOSR-review.md': '## AI-Driven Review Participation',
+              'engineering/lifecycle/EOSV-verification.md': '## AI-Driven Verification Participation',
+              'governance/authority.md': '## AI Actors and Delegated Authority',
+              'governance/decision-process.md': '## AI Participation in Decisions',
+          }
+          dynamic = [
+              'governance/planning-engine.md',
+              'governance/policy-engine.md',
+          ]
+
+          def source_text(file: str) -> str:
+              return subprocess.check_output(['git','show',f'{source_ref}:{file}'], text=True)
+
+          def append_section(file: str, heading: str) -> None:
+              path = Path(file)
+              current = path.read_text(encoding='utf-8')
+              if heading in current:
+                  return
+              src = source_text(file)
+              if heading not in src:
+                  raise SystemExit(f'missing source heading {heading!r} in {file}')
+              section = heading + src.split(heading, 1)[1]
+              path.write_text(current.rstrip() + '\n\n' + section.strip() + '\n', encoding='utf-8')
+
+          for file, heading in targets.items():
+              append_section(file, heading)
+
+          for file in dynamic:
+              src = source_text(file)
+              headings = [line for line in src.splitlines() if line.startswith('## AI')]
+              if not headings:
+                  raise SystemExit(f'no AI section heading found in {file}')
+              append_section(file, headings[0])
+          PY
 
       - name: Normalize and validate shared docs
         run: |
@@ -79,11 +134,17 @@ jobs:
                   continue
               text = path.read_text(encoding='utf-8')
               normalized = '\n'.join(line.rstrip(' \t') for line in text.splitlines())
-              if text.endswith('\n'):
-                  normalized += '\n'
+              normalized = normalized.rstrip() + '\n'
               path.write_text(normalized, encoding='utf-8')
           PY
           git diff --check
+          grep -q '^### FR-043 — Provide Adaptive AI-Driven Engineering Workflow Planning$' product/product-requirements.md
+          grep -q '^### QR-010 — Auditability$' product/product-requirements.md
+          grep -q '^## Machine-Traceability Identity Reconciliation$' specifications/baseline.md
+          grep -q 'AIENG-TRC-001.*RESOLVED' specifications/baseline.md
+          grep -q '^## AI-Driven Planning Participation$' engineering/lifecycle/EOSP-planning.md
+          grep -q '^## AI Actors and Delegated Authority$' governance/authority.md
+
           python3 - <<'PY'
           import subprocess
           allowed = {
@@ -105,9 +166,6 @@ jobs:
           unexpected = sorted(observed - allowed)
           if unexpected:
               raise SystemExit('unexpected shared-doc changes: ' + ', '.join(unexpected))
-          missing = sorted(allowed - observed)
-          if missing:
-              print('unchanged/already-equivalent paths: ' + ', '.join(missing))
           print('shared normative delta boundary: PASS')
           PY
 
