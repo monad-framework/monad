@@ -33,7 +33,9 @@ jobs:
           test "$remote_sha" = "$TRIGGER_SHA" || exit 70
 
       - name: Apply production integration patch
-        run: python3 tools/eos/mnt0003_integrate_patch.py
+        run: |
+          python3 tools/eos/mnt0003_integrate_patch.py
+          python3 tools/eos/mnt0003_integrate_fix.py
 
       - name: Validate integrated enforcement
         run: |
@@ -68,7 +70,8 @@ jobs:
         run: |
           git rm \
             .github/workflows/mnt-0003-integrate.yml \
-            tools/eos/mnt0003_integrate_patch.py
+            tools/eos/mnt0003_integrate_patch.py \
+            tools/eos/mnt0003_integrate_fix.py
           git commit -m "chore(eos): remove temporary MNT-0003 integration machinery"
 
       - name: Push integrated checkpoints
