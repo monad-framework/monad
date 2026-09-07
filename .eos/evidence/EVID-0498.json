@@ -1,0 +1,78 @@
+{
+  "command": "builtin:execution-acceptance",
+  "covers": [],
+  "created": "2026-09-07T17:17:52Z",
+  "details": {
+    "criteria": [
+      {
+        "criterion": "US-015 valid monad.toml becomes a deterministic semantic document record.",
+        "evidence": "Semantic config parser tests establish stable TOML source/document identity, exact content hash and byte length, deterministic canonical path, and repeatable serialized output.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-016 schema/parse errors remain diagnostics and block a valid semantic config document.",
+        "evidence": "Malformed TOML, duplicate keys, unknown keys, unsupported schema versions, invalid UTF-8, and stale effective state fail closed through structured diagnostics.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-017 normalized semantic representation is deterministic and retains source/effective-value provenance distinctions.",
+        "evidence": "Canonical file/default values remain distinct from CLI-effective values; ordered maps and serialization are deterministic.",
+        "status": "passed"
+      },
+      {
+        "criterion": ".monad/manifest.yaml cannot override or become a competing semantic config source.",
+        "evidence": "Legacy-manifest non-authority regression passes and serialized semantic state contains no manifest authority.",
+        "status": "passed"
+      },
+      {
+        "criterion": "No environment interpolation, command substitution, network lookup, or include execution occurs.",
+        "evidence": "Executable-looking and interpolation/include/network-like strings remain inert parser data in regression coverage.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Effective configuration is bound to the exact source bytes identified by the semantic document.",
+        "evidence": "Rebound validation rejects stale or unrelated effective configuration for different monad.toml bytes.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Reliable TOML source ranges are retained for downstream diagnostics and provenance explanations.",
+        "evidence": "Spanned TOML values are retained as deterministic semantic-path to byte-range mappings and verified against exact source slices.",
+        "status": "passed"
+      }
+    ],
+    "failed": []
+  },
+  "environment": {
+    "bash": "GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)",
+    "bun": "",
+    "cargo": "cargo 1.98.0 (797e8a9bc 2026-08-05)",
+    "git": "git version 2.55.0",
+    "go": "go version go1.24.13 linux/amd64",
+    "hostname": "runnervmejwal",
+    "lockfiles": {
+      "Cargo.lock": "e09bc02c0f75aa61e64518f5528f325e7ba8cd11c1933b5e33f71a4e0e9c7496",
+      "apps/workbench/bun.lock": "68c6e57e6b603a5dbabd7610808e522206ea715018a70176f24727b7d2382405"
+    },
+    "machine": "x86_64",
+    "node": "v22.23.2",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "rustc": "rustc 1.98.0 (88d9e12ae 2026-08-18)"
+  },
+  "environment_hash": "387224bcc40c3e6cea476d420f33fdae1fc95fa7b2e7cff23b2b7e2fcd679349",
+  "execution": "EXEC-0010",
+  "exit_code": 0,
+  "id": "EVID-0498",
+  "kind": "acceptance",
+  "output": "[\n  {\n    \"criterion\": \"US-015 valid monad.toml becomes a deterministic semantic document record.\",\n    \"evidence\": \"Semantic config parser tests establish stable TOML source/document identity, exact content hash and byte length, deterministic canonical path, and repeatable serialized output.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"US-016 schema/parse errors remain diagnostics and block a valid semantic config document.\",\n    \"evidence\": \"Malformed TOML, duplicate keys, unknown keys, unsupported schema versions, invalid UTF-8, and stale effective state fail closed through structured diagnostics.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"US-017 normalized semantic representation is deterministic and retains source/effective-value provenance distinctions.\",\n    \"evidence\": \"Canonical file/default values remain distinct from CLI-effective values; ordered maps and serialization are deterministic.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \".monad/manifest.yaml cannot override or become a competing semantic config source.\",\n    \"evidence\": \"Legacy-manifest non-authority regression passes and serialized semantic state contains no manifest authority.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"No environment interpolation, command substitution, network lookup, or include execution occurs.\",\n    \"evidence\": \"Executable-looking and interpolation/include/network-like strings remain inert parser data in regression coverage.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"Effective configuration is bound to the exact source bytes identified by the semantic document.\",\n    \"evidence\": \"Rebound validation rejects stale or unrelated effective configuration for different monad.toml bytes.\",\n    \"status\": \"passed\"\n  },\n  {\n    \"criterion\": \"Reliable TOML source ranges are retained for downstream diagnostics and provenance explanations.\",\n    \"evidence\": \"Spanned TOML values are retained as deterministic semantic-path to byte-range mappings and verified against exact source slices.\",\n    \"status\": \"passed\"\n  }\n]",
+  "output_hash": "eae0dc403ac40abf93573e12d70f07aada261977057255663a4735b3b42472fd",
+  "producer": {
+    "actor": "ChatGPT",
+    "commit": "fd7c015ed7fb85efd2b80ba1a6e691d5bea47840"
+  },
+  "profile": "wp",
+  "result": "PASSED",
+  "source_hash": "scope-v2:44da62b2aff61acd7077ce086b882a535767fd918dadfc1fce1f4e25d3ac7a03",
+  "target": "WP-MVP-0005",
+  "validator": "execution-acceptance"
+}

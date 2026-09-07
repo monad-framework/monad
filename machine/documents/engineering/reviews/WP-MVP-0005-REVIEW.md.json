@@ -1,0 +1,177 @@
+{
+  "content": "---\nartifact_id: \"REV-WP-MVP-0005\"\ntitle: \"WP-MVP-0005 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"Accepted\"\nauthority: \"review-authoritative\"\ncreated: \"2026-09-07\"\nupdated: \"2026-09-07\"\n---\n\n\n# WP-MVP-0005 — Engineering Review\n\n**Decision:** ACCEPTED\n\n## Target\n\n- Artifact: `engineering/work-packets/WP-MVP-0005.md`\n- Product integration: PR #488\n- Accepted product merge: `fd7c015ed7fb85efd2b80ba1a6e691d5bea47840`\n- Governed execution: `EXEC-0010` — CLOSED through PR #492\n- Current accepted-product EOSV evidence: EVID-0496 eos-integrity=PASSED, EVID-0497 repository=SKIPPED, EVID-0498 execution-acceptance=PASSED\n\n## Deterministic Verification\n\n**Result:** PASS.\n\nThe accepted merged product was freshly revalidated during this closure review. `cargo fmt --all -- --check` passed; all 131 `monad-core` tests passed; scoped strict Clippy passed with only the pre-existing unrelated `large_enum_variant` lint explicitly excluded. The `wp` EOSV profile passed. Required `eos-integrity` passed, `execution-acceptance` passed against the already-closed `EXEC-0010` result, and the optional repository validator may skip when `.eos/validation.commands` has no configured command; the explicit build/test/lint commands above independently supply repository validation.\n\n## Scope Conformance\n\nPASS.\n\nThe product implementation remains bounded to the structured configuration semantic adapter in `monad-core`: `config.rs` plus the minimal discovery, identity, module-export, and workspace visibility changes required to integrate it. The final PR also contains canonical EOS evidence and deterministic machine projections produced by predecessor recertification. Those governed changes are attributable to product integration and recertification, not recovery-branch contamination or duplicate `EXEC-0010` lifecycle transitions.\n\nThe post-execution review correction percent-encodes dynamic artifact-name path segments before appending structural list indices, preventing legal keys such as `foo` and `foo[0]` from colliding in the source-range map. That correction was independently revalidated and recertified before merge.\n\n## Requirements / Specification Conformance\n\nPASS.\n\nThe implementation conforms to FR-001, FR-002, QR-001, QR-003, ADR-0002, ADR-0003, ADR-0004, IFC-WORKSPACE-0001, DATA-SOURCE-0001, TECH-INGEST-0002, and ADR-0005. It reuses canonical bootstrap parsing/precedence semantics rather than creating competing configuration authority.\n\n## Architecture Conformance\n\nPASS.\n\nSemantic configuration adaptation remains inside `monad-core` under ADR-0005. Stable source/document identity is reused from the prerequisite identity subsystem. Canonical `monad.toml` remains authoritative; `.monad/manifest.yaml` is not promoted to a semantic configuration source.\n\n## Acceptance Criteria Evidence\n\nPASS for every WP-MVP-0005 acceptance criterion.\n\n- US-015: valid canonical `monad.toml` becomes a deterministic semantic document record with exact-byte identity and provenance — PASS.\n- US-016: malformed TOML, duplicate keys, unknown keys, unsupported schema versions, invalid UTF-8, and stale/unrelated effective state fail closed through structured diagnostics — PASS.\n- US-017: normalized semantic representation is deterministic and preserves canonical source/default provenance separately from CLI-effective provenance — PASS.\n- `.monad/manifest.yaml` cannot override or become competing semantic configuration authority — PASS.\n- environment interpolation, command substitution/process execution, network lookup, and include/import execution remain inert — PASS.\n- reliable TOML byte ranges are retained with unambiguous dynamic artifact-name path encoding — PASS.\n\n## Test / Validation Evidence\n\nPASS.\n\nThe 131-test `monad-core` suite covers exact-byte identity, canonical/effective provenance separation, invalid-input diagnostics, inert parsing boundaries, legacy-manifest non-authority, deterministic serialization, exact-byte/effective-state binding, reliable source ranges, and the artifact-name collision regression. Tasks #475 through #479 were closed as completed by the accepted PR.\n\n## Security / Reliability Findings\n\nNo blocking finding remains. Parser input remains inert data: no environment expansion, shell/command execution, network access, remote include processing, or arbitrary repository-code execution is introduced.\n\nOne non-blocking maintenance consideration remains: if future bootstrap-supported CLI override fields are added, the explicit CLI-provenance rebinding helper must be intentionally extended and tested.\n\n## Traceability Findings\n\nPASS.\n\nThe Work Packet remains traced to its PI, Work Cycle, Epic, Feature, Product Goal, governing requirements/specifications/ADRs, closed execution `EXEC-0010`, current validation evidence, review artifact, and accepted product merge.\n\n## Blocking Findings\n\nNone. The only substantive PR review finding—ambiguous source-range keys for arbitrary artifact names—was corrected, regression-tested, recertified, and resolved before merge.\n\n## Non-Blocking Findings\n\n- Future additions to bootstrap CLI override fields require explicit rebinding coverage.\n\n## Decision\n\nACCEPTED. WP-MVP-0005 satisfies its governed acceptance criteria and may pass the native `WP_CLOSE` gate.\n",
+  "document_id": "doc:engineering%2Freviews%2FWP-MVP-0005-REVIEW.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0002",
+    "ADR-0003",
+    "ADR-0004",
+    "ADR-0005",
+    "FR-001",
+    "FR-002",
+    "QR-001",
+    "QR-003"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"REV-WP-MVP-0005\" title: \"WP-MVP-0005 Engineering Review\" type: \"review\" version: \"0.1.0\" status: \"Accepted\" authority: \"review-authoritative\" created: \"2026-09-07\" updated: \"2026-09-07\" ---",
+    "title": "WP-MVP-0005 — Engineering Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 12,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"REV-WP-MVP-0005\"\ntitle: \"WP-MVP-0005 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"Accepted\"\nauthority: \"review-authoritative\"\ncreated: \"2026-09-07\"\nupdated: \"2026-09-07\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 16,
+      "line_start": 13,
+      "section_id": "wp-mvp-0005-engineering-review",
+      "text": "# WP-MVP-0005 — Engineering Review\n\n**Decision:** ACCEPTED",
+      "title": "WP-MVP-0005 — Engineering Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 17,
+      "section_id": "target",
+      "text": "## Target\n\n- Artifact: `engineering/work-packets/WP-MVP-0005.md`\n- Product integration: PR #488\n- Accepted product merge: `fd7c015ed7fb85efd2b80ba1a6e691d5bea47840`\n- Governed execution: `EXEC-0010` — CLOSED through PR #492\n- Current accepted-product EOSV evidence: EVID-0496 eos-integrity=PASSED, EVID-0497 repository=SKIPPED, EVID-0498 execution-acceptance=PASSED",
+      "title": "Target"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 30,
+      "line_start": 25,
+      "section_id": "deterministic-verification",
+      "text": "## Deterministic Verification\n\n**Result:** PASS.\n\nThe accepted merged product was freshly revalidated during this closure review. `cargo fmt --all -- --check` passed; all 131 `monad-core` tests passed; scoped strict Clippy passed with only the pre-existing unrelated `large_enum_variant` lint explicitly excluded. The `wp` EOSV profile passed. Required `eos-integrity` passed, `execution-acceptance` passed against the already-closed `EXEC-0010` result, and the optional repository validator may skip when `.eos/validation.commands` has no configured command; the explicit build/test/lint commands above independently supply repository validation.",
+      "title": "Deterministic Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 31,
+      "section_id": "scope-conformance",
+      "text": "## Scope Conformance\n\nPASS.\n\nThe product implementation remains bounded to the structured configuration semantic adapter in `monad-core`: `config.rs` plus the minimal discovery, identity, module-export, and workspace visibility changes required to integrate it. The final PR also contains canonical EOS evidence and deterministic machine projections produced by predecessor recertification. Those governed changes are attributable to product integration and recertification, not recovery-branch contamination or duplicate `EXEC-0010` lifecycle transitions.\n\nThe post-execution review correction percent-encodes dynamic artifact-name path segments before appending structural list indices, preventing legal keys such as `foo` and `foo[0]` from colliding in the source-range map. That correction was independently revalidated and recertified before merge.",
+      "title": "Scope Conformance"
+    },
+    {
+      "identifiers": [
+        "ADR-0002",
+        "ADR-0003",
+        "ADR-0004",
+        "ADR-0005",
+        "FR-001",
+        "FR-002",
+        "QR-001",
+        "QR-003"
+      ],
+      "level": 2,
+      "line_end": 44,
+      "line_start": 39,
+      "section_id": "requirements-specification-conformance",
+      "text": "## Requirements / Specification Conformance\n\nPASS.\n\nThe implementation conforms to FR-001, FR-002, QR-001, QR-003, ADR-0002, ADR-0003, ADR-0004, IFC-WORKSPACE-0001, DATA-SOURCE-0001, TECH-INGEST-0002, and ADR-0005. It reuses canonical bootstrap parsing/precedence semantics rather than creating competing configuration authority.",
+      "title": "Requirements / Specification Conformance"
+    },
+    {
+      "identifiers": [
+        "ADR-0005"
+      ],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 45,
+      "section_id": "architecture-conformance",
+      "text": "## Architecture Conformance\n\nPASS.\n\nSemantic configuration adaptation remains inside `monad-core` under ADR-0005. Stable source/document identity is reused from the prerequisite identity subsystem. Canonical `monad.toml` remains authoritative; `.monad/manifest.yaml` is not promoted to a semantic configuration source.",
+      "title": "Architecture Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 61,
+      "line_start": 51,
+      "section_id": "acceptance-criteria-evidence",
+      "text": "## Acceptance Criteria Evidence\n\nPASS for every WP-MVP-0005 acceptance criterion.\n\n- US-015: valid canonical `monad.toml` becomes a deterministic semantic document record with exact-byte identity and provenance — PASS.\n- US-016: malformed TOML, duplicate keys, unknown keys, unsupported schema versions, invalid UTF-8, and stale/unrelated effective state fail closed through structured diagnostics — PASS.\n- US-017: normalized semantic representation is deterministic and preserves canonical source/default provenance separately from CLI-effective provenance — PASS.\n- `.monad/manifest.yaml` cannot override or become competing semantic configuration authority — PASS.\n- environment interpolation, command substitution/process execution, network lookup, and include/import execution remain inert — PASS.\n- reliable TOML byte ranges are retained with unambiguous dynamic artifact-name path encoding — PASS.",
+      "title": "Acceptance Criteria Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 62,
+      "section_id": "test-validation-evidence",
+      "text": "## Test / Validation Evidence\n\nPASS.\n\nThe 131-test `monad-core` suite covers exact-byte identity, canonical/effective provenance separation, invalid-input diagnostics, inert parsing boundaries, legacy-manifest non-authority, deterministic serialization, exact-byte/effective-state binding, reliable source ranges, and the artifact-name collision regression. Tasks #475 through #479 were closed as completed by the accepted PR.",
+      "title": "Test / Validation Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 73,
+      "line_start": 68,
+      "section_id": "security-reliability-findings",
+      "text": "## Security / Reliability Findings\n\nNo blocking finding remains. Parser input remains inert data: no environment expansion, shell/command execution, network access, remote include processing, or arbitrary repository-code execution is introduced.\n\nOne non-blocking maintenance consideration remains: if future bootstrap-supported CLI override fields are added, the explicit CLI-provenance rebinding helper must be intentionally extended and tested.",
+      "title": "Security / Reliability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 79,
+      "line_start": 74,
+      "section_id": "traceability-findings",
+      "text": "## Traceability Findings\n\nPASS.\n\nThe Work Packet remains traced to its PI, Work Cycle, Epic, Feature, Product Goal, governing requirements/specifications/ADRs, closed execution `EXEC-0010`, current validation evidence, review artifact, and accepted product merge.",
+      "title": "Traceability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 83,
+      "line_start": 80,
+      "section_id": "blocking-findings",
+      "text": "## Blocking Findings\n\nNone. The only substantive PR review finding—ambiguous source-range keys for arbitrary artifact names—was corrected, regression-tested, recertified, and resolved before merge.",
+      "title": "Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 87,
+      "line_start": 84,
+      "section_id": "non-blocking-findings",
+      "text": "## Non-Blocking Findings\n\n- Future additions to bootstrap CLI override fields require explicit rebinding coverage.",
+      "title": "Non-Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 90,
+      "line_start": 88,
+      "section_id": "decision",
+      "text": "## Decision\n\nACCEPTED. WP-MVP-0005 satisfies its governed acceptance criteria and may pass the native `WP_CLOSE` gate.",
+      "title": "Decision"
+    }
+  ],
+  "source": {
+    "bytes": 5295,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 90,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/WP-MVP-0005-REVIEW.md",
+    "sha256": "9cd22e14fadcd0d8e93dc8aa8c3669a754a484c95ddacd5b130e001ee46deb76"
+  }
+}
