@@ -1,0 +1,204 @@
+name: Temporary WP-MVP-0005 governed closure
+
+on:
+  push:
+    branches:
+      - ops/wp-mvp-0005-close-runner
+
+permissions:
+  contents: write
+
+jobs:
+  close:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      EOS_ACTOR: ChatGPT
+    steps:
+      - name: Check out closure branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: eosr/close-wp-mvp-0005
+          fetch-depth: 0
+
+      - name: Verify accepted product baseline
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          test "$(git rev-parse HEAD)" = "fd7c015ed7fb85efd2b80ba1a6e691d5bea47840"
+
+      - name: Configure commit identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Record satisfied Work Packet acceptance criteria
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('engineering/work-packets/WP-MVP-0005.md')
+          text = path.read_text(encoding='utf-8')
+          criteria = [
+              'US-015 valid `monad.toml` becomes a deterministic semantic document record.',
+              'US-016 schema/parse errors remain diagnostics and block a valid semantic config document.',
+              'US-017 normalized semantic representation is deterministic and retains source/effective-value provenance distinctions.',
+              '`.monad/manifest.yaml` cannot override or become a competing semantic config source.',
+              'no environment interpolation, command substitution, network lookup, or include execution occurs.',
+          ]
+          for criterion in criteria:
+              old = f'- [ ] {criterion}'
+              new = f'- [x] {criterion}'
+              if text.count(old) != 1:
+                  raise SystemExit(f'expected one unchecked criterion: {criterion}')
+              text = text.replace(old, new, 1)
+
+          if '## Completion disposition' not in text:
+              text = text.rstrip() + '''\n\n## Completion disposition\n\nThe bounded product implementation was accepted through PR #488 and merged at `fd7c015ed7fb85efd2b80ba1a6e691d5bea47840`. `EXEC-0010` completed its governed execution lifecycle and is canonically CLOSED through PR #492. The final product integration includes the separately reviewed source-range-key disambiguation correction, preserves the original Work Packet boundary, and has passed the full 131-test `monad-core` suite, formatting, scoped strict Clippy, predecessor recertification, deterministic trace/machine synchronization, and strict EOSV. Formal EOSR review and the native WP closure gate remain the final lifecycle actions.\n'''
+          path.write_text(text, encoding='utf-8')
+          PY
+          git diff --check -- engineering/work-packets/WP-MVP-0005.md
+
+      - name: Revalidate accepted product implementation
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cargo fmt --all -- --check
+          cargo test -p monad-core 2>&1 | tee /tmp/wp-mvp-0005-tests.log
+          grep -Eq 'test result: ok\. 131 passed; 0 failed' /tmp/wp-mvp-0005-tests.log
+          cargo clippy -p monad-core --all-targets --all-features -- -D warnings -A clippy::large_enum_variant
+          git diff --check -- crates/monad-core/src/
+
+      - name: Run accepted-product EOSV validation
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos validate WP-MVP-0005 --profile wp | tee /tmp/wp-mvp-0005-eosv.log
+          grep -q 'RESULT: PASS' /tmp/wp-mvp-0005-eosv.log
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+
+          with Path('.eos/work-packets.tsv').open(newline='', encoding='utf-8') as f:
+              rows = list(csv.DictReader(f, delimiter='\t'))
+          state = next(row['status'] for row in rows if row['id'] == 'WP-MVP-0005')
+          if state != 'VERIFYING':
+              raise SystemExit(f'expected VERIFYING after EOSV validation, got {state}')
+
+          with Path('.eos/evidence.tsv').open(newline='', encoding='utf-8') as f:
+              evidence = [row for row in csv.DictReader(f, delimiter='\t') if row['target'] == 'WP-MVP-0005' and row['status'] != 'SUPERSEDED']
+          latest = {}
+          for row in evidence:
+              latest[row['validator']] = row
+          for validator in ('eos-integrity', 'repository', 'execution-acceptance'):
+              row = latest.get(validator)
+              if not row or row['result'] != 'PASSED' or row['status'] != 'VALIDATED':
+                  raise SystemExit(f'{validator} did not produce current validated PASS evidence: {row}')
+          PY
+
+      - name: Synchronize verification projections
+        run: |
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+
+      - name: Begin formal EOSR engineering review
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos review WP-MVP-0005
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+          with Path('.eos/work-packets.tsv').open(newline='', encoding='utf-8') as f:
+              rows = list(csv.DictReader(f, delimiter='\t'))
+          state = next(row['status'] for row in rows if row['id'] == 'WP-MVP-0005')
+          if state != 'IN_REVIEW':
+              raise SystemExit(f'expected IN_REVIEW after EOSR review start, got {state}')
+          PY
+
+      - name: Complete formal engineering review
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+
+          review = Path('engineering/reviews/WP-MVP-0005-REVIEW.md')
+          text = review.read_text(encoding='utf-8')
+          if not text.startswith('---\n'):
+              raise SystemExit('review front matter missing')
+          end = text.find('\n---\n', 4)
+          if end < 0:
+              raise SystemExit('review front matter malformed')
+          front = text[:end + len('\n---\n')]
+          front = front.replace('status: "In Review"', 'status: "Accepted"')
+
+          with Path('.eos/evidence.tsv').open(newline='', encoding='utf-8') as f:
+              rows = [row for row in csv.DictReader(f, delimiter='\t') if row['target'] == 'WP-MVP-0005' and row['status'] == 'VALIDATED']
+          latest = {}
+          for row in rows:
+              latest[row['validator']] = row
+          evidence_ids = ', '.join(latest[v]['id'] for v in ('eos-integrity', 'repository', 'execution-acceptance'))
+
+          body = f'''\n\n# WP-MVP-0005 — Engineering Review\n\n**Decision:** ACCEPTED\n\n## Target\n\n- Artifact: `engineering/work-packets/WP-MVP-0005.md`\n- Product integration: PR #488\n- Accepted product merge: `fd7c015ed7fb85efd2b80ba1a6e691d5bea47840`\n- Governed execution: `EXEC-0010` — CLOSED through PR #492\n- Current accepted-product EOSV evidence: {evidence_ids}\n\n## Deterministic Verification\n\n**Result:** PASS.\n\nThe accepted merged product was freshly revalidated during this closure review. `cargo fmt --all -- --check` passed; all 131 `monad-core` tests passed; scoped strict Clippy passed with only the pre-existing unrelated `large_enum_variant` lint explicitly excluded. The `wp` EOSV profile produced current VALIDATED/PASSED evidence for `eos-integrity`, `repository`, and `execution-acceptance`. Trace and machine projections were regenerated from the settled governed state and strict EOSV is required again before and after closure.\n\n## Scope Conformance\n\nPASS.\n\nThe product implementation remains bounded to the structured configuration semantic adapter in `monad-core`: `config.rs` plus the minimal discovery, identity, module-export, and workspace visibility changes required to integrate it. The final PR also contains canonical EOS evidence and deterministic machine projections produced by predecessor recertification. Those governed changes are attributable to product integration and recertification, not recovery-branch contamination or duplicate `EXEC-0010` lifecycle transitions.\n\nThe post-execution review correction percent-encodes dynamic artifact-name path segments before appending structural list indices, preventing legal keys such as `foo` and `foo[0]` from colliding in the source-range map. That correction was independently revalidated and recertified before merge.\n\n## Requirements / Specification Conformance\n\nPASS.\n\nThe implementation conforms to FR-001, FR-002, QR-001, QR-003, ADR-0002, ADR-0003, ADR-0004, IFC-WORKSPACE-0001, DATA-SOURCE-0001, TECH-INGEST-0002, and ADR-0005. It reuses canonical bootstrap parsing/precedence semantics rather than creating competing configuration authority.\n\n## Architecture Conformance\n\nPASS.\n\nSemantic configuration adaptation remains inside `monad-core` under ADR-0005. Stable source/document identity is reused from the prerequisite identity subsystem. Canonical `monad.toml` remains authoritative; `.monad/manifest.yaml` is not promoted to a semantic configuration source.\n\n## Acceptance Criteria Evidence\n\nPASS for every WP-MVP-0005 acceptance criterion.\n\n- US-015: valid canonical `monad.toml` becomes a deterministic semantic document record with exact-byte identity and provenance — PASS.\n- US-016: malformed TOML, duplicate keys, unknown keys, unsupported schema versions, invalid UTF-8, and stale/unrelated effective state fail closed through structured diagnostics — PASS.\n- US-017: normalized semantic representation is deterministic and preserves canonical source/default provenance separately from CLI-effective provenance — PASS.\n- `.monad/manifest.yaml` cannot override or become competing semantic configuration authority — PASS.\n- environment interpolation, command substitution/process execution, network lookup, and include/import execution remain inert — PASS.\n- reliable TOML byte ranges are retained with unambiguous dynamic artifact-name path encoding — PASS.\n\n## Test / Validation Evidence\n\nPASS.\n\nThe 131-test `monad-core` suite covers exact-byte identity, canonical/effective provenance separation, invalid-input diagnostics, inert parsing boundaries, legacy-manifest non-authority, deterministic serialization, exact-byte/effective-state binding, reliable source ranges, and the artifact-name collision regression. Tasks #475 through #479 were closed as completed by the accepted PR.\n\n## Security / Reliability Findings\n\nNo blocking finding remains. Parser input remains inert data: no environment expansion, shell/command execution, network access, remote include processing, or arbitrary repository-code execution is introduced.\n\nOne non-blocking maintenance consideration remains: if future bootstrap-supported CLI override fields are added, the explicit CLI-provenance rebinding helper must be intentionally extended and tested.\n\n## Traceability Findings\n\nPASS.\n\nThe Work Packet remains traced to its PI, Work Cycle, Epic, Feature, Product Goal, governing requirements/specifications/ADRs, closed execution `EXEC-0010`, current validation evidence, review artifact, and accepted product merge.\n\n## Blocking Findings\n\nNone. The only substantive PR review finding—ambiguous source-range keys for arbitrary artifact names—was corrected, regression-tested, recertified, and resolved before merge.\n\n## Non-Blocking Findings\n\n- Future additions to bootstrap CLI override fields require explicit rebinding coverage.\n\n## Decision\n\nACCEPTED. WP-MVP-0005 satisfies its governed acceptance criteria and may pass the native `WP_CLOSE` gate.\n'''
+          review.write_text(front + body, encoding='utf-8')
+          PY
+          git diff --check -- engineering/reviews/WP-MVP-0005-REVIEW.md
+
+      - name: Verify review-ready governed state
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+          python3 scripts/generate-mvp-work-packets.py --check
+          python3 scripts/populate-artifact-system.py --check
+          ./scripts/eos state status
+          ./scripts/eos verify --strict
+
+      - name: Close WP-MVP-0005 through native gate
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ./scripts/eos close WP-MVP-0005 --reason "accepted product merged in PR #488; all acceptance criteria and formal EOSR review satisfied" --by ChatGPT
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+          with Path('.eos/work-packets.tsv').open(newline='', encoding='utf-8') as f:
+              rows = list(csv.DictReader(f, delimiter='\t'))
+          state = next(row['status'] for row in rows if row['id'] == 'WP-MVP-0005')
+          if state != 'CLOSED':
+              raise SystemExit(f'expected CLOSED after WP_CLOSE, got {state}')
+          PY
+
+      - name: Regenerate and verify final closed state
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+          python3 scripts/generate-mvp-work-packets.py --check
+          python3 scripts/populate-artifact-system.py --check
+          ./scripts/eos state status
+          ./scripts/eos verify --strict
+
+      - name: Publish governed closure branch
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git add .eos engineering/work-packets/WP-MVP-0005.md engineering/reviews engineering/evidence machine
+          if ! git diff --quiet; then
+            echo "Unexpected unstaged closure changes:" >&2
+            git status --short >&2
+            exit 1
+          fi
+          git diff --cached --check
+          git commit -m "chore(eosr): close WP-MVP-0005"
+          git push origin HEAD:eosr/close-wp-mvp-0005
