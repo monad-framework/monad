@@ -65,17 +65,13 @@ fn run(
 
     let profile = profile.ok_or_else(|| "--profile is required".to_owned())?;
     let provider_cwd = provider_cwd.ok_or_else(|| "--provider-cwd is required".to_owned())?;
-    let forbidden_path =
-        forbidden_path.ok_or_else(|| "--forbidden-path is required".to_owned())?;
+    let forbidden_path = forbidden_path.ok_or_else(|| "--forbidden-path is required".to_owned())?;
     let forbidden_marker =
         forbidden_marker.ok_or_else(|| "--forbidden-marker is required".to_owned())?;
 
-    let transport = ProcessJsonlTransport::spawn(
-        codex,
-        &["app-server".into()],
-        Some(provider_cwd.as_path()),
-    )
-    .map_err(|error| error.to_string())?;
+    let transport =
+        ProcessJsonlTransport::spawn(codex, &["app-server".into()], Some(provider_cwd.as_path()))
+            .map_err(|error| error.to_string())?;
     let mut verifier = CodexConfinementVerifier::new(transport);
     verifier.initialize().map_err(|error| error.to_string())?;
     let plan = ConfinementProbePlan::linux_file_read(
