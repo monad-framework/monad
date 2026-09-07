@@ -30,194 +30,10 @@ jobs:
           TRIGGER_SHA: ${{ github.sha }}
         run: |
           remote_sha="$(git ls-remote origin refs/heads/eosp/ai-driven-engineering-operating-model | cut -f1)"
-          test "$remote_sha" = "$TRIGGER_SHA" || {
-            echo "Branch advanced concurrently: remote=$remote_sha trigger=$TRIGGER_SHA" >&2
-            exit 70
-          }
+          test "$remote_sha" = "$TRIGGER_SHA" || exit 70
 
-      - name: Integrate event-history enforcement
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-
-          # Extend the event-ledger library with working-tree preservation.
-          path = Path("tools/eos/event_ledger.py")
-          text = path.read_text(encoding="utf-8")
-          anchor = "def git_commit_exists(root: Path, ref: str) -> bool:\n"
-          addition = '''def is_git_repository(root: Path) -> bool:\n    proc = _git(root, "rev-parse", "--is-inside-work-tree", check=False)\n    return proc.returncode == 0 and proc.stdout.strip() == "true"\n\n\n'''
-          if "def is_git_repository(" not in text:
-              if anchor not in text:
-                  raise SystemExit("event_ledger git_commit_exists anchor missing")
-              text = text.replace(anchor, addition + anchor, 1)
-
-          working = '''\n\ndef validate_working_history(root: Path) -> None:\n    if not is_git_repository(root):\n        return\n    current = read_event_ledger(root / EVENT_LEDGER_RELPATH)\n    if git_commit_exists(root, "HEAD"):\n        validate_parent_superset(current, [ledger_from_git(root, "HEAD")])\n    validate_working_merge(root)\n'''
-          if "def validate_working_history(" not in text:
-              text = text.rstrip() + working + "\n"
-          path.write_text(text, encoding="utf-8")
-
-          # Add production event-history checks to canonical-state transactions.
-          path = Path("tools/eos/canonical_state.py")
-          text = path.read_text(encoding="utf-8")
-          import_anchor = "from typing import Iterable\n\nUTC = dt.timezone.utc\n"
-          imports = '''from typing import Iterable\n\nTOOLS_EOS_DIR = Path(__file__).resolve().parent\nif str(TOOLS_EOS_DIR) not in sys.path:\n    sys.path.insert(0, str(TOOLS_EOS_DIR))\n\nfrom event_ledger import (\n    EventLedgerError,\n    is_git_repository,\n    validate_committed_history,\n    validate_working_history,\n)\n\nUTC = dt.timezone.utc\n'''
-          if "from event_ledger import (" not in text:
-              if import_anchor not in text:
-                  raise SystemExit("canonical_state import anchor missing")
-              text = text.replace(import_anchor, imports, 1)
-
-          helper_anchor = 'LAST_ROLLBACK_PATH = EOS / "cache" / "canonical-state-last-rollback.json"\n'
-          helpers = '''LAST_ROLLBACK_PATH = EOS / "cache" / "canonical-state-last-rollback.json"\n\n\ndef event_history_failures() -> list[str]:\n    if not is_git_repository(ROOT):\n        return []\n    failures: list[str] = []\n    try:\n        validate_committed_history(ROOT)\n    except EventLedgerError as exc:\n        failures.append(f"committed event history invalid: {exc}")\n    try:\n        validate_working_history(ROOT)\n    except EventLedgerError as exc:\n        failures.append(f"working event history invalid: {exc}")\n    return failures\n\n\ndef assert_event_history_integrity() -> None:\n    failures = event_history_failures()\n    if failures:\n        raise StateError(\n            "EOS event-history integrity failed:\\n- " + "\\n- ".join(failures)\n        )\n'''
-          if "def event_history_failures(" not in text:
-              if helper_anchor not in text:
-                  raise SystemExit("canonical_state helper anchor missing")
-              text = text.replace(helper_anchor, helpers, 1)
-
-          pre_anchor = "    assert_clean(state, include_github_local=not is_github_sync)\n"
-          if "    assert_clean(state, include_github_local=not is_github_sync)\n    assert_event_history_integrity()\n" not in text:
-              if pre_anchor not in text:
-                  raise SystemExit("canonical_state pre anchor missing")
-              text = text.replace(
-                  pre_anchor,
-                  pre_anchor + "    assert_event_history_integrity()\n",
-                  1,
-              )
-
-          post_anchor = "    changed = capture_successful_transaction(command)\n"
-          if "    assert_event_history_integrity()\n    changed = capture_successful_transaction(command)\n" not in text:
-              if post_anchor not in text:
-                  raise SystemExit("canonical_state post anchor missing")
-              text = text.replace(
-                  post_anchor,
-                  "    assert_event_history_integrity()\n" + post_anchor,
-                  1,
-              )
-
-          status_anchor = "    failures = projection_drift(state, include_github_local=True)\n"
-          if "    failures.extend(event_history_failures())\n" not in text:
-              if status_anchor not in text:
-                  raise SystemExit("canonical_state status anchor missing")
-              text = text.replace(
-                  status_anchor,
-                  status_anchor + "    failures.extend(event_history_failures())\n",
-                  1,
-              )
-          path.write_text(text, encoding="utf-8")
-
-          # Evidence-consensus reconciliation must independently enforce history.
-          path = Path("scripts/reconcile-eos-canonical-state.py")
-          text = path.read_text(encoding="utf-8")
-          anchor = "    rows_by_kind = cs.rows_from_projections()\n"
-          if "    cs.assert_event_history_integrity()\n" not in text:
-              if anchor not in text:
-                  raise SystemExit("reconciliation anchor missing")
-              text = text.replace(
-                  anchor,
-                  "    cs.assert_event_history_integrity()\n\n" + anchor,
-                  1,
-              )
-          path.write_text(text, encoding="utf-8")
-
-          # EOSV reports event-history integrity as an independent verification dimension.
-          path = Path("tools/eos/verification_v2.py")
-          text = path.read_text(encoding="utf-8")
-          family_anchor = '''from identity_families import (\n    REQUIREMENT_ID_PATTERN,\n    SPECIFICATION_ID_PATTERN,\n    is_requirement_id,\n    is_specification_id,\n)\n'''
-          event_import = family_anchor + '''from event_ledger import (\n    EventLedgerError,\n    is_git_repository,\n    validate_committed_history,\n    validate_working_history,\n)\n'''
-          if "from event_ledger import (" not in text:
-              if family_anchor not in text:
-                  raise SystemExit("verification_v2 import anchor missing")
-              text = text.replace(family_anchor, event_import, 1)
-
-          start = text.find("def cmd_verify(args):\n")
-          end = text.find("\ndef cmd_validators(args):", start)
-          if start < 0 or end < 0:
-              raise SystemExit("verification_v2 cmd_verify boundaries missing")
-          replacement = '''def verify_event_history_integrity() -> tuple[bool, str]:\n    if not is_git_repository(ROOT):\n        return True, "SKIP — repository is not a Git work tree"\n    try:\n        validate_committed_history(ROOT)\n        validate_working_history(ROOT)\n        return True, "PASS — current and working event histories preserve inherited events"\n    except EventLedgerError as exc:\n        return False, f"FAIL — {exc}"\n\n\ndef cmd_verify(args):\n    p=core("verify",*( ["--strict"] if args.strict else [] )); ok_core=p.returncode==0\n    ok_evid,evid_report=verify_evidence(args.strict)\n    ok_history,history_report=verify_event_history_integrity()\n    report={\n        "core":{"passed":ok_core,"output":p.stdout+p.stderr},\n        "event_history":{"passed":ok_history,"output":history_report},\n        "evidence":{"passed":ok_evid,"output":evid_report},\n        "passed":ok_core and ok_history and ok_evid,\n    }\n    if args.json: print(json.dumps(report,indent=2,sort_keys=True))\n    else:\n        print((p.stdout+p.stderr).rstrip())\n        print("\\nEOSV EVENT HISTORY INTEGRITY\\n"+history_report)\n        print("\\nEOSV EVIDENCE INTEGRITY\\n"+evid_report)\n        print(f"\\nEOSV RESULT: {'PASS' if report['passed'] else 'FAIL'}")\n    if not report["passed"]: raise EosvError("EOS verification failed")\n\n'''
-          text = text[:start] + replacement + text[end+1:]
-          path.write_text(text, encoding="utf-8")
-
-          # Add working-tree and in-progress merge tests.
-          path = Path("tools/eos/test_event_ledger_merge.py")
-          text = path.read_text(encoding="utf-8")
-          anchor = '\n\nif __name__ == "__main__":\n'
-          addition = r'''
-    def test_working_tree_cannot_delete_head_event(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            self.init_git_repo(root)
-            events = [
-                event("EVT-A", target="WP-A", from_state="DRAFT", to_state="READY"),
-                event("EVT-B", target="WP-B", from_state="DRAFT", to_state="READY"),
-            ]
-            self.write_git_ledger(root, events)
-            self.git(root, "add", ".")
-            self.git(root, "commit", "-qm", "base")
-            self.write_git_ledger(root, [events[0]])
-            with self.assertRaises(self.ledger.EventLedgerError):
-                self.ledger.validate_working_history(root)
-
-    def test_working_merge_rejects_same_entity_divergence(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            self.init_git_repo(root)
-            base = [event("EVT-BASE", target="WP-X", event_type="ENTITY_CREATED", to_state="DRAFT")]
-            self.write_git_ledger(root, base)
-            self.git(root, "add", ".")
-            self.git(root, "commit", "-qm", "base")
-            base_sha = self.git(root, "rev-parse", "HEAD").stdout.strip()
-
-            self.git(root, "checkout", "-qb", "left")
-            self.write_git_ledger(
-                root,
-                base + [event("EVT-LEFT", target="WP-X", from_state="DRAFT", to_state="READY")],
-            )
-            self.git(root, "add", ".")
-            self.git(root, "commit", "-qm", "left")
-
-            self.git(root, "checkout", "-qb", "right", base_sha)
-            self.write_git_ledger(
-                root,
-                base + [event("EVT-RIGHT", target="WP-X", from_state="DRAFT", to_state="BLOCKED")],
-            )
-            self.git(root, "add", ".")
-            self.git(root, "commit", "-qm", "right")
-            self.git(root, "merge", "--no-commit", "--no-ff", "left")
-            with self.assertRaises(self.ledger.EventLedgerConflict):
-                self.ledger.validate_working_history(root)
-
-    def test_working_merge_accepts_independent_entities(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            self.init_git_repo(root)
-            base = [event("EVT-BASE", target="WP-BASE", event_type="ENTITY_CREATED", to_state="DRAFT")]
-            self.write_git_ledger(root, base)
-            self.git(root, "add", ".")
-            self.git(root, "commit", "-qm", "base")
-            base_sha = self.git(root, "rev-parse", "HEAD").stdout.strip()
-
-            self.git(root, "checkout", "-qb", "left")
-            self.write_git_ledger(
-                root,
-                base + [event("EVT-LEFT", target="WP-LEFT", from_state="DRAFT", to_state="READY")],
-            )
-            self.git(root, "add", ".")
-            self.git(root, "commit", "-qm", "left")
-
-            self.git(root, "checkout", "-qb", "right", base_sha)
-            self.write_git_ledger(
-                root,
-                base + [event("EVT-RIGHT", target="WP-RIGHT", from_state="DRAFT", to_state="READY")],
-            )
-            self.git(root, "add", ".")
-            self.git(root, "commit", "-qm", "right")
-            self.git(root, "merge", "--no-commit", "--no-ff", "left")
-            self.ledger.validate_working_history(root)
-'''
-          if "test_working_tree_cannot_delete_head_event" not in text:
-              if text.count(anchor) != 1:
-                  raise SystemExit("test main anchor missing or duplicated")
-              text = text.replace(anchor, "\n" + addition + anchor, 1)
-          path.write_text(text, encoding="utf-8")
-          PY
+      - name: Apply production integration patch
+        run: python3 tools/eos/mnt0003_integrate_patch.py
 
       - name: Validate integrated enforcement
         run: |
@@ -248,11 +64,12 @@ jobs:
           git diff --cached --check
           git commit -m "fix(eos): enforce event history integrity"
 
-      - name: Remove temporary integration workflow
+      - name: Remove temporary integration machinery
         run: |
-          git rm .github/workflows/mnt-0003-integrate.yml
-          git commit -m "chore(eos): remove temporary MNT-0003 integration workflow"
+          git rm \
+            .github/workflows/mnt-0003-integrate.yml \
+            tools/eos/mnt0003_integrate_patch.py
+          git commit -m "chore(eos): remove temporary MNT-0003 integration machinery"
 
       - name: Push integrated checkpoints
-        run: |
-          git push origin HEAD:eosp/ai-driven-engineering-operating-model
+        run: git push origin HEAD:eosp/ai-driven-engineering-operating-model
