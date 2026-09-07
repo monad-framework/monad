@@ -1,0 +1,40 @@
+{
+  "content": "name: Temporary clean EOSE EXEC-0010 bootstrap\n\non:\n  push:\n    branches:\n      - bootstrap/eose-exec-0010-clean\n\npermissions:\n  contents: write\n\njobs:\n  bootstrap:\n    runs-on: ubuntu-24.04\n    timeout-minutes: 15\n    steps:\n      - name: Check out exact canonical main\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: main\n          fetch-depth: 0\n\n      - name: Set up Python\n        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065\n        with:\n          python-version: '3.12'\n\n      - name: Configure commit identity\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n\n      - name: Create clean governed execution session\n        env:\n          EOS_ACTOR: chatgpt\n        run: |\n          BASELINE=\"$(git rev-parse HEAD)\"\n          test \"$BASELINE\" = \"$(git rev-parse origin/main)\"\n          ./scripts/eos execute WP-MVP-0005 --base origin/main --actor chatgpt --json | tee /tmp/eose-exec-0010.json\n          test -f .eos/executions/EXEC-0010.json\n          grep -q $'EXEC-0010\\t.eos/executions/EXEC-0010.json\\tWP-MVP-0005\\tRUNNING\\twp/mvp-0005\\t' .eos/executions.tsv\n          python3 - \"$BASELINE\" <<'PY'\n          import json, sys\n          from pathlib import Path\n          expected = sys.argv[1]\n          session = json.loads(Path('.eos/executions/EXEC-0010.json').read_text())\n          assert session['registry']['baseline_commit'] == expected, (session['registry']['baseline_commit'], expected)\n          assert session['environment']['head'] == expected, (session['environment']['head'], expected)\n          assert session['registry']['status'] == 'RUNNING'\n          assert session['registry']['branch'] == 'wp/mvp-0005'\n          PY\n\n      - name: Publish governed implementation baseline\n        run: git push origin wp/mvp-0005:wp/mvp-0005\n\n      - name: Refresh deterministic projections\n        run: |\n          python3 tools/eos/trace_integrity.py --write\n          python3 scripts/sync-machine-docs.py --write\n\n      - name: Validate clean execution state\n        run: |\n          ./scripts/eos state status\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n          ./scripts/eos verify --strict\n\n      - name: Commit and publish clean control state\n        run: |\n          git add -A\n          git commit -m \"chore(eose): record clean EXEC-0010 execution session\"\n          git push origin HEAD:eose/exec-0010-start-clean\n",
+  "document_id": "doc:.github%2Fworkflows%2Ftmp-eose-exec-0010-clean.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/tmp-eose-exec-0010-clean.yml.",
+    "title": "Tmp Eose Exec 0010 Clean"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 73,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Temporary clean EOSE EXEC-0010 bootstrap\n\non:\n  push:\n    branches:\n      - bootstrap/eose-exec-0010-clean\n\npermissions:\n  contents: write\n\njobs:\n  bootstrap:\n    runs-on: ubuntu-24.04\n    timeout-minutes: 15\n    steps:\n      - name: Check out exact canonical main\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: main\n          fetch-depth: 0\n\n      - name: Set up Python\n        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065\n        with:\n          python-version: '3.12'\n\n      - name: Configure commit identity\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n\n      - name: Create clean governed execution session\n        env:\n          EOS_ACTOR: chatgpt\n        run: |\n          BASELINE=\"$(git rev-parse HEAD)\"\n          test \"$BASELINE\" = \"$(git rev-parse origin/main)\"\n          ./scripts/eos execute WP-MVP-0005 --base origin/main --actor chatgpt --json | tee /tmp/eose-exec-0010.json\n          test -f .eos/executions/EXEC-0010.json\n          grep -q $'EXEC-0010\\t.eos/executions/EXEC-0010.json\\tWP-MVP-0005\\tRUNNING\\twp/mvp-0005\\t' .eos/executions.tsv\n          python3 - \"$BASELINE\" <<'PY'\n          import json, sys\n          from pathlib import Path\n          expected = sys.argv[1]\n          session = json.loads(Path('.eos/executions/EXEC-0010.json').read_text())\n          assert session['registry']['baseline_commit'] == expected, (session['registry']['baseline_commit'], expected)\n          assert session['environment']['head'] == expected, (session['environment']['head'], expected)\n          assert session['registry']['status'] == 'RUNNING'\n          assert session['registry']['branch'] == 'wp/mvp-0005'\n          PY\n\n      - name: Publish governed implementation baseline\n        run: git push origin wp/mvp-0005:wp/mvp-0005\n\n      - name: Refresh deterministic projections\n        run: |\n          python3 tools/eos/trace_integrity.py --write\n          python3 scripts/sync-machine-docs.py --write\n\n      - name: Validate clean execution state\n        run: |\n          ./scripts/eos state status\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n          ./scripts/eos verify --strict\n\n      - name: Commit and publish clean control state\n        run: |\n          git add -A\n          git commit -m \"chore(eose): record clean EXEC-0010 execution session\"\n          git push origin HEAD:eose/exec-0010-start-clean",
+      "title": "Tmp Eose Exec 0010 Clean"
+    }
+  ],
+  "source": {
+    "bytes": 2706,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 73,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/tmp-eose-exec-0010-clean.yml",
+    "sha256": "1d2c37cb8afb4f8281a536b8942acafa6785be40bbafa322417b1f09dc0df6d1"
+  }
+}
