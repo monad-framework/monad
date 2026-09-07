@@ -1,0 +1,46 @@
+{
+  "content": "import { describe, expect, test } from \"bun:test\";\n\nimport { parseTsv } from \"./tsv\";\n\ndescribe(\"parseTsv\", () => {\n  test(\"parses rows using the header as keys\", () => {\n    const rows = parseTsv<Record<string, string>>(\n      \"id\\tstatus\\ttitle\\nWP-001\\tREADY\\tFirst packet\\nWP-002\\tCLOSED\\tSecond packet\\n\",\n    );\n\n    expect(rows).toEqual([\n      {\n        id: \"WP-001\",\n        status: \"READY\",\n        title: \"First packet\",\n      },\n      {\n        id: \"WP-002\",\n        status: \"CLOSED\",\n        title: \"Second packet\",\n      },\n    ]);\n  });\n\n  test(\"returns an empty array for empty input\", () => {\n    expect(parseTsv<Record<string, string>>(\"\\n\\n\")).toEqual([]);\n  });\n\n  test(\"preserves empty cells instead of shifting columns\", () => {\n    const rows = parseTsv<Record<string, string>>(\n      \"id\\tpath\\tstatus\\nEVID-001\\t\\tPASSED\\n\",\n    );\n\n    expect(rows[0]).toEqual({\n      id: \"EVID-001\",\n      path: \"\",\n      status: \"PASSED\",\n    });\n  });\n});\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ftsv.test.ts",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WP-001",
+    "WP-002"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript source for apps/workbench/src/lib/monad/tsv.test.ts.",
+    "title": "Tsv.Test"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "WP-001",
+        "WP-002"
+      ],
+      "level": 1,
+      "line_end": 40,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { describe, expect, test } from \"bun:test\";\n\nimport { parseTsv } from \"./tsv\";\n\ndescribe(\"parseTsv\", () => {\n  test(\"parses rows using the header as keys\", () => {\n    const rows = parseTsv<Record<string, string>>(\n      \"id\\tstatus\\ttitle\\nWP-001\\tREADY\\tFirst packet\\nWP-002\\tCLOSED\\tSecond packet\\n\",\n    );\n\n    expect(rows).toEqual([\n      {\n        id: \"WP-001\",\n        status: \"READY\",\n        title: \"First packet\",\n      },\n      {\n        id: \"WP-002\",\n        status: \"CLOSED\",\n        title: \"Second packet\",\n      },\n    ]);\n  });\n\n  test(\"returns an empty array for empty input\", () => {\n    expect(parseTsv<Record<string, string>>(\"\\n\\n\")).toEqual([]);\n  });\n\n  test(\"preserves empty cells instead of shifting columns\", () => {\n    const rows = parseTsv<Record<string, string>>(\n      \"id\\tpath\\tstatus\\nEVID-001\\t\\tPASSED\\n\",\n    );\n\n    expect(rows[0]).toEqual({\n      id: \"EVID-001\",\n      path: \"\",\n      status: \"PASSED\",\n    });\n  });\n});",
+      "title": "Tsv.Test"
+    }
+  ],
+  "source": {
+    "bytes": 968,
+    "canonical": true,
+    "language": "typescript",
+    "lines": 40,
+    "media_type": "text/vnd.trolltech.linguist",
+    "path": "apps/workbench/src/lib/monad/tsv.test.ts",
+    "sha256": "6aaf01c43dfdf12d6170f2ebcfcb1f23d4277a64f2e854fd5f3677bac2032bc7"
+  }
+}
