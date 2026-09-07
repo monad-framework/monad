@@ -91,11 +91,9 @@ jobs:
               'engineering/lifecycle/EOSV-verification.md': '## AI-Driven Verification Participation',
               'governance/authority.md': '## AI Actors and Delegated Authority',
               'governance/decision-process.md': '## AI Participation in Decisions',
+              'governance/planning-engine.md': '## Adaptive AI-Driven Pathway Planning',
+              'governance/policy-engine.md': '## AI-Driven Policy Obligations',
           }
-          dynamic = [
-              'governance/planning-engine.md',
-              'governance/policy-engine.md',
-          ]
 
           def source_text(file: str) -> str:
               return subprocess.check_output(['git','show',f'{source_ref}:{file}'], text=True)
@@ -113,13 +111,6 @@ jobs:
 
           for file, heading in targets.items():
               append_section(file, heading)
-
-          for file in dynamic:
-              src = source_text(file)
-              headings = [line for line in src.splitlines() if line.startswith('## AI')]
-              if not headings:
-                  raise SystemExit(f'no AI section heading found in {file}')
-              append_section(file, headings[0])
           PY
 
       - name: Normalize and validate shared docs
@@ -144,6 +135,8 @@ jobs:
           grep -q 'AIENG-TRC-001.*RESOLVED' specifications/baseline.md
           grep -q '^## AI-Driven Planning Participation$' engineering/lifecycle/EOSP-planning.md
           grep -q '^## AI Actors and Delegated Authority$' governance/authority.md
+          grep -q '^## Adaptive AI-Driven Pathway Planning$' governance/planning-engine.md
+          grep -q '^## AI-Driven Policy Obligations$' governance/policy-engine.md
 
           python3 - <<'PY'
           import subprocess
