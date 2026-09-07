@@ -1,41 +1,49 @@
-import type { RepositorySnapshot } from "@/lib/monad/model";
+import Link from "next/link";
+import type { MonadObject, RepositorySnapshot } from "@/lib/monad/model";
+import { KnowledgeContext } from "./knowledge-context";
 
 type WorkspaceProps = {
   snapshot: RepositorySnapshot;
 };
 
-function describeStatus(status: string): string {
-  switch (status) {
-    case "M":
-      return "Modified";
-    case "A":
-      return "Added";
-    case "D":
-      return "Deleted";
-    case "R":
-      return "Renamed";
-    case "??":
-      return "Untracked";
-    default:
-      return status;
+function ContextObject({ object }: { object: MonadObject | undefined }) {
+  if (!object) {
+    return (
+      <div className="context-object muted-object">
+        <strong>Unknown</strong>
+      </div>
+    );
   }
+
+  return (
+    <Link
+      className="context-object context-object-link"
+      href={`/?focus=${encodeURIComponent(object.id)}`}
+    >
+      <div>
+        <code>{object.id}</code>
+        <strong>{object.title}</strong>
+      </div>
+
+      {object.status ? (
+        <span className="lifecycle-badge">{object.status}</span>
+      ) : null}
+    </Link>
+  );
 }
 
 export function Workspace({ snapshot }: WorkspaceProps) {
-  const totalFiles = snapshot.sources.reduce(
-    (sum, source) => sum + source.fileCount,
-    0,
-  );
+  const { product, execution } = snapshot;
 
   return (
     <main className="workspace">
       <header className="workspace-header">
         <div>
           <p className="eyebrow">Monad / Now</p>
-          <h1>Development context</h1>
+          <h1>Current development context</h1>
           <p className="workspace-description">
-            A current projection of the repository state that Workbench can
-            establish without inventing engineering state.
+            Product intent and governed execution projected from canonical Monad
+            and EOS sources.
           </p>
         </div>
 
@@ -45,33 +53,29 @@ export function Workspace({ snapshot }: WorkspaceProps) {
         </div>
       </header>
 
-      <section className="summary-grid" aria-label="Repository summary">
+      <section className="summary-grid">
         <article className="summary-card">
-          <p className="card-label">Current focus</p>
-          <strong>Workbench v0</strong>
-          <p>Internal cognitive interface for planning and developing Monad.</p>
+          <p className="card-label">Product Goal</p>
+          <strong>{product.productGoal?.id ?? "Unknown"}</strong>
+          <p>{product.productGoal?.title ?? "Not resolved"}</p>
         </article>
 
         <article className="summary-card">
-          <p className="card-label">Repository version</p>
-          <strong>{snapshot.version ?? "Unknown"}</strong>
-          <p>Read from the repository VERSION artifact.</p>
+          <p className="card-label">Initiative</p>
+          <strong>{product.initiative?.id ?? "Unknown"}</strong>
+          <p>{product.initiative?.title ?? "Not resolved"}</p>
         </article>
 
         <article className="summary-card">
-          <p className="card-label">Indexed sources</p>
-          <strong>{snapshot.sources.length}</strong>
-          <p>{totalFiles.toLocaleString()} files currently visible.</p>
+          <p className="card-label">Work Cycle</p>
+          <strong>{execution.workCycle?.id ?? "Unknown"}</strong>
+          <p>{execution.workCycle?.title ?? "Not resolved"}</p>
         </article>
 
         <article className="summary-card">
-          <p className="card-label">Working tree</p>
-          <strong>{snapshot.gitStatus.length}</strong>
-          <p>
-            {snapshot.gitStatus.length === 0
-              ? "No local changes detected."
-              : "Local changes require awareness."}
-          </p>
+          <p className="card-label">Active Work Packet</p>
+          <strong>{execution.workPacket?.id ?? "None"}</strong>
+          <p>{execution.workPacket?.status ?? "No active packet"}</p>
         </article>
       </section>
 
@@ -79,75 +83,100 @@ export function Workspace({ snapshot }: WorkspaceProps) {
         <section className="panel">
           <div className="panel-heading">
             <div>
-              <p className="section-label">Knowledge surface</p>
-              <h2>Repository sources</h2>
+              <p className="section-label">Why / What</p>
+              <h2>Product context</h2>
             </div>
           </div>
 
-          <div className="source-list">
-            {snapshot.sources.map((source) => (
-              <div className="source-row" key={source.path}>
-                <div>
-                  <strong>{source.label}</strong>
-                  <code>{source.path}/</code>
-                </div>
+          <div className="context-stack">
+            <ContextObject object={product.productGoal} />
+            <ContextObject object={product.initiative} />
+            <ContextObject object={product.epic} />
+            <ContextObject object={product.feature} />
+          </div>
 
-                <span>{source.fileCount}</span>
-              </div>
-            ))}
+          <div className="story-section">
+            <p className="section-label">Stories / Enablers</p>
+
+            <div className="story-list">
+              {[...product.stories, ...product.enablers].map((object) => (
+                <Link
+                  className="story-row story-row-link"
+                  href={`/?focus=${encodeURIComponent(object.id)}`}
+                  key={object.id}
+                ></Link>
+              ))}
+            </div>
           </div>
         </section>
 
         <section className="panel">
           <div className="panel-heading">
             <div>
-              <p className="section-label">Attention</p>
-              <h2>Working tree</h2>
+              <p className="section-label">When / Through What</p>
+              <h2>Governed execution</h2>
             </div>
-
-            <span className="count-badge">{snapshot.gitStatus.length}</span>
           </div>
 
-          {snapshot.gitStatus.length === 0 ? (
-            <div className="empty-state">
-              <p>No working-tree changes detected.</p>
-            </div>
-          ) : (
-            <div className="change-list">
-              {snapshot.gitStatus.slice(0, 12).map((entry) => (
-                <div
-                  className="change-row"
-                  key={`${entry.status}:${entry.path}`}
-                >
-                  <span className="change-status">
-                    {describeStatus(entry.status)}
-                  </span>
-                  <code>{entry.path}</code>
-                </div>
-              ))}
+          <div className="context-stack">
+            <ContextObject object={execution.programIncrement} />
+            <ContextObject object={execution.workCycle} />
+            <ContextObject object={execution.workPacket} />
+          </div>
 
-              {snapshot.gitStatus.length > 12 ? (
-                <p className="remaining-changes">
-                  +{snapshot.gitStatus.length - 12} more
-                </p>
-              ) : null}
-            </div>
-          )}
+          <div className="authority-note">
+            <p className="section-label">Lifecycle authority</p>
+            <code>.eos/state/current.json</code>
+          </div>
         </section>
       </div>
 
-      <section className="panel next-panel">
-        <div>
-          <p className="section-label">Next projection</p>
-          <h2>Planning hierarchy</h2>
-        </div>
+      <div className="workspace-columns secondary-columns">
+        <KnowledgeContext knowledge={snapshot.knowledge} />
 
-        <p>
-          The next Workbench capability will derive Goal → Initiative → Epic →
-          Story → Work Packet → Task relationships from real Monad engineering
-          artifacts.
-        </p>
-      </section>
+        <section className="panel">
+          <div className="panel-heading">
+            <div>
+              <p className="section-label">Workspace state</p>
+              <h2>Repository</h2>
+            </div>
+          </div>
+
+          <div className="compact-metrics">
+            <div>
+              <span>Branch</span>
+              <code>{snapshot.branch}</code>
+            </div>
+
+            <div>
+              <span>Version</span>
+              <strong>{snapshot.version ?? "Unknown"}</strong>
+            </div>
+
+            <div>
+              <span>Local changes</span>
+              <strong>{snapshot.gitStatus.length}</strong>
+            </div>
+          </div>
+        </section>
+
+        <section className="panel">
+          <div className="panel-heading">
+            <div>
+              <p className="section-label">Next lens</p>
+              <h2>Governing knowledge</h2>
+            </div>
+          </div>
+
+          <div className="empty-state">
+            <p>
+              Next we will project requirements, ADRs, specifications,
+              dependencies, evidence, and verification for the active Work
+              Packet.
+            </p>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

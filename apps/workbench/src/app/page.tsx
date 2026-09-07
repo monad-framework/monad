@@ -1,12 +1,27 @@
 import { connection } from "next/server";
 
 import { AppShell } from "@/components/workbench/app-shell";
+import { Workspace } from "@/components/workbench/workspace";
 import { getRepositorySnapshot } from "@/lib/monad/repository";
 
-export default async function Home() {
+type PageProps = {
+  searchParams: Promise<{
+    focus?: string | string[];
+  }>;
+};
+
+export default async function Home({ searchParams }: PageProps) {
   await connection();
 
-  const snapshot = await getRepositorySnapshot();
+  const params = await searchParams;
 
-  return <AppShell snapshot={snapshot} />;
+  const focusId = Array.isArray(params.focus) ? params.focus[0] : params.focus;
+
+  const snapshot = await getRepositorySnapshot(focusId);
+
+  return (
+    <AppShell snapshot={snapshot}>
+      <Workspace snapshot={snapshot} />
+    </AppShell>
+  );
 }

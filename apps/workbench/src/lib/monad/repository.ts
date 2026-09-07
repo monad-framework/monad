@@ -1,12 +1,16 @@
 import { execFile } from "node:child_process";
 import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
-
+import { readCurrentExecutionContext } from "./eos";
+import { readFocusContext } from "./focus";
+import { readFocusDocument } from "./focus-document";
+import { readCurrentKnowledgeContext } from "./knowledge";
 import type {
   GitStatusEntry,
   RepositorySnapshot,
   RepositorySource,
 } from "./model";
+import { readCurrentProductContext } from "./planning";
 
 async function exists(target: string): Promise<boolean> {
   try {
@@ -128,23 +132,39 @@ async function buildSources(root: string): Promise<RepositorySource[]> {
   );
 }
 
-export async function getRepositorySnapshot(): Promise<RepositorySnapshot> {
+export async function getRepositorySnapshot(
+  focusId?: string,
+): Promise<RepositorySnapshot> {
   const root = await findMonadRoot(process.cwd());
 
-  const [branch, rawStatus, version, sources] = await Promise.all([
-    runGit(root, ["branch", "--show-current"]),
-    runGit(root, ["status", "--short"]),
-    readVersion(root),
-    buildSources(root),
-  ]);
+  const execution = await readCurrentExecutionContext(root);
+
+  const [branch, rawStatus, version, sources, product, knowledge] =
+    await Promise.all([
+      runGit(root, ["branch", "--show-current"]),
+      runGit(root, ["status", "--short"]),
+      readVersion(root),
+      buildSources(root),
+      readCurrentProductContext(root, execution),
+      readCurrentKnowledgeContext(root, execution.workPacket),
+    ]);
+
+  const focus = await readFocusContext(root, focusId, {
+    product,
+    execution,
+    knowledge,
+  });
+
+  focus.document = await readFocusDocument(root, focus.object);
 
   return {
     rootPath: root,
     branch: branch || "unknown",
     version,
-    workbenchSpecificationPresent: await exists(
-      path.join(root, "docs/implementation/workbench-v0.md"),
-    ),
+    product,
+    execution,
+    knowledge,
+    focus,
     sources,
     gitStatus: parseGitStatus(rawStatus),
   };
