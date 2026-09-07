@@ -1,0 +1,98 @@
+{
+  "actual_changed_files": [
+    "crates/monad-core/src/config.rs",
+    "crates/monad-core/src/discovery.rs",
+    "crates/monad-core/src/identity.rs",
+    "crates/monad-core/src/lib.rs",
+    "crates/monad-core/src/workspace.rs",
+    "machine/corpus.jsonl",
+    "machine/documents/crates/monad-core/src/config.rs.json",
+    "machine/documents/crates/monad-core/src/discovery.rs.json",
+    "machine/documents/crates/monad-core/src/identity.rs.json",
+    "machine/documents/crates/monad-core/src/lib.rs.json",
+    "machine/documents/crates/monad-core/src/workspace.rs.json",
+    "machine/graph.json",
+    "machine/manifest.json"
+  ],
+  "checked": "2026-09-07T16:37:39Z",
+  "checks": {
+    "contract_valid": true,
+    "declared_diff_matches_actual": true,
+    "result_ingested": true,
+    "scope_passed": true
+  },
+  "contract": {
+    "canonical_governing_hash": "d3284e11b0364f97e82aaf5049db30e85a32dc9fda4ffe1c8e2d47a20c064db1",
+    "checks": [
+      {
+        "check": "contract_hash",
+        "detail": "expected=2879de4abf9e0d8d3ea731b154adf3ceccbc441c19e8d193310f2ee8756c0fb5 calculated=2879de4abf9e0d8d3ea731b154adf3ceccbc441c19e8d193310f2ee8756c0fb5",
+        "passed": true
+      },
+      {
+        "check": "worktree_governing_inputs_unchanged",
+        "detail": "expected=d3284e11b0364f97e82aaf5049db30e85a32dc9fda4ffe1c8e2d47a20c064db1 worktree=d3284e11b0364f97e82aaf5049db30e85a32dc9fda4ffe1c8e2d47a20c064db1",
+        "passed": true
+      },
+      {
+        "check": "canonical_governing_inputs_unchanged",
+        "detail": "expected=d3284e11b0364f97e82aaf5049db30e85a32dc9fda4ffe1c8e2d47a20c064db1 canonical=d3284e11b0364f97e82aaf5049db30e85a32dc9fda4ffe1c8e2d47a20c064db1",
+        "passed": true
+      },
+      {
+        "check": "baseline_is_ancestor",
+        "detail": "baseline=12750d1ace8df46587be3d816ef8d4e09b31eda1 head=d01b8ae86e0faad3624f6d64065d32b97ff69b5e",
+        "passed": true
+      },
+      {
+        "check": "expected_branch",
+        "detail": "expected=wp/mvp-0005 actual=wp/mvp-0005",
+        "passed": true
+      }
+    ],
+    "execution_id": "EXEC-0010",
+    "passed": true,
+    "target": "WP-MVP-0005",
+    "worktree_governing_hash": "d3284e11b0364f97e82aaf5049db30e85a32dc9fda4ffe1c8e2d47a20c064db1"
+  },
+  "declared_changed_files": [
+    "crates/monad-core/src/config.rs",
+    "crates/monad-core/src/discovery.rs",
+    "crates/monad-core/src/identity.rs",
+    "crates/monad-core/src/lib.rs",
+    "crates/monad-core/src/workspace.rs",
+    "machine/corpus.jsonl",
+    "machine/documents/crates/monad-core/src/config.rs.json",
+    "machine/documents/crates/monad-core/src/discovery.rs.json",
+    "machine/documents/crates/monad-core/src/identity.rs.json",
+    "machine/documents/crates/monad-core/src/lib.rs.json",
+    "machine/documents/crates/monad-core/src/workspace.rs.json",
+    "machine/graph.json",
+    "machine/manifest.json"
+  ],
+  "environment_drift": {
+    "head_changed": true,
+    "lockfiles_changed": false,
+    "tool_changes": {
+      "python3": {
+        "after": "Python 3.12.3",
+        "before": "Python 3.12.14"
+      }
+    }
+  },
+  "execution_id": "EXEC-0010",
+  "passed": true,
+  "scope": {
+    "directives": {
+      "allowed": [
+        "*",
+        "**/*"
+      ],
+      "allowed_governed": [],
+      "forbidden": []
+    },
+    "passed": true,
+    "violations": []
+  },
+  "target": "WP-MVP-0005"
+}
