@@ -103,9 +103,13 @@ jobs:
           PY
           )" = "VERIFIED"
 
-      - name: Close execution and remove worktree
+      - name: Close execution and remove clean worktree
+        shell: bash
         run: |
+          set -Eeuo pipefail
+          WT=/home/runner/work/monad/.monad-worktrees/wp-mvp-0005
           ./scripts/eos execution close EXEC-0010 --reason "Bounded structured-configuration implementation result independently verified" --by chatgpt
+          rm -f "$WT/.eos-result-EXEC-0010.json"
           ./scripts/eos worktree remove WP-MVP-0005
 
       - name: Regenerate and strictly verify canonical projections
