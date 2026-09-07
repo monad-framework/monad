@@ -5,7 +5,11 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 
+[lib]
+path = "src/root.rs"
+
 [dependencies]
+monad-core = { path = "../monad-core" }
 monad-codex-confinement = { path = "../monad-codex-confinement" }
 monad-codex-runtime = { path = "../monad-codex-runtime" }
 serde.workspace = true
