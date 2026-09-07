@@ -29,3 +29,8 @@ machine/documents/** linguist-generated
 machine/manifest.json linguist-generated
 machine/graph.json linguist-generated
 machine/corpus.jsonl linguist-generated
+
+# EOS append-only event history.
+# Git union prevents ordinary divergent append loss.
+# EOS semantic validation remains authoritative.
+.eos/events.jsonl merge=union
