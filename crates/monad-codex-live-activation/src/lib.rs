@@ -9,8 +9,8 @@
 use std::{error::Error, fmt, path::PathBuf};
 
 use monad_codex_confinement::{
-    CONFINEMENT_CERTIFICATE_VERSION, CONFINEMENT_PROFILE_EXTENSION,
-    CodexConfinementCertificate, CodexConfinementVerifier, ConfinementProbePlan,
+    CONFINEMENT_CERTIFICATE_VERSION, CONFINEMENT_PROFILE_EXTENSION, CodexConfinementCertificate,
+    CodexConfinementVerifier, ConfinementProbePlan,
 };
 use monad_codex_runtime::{AppServerTransport, CodexRuntimeError};
 use serde::Serialize;
@@ -94,8 +94,13 @@ impl fmt::Display for LiveActivationError {
             Self::Runtime(value) => write!(formatter, "Codex runtime error: {value}"),
             Self::Confinement(value) => write!(formatter, "Codex confinement failed: {value}"),
             Self::InvalidPlan(value) => write!(formatter, "invalid live activation plan: {value}"),
-            Self::Protocol(value) => write!(formatter, "live activation protocol failed closed: {value}"),
-            Self::CertificateMismatch(value) => write!(formatter, "live activation did not match confinement certificate: {value}"),
+            Self::Protocol(value) => {
+                write!(formatter, "live activation protocol failed closed: {value}")
+            }
+            Self::CertificateMismatch(value) => write!(
+                formatter,
+                "live activation did not match confinement certificate: {value}"
+            ),
         }
     }
 }
@@ -181,12 +186,14 @@ fn validate_certificate(
 ) -> Result<(), LiveActivationError> {
     if certificate.schema_version != CONFINEMENT_CERTIFICATE_VERSION {
         return Err(LiveActivationError::CertificateMismatch(format!(
-            "unsupported certificate schema {:?}", certificate.schema_version
+            "unsupported certificate schema {:?}",
+            certificate.schema_version
         )));
     }
     if certificate.extension != CONFINEMENT_PROFILE_EXTENSION {
         return Err(LiveActivationError::CertificateMismatch(format!(
-            "unexpected confinement extension {:?}", certificate.extension
+            "unexpected confinement extension {:?}",
+            certificate.extension
         )));
     }
     if !certificate.verified {
@@ -325,9 +332,7 @@ impl<T: AppServerTransport> ActivationProtocol<T> {
             .and_then(Value::as_str)
             .filter(|value| !value.trim().is_empty())
             .ok_or_else(|| {
-                LiveActivationError::Protocol(
-                    "thread/start omitted a non-empty thread.id".into(),
-                )
+                LiveActivationError::Protocol("thread/start omitted a non-empty thread.id".into())
             })?
             .to_owned();
         let active_profile_id = result
@@ -464,7 +469,12 @@ fn digest_json(value: &impl Serialize) -> Result<String, LiveActivationError> {
 
 #[cfg(test)]
 mod tests {
-    use std::{collections::VecDeque, fs, path::Path, time::{SystemTime, UNIX_EPOCH}};
+    use std::{
+        collections::VecDeque,
+        fs,
+        path::Path,
+        time::{SystemTime, UNIX_EPOCH},
+    };
 
     use super::*;
 
@@ -476,7 +486,10 @@ mod tests {
 
     impl ScriptedTransport {
         fn with_incoming(messages: Vec<Value>) -> Self {
-            Self { incoming: messages.into(), sent: vec![] }
+            Self {
+                incoming: messages.into(),
+                sent: vec![],
+            }
         }
     }
 
@@ -502,19 +515,27 @@ mod tests {
                 .expect("clock after epoch")
                 .as_nanos();
             let root = std::env::temp_dir().join(format!(
-                "monad-codex-live-activation-{}-{nonce}", std::process::id()
+                "monad-codex-live-activation-{}-{nonce}",
+                std::process::id()
             ));
             fs::create_dir_all(root.join("provider")).expect("create provider cwd");
             fs::write(root.join("sentinel"), "FORBIDDEN_MARKER\n").expect("write sentinel");
             Self(root)
         }
 
-        fn provider_cwd(&self) -> PathBuf { self.0.join("provider") }
-        fn sentinel(&self) -> PathBuf { self.0.join("sentinel") }
+        fn provider_cwd(&self) -> PathBuf {
+            self.0.join("provider")
+        }
+
+        fn sentinel(&self) -> PathBuf {
+            self.0.join("sentinel")
+        }
     }
 
     impl Drop for TestBoundary {
-        fn drop(&mut self) { let _ = fs::remove_dir_all(&self.0); }
+        fn drop(&mut self) {
+            let _ = fs::remove_dir_all(&self.0);
+        }
     }
 
     fn plan(boundary: &TestBoundary) -> LiveActivationPlan {
@@ -573,7 +594,10 @@ mod tests {
         assert!(binding.certificate.verified);
         assert_eq!(binding.profile_id, "monad-geh-confinement");
         assert_eq!(binding.active_permission_profile_id, binding.profile_id);
-        assert_eq!(binding.activation_user_agent, binding.certificate.codex_user_agent);
+        assert_eq!(
+            binding.activation_user_agent,
+            binding.certificate.codex_user_agent
+        );
         assert_eq!(binding.dynamic_tool_registered, MONAD_WORKSPACE_READ_TOOL);
         assert!(binding.certificate_digest.starts_with("sha256:"));
     }
@@ -587,7 +611,10 @@ mod tests {
             &plan(&boundary),
         )
         .unwrap_err();
-        assert!(matches!(error, LiveActivationError::CertificateMismatch(_)));
+        assert!(matches!(
+            error,
+            LiveActivationError::CertificateMismatch(_)
+        ));
     }
 
     #[test]
@@ -599,7 +626,10 @@ mod tests {
             &plan(&boundary),
         )
         .unwrap_err();
-        assert!(matches!(error, LiveActivationError::CertificateMismatch(_)));
+        assert!(matches!(
+            error,
+            LiveActivationError::CertificateMismatch(_)
+        ));
     }
 
     #[test]
@@ -617,14 +647,25 @@ mod tests {
         assert_eq!(sent[2]["params"]["runtimeWorkspaceRoots"], json!([]));
         assert_eq!(sent[2]["params"]["environments"], json!([]));
         assert_eq!(sent[2]["params"]["selectedCapabilityRoots"], json!([]));
-        assert_eq!(sent[2]["params"]["dynamicTools"][0]["name"], MONAD_WORKSPACE_READ_TOOL);
+        assert_eq!(
+            sent[2]["params"]["dynamicTools"][0]["name"],
+            MONAD_WORKSPACE_READ_TOOL
+        );
         assert_eq!(sent[2]["params"]["config"]["features.shell_tool"], false);
         assert_eq!(sent[2]["params"]["config"]["web_search"], "disabled");
     }
 
     #[test]
     fn plan_requires_absolute_provider_and_forbidden_paths() {
-        let plan = LiveActivationPlan::new("profile", Path::new("relative"), Path::new("sentinel"), "marker");
-        assert!(matches!(plan.validate(), Err(LiveActivationError::InvalidPlan(_))));
+        let plan = LiveActivationPlan::new(
+            "profile",
+            Path::new("relative"),
+            Path::new("sentinel"),
+            "marker",
+        );
+        assert!(matches!(
+            plan.validate(),
+            Err(LiveActivationError::InvalidPlan(_))
+        ));
     }
 }

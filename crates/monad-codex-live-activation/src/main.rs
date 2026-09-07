@@ -7,7 +7,10 @@ use serde_json::json;
 fn main() -> ExitCode {
     match run(env::args().skip(1).collect()) {
         Ok(binding) => {
-            println!("{}", serde_json::to_string_pretty(&binding).expect("serializable binding"));
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&binding).expect("serializable binding")
+            );
             ExitCode::SUCCESS
         }
         Err(error) => {
@@ -24,7 +27,9 @@ fn main() -> ExitCode {
     }
 }
 
-fn run(arguments: Vec<String>) -> Result<monad_codex_live_activation::LiveActivationBinding, String> {
+fn run(
+    arguments: Vec<String>,
+) -> Result<monad_codex_live_activation::LiveActivationBinding, String> {
     let mut arguments = arguments.into_iter();
     if arguments.next().as_deref() != Some("verify") {
         return Err("expected `verify` command".into());
@@ -38,13 +43,21 @@ fn run(arguments: Vec<String>) -> Result<monad_codex_live_activation::LiveActiva
 
     while let Some(argument) = arguments.next() {
         let value = |arguments: &mut std::vec::IntoIter<String>, name: &str| {
-            arguments.next().ok_or_else(|| format!("{name} requires a value"))
+            arguments
+                .next()
+                .ok_or_else(|| format!("{name} requires a value"))
         };
         match argument.as_str() {
             "--profile" => profile = Some(value(&mut arguments, "--profile")?),
-            "--provider-cwd" => provider_cwd = Some(PathBuf::from(value(&mut arguments, "--provider-cwd")?)),
-            "--forbidden-path" => forbidden_path = Some(PathBuf::from(value(&mut arguments, "--forbidden-path")?)),
-            "--forbidden-marker" => forbidden_marker = Some(value(&mut arguments, "--forbidden-marker")?),
+            "--provider-cwd" => {
+                provider_cwd = Some(PathBuf::from(value(&mut arguments, "--provider-cwd")?))
+            }
+            "--forbidden-path" => {
+                forbidden_path = Some(PathBuf::from(value(&mut arguments, "--forbidden-path")?))
+            }
+            "--forbidden-marker" => {
+                forbidden_marker = Some(value(&mut arguments, "--forbidden-marker")?)
+            }
             "--codex" => codex = value(&mut arguments, "--codex")?,
             _ => return Err(format!("unknown argument: {argument}")),
         }
@@ -58,8 +71,9 @@ fn run(arguments: Vec<String>) -> Result<monad_codex_live_activation::LiveActiva
     );
 
     let args = vec!["app-server".to_owned()];
-    let certification = ProcessJsonlTransport::spawn(&codex, &args, Some(&plan.provider_runtime_cwd))
-        .map_err(|error| error.to_string())?;
+    let certification =
+        ProcessJsonlTransport::spawn(&codex, &args, Some(&plan.provider_runtime_cwd))
+            .map_err(|error| error.to_string())?;
     let activation = ProcessJsonlTransport::spawn(&codex, &args, Some(&plan.provider_runtime_cwd))
         .map_err(|error| error.to_string())?;
 
