@@ -1,0 +1,78 @@
+name: AIENG Replacement Branch Authored Validation
+
+on:
+  push:
+    branches:
+      - automation/aieng-replacement-validation-20260907
+    paths:
+      - .github/workflows/aieng-replacement-validation.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout reconciled authored result
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: 605b8b860120c2012b619f34b1eb9638f7b5bc74
+
+      - name: Verify authored-only branch boundary
+        run: |
+          set -euo pipefail
+          base=15ddd23626be8045d30cf3a7fa35cd2ba9a694f3
+          changed="$(git diff --name-only "$base"..HEAD)"
+          prohibited="$(printf '%s\n' "$changed" | grep -E '^(\.eos/events\.jsonl|\.eos/evidence\.tsv|\.eos/evidence-links\.tsv|\.eos/maintenance\.tsv|\.eos/state/current\.json|\.eos/state/projections\.json|\.eos/trace-edges\.tsv|\.eos/evidence/|engineering/evidence/|machine/)' || true)"
+          if [[ -n "$prohibited" ]]; then
+            echo "integration-sensitive files changed relative to original main-line fork:" >&2
+            printf '%s\n' "$prohibited" >&2
+            exit 51
+          fi
+          if ! git diff --quiet "$base"..HEAD -- tools/eos/verification_v2.py; then
+            echo "modern verification_v2.py facade was modified" >&2
+            exit 52
+          fi
+          echo "authored-only replacement boundary: PASS"
+          echo "modern verification_v2.py facade preserved: PASS"
+
+      - name: Static validation
+        run: |
+          set -euo pipefail
+          git diff --check 15ddd23626be8045d30cf3a7fa35cd2ba9a694f3..HEAD
+          bash -n scripts/eos
+          python3 -m py_compile \
+            scripts/reconcile-eos-canonical-state.py \
+            tools/eos/canonical_state.py \
+            tools/eos/eos.py \
+            tools/eos/event_ledger.py \
+            tools/eos/execution_v2.py \
+            tools/eos/identity_families.py \
+            tools/eos/verification_v2.py \
+            tools/eos/verification_v2_impl.py \
+            tools/eos/test_canonical_state.py \
+            tools/eos/test_canonical_reconciliation.py \
+            tools/eos/test_event_ledger_merge.py \
+            tools/eos/test_identifier_families.py \
+            tools/eos/test_wrapper_dispatch.py
+
+      - name: Run authored regressions
+        run: |
+          set -euo pipefail
+          python3 tools/eos/test_identifier_families.py
+          python3 tools/eos/test_event_ledger_merge.py
+          python3 tools/eos/test_canonical_state.py
+          python3 tools/eos/test_canonical_reconciliation.py
+          python3 tools/eos/test_wrapper_dispatch.py
+
+      - name: Verify no validation churn
+        run: |
+          set -euo pipefail
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "validation mutated working tree:" >&2
+            git status --short >&2
+            exit 53
+          fi
+          echo "validation working tree remains clean: PASS"
