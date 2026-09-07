@@ -61,3 +61,39 @@ defines it for low-risk changes.
 Reopen a decision when its stated trigger fires, a key assumption fails,
 consequence changes materially, or new evidence makes the accepted option
 unsafe or clearly inferior. Supersede the prior record rather than erasing it.
+
+## AI Participation in Decisions
+
+AI MAY participate throughout the decision process by:
+
+- framing questions;
+- identifying missing information;
+- gathering and organizing evidence;
+- identifying assumptions and unknowns;
+- generating credible alternatives;
+- analyzing consequences and reversibility;
+- recommending a decision;
+- drafting a decision record;
+- identifying reconsideration triggers.
+
+AI participation does not itself constitute a decision.
+
+A consequential AI recommendation MUST remain distinguishable from:
+
+- the authoritative decision;
+- approval;
+- authorization;
+- acceptance.
+
+Material ambiguity MUST be surfaced rather than silently resolved by model
+inference when different interpretations could materially affect product,
+architecture, security, privacy, operations, legal posture, accepted risk,
+irreversible commitments, authority, or acceptance.
+
+Where governance requires a `DEC`, `APR`, ADR, CR, review, or other native
+record, conversation history or model output alone is insufficient.
+
+A governed denial is authoritative within its scope. AI MAY propose a materially
+different conforming alternative or revisit the matter when new material
+governed evidence exists, but MUST NOT repeatedly pressure for the same rejected
+outcome merely to obtain a different answer.

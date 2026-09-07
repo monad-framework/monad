@@ -56,3 +56,43 @@ Escalate when owners disagree on a cross-boundary risk, a decision exceeds
 delegated limits, a required owner is unavailable beyond the decision window,
 or evidence reveals a legal, ethical, or safety concern. Escalation packages the
 decision, options, evidence, deadline, impact of delay, and recommendation.
+
+## AI Actors and Delegated Authority
+
+AI systems, models, agents, harnesses, and automation do not become accountable
+governance roles merely by participating in engineering work.
+
+AI authority exists only when explicitly granted through applicable Monad
+governance.
+
+AI MAY possess technical capabilities without possessing binding authority.
+
+Delegation to an AI actor MUST preserve the general delegation rules above and,
+for consequential authority, SHOULD identify:
+
+- delegator and authority basis;
+- delegate identity;
+- governed subject and scope;
+- permitted decision or effect classes;
+- explicit limits and prohibitions;
+- applicable environment and resources;
+- approval thresholds;
+- evidence and reporting obligations;
+- escalation conditions;
+- expiration or termination conditions where applicable;
+- whether redelegation is allowed;
+- revocation mechanism.
+
+Delegated AI authority never exceeds the delegator's current authority.
+
+An AI actor MUST NOT self-promote its authority, autonomy profile, capabilities,
+approval rights, or delegation scope.
+
+Analytical performance, model confidence, benchmark results, provider identity,
+tool possession, credentials, or historical reliability do not themselves
+create authority.
+
+Human sovereignty means accountable control over consequential authority,
+delegation, accepted risk, irreversible commitments, mission, and final
+escalation. It does not require synchronous human approval for every low-risk
+action already inside an explicitly authorized boundary.
