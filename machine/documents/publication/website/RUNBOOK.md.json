@@ -1,0 +1,67 @@
+{
+  "content": "# Monad publication activation runbook\n\nThe source workflow validates and reproduces the exact current Monad `main` revision, then sends only repository identity, source SHA, and projection version to `monad-framework/aic-fumadocs-app`. The destination retrieves and independently validates that revision, synchronizes manifest-owned files on `publication/monad-main`, and creates or updates a pull request. Destination main is never mutated directly.\n\n## Required GitHub App boundary\n\nCreate one GitHub App for publication automation and install it only on `monad-framework/aic-fumadocs-app`. Grant repository metadata read (implicit), Contents read/write, and Pull requests read/write. Configure `MONAD_PUBLICATION_APP_ID` as an Actions repository variable and `MONAD_PUBLICATION_APP_PRIVATE_KEY` as an Actions secret in both repositories. Enable the destination repository setting that permits GitHub Actions to create pull requests, and require destination CI on protected `main`.\n\nAfter configuration, rerun **Publish Monad site projection** in Monad with an empty `source_sha`, or run **Reconcile Monad publication** in the destination. An explicit SHA is accepted only when it is the current Monad main head.\n\n## Failure and retry\n\n- A stale event is ignored; the next main push or hourly reconciliation converges on current main.\n- Invalid source policy, schema, state, MDX, links, types, or build output fails before a branch is pushed.\n- A missing or invalid App credential fails at token creation without exposing the private key.\n- An existing open publication PR is updated in place from the deterministic `publication/monad-main` branch.\n- A no-change reconciliation creates no commit and no new PR.\n- A failed destination CI check leaves only an unmerged branch/PR. Correct the source exporter or destination consumer and rerun.\n- Manual drift in a manifest-owned file is detected by destination CI and repaired by reconciliation. Unowned/editorial collisions fail closed.\n- Generated deletion is the set difference between the previous and next valid manifests; no broad directory deletion is used.\n\n## Local reproduction\n\n```bash\npython3 scripts/validate-publication.py\npython3 scripts/export-site-state.py --root . --ref <exact-main-sha> --output .tmp/publication-export --verify-determinism\n```\n\nThen, from a destination checkout:\n\n```bash\nbun scripts/sync-monad.ts --bundle <monad>/.tmp/publication-export --destination . --expected-source-sha <exact-main-sha> --current-main-sha <exact-main-sha> --source-repository <monad>\nbun run monad:verify\n```\n",
+  "document_id": "doc:publication%2Fwebsite%2FRUNBOOK.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "The source workflow validates and reproduces the exact current Monad main revision, then sends only repository identity, source SHA, and projection version to monad-framework/aic-fumadocs-app. The destination retrieves and independently validates that revision, synchronizes manifest-owned files on publication/monad-main, and creates or updates a pull request. Destination main is never mutated directly.",
+    "title": "Monad publication activation runbook"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 4,
+      "line_start": 1,
+      "section_id": "monad-publication-activation-runbook",
+      "text": "# Monad publication activation runbook\n\nThe source workflow validates and reproduces the exact current Monad `main` revision, then sends only repository identity, source SHA, and projection version to `monad-framework/aic-fumadocs-app`. The destination retrieves and independently validates that revision, synchronizes manifest-owned files on `publication/monad-main`, and creates or updates a pull request. Destination main is never mutated directly.",
+      "title": "Monad publication activation runbook"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 10,
+      "line_start": 5,
+      "section_id": "required-github-app-boundary",
+      "text": "## Required GitHub App boundary\n\nCreate one GitHub App for publication automation and install it only on `monad-framework/aic-fumadocs-app`. Grant repository metadata read (implicit), Contents read/write, and Pull requests read/write. Configure `MONAD_PUBLICATION_APP_ID` as an Actions repository variable and `MONAD_PUBLICATION_APP_PRIVATE_KEY` as an Actions secret in both repositories. Enable the destination repository setting that permits GitHub Actions to create pull requests, and require destination CI on protected `main`.\n\nAfter configuration, rerun **Publish Monad site projection** in Monad with an empty `source_sha`, or run **Reconcile Monad publication** in the destination. An explicit SHA is accepted only when it is the current Monad main head.",
+      "title": "Required GitHub App boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 11,
+      "section_id": "failure-and-retry",
+      "text": "## Failure and retry\n\n- A stale event is ignored; the next main push or hourly reconciliation converges on current main.\n- Invalid source policy, schema, state, MDX, links, types, or build output fails before a branch is pushed.\n- A missing or invalid App credential fails at token creation without exposing the private key.\n- An existing open publication PR is updated in place from the deterministic `publication/monad-main` branch.\n- A no-change reconciliation creates no commit and no new PR.\n- A failed destination CI check leaves only an unmerged branch/PR. Correct the source exporter or destination consumer and rerun.\n- Manual drift in a manifest-owned file is detected by destination CI and repaired by reconciliation. Unowned/editorial collisions fail closed.\n- Generated deletion is the set difference between the previous and next valid manifests; no broad directory deletion is used.",
+      "title": "Failure and retry"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 22,
+      "section_id": "local-reproduction",
+      "text": "## Local reproduction\n\n```bash\npython3 scripts/validate-publication.py\npython3 scripts/export-site-state.py --root . --ref <exact-main-sha> --output .tmp/publication-export --verify-determinism\n```\n\nThen, from a destination checkout:\n\n```bash\nbun scripts/sync-monad.ts --bundle <monad>/.tmp/publication-export --destination . --expected-source-sha <exact-main-sha> --current-main-sha <exact-main-sha> --source-repository <monad>\nbun run monad:verify\n```",
+      "title": "Local reproduction"
+    }
+  ],
+  "source": {
+    "bytes": 2570,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 34,
+    "media_type": "text/markdown",
+    "path": "publication/website/RUNBOOK.md",
+    "sha256": "5db0d914115c3f59c50ec9e993ea86a7c540c05e50f8d0ae7de0d7a106ccf9ae"
+  }
+}

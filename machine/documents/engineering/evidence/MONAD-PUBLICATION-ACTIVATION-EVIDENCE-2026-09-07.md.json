@@ -1,0 +1,67 @@
+{
+  "content": "# Monad Publication Projection Activation — Implementation Evidence\n\n- **Date:** 2026-09-07\n- **Initial source baseline exercised:** `913517ced543d6a244e4d15a1ec5ec197eae6053`\n- **Final reconciled source baseline exercised:** `fd7c015ed7fb85efd2b80ba1a6e691d5bea47840`\n- **Destination baseline exercised:** `3a03f68ff0753652a5fdc5ac2be0feac841a036e`\n- **Evidence state:** local implementation evidence; destination PR CI and independent review pending\n\n## Verified locally\n\n- exact-SHA export generated 1,445 files (1,443 manifest artifacts plus manifest and provenance);\n- repeated exact-SHA export was byte deterministic;\n- publication policy, schemas, positive fixtures, and negative fixtures validated;\n- destination manifest/provenance verification passed for all 1,443 artifacts;\n- eight destination synchronization tests covered no-op, SHA mismatch, stale attempts, invalid hashes/provenance, forbidden/protected paths, editorial conflict, hash-pinned adoption, manifest deletion, drift/partial-state repair, repeat reconciliation, and duplicate manifest entries;\n- the real Fumadocs MDX corpus compiled after deterministic title and HTML-comment compatibility transforms;\n- a pre-existing nullable AI-search context type defect discovered by the production gate was corrected in the destination branch.\n- the final reconciled export produced 1,469 files (1,467 manifest artifacts plus manifest and provenance), and the destination production build generated 4,659 static/dynamic route outputs successfully.\n\n## EOS governance scope\n\n`MONAD-PUB-001` is the governing publication contract. No new Work Packet lifecycle state was asserted: the canonical EOS state already had `WP-MVP-0005` in progress during implementation, and this workstream was explicitly prohibited from modifying or competing with it. `./scripts/eos state status` remained consistent and `./scripts/eos verify --strict` passed. Independent review and lifecycle acceptance remain pending.\n\n## Pending external evidence\n\nThe GitHub App is not yet configured, so repository dispatch, automated PR create/update, destination-hosted CI, normal merge, and deployed-site observation remain pending. No claim of acceptance, release, or public activation is made by this evidence record.\n",
+  "document_id": "doc:engineering%2Fevidence%2FMONAD-PUBLICATION-ACTIVATION-EVIDENCE-2026-09-07.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "MONAD-PUB-001 is the governing publication contract. No new Work Packet lifecycle state was asserted: the canonical EOS state already had WP-MVP-0005 in progress during implementation, and this workstream was explicitly prohibited from modifying or competing with it. ./scripts/eos state status remained consistent and ./scripts/eos verify --strict passed. Independent review and lifecycle acceptance remain pending.",
+    "title": "Monad Publication Projection Activation — Implementation Evidence"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "monad-publication-projection-activation-implementation-evidence",
+      "text": "# Monad Publication Projection Activation — Implementation Evidence\n\n- **Date:** 2026-09-07\n- **Initial source baseline exercised:** `913517ced543d6a244e4d15a1ec5ec197eae6053`\n- **Final reconciled source baseline exercised:** `fd7c015ed7fb85efd2b80ba1a6e691d5bea47840`\n- **Destination baseline exercised:** `3a03f68ff0753652a5fdc5ac2be0feac841a036e`\n- **Evidence state:** local implementation evidence; destination PR CI and independent review pending",
+      "title": "Monad Publication Projection Activation — Implementation Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 9,
+      "section_id": "verified-locally",
+      "text": "## Verified locally\n\n- exact-SHA export generated 1,445 files (1,443 manifest artifacts plus manifest and provenance);\n- repeated exact-SHA export was byte deterministic;\n- publication policy, schemas, positive fixtures, and negative fixtures validated;\n- destination manifest/provenance verification passed for all 1,443 artifacts;\n- eight destination synchronization tests covered no-op, SHA mismatch, stale attempts, invalid hashes/provenance, forbidden/protected paths, editorial conflict, hash-pinned adoption, manifest deletion, drift/partial-state repair, repeat reconciliation, and duplicate manifest entries;\n- the real Fumadocs MDX corpus compiled after deterministic title and HTML-comment compatibility transforms;\n- a pre-existing nullable AI-search context type defect discovered by the production gate was corrected in the destination branch.\n- the final reconciled export produced 1,469 files (1,467 manifest artifacts plus manifest and provenance), and the destination production build generated 4,659 static/dynamic route outputs successfully.",
+      "title": "Verified locally"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 20,
+      "section_id": "eos-governance-scope",
+      "text": "## EOS governance scope\n\n`MONAD-PUB-001` is the governing publication contract. No new Work Packet lifecycle state was asserted: the canonical EOS state already had `WP-MVP-0005` in progress during implementation, and this workstream was explicitly prohibited from modifying or competing with it. `./scripts/eos state status` remained consistent and `./scripts/eos verify --strict` passed. Independent review and lifecycle acceptance remain pending.",
+      "title": "EOS governance scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 24,
+      "section_id": "pending-external-evidence",
+      "text": "## Pending external evidence\n\nThe GitHub App is not yet configured, so repository dispatch, automated PR create/update, destination-hosted CI, normal merge, and deployed-site observation remain pending. No claim of acceptance, release, or public activation is made by this evidence record.",
+      "title": "Pending external evidence"
+    }
+  ],
+  "source": {
+    "bytes": 2259,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 26,
+    "media_type": "text/markdown",
+    "path": "engineering/evidence/MONAD-PUBLICATION-ACTIVATION-EVIDENCE-2026-09-07.md",
+    "sha256": "fce1677abb01db72dd6f4b58c4cb19cf7fad83312e5a42d98f5025c5e1ee78c5"
+  }
+}

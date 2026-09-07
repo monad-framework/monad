@@ -1,0 +1,85 @@
+{
+  "content": "# Monad Publication Projection Activation — Security Review\n\n- **Date:** 2026-09-07\n- **Scope:** cross-repository publication transport and destination synchronization\n- **Source baseline:** `913517ced543d6a244e4d15a1ec5ec197eae6053`\n- **Review state:** implementation self-review complete; independent acceptance pending\n\n## Trust and authority\n\nMonad Git/EOS state remains authoritative. The dispatch payload is identity-only and cannot introduce document content or lifecycle facts. The destination re-fetches the exact SHA, confirms it is still current main, reruns source validation/export, and binds the manifest and all artifact provenance to that SHA. No AI-produced state enters the projection.\n\n## Authentication and privilege\n\nThe design uses a GitHub App installed only on the destination repository. Minimum permissions are Contents read/write and Pull requests read/write plus implicit metadata read. Source checkout uses the repository's read-only `GITHUB_TOKEN`; the App token exists only long enough to dispatch or update the controlled destination branch/PR. No token or private key is committed or printed.\n\n## Write and deletion containment\n\nThe destination rejects traversal, absolute paths, backslashes, symbolic-link traversal, bundle extras, forbidden editorial roots, protected paths, and unowned existing-file collisions. Six contract-designated current-state pages have one-time adoption hashes pinned to the destination baseline. All later changes and deletions require ownership in the preceding valid manifest. No recursive generated-root wipe is used.\n\n## Failure containment\n\nSource, transport, destination validation, authentication, and build failures leave destination main unchanged. Stale/out-of-order events are ignored. Reconciliation repairs manifest-owned drift and missed events. Branch protection and destination CI remain the final integration boundary.\n\n## Residual boundary\n\nThe GitHub App installation, key material, Actions variables/secrets, permission grant, and Actions pull-request setting require a human repository administrator. Independent review of the controlled adoption set and normal PR review remain pending; this document does not claim lifecycle acceptance or release completion.\n",
+  "document_id": "doc:engineering%2Freviews%2FMONAD-PUBLICATION-ACTIVATION-SECURITY-REVIEW-2026-09-07.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Monad Git/EOS state remains authoritative. The dispatch payload is identity-only and cannot introduce document content or lifecycle facts. The destination re-fetches the exact SHA, confirms it is still current main, reruns source validation/export, and binds the manifest and all artifact provenance to that SHA. No AI-produced state enters the projection.",
+    "title": "Monad Publication Projection Activation — Security Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "monad-publication-projection-activation-security-review",
+      "text": "# Monad Publication Projection Activation — Security Review\n\n- **Date:** 2026-09-07\n- **Scope:** cross-repository publication transport and destination synchronization\n- **Source baseline:** `913517ced543d6a244e4d15a1ec5ec197eae6053`\n- **Review state:** implementation self-review complete; independent acceptance pending",
+      "title": "Monad Publication Projection Activation — Security Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 8,
+      "section_id": "trust-and-authority",
+      "text": "## Trust and authority\n\nMonad Git/EOS state remains authoritative. The dispatch payload is identity-only and cannot introduce document content or lifecycle facts. The destination re-fetches the exact SHA, confirms it is still current main, reruns source validation/export, and binds the manifest and all artifact provenance to that SHA. No AI-produced state enters the projection.",
+      "title": "Trust and authority"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "authentication-and-privilege",
+      "text": "## Authentication and privilege\n\nThe design uses a GitHub App installed only on the destination repository. Minimum permissions are Contents read/write and Pull requests read/write plus implicit metadata read. Source checkout uses the repository's read-only `GITHUB_TOKEN`; the App token exists only long enough to dispatch or update the controlled destination branch/PR. No token or private key is committed or printed.",
+      "title": "Authentication and privilege"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 16,
+      "section_id": "write-and-deletion-containment",
+      "text": "## Write and deletion containment\n\nThe destination rejects traversal, absolute paths, backslashes, symbolic-link traversal, bundle extras, forbidden editorial roots, protected paths, and unowned existing-file collisions. Six contract-designated current-state pages have one-time adoption hashes pinned to the destination baseline. All later changes and deletions require ownership in the preceding valid manifest. No recursive generated-root wipe is used.",
+      "title": "Write and deletion containment"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 20,
+      "section_id": "failure-containment",
+      "text": "## Failure containment\n\nSource, transport, destination validation, authentication, and build failures leave destination main unchanged. Stale/out-of-order events are ignored. Reconciliation repairs manifest-owned drift and missed events. Branch protection and destination CI remain the final integration boundary.",
+      "title": "Failure containment"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 26,
+      "line_start": 24,
+      "section_id": "residual-boundary",
+      "text": "## Residual boundary\n\nThe GitHub App installation, key material, Actions variables/secrets, permission grant, and Actions pull-request setting require a human repository administrator. Independent review of the controlled adoption set and normal PR review remain pending; this document does not claim lifecycle acceptance or release completion.",
+      "title": "Residual boundary"
+    }
+  ],
+  "source": {
+    "bytes": 2246,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 26,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/MONAD-PUBLICATION-ACTIVATION-SECURITY-REVIEW-2026-09-07.md",
+    "sha256": "ef7d77790e4ab819ecb8d5d561a143460e9d8e3264f7b69f3d7921ecf09f4113"
+  }
+}
