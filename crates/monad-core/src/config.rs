@@ -4,7 +4,7 @@
 //! implement configuration precedence, consult legacy manifests, interpolate the
 //! environment, execute repository code, perform network access, or process includes.
 
-use std::{collections::BTreeMap, str};
+use std::{collections::BTreeMap, fmt::Write as _, str};
 
 use serde::{Deserialize, Serialize};
 
@@ -183,7 +183,7 @@ fn source_ranges(text: &str) -> Result<BTreeMap<String, SourceRange>, BootstrapE
     }
 
     for (name, values) in &spanned.artifacts {
-        let path = format!("artifacts.{name}");
+        let path = format!("artifacts.{}", encode_path_segment(name));
         insert_range(&mut ranges, &path, values);
         for (index, value) in values.get_ref().iter().enumerate() {
             insert_range(&mut ranges, &format!("{path}[{index}]"), value);
@@ -217,6 +217,22 @@ fn source_ranges(text: &str) -> Result<BTreeMap<String, SourceRange>, BootstrapE
     }
 
     Ok(ranges)
+}
+
+fn encode_path_segment(segment: &str) -> String {
+    let mut encoded = String::with_capacity(segment.len());
+    for byte in segment.as_bytes() {
+        match byte {
+            b'A'..=b'Z' | b'a'..=b'z' | b'0'..=b'9' | b'_' | b'-' => {
+                encoded.push(char::from(*byte));
+            }
+            byte => {
+                write!(&mut encoded, "%{byte:02X}")
+                    .expect("writing percent-encoded path segment to String cannot fail");
+            }
+        }
+    }
+    encoded
 }
 
 fn insert_range<T>(
@@ -397,6 +413,37 @@ paths = ["vendor/**"]
         );
         let schema = &document.source_ranges["schema_version"];
         assert_eq!(&VALID[schema.start_byte..schema.end_byte], "1");
+
+        let colliding_names = r#"schema_version = 1
+[project]
+id = "range-collision"
+name = "Range Collision"
+
+[artifacts]
+foo = ["a"]
+"foo[0]" = ["b"]
+"#;
+        let colliding_effective =
+            parse_effective_configuration(colliding_names, &CliOverrides::default())
+                .expect("effective colliding artifact names");
+        let colliding_document =
+            parse_monad_configuration(colliding_names.as_bytes(), &colliding_effective)
+                .expect("parse colliding artifact names");
+        let foo_item = &colliding_document.source_ranges["artifacts.foo[0]"];
+        assert_eq!(
+            &colliding_names[foo_item.start_byte..foo_item.end_byte],
+            "\"a\""
+        );
+        let escaped_artifact = &colliding_document.source_ranges["artifacts.foo%5B0%5D"];
+        assert_eq!(
+            &colliding_names[escaped_artifact.start_byte..escaped_artifact.end_byte],
+            "[\"b\"]"
+        );
+        let escaped_item = &colliding_document.source_ranges["artifacts.foo%5B0%5D[0]"];
+        assert_eq!(
+            &colliding_names[escaped_item.start_byte..escaped_item.end_byte],
+            "\"b\""
+        );
     }
 
     #[test]
