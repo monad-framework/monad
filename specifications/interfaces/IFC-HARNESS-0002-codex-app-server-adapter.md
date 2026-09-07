@@ -1,7 +1,7 @@
 # IFC-HARNESS-0002: Codex App Server Adapter Profile
 
 **Status:** proposed  
-**Version:** 0.1.2  
+**Version:** 0.1.3  
 **Owner:** Monad Core / EOS  
 **Parent interface:** IFC-HARNESS-0001  
 **Governing ADR:** ADR-0007  
@@ -318,21 +318,24 @@ The effectful runtime refines those scenarios with:
 
 The activation layer additionally requires:
 
-- **GEH-CF-038-CONFINEMENT** — positive-control validation of a named permission profile, adversarial provider-native sentinel-read denial without content leakage, and exact active-profile identity binding on the provider thread.
+- **GEH-CF-038-CONFINEMENT** — positive-control validation of a named permission profile, adversarial provider-native sentinel-read denial without content leakage, and exact active-profile identity binding on the provider thread;
+- **GEH-CF-038-LIVE-ACTIVATION** — immediate recertification followed by retention of the exact activation App Server connection/thread and adoption into the governed runtime without a second provider handshake or replacement thread.
 
-The complete generic C2 foundation fixtures GEH-CF-030 through GEH-CF-036 remain required for this adapter version. Runtime subfixtures are specified in `testing/governed-execution-c2-codex-runtime.md`; the activation fixture is specified in `testing/governed-execution-c2-codex-confinement.md`.
+The complete generic C2 foundation fixtures GEH-CF-030 through GEH-CF-036 remain required for this adapter version. Runtime subfixtures are specified in `testing/governed-execution-c2-codex-runtime.md`; provider confinement is specified in `testing/governed-execution-c2-codex-confinement.md`; retained-session activation is specified in `testing/governed-execution-c2-codex-live-activation.md`.
 
 ## Live governed-execution activation gate
 
 Passing deterministic adapter tests, effectful runtime protocol tests, and deterministic tests of the confinement verifier implementation is necessary but not sufficient to certify a live Codex run as governed execution.
 
-Before the first read-only live dogfood run may carry a governed-execution claim, the selected real Codex/App Server build and named permission profile MUST produce a successful `GEH-CF-038-CONFINEMENT` certificate under an adversarial provider-native read attempt.
+Before the first read-only live dogfood run may carry a governed-execution claim, the selected real Codex/App Server build and named permission profile MUST first produce a successful `GEH-CF-038-CONFINEMENT` certificate under an adversarial provider-native read attempt. The dogfood process MUST then perform `GEH-CF-038-LIVE-ACTIVATION` in-process and execute through the returned activation-owned runtime.
 
-Prompt instructions, a requested sandbox setting, or a verifier unit test are insufficient substitutes for a certificate produced against the selected live build/profile boundary.
+Prompt instructions, a requested sandbox setting, a verifier unit test, or a standalone preflight activation command are insufficient substitutes for a certificate and retained provider session produced inside the actual dogfood process.
 
-If live certification is unavailable, incompatible, ambiguous, or fails, the runtime MUST remain blocked from live governed dogfood activation.
+The live activation wrapper MUST retain the exact App Server transport/thread created under the certified profile. It MAY replay equivalent initialize/thread metadata locally to construct deterministic runtime bookkeeping, but it MUST NOT send a second provider initialization or create a replacement thread before the governed turn.
 
-The actual dogfood run MUST use the same certified profile semantics and MUST continue to route governed workspace observations through `monad_workspace_read_text`. Provider turn completion remains advisory and independent Monad verification remains authoritative.
+If live certification or retained-session activation is unavailable, incompatible, ambiguous, or fails, the runtime MUST remain blocked from live governed dogfood activation. Replacement of the provider process, connection, thread, profile, provider cwd, or materially relevant configuration invalidates the binding and requires recertification/rebinding.
+
+The actual dogfood run MUST continue to route governed workspace observations through `monad_workspace_read_text`. Provider turn completion remains advisory and independent Monad verification remains authoritative.
 
 ## Explicit exclusions
 
@@ -351,14 +354,14 @@ Version 0.1.x does not authorize or implement:
 
 ## Next implementation layer
 
-With the deterministic adapter kernel, effectful App Server runtime bridge, and machine-verifiable confinement verifier in place, the next slice is live activation and first attributable read-only dogfood:
+With the deterministic adapter kernel, effectful App Server runtime bridge, machine-verifiable confinement verifier, and retained-session live activation wrapper in place, the next slice is the first attributable read-only dogfood runner:
 
 1. select and identify the concrete Codex/App Server build to run;
-2. configure a dedicated named permission profile that excludes the governed repository and permits only runtime-essential reads;
-3. create a unique non-secret sentinel inside the governed repository;
-4. run `GEH-CF-038-CONFINEMENT` against that exact live build/profile/path boundary;
-5. retain the successful activation certificate as attributable evidence without retaining sentinel contents;
-6. execute one real read-only governed dogfood task using the certified confinement semantics and `monad_workspace_read_text`;
-7. prove the workspace observation traversed Monad's Tool Gateway;
-8. route provider completion through Monad verification and retain attributable execution evidence;
-9. fail closed and recertify after any material provider build/profile/confinement change.
+2. configure the dedicated named permission profile that excludes the governed repository and permits only runtime-essential reads;
+3. create or verify the unique non-secret sentinel inside the governed repository;
+4. invoke `certify_and_activate_runtime` inside the dogfood process so `GEH-CF-038-CONFINEMENT` and `GEH-CF-038-LIVE-ACTIVATION` bind the exact provider connection/thread that will execute;
+5. retain the successful certificate/binding as attributable evidence without retaining sentinel contents;
+6. execute one real read-only governed dogfood task through the returned `LiveActivatedRuntime` and `monad_workspace_read_text`;
+7. prove the workspace observation traversed Monad's Tool Gateway on that exact activated thread;
+8. route provider completion through Monad verification and retain attributable execution/verification evidence;
+9. fail closed and recertify/rebind after any material provider build/profile/confinement/session change.
