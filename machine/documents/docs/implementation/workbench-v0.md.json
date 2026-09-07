@@ -1,0 +1,445 @@
+{
+  "content": "---\ntitle: \"Monad Workbench v0\"\nstatus: \"Draft\"\nclassification: \"Implementation Specification\"\ndescription: \"Defines the initial internal workbench for reducing cognitive load while planning and developing Monad.\"\n---\n\n# Monad Workbench v0\n\n## 1. Purpose\n\nMonad Workbench is an internal development application designed to reduce the cognitive load required to understand, plan, navigate, and execute work on Monad.\n\nIts primary responsibility is to present existing Monad engineering knowledge through human-comprehensible projections.\n\nWorkbench v0 is not the authoritative store for Monad engineering state.\n\nIt reads, normalizes, relates, and projects information that already exists elsewhere in the Monad repository.\n\nThe initial implementation exists to become immediately useful during Monad's own development while establishing interaction patterns that may later become native Monad capabilities.\n\n---\n\n## 2. Problem\n\nMonad contains multiple overlapping dimensions of engineering information, including:\n\n* product goals;\n* initiatives;\n* epics;\n* stories;\n* tasks;\n* work cycles;\n* work packets;\n* requirements;\n* specifications;\n* architecture decisions;\n* reviews;\n* schemas;\n* risks;\n* open questions;\n* implementation artifacts;\n* executions;\n* verification results;\n* releases;\n* provenance;\n* authority;\n* repository state.\n\nThese artifacts are individually understandable but increasingly difficult to hold simultaneously in working memory.\n\nThe current development process therefore requires repeated reconstruction of questions such as:\n\n* What are we currently trying to accomplish?\n* Where does the current work fit within the larger program?\n* What work is active?\n* What is blocked?\n* What decision led to this artifact?\n* Which requirements govern this work?\n* Which artifacts depend on this decision?\n* What changed recently?\n* What remains unresolved?\n* What should happen next?\n\nWorkbench exists to answer those questions without requiring the user to mentally reconstruct the project from files, conversations, GitHub issues, and repository history.\n\n---\n\n## 3. Design Principle\n\nThe fundamental interaction model is:\n\n> One workspace, one current focus object, many synchronized projections.\n\nWorkbench SHALL distinguish between:\n\n1. the engineering object being examined; and\n2. the projection through which that object is being viewed.\n\nA user may therefore retain the same focus object while changing between planning, hierarchy, dependency, knowledge, execution, verification, timeline, risk, or other projections.\n\nWorkbench SHALL favor progressive disclosure over simultaneous presentation of the complete Monad knowledge graph.\n\n---\n\n## 4. Status\n\nWorkbench v0 is:\n\n* internal development tooling;\n* experimental;\n* local-first;\n* repository-oriented;\n* read-mostly;\n* non-authoritative;\n* replaceable.\n\nWorkbench v0 is explicitly permitted to use temporary ingestion and normalization mechanisms that may later be replaced by native Monad services.\n\n---\n\n## 5. Authority Boundary\n\nWorkbench SHALL NOT become an independent source of truth for Monad engineering knowledge.\n\nThe initial authority model is:\n\n```text\nRepository artifacts\n        │\n        ▼\nWorkbench ingestion\n        │\n        ▼\nNormalized read model\n        │\n        ▼\nProjections\n        │\n        ▼\nWorkbench UI\n```\n\nWorkbench-derived state SHALL be considered a projection unless explicitly promoted into an authoritative Monad artifact through another governed process.\n\n---\n\n## 6. Initial Sources\n\nWorkbench v0 MAY consume information from:\n\n* Markdown and MDX documents;\n* YAML frontmatter;\n* JSON;\n* YAML;\n* TOML;\n* repository directory structure;\n* Git metadata;\n* GitHub-derived metadata when available;\n* `.monad/` metadata;\n* existing scripts and generated indexes.\n\nWorkbench v0 SHOULD initially prefer local repository sources over remote services.\n\nRemote synchronization is not required for the first usable release.\n\n---\n\n## 7. Core Concepts\n\n### 7.1 Focus Object\n\nThe focus object is the engineering object currently being examined.\n\nExamples include:\n\n* Goal\n* Initiative\n* Epic\n* Story\n* Task\n* Work Cycle\n* Work Packet\n* Requirement\n* Specification\n* ADR\n* Review\n* Schema\n* Release\n* Risk\n* Open Question\n\nWorkbench SHALL maintain an explicit current focus object whenever practical.\n\n---\n\n### 7.2 Projection\n\nA projection is a representation of engineering knowledge optimized to answer a particular question.\n\nExamples include:\n\n* overview;\n* hierarchy;\n* plan;\n* dependency graph;\n* artifact list;\n* timeline;\n* execution history;\n* verification state;\n* risk state;\n* traceability.\n\nMultiple projections MAY represent the same focus object.\n\n---\n\n### 7.3 Lens\n\nA lens is a named projection configuration optimized for a recurring engineering concern.\n\nInitial conceptual lenses include:\n\n#### Planning Lens\n\n```text\nGoal\n  ↓\nInitiative\n  ↓\nEpic\n  ↓\nStory\n  ↓\nWork Packet\n  ↓\nTask\n```\n\n#### Knowledge Lens\n\n```text\nRequirement\n  ↓\nDecision\n  ↓\nSpecification\n  ↓\nImplementation\n```\n\n#### Execution Lens\n\n```text\nWork Packet\n  ↓\nOperation\n  ↓\nExecution\n  ↓\nEffect\n  ↓\nVerification\n```\n\n#### Traceability Lens\n\n```text\nGoal\n  ↓\nRequirement\n  ↓\nDecision\n  ↓\nSpecification\n  ↓\nImplementation\n  ↓\nVerification\n  ↓\nEvidence\n```\n\n#### Risk Lens\n\nThe Risk Lens highlights:\n\n* blocked work;\n* unresolved decisions;\n* failed verification;\n* stale artifacts;\n* missing dependencies;\n* missing authority;\n* missing provenance;\n* critical unresolved questions.\n\nLenses are conceptual in v0 and do not require a generalized lens-definition engine.\n\n---\n\n### 7.4 Inspector\n\nThe inspector presents contextual metadata for the currently selected object without requiring navigation away from the current projection.\n\nTypical inspector information includes:\n\n* identifier;\n* type;\n* title;\n* lifecycle state;\n* status;\n* parent;\n* children;\n* dependencies;\n* dependents;\n* authority;\n* provenance;\n* related artifacts;\n* verification state;\n* risks;\n* source location.\n\n---\n\n### 7.5 Context Trail\n\nWorkbench SHALL maintain visible hierarchical context where possible.\n\nExample:\n\n```text\nMonad\n  › Initiative\n    › Epic\n      › Story\n        › Work Packet\n```\n\nThe context trail SHALL support navigation toward broader scopes.\n\n---\n\n## 8. Primary Cognitive Questions\n\nWorkbench SHOULD make the following questions easy to answer:\n\n### Where am I?\n\nShow the focus object's position within the larger Monad program and knowledge structure.\n\n### What am I looking at?\n\nIdentify the object, its type, state, and purpose.\n\n### Why does it exist?\n\nExpose goals, requirements, decisions, parent relationships, and governing artifacts.\n\n### What is its current state?\n\nExpose lifecycle, progress, verification, risks, blockers, and recent changes.\n\n### What should happen next?\n\nExpose unresolved decisions, ready work, dependencies, next actions, and recommended continuation points.\n\n---\n\n## 9. Application Shell\n\nThe initial Workbench shell SHOULD follow this conceptual structure:\n\n```text\n┌──────────────────────────────────────────────────────────────────────────┐\n│ Monad Workbench                                   Search / Command       │\n├──────────────┬──────────────────────────────────────────┬────────────────┤\n│              │                                          │                │\n│ NAVIGATOR    │                WORKSPACE                 │   INSPECTOR    │\n│              │                                          │                │\n│ hierarchy    │          active projection               │ metadata       │\n│ knowledge    │                                          │ relations      │\n│ work         │                                          │ state          │\n│              │                                          │ provenance     │\n│              │                                          │ dependencies   │\n│              │                                          │                │\n├──────────────┴──────────────────────────────────────────┴────────────────┤\n│ AI / ACTIVITY / EXECUTION / VERIFICATION / GIT                          │\n└──────────────────────────────────────────────────────────────────────────┘\n```\n\nThe bottom activity region MAY be deferred until later iterations.\n\n---\n\n## 10. Initial Navigation\n\nWorkbench v0 SHALL begin with four primary destinations:\n\n### Now\n\nA current-state projection optimized for answering what deserves attention now.\n\n### Plan\n\nA hierarchical projection of goals, initiatives, epics, stories, work packets, and tasks.\n\n### Knowledge\n\nA projection of requirements, specifications, ADRs, reviews, schemas, and related engineering artifacts.\n\n### Focus\n\nA context-preserving projection of the currently selected engineering object.\n\nThese may initially be implemented as routes, tabs, or equivalent navigation primitives.\n\n---\n\n## 11. Now Projection\n\nThe Now view is the initial home screen for active Monad development.\n\nIt SHOULD eventually present:\n\n* current objective;\n* current initiative;\n* current epic;\n* active work cycle;\n* active work packet;\n* next action;\n* blockers;\n* unresolved decisions;\n* recently completed work;\n* recent changes;\n* upcoming work;\n* items requiring attention.\n\nThe initial implementation MAY populate only the subset that can be reliably derived from current repository state.\n\nWorkbench SHALL prefer missing or unknown values over fabricated state.\n\n---\n\n## 12. Plan Projection\n\nThe Plan view SHALL provide a hierarchical planning representation.\n\nThe initial planning hierarchy is:\n\n```text\nGoal\n└── Initiative\n    └── Epic\n        └── Story\n            └── Work Packet\n                └── Task\n```\n\nWork Cycles MAY cross-cut this hierarchy rather than appearing as strict parents.\n\nWorkbench SHALL preserve this distinction.\n\nA Work Cycle represents a governed period or unit of execution.\n\nA Work Packet represents a bounded unit of executable engineering work.\n\nNeither SHOULD be forced into the product decomposition hierarchy where doing so would misrepresent the underlying model.\n\n---\n\n## 13. Knowledge Projection\n\nThe Knowledge view SHOULD provide structured access to engineering artifacts including:\n\n* requirements;\n* specifications;\n* ADRs;\n* reviews;\n* schemas;\n* policies;\n* risks;\n* open questions.\n\nThe view SHOULD allow users to move from artifact categories to individual artifacts without requiring knowledge of repository paths.\n\n---\n\n## 14. Focus Projection\n\nThe Focus view SHALL render a selected engineering object as a collection of projection blocks.\n\nExample blocks include:\n\n* summary;\n* state;\n* parent context;\n* children;\n* progress;\n* requirements;\n* decisions;\n* specifications;\n* dependencies;\n* work packets;\n* risks;\n* open questions;\n* verification;\n* source;\n* history.\n\nThe initial implementation MAY use a fixed block layout.\n\nFuture implementations MAY allow configurable or user-defined block arrangements.\n\n---\n\n## 15. Progressive Disclosure\n\nWorkbench SHALL avoid displaying every available relationship or artifact simultaneously.\n\nInformation SHOULD be exposed according to cognitive relevance.\n\nThe interface SHOULD optimize for:\n\n* immediate orientation;\n* current task comprehension;\n* nearby dependencies;\n* unresolved conditions;\n* next actions.\n\nFull graph exploration is secondary.\n\n---\n\n## 16. Graph Usage\n\nMonad's semantic graph SHOULD NOT become the default visual representation of Workbench.\n\nGraph views are appropriate when answering:\n\n> How is this connected?\n\nGraph views are generally inappropriate when answering:\n\n> What should I do next?\n\nWorkbench SHALL therefore treat graph visualization as one projection among many.\n\n---\n\n## 17. Initial Normalized Model\n\nWorkbench v0 MAY begin with a deliberately minimal normalized representation.\n\nExample:\n\n```ts\nexport type MonadObjectType =\n  | \"goal\"\n  | \"initiative\"\n  | \"epic\"\n  | \"story\"\n  | \"task\"\n  | \"work-cycle\"\n  | \"work-packet\"\n  | \"requirement\"\n  | \"specification\"\n  | \"adr\"\n  | \"review\"\n  | \"schema\"\n  | \"risk\"\n  | \"open-question\"\n  | \"release\";\n\nexport interface MonadRelationship {\n  type: string;\n  target: string;\n}\n\nexport interface MonadObject {\n  id: string;\n  type: MonadObjectType;\n  title: string;\n  status?: string;\n  description?: string;\n  parent?: string;\n  children?: string[];\n  relationships?: MonadRelationship[];\n  source?: string;\n}\n```\n\nThis model is provisional.\n\nIt SHALL NOT be treated as the canonical Monad semantic model.\n\n---\n\n## 18. Technical Architecture\n\nWorkbench v0 SHOULD use:\n\n* TypeScript;\n* React;\n* Next.js;\n* Bun;\n* Biome.\n\nThe application SHOULD initially live at:\n\n```text\napps/workbench/\n```\n\nThe application MAY read repository files directly from server-side code.\n\nNo database is required for the first release.\n\nNo authentication system is required for the first release.\n\nNo cloud infrastructure is required for the first release.\n\n---\n\n## 19. Initial Runtime Model\n\nThe expected v0 runtime is:\n\n```text\nMonad repository\n      │\n      ▼\nrepository scanner\n      │\n      ▼\nartifact parsers\n      │\n      ▼\nnormalization\n      │\n      ▼\nin-memory read model\n      │\n      ▼\nprojection functions\n      │\n      ▼\nWorkbench UI\n```\n\nThe normalized read model MAY initially be regenerated on application startup or request.\n\nOptimization and incremental indexing are outside the first milestone.\n\n---\n\n## 20. Repository Placement\n\nInitial structure:\n\n```text\nmonad/\n├── apps/\n│   └── workbench/\n├── docs/\n├── schemas/\n├── scripts/\n├── packages/\n└── .monad/\n```\n\nReusable functionality SHOULD remain inside the Workbench application until meaningful reuse boundaries emerge.\n\nPremature extraction into packages SHOULD be avoided.\n\nPotential future packages include:\n\n```text\npackages/\n├── workbench-model/\n├── workbench-ingest/\n├── workbench-projections/\n└── workbench-ui/\n```\n\nThese SHALL NOT be created merely to satisfy speculative architecture.\n\n---\n\n## 21. Non-Goals for v0\n\nWorkbench v0 SHALL NOT require:\n\n* complete implementation of the Monad semantic kernel;\n* authoritative state mutation;\n* production authentication;\n* billing;\n* SaaS tenancy;\n* remote synchronization;\n* generalized plugin architecture;\n* generalized graph database infrastructure;\n* GitHub synchronization;\n* autonomous AI execution;\n* production deployment;\n* complete editing workflows;\n* realtime collaboration.\n\n---\n\n## 22. Evolution Path\n\nThe temporary architecture is expected to evolve from:\n\n```text\nRepository\n   ↓\nWorkbench adapters\n   ↓\nNormalized read model\n   ↓\nWorkbench\n```\n\ntoward:\n\n```text\nMonad Semantic Kernel\n        ↓\nProjection Engine\n        ↓\nWorkbench\n```\n\nThe UI concepts and interaction model SHOULD survive this transition even when the ingestion layer does not.\n\n---\n\n## 23. First Vertical Slice\n\nThe first usable implementation SHALL prioritize a complete narrow workflow over broad incomplete coverage.\n\nThe first vertical slice is:\n\n```text\nApplication shell\n      ↓\nRepository ingestion\n      ↓\nMinimal normalized model\n      ↓\nNow projection\n      ↓\nHierarchy navigator\n      ↓\nFocus-object selection\n      ↓\nInspector\n```\n\nThe first version does not need comprehensive artifact support.\n\nIt needs enough real Monad data to provide immediate cognitive value.\n\n---\n\n## 24. Initial Success Criteria\n\nWorkbench v0.1 is useful when opening it allows the user to answer, without manually reconstructing repository context:\n\n1. What are we currently building?\n2. Why are we building it?\n3. Where are we in the project hierarchy?\n4. What work is active?\n5. What is blocked?\n6. What decisions remain unresolved?\n7. What changed recently?\n8. What should happen next?\n9. What artifacts govern the current work?\n10. Where are those artifacts located?\n\n---\n\n## 25. Guiding Constraint\n\nWorkbench SHALL optimize for cognitive clarity before feature count.\n\nWhen choosing between displaying more information and making the current engineering situation easier to understand, Workbench SHOULD choose comprehension.\n",
+  "document_id": "doc:docs%2Fimplementation%2Fworkbench-v0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "published-documentation",
+    "normative": false,
+    "summary": "--- title: \"Monad Workbench v0\" status: \"Draft\" classification: \"Implementation Specification\" description: \"Defines the initial internal workbench for reducing cognitive load while planning and developing Monad.\" ---",
+    "title": "Monad Workbench v0"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 7,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\ntitle: \"Monad Workbench v0\"\nstatus: \"Draft\"\nclassification: \"Implementation Specification\"\ndescription: \"Defines the initial internal workbench for reducing cognitive load while planning and developing Monad.\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 8,
+      "section_id": "monad-workbench-v0",
+      "text": "# Monad Workbench v0",
+      "title": "Monad Workbench v0"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 10,
+      "section_id": "1-purpose",
+      "text": "## 1. Purpose\n\nMonad Workbench is an internal development application designed to reduce the cognitive load required to understand, plan, navigate, and execute work on Monad.\n\nIts primary responsibility is to present existing Monad engineering knowledge through human-comprehensible projections.\n\nWorkbench v0 is not the authoritative store for Monad engineering state.\n\nIt reads, normalizes, relates, and projects information that already exists elsewhere in the Monad repository.\n\nThe initial implementation exists to become immediately useful during Monad's own development while establishing interaction patterns that may later become native Monad capabilities.\n\n---",
+      "title": "1. Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 24,
+      "section_id": "2-problem",
+      "text": "## 2. Problem\n\nMonad contains multiple overlapping dimensions of engineering information, including:\n\n* product goals;\n* initiatives;\n* epics;\n* stories;\n* tasks;\n* work cycles;\n* work packets;\n* requirements;\n* specifications;\n* architecture decisions;\n* reviews;\n* schemas;\n* risks;\n* open questions;\n* implementation artifacts;\n* executions;\n* verification results;\n* releases;\n* provenance;\n* authority;\n* repository state.\n\nThese artifacts are individually understandable but increasingly difficult to hold simultaneously in working memory.\n\nThe current development process therefore requires repeated reconstruction of questions such as:\n\n* What are we currently trying to accomplish?\n* Where does the current work fit within the larger program?\n* What work is active?\n* What is blocked?\n* What decision led to this artifact?\n* Which requirements govern this work?\n* Which artifacts depend on this decision?\n* What changed recently?\n* What remains unresolved?\n* What should happen next?\n\nWorkbench exists to answer those questions without requiring the user to mentally reconstruct the project from files, conversations, GitHub issues, and repository history.\n\n---",
+      "title": "2. Problem"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 85,
+      "line_start": 69,
+      "section_id": "3-design-principle",
+      "text": "## 3. Design Principle\n\nThe fundamental interaction model is:\n\n> One workspace, one current focus object, many synchronized projections.\n\nWorkbench SHALL distinguish between:\n\n1. the engineering object being examined; and\n2. the projection through which that object is being viewed.\n\nA user may therefore retain the same focus object while changing between planning, hierarchy, dependency, knowledge, execution, verification, timeline, risk, or other projections.\n\nWorkbench SHALL favor progressive disclosure over simultaneous presentation of the complete Monad knowledge graph.\n\n---",
+      "title": "3. Design Principle"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 101,
+      "line_start": 86,
+      "section_id": "4-status",
+      "text": "## 4. Status\n\nWorkbench v0 is:\n\n* internal development tooling;\n* experimental;\n* local-first;\n* repository-oriented;\n* read-mostly;\n* non-authoritative;\n* replaceable.\n\nWorkbench v0 is explicitly permitted to use temporary ingestion and normalization mechanisms that may later be replaced by native Monad services.\n\n---",
+      "title": "4. Status"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 127,
+      "line_start": 102,
+      "section_id": "5-authority-boundary",
+      "text": "## 5. Authority Boundary\n\nWorkbench SHALL NOT become an independent source of truth for Monad engineering knowledge.\n\nThe initial authority model is:\n\n```text\nRepository artifacts\n        │\n        ▼\nWorkbench ingestion\n        │\n        ▼\nNormalized read model\n        │\n        ▼\nProjections\n        │\n        ▼\nWorkbench UI\n```\n\nWorkbench-derived state SHALL be considered a projection unless explicitly promoted into an authoritative Monad artifact through another governed process.\n\n---",
+      "title": "5. Authority Boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 148,
+      "line_start": 128,
+      "section_id": "6-initial-sources",
+      "text": "## 6. Initial Sources\n\nWorkbench v0 MAY consume information from:\n\n* Markdown and MDX documents;\n* YAML frontmatter;\n* JSON;\n* YAML;\n* TOML;\n* repository directory structure;\n* Git metadata;\n* GitHub-derived metadata when available;\n* `.monad/` metadata;\n* existing scripts and generated indexes.\n\nWorkbench v0 SHOULD initially prefer local repository sources over remote services.\n\nRemote synchronization is not required for the first usable release.\n\n---",
+      "title": "6. Initial Sources"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 150,
+      "line_start": 149,
+      "section_id": "7-core-concepts",
+      "text": "## 7. Core Concepts",
+      "title": "7. Core Concepts"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 176,
+      "line_start": 151,
+      "section_id": "7-1-focus-object",
+      "text": "### 7.1 Focus Object\n\nThe focus object is the engineering object currently being examined.\n\nExamples include:\n\n* Goal\n* Initiative\n* Epic\n* Story\n* Task\n* Work Cycle\n* Work Packet\n* Requirement\n* Specification\n* ADR\n* Review\n* Schema\n* Release\n* Risk\n* Open Question\n\nWorkbench SHALL maintain an explicit current focus object whenever practical.\n\n---",
+      "title": "7.1 Focus Object"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 197,
+      "line_start": 177,
+      "section_id": "7-2-projection",
+      "text": "### 7.2 Projection\n\nA projection is a representation of engineering knowledge optimized to answer a particular question.\n\nExamples include:\n\n* overview;\n* hierarchy;\n* plan;\n* dependency graph;\n* artifact list;\n* timeline;\n* execution history;\n* verification state;\n* risk state;\n* traceability.\n\nMultiple projections MAY represent the same focus object.\n\n---",
+      "title": "7.2 Projection"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 203,
+      "line_start": 198,
+      "section_id": "7-3-lens",
+      "text": "### 7.3 Lens\n\nA lens is a named projection configuration optimized for a recurring engineering concern.\n\nInitial conceptual lenses include:",
+      "title": "7.3 Lens"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 219,
+      "line_start": 204,
+      "section_id": "planning-lens",
+      "text": "#### Planning Lens\n\n```text\nGoal\n  ↓\nInitiative\n  ↓\nEpic\n  ↓\nStory\n  ↓\nWork Packet\n  ↓\nTask\n```",
+      "title": "Planning Lens"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 231,
+      "line_start": 220,
+      "section_id": "knowledge-lens",
+      "text": "#### Knowledge Lens\n\n```text\nRequirement\n  ↓\nDecision\n  ↓\nSpecification\n  ↓\nImplementation\n```",
+      "title": "Knowledge Lens"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 245,
+      "line_start": 232,
+      "section_id": "execution-lens",
+      "text": "#### Execution Lens\n\n```text\nWork Packet\n  ↓\nOperation\n  ↓\nExecution\n  ↓\nEffect\n  ↓\nVerification\n```",
+      "title": "Execution Lens"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 263,
+      "line_start": 246,
+      "section_id": "traceability-lens",
+      "text": "#### Traceability Lens\n\n```text\nGoal\n  ↓\nRequirement\n  ↓\nDecision\n  ↓\nSpecification\n  ↓\nImplementation\n  ↓\nVerification\n  ↓\nEvidence\n```",
+      "title": "Traceability Lens"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 280,
+      "line_start": 264,
+      "section_id": "risk-lens",
+      "text": "#### Risk Lens\n\nThe Risk Lens highlights:\n\n* blocked work;\n* unresolved decisions;\n* failed verification;\n* stale artifacts;\n* missing dependencies;\n* missing authority;\n* missing provenance;\n* critical unresolved questions.\n\nLenses are conceptual in v0 and do not require a generalized lens-definition engine.\n\n---",
+      "title": "Risk Lens"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 304,
+      "line_start": 281,
+      "section_id": "7-4-inspector",
+      "text": "### 7.4 Inspector\n\nThe inspector presents contextual metadata for the currently selected object without requiring navigation away from the current projection.\n\nTypical inspector information includes:\n\n* identifier;\n* type;\n* title;\n* lifecycle state;\n* status;\n* parent;\n* children;\n* dependencies;\n* dependents;\n* authority;\n* provenance;\n* related artifacts;\n* verification state;\n* risks;\n* source location.\n\n---",
+      "title": "7.4 Inspector"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 322,
+      "line_start": 305,
+      "section_id": "7-5-context-trail",
+      "text": "### 7.5 Context Trail\n\nWorkbench SHALL maintain visible hierarchical context where possible.\n\nExample:\n\n```text\nMonad\n  › Initiative\n    › Epic\n      › Story\n        › Work Packet\n```\n\nThe context trail SHALL support navigation toward broader scopes.\n\n---",
+      "title": "7.5 Context Trail"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 326,
+      "line_start": 323,
+      "section_id": "8-primary-cognitive-questions",
+      "text": "## 8. Primary Cognitive Questions\n\nWorkbench SHOULD make the following questions easy to answer:",
+      "title": "8. Primary Cognitive Questions"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 330,
+      "line_start": 327,
+      "section_id": "where-am-i",
+      "text": "### Where am I?\n\nShow the focus object's position within the larger Monad program and knowledge structure.",
+      "title": "Where am I?"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 334,
+      "line_start": 331,
+      "section_id": "what-am-i-looking-at",
+      "text": "### What am I looking at?\n\nIdentify the object, its type, state, and purpose.",
+      "title": "What am I looking at?"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 338,
+      "line_start": 335,
+      "section_id": "why-does-it-exist",
+      "text": "### Why does it exist?\n\nExpose goals, requirements, decisions, parent relationships, and governing artifacts.",
+      "title": "Why does it exist?"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 342,
+      "line_start": 339,
+      "section_id": "what-is-its-current-state",
+      "text": "### What is its current state?\n\nExpose lifecycle, progress, verification, risks, blockers, and recent changes.",
+      "title": "What is its current state?"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 348,
+      "line_start": 343,
+      "section_id": "what-should-happen-next",
+      "text": "### What should happen next?\n\nExpose unresolved decisions, ready work, dependencies, next actions, and recommended continuation points.\n\n---",
+      "title": "What should happen next?"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 374,
+      "line_start": 349,
+      "section_id": "9-application-shell",
+      "text": "## 9. Application Shell\n\nThe initial Workbench shell SHOULD follow this conceptual structure:\n\n```text\n┌──────────────────────────────────────────────────────────────────────────┐\n│ Monad Workbench                                   Search / Command       │\n├──────────────┬──────────────────────────────────────────┬────────────────┤\n│              │                                          │                │\n│ NAVIGATOR    │                WORKSPACE                 │   INSPECTOR    │\n│              │                                          │                │\n│ hierarchy    │          active projection               │ metadata       │\n│ knowledge    │                                          │ relations      │\n│ work         │                                          │ state          │\n│              │                                          │ provenance     │\n│              │                                          │ dependencies   │\n│              │                                          │                │\n├──────────────┴──────────────────────────────────────────┴────────────────┤\n│ AI / ACTIVITY / EXECUTION / VERIFICATION / GIT                          │\n└──────────────────────────────────────────────────────────────────────────┘\n```\n\nThe bottom activity region MAY be deferred until later iterations.\n\n---",
+      "title": "9. Application Shell"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 378,
+      "line_start": 375,
+      "section_id": "10-initial-navigation",
+      "text": "## 10. Initial Navigation\n\nWorkbench v0 SHALL begin with four primary destinations:",
+      "title": "10. Initial Navigation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 382,
+      "line_start": 379,
+      "section_id": "now",
+      "text": "### Now\n\nA current-state projection optimized for answering what deserves attention now.",
+      "title": "Now"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 386,
+      "line_start": 383,
+      "section_id": "plan",
+      "text": "### Plan\n\nA hierarchical projection of goals, initiatives, epics, stories, work packets, and tasks.",
+      "title": "Plan"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 390,
+      "line_start": 387,
+      "section_id": "knowledge",
+      "text": "### Knowledge\n\nA projection of requirements, specifications, ADRs, reviews, schemas, and related engineering artifacts.",
+      "title": "Knowledge"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 398,
+      "line_start": 391,
+      "section_id": "focus",
+      "text": "### Focus\n\nA context-preserving projection of the currently selected engineering object.\n\nThese may initially be implemented as routes, tabs, or equivalent navigation primitives.\n\n---",
+      "title": "Focus"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 423,
+      "line_start": 399,
+      "section_id": "11-now-projection",
+      "text": "## 11. Now Projection\n\nThe Now view is the initial home screen for active Monad development.\n\nIt SHOULD eventually present:\n\n* current objective;\n* current initiative;\n* current epic;\n* active work cycle;\n* active work packet;\n* next action;\n* blockers;\n* unresolved decisions;\n* recently completed work;\n* recent changes;\n* upcoming work;\n* items requiring attention.\n\nThe initial implementation MAY populate only the subset that can be reliably derived from current repository state.\n\nWorkbench SHALL prefer missing or unknown values over fabricated state.\n\n---",
+      "title": "11. Now Projection"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 450,
+      "line_start": 424,
+      "section_id": "12-plan-projection",
+      "text": "## 12. Plan Projection\n\nThe Plan view SHALL provide a hierarchical planning representation.\n\nThe initial planning hierarchy is:\n\n```text\nGoal\n└── Initiative\n    └── Epic\n        └── Story\n            └── Work Packet\n                └── Task\n```\n\nWork Cycles MAY cross-cut this hierarchy rather than appearing as strict parents.\n\nWorkbench SHALL preserve this distinction.\n\nA Work Cycle represents a governed period or unit of execution.\n\nA Work Packet represents a bounded unit of executable engineering work.\n\nNeither SHOULD be forced into the product decomposition hierarchy where doing so would misrepresent the underlying model.\n\n---",
+      "title": "12. Plan Projection"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 467,
+      "line_start": 451,
+      "section_id": "13-knowledge-projection",
+      "text": "## 13. Knowledge Projection\n\nThe Knowledge view SHOULD provide structured access to engineering artifacts including:\n\n* requirements;\n* specifications;\n* ADRs;\n* reviews;\n* schemas;\n* policies;\n* risks;\n* open questions.\n\nThe view SHOULD allow users to move from artifact categories to individual artifacts without requiring knowledge of repository paths.\n\n---",
+      "title": "13. Knowledge Projection"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 495,
+      "line_start": 468,
+      "section_id": "14-focus-projection",
+      "text": "## 14. Focus Projection\n\nThe Focus view SHALL render a selected engineering object as a collection of projection blocks.\n\nExample blocks include:\n\n* summary;\n* state;\n* parent context;\n* children;\n* progress;\n* requirements;\n* decisions;\n* specifications;\n* dependencies;\n* work packets;\n* risks;\n* open questions;\n* verification;\n* source;\n* history.\n\nThe initial implementation MAY use a fixed block layout.\n\nFuture implementations MAY allow configurable or user-defined block arrangements.\n\n---",
+      "title": "14. Focus Projection"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 513,
+      "line_start": 496,
+      "section_id": "15-progressive-disclosure",
+      "text": "## 15. Progressive Disclosure\n\nWorkbench SHALL avoid displaying every available relationship or artifact simultaneously.\n\nInformation SHOULD be exposed according to cognitive relevance.\n\nThe interface SHOULD optimize for:\n\n* immediate orientation;\n* current task comprehension;\n* nearby dependencies;\n* unresolved conditions;\n* next actions.\n\nFull graph exploration is secondary.\n\n---",
+      "title": "15. Progressive Disclosure"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 529,
+      "line_start": 514,
+      "section_id": "16-graph-usage",
+      "text": "## 16. Graph Usage\n\nMonad's semantic graph SHOULD NOT become the default visual representation of Workbench.\n\nGraph views are appropriate when answering:\n\n> How is this connected?\n\nGraph views are generally inappropriate when answering:\n\n> What should I do next?\n\nWorkbench SHALL therefore treat graph visualization as one projection among many.\n\n---",
+      "title": "16. Graph Usage"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 577,
+      "line_start": 530,
+      "section_id": "17-initial-normalized-model",
+      "text": "## 17. Initial Normalized Model\n\nWorkbench v0 MAY begin with a deliberately minimal normalized representation.\n\nExample:\n\n```ts\nexport type MonadObjectType =\n  | \"goal\"\n  | \"initiative\"\n  | \"epic\"\n  | \"story\"\n  | \"task\"\n  | \"work-cycle\"\n  | \"work-packet\"\n  | \"requirement\"\n  | \"specification\"\n  | \"adr\"\n  | \"review\"\n  | \"schema\"\n  | \"risk\"\n  | \"open-question\"\n  | \"release\";\n\nexport interface MonadRelationship {\n  type: string;\n  target: string;\n}\n\nexport interface MonadObject {\n  id: string;\n  type: MonadObjectType;\n  title: string;\n  status?: string;\n  description?: string;\n  parent?: string;\n  children?: string[];\n  relationships?: MonadRelationship[];\n  source?: string;\n}\n```\n\nThis model is provisional.\n\nIt SHALL NOT be treated as the canonical Monad semantic model.\n\n---",
+      "title": "17. Initial Normalized Model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 603,
+      "line_start": 578,
+      "section_id": "18-technical-architecture",
+      "text": "## 18. Technical Architecture\n\nWorkbench v0 SHOULD use:\n\n* TypeScript;\n* React;\n* Next.js;\n* Bun;\n* Biome.\n\nThe application SHOULD initially live at:\n\n```text\napps/workbench/\n```\n\nThe application MAY read repository files directly from server-side code.\n\nNo database is required for the first release.\n\nNo authentication system is required for the first release.\n\nNo cloud infrastructure is required for the first release.\n\n---",
+      "title": "18. Technical Architecture"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 635,
+      "line_start": 604,
+      "section_id": "19-initial-runtime-model",
+      "text": "## 19. Initial Runtime Model\n\nThe expected v0 runtime is:\n\n```text\nMonad repository\n      │\n      ▼\nrepository scanner\n      │\n      ▼\nartifact parsers\n      │\n      ▼\nnormalization\n      │\n      ▼\nin-memory read model\n      │\n      ▼\nprojection functions\n      │\n      ▼\nWorkbench UI\n```\n\nThe normalized read model MAY initially be regenerated on application startup or request.\n\nOptimization and incremental indexing are outside the first milestone.\n\n---",
+      "title": "19. Initial Runtime Model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 668,
+      "line_start": 636,
+      "section_id": "20-repository-placement",
+      "text": "## 20. Repository Placement\n\nInitial structure:\n\n```text\nmonad/\n├── apps/\n│   └── workbench/\n├── docs/\n├── schemas/\n├── scripts/\n├── packages/\n└── .monad/\n```\n\nReusable functionality SHOULD remain inside the Workbench application until meaningful reuse boundaries emerge.\n\nPremature extraction into packages SHOULD be avoided.\n\nPotential future packages include:\n\n```text\npackages/\n├── workbench-model/\n├── workbench-ingest/\n├── workbench-projections/\n└── workbench-ui/\n```\n\nThese SHALL NOT be created merely to satisfy speculative architecture.\n\n---",
+      "title": "20. Repository Placement"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 688,
+      "line_start": 669,
+      "section_id": "21-non-goals-for-v0",
+      "text": "## 21. Non-Goals for v0\n\nWorkbench v0 SHALL NOT require:\n\n* complete implementation of the Monad semantic kernel;\n* authoritative state mutation;\n* production authentication;\n* billing;\n* SaaS tenancy;\n* remote synchronization;\n* generalized plugin architecture;\n* generalized graph database infrastructure;\n* GitHub synchronization;\n* autonomous AI execution;\n* production deployment;\n* complete editing workflows;\n* realtime collaboration.\n\n---",
+      "title": "21. Non-Goals for v0"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 716,
+      "line_start": 689,
+      "section_id": "22-evolution-path",
+      "text": "## 22. Evolution Path\n\nThe temporary architecture is expected to evolve from:\n\n```text\nRepository\n   ↓\nWorkbench adapters\n   ↓\nNormalized read model\n   ↓\nWorkbench\n```\n\ntoward:\n\n```text\nMonad Semantic Kernel\n        ↓\nProjection Engine\n        ↓\nWorkbench\n```\n\nThe UI concepts and interaction model SHOULD survive this transition even when the ingestion layer does not.\n\n---",
+      "title": "22. Evolution Path"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 744,
+      "line_start": 717,
+      "section_id": "23-first-vertical-slice",
+      "text": "## 23. First Vertical Slice\n\nThe first usable implementation SHALL prioritize a complete narrow workflow over broad incomplete coverage.\n\nThe first vertical slice is:\n\n```text\nApplication shell\n      ↓\nRepository ingestion\n      ↓\nMinimal normalized model\n      ↓\nNow projection\n      ↓\nHierarchy navigator\n      ↓\nFocus-object selection\n      ↓\nInspector\n```\n\nThe first version does not need comprehensive artifact support.\n\nIt needs enough real Monad data to provide immediate cognitive value.\n\n---",
+      "title": "23. First Vertical Slice"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 761,
+      "line_start": 745,
+      "section_id": "24-initial-success-criteria",
+      "text": "## 24. Initial Success Criteria\n\nWorkbench v0.1 is useful when opening it allows the user to answer, without manually reconstructing repository context:\n\n1. What are we currently building?\n2. Why are we building it?\n3. Where are we in the project hierarchy?\n4. What work is active?\n5. What is blocked?\n6. What decisions remain unresolved?\n7. What changed recently?\n8. What should happen next?\n9. What artifacts govern the current work?\n10. Where are those artifacts located?\n\n---",
+      "title": "24. Initial Success Criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 766,
+      "line_start": 762,
+      "section_id": "25-guiding-constraint",
+      "text": "## 25. Guiding Constraint\n\nWorkbench SHALL optimize for cognitive clarity before feature count.\n\nWhen choosing between displaying more information and making the current engineering situation easier to understand, Workbench SHOULD choose comprehension.",
+      "title": "25. Guiding Constraint"
+    }
+  ],
+  "source": {
+    "bytes": 16788,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 766,
+    "media_type": "text/markdown",
+    "path": "docs/implementation/workbench-v0.md",
+    "sha256": "71c9224524d78285c18aa881c4f068f501211c81285a91cf028d52a4efb47903"
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "content": "# Governed Execution C2 Codex Provider-Effect Confinement\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Parent matrix:** `testing/governed-execution-conformance.md`  \n**Adapter profile:** `IFC-HARNESS-0002`  \n**Runtime:** `crates/monad-codex-runtime`  \n**Certification harness:** `crates/monad-codex-confinement`\n\n## Purpose\n\nDefines the machine-verifiable activation fixture required before a live OpenAI Codex App Server run may be represented as governed execution.\n\nThe fixture exists because successful adapter/runtime protocol tests do not prove that provider-native command or filesystem paths cannot bypass Monad's Tool Gateway. Confinement must be demonstrated by enforcement, not requested through prompt text.\n\n## Initial platform\n\nVersion 0.1.0 certifies Linux App Server builds only.\n\nA non-Linux App Server MUST produce an explicit unsupported-platform result rather than inherit the Linux certificate semantics.\n\n## Named permission profile\n\nThe selected Codex installation MUST provide a user-defined named permission profile dedicated to Monad governed execution. The initial minimal profile is expected to grant only Codex runtime-essential reads and no governed repository root.\n\nA representative current Codex configuration is:\n\n```toml\ndefault_permissions = \"monad-geh-confinement\"\n\n[permissions.monad-geh-confinement.filesystem]\n\":minimal\" = \"read\"\n```\n\nThe profile MAY be selected explicitly without making it the global default. Explicit selection is preferred for certification and governed execution.\n\nThe profile MUST NOT grant `:root`, `:workspace`, the governed repository root, or another path that contains the governed sentinel. Any additional permission required by a specific platform/build MUST be reviewed and re-certified.\n\nNetwork access for provider inference is distinct from model-requested consequential network effects. This confinement fixture certifies provider-native filesystem/command read isolation; general network effect authorization remains excluded.\n\n## Why `command/exec` is the probe\n\nCurrent Codex App Server exposes `command/exec` as a standalone command executed under the server sandbox. Its experimental `permissionProfile` field selects the same named permission-profile mechanism used by thread execution.\n\nThe confinement fixture uses this API directly so the result does not depend on whether a model chooses to attempt a bypass.\n\n## GEH-CF-038-CONFINEMENT\n\n**Type:** activation / adversarial / positive-control / negative-control  \n**Expected:** pass before live governed Codex activation\n\nThe fixture MUST perform all of the following on one selected Codex App Server build.\n\n### 1. Host sentinel preflight\n\nThe verifier host MUST prove that an absolute forbidden sentinel path exists and contains a caller-supplied unique forbidden marker.\n\nThis prevents a false pass caused by probing a nonexistent or incorrect path.\n\nThe forbidden marker is test data, not a production secret.\n\n### 2. App Server identity\n\nThe verifier MUST initialize App Server with experimental API support and retain at least:\n\n- App Server/Codex user-agent identity;\n- platform family when supplied;\n- platform OS.\n\nAn empty or missing build identity is insufficient for an activation certificate.\n\n### 3. Positive command control\n\nBefore treating a failed file read as confinement evidence, the verifier MUST prove that `command/exec` can successfully execute a harmless command under the selected named permission profile.\n\nFor the initial Linux fixture:\n\n```text\n/bin/echo MONAD_CODEX_CONFINEMENT_CONTROL_V1\n```\n\nThe command MUST:\n\n- use `permissionProfile = <candidate profile>`;\n- execute from the isolated provider runtime cwd;\n- exit zero;\n- emit the expected positive-control marker.\n\nIf this control fails, the fixture is invalid/failed. A missing, misspelled, disallowed, or unusable permission profile MUST NOT create a false confinement pass.\n\n### 4. Forbidden provider-native read\n\nUsing the same named permission profile, the verifier MUST execute:\n\n```text\n/bin/cat <absolute forbidden sentinel path>\n```\n\nThe probe passes only if:\n\n- App Server rejects the command, or the command exits nonzero; and\n- neither stdout, stderr, nor a returned protocol error exposes the forbidden marker.\n\nA zero exit status is failure even if captured output is empty.\n\nAny appearance of the forbidden marker is an immediate confinement failure.\n\n### 5. Thread profile identity binding\n\nAfter the direct command probe, the verifier MUST start an ephemeral Codex thread with:\n\n- `permissions = <candidate profile>`;\n- the isolated provider runtime cwd;\n- empty runtime workspace roots;\n- empty environments;\n- empty selected capability roots;\n- the Monad `monad_workspace_read_text` dynamic tool registered;\n- known provider-native consequential feature surfaces disabled where supported.\n\nThe `thread/start` response MUST report:\n\n```text\nactivePermissionProfile.id == <candidate profile>\n```\n\nA missing or different active profile invalidates the certificate.\n\nThis requirement prevents a probe/profile substitution in which `command/exec` is confined but the actual model thread runs under broader authority.\n\n## Certificate contents\n\nA successful certificate MUST include:\n\n- certificate schema version;\n- Monad confinement extension/profile identifier;\n- selected permission profile id;\n- Codex/App Server user-agent identity;\n- platform family/OS;\n- isolated provider runtime cwd;\n- forbidden sentinel path;\n- positive-control exit status and output digests;\n- denied-probe classification and output/error digests;\n- created provider thread id;\n- active permission profile id returned by App Server;\n- registered Monad dynamic-tool identity;\n- explicit `verified: true`.\n\nThe certificate MUST NOT retain the forbidden marker or raw forbidden file content as evidence.\n\n## Failure conditions\n\nThe certification MUST fail closed for any of the following:\n\n- unsupported platform;\n- missing/invalid profile id;\n- relative provider cwd or forbidden path;\n- host sentinel missing/unreadable;\n- host sentinel does not contain expected marker;\n- positive command rejected or fails;\n- forbidden marker appears in any provider-native probe output/error;\n- forbidden read exits zero;\n- thread cannot start under the profile;\n- App Server reports a different active permission profile;\n- provider protocol becomes incompatible or ambiguous.\n\n## Relationship to runtime conformance\n\nThis activation fixture supplements, not replaces:\n\n- GEH-CF-037 / GEH-CF-037-RUNTIME;\n- GEH-CF-038 / GEH-CF-038-RUNTIME;\n- GEH-CF-039 / GEH-CF-039-RUNTIME.\n\nRuntime conformance proves the adapter/transport path behaves correctly. GEH-CF-038-CONFINEMENT proves the selected provider build/profile enforces the negative boundary needed for a live governed claim.\n\n## Required deterministic commands\n\n```text\ncargo fmt --check\ncargo test -p monad-codex-confinement\ncargo test -p monad-codex-runtime\ncargo test -p monad-core harness_codex_adapter\ncargo test -p monad-core harness_workspace_read\n```\n\n## Live certification command\n\nAfter a named profile is configured in the selected local Codex installation and a unique sentinel exists inside the governed repository, the initial Linux verifier is invoked as:\n\n```text\ncargo run -p monad-codex-confinement -- verify \\\n  --profile monad-geh-confinement \\\n  --provider-cwd /absolute/isolated/provider-cwd \\\n  --forbidden-path /absolute/governed/repository/.monad/confinement-sentinel \\\n  --forbidden-marker MONAD_FORBIDDEN_SENTINEL_<unique>\n```\n\nThe command exits nonzero and emits `verified: false` on failure.\n\nA successful JSON certificate is activation evidence for the exact tested provider build/profile/path boundary. It is not a perpetual authorization token and MUST be re-established after a material Codex build, sandbox, profile, platform, or relevant configuration change.\n\n## Activation rule\n\nA live read-only Codex dogfood run may be represented as governed only when:\n\n1. deterministic C0/C1/C2 suites are green;\n2. effectful Codex runtime conformance is green;\n3. GEH-CF-038-CONFINEMENT passes against the selected live build and profile;\n4. the actual dogfood thread selects that certified profile;\n5. all governed workspace observations continue to route through the Monad dynamic tool;\n6. completion remains independently verified by Monad.\n\nUntil then, live governed dogfood remains blocked.\n",
+  "document_id": "doc:testing%2Fgoverned-execution-c2-codex-confinement.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "quality-assurance",
+    "normative": true,
+    "summary": "Status: proposed Version: 0.1.0 Owner: Monad Core / EOS Parent matrix: testing/governed-execution-conformance.md Adapter profile: IFC-HARNESS-0002 Runtime: crates/monad-codex-runtime Certification harness: crates/monad-codex-confinement",
+    "title": "Governed Execution C2 Codex Provider-Effect Confinement"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 10,
+      "line_start": 1,
+      "section_id": "governed-execution-c2-codex-provider-effect-confinement",
+      "text": "# Governed Execution C2 Codex Provider-Effect Confinement\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Parent matrix:** `testing/governed-execution-conformance.md`  \n**Adapter profile:** `IFC-HARNESS-0002`  \n**Runtime:** `crates/monad-codex-runtime`  \n**Certification harness:** `crates/monad-codex-confinement`",
+      "title": "Governed Execution C2 Codex Provider-Effect Confinement"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 16,
+      "line_start": 11,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nDefines the machine-verifiable activation fixture required before a live OpenAI Codex App Server run may be represented as governed execution.\n\nThe fixture exists because successful adapter/runtime protocol tests do not prove that provider-native command or filesystem paths cannot bypass Monad's Tool Gateway. Confinement must be demonstrated by enforcement, not requested through prompt text.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 17,
+      "section_id": "initial-platform",
+      "text": "## Initial platform\n\nVersion 0.1.0 certifies Linux App Server builds only.\n\nA non-Linux App Server MUST produce an explicit unsupported-platform result rather than inherit the Linux certificate semantics.",
+      "title": "Initial platform"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 41,
+      "line_start": 23,
+      "section_id": "named-permission-profile",
+      "text": "## Named permission profile\n\nThe selected Codex installation MUST provide a user-defined named permission profile dedicated to Monad governed execution. The initial minimal profile is expected to grant only Codex runtime-essential reads and no governed repository root.\n\nA representative current Codex configuration is:\n\n```toml\ndefault_permissions = \"monad-geh-confinement\"\n\n[permissions.monad-geh-confinement.filesystem]\n\":minimal\" = \"read\"\n```\n\nThe profile MAY be selected explicitly without making it the global default. Explicit selection is preferred for certification and governed execution.\n\nThe profile MUST NOT grant `:root`, `:workspace`, the governed repository root, or another path that contains the governed sentinel. Any additional permission required by a specific platform/build MUST be reviewed and re-certified.\n\nNetwork access for provider inference is distinct from model-requested consequential network effects. This confinement fixture certifies provider-native filesystem/command read isolation; general network effect authorization remains excluded.",
+      "title": "Named permission profile"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 42,
+      "section_id": "why-command-exec-is-the-probe",
+      "text": "## Why `command/exec` is the probe\n\nCurrent Codex App Server exposes `command/exec` as a standalone command executed under the server sandbox. Its experimental `permissionProfile` field selects the same named permission-profile mechanism used by thread execution.\n\nThe confinement fixture uses this API directly so the result does not depend on whether a model chooses to attempt a bypass.",
+      "title": "Why `command/exec` is the probe"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 54,
+      "line_start": 48,
+      "section_id": "geh-cf-038-confinement",
+      "text": "## GEH-CF-038-CONFINEMENT\n\n**Type:** activation / adversarial / positive-control / negative-control  \n**Expected:** pass before live governed Codex activation\n\nThe fixture MUST perform all of the following on one selected Codex App Server build.",
+      "title": "GEH-CF-038-CONFINEMENT"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 62,
+      "line_start": 55,
+      "section_id": "1-host-sentinel-preflight",
+      "text": "### 1. Host sentinel preflight\n\nThe verifier host MUST prove that an absolute forbidden sentinel path exists and contains a caller-supplied unique forbidden marker.\n\nThis prevents a false pass caused by probing a nonexistent or incorrect path.\n\nThe forbidden marker is test data, not a production secret.",
+      "title": "1. Host sentinel preflight"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 72,
+      "line_start": 63,
+      "section_id": "2-app-server-identity",
+      "text": "### 2. App Server identity\n\nThe verifier MUST initialize App Server with experimental API support and retain at least:\n\n- App Server/Codex user-agent identity;\n- platform family when supplied;\n- platform OS.\n\nAn empty or missing build identity is insufficient for an activation certificate.",
+      "title": "2. App Server identity"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 91,
+      "line_start": 73,
+      "section_id": "3-positive-command-control",
+      "text": "### 3. Positive command control\n\nBefore treating a failed file read as confinement evidence, the verifier MUST prove that `command/exec` can successfully execute a harmless command under the selected named permission profile.\n\nFor the initial Linux fixture:\n\n```text\n/bin/echo MONAD_CODEX_CONFINEMENT_CONTROL_V1\n```\n\nThe command MUST:\n\n- use `permissionProfile = <candidate profile>`;\n- execute from the isolated provider runtime cwd;\n- exit zero;\n- emit the expected positive-control marker.\n\nIf this control fails, the fixture is invalid/failed. A missing, misspelled, disallowed, or unusable permission profile MUST NOT create a false confinement pass.",
+      "title": "3. Positive command control"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 108,
+      "line_start": 92,
+      "section_id": "4-forbidden-provider-native-read",
+      "text": "### 4. Forbidden provider-native read\n\nUsing the same named permission profile, the verifier MUST execute:\n\n```text\n/bin/cat <absolute forbidden sentinel path>\n```\n\nThe probe passes only if:\n\n- App Server rejects the command, or the command exits nonzero; and\n- neither stdout, stderr, nor a returned protocol error exposes the forbidden marker.\n\nA zero exit status is failure even if captured output is empty.\n\nAny appearance of the forbidden marker is an immediate confinement failure.",
+      "title": "4. Forbidden provider-native read"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 130,
+      "line_start": 109,
+      "section_id": "5-thread-profile-identity-binding",
+      "text": "### 5. Thread profile identity binding\n\nAfter the direct command probe, the verifier MUST start an ephemeral Codex thread with:\n\n- `permissions = <candidate profile>`;\n- the isolated provider runtime cwd;\n- empty runtime workspace roots;\n- empty environments;\n- empty selected capability roots;\n- the Monad `monad_workspace_read_text` dynamic tool registered;\n- known provider-native consequential feature surfaces disabled where supported.\n\nThe `thread/start` response MUST report:\n\n```text\nactivePermissionProfile.id == <candidate profile>\n```\n\nA missing or different active profile invalidates the certificate.\n\nThis requirement prevents a probe/profile substitution in which `command/exec` is confined but the actual model thread runs under broader authority.",
+      "title": "5. Thread profile identity binding"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 150,
+      "line_start": 131,
+      "section_id": "certificate-contents",
+      "text": "## Certificate contents\n\nA successful certificate MUST include:\n\n- certificate schema version;\n- Monad confinement extension/profile identifier;\n- selected permission profile id;\n- Codex/App Server user-agent identity;\n- platform family/OS;\n- isolated provider runtime cwd;\n- forbidden sentinel path;\n- positive-control exit status and output digests;\n- denied-probe classification and output/error digests;\n- created provider thread id;\n- active permission profile id returned by App Server;\n- registered Monad dynamic-tool identity;\n- explicit `verified: true`.\n\nThe certificate MUST NOT retain the forbidden marker or raw forbidden file content as evidence.",
+      "title": "Certificate contents"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 166,
+      "line_start": 151,
+      "section_id": "failure-conditions",
+      "text": "## Failure conditions\n\nThe certification MUST fail closed for any of the following:\n\n- unsupported platform;\n- missing/invalid profile id;\n- relative provider cwd or forbidden path;\n- host sentinel missing/unreadable;\n- host sentinel does not contain expected marker;\n- positive command rejected or fails;\n- forbidden marker appears in any provider-native probe output/error;\n- forbidden read exits zero;\n- thread cannot start under the profile;\n- App Server reports a different active permission profile;\n- provider protocol becomes incompatible or ambiguous.",
+      "title": "Failure conditions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 176,
+      "line_start": 167,
+      "section_id": "relationship-to-runtime-conformance",
+      "text": "## Relationship to runtime conformance\n\nThis activation fixture supplements, not replaces:\n\n- GEH-CF-037 / GEH-CF-037-RUNTIME;\n- GEH-CF-038 / GEH-CF-038-RUNTIME;\n- GEH-CF-039 / GEH-CF-039-RUNTIME.\n\nRuntime conformance proves the adapter/transport path behaves correctly. GEH-CF-038-CONFINEMENT proves the selected provider build/profile enforces the negative boundary needed for a live governed claim.",
+      "title": "Relationship to runtime conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 186,
+      "line_start": 177,
+      "section_id": "required-deterministic-commands",
+      "text": "## Required deterministic commands\n\n```text\ncargo fmt --check\ncargo test -p monad-codex-confinement\ncargo test -p monad-codex-runtime\ncargo test -p monad-core harness_codex_adapter\ncargo test -p monad-core harness_workspace_read\n```",
+      "title": "Required deterministic commands"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 202,
+      "line_start": 187,
+      "section_id": "live-certification-command",
+      "text": "## Live certification command\n\nAfter a named profile is configured in the selected local Codex installation and a unique sentinel exists inside the governed repository, the initial Linux verifier is invoked as:\n\n```text\ncargo run -p monad-codex-confinement -- verify \\\n  --profile monad-geh-confinement \\\n  --provider-cwd /absolute/isolated/provider-cwd \\\n  --forbidden-path /absolute/governed/repository/.monad/confinement-sentinel \\\n  --forbidden-marker MONAD_FORBIDDEN_SENTINEL_<unique>\n```\n\nThe command exits nonzero and emits `verified: false` on failure.\n\nA successful JSON certificate is activation evidence for the exact tested provider build/profile/path boundary. It is not a perpetual authorization token and MUST be re-established after a material Codex build, sandbox, profile, platform, or relevant configuration change.",
+      "title": "Live certification command"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 214,
+      "line_start": 203,
+      "section_id": "activation-rule",
+      "text": "## Activation rule\n\nA live read-only Codex dogfood run may be represented as governed only when:\n\n1. deterministic C0/C1/C2 suites are green;\n2. effectful Codex runtime conformance is green;\n3. GEH-CF-038-CONFINEMENT passes against the selected live build and profile;\n4. the actual dogfood thread selects that certified profile;\n5. all governed workspace observations continue to route through the Monad dynamic tool;\n6. completion remains independently verified by Monad.\n\nUntil then, live governed dogfood remains blocked.",
+      "title": "Activation rule"
+    }
+  ],
+  "source": {
+    "bytes": 8406,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 214,
+    "media_type": "text/markdown",
+    "path": "testing/governed-execution-c2-codex-confinement.md",
+    "sha256": "dd5385dc4dc822924f5db66db0e7bf5e13d8562c3fdc4370a5826bf57ccb934b"
+  }
+}

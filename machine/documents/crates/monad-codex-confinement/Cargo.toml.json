@@ -1,0 +1,40 @@
+{
+  "content": "[package]\nname = \"monad-codex-confinement\"\nversion = \"0.1.0\"\nedition.workspace = true\nrust-version.workspace = true\nlicense.workspace = true\n\n[[bin]]\nname = \"monad-codex-confinement\"\npath = \"src/main.rs\"\n\n[dependencies]\nmonad-codex-runtime = { path = \"../monad-codex-runtime\" }\nserde.workspace = true\nserde_json.workspace = true\nsha2.workspace = true\n",
+  "document_id": "doc:crates%2Fmonad-codex-confinement%2FCargo.toml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical toml source for crates/monad-codex-confinement/Cargo.toml.",
+    "title": "Cargo"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 16,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "[package]\nname = \"monad-codex-confinement\"\nversion = \"0.1.0\"\nedition.workspace = true\nrust-version.workspace = true\nlicense.workspace = true\n\n[[bin]]\nname = \"monad-codex-confinement\"\npath = \"src/main.rs\"\n\n[dependencies]\nmonad-codex-runtime = { path = \"../monad-codex-runtime\" }\nserde.workspace = true\nserde_json.workspace = true\nsha2.workspace = true",
+      "title": "Cargo"
+    }
+  ],
+  "source": {
+    "bytes": 351,
+    "canonical": true,
+    "language": "toml",
+    "lines": 16,
+    "media_type": "application/toml",
+    "path": "crates/monad-codex-confinement/Cargo.toml",
+    "sha256": "a33fb3078b0d2f8e29afcc7c51ee0c365c7ca8b5965edabdc7ed8d3357cda143"
+  }
+}

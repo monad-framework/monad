@@ -1,0 +1,40 @@
+{
+  "content": "name: Governed execution C2 Codex confinement\n\non:\n  workflow_dispatch:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"crates/monad-codex-runtime/**\"\n      - \"crates/monad-codex-confinement/**\"\n      - \"specifications/interfaces/IFC-HARNESS-0002-codex-app-server-adapter.md\"\n      - \"testing/governed-execution-conformance.md\"\n      - \"testing/governed-execution-c2-codex-runtime.md\"\n      - \"testing/governed-execution-c2-codex-confinement.md\"\n      - \".github/workflows/governed-execution-c2-codex-confinement.yml\"\n  push:\n    branches: [main]\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"crates/monad-codex-runtime/**\"\n      - \"crates/monad-codex-confinement/**\"\n      - \"specifications/interfaces/IFC-HARNESS-0002-codex-app-server-adapter.md\"\n      - \"testing/governed-execution-conformance.md\"\n      - \"testing/governed-execution-c2-codex-runtime.md\"\n      - \"testing/governed-execution-c2-codex-confinement.md\"\n      - \".github/workflows/governed-execution-c2-codex-confinement.yml\"\n\npermissions:\n  contents: read\n\njobs:\n  c2-codex-confinement:\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n      - name: Verify formatting\n        run: cargo fmt --check\n      - name: Run Codex confinement certification fixtures\n        run: cargo test -p monad-codex-confinement\n      - name: Run Codex runtime regression fixtures\n        run: cargo test -p monad-codex-runtime\n      - name: Run deterministic Codex adapter fixtures\n        run: cargo test -p monad-core harness_codex_adapter\n      - name: Run workspace read regression fixtures\n        run: cargo test -p monad-core harness_workspace_read\n",
+  "document_id": "doc:.github%2Fworkflows%2Fgoverned-execution-c2-codex-confinement.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/governed-execution-c2-codex-confinement.yml.",
+    "title": "Governed Execution C2 Codex Confinement"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 49,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Governed execution C2 Codex confinement\n\non:\n  workflow_dispatch:\n  pull_request:\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"crates/monad-codex-runtime/**\"\n      - \"crates/monad-codex-confinement/**\"\n      - \"specifications/interfaces/IFC-HARNESS-0002-codex-app-server-adapter.md\"\n      - \"testing/governed-execution-conformance.md\"\n      - \"testing/governed-execution-c2-codex-runtime.md\"\n      - \"testing/governed-execution-c2-codex-confinement.md\"\n      - \".github/workflows/governed-execution-c2-codex-confinement.yml\"\n  push:\n    branches: [main]\n    paths:\n      - \"Cargo.toml\"\n      - \"Cargo.lock\"\n      - \"crates/monad-core/**\"\n      - \"crates/monad-codex-runtime/**\"\n      - \"crates/monad-codex-confinement/**\"\n      - \"specifications/interfaces/IFC-HARNESS-0002-codex-app-server-adapter.md\"\n      - \"testing/governed-execution-conformance.md\"\n      - \"testing/governed-execution-c2-codex-runtime.md\"\n      - \"testing/governed-execution-c2-codex-confinement.md\"\n      - \".github/workflows/governed-execution-c2-codex-confinement.yml\"\n\npermissions:\n  contents: read\n\njobs:\n  c2-codex-confinement:\n    runs-on: ubuntu-latest\n    timeout-minutes: 10\n    steps:\n      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n      - name: Verify formatting\n        run: cargo fmt --check\n      - name: Run Codex confinement certification fixtures\n        run: cargo test -p monad-codex-confinement\n      - name: Run Codex runtime regression fixtures\n        run: cargo test -p monad-codex-runtime\n      - name: Run deterministic Codex adapter fixtures\n        run: cargo test -p monad-core harness_codex_adapter\n      - name: Run workspace read regression fixtures\n        run: cargo test -p monad-core harness_workspace_read",
+      "title": "Governed Execution C2 Codex Confinement"
+    }
+  ],
+  "source": {
+    "bytes": 1805,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 49,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/governed-execution-c2-codex-confinement.yml",
+    "sha256": "45662e6dea1069d34a5ad2bc56ab3d9144cc7152e2c0554595a43c8f3cef1d61"
+  }
+}

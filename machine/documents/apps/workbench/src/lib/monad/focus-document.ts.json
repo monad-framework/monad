@@ -1,0 +1,40 @@
+{
+  "content": "import { readFile } from \"node:fs/promises\";\nimport path from \"node:path\";\n\nimport type {\n  FocusDocument,\n  FocusDocumentMetadata,\n  FocusDocumentSection,\n  MonadObject,\n} from \"./model\";\n\nfunction stripFrontmatter(lines: string[]): string[] {\n  if (lines[0]?.trim() !== \"---\") {\n    return lines;\n  }\n\n  const closingIndex = lines\n    .slice(1)\n    .findIndex((line) => line.trim() === \"---\");\n\n  if (closingIndex === -1) {\n    return lines;\n  }\n\n  return lines.slice(closingIndex + 2);\n}\n\nfunction slugify(value: string): string {\n  return value\n    .toLowerCase()\n    .replace(/[^a-z0-9]+/g, \"-\")\n    .replace(/^-|-$/g, \"\");\n}\n\nfunction parseMarkdown(markdown: string, sourcePath: string): FocusDocument {\n  const lines = stripFrontmatter(markdown.split(/\\r?\\n/));\n\n  let heading: string | undefined;\n  const introduction: string[] = [];\n  const metadata: FocusDocumentMetadata[] = [];\n  const sections: FocusDocumentSection[] = [];\n\n  let currentTitle: string | undefined;\n  let currentBody: string[] = [];\n\n  function flushSection() {\n    if (!currentTitle) {\n      return;\n    }\n\n    sections.push({\n      id: slugify(currentTitle),\n      title: currentTitle,\n      body: currentBody.join(\"\\n\").trim(),\n    });\n\n    currentTitle = undefined;\n    currentBody = [];\n  }\n\n  for (const line of lines) {\n    if (!heading && line.startsWith(\"# \")) {\n      heading = line.slice(2).trim();\n      continue;\n    }\n\n    if (line.startsWith(\"## \")) {\n      flushSection();\n\n      currentTitle = line.slice(3).trim();\n      continue;\n    }\n\n    if (currentTitle) {\n      currentBody.push(line);\n      continue;\n    }\n\n    const metadataMatch = line.match(/^\\*\\*([^*]+?):\\*\\*\\s*(.*?)\\s*$/);\n\n    if (metadataMatch) {\n      metadata.push({\n        label: metadataMatch[1].trim(),\n        value: metadataMatch[2].trim(),\n      });\n\n      continue;\n    }\n\n    introduction.push(line);\n  }\n\n  flushSection();\n\n  return {\n    heading,\n    introduction: introduction.join(\"\\n\").trim() || undefined,\n    metadata,\n    sections,\n    sourcePath,\n  };\n}\n\nexport async function readFocusDocument(\n  root: string,\n  object: MonadObject | undefined,\n): Promise<FocusDocument | undefined> {\n  if (!object?.artifactPath) {\n    return undefined;\n  }\n\n  const repositoryRoot = path.resolve(root);\n\n  const target = path.resolve(repositoryRoot, object.artifactPath);\n\n  if (\n    target !== repositoryRoot &&\n    !target.startsWith(`${repositoryRoot}${path.sep}`)\n  ) {\n    return undefined;\n  }\n\n  try {\n    const markdown = await readFile(target, \"utf8\");\n\n    return parseMarkdown(markdown, object.artifactPath);\n  } catch {\n    return undefined;\n  }\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ffocus-document.ts",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript source for apps/workbench/src/lib/monad/focus-document.ts.",
+    "title": "Focus Document"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 129,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { readFile } from \"node:fs/promises\";\nimport path from \"node:path\";\n\nimport type {\n  FocusDocument,\n  FocusDocumentMetadata,\n  FocusDocumentSection,\n  MonadObject,\n} from \"./model\";\n\nfunction stripFrontmatter(lines: string[]): string[] {\n  if (lines[0]?.trim() !== \"---\") {\n    return lines;\n  }\n\n  const closingIndex = lines\n    .slice(1)\n    .findIndex((line) => line.trim() === \"---\");\n\n  if (closingIndex === -1) {\n    return lines;\n  }\n\n  return lines.slice(closingIndex + 2);\n}\n\nfunction slugify(value: string): string {\n  return value\n    .toLowerCase()\n    .replace(/[^a-z0-9]+/g, \"-\")\n    .replace(/^-|-$/g, \"\");\n}\n\nfunction parseMarkdown(markdown: string, sourcePath: string): FocusDocument {\n  const lines = stripFrontmatter(markdown.split(/\\r?\\n/));\n\n  let heading: string | undefined;\n  const introduction: string[] = [];\n  const metadata: FocusDocumentMetadata[] = [];\n  const sections: FocusDocumentSection[] = [];\n\n  let currentTitle: string | undefined;\n  let currentBody: string[] = [];\n\n  function flushSection() {\n    if (!currentTitle) {\n      return;\n    }\n\n    sections.push({\n      id: slugify(currentTitle),\n      title: currentTitle,\n      body: currentBody.join(\"\\n\").trim(),\n    });\n\n    currentTitle = undefined;\n    currentBody = [];\n  }\n\n  for (const line of lines) {\n    if (!heading && line.startsWith(\"# \")) {\n      heading = line.slice(2).trim();\n      continue;\n    }\n\n    if (line.startsWith(\"## \")) {\n      flushSection();\n\n      currentTitle = line.slice(3).trim();\n      continue;\n    }\n\n    if (currentTitle) {\n      currentBody.push(line);\n      continue;\n    }\n\n    const metadataMatch = line.match(/^\\*\\*([^*]+?):\\*\\*\\s*(.*?)\\s*$/);\n\n    if (metadataMatch) {\n      metadata.push({\n        label: metadataMatch[1].trim(),\n        value: metadataMatch[2].trim(),\n      });\n\n      continue;\n    }\n\n    introduction.push(line);\n  }\n\n  flushSection();\n\n  return {\n    heading,\n    introduction: introduction.join(\"\\n\").trim() || undefined,\n    metadata,\n    sections,\n    sourcePath,\n  };\n}\n\nexport async function readFocusDocument(\n  root: string,\n  object: MonadObject | undefined,\n): Promise<FocusDocument | undefined> {\n  if (!object?.artifactPath) {\n    return undefined;\n  }\n\n  const repositoryRoot = path.resolve(root);\n\n  const target = path.resolve(repositoryRoot, object.artifactPath);\n\n  if (\n    target !== repositoryRoot &&\n    !target.startsWith(`${repositoryRoot}${path.sep}`)\n  ) {\n    return undefined;\n  }\n\n  try {\n    const markdown = await readFile(target, \"utf8\");\n\n    return parseMarkdown(markdown, object.artifactPath);\n  } catch {\n    return undefined;\n  }\n}",
+      "title": "Focus Document"
+    }
+  ],
+  "source": {
+    "bytes": 2630,
+    "canonical": true,
+    "language": "typescript",
+    "lines": 129,
+    "media_type": "text/vnd.trolltech.linguist",
+    "path": "apps/workbench/src/lib/monad/focus-document.ts",
+    "sha256": "4c627a3e9169e21cb6079dd8d8923db661de0c1f88b39ab44658702f6ba7ad70"
+  }
+}

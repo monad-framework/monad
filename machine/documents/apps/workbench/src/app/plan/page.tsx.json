@@ -1,0 +1,40 @@
+{
+  "content": "import { connection } from \"next/server\";\n\nimport { AppShell } from \"@/components/workbench/app-shell\";\nimport { PlanWorkspace } from \"@/components/workbench/plan-workspace\";\nimport { readPlanProjection } from \"@/lib/monad/plan\";\nimport { getRepositorySnapshot } from \"@/lib/monad/repository\";\n\nexport default async function PlanPage() {\n  await connection();\n\n  const snapshot = await getRepositorySnapshot();\n\n  const plan = await readPlanProjection(snapshot.rootPath);\n\n  return (\n    <AppShell snapshot={snapshot}>\n      <PlanWorkspace plan={plan} snapshot={snapshot} />\n    </AppShell>\n  );\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fplan%2Fpage.tsx",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript-jsx source for apps/workbench/src/app/plan/page.tsx.",
+    "title": "Page"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 20,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { connection } from \"next/server\";\n\nimport { AppShell } from \"@/components/workbench/app-shell\";\nimport { PlanWorkspace } from \"@/components/workbench/plan-workspace\";\nimport { readPlanProjection } from \"@/lib/monad/plan\";\nimport { getRepositorySnapshot } from \"@/lib/monad/repository\";\n\nexport default async function PlanPage() {\n  await connection();\n\n  const snapshot = await getRepositorySnapshot();\n\n  const plan = await readPlanProjection(snapshot.rootPath);\n\n  return (\n    <AppShell snapshot={snapshot}>\n      <PlanWorkspace plan={plan} snapshot={snapshot} />\n    </AppShell>\n  );\n}",
+      "title": "Page"
+    }
+  ],
+  "source": {
+    "bytes": 598,
+    "canonical": true,
+    "language": "typescript-jsx",
+    "lines": 20,
+    "media_type": "text/plain",
+    "path": "apps/workbench/src/app/plan/page.tsx",
+    "sha256": "012054caabb4ec3995d66e1187d1301d6ec98755f659df9d67e86925297c96be"
+  }
+}

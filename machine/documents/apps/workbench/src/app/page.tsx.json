@@ -1,0 +1,40 @@
+{
+  "content": "import { connection } from \"next/server\";\n\nimport { AppShell } from \"@/components/workbench/app-shell\";\nimport { Workspace } from \"@/components/workbench/workspace\";\nimport { getRepositorySnapshot } from \"@/lib/monad/repository\";\n\ntype PageProps = {\n  searchParams: Promise<{\n    focus?: string | string[];\n  }>;\n};\n\nexport default async function Home({ searchParams }: PageProps) {\n  await connection();\n\n  const params = await searchParams;\n\n  const focusId = Array.isArray(params.focus) ? params.focus[0] : params.focus;\n\n  const snapshot = await getRepositorySnapshot(focusId);\n\n  return (\n    <AppShell snapshot={snapshot}>\n      <Workspace snapshot={snapshot} />\n    </AppShell>\n  );\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fpage.tsx",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript-jsx source for apps/workbench/src/app/page.tsx.",
+    "title": "Page"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 27,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { connection } from \"next/server\";\n\nimport { AppShell } from \"@/components/workbench/app-shell\";\nimport { Workspace } from \"@/components/workbench/workspace\";\nimport { getRepositorySnapshot } from \"@/lib/monad/repository\";\n\ntype PageProps = {\n  searchParams: Promise<{\n    focus?: string | string[];\n  }>;\n};\n\nexport default async function Home({ searchParams }: PageProps) {\n  await connection();\n\n  const params = await searchParams;\n\n  const focusId = Array.isArray(params.focus) ? params.focus[0] : params.focus;\n\n  const snapshot = await getRepositorySnapshot(focusId);\n\n  return (\n    <AppShell snapshot={snapshot}>\n      <Workspace snapshot={snapshot} />\n    </AppShell>\n  );\n}",
+      "title": "Page"
+    }
+  ],
+  "source": {
+    "bytes": 692,
+    "canonical": true,
+    "language": "typescript-jsx",
+    "lines": 27,
+    "media_type": "text/plain",
+    "path": "apps/workbench/src/app/page.tsx",
+    "sha256": "91817da4ec269f38d45bc6c0fed956a2546bb544f0574dbdd9ad211de6b180e5"
+  }
+}
