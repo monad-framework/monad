@@ -3,7 +3,7 @@ artifact_id: "REV-MNT-0003"
 title: "MNT-0003 Engineering Review"
 type: "review"
 version: "0.1.0"
-status: "In Review"
+status: "Accepted"
 authority: "review-authoritative"
 created: "2026-09-07"
 updated: "2026-09-07"
@@ -11,7 +11,7 @@ updated: "2026-09-07"
 
 # MNT-0003 — Engineering Review
 
-**Decision:** PENDING
+**Decision:** ACCEPTED
 
 ## Target
 
@@ -201,7 +201,7 @@ Implementation and verification evidence support formal closure of MNT-0003.
 
 ## Decision
 
-**PENDING HUMAN PROJECT STEWARD DECISION**
+**ACCEPTED — HUMAN PROJECT STEWARD — 2026-09-07**
 
 Permitted final disposition:
 
@@ -209,6 +209,10 @@ Permitted final disposition:
 - `REJECTED` — return MNT-0003 to implementation;
 - `BLOCKED` — retain `VERIFYING` pending additional evidence.
 
-No closure authority is inferred from implementation completion, successful verification, this review recommendation, or a generic continuation instruction.
+Closure authority was explicitly granted by the Human Project Steward:
 
-An explicit Human Project Steward closure decision is required.
+> I approve MNT-0003 closure.
+
+Durable authority record:
+
+`engineering/reviews/DECISION-0010-2026-09-07-mnt-0003-closure-approval.md`
