@@ -23,14 +23,26 @@ pub enum CodexConfinementError {
     Runtime(String),
     Protocol(String),
     InvalidPlan(String),
-    UnsupportedPlatform { platform_os: String },
+    UnsupportedPlatform {
+        platform_os: String,
+    },
     HostSentinelUnreadable(String),
     HostSentinelMismatch,
     PositiveControlRejected(String),
-    PositiveControlFailed { exit_code: i32, stdout: String, stderr: String },
+    PositiveControlFailed {
+        exit_code: i32,
+        stdout: String,
+        stderr: String,
+    },
     ForbiddenContentLeaked,
-    DeniedProbeUnexpectedSuccess { stdout: String, stderr: String },
-    ActiveProfileMismatch { requested: String, active: Option<String> },
+    DeniedProbeUnexpectedSuccess {
+        stdout: String,
+        stderr: String,
+    },
+    ActiveProfileMismatch {
+        requested: String,
+        active: Option<String>,
+    },
 }
 
 impl fmt::Display for CodexConfinementError {
@@ -44,7 +56,10 @@ impl fmt::Display for CodexConfinementError {
                 "initial Codex confinement profile supports Linux only; App Server reported {platform_os:?}"
             ),
             Self::HostSentinelUnreadable(value) => {
-                write!(formatter, "host could not verify forbidden sentinel: {value}")
+                write!(
+                    formatter,
+                    "host could not verify forbidden sentinel: {value}"
+                )
             }
             Self::HostSentinelMismatch => write!(
                 formatter,
@@ -702,7 +717,10 @@ mod tests {
         assert!(certificate.verified);
         assert_eq!(certificate.profile_id, "monad-geh-confinement");
         assert_eq!(certificate.active_permission_profile_id, plan.profile_id);
-        assert_eq!(certificate.dynamic_tool_registered, MONAD_WORKSPACE_READ_TOOL);
+        assert_eq!(
+            certificate.dynamic_tool_registered,
+            MONAD_WORKSPACE_READ_TOOL
+        );
         assert!(matches!(
             certificate.denied_probe,
             DeniedProbeEvidence::NonzeroExit(_)
