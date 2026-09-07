@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -48,6 +49,34 @@ class EventLedgerMergeTests(unittest.TestCase):
         cls.ledger = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(cls.ledger)
 
+    def git(self, root: Path, *args: str) -> subprocess.CompletedProcess[str]:
+        return subprocess.run(
+            ["git", "-C", str(root), *args],
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+
+    def init_git_repo(self, root: Path) -> None:
+        self.git(root, "init", "-q")
+        self.git(root, "config", "user.email", "mnt0003-test@example.invalid")
+        self.git(root, "config", "user.name", "MNT-0003 Test")
+        (root / ".gitattributes").write_text(
+            ".eos/events.jsonl merge=union\n",
+            encoding="utf-8",
+        )
+
+    def write_git_ledger(self, root: Path, events: list[dict]) -> None:
+        path = root / ".eos/events.jsonl"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(
+            "".join(
+                json.dumps(item, sort_keys=True, separators=(",", ":")) + "\n"
+                for item in events
+            ),
+            encoding="utf-8",
+        )
+
     def test_repository_declares_union_merge_for_event_ledger(self):
         attributes = (ROOT / ".gitattributes").read_text(encoding="utf-8")
         lines = {
@@ -83,7 +112,15 @@ class EventLedgerMergeTests(unittest.TestCase):
         self.ledger.validate_divergent_history(
             [],
             [event("EVT-A", target="WP-X", from_state="DRAFT", to_state="READY")],
-            [event("EVT-B", target="MNT-Y", entity_kind="MNT", from_state="PLANNED", to_state="IN_PROGRESS")],
+            [
+                event(
+                    "EVT-B",
+                    target="MNT-Y",
+                    entity_kind="MNT",
+                    from_state="PLANNED",
+                    to_state="IN_PROGRESS",
+                )
+            ],
         )
 
     def test_same_entity_divergent_lifecycle_fails_closed(self):
@@ -121,6 +158,94 @@ class EventLedgerMergeTests(unittest.TestCase):
         malformed.pop("event_id")
         with self.assertRaises(self.ledger.EventLedgerError):
             self.ledger.validate_event_identity([malformed])
+
+    def test_real_git_union_merge_preserves_independent_events(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.init_git_repo(root)
+            base = [
+                event(
+                    "EVT-BASE",
+                    target="WP-BASE",
+                    event_type="ENTITY_CREATED",
+                    to_state="DRAFT",
+                )
+            ]
+            self.write_git_ledger(root, base)
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "base")
+            base_sha = self.git(root, "rev-parse", "HEAD").stdout.strip()
+
+            self.git(root, "checkout", "-qb", "left")
+            left = base + [
+                event("EVT-LEFT", target="WP-LEFT", from_state="DRAFT", to_state="READY")
+            ]
+            self.write_git_ledger(root, left)
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "left")
+
+            self.git(root, "checkout", "-qb", "right", base_sha)
+            right = base + [
+                event("EVT-RIGHT", target="WP-RIGHT", from_state="DRAFT", to_state="READY")
+            ]
+            self.write_git_ledger(root, right)
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "right")
+            self.git(root, "merge", "--no-edit", "left")
+
+            merged = self.ledger.read_event_ledger(root / ".eos/events.jsonl")
+            ids = {item["event_id"] for item in merged}
+            self.assertIn("EVT-LEFT", ids)
+            self.assertIn("EVT-RIGHT", ids)
+            self.ledger.validate_committed_history(root)
+
+    def test_committed_child_cannot_delete_parent_event(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.init_git_repo(root)
+            events = [
+                event("EVT-A", target="WP-A", from_state="DRAFT", to_state="READY"),
+                event("EVT-B", target="WP-B", from_state="DRAFT", to_state="READY"),
+            ]
+            self.write_git_ledger(root, events)
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "parent")
+
+            self.write_git_ledger(root, [events[0]])
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "bad child")
+            with self.assertRaises(self.ledger.EventLedgerError):
+                self.ledger.validate_committed_history(root)
+
+    def test_real_git_same_entity_divergence_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.init_git_repo(root)
+            base = [event("EVT-BASE", target="WP-X", event_type="ENTITY_CREATED", to_state="DRAFT")]
+            self.write_git_ledger(root, base)
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "base")
+            base_sha = self.git(root, "rev-parse", "HEAD").stdout.strip()
+
+            self.git(root, "checkout", "-qb", "left")
+            left = base + [
+                event("EVT-LEFT", target="WP-X", from_state="DRAFT", to_state="READY")
+            ]
+            self.write_git_ledger(root, left)
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "left")
+
+            self.git(root, "checkout", "-qb", "right", base_sha)
+            right = base + [
+                event("EVT-RIGHT", target="WP-X", from_state="DRAFT", to_state="BLOCKED")
+            ]
+            self.write_git_ledger(root, right)
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "right")
+            self.git(root, "merge", "--no-edit", "left")
+
+            with self.assertRaises(self.ledger.EventLedgerConflict):
+                self.ledger.validate_committed_history(root)
 
 
 if __name__ == "__main__":

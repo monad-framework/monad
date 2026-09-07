@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 from collections import defaultdict
 from pathlib import Path
 from typing import Iterable
@@ -20,6 +21,7 @@ LIFECYCLE_EVENT_TYPES = {
     "ENTITY_IMPORTED",
     "STATE_TRANSITION",
 }
+EVENT_LEDGER_RELPATH = ".eos/events.jsonl"
 
 
 def canonical_event(event: dict) -> str:
@@ -31,22 +33,26 @@ def canonical_event(event: dict) -> str:
     )
 
 
-def read_event_ledger(path: Path) -> list[dict]:
-    if not path.exists():
-        return []
+def _events_from_text(text: str, *, label: str) -> list[dict]:
     events: list[dict] = []
-    for lineno, raw in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+    for lineno, raw in enumerate(text.splitlines(), start=1):
         if not raw.strip():
             continue
         try:
             event = json.loads(raw)
         except json.JSONDecodeError as exc:
-            raise EventLedgerError(f"{path}: malformed JSON at line {lineno}: {exc}") from exc
+            raise EventLedgerError(f"{label}: malformed JSON at line {lineno}: {exc}") from exc
         if not isinstance(event, dict):
-            raise EventLedgerError(f"{path}: line {lineno} must contain a JSON object")
+            raise EventLedgerError(f"{label}: line {lineno} must contain a JSON object")
         events.append(event)
     validate_event_identity(events)
     return events
+
+
+def read_event_ledger(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    return _events_from_text(path.read_text(encoding="utf-8"), label=str(path))
 
 
 def event_map(events: Iterable[dict]) -> dict[str, dict]:
@@ -122,6 +128,7 @@ def validate_divergent_history(
     right = event_map(right_events)
     left_added = _introduced_events(base, left)
     right_added = _introduced_events(base, right)
+
     shared_ids = set(left_added) & set(right_added)
     for event_id in sorted(shared_ids):
         if canonical_event(left_added[event_id]) != canonical_event(right_added[event_id]):
@@ -145,13 +152,117 @@ def validate_divergent_history(
     conflicts = sorted(set(left_by_entity) & set(right_by_entity))
     if not conflicts:
         return
+
     details: list[str] = []
     for entity_kind, target in conflicts:
         left_ids = ",".join(sorted(left_by_entity[(entity_kind, target)]))
         right_ids = ",".join(sorted(right_by_entity[(entity_kind, target)]))
-        details.append(
-            f"{entity_kind}/{target}: left=[{left_ids}] right=[{right_ids}]"
-        )
+        details.append(f"{entity_kind}/{target}: left=[{left_ids}] right=[{right_ids}]")
     raise EventLedgerConflict(
         "divergent lifecycle histories require explicit reconciliation: " + "; ".join(details)
     )
+
+
+def _git(
+    root: Path,
+    *args: str,
+    check: bool = True,
+) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ["git", "-C", str(root), *args],
+        text=True,
+        capture_output=True,
+        check=check,
+    )
+
+
+def git_commit_exists(root: Path, ref: str) -> bool:
+    proc = _git(
+        root,
+        "rev-parse",
+        "--verify",
+        "--quiet",
+        f"{ref}^{{commit}}",
+        check=False,
+    )
+    return proc.returncode == 0
+
+
+def ledger_from_git(root: Path, ref: str) -> list[dict]:
+    if not git_commit_exists(root, ref):
+        raise EventLedgerError(f"Git commit/ref does not exist: {ref}")
+    proc = _git(root, "show", f"{ref}:{EVENT_LEDGER_RELPATH}", check=False)
+    if proc.returncode != 0:
+        # A history that predates introduction of the EOS ledger contributes no events.
+        return []
+    return _events_from_text(proc.stdout, label=f"{ref}:{EVENT_LEDGER_RELPATH}")
+
+
+def immediate_parents(root: Path, ref: str = "HEAD") -> list[str]:
+    proc = _git(root, "rev-list", "--parents", "-n", "1", ref)
+    parts = proc.stdout.strip().split()
+    if not parts:
+        raise EventLedgerError(f"Cannot resolve Git parents for {ref}")
+    return parts[1:]
+
+
+def merge_head_refs(root: Path) -> list[str]:
+    proc = _git(root, "rev-parse", "--git-path", "MERGE_HEAD", check=False)
+    if proc.returncode != 0:
+        return []
+    merge_head = Path(proc.stdout.strip())
+    if not merge_head.is_absolute():
+        merge_head = root / merge_head
+    if not merge_head.exists():
+        return []
+    refs = [line.strip() for line in merge_head.read_text(encoding="utf-8").splitlines() if line.strip()]
+    for ref in refs:
+        if not git_commit_exists(root, ref):
+            raise EventLedgerError(f"MERGE_HEAD contains invalid commit {ref}")
+    return refs
+
+
+def merge_base(root: Path, left: str, right: str) -> str:
+    proc = _git(root, "merge-base", "--all", left, right, check=False)
+    bases = [line.strip() for line in proc.stdout.splitlines() if line.strip()]
+    if proc.returncode != 0 or len(bases) != 1:
+        raise EventLedgerError(
+            f"Expected one merge base for {left} and {right}; found {len(bases)}"
+        )
+    return bases[0]
+
+
+def validate_committed_history(root: Path, ref: str = "HEAD") -> None:
+    result = ledger_from_git(root, ref)
+    parents = immediate_parents(root, ref)
+    parent_ledgers = [ledger_from_git(root, parent) for parent in parents]
+    validate_parent_superset(result, parent_ledgers)
+
+    if len(parents) <= 1:
+        return
+    if len(parents) != 2:
+        raise EventLedgerConflict(
+            "octopus merge history requires explicit EOS event-history reconciliation"
+        )
+
+    base = ledger_from_git(root, merge_base(root, parents[0], parents[1]))
+    validate_divergent_history(base, parent_ledgers[0], parent_ledgers[1])
+
+
+def validate_working_merge(root: Path) -> None:
+    other_heads = merge_head_refs(root)
+    if not other_heads:
+        return
+    if len(other_heads) != 1:
+        raise EventLedgerConflict(
+            "octopus merges require explicit EOS event-history reconciliation"
+        )
+
+    current = read_event_ledger(root / EVENT_LEDGER_RELPATH)
+    head_events = ledger_from_git(root, "HEAD")
+    other_ref = other_heads[0]
+    other_events = ledger_from_git(root, other_ref)
+    validate_parent_superset(current, [head_events, other_events])
+
+    base = ledger_from_git(root, merge_base(root, "HEAD", other_ref))
+    validate_divergent_history(base, head_events, other_events)
