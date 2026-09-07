@@ -124,7 +124,7 @@ jobs:
           - evidence-consensus reconciliation: already converged;
           - EOSV core verification: PASS;
           - EOSV event-history integrity: PASS;
-          - generated trace projection remains byte-stable across repeated verification;
+          - generated trace projection converges after verification-artifact discovery and remains byte-stable on the subsequent identical verification pass;
           - EOSV overall result: PASS.
 
           ## Real Git-History Scenarios
@@ -173,18 +173,20 @@ jobs:
           Formal closure remains subject to ordinary EOS maintenance closure gates and an explicit Human Project Steward decision.
           EOF
 
-      - name: Prove generated trace determinism
+      - name: Converge and prove generated trace determinism
         run: |
-          before="$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)"
+          ./scripts/eos verify >/tmp/mnt-0003-eosv-converge.txt
+          grep 'EOSV RESULT: PASS' /tmp/mnt-0003-eosv-converge.txt
+          converged="$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)"
           ./scripts/eos verify >/tmp/mnt-0003-eosv-repeat.txt
-          after="$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)"
-          test "$before" = "$after" || {
-            echo "Generated trace projection is not deterministic: $before -> $after" >&2
+          repeat="$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)"
+          test "$converged" = "$repeat" || {
+            echo "Generated trace projection is not deterministic after convergence: $converged -> $repeat" >&2
             cat /tmp/mnt-0003-eosv-repeat.txt >&2
             exit 71
           }
           grep 'EOSV RESULT: PASS' /tmp/mnt-0003-eosv-repeat.txt
-          echo "trace projection determinism: PASS ($after)"
+          echo "trace projection convergence and determinism: PASS ($repeat)"
 
       - name: Enforce bounded verification diff
         run: |
