@@ -18,23 +18,35 @@ from typing import Iterable
 
 UTC = dt.timezone.utc
 
+TOOLS_EOS_DIR = Path(__file__).resolve().parent
+if str(TOOLS_EOS_DIR) not in sys.path:
+    sys.path.insert(0, str(TOOLS_EOS_DIR))
+
+from identity_families import (
+    REQUIREMENT_ID_PATTERN,
+    SPECIFICATION_ID_PATTERN,
+    is_requirement_id,
+    is_specification_id,
+)
+
 ID_RE = re.compile(
     r"\b(?:"
-    r"REQ-[A-Z0-9][A-Z0-9-]*|"
-    r"CAP-[A-Z0-9][A-Z0-9-]*|"
-    r"QA-[A-Z0-9][A-Z0-9-]*|"
-    r"ADR-\d{4}|"
-    r"SPEC-[A-Z0-9][A-Z0-9-]*|"
-    r"PI(?:-[A-Z][A-Z0-9]*)?-\d{3}|"
-    r"WC(?:-[A-Z][A-Z0-9]*)?-\d{4}|"
-    r"WP(?:-[A-Z][A-Z0-9]*)?-\d{4}|"
-    r"CR-\d{4}|"
-    r"MNT-\d{4}|"
-    r"RISK-\d{3,4}|"
-    r"REL-\d+\.\d+\.\d+|"
-    r"EXEC-\d{4}|"
-    r"EVID-\d{4}"
-    r")\b"
+    + REQUIREMENT_ID_PATTERN
+    + r"|"
+    + SPECIFICATION_ID_PATTERN
+    + r"|CAP-[A-Z0-9][A-Z0-9-]*"
+    + r"|QA-[A-Z0-9][A-Z0-9-]*"
+    + r"|ADR-\d{4}"
+    + r"|PI(?:-[A-Z][A-Z0-9]*)?-\d{3}"
+    + r"|WC(?:-[A-Z][A-Z0-9]*)?-\d{4}"
+    + r"|WP(?:-[A-Z][A-Z0-9]*)?-\d{4}"
+    + r"|CR-\d{4}"
+    + r"|MNT-\d{4}"
+    + r"|RISK-\d{3,4}"
+    + r"|REL-\d+\.\d+\.\d+"
+    + r"|EXEC-\d{4}"
+    + r"|EVID-\d{4}"
+    + r")\b"
 )
 
 LAYER_ORDER = ("EOSB", "EOSP", "EOSE", "EOSV", "EOSR", "EOSC", "EOSL", "EOSM")
@@ -2661,28 +2673,37 @@ def stale_relevant_target(target: str) -> bool:
 
 def infer_edge_type(source: str, target: str) -> str:
     if source.startswith("WP-"):
-        if target.startswith("REQ-"):
+        if is_requirement_id(target):
             return "implements"
-        if target.startswith("SPEC-"):
+        if is_specification_id(target):
             return "satisfies"
         if target.startswith(("ADR-", "QA-")):
             return "conforms-to"
-    if source.startswith("SPEC-"):
-        if target.startswith(("REQ-", "CAP-")):
+
+    if is_specification_id(source):
+        if is_requirement_id(target) or target.startswith("CAP-"):
             return "satisfies"
         if target.startswith(("ADR-", "QA-")):
             return "constrained-by"
+
     if source.startswith("ADR-"):
-        if target.startswith(("REQ-", "QA-", "SPEC-")):
+        if (
+            is_requirement_id(target)
+            or is_specification_id(target)
+            or target.startswith("QA-")
+        ):
             return "constrains"
+
     if source.startswith("CR-"):
         return "affects"
+
     if source.startswith("MNT-"):
         return "affects"
+
     if source.startswith("REL-"):
         return "includes"
-    return "references"
 
+    return "references"
 
 def impacted_entities(source_id: str, *, transitive: bool = True) -> list[dict[str, str]]:
     edges = rebuild_trace()
@@ -2936,8 +2957,12 @@ def trace_coverage_report() -> dict:
     for kind in ("PI", "WC", "WP", "CR", "MNT", "REL"):
         nodes.update(row["id"] for row in registry(kind))
 
-    requirements = sorted(n for n in nodes if n.startswith("REQ-"))
-    specifications = sorted(n for n in nodes if n.startswith("SPEC-"))
+    requirements = sorted(
+        n for n in nodes if is_requirement_id(n)
+    )
+    specifications = sorted(
+        n for n in nodes if is_specification_id(n)
+    )
     work_packets = sorted(row["id"] for row in registry("WP"))
 
     incoming: dict[str, list[dict[str, str]]] = {}
@@ -2950,7 +2975,10 @@ def trace_coverage_report() -> dict:
         req
         for req in requirements
         if not any(
-            e["source_id"].startswith(("SPEC-", "WP-"))
+            (
+                is_specification_id(e["source_id"])
+                or e["source_id"].startswith("WP-")
+            )
             and e["edge_type"] in {"implements", "satisfies", "references"}
             for e in incoming.get(req, [])
         )
@@ -2958,13 +2986,21 @@ def trace_coverage_report() -> dict:
     spec_untraced = [
         spec
         for spec in specifications
-        if not any(e["target_id"].startswith(("REQ-", "CAP-", "ADR-", "QA-")) for e in outgoing.get(spec, []))
+        if not any(
+            is_requirement_id(e["target_id"])
+            or e["target_id"].startswith(("CAP-", "ADR-", "QA-"))
+            for e in outgoing.get(spec, [])
+        )
     ]
     wp_untraced = [
         wp
         for wp in work_packets
         if not any(
-            e["target_id"].startswith(("REQ-", "SPEC-", "ADR-", "QA-"))
+            (
+                is_requirement_id(e["target_id"])
+                or is_specification_id(e["target_id"])
+                or e["target_id"].startswith(("ADR-", "QA-"))
+            )
             for e in outgoing.get(wp, [])
         )
     ]

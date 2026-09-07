@@ -50,14 +50,43 @@ esac
 #    machine-readable state; otherwise canonical state never advances.
 python3 "$CANONICAL" pre -- "$@"
 
+rollback_transaction() {
+  local reason="$1"
+  shift
+
+  set +e
+  python3 "$CANONICAL" rollback-transaction --reason "$reason" -- "$@"
+  local rollback_rc=$?
+  set -e
+
+  if (( rollback_rc != 0 )); then
+    printf 'ERROR: canonical EOS rollback failed; explicit recovery is required.\n' >&2
+    return "$rollback_rc"
+  fi
+
+  return 0
+}
+
 set +e
 python3 "$RUNNER" "$@"
 rc=$?
 set -e
 
 if (( rc != 0 )); then
-  rm -f "$ROOT/.eos/cache/canonical-state-transaction.json"
+  if ! rollback_transaction "selected runtime exited with status $rc" "$@"; then
+    exit 2
+  fi
   exit "$rc"
 fi
 
+set +e
 python3 "$CANONICAL" post -- "$@"
+post_rc=$?
+set -e
+
+if (( post_rc != 0 )); then
+  if ! rollback_transaction "canonical post-validation exited with status $post_rc" "$@"; then
+    exit 2
+  fi
+  exit "$post_rc"
+fi

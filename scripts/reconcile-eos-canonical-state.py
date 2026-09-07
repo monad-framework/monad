@@ -44,6 +44,8 @@ def build_candidate(cs):
             "Interrupted canonical-state transaction exists; remove/reconcile it before evidence reconciliation"
         )
 
+    cs.assert_event_history_integrity()
+
     rows_by_kind = cs.rows_from_projections()
     failures = cs.validate_projection_rows_against_events(rows_by_kind)
 
