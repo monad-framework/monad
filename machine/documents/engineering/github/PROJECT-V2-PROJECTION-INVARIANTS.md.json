@@ -1,0 +1,103 @@
+{
+  "content": "# GitHub Project Projection Invariants\n\n**Status:** Proposed  \n**Parent:** `engineering/github/PROJECT-V2-CONFIGURATION.md`\n\n## Authority\n\nThe Monad Engineering Program GitHub Project is a coordination/read-model projection. It is not an authority source for engineering lifecycle, execution state, Work Packet state, planning identity, verification truth, or other governed engineering facts.\n\nCanonical Git/EOS records remain authoritative. In particular, when a projected Issue references a Work Packet registered in `.eos/work-packets.tsv`, the registered Work Packet state controls the projected execution metadata.\n\n## Lifecycle precedence\n\nLifecycle projection MUST apply the following authority order:\n\n1. If an Issue references a registered Work Packet and that Work Packet has a recognized canonical EOS status, the EOS status determines the projected `Lifecycle`.\n2. Otherwise, if the GitHub Issue itself is closed, the projected `Lifecycle` is `Closed`.\n3. Otherwise, lifecycle labels such as `status:ready`, `status:active`, or `status:blocked` may provide fallback coordination state.\n4. Otherwise, recognized lifecycle statements in the Issue body may provide the final fallback.\n\nGitHub Issue closure therefore cannot override authoritative registered Work Packet state, but stale lifecycle labels cannot keep an unregistered closed Issue in an active or backlog projection.\n\n## Issue coverage verification\n\nProject completion MUST verify coverage by repository Issue identity, using the exact repository Issue URL set.\n\nA raw Project item count is not sufficient because a Project can also contain pull requests, drafts, or Issues from other repositories. Verification MUST:\n\n- collect every repository Issue URL for the target repository;\n- collect only Project items that are Issues belonging to that same repository;\n- fail when any repository Issue URL is absent from the Project;\n- ignore extra pull requests, drafts, and items from other repositories when determining repository-Issue coverage.\n\n## Managed projection fields\n\nOnly explicitly projection-managed fields are written or cleared by metadata synchronization:\n\n- `Item Type`\n- `Product Goal`\n- `Initiative`\n- `Epic`\n- `Feature`\n- `Priority`\n- `Product Area`\n- `Domain`\n- `Increment`\n- `Work Cycle`\n- `Work Packet`\n- `Lifecycle`\n- `Target Release`\n\nOther Project fields, including user-owned or operational presentation fields such as `Risk`, `Executor`, `Story Points`, GitHub Status, and Assignees, are outside this projection write contract unless separately governed by another explicit automation.\n\n## Stale-value clearing\n\nFull synchronization is convergent rather than append-only.\n\nIf a repository Issue previously projected recognized planning metadata but later loses its recognized `[Type]` prefix or another derivable managed value, the Issue MUST remain in the full synchronization pass. The synchronizer MUST send null/empty values for projection-managed fields that are no longer derivable so stale Project metadata is removed.\n\nThe lightweight core synchronization may continue to restrict processing to hierarchy-first Item Types; the full synchronization is the convergence boundary for clearing stale managed metadata.\n\nUnmanaged fields MUST NOT be cleared as a side effect of projection convergence.\n\n## Idempotence\n\nRepeated execution of the same projection against unchanged canonical Git/EOS and Issue inputs MUST converge to the same Project state.\n\n`project-complete` MUST therefore be safe to repeat without creating duplicate fields, duplicate field options, duplicate Project items, duplicate named views, or accumulating stale managed values. Repeated metadata derivation for unchanged inputs must produce the same managed-field values.\n\n## Acceptance\n\nA completed Project projection is acceptable only when all of the following hold:\n\n- required Project fields and required single-select options exist;\n- all required named views exist;\n- every repository Issue is represented in the Project by exact Issue identity;\n- Product Goal → Initiative → Epic → Feature → Story/Enabler → Task relationships are projected where derivable;\n- canonical Work Cycle and Work Packet metadata are projected;\n- registered EOS Work Packet lifecycle state wins over GitHub fallback state;\n- unregistered closed Issues project as `Closed` before lifecycle-label/body fallback;\n- stale projection-managed values are cleared during full convergence;\n- unmanaged Project fields remain untouched;\n- Task is a supported Item Type;\n- representative Initiative, MVP, Task, and Running-work queries return expected results;\n- repeated execution remains idempotent.\n",
+  "document_id": "doc:engineering%2Fgithub%2FPROJECT-V2-PROJECTION-INVARIANTS.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Status: Proposed Parent: engineering/github/PROJECT-V2-CONFIGURATION.md",
+    "title": "GitHub Project Projection Invariants"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 5,
+      "line_start": 1,
+      "section_id": "github-project-projection-invariants",
+      "text": "# GitHub Project Projection Invariants\n\n**Status:** Proposed  \n**Parent:** `engineering/github/PROJECT-V2-CONFIGURATION.md`",
+      "title": "GitHub Project Projection Invariants"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 11,
+      "line_start": 6,
+      "section_id": "authority",
+      "text": "## Authority\n\nThe Monad Engineering Program GitHub Project is a coordination/read-model projection. It is not an authority source for engineering lifecycle, execution state, Work Packet state, planning identity, verification truth, or other governed engineering facts.\n\nCanonical Git/EOS records remain authoritative. In particular, when a projected Issue references a Work Packet registered in `.eos/work-packets.tsv`, the registered Work Packet state controls the projected execution metadata.",
+      "title": "Authority"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 12,
+      "section_id": "lifecycle-precedence",
+      "text": "## Lifecycle precedence\n\nLifecycle projection MUST apply the following authority order:\n\n1. If an Issue references a registered Work Packet and that Work Packet has a recognized canonical EOS status, the EOS status determines the projected `Lifecycle`.\n2. Otherwise, if the GitHub Issue itself is closed, the projected `Lifecycle` is `Closed`.\n3. Otherwise, lifecycle labels such as `status:ready`, `status:active`, or `status:blocked` may provide fallback coordination state.\n4. Otherwise, recognized lifecycle statements in the Issue body may provide the final fallback.\n\nGitHub Issue closure therefore cannot override authoritative registered Work Packet state, but stale lifecycle labels cannot keep an unregistered closed Issue in an active or backlog projection.",
+      "title": "Lifecycle precedence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 33,
+      "line_start": 23,
+      "section_id": "issue-coverage-verification",
+      "text": "## Issue coverage verification\n\nProject completion MUST verify coverage by repository Issue identity, using the exact repository Issue URL set.\n\nA raw Project item count is not sufficient because a Project can also contain pull requests, drafts, or Issues from other repositories. Verification MUST:\n\n- collect every repository Issue URL for the target repository;\n- collect only Project items that are Issues belonging to that same repository;\n- fail when any repository Issue URL is absent from the Project;\n- ignore extra pull requests, drafts, and items from other repositories when determining repository-Issue coverage.",
+      "title": "Issue coverage verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 34,
+      "section_id": "managed-projection-fields",
+      "text": "## Managed projection fields\n\nOnly explicitly projection-managed fields are written or cleared by metadata synchronization:\n\n- `Item Type`\n- `Product Goal`\n- `Initiative`\n- `Epic`\n- `Feature`\n- `Priority`\n- `Product Area`\n- `Domain`\n- `Increment`\n- `Work Cycle`\n- `Work Packet`\n- `Lifecycle`\n- `Target Release`\n\nOther Project fields, including user-owned or operational presentation fields such as `Risk`, `Executor`, `Story Points`, GitHub Status, and Assignees, are outside this projection write contract unless separately governed by another explicit automation.",
+      "title": "Managed projection fields"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 63,
+      "line_start": 54,
+      "section_id": "stale-value-clearing",
+      "text": "## Stale-value clearing\n\nFull synchronization is convergent rather than append-only.\n\nIf a repository Issue previously projected recognized planning metadata but later loses its recognized `[Type]` prefix or another derivable managed value, the Issue MUST remain in the full synchronization pass. The synchronizer MUST send null/empty values for projection-managed fields that are no longer derivable so stale Project metadata is removed.\n\nThe lightweight core synchronization may continue to restrict processing to hierarchy-first Item Types; the full synchronization is the convergence boundary for clearing stale managed metadata.\n\nUnmanaged fields MUST NOT be cleared as a side effect of projection convergence.",
+      "title": "Stale-value clearing"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 69,
+      "line_start": 64,
+      "section_id": "idempotence",
+      "text": "## Idempotence\n\nRepeated execution of the same projection against unchanged canonical Git/EOS and Issue inputs MUST converge to the same Project state.\n\n`project-complete` MUST therefore be safe to repeat without creating duplicate fields, duplicate field options, duplicate Project items, duplicate named views, or accumulating stale managed values. Repeated metadata derivation for unchanged inputs must produce the same managed-field values.",
+      "title": "Idempotence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 85,
+      "line_start": 70,
+      "section_id": "acceptance",
+      "text": "## Acceptance\n\nA completed Project projection is acceptable only when all of the following hold:\n\n- required Project fields and required single-select options exist;\n- all required named views exist;\n- every repository Issue is represented in the Project by exact Issue identity;\n- Product Goal → Initiative → Epic → Feature → Story/Enabler → Task relationships are projected where derivable;\n- canonical Work Cycle and Work Packet metadata are projected;\n- registered EOS Work Packet lifecycle state wins over GitHub fallback state;\n- unregistered closed Issues project as `Closed` before lifecycle-label/body fallback;\n- stale projection-managed values are cleared during full convergence;\n- unmanaged Project fields remain untouched;\n- Task is a supported Item Type;\n- representative Initiative, MVP, Task, and Running-work queries return expected results;\n- repeated execution remains idempotent.",
+      "title": "Acceptance"
+    }
+  ],
+  "source": {
+    "bytes": 4660,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 85,
+    "media_type": "text/markdown",
+    "path": "engineering/github/PROJECT-V2-PROJECTION-INVARIANTS.md",
+    "sha256": "1f214a2d4793ed2020bc58386c5dbf4cbe673fff8509cfb943895af3a2172da6"
+  }
+}

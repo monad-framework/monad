@@ -1,22 +1,99 @@
 #!/usr/bin/env python3
-"""Project canonical Monad planning metadata into GitHub Projects.
+"""Project canonical Monad planning/execution metadata into GitHub Projects.
 
-Uses the stable node-ID form of `gh project item-edit` so the projection works
-across GitHub CLI versions that do not support newer field-name convenience
-flags. Canonical Git/EOS artifacts remain authoritative.
+Canonical Git/EOS artifacts remain authoritative. The projector derives planning
+metadata from issue projections, but when an item references a registered Work
+Packet its execution lifecycle, PI, Work Cycle, and domain are sourced from
+`.eos/work-packets.tsv` before issue prose/labels are considered.
+
+Project item field updates use GitHub's 2026 Project REST endpoint so all managed
+fields for one item are updated in a single request.
 """
 
 from __future__ import annotations
 
+import csv
 import json
 import re
 import subprocess
 import sys
+from pathlib import Path
 from typing import Any
 
+API_VERSION = "2026-03-10"
+ROOT = Path(__file__).resolve().parents[1]
+WORK_PACKETS = ROOT / ".eos" / "work-packets.tsv"
 
-def run_gh(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
-    proc = subprocess.run(["gh", *args], text=True, capture_output=True, check=False)
+MANAGED_FIELDS = (
+    "Item Type",
+    "Product Goal",
+    "Initiative",
+    "Epic",
+    "Feature",
+    "Priority",
+    "Product Area",
+    "Domain",
+    "Increment",
+    "Work Cycle",
+    "Work Packet",
+    "Lifecycle",
+    "Target Release",
+)
+SINGLE_SELECT_FIELDS = {"Item Type", "Priority", "Lifecycle"}
+CORE_TYPES = {
+    "Initiative",
+    "Epic",
+    "Feature",
+    "Work Packet",
+    "Defect",
+    "Bug",
+    "Change Request",
+}
+
+WORK_PACKET_LIFECYCLE = {
+    "BACKLOG": "Backlog",
+    "REFINING": "Refining",
+    "READY": "Ready",
+    "AUTHORIZED": "Authorized",
+    "IN_PROGRESS": "Running",
+    "RUNNING": "Running",
+    "REVIEW": "Review",
+    "VERIFIED": "Verified",
+    "CLOSED": "Closed",
+    "SUPERSEDED": "Closed",
+    "BLOCKED": "Blocked",
+}
+LABEL_LIFECYCLE = {
+    "status:backlog": "Backlog",
+    "status:refining": "Refining",
+    "status:ready": "Ready",
+    "status:authorized": "Authorized",
+    "status:active": "Running",
+    "status:running": "Running",
+    "status:review": "Review",
+    "status:verified": "Verified",
+    "status:done": "Closed",
+    "status:closed": "Closed",
+    "status:blocked": "Blocked",
+}
+RELEASE_LABELS = {
+    "release:mvp-1": "MVP Release 1",
+    "release:release-2": "Release 2",
+}
+
+
+def run_gh(
+    *args: str,
+    input_text: str | None = None,
+    check: bool = True,
+) -> subprocess.CompletedProcess[str]:
+    proc = subprocess.run(
+        ["gh", *args],
+        input=input_text,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
     if check and proc.returncode != 0:
         detail = proc.stderr.strip() or proc.stdout.strip() or "unknown gh error"
         raise RuntimeError(f"gh {' '.join(args)} failed: {detail}")
@@ -36,8 +113,19 @@ def match(pattern: str, text: str) -> str:
     return found.group(1).strip() if found else ""
 
 
+def label_names(row: dict[str, Any]) -> list[str]:
+    result: list[str] = []
+    for raw in row.get("labels") or []:
+        if isinstance(raw, str):
+            name = raw
+        else:
+            name = raw.get("name") or ""
+        if name:
+            result.append(name)
+    return result
+
+
 def epic_to_initiative(epic: str) -> str:
-    """Return the canonical Initiative for an Epic in the approved roadmap."""
     raw = match(r"EPIC-(\d+)", epic)
     if not raw:
         return ""
@@ -92,7 +180,7 @@ def initiative_to_product_goal(initiative: str) -> str:
 def item_type(title: str) -> str:
     raw = match(r"^\[([^\]]+)\]", title)
     aliases = {
-        name: name
+        name.casefold(): name
         for name in (
             "Initiative",
             "Epic",
@@ -106,21 +194,35 @@ def item_type(title: str) -> str:
             "Change Request",
         )
     }
-    return aliases.get(raw, "")
+    return aliases.get(raw.casefold(), "")
 
 
-def lifecycle(row: dict[str, Any]) -> str:
+def load_work_packets() -> dict[str, dict[str, str]]:
+    if not WORK_PACKETS.exists():
+        return {}
+    with WORK_PACKETS.open(encoding="utf-8", newline="") as handle:
+        rows = csv.DictReader(handle, delimiter="\t")
+        return {
+            (row.get("id") or ""): {k: (v or "") for k, v in row.items()}
+            for row in rows
+            if row.get("id")
+        }
+
+
+def lifecycle_from_body(row: dict[str, Any]) -> str:
     state = (row.get("state") or "").upper()
     upper = (row.get("body") or "").upper()
     if state == "CLOSED":
         return "Closed"
     if "READY — NOT AUTHORIZED" in upper or "READY - NOT AUTHORIZED" in upper:
         return "Ready"
-    if "REMAINS **BACKLOG**" in upper:
-        return "Backlog"
     if "**BLOCKED" in upper:
         return "Blocked"
-    if "**RUNNING" in upper:
+    if (
+        "**RUNNING" in upper
+        or "**IN_PROGRESS" in upper
+        or "**IN PROGRESS" in upper
+    ):
         return "Running"
     if "**AUTHORIZED" in upper and "NOT AUTHORIZED" not in upper:
         return "Authorized"
@@ -128,13 +230,67 @@ def lifecycle(row: dict[str, Any]) -> str:
         return "Verified"
     if "**REVIEW" in upper:
         return "Review"
+    if "REMAINS **BACKLOG**" in upper:
+        return "Backlog"
     return ""
 
 
-def derive(row: dict[str, Any]) -> dict[str, str]:
+def projected_lifecycle(
+    row: dict[str, Any],
+    work_packet: str,
+    work_packets: dict[str, dict[str, str]],
+) -> str:
+    if work_packet and work_packet in work_packets:
+        canonical = (work_packets[work_packet].get("status") or "").upper()
+        mapped = WORK_PACKET_LIFECYCLE.get(canonical)
+        if mapped:
+            return mapped
+
+    if (row.get("state") or "").upper() == "CLOSED":
+        return "Closed"
+
+    labels = {name.casefold() for name in label_names(row)}
+    for label, value in LABEL_LIFECYCLE.items():
+        if label in labels:
+            return value
+    return lifecycle_from_body(row)
+
+
+def priority_from_labels(row: dict[str, Any]) -> str:
+    for name in label_names(row):
+        found = re.fullmatch(r"priority:(p[0-3])", name, re.I)
+        if found:
+            return found.group(1).upper()
+    return ""
+
+
+def area_from_labels(row: dict[str, Any]) -> str:
+    for name in label_names(row):
+        found = re.fullmatch(r"area:(.+)", name, re.I)
+        if found:
+            return found.group(1).strip()
+    return ""
+
+
+def release_from_labels(row: dict[str, Any]) -> str:
+    names = {name.casefold() for name in label_names(row)}
+    for label, value in RELEASE_LABELS.items():
+        if label in names:
+            return value
+    return ""
+
+
+def derive(
+    row: dict[str, Any],
+    work_packets: dict[str, dict[str, str]],
+) -> dict[str, str]:
     title = row.get("title") or ""
     body = row.get("body") or ""
     kind = item_type(title)
+
+    if not kind:
+        cleared = {name: "" for name in MANAGED_FIELDS}
+        return {"url": row.get("url") or "", **cleared}
 
     initiative = match(r"(INIT-\d{3})", title) if kind == "Initiative" else ""
     epic = (
@@ -161,8 +317,15 @@ def derive(row: dict[str, Any]) -> dict[str, str]:
         match(r"Work Packet:\s*`([^`]+)`", body)
         or match(r"\b(WP-[A-Z0-9-]+)\b", title)
     )
-    work_cycle = match(r"(?:Work Cycle|Forecast Sprint):\s*`([^`]+)`", body)
+    work_cycle = match(r"(?:Forecast\s+)?Work Cycle:\s*`([^`]+)`", body)
     increment = match(r"Program Increment:\s*`([^`]+)`", body)
+    domain = ""
+
+    canonical_wp = work_packets.get(work_packet) if work_packet else None
+    if canonical_wp:
+        increment = canonical_wp.get("pi") or increment
+        work_cycle = canonical_wp.get("wc") or work_cycle
+        domain = canonical_wp.get("domain") or ""
 
     return {
         "url": row.get("url") or "",
@@ -171,21 +334,68 @@ def derive(row: dict[str, Any]) -> dict[str, str]:
         "Initiative": initiative,
         "Epic": epic,
         "Feature": feature,
+        "Priority": priority_from_labels(row),
+        "Product Area": area_from_labels(row),
+        "Domain": domain,
         "Increment": increment,
         "Work Cycle": work_cycle,
         "Work Packet": work_packet,
-        "Lifecycle": lifecycle(row),
+        "Lifecycle": projected_lifecycle(row, work_packet, work_packets),
+        "Target Release": release_from_labels(row),
     }
+
+
+def projection_rows(
+    issues: list[dict[str, Any]],
+    work_packets: dict[str, dict[str, str]],
+    mode: str,
+) -> list[dict[str, str]]:
+    rows = [derive(row, work_packets) for row in issues]
+    if mode == "core":
+        return [row for row in rows if row["Item Type"] in CORE_TYPES]
+    return rows
+
+
+def graphql(query: str, variables: dict[str, Any]) -> dict[str, Any]:
+    payload = json.dumps({"query": query, "variables": variables})
+    response = json.loads(
+        run_gh("api", "graphql", "--input", "-", input_text=payload).stdout
+    )
+    if response.get("errors"):
+        raise RuntimeError(f"GitHub GraphQL error: {response['errors']}")
+    return response.get("data") or {}
+
+
+def project_fields(org: str, number: int) -> tuple[str, list[dict[str, Any]]]:
+    data = graphql(
+        """
+        query($org:String!,$number:Int!){
+          organization(login:$org){
+            projectV2(number:$number){
+              id
+              fields(first:100){
+                nodes{
+                  ... on ProjectV2FieldCommon { id databaseId name dataType }
+                  ... on ProjectV2SingleSelectField {
+                    id databaseId name dataType options { id name }
+                  }
+                }
+              }
+            }
+          }
+        }
+        """,
+        {"org": org, "number": number},
+    )
+    project = (data.get("organization") or {}).get("projectV2")
+    if not project:
+        raise RuntimeError(f"Could not resolve organization Project {org}#{number}")
+    return project["id"], [field for field in project["fields"]["nodes"] if field]
 
 
 def resolve_project_field(
     fields: list[dict[str, Any]], logical_name: str
-) -> dict[str, Any] | None:
-    """Resolve a Project field without silently choosing an ambiguous duplicate.
-
-    Prefer the exact canonical name. If no exact field exists, tolerate exactly
-    one punctuation-only legacy equivalent such as Work-Cycle for Work Cycle.
-    """
+) -> dict[str, Any]:
     exact = [
         field
         for field in fields
@@ -195,23 +405,97 @@ def resolve_project_field(
         return exact[0]
     if len(exact) > 1:
         names = ", ".join(repr(field.get("name") or "") for field in exact)
-        print(
-            f"WARN: duplicate exact Project fields for {logical_name!r}: {names}",
-            file=sys.stderr,
+        raise RuntimeError(
+            f"duplicate exact Project fields for {logical_name!r}: {names}"
         )
-        return None
 
-    normalized = [field for field in fields if key(field.get("name")) == key(logical_name)]
+    normalized = [
+        field for field in fields if key(field.get("name")) == key(logical_name)
+    ]
     if len(normalized) == 1:
         return normalized[0]
     if len(normalized) > 1:
         names = ", ".join(repr(field.get("name") or "") for field in normalized)
-        print(
-            f"WARN: ambiguous legacy Project fields for {logical_name!r}: {names}. "
-            "Keep one canonical field and remove obsolete duplicates.",
-            file=sys.stderr,
+        raise RuntimeError(
+            f"ambiguous legacy Project fields for {logical_name!r}: {names}; "
+            "keep one canonical field and remove obsolete duplicates"
         )
-    return None
+    raise RuntimeError(
+        f"canonical Project field {logical_name!r} could not be resolved"
+    )
+
+
+def project_item_database_ids(org: str, number: int) -> dict[str, str]:
+    result: dict[str, str] = {}
+    after: str | None = None
+    while True:
+        data = graphql(
+            """
+            query($org:String!,$number:Int!,$after:String){
+              organization(login:$org){
+                projectV2(number:$number){
+                  items(first:100,after:$after){
+                    nodes{
+                      fullDatabaseId
+                      content{
+                        ... on Issue { url }
+                        ... on PullRequest { url }
+                      }
+                    }
+                    pageInfo{hasNextPage endCursor}
+                  }
+                }
+              }
+            }
+            """,
+            {"org": org, "number": number, "after": after},
+        )
+        project = (data.get("organization") or {}).get("projectV2")
+        if not project:
+            raise RuntimeError(
+                f"Could not resolve organization Project {org}#{number}"
+            )
+        connection = project["items"]
+        for item in connection["nodes"]:
+            content = item.get("content") or {}
+            url = content.get("url") or ""
+            database_id = item.get("fullDatabaseId")
+            if url and database_id is not None:
+                result[url] = str(database_id)
+        page_info = connection["pageInfo"]
+        if not page_info.get("hasNextPage"):
+            return result
+        after = page_info.get("endCursor")
+
+
+def select_option_id(field: dict[str, Any], value: str) -> str:
+    for option in field.get("options") or []:
+        if (option.get("name") or "").casefold() == value.casefold():
+            return option.get("id") or ""
+    return ""
+
+
+def patch_item(
+    org: str,
+    project_number: str,
+    item_database_id: str,
+    updates: list[dict[str, Any]],
+) -> subprocess.CompletedProcess[str]:
+    payload = json.dumps({"fields": updates})
+    return run_gh(
+        "api",
+        "--method",
+        "PATCH",
+        "-H",
+        "Accept: application/vnd.github+json",
+        "-H",
+        f"X-GitHub-Api-Version: {API_VERSION}",
+        f"orgs/{org}/projectsV2/{project_number}/items/{item_database_id}",
+        "--input",
+        "-",
+        input_text=payload,
+        check=False,
+    )
 
 
 def main() -> int:
@@ -226,45 +510,16 @@ def main() -> int:
         print(f"unsupported projection mode: {mode}", file=sys.stderr)
         return 2
 
-    project = load_gh_json(
-        "project", "view", project_number, "--owner", org, "--format", "json"
-    )
-    project_id = project.get("id")
-    if not project_id:
-        raise RuntimeError("GitHub Project node ID was not returned by gh project view")
+    _, fields = project_fields(org, int(project_number))
+    field_map = {
+        name: resolve_project_field(fields, name) for name in MANAGED_FIELDS
+    }
+    for name, field in field_map.items():
+        if field.get("databaseId") is None:
+            raise RuntimeError(f"Project field {name!r} has no database ID")
 
-    fields_payload = load_gh_json(
-        "project",
-        "field-list",
-        project_number,
-        "--owner",
-        org,
-        "--format",
-        "json",
-        "--limit",
-        "100",
-    )
-    fields = fields_payload.get("fields", [])
-
-    items_payload = load_gh_json(
-        "project",
-        "item-list",
-        project_number,
-        "--owner",
-        org,
-        "--limit",
-        "1000",
-        "--format",
-        "json",
-    )
-    item_ids: dict[str, str] = {}
-    for item in items_payload.get("items", []):
-        content = item.get("content") or {}
-        url = content.get("url") or ""
-        item_id = item.get("id") or ""
-        if url and item_id:
-            item_ids[url] = item_id
-
+    item_ids = project_item_database_ids(org, int(project_number))
+    work_packets = load_work_packets()
     issues = load_gh_json(
         "issue",
         "list",
@@ -275,121 +530,76 @@ def main() -> int:
         "--limit",
         "1000",
         "--json",
-        "title,body,url,state",
+        "title,body,url,state,labels",
     )
-    core_types = {
-        "Initiative",
-        "Epic",
-        "Feature",
-        "Work Packet",
-        "Defect",
-        "Bug",
-        "Change Request",
-    }
-    rows = [derive(row) for row in issues]
-    if mode == "core":
-        rows = [row for row in rows if row["Item Type"] in core_types]
 
-    single_select_fields = {"Item Type", "Lifecycle"}
-    field_cache: dict[str, dict[str, Any] | None] = {}
-    missing_options: set[tuple[str, str]] = set()
+    rows = projection_rows(issues, work_packets, mode)
+
     failures = 0
-    print(f"Syncing {len(rows)} Project items with {mode} planning metadata...")
+    missing_options: set[tuple[str, str]] = set()
+    print(
+        f"Syncing {len(rows)} Project items with {mode} planning metadata "
+        f"({len(work_packets)} canonical Work Packets loaded)..."
+    )
 
-    def field_for(logical_name: str) -> dict[str, Any] | None:
-        if logical_name not in field_cache:
-            field_cache[logical_name] = resolve_project_field(fields, logical_name)
-        return field_cache[logical_name]
-
-    def set_value(url: str, logical_name: str, value: str) -> None:
-        nonlocal failures
-        if not value:
-            return
-        item_id = item_ids.get(url)
-        if not item_id:
-            failures += 1
-            print(f"WARN: Project item ID not found for {url}", file=sys.stderr)
-            return
-        field = field_for(logical_name)
-        if not field:
+    for index, row in enumerate(rows, start=1):
+        url = row["url"]
+        item_database_id = item_ids.get(url)
+        if not item_database_id:
             failures += 1
             print(
-                f"WARN: canonical Project field {logical_name!r} could not be resolved",
+                f"WARN: Project item database ID not found for {url}",
                 file=sys.stderr,
             )
-            return
-        field_id = field.get("id") or ""
-        if not field_id:
-            failures += 1
-            print(
-                f"WARN: Project field {logical_name!r} has no node ID", file=sys.stderr
+            continue
+
+        updates: list[dict[str, Any]] = []
+        for logical_name in MANAGED_FIELDS:
+            field = field_map[logical_name]
+            value = row[logical_name]
+            projected_value: str | None = value or None
+            if value and logical_name in SINGLE_SELECT_FIELDS:
+                option_id = select_option_id(field, value)
+                if not option_id:
+                    missing_options.add((field.get("name") or logical_name, value))
+                    continue
+                projected_value = option_id
+            updates.append(
+                {"id": int(field["databaseId"]), "value": projected_value}
             )
-            return
 
-        args = [
-            "project",
-            "item-edit",
-            "--id",
-            item_id,
-            "--project-id",
-            project_id,
-            "--field-id",
-            field_id,
-        ]
-        if logical_name in single_select_fields:
-            option_id = ""
-            for option in field.get("options", []) or []:
-                if (option.get("name") or "").casefold() == value.casefold():
-                    option_id = option.get("id") or ""
-                    break
-            if not option_id:
-                missing_options.add((field.get("name") or logical_name, value))
-                return
-            args += ["--single-select-option-id", option_id]
-        else:
-            args += ["--text", value]
-
-        proc = run_gh(*args, check=False)
+        proc = patch_item(
+            org,
+            project_number,
+            item_database_id,
+            updates,
+        )
         if proc.returncode != 0:
             failures += 1
             detail = proc.stderr.strip() or proc.stdout.strip() or "unknown gh error"
             print(
-                f"WARN: could not set Project field {field.get('name')!r}={value!r} "
-                f"for {url}: {detail}",
+                f"WARN: could not update Project metadata for {url}: {detail}",
                 file=sys.stderr,
             )
 
-    logical_fields = (
-        "Item Type",
-        "Product Goal",
-        "Initiative",
-        "Epic",
-        "Feature",
-        "Increment",
-        "Work Cycle",
-        "Work Packet",
-        "Lifecycle",
-    )
-    for index, row in enumerate(rows, start=1):
-        url = row["url"]
-        for logical_name in logical_fields:
-            set_value(url, logical_name, row[logical_name])
-        if index % 5 == 0 or index == len(rows):
+        if index % 20 == 0 or index == len(rows):
             print(f"  Project metadata: {index}/{len(rows)} items processed")
 
     for field_name, option_name in sorted(missing_options):
         print(
             f"NOTE: Project field {field_name!r} is missing single-select option "
-            f"{option_name!r}. Add it once in the Project UI and rerun the sync.",
+            f"{option_name!r}. Run project-complete to converge required options.",
             file=sys.stderr,
         )
 
-    if failures:
+    if failures or missing_options:
         print(
-            f"Metadata sync completed with {failures} failed field writes.",
+            f"Metadata sync completed with {failures} failed item writes and "
+            f"{len(missing_options)} missing select option(s).",
             file=sys.stderr,
         )
         return 1
+
     print("Metadata projection complete.")
     return 0
 
@@ -397,6 +607,6 @@ def main() -> int:
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
-    except (RuntimeError, json.JSONDecodeError) as exc:
+    except (RuntimeError, json.JSONDecodeError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         raise SystemExit(1)

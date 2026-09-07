@@ -69,19 +69,22 @@ Retain GitHub's built-in Title, Assignees, Status, Labels, Milestone, Repository
 | Start Date | Date | forecast/actual start |
 | Target Date | Date | forecast target |
 
-`Product Goal`, `Initiative`, `Epic`, `Feature`, `Work Cycle`, `Work Packet`, and lifecycle identifiers in GitHub are projections. Their canonical definitions remain in repository/EOS artifacts.
+`Product Goal`, `Initiative`, `Epic`, `Feature`, `Increment`, `Work Cycle`, `Work Packet`, and lifecycle identifiers in GitHub are projections. Their canonical definitions remain in repository/EOS artifacts.
 
 ### Compatibility and field migration
 
 `Work Cycle` is the canonical Project field. The term `Sprint` remains a planning/UI compatibility synonym because Work Cycle == Sprint for the current roadmap, but setup/synchronization automation MUST NOT create or write a second competing Sprint field.
 
-Historical Project configurations may contain legacy fields such as `Work-Cycle`, `Work-Packet`, `Sprint`, or `PI` alongside the canonical `Work Cycle`, `Work Packet`, or `Increment` fields. During migration:
+Historical Project configurations may contain legacy fields such as `Work-Cycle`, `Work-Packet`, `Sprint`, or `PI` alongside the canonical `Work Cycle`, `Work Packet`, or `Increment` fields.
 
-1. projection automation prefers an exact canonical field name when present;
-2. a single punctuation-only legacy equivalent may be reused temporarily;
-3. ambiguous normalized duplicates must be reported rather than updated nondeterministically;
-4. once canonical field values have been verified, obsolete duplicate fields should be removed from the Project UI;
-5. deleting a Project field never deletes the canonical Git/EOS identifier or artifact.
+Migration rules:
+
+1. projection automation prefers an exact canonical field name;
+2. when only one punctuation-equivalent field exists, `project-complete` renames it in place to the canonical name so field identity and existing values are preserved;
+3. ambiguous normalized duplicates are blocking and MUST be reported rather than updated nondeterministically;
+4. `PI` and `Sprint` are deprecated compatibility fields and are not automatically deleted because they may contain historical values;
+5. deletion of `PI` or `Sprint` requires a separate value audit/migration proving that no unique Project-only information would be lost;
+6. deleting or renaming a Project field never changes the canonical Git/EOS identifier or artifact.
 
 ## Status and lifecycle semantics
 
@@ -95,33 +98,47 @@ At minimum preserve these semantic distinctions in the projected metadata and is
 
 Scheduling alone does not authorize implementation. A Work Packet may become Ready only after canonical readiness gates pass, and Ready does not imply Authorized.
 
+### Projection authority order
+
+For planning identifiers such as Product Goal, Initiative, Epic, Feature, and forecast Work Packet identity, the GitHub Issue projection is an accepted derivation source.
+
+For execution metadata, canonical EOS state wins whenever an Issue references a Work Packet registered in `.eos/work-packets.tsv`:
+
+1. registered Work Packet status determines projected `Lifecycle`;
+2. registered PI determines projected `Increment`;
+3. registered Work Cycle determines projected `Work Cycle`;
+4. registered domain determines projected `Domain` when present;
+5. Issue labels/body are fallback sources only when no registered Work Packet supplies the value.
+
+This prevents stale Issue prose or forecast labels from overriding live governed execution state. For example, a Feature issue whose template still says it remains Backlog must project as Running when its canonical Work Packet is `IN_PROGRESS`.
+
 ## Required views
 
-Create these views in the Project UI after fields exist:
+The required Project configuration contains 21 named views. The first six are the normal daily-use views; the rest are scoped projections for investigation and agent-assisted explanation.
 
-1. **Program** — table/roadmap emphasizing Initiatives and overall Product Goal progress.
+1. **Program** — table emphasizing Initiatives and overall Product Goal progress.
 2. **MVP Roadmap** — roadmap grouped by Initiative, showing Epics and Feature outcomes.
-3. **Current Work** — board/table for Ready, Authorized, Running, Review, and Blocked work.
-4. **Next Up** — Ready items that are not blocked and are near the active Work Cycle horizon.
-5. **Work Cycles** — grouped by `Work Cycle` / `WC-MVP-*` or `WC-EXP-*`.
-6. **By Initiative** — grouped by Initiative.
-7. **By Epic** — grouped by Epic.
-8. **By Feature** — grouped by Feature where useful for Stories/Enablers/Tasks.
-9. **Work Packets** — Feature/Work Packet projections with Work Packet and Lifecycle visible.
-10. **Product Backlog** — non-Closed MVP items ordered by Priority then Work Cycle.
-11. **Defects** — Bug/Defect and engineering-control-plane maintenance work.
-12. **Blocked** — Lifecycle or Status Blocked.
-13. **Release 1** — all items contributing to `PG-001` / MVP Release 1.
-14. **Dogfooding** — Monad-on-Monad work, especially EPIC-012 and related defects/evidence.
+3. **Current Work** — board for Ready, Authorized, Running, Review, and Blocked work.
+4. **Next Up** — Ready items near the executable horizon.
+5. **Defects** — Bug/Defect and engineering-control-plane maintenance work.
+6. **Release 1** — all items contributing to MVP Release 1.
+7. **Work Cycles** — grouped by canonical Work Cycle.
+8. **By Initiative** — grouped by Initiative.
+9. **By Epic** — grouped by Epic.
+10. **By Feature** — grouped by Feature where useful for Stories/Enablers/Tasks.
+11. **Work Packets** — Feature/Work Packet projections with Work Packet and Lifecycle visible.
+12. **Product Backlog** — non-Closed MVP items ordered by Priority then Work Cycle.
+13. **Blocked** — Lifecycle Blocked.
+14. **Dogfooding** — Monad-on-Monad work, especially GitHub projection/dogfooding.
 15. **AI / Agents** — AI context, agent governance, execution, and related work.
-16. **Semantic Core** — workspace, ingestion, identity, graph, KIR, diagnostics, query/explanation.
-17. **Architecture & Specs** — architecture, ADR, specification, requirement, or governance work.
-18. **Codex Queue** — `Executor:Codex` or `Executor:Mixed`, Ready/Authorized/Running only.
-19. **Release Readiness** — target MVP Release 1, focused on packaging, acceptance, risk, and verification.
-20. **Risks & Decisions** — Critical/High Risk and change/decision work.
-21. **Recently Completed** — recently Verified/Closed work.
+16. **Semantic Core** — workspace, ingestion, graph, KIR, diagnostics, query/explanation.
+17. **Architecture & Specs** — governance-oriented work with ADR and Specification fields visible.
+18. **Codex Queue** — Codex/Mixed items in Ready, Authorized, or Running lifecycle states.
+19. **Release Readiness** — MVP Release 1 release/acceptance work.
+20. **Risks & Decisions** — Critical/High Risk work with ADR and Specification context visible.
+21. **Recently Completed** — Verified/Closed work updated within the recent window.
 
-The initial daily views should be **Program**, **MVP Roadmap**, **Current Work**, **Next Up**, **Defects**, and **Release 1**. The remainder are scoped projections for investigation and agent-assisted explanation.
+The default view definitions are encoded in `scripts/configure-github-project.py`. An existing same-named view is preserved rather than overwritten so intentional user layout/filter customization is not destroyed. Verification reports material differences from canonical defaults as notes.
 
 ## Hierarchy
 
@@ -159,29 +176,81 @@ Monad Development
 
 Control-plane defects may be release relevant, but they should not be forced into a product Epic when they are not semantically part of that Epic.
 
-## Current planning position
+## Automation
 
-At the time this configuration was amended, the projected planning position was:
+Organization Project configuration is a coordination projection and requires organization Project write authority. The repository provides three complementary automation layers:
 
-`PG-001 → INIT-002 → EPIC-003 → F-003-03 / WP-MVP-0005`
+- `scripts/setup-github-owner.sh` is the owner-facing entry point;
+- `scripts/configure-github-project.py` manages Project-specific option, view, migration, and verification behavior;
+- `scripts/sync-github-project-metadata.py` derives planning metadata from projected Issues and execution metadata from canonical EOS Work Packet state when available.
 
-The canonical Work Packet state was **Ready, not Authorized**. This statement is historical context only; live EOS state is authoritative.
+### Core synchronization
 
-## Automation boundary
+```bash
+./scripts/setup-github-owner.sh project
+```
 
-Repository workflows may update repository-owned labels, milestones, Issues, hierarchy, and projections. Organization Project field/view mutations require organization authority.
-
-The owner setup script:
+The core pass:
 
 - creates/reuses the Project;
 - links the repository;
 - creates missing canonical fields;
-- does not create a separate Sprint field;
+- canonicalizes safe punctuation-only field aliases;
+- adds missing required Item Type/Lifecycle options while preserving existing option identities;
 - adds repository Issues idempotently;
-- derives Product Goal, Initiative, Epic, Feature, Work Packet, Work Cycle, item type, and explicit lifecycle metadata from the existing issue corpus;
-- populates those Project fields idempotently with `gh project item-edit` where the corresponding canonical/projection data is explicit;
-- leaves unrelated control-plane defects unforced into product hierarchy fields;
-- warns when a legacy single-select field needs a one-time new option added in the Project UI;
-- reports ambiguous duplicate field names rather than choosing nondeterministically.
+- projects the hierarchy-first core surface: Initiatives, Epics, Features, Work Packets, defects, bugs, and change requests;
+- writes all managed fields for each Project item in one Project REST update rather than one mutation per field.
 
-View layout remains an explicit UI configuration because it is presentation rather than canonical authority. If GitHub later exposes a sufficiently stable supported automation path for views, it may be added without changing the canonical planning model.
+### Full synchronization
+
+```bash
+./scripts/setup-github-owner.sh project-full
+```
+
+The full pass additionally projects Story, Enabler, Task, and other deeper issue metadata. Formal Tasks remain rolling-wave objects and are projected only when such Task issues actually exist.
+
+Managed projection fields are convergent: when canonical derivation no longer supplies a managed value, the stale Project value is cleared rather than silently retained.
+
+### Project completion
+
+```bash
+./scripts/setup-github-owner.sh project-complete
+```
+
+The completion pass is the acceptance path for the GitHub Project configuration. It:
+
+1. converges canonical fields and required single-select options;
+2. ensures every repository Issue is present;
+3. runs the full metadata projection with canonical EOS Work Packet execution state taking precedence over stale Issue prose;
+4. creates every missing required Project view through GitHub's supported Project view API;
+5. verifies canonical fields and options;
+6. verifies all 21 required view names;
+7. verifies repository-issue coverage;
+8. verifies Initiative and MVP Release 1 projections;
+9. verifies at least one projected Task exists;
+10. verifies at least one item is projected as Running from the active governed execution state.
+
+The command is idempotent: rerunning it MUST converge without creating duplicate fields, duplicate Project items, or duplicate named views.
+
+### Verification only
+
+```bash
+./scripts/setup-github-owner.sh project-verify
+```
+
+This performs the non-destructive Project acceptance checks without running the metadata synchronization first.
+
+## Automation boundary
+
+The automation MAY manage repository-owned labels, milestones, Issues, native hierarchy, Project fields, Project select options, Project items, and missing named Project views when supported by GitHub APIs.
+
+It MUST NOT:
+
+- make GitHub Project state authoritative over canonical Git/EOS state;
+- infer authorization from scheduling;
+- manufacture Work Packets or Tasks outside rolling-wave refinement;
+- delete potentially data-bearing legacy fields without an explicit value migration;
+- overwrite an existing same-named view merely to enforce presentation preferences;
+- force unrelated control-plane defects into product hierarchy fields.
+
+View layout remains a presentation concern after the canonical default view has been created. Users may customize an existing view without changing Monad's planning ontology.
