@@ -23,6 +23,7 @@ import {
   Repeat2,
   Rocket,
   ScanSearch,
+  ShieldAlert,
   ShieldCheck,
   Target,
   TriangleAlert,
@@ -51,6 +52,7 @@ type NavigationGroup = {
 function workspaceItems(focusId?: string): NavigationItem[] {
   return [
     { label: "Now", icon: Gauge, href: "/" },
+    { label: "Attention", icon: ShieldAlert, href: "/attention" },
     { label: "Plan", icon: GitBranch, href: "/plan" },
     { label: "Execution", icon: PlayCircle, href: "/execution" },
     { label: "Knowledge", icon: BookOpen, href: "/knowledge" },

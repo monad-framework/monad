@@ -169,6 +169,409 @@ a.summary-card:hover {
   font-size: 11px;
 }
 
+.topbar-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.attention-indicator {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface-raised);
+  padding: 0 9px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 10px;
+}
+
+.attention-indicator:hover {
+  background: var(--surface-hover);
+  color: var(--foreground);
+}
+
+.attention-indicator strong {
+  display: grid;
+  place-items: center;
+  min-width: 19px;
+  height: 19px;
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 9px;
+  font-weight: 650;
+}
+
+.attention-indicator.critical {
+  border-color: rgb(255 118 118 / 55%);
+  color: var(--danger);
+}
+
+.attention-indicator.warning {
+  border-color: rgb(255 193 92 / 45%);
+  color: #ffc15c;
+}
+
+.attention-indicator.running {
+  border-color: rgb(197 255 85 / 35%);
+  color: var(--accent);
+}
+
+.attention-indicator.clear {
+  color: var(--faint);
+}
+
+.attention-summary-grid {
+  margin-bottom: 10px;
+}
+
+.attention-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 1180px;
+  margin: 0 auto 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 6px;
+}
+
+.attention-toolbar > div {
+  display: flex;
+  gap: 4px;
+}
+
+.attention-toolbar button,
+.attention-condition-actions button,
+.attention-primary-action {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  padding: 0 9px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.attention-toolbar button:hover:not(:disabled),
+.attention-condition-actions button:hover:not(:disabled),
+.attention-primary-action:hover {
+  background: var(--surface-hover);
+  color: var(--foreground);
+}
+
+.attention-toolbar button.active {
+  border-color: rgb(197 255 85 / 35%);
+  background: var(--accent-muted);
+  color: var(--foreground);
+}
+
+.attention-toolbar button:disabled,
+.attention-condition-actions button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.attention-section {
+  max-width: 1180px;
+  margin: 10px auto 0;
+}
+
+.attention-condition-list {
+  display: grid;
+}
+
+.attention-condition {
+  display: grid;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 16px;
+}
+
+.attention-condition:last-child {
+  border-bottom: 0;
+}
+
+.attention-condition.unread {
+  box-shadow: inset 2px 0 var(--accent);
+}
+
+.attention-condition.locally-hidden {
+  opacity: 0.58;
+}
+
+.attention-condition-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.attention-condition-heading > div {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.attention-state,
+.attention-classification,
+.attention-unread-dot {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0 7px;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.attention-state.critical {
+  border-color: rgb(255 118 118 / 45%);
+  color: var(--danger);
+}
+
+.attention-state.warning {
+  border-color: rgb(255 193 92 / 40%);
+  color: #ffc15c;
+}
+
+.attention-state.info {
+  color: var(--accent);
+}
+
+.attention-classification,
+.attention-unread-dot {
+  color: var(--faint);
+}
+
+.attention-unread-dot {
+  border-color: rgb(197 255 85 / 30%);
+  color: var(--accent);
+}
+
+.attention-condition h3,
+.autonomous-workstream h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 570;
+}
+
+.attention-condition > p,
+.autonomous-workstream > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.attention-target {
+  color: var(--foreground);
+  font-size: 11px;
+}
+
+.attention-object-link,
+.autonomous-workstream h3 a {
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.attention-object-link:hover,
+.autonomous-workstream h3 a:hover {
+  color: var(--accent);
+}
+
+.attention-provenance {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.attention-provenance > div,
+.autonomous-workstream dl > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.attention-provenance dt,
+.autonomous-workstream dt {
+  color: var(--faint);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.attention-provenance dd,
+.autonomous-workstream dd {
+  overflow: hidden;
+  margin: 0;
+  color: var(--muted);
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.attention-condition-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.attention-primary-action {
+  border-color: rgb(197 255 85 / 35%);
+  color: var(--accent);
+}
+
+.attention-empty-state {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.attention-empty-state strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--foreground);
+  font-size: 11px;
+}
+
+.attention-empty-state p {
+  max-width: 720px;
+  color: var(--faint);
+  line-height: 1.5;
+}
+
+.autonomous-workstream-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.autonomous-workstream {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  border-right: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 16px;
+}
+
+.autonomous-workstream:nth-child(2n) {
+  border-right: 0;
+}
+
+.autonomous-workstream-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.autonomous-workstream-heading .section-label {
+  padding: 0;
+}
+
+.autonomous-workstream h3 {
+  display: grid;
+  gap: 4px;
+}
+
+.autonomous-workstream h3 span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.autonomous-workstream dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px 14px;
+  margin: 0;
+}
+
+.attention-activity-list {
+  display: grid;
+}
+
+.attention-activity-row {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 12px 16px;
+}
+
+.attention-activity-row:last-child {
+  border-bottom: 0;
+}
+
+.attention-activity-row > div {
+  display: grid;
+  gap: 5px;
+}
+
+.attention-activity-row p {
+  margin: 0;
+  color: var(--faint);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.attention-activity-row > span:last-child {
+  color: var(--faint);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 9px;
+}
+
+.attention-source-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 14px 16px;
+}
+
+.attention-source-list code {
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  background: var(--surface-raised);
+  padding: 5px 7px;
+  color: var(--muted);
+  font-size: 9px;
+}
+
+@media (max-width: 1100px) {
+  .attention-provenance {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .autonomous-workstream-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .autonomous-workstream,
+  .autonomous-workstream:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .attention-activity-row {
+    grid-template-columns: 140px minmax(0, 1fr);
+  }
+
+  .attention-activity-row > span:last-child {
+    grid-column: 2;
+  }
+}
+
 @media (max-width: 900px) {
   .command-palette-backdrop {
     padding-top: 58px;
@@ -177,5 +580,9 @@ a.summary-card:hover {
   .command-palette {
     width: calc(100vw - 24px);
     max-height: calc(100vh - 82px);
+  }
+
+  .attention-indicator span {
+    display: none;
   }
 }

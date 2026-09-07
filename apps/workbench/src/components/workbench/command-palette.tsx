@@ -6,6 +6,7 @@ import {
   GitBranch,
   PlayCircle,
   Search,
+  ShieldAlert,
   ShieldCheck,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -46,6 +47,14 @@ const NAVIGATION_ITEMS: PaletteItem[] = [
     type: "workspace",
   },
   {
+    key: "nav-attention",
+    label: "Attention",
+    description:
+      "Actionable engineering conditions, autonomous work, and recent activity",
+    href: "/attention",
+    type: "workspace",
+  },
+  {
     key: "nav-plan",
     label: "Plan",
     description: "Product Goal → Initiative → Epic → Feature → Story / Enabler",
@@ -77,6 +86,7 @@ const NAVIGATION_ITEMS: PaletteItem[] = [
 
 function navigationIcon(key: string) {
   if (key === "nav-now") return <Gauge size={15} />;
+  if (key === "nav-attention") return <ShieldAlert size={15} />;
   if (key === "nav-plan") return <GitBranch size={15} />;
   if (key === "nav-execution") return <PlayCircle size={15} />;
   if (key === "nav-knowledge") return <BookOpen size={15} />;
@@ -217,7 +227,6 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
 
               if (event.key === "Enter") {
                 const item = items[activeIndex];
-
                 if (item) {
                   event.preventDefault();
                   openItem(item);

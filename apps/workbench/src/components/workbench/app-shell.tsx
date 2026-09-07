@@ -17,6 +17,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { RepositorySnapshot } from "@/lib/monad/model";
 
+import { AttentionIndicator } from "./attention-indicator";
 import { CommandPalette } from "./command-palette";
 import { Inspector } from "./inspector";
 import { Navigator } from "./navigator";
@@ -39,6 +40,7 @@ const RIGHT_PANEL_KEY = "monad-workbench:right-collapsed";
 
 function routeLabel(pathname: string, focusId?: string): string {
   if (pathname.startsWith("/focus/") && focusId) return focusId;
+  if (pathname.startsWith("/attention")) return "Attention";
   if (pathname.startsWith("/plan")) return "Plan";
   if (pathname.startsWith("/execution")) return "Execution";
   if (pathname.startsWith("/knowledge")) return "Knowledge";
@@ -284,14 +286,17 @@ export function AppShell({ snapshot, children }: AppShellProps) {
           <span>{snapshot.branch}</span>
         </div>
 
-        <button
-          className="command-button"
-          onClick={() => setSearchOpen(true)}
-          type="button"
-        >
-          Search
-          <kbd>⌘K</kbd>
-        </button>
+        <div className="topbar-actions">
+          <AttentionIndicator summary={snapshot.attention} />
+          <button
+            className="command-button"
+            onClick={() => setSearchOpen(true)}
+            type="button"
+          >
+            Search
+            <kbd>⌘K</kbd>
+          </button>
+        </div>
       </header>
 
       <div className="workbench-body">
@@ -414,6 +419,10 @@ function ApplicationMenu(props: ApplicationMenuProps) {
           : props.menu === "navigate"
             ? [
                 { label: "Now", action: () => props.onNavigate("/") },
+                {
+                  label: "Attention",
+                  action: () => props.onNavigate("/attention"),
+                },
                 { label: "Plan", action: () => props.onNavigate("/plan") },
                 {
                   label: "Execution",
