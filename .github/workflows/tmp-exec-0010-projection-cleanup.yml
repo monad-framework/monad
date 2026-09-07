@@ -1,0 +1,39 @@
+name: Temporary EXEC-0010 projection cleanup
+
+on:
+  push:
+    branches:
+      - ops/exec-0010-projection-cleanup
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out EXEC-0010 governance branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: eose/exec-0010-result-close-20260907
+          fetch-depth: 0
+      - name: Configure commit identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Regenerate projections after temporary workflow removal
+        run: |
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+          ./scripts/eos state status
+          ./scripts/eos verify --strict
+      - name: Publish projection cleanup
+        run: |
+          git add machine .eos/trace-edges.tsv
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(machine): finalize EXEC-0010 closure projections"
+            git push origin HEAD:eose/exec-0010-result-close-20260907
+          fi
