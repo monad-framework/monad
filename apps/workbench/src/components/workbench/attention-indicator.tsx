@@ -29,7 +29,8 @@ export function AttentionIndicator({ summary }: AttentionIndicatorProps) {
   ]
     .filter(Boolean)
     .join(" ");
-  const Icon = critical || warning ? ShieldAlert : running ? Activity : ShieldCheck;
+  const Icon =
+    critical || warning ? ShieldAlert : running ? Activity : ShieldCheck;
 
   return (
     <Link
@@ -40,11 +41,7 @@ export function AttentionIndicator({ summary }: AttentionIndicatorProps) {
     >
       <Icon aria-hidden="true" size={14} />
       <span>{label}</span>
-      {summary.active > 0 ? (
-        <strong aria-label={`${summary.active} active attention conditions`}>
-          {summary.active}
-        </strong>
-      ) : null}
+      {summary.active > 0 ? <strong>{summary.active}</strong> : null}
     </Link>
   );
 }
