@@ -1,0 +1,40 @@
+{
+  "content": "{\n  \"$schema\": \"https://biomejs.dev/schemas/2.4.2/schema.json\",\n  \"vcs\": {\n    \"enabled\": true,\n    \"clientKind\": \"git\",\n    \"useIgnoreFile\": true\n  },\n  \"files\": {\n    \"ignoreUnknown\": true,\n    \"includes\": [\"**\", \"!node_modules\", \"!.next\", \"!dist\", \"!build\"]\n  },\n  \"formatter\": {\n    \"enabled\": true,\n    \"indentStyle\": \"space\",\n    \"indentWidth\": 2\n  },\n  \"css\": {\n    \"parser\": {\n      \"tailwindDirectives\": true\n    }\n  },\n  \"linter\": {\n    \"enabled\": true,\n    \"rules\": {\n      \"recommended\": true\n    },\n    \"domains\": {\n      \"next\": \"recommended\",\n      \"react\": \"recommended\"\n    }\n  },\n  \"assist\": {\n    \"actions\": {\n      \"source\": {\n        \"organizeImports\": \"on\"\n      }\n    }\n  }\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fbiome.json",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical json source for apps/workbench/biome.json.",
+    "title": "Biome"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 39,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "{\n  \"$schema\": \"https://biomejs.dev/schemas/2.4.2/schema.json\",\n  \"vcs\": {\n    \"enabled\": true,\n    \"clientKind\": \"git\",\n    \"useIgnoreFile\": true\n  },\n  \"files\": {\n    \"ignoreUnknown\": true,\n    \"includes\": [\"**\", \"!node_modules\", \"!.next\", \"!dist\", \"!build\"]\n  },\n  \"formatter\": {\n    \"enabled\": true,\n    \"indentStyle\": \"space\",\n    \"indentWidth\": 2\n  },\n  \"css\": {\n    \"parser\": {\n      \"tailwindDirectives\": true\n    }\n  },\n  \"linter\": {\n    \"enabled\": true,\n    \"rules\": {\n      \"recommended\": true\n    },\n    \"domains\": {\n      \"next\": \"recommended\",\n      \"react\": \"recommended\"\n    }\n  },\n  \"assist\": {\n    \"actions\": {\n      \"source\": {\n        \"organizeImports\": \"on\"\n      }\n    }\n  }\n}",
+      "title": "Biome"
+    }
+  ],
+  "source": {
+    "bytes": 699,
+    "canonical": true,
+    "language": "json",
+    "lines": 39,
+    "media_type": "application/json",
+    "path": "apps/workbench/biome.json",
+    "sha256": "9475406639d49232bb1d26166c847296e98d54fc702b97b44c9055d5cdac15fc"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "content": "import { readFile } from \"node:fs/promises\";\nimport path from \"node:path\";\n\nimport type {\n  CurrentExecutionContext,\n  ExecutionObjectType,\n  MonadObject,\n} from \"./model\";\n\ntype EosRelationship = {\n  target_id: string;\n  target_type?: string;\n  type: string;\n};\n\ntype EosEntity = {\n  authority_level?: string;\n  entity_type?: string;\n  id: string;\n  kind?: string;\n  lifecycle_state?: string;\n  operational_metadata?: {\n    domain?: string;\n    github_url?: string;\n    path?: string;\n    pi?: string;\n    title?: string;\n    wc?: string;\n  };\n  relationships?: EosRelationship[];\n};\n\ntype EosCurrentState = {\n  entities: {\n    PI?: Record<string, EosEntity>;\n    WC?: Record<string, EosEntity>;\n    WP?: Record<string, EosEntity>;\n    [kind: string]: Record<string, EosEntity> | undefined;\n  };\n};\n\nfunction selectByState(\n  entities: Record<string, EosEntity> | undefined,\n  preferredStates: string[],\n): EosEntity | undefined {\n  if (!entities) {\n    return undefined;\n  }\n\n  const values = Object.values(entities);\n\n  for (const state of preferredStates) {\n    const match = values.find((entity) => entity.lifecycle_state === state);\n\n    if (match) {\n      return match;\n    }\n  }\n\n  return undefined;\n}\n\nfunction toMonadObject(\n  entity: EosEntity | undefined,\n  type: ExecutionObjectType,\n): MonadObject | undefined {\n  if (!entity) {\n    return undefined;\n  }\n\n  return {\n    id: entity.id,\n    type,\n    title: entity.operational_metadata?.title ?? entity.id,\n    status: entity.lifecycle_state,\n    authority: entity.authority_level,\n    source: \".eos/state/current.json\",\n    artifactPath: entity.operational_metadata?.path,\n    relationships:\n      entity.relationships?.map((relationship) => ({\n        type: relationship.type,\n        target: relationship.target_id,\n      })) ?? [],\n  };\n}\n\nexport async function readCurrentExecutionContext(\n  root: string,\n): Promise<CurrentExecutionContext> {\n  const currentStatePath = path.join(root, \".eos\", \"state\", \"current.json\");\n\n  const raw = await readFile(currentStatePath, \"utf8\");\n  const state = JSON.parse(raw) as EosCurrentState;\n\n  const programIncrement = selectByState(state.entities.PI, [\"ACTIVE\"]);\n\n  const workCycle = selectByState(state.entities.WC, [\"ACTIVE\"]);\n\n  const workPacket = selectByState(state.entities.WP, [\n    \"IN_PROGRESS\",\n    \"AUTHORIZED\",\n    \"READY\",\n  ]);\n\n  return {\n    programIncrement: toMonadObject(programIncrement, \"program-increment\"),\n    workCycle: toMonadObject(workCycle, \"work-cycle\"),\n    workPacket: toMonadObject(workPacket, \"work-packet\"),\n  };\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Feos.ts",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript source for apps/workbench/src/lib/monad/eos.ts.",
+    "title": "Eos"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 110,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { readFile } from \"node:fs/promises\";\nimport path from \"node:path\";\n\nimport type {\n  CurrentExecutionContext,\n  ExecutionObjectType,\n  MonadObject,\n} from \"./model\";\n\ntype EosRelationship = {\n  target_id: string;\n  target_type?: string;\n  type: string;\n};\n\ntype EosEntity = {\n  authority_level?: string;\n  entity_type?: string;\n  id: string;\n  kind?: string;\n  lifecycle_state?: string;\n  operational_metadata?: {\n    domain?: string;\n    github_url?: string;\n    path?: string;\n    pi?: string;\n    title?: string;\n    wc?: string;\n  };\n  relationships?: EosRelationship[];\n};\n\ntype EosCurrentState = {\n  entities: {\n    PI?: Record<string, EosEntity>;\n    WC?: Record<string, EosEntity>;\n    WP?: Record<string, EosEntity>;\n    [kind: string]: Record<string, EosEntity> | undefined;\n  };\n};\n\nfunction selectByState(\n  entities: Record<string, EosEntity> | undefined,\n  preferredStates: string[],\n): EosEntity | undefined {\n  if (!entities) {\n    return undefined;\n  }\n\n  const values = Object.values(entities);\n\n  for (const state of preferredStates) {\n    const match = values.find((entity) => entity.lifecycle_state === state);\n\n    if (match) {\n      return match;\n    }\n  }\n\n  return undefined;\n}\n\nfunction toMonadObject(\n  entity: EosEntity | undefined,\n  type: ExecutionObjectType,\n): MonadObject | undefined {\n  if (!entity) {\n    return undefined;\n  }\n\n  return {\n    id: entity.id,\n    type,\n    title: entity.operational_metadata?.title ?? entity.id,\n    status: entity.lifecycle_state,\n    authority: entity.authority_level,\n    source: \".eos/state/current.json\",\n    artifactPath: entity.operational_metadata?.path,\n    relationships:\n      entity.relationships?.map((relationship) => ({\n        type: relationship.type,\n        target: relationship.target_id,\n      })) ?? [],\n  };\n}\n\nexport async function readCurrentExecutionContext(\n  root: string,\n): Promise<CurrentExecutionContext> {\n  const currentStatePath = path.join(root, \".eos\", \"state\", \"current.json\");\n\n  const raw = await readFile(currentStatePath, \"utf8\");\n  const state = JSON.parse(raw) as EosCurrentState;\n\n  const programIncrement = selectByState(state.entities.PI, [\"ACTIVE\"]);\n\n  const workCycle = selectByState(state.entities.WC, [\"ACTIVE\"]);\n\n  const workPacket = selectByState(state.entities.WP, [\n    \"IN_PROGRESS\",\n    \"AUTHORIZED\",\n    \"READY\",\n  ]);\n\n  return {\n    programIncrement: toMonadObject(programIncrement, \"program-increment\"),\n    workCycle: toMonadObject(workCycle, \"work-cycle\"),\n    workPacket: toMonadObject(workPacket, \"work-packet\"),\n  };\n}",
+      "title": "Eos"
+    }
+  ],
+  "source": {
+    "bytes": 2560,
+    "canonical": true,
+    "language": "typescript",
+    "lines": 110,
+    "media_type": "text/vnd.trolltech.linguist",
+    "path": "apps/workbench/src/lib/monad/eos.ts",
+    "sha256": "9c89f7c98f8d444ef45c9a65b7be7d8cd9d39c71c3a16fba2c51a12974c4206e"
+  }
+}

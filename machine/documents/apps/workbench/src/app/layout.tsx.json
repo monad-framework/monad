@@ -1,0 +1,40 @@
+{
+  "content": "import type { Metadata } from \"next\";\n\nimport \"./globals.css\";\n\nexport const metadata: Metadata = {\n  title: \"Monad Workbench\",\n  description:\n    \"Internal cognitive workbench for planning and developing Monad.\",\n};\n\nexport default function RootLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n  return (\n    <html lang=\"en\">\n      <body>{children}</body>\n    </html>\n  );\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Flayout.tsx",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript-jsx source for apps/workbench/src/app/layout.tsx.",
+    "title": "Layout"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 21,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import type { Metadata } from \"next\";\n\nimport \"./globals.css\";\n\nexport const metadata: Metadata = {\n  title: \"Monad Workbench\",\n  description:\n    \"Internal cognitive workbench for planning and developing Monad.\",\n};\n\nexport default function RootLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n  return (\n    <html lang=\"en\">\n      <body>{children}</body>\n    </html>\n  );\n}",
+      "title": "Layout"
+    }
+  ],
+  "source": {
+    "bytes": 397,
+    "canonical": true,
+    "language": "typescript-jsx",
+    "lines": 21,
+    "media_type": "text/plain",
+    "path": "apps/workbench/src/app/layout.tsx",
+    "sha256": "39e86333a8cd3dc67744a046edda1344bfdea9411d3281c462e69931c8262bb7"
+  }
+}

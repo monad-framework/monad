@@ -1,17 +1,20 @@
 # Governed Execution C2 Codex Runtime Conformance
 
 **Status:** proposed  
-**Version:** 0.1.0  
+**Version:** 0.1.1  
 **Owner:** Monad Core / EOS  
 **Parent matrix:** `testing/governed-execution-conformance.md`  
 **Adapter profile:** `IFC-HARNESS-0002`  
-**Implementation:** `crates/monad-codex-runtime`
+**Implementation:** `crates/monad-codex-runtime`  
+**Activation verifier:** `crates/monad-codex-confinement`
 
 ## Purpose
 
 Defines the effectful runtime subfixtures for the concrete OpenAI Codex App Server C2 adapter. These fixtures extend GEH-CF-037 through GEH-CF-039 from deterministic adapter translation into the actual client-owned App Server transport boundary.
 
 This tranche proves runtime protocol behavior. It does **not** by itself activate Codex for live governed execution and does not relax the requirement that all consequential model-requested effects pass through Monad mediation.
+
+The separate `GEH-CF-038-CONFINEMENT` activation fixture now provides the machine-verifiable mechanism for proving provider-native read isolation against a selected real Codex/App Server build/profile. Runtime conformance and live confinement certification remain deliberately distinct obligations.
 
 ## Runtime boundary
 
@@ -125,15 +128,24 @@ The fixture MUST prove that:
 
 The runtime MUST retain a regression fixture proving that asynchronous notifications received while waiting for a request response cannot starve the response or create an infinite deferred-message loop.
 
-## Live dogfood activation gate
+## Provider-effect confinement activation gate
 
 Protocol conformance is not sufficient for a live governed-execution claim.
 
-Until a selected Codex build passes a separate provider-effect confinement activation fixture, `monad-codex-runtime` MUST report live governed dogfood as ineligible.
+The implemented `monad-codex-confinement` verifier defines `GEH-CF-038-CONFINEMENT`. For the initial Linux profile it directly exercises the same App Server permission-profile/sandbox execution path with:
 
-That future activation proof MUST demonstrate, under adversarial attempts, that provider-native command/filesystem/network/tool paths cannot observe or mutate the governed repository outside Monad's authorized dynamic-tool path. Merely asking the model not to use those tools is insufficient.
+1. host verification of a unique forbidden sentinel;
+2. a successful harmless positive `command/exec` control under the candidate named permission profile;
+3. a provider-native forbidden sentinel read under the same profile that must be rejected or exit nonzero without leaking the marker;
+4. an ephemeral `thread/start` that must report the exact same `activePermissionProfile.id`.
 
-The activation proof MAY rely on a selected Codex permission profile, process isolation, or another enforceable mechanism, but the mechanism MUST be machine-verifiable and fail closed when unavailable.
+This prevents an invalid permission profile from false-passing merely because all commands fail and prevents profile substitution between the direct sandbox probe and the provider-thread setup.
+
+A deterministic test of the verifier implementation is not a live activation certificate. The selected real Codex/App Server build/profile must itself pass the fixture before the run may be represented as governed.
+
+The runtime's existing `require_live_governed_dogfood_eligibility()` remains intentionally fail-closed until the live activation slice supplies and binds such proof. This runtime tranche does not silently turn the presence of the verifier crate into activation authority.
+
+A successful confinement certificate is evidence for the exact tested provider build/profile/platform/path boundary. It MUST NOT broaden the Execution Envelope, grant an approval, authorize a new tool, or establish completion. Material provider or confinement changes require recertification.
 
 ## Required commands
 
@@ -142,20 +154,22 @@ cargo fmt --check
 cargo test -p monad-codex-runtime
 cargo test -p monad-core harness_codex_adapter
 cargo test -p monad-core harness_workspace_read
+cargo test -p monad-codex-confinement
 ```
 
 The repository-wide C0, C1, generic C2, EOS, machine-projection, and repository-integrity gates remain required.
 
 ## Definition of done
 
-This runtime tranche is complete when:
+The runtime bridge remains conforming when:
 
 1. all runtime subfixtures are green;
 2. the generic Codex adapter fixtures remain green;
 3. workspace-read regressions remain green;
-4. generated machine projections are current;
-5. EOS evidence is current on the settled source/projection tree;
-6. the final exact PR head is green;
-7. no unresolved substantive review thread remains.
+4. confinement-verifier deterministic fixtures remain green;
+5. generated machine projections are current;
+6. EOS evidence is current on the settled source/projection tree;
+7. the final exact PR head is green;
+8. no unresolved substantive review thread remains.
 
-Completion of this tranche means the **effectful App Server runtime bridge exists and conforms**. It does not mean a live external Codex run has yet been certified as governed.
+Completion of the confinement-verifier tranche means the **mechanism for live provider-effect certification exists and conforms**. It does not mean a live external Codex build has yet been certified as governed; that claim requires an actual successful `GEH-CF-038-CONFINEMENT` run against the selected live build/profile and the subsequent attributable dogfood execution.

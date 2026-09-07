@@ -1,0 +1,40 @@
+{
+  "content": "export function parseTsv<T extends Record<string, string>>(input: string): T[] {\n  const lines = input.split(/\\r?\\n/).filter((line) => line.trim().length > 0);\n\n  const header = lines.shift();\n\n  if (!header) {\n    return [];\n  }\n\n  const columns = header.split(\"\\t\");\n\n  return lines.map((line) => {\n    const values = line.split(\"\\t\");\n\n    return Object.fromEntries(\n      columns.map((column, index) => [column, values[index] ?? \"\"]),\n    ) as T;\n  });\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ftsv.ts",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript source for apps/workbench/src/lib/monad/tsv.ts.",
+    "title": "Tsv"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 19,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "export function parseTsv<T extends Record<string, string>>(input: string): T[] {\n  const lines = input.split(/\\r?\\n/).filter((line) => line.trim().length > 0);\n\n  const header = lines.shift();\n\n  if (!header) {\n    return [];\n  }\n\n  const columns = header.split(\"\\t\");\n\n  return lines.map((line) => {\n    const values = line.split(\"\\t\");\n\n    return Object.fromEntries(\n      columns.map((column, index) => [column, values[index] ?? \"\"]),\n    ) as T;\n  });\n}",
+      "title": "Tsv"
+    }
+  ],
+  "source": {
+    "bytes": 459,
+    "canonical": true,
+    "language": "typescript",
+    "lines": 19,
+    "media_type": "text/vnd.trolltech.linguist",
+    "path": "apps/workbench/src/lib/monad/tsv.ts",
+    "sha256": "c8e486b92fafb03fd12b60b6d6f047f06be2289ecdd2d330b046b102fef50cf3"
+  }
+}

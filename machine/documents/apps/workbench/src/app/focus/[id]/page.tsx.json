@@ -1,0 +1,40 @@
+{
+  "content": "import { connection } from \"next/server\";\n\nimport { AppShell } from \"@/components/workbench/app-shell\";\nimport { FocusWorkspace } from \"@/components/workbench/focus-workspace\";\nimport { getRepositorySnapshot } from \"@/lib/monad/repository\";\n\ntype FocusPageProps = {\n  params: Promise<{\n    id: string;\n  }>;\n};\n\nexport default async function FocusPage({ params }: FocusPageProps) {\n  await connection();\n\n  const { id } = await params;\n\n  const snapshot = await getRepositorySnapshot(id);\n\n  return (\n    <AppShell snapshot={snapshot}>\n      <FocusWorkspace snapshot={snapshot} />\n    </AppShell>\n  );\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Ffocus%2F%5Bid%5D%2Fpage.tsx",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript-jsx source for apps/workbench/src/app/focus/[id]/page.tsx.",
+    "title": "Page"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 25,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { connection } from \"next/server\";\n\nimport { AppShell } from \"@/components/workbench/app-shell\";\nimport { FocusWorkspace } from \"@/components/workbench/focus-workspace\";\nimport { getRepositorySnapshot } from \"@/lib/monad/repository\";\n\ntype FocusPageProps = {\n  params: Promise<{\n    id: string;\n  }>;\n};\n\nexport default async function FocusPage({ params }: FocusPageProps) {\n  await connection();\n\n  const { id } = await params;\n\n  const snapshot = await getRepositorySnapshot(id);\n\n  return (\n    <AppShell snapshot={snapshot}>\n      <FocusWorkspace snapshot={snapshot} />\n    </AppShell>\n  );\n}",
+      "title": "Page"
+    }
+  ],
+  "source": {
+    "bytes": 604,
+    "canonical": true,
+    "language": "typescript-jsx",
+    "lines": 25,
+    "media_type": "text/plain",
+    "path": "apps/workbench/src/app/focus/[id]/page.tsx",
+    "sha256": "8d4028c88453e13c7f7b65f9933903f4d8b02ad9257b9004e7e8a0c22546ff85"
+  }
+}
