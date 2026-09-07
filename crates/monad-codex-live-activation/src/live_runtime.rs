@@ -1,18 +1,16 @@
-use std::{collections::VecDeque, path::Path};
+use std::collections::VecDeque;
 
 use monad_codex_confinement::{
-    CONFINEMENT_CERTIFICATE_VERSION, CONFINEMENT_PROFILE_EXTENSION,
-    CodexConfinementCertificate, CodexConfinementVerifier, ConfinementProbePlan,
+    CONFINEMENT_CERTIFICATE_VERSION, CONFINEMENT_PROFILE_EXTENSION, CodexConfinementCertificate,
+    CodexConfinementVerifier, ConfinementProbePlan,
 };
 use monad_codex_runtime::{
     AppServerTransport, CodexAppServerRuntime, CodexRuntimeError, CodexRuntimeSession,
     CodexServerIdentity, CodexTurnOutcome,
 };
 use monad_core::{
-    harness::ExecutionEnvelope,
-    harness_adapter::AdapterSessionId,
-    harness_gateway::OperationGovernanceContext,
-    harness_verification::VerificationEvidenceBundle,
+    harness::ExecutionEnvelope, harness_adapter::AdapterSessionId,
+    harness_gateway::OperationGovernanceContext, harness_verification::VerificationEvidenceBundle,
     harness_workspace_read::WorkspaceReadBackend,
 };
 use serde::Serialize;
@@ -20,8 +18,8 @@ use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 
 use crate::{
-    LIVE_ACTIVATION_SCHEMA_VERSION, LiveActivationBinding, LiveActivationError,
-    LiveActivationPlan, MONAD_WORKSPACE_READ_TOOL,
+    LIVE_ACTIVATION_SCHEMA_VERSION, LiveActivationBinding, LiveActivationError, LiveActivationPlan,
+    MONAD_WORKSPACE_READ_TOOL,
 };
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -176,18 +174,15 @@ impl<T: AppServerTransport> ActivatedAppServerTransport<T> {
             || dynamic_tools[0].get("name").and_then(Value::as_str)
                 != Some(MONAD_WORKSPACE_READ_TOOL)
         {
-            return Err(self.reject(
-                "runtime adoption must register only monad_workspace_read_text",
-            ));
+            return Err(
+                self.reject("runtime adoption must register only monad_workspace_read_text")
+            );
         }
         let config = params
             .get("config")
             .ok_or_else(|| self.reject("runtime adoption omitted restricted config"))?;
         if config.get("features.shell_tool").and_then(Value::as_bool) != Some(false)
-            || config
-                .get("features.unified_exec")
-                .and_then(Value::as_bool)
-                != Some(false)
+            || config.get("features.unified_exec").and_then(Value::as_bool) != Some(false)
             || config.get("web_search").and_then(Value::as_str) != Some("disabled")
             || config
                 .get("mcp_servers")
@@ -253,9 +248,7 @@ impl<T: AppServerTransport> LiveActivatedRuntime<T> {
         self.runtime.transport().provider_transport()
     }
 
-    pub fn require_live_governed_dogfood_eligibility(
-        &self,
-    ) -> Result<(), LiveActivationError> {
+    pub fn require_live_governed_dogfood_eligibility(&self) -> Result<(), LiveActivationError> {
         if !self.binding.activated {
             return Err(LiveActivationError::CertificateMismatch(
                 "live activation binding is not marked activated".into(),
@@ -295,10 +288,7 @@ impl<T: AppServerTransport> LiveActivatedRuntime<T> {
             .map_err(LiveActivationError::from)
     }
 
-    pub fn interrupt_turn(
-        &mut self,
-        turn_id: &str,
-    ) -> Result<(), LiveActivationError> {
+    pub fn interrupt_turn(&mut self, turn_id: &str) -> Result<(), LiveActivationError> {
         self.require_live_governed_dogfood_eligibility()?;
         self.runtime
             .interrupt_turn(self.session.thread_id(), turn_id)
@@ -340,7 +330,8 @@ where
     if session.thread_id() != binding.thread_id {
         return Err(LiveActivationError::CertificateMismatch(format!(
             "runtime adopted thread {:?}; activation bound {:?}",
-            session.thread_id(), binding.thread_id
+            session.thread_id(),
+            binding.thread_id
         )));
     }
     let activated = LiveActivatedRuntime {
@@ -579,12 +570,14 @@ fn validate_certificate(
 ) -> Result<(), LiveActivationError> {
     if certificate.schema_version != CONFINEMENT_CERTIFICATE_VERSION {
         return Err(LiveActivationError::CertificateMismatch(format!(
-            "unsupported certificate schema {:?}", certificate.schema_version
+            "unsupported certificate schema {:?}",
+            certificate.schema_version
         )));
     }
     if certificate.extension != CONFINEMENT_PROFILE_EXTENSION {
         return Err(LiveActivationError::CertificateMismatch(format!(
-            "unexpected confinement extension {:?}", certificate.extension
+            "unexpected confinement extension {:?}",
+            certificate.extension
         )));
     }
     if !certificate.verified || certificate.platform_os != "linux" {
@@ -736,7 +729,7 @@ mod tests {
     use std::{
         collections::{BTreeMap, VecDeque},
         fs,
-        path::{Path, PathBuf},
+        path::PathBuf,
         time::{SystemTime, UNIX_EPOCH},
     };
 
@@ -811,8 +804,8 @@ mod tests {
             self.0.join("sentinel")
         }
 
-        fn workspace(&self) -> &Path {
-            self.0.join("workspace").as_path()
+        fn workspace(&self) -> PathBuf {
+            self.0.join("workspace")
         }
     }
 
@@ -971,7 +964,8 @@ mod tests {
             AdapterSessionId("session-live-activation-0002".into()),
         )
         .unwrap();
-        let mut backend = WorkspaceReadBackend::new(boundary.workspace(), 4096).unwrap();
+        let workspace = boundary.workspace();
+        let mut backend = WorkspaceReadBackend::new(workspace.as_path(), 4096).unwrap();
 
         let outcome = runtime
             .run_turn(
