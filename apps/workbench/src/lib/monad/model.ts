@@ -1,3 +1,5 @@
+import type { AttentionSummary } from "./attention-model";
+
 export type ProductObjectType =
   | "product-goal"
   | "initiative"
@@ -140,6 +142,7 @@ export type RepositorySnapshot = {
   execution: CurrentExecutionContext;
   knowledge: CurrentKnowledgeContext;
   focus: FocusContext;
+  attention: AttentionSummary;
 
   sources: RepositorySource[];
   gitStatus: GitStatusEntry[];

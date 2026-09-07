@@ -1,6 +1,8 @@
 import { execFile } from "node:child_process";
 import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
+
+import { readAttentionProjection } from "./attention";
 import { readCurrentExecutionContext } from "./eos";
 import { readFocusContext } from "./focus";
 import { readFocusDocument } from "./focus-document";
@@ -138,7 +140,7 @@ export async function getRepositorySnapshot(
   const root = await findMonadRoot(process.cwd());
   const execution = await readCurrentExecutionContext(root);
 
-  const [branch, rawStatus, version, sources, product, knowledge] =
+  const [branch, rawStatus, version, sources, product, knowledge, attention] =
     await Promise.all([
       runGit(root, ["branch", "--show-current"]),
       runGit(root, ["status", "--short"]),
@@ -146,6 +148,7 @@ export async function getRepositorySnapshot(
       buildSources(root),
       readCurrentProductContext(root, execution),
       readCurrentKnowledgeContext(root, execution.workPacket),
+      readAttentionProjection(root),
     ]);
 
   const focus = await readFocusContext(root, focusId, {
@@ -171,6 +174,7 @@ export async function getRepositorySnapshot(
     execution,
     knowledge,
     focus,
+    attention: attention.summary,
     sources,
     gitStatus: parseGitStatus(rawStatus),
   };
