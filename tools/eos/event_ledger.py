@@ -176,6 +176,11 @@ def _git(
     )
 
 
+def is_git_repository(root: Path) -> bool:
+    proc = _git(root, "rev-parse", "--is-inside-work-tree", check=False)
+    return proc.returncode == 0 and proc.stdout.strip() == "true"
+
+
 def git_commit_exists(root: Path, ref: str) -> bool:
     proc = _git(
         root,
@@ -191,11 +196,17 @@ def git_commit_exists(root: Path, ref: str) -> bool:
 def ledger_from_git(root: Path, ref: str) -> list[dict]:
     if not git_commit_exists(root, ref):
         raise EventLedgerError(f"Git commit/ref does not exist: {ref}")
-    proc = _git(root, "show", f"{ref}:{EVENT_LEDGER_RELPATH}", check=False)
-    if proc.returncode != 0:
+    object_ref = f"{ref}:{EVENT_LEDGER_RELPATH}"
+    exists = _git(root, "cat-file", "-e", object_ref, check=False)
+    if exists.returncode != 0:
         # A history that predates introduction of the EOS ledger contributes no events.
         return []
-    return _events_from_text(proc.stdout, label=f"{ref}:{EVENT_LEDGER_RELPATH}")
+    proc = _git(root, "show", object_ref, check=False)
+    if proc.returncode != 0:
+        raise EventLedgerError(
+            f"Unable to read inherited event ledger {object_ref}: {proc.stderr.strip()}"
+        )
+    return _events_from_text(proc.stdout, label=object_ref)
 
 
 def immediate_parents(root: Path, ref: str = "HEAD") -> list[str]:
@@ -207,12 +218,10 @@ def immediate_parents(root: Path, ref: str = "HEAD") -> list[str]:
 
 
 def merge_head_refs(root: Path) -> list[str]:
-    proc = _git(root, "rev-parse", "--git-path", "MERGE_HEAD", check=False)
+    proc = _git(root, "rev-parse", "--absolute-git-dir", check=False)
     if proc.returncode != 0:
         return []
-    merge_head = Path(proc.stdout.strip())
-    if not merge_head.is_absolute():
-        merge_head = root / merge_head
+    merge_head = Path(proc.stdout.strip()) / "MERGE_HEAD"
     if not merge_head.exists():
         return []
     refs = [line.strip() for line in merge_head.read_text(encoding="utf-8").splitlines() if line.strip()]
@@ -266,3 +275,12 @@ def validate_working_merge(root: Path) -> None:
 
     base = ledger_from_git(root, merge_base(root, "HEAD", other_ref))
     validate_divergent_history(base, head_events, other_events)
+
+
+def validate_working_history(root: Path) -> None:
+    if not is_git_repository(root):
+        return
+    current = read_event_ledger(root / EVENT_LEDGER_RELPATH)
+    if git_commit_exists(root, "HEAD"):
+        validate_parent_superset(current, [ledger_from_git(root, "HEAD")])
+    validate_working_merge(root)

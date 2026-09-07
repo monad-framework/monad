@@ -248,5 +248,74 @@ class EventLedgerMergeTests(unittest.TestCase):
                 self.ledger.validate_committed_history(root)
 
 
+    def test_working_tree_cannot_delete_head_event(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.init_git_repo(root)
+            events = [
+                event("EVT-A", target="WP-A", from_state="DRAFT", to_state="READY"),
+                event("EVT-B", target="WP-B", from_state="DRAFT", to_state="READY"),
+            ]
+            self.write_git_ledger(root, events)
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "base")
+            self.write_git_ledger(root, [events[0]])
+            with self.assertRaises(self.ledger.EventLedgerError):
+                self.ledger.validate_working_history(root)
+
+    def test_working_merge_rejects_same_entity_divergence(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.init_git_repo(root)
+            base = [event("EVT-BASE", target="WP-X", event_type="ENTITY_CREATED", to_state="DRAFT")]
+            self.write_git_ledger(root, base)
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "base")
+            base_sha = self.git(root, "rev-parse", "HEAD").stdout.strip()
+            self.git(root, "checkout", "-qb", "left")
+            self.write_git_ledger(
+                root,
+                base + [event("EVT-LEFT", target="WP-X", from_state="DRAFT", to_state="READY")],
+            )
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "left")
+            self.git(root, "checkout", "-qb", "right", base_sha)
+            self.write_git_ledger(
+                root,
+                base + [event("EVT-RIGHT", target="WP-X", from_state="DRAFT", to_state="BLOCKED")],
+            )
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "right")
+            self.git(root, "merge", "--no-commit", "--no-ff", "left")
+            with self.assertRaises(self.ledger.EventLedgerConflict):
+                self.ledger.validate_working_history(root)
+
+    def test_working_merge_accepts_independent_entities(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.init_git_repo(root)
+            base = [event("EVT-BASE", target="WP-BASE", event_type="ENTITY_CREATED", to_state="DRAFT")]
+            self.write_git_ledger(root, base)
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "base")
+            base_sha = self.git(root, "rev-parse", "HEAD").stdout.strip()
+            self.git(root, "checkout", "-qb", "left")
+            self.write_git_ledger(
+                root,
+                base + [event("EVT-LEFT", target="WP-LEFT", from_state="DRAFT", to_state="READY")],
+            )
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "left")
+            self.git(root, "checkout", "-qb", "right", base_sha)
+            self.write_git_ledger(
+                root,
+                base + [event("EVT-RIGHT", target="WP-RIGHT", from_state="DRAFT", to_state="READY")],
+            )
+            self.git(root, "add", ".")
+            self.git(root, "commit", "-qm", "right")
+            self.git(root, "merge", "--no-commit", "--no-ff", "left")
+            self.ledger.validate_working_history(root)
+
+
 if __name__ == "__main__":
     unittest.main()
