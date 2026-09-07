@@ -4,22 +4,29 @@
 //! implement configuration precedence, consult legacy manifests, interpolate the
 //! environment, execute repository code, perform network access, or process includes.
 
-use std::str;
+use std::{collections::BTreeMap, str};
 
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     discovery::{DiscoveredSource, DiscoveryProvenance, SourceKindCandidate},
     identity::{DocumentIdentity, ParserContract, SourceRecord},
     workspace::{
         BootstrapError, CliOverrides, Diagnostic, DiagnosticCode, EffectiveConfiguration,
-        parse_effective_configuration,
+        Provenance, parse_effective_configuration,
     },
 };
 
 pub const CONFIG_PARSER_CONTRACT: &str = "monad.structured-configuration";
 pub const CONFIG_PARSER_VERSION: &str = "1";
 pub const CONFIG_DOCUMENT_KIND: &str = "monad_configuration";
+
+/// A byte range into the exact canonical `monad.toml` input. `end_byte` is exclusive.
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
+pub struct SourceRange {
+    pub start_byte: usize,
+    pub end_byte: usize,
+}
 
 /// A semantic configuration document keeps canonical source/default values separate
 /// from run-effective values. This is required because CLI overrides affect the run
@@ -29,6 +36,40 @@ pub struct ParsedConfigurationDocument {
     pub identity: DocumentIdentity,
     pub canonical_configuration: EffectiveConfiguration,
     pub effective_configuration: EffectiveConfiguration,
+    pub source_ranges: BTreeMap<String, SourceRange>,
+}
+
+#[derive(Debug, Deserialize)]
+struct SpannedConfiguration {
+    schema_version: toml::Spanned<i64>,
+    project: SpannedProject,
+    #[serde(default)]
+    artifacts: BTreeMap<String, toml::Spanned<Vec<toml::Spanned<String>>>>,
+    #[serde(default)]
+    exclude: Option<SpannedExclude>,
+    #[serde(default)]
+    ingestion: Option<SpannedIngestion>,
+}
+
+#[derive(Debug, Deserialize)]
+struct SpannedProject {
+    id: toml::Spanned<String>,
+    name: toml::Spanned<String>,
+    #[serde(rename = "type")]
+    project_type: Option<toml::Spanned<String>>,
+}
+
+#[derive(Debug, Deserialize)]
+struct SpannedExclude {
+    paths: Option<toml::Spanned<Vec<toml::Spanned<String>>>>,
+}
+
+#[derive(Debug, Deserialize)]
+struct SpannedIngestion {
+    encoding: Option<toml::Spanned<String>>,
+    execute_repository_code: Option<toml::Spanned<bool>>,
+    follow_symlinks: Option<toml::Spanned<bool>>,
+    network: Option<toml::Spanned<bool>>,
 }
 
 pub fn config_parser_contract() -> ParserContract {
@@ -38,9 +79,11 @@ pub fn config_parser_contract() -> ParserContract {
 /// Adapt exact canonical `monad.toml` bytes into semantic state after bootstrap has
 /// produced the supplied effective configuration.
 ///
-/// The exact bytes are parsed again with *no* CLI overrides through the same bootstrap
-/// validator. That recovers canonical file/default values and provenance while the
-/// separately supplied effective configuration retains any run-local CLI provenance.
+/// The exact bytes are parsed again with no CLI overrides through the same bootstrap
+/// validator to recover canonical file/default values. CLI-provenance values are then
+/// reconstructed from the supplied effective configuration and reapplied to these exact
+/// bytes. The rebound result must equal the supplied effective configuration, preventing
+/// stale or unrelated bootstrap state from being attributed to the identified bytes.
 pub fn parse_monad_configuration(
     bytes: &[u8],
     effective_configuration: &EffectiveConfiguration,
@@ -57,6 +100,8 @@ pub fn parse_monad_configuration(
     // precedence implementation. Invalid/unknown/unsupported input therefore cannot
     // become a semantic configuration document.
     let canonical_configuration = parse_effective_configuration(text, &CliOverrides::default())?;
+    let effective_configuration = rebound_effective_configuration(text, effective_configuration)?;
+    let source_ranges = source_ranges(text)?;
 
     let discovered = DiscoveredSource {
         canonical_path: "monad.toml".to_owned(),
@@ -72,8 +117,121 @@ pub fn parse_monad_configuration(
     Ok(ParsedConfigurationDocument {
         identity,
         canonical_configuration,
-        effective_configuration: effective_configuration.clone(),
+        effective_configuration,
+        source_ranges,
     })
+}
+
+fn rebound_effective_configuration(
+    text: &str,
+    supplied: &EffectiveConfiguration,
+) -> Result<EffectiveConfiguration, BootstrapError> {
+    let overrides = cli_overrides_from_effective(supplied);
+    let rebound = parse_effective_configuration(text, &overrides)?;
+    if &rebound != supplied {
+        return Err(BootstrapError::from_diagnostic(Diagnostic {
+            code: DiagnosticCode::InvalidConfiguration,
+            message: "effective configuration does not correspond to the supplied monad.toml bytes and CLI provenance"
+                .to_owned(),
+            location: Some("monad.toml".to_owned()),
+        }));
+    }
+    Ok(rebound)
+}
+
+fn cli_overrides_from_effective(configuration: &EffectiveConfiguration) -> CliOverrides {
+    let mut overrides = CliOverrides::default();
+
+    if matches!(&configuration.project.id.source, Provenance::Cli) {
+        overrides.project_id = Some(configuration.project.id.value.clone());
+    }
+    if matches!(&configuration.project.name.source, Provenance::Cli) {
+        overrides.project_name = Some(configuration.project.name.value.clone());
+    }
+    if matches!(&configuration.project.project_type.source, Provenance::Cli) {
+        overrides.project_type = configuration.project.project_type.value.clone();
+    }
+    for (name, value) in &configuration.artifacts {
+        if matches!(&value.source, Provenance::Cli) {
+            overrides
+                .artifact_roots
+                .insert(name.clone(), value.value.clone());
+        }
+    }
+    if matches!(&configuration.exclude_paths.source, Provenance::Cli) {
+        overrides.exclude_paths = Some(configuration.exclude_paths.value.clone());
+    }
+
+    overrides
+}
+
+fn source_ranges(text: &str) -> Result<BTreeMap<String, SourceRange>, BootstrapError> {
+    let spanned: SpannedConfiguration = toml::from_str(text).map_err(|error| {
+        BootstrapError::from_diagnostic(Diagnostic {
+            code: DiagnosticCode::MalformedToml,
+            message: format!("malformed monad.toml while retaining source ranges: {error}"),
+            location: Some("monad.toml".to_owned()),
+        })
+    })?;
+
+    let mut ranges = BTreeMap::new();
+    insert_range(&mut ranges, "schema_version", &spanned.schema_version);
+    insert_range(&mut ranges, "project.id", &spanned.project.id);
+    insert_range(&mut ranges, "project.name", &spanned.project.name);
+    if let Some(project_type) = &spanned.project.project_type {
+        insert_range(&mut ranges, "project.type", project_type);
+    }
+
+    for (name, values) in &spanned.artifacts {
+        let path = format!("artifacts.{name}");
+        insert_range(&mut ranges, &path, values);
+        for (index, value) in values.get_ref().iter().enumerate() {
+            insert_range(&mut ranges, &format!("{path}[{index}]"), value);
+        }
+    }
+
+    if let Some(paths) = spanned
+        .exclude
+        .as_ref()
+        .and_then(|exclude| exclude.paths.as_ref())
+    {
+        insert_range(&mut ranges, "exclude.paths", paths);
+        for (index, value) in paths.get_ref().iter().enumerate() {
+            insert_range(&mut ranges, &format!("exclude.paths[{index}]"), value);
+        }
+    }
+
+    if let Some(ingestion) = &spanned.ingestion {
+        if let Some(value) = &ingestion.encoding {
+            insert_range(&mut ranges, "ingestion.encoding", value);
+        }
+        if let Some(value) = &ingestion.execute_repository_code {
+            insert_range(&mut ranges, "ingestion.execute_repository_code", value);
+        }
+        if let Some(value) = &ingestion.follow_symlinks {
+            insert_range(&mut ranges, "ingestion.follow_symlinks", value);
+        }
+        if let Some(value) = &ingestion.network {
+            insert_range(&mut ranges, "ingestion.network", value);
+        }
+    }
+
+    Ok(ranges)
+}
+
+fn insert_range<T>(
+    ranges: &mut BTreeMap<String, SourceRange>,
+    path: &str,
+    value: &toml::Spanned<T>,
+) {
+    let span = value.span();
+    ranges.insert(
+        path.to_owned(),
+        SourceRange {
+            start_byte: span.start,
+            end_byte: span.end,
+        },
+    );
 }
 
 #[cfg(test)]
@@ -125,9 +283,11 @@ paths = ["vendor/**"]
 
     #[test]
     fn exact_bytes_become_stable_toml_source_and_document_identity() {
-        let effective = effective(VALID, &CliOverrides::default());
-        let first = parse_monad_configuration(VALID.as_bytes(), &effective).expect("parse");
-        let second = parse_monad_configuration(VALID.as_bytes(), &effective).expect("parse");
+        let baseline_effective = effective(VALID, &CliOverrides::default());
+        let first =
+            parse_monad_configuration(VALID.as_bytes(), &baseline_effective).expect("parse");
+        let second =
+            parse_monad_configuration(VALID.as_bytes(), &baseline_effective).expect("parse");
 
         assert_eq!(first, second);
         assert_eq!(first.identity.source.canonical_path, "monad.toml");
@@ -144,8 +304,9 @@ paths = ["vendor/**"]
         assert_eq!(first.identity.document_kind, CONFIG_DOCUMENT_KIND);
 
         let changed = format!("{VALID}\n");
+        let changed_effective = effective(&changed, &CliOverrides::default());
         let changed_doc =
-            parse_monad_configuration(changed.as_bytes(), &effective).expect("changed");
+            parse_monad_configuration(changed.as_bytes(), &changed_effective).expect("changed");
         assert_eq!(
             first.identity.source.source_id,
             changed_doc.identity.source.source_id
@@ -153,6 +314,22 @@ paths = ["vendor/**"]
         assert_ne!(
             first.identity.source.content_sha256,
             changed_doc.identity.source.content_sha256
+        );
+    }
+
+    #[test]
+    fn effective_configuration_is_bound_to_the_identified_bytes() {
+        let supplied = effective(VALID, &CliOverrides::default());
+        let different = VALID.replace("id = \"example\"", "id = \"different\"");
+        let error = parse_monad_configuration(different.as_bytes(), &supplied)
+            .expect_err("stale effective configuration must fail");
+        assert_eq!(
+            error.diagnostics()[0].code,
+            DiagnosticCode::InvalidConfiguration
+        );
+        assert_eq!(
+            error.diagnostics()[0].location.as_deref(),
+            Some("monad.toml")
         );
     }
 
@@ -204,6 +381,22 @@ paths = ["vendor/**"]
             document.effective_configuration.project.project_type.source,
             Provenance::Cli
         );
+    }
+
+    #[test]
+    fn reliable_toml_value_ranges_are_retained() {
+        let effective = effective(VALID, &CliOverrides::default());
+        let document = parse_monad_configuration(VALID.as_bytes(), &effective).expect("parse");
+
+        let name = &document.source_ranges["project.name"];
+        assert_eq!(&VALID[name.start_byte..name.end_byte], "\"File Name\"");
+        let artifact = &document.source_ranges["artifacts.alpha[0]"];
+        assert_eq!(
+            &VALID[artifact.start_byte..artifact.end_byte],
+            "\"a/**/*.md\""
+        );
+        let schema = &document.source_ranges["schema_version"];
+        assert_eq!(&VALID[schema.start_byte..schema.end_byte], "1");
     }
 
     #[test]
@@ -300,5 +493,6 @@ source = ["$(touch should-not-run)/**/*.md"]
         assert!(text.find("\"alpha\"").expect("alpha") < text.find("\"zeta\"").expect("zeta"));
         assert!(text.contains("\"source_kind\":\"toml\""));
         assert!(text.contains("\"source\":\"monad.toml:project.name\""));
+        assert!(text.contains("\"source_ranges\""));
     }
 }
