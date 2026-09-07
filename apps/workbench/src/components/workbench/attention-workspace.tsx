@@ -374,10 +374,9 @@ export function AttentionWorkspace({
         </div>
       </div>
 
-      <div
+      <fieldset
         aria-label="Attention Center view filters"
         className="attention-toolbar"
-        role="group"
       >
         <div>
           {(["active", "activity", "all"] as const).map((view) => (
@@ -407,7 +406,7 @@ export function AttentionWorkspace({
             ? "Hide local dismissals"
             : `Show hidden (${hiddenCount})`}
         </button>
-      </div>
+      </fieldset>
 
       {store.view !== "activity" ? (
         <section
