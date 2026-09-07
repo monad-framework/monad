@@ -1,0 +1,40 @@
+{
+  "content": "name: Temporary WP-MVP-0005 reconcile latest main\n\non:\n  push:\n    branches:\n      - ops/wp-mvp-0005-reconcile-4abefff\n\npermissions:\n  contents: write\n\njobs:\n  reconcile:\n    runs-on: ubuntu-24.04\n    timeout-minutes: 30\n    steps:\n      - name: Check out product branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: wp/mvp-0005\n          fetch-depth: 0\n\n      - name: Configure commit identity\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n\n      - name: Merge latest canonical main\n        run: |\n          git fetch origin main\n          test \"$(git rev-parse origin/main)\" = \"4abefff97bdde62149f45a6487a8185f151eef71\"\n          set +e\n          git merge --no-commit --no-ff origin/main\n          status=$?\n          set -e\n          if [ \"$status\" -ne 0 ]; then\n            conflicts=\"$(git diff --name-only --diff-filter=U)\"\n            test -n \"$conflicts\"\n            while IFS= read -r path; do\n              case \"$path\" in\n                machine/*)\n                  git checkout --theirs -- \"$path\"\n                  git add -- \"$path\"\n                  ;;\n                *)\n                  echo \"Unexpected non-derived merge conflict: $path\" >&2\n                  exit 1\n                  ;;\n              esac\n            done <<< \"$conflicts\"\n          fi\n          test -z \"$(git diff --name-only --diff-filter=U)\"\n\n      - name: Format and validate monad-core on combined tree\n        run: |\n          cargo fmt --all\n          cargo fmt --all -- --check\n          cargo test -p monad-core\n          cargo clippy -p monad-core --all-targets --all-features -- -D warnings -A clippy::large_enum_variant\n          git diff --check -- crates/monad-core/src/\n\n      - name: Regenerate combined deterministic projections\n        run: |\n          python3 tools/eos/trace_integrity.py --write\n          python3 scripts/sync-machine-docs.py --write\n\n      - name: Validate combined governed tree\n        run: |\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n          ./scripts/eos state status\n          ./scripts/eos verify --strict\n\n      - name: Commit reconciliation\n        run: |\n          git add -A\n          git diff --cached --check -- crates/monad-core/src/\n          git commit -m \"chore(core): reconcile WP-MVP-0005 with latest canonical main\"\n          git push origin HEAD:wp/mvp-0005\n",
+  "document_id": "doc:.github%2Fworkflows%2Ftmp-wp-mvp-0005-reconcile-4abefff.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/tmp-wp-mvp-0005-reconcile-4abefff.yml.",
+    "title": "Tmp Wp Mvp 0005 Reconcile 4Abefff"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 80,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Temporary WP-MVP-0005 reconcile latest main\n\non:\n  push:\n    branches:\n      - ops/wp-mvp-0005-reconcile-4abefff\n\npermissions:\n  contents: write\n\njobs:\n  reconcile:\n    runs-on: ubuntu-24.04\n    timeout-minutes: 30\n    steps:\n      - name: Check out product branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: wp/mvp-0005\n          fetch-depth: 0\n\n      - name: Configure commit identity\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n\n      - name: Merge latest canonical main\n        run: |\n          git fetch origin main\n          test \"$(git rev-parse origin/main)\" = \"4abefff97bdde62149f45a6487a8185f151eef71\"\n          set +e\n          git merge --no-commit --no-ff origin/main\n          status=$?\n          set -e\n          if [ \"$status\" -ne 0 ]; then\n            conflicts=\"$(git diff --name-only --diff-filter=U)\"\n            test -n \"$conflicts\"\n            while IFS= read -r path; do\n              case \"$path\" in\n                machine/*)\n                  git checkout --theirs -- \"$path\"\n                  git add -- \"$path\"\n                  ;;\n                *)\n                  echo \"Unexpected non-derived merge conflict: $path\" >&2\n                  exit 1\n                  ;;\n              esac\n            done <<< \"$conflicts\"\n          fi\n          test -z \"$(git diff --name-only --diff-filter=U)\"\n\n      - name: Format and validate monad-core on combined tree\n        run: |\n          cargo fmt --all\n          cargo fmt --all -- --check\n          cargo test -p monad-core\n          cargo clippy -p monad-core --all-targets --all-features -- -D warnings -A clippy::large_enum_variant\n          git diff --check -- crates/monad-core/src/\n\n      - name: Regenerate combined deterministic projections\n        run: |\n          python3 tools/eos/trace_integrity.py --write\n          python3 scripts/sync-machine-docs.py --write\n\n      - name: Validate combined governed tree\n        run: |\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n          ./scripts/eos state status\n          ./scripts/eos verify --strict\n\n      - name: Commit reconciliation\n        run: |\n          git add -A\n          git diff --cached --check -- crates/monad-core/src/\n          git commit -m \"chore(core): reconcile WP-MVP-0005 with latest canonical main\"\n          git push origin HEAD:wp/mvp-0005",
+      "title": "Tmp Wp Mvp 0005 Reconcile 4Abefff"
+    }
+  ],
+  "source": {
+    "bytes": 2658,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 80,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/tmp-wp-mvp-0005-reconcile-4abefff.yml",
+    "sha256": "2f31bc4d5e613b7bf3abdd6262c88b8b6d430147ef27178095774be91380998d"
+  }
+}
