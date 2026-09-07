@@ -1,0 +1,40 @@
+{
+  "content": "name: Temporary WP-MVP-0005 clean execution rebuild\n\non:\n  push:\n    branches:\n      - ops/wp-mvp-0005-clean-exec-rebuild\n\npermissions:\n  contents: write\n\njobs:\n  rebuild:\n    runs-on: ubuntu-24.04\n    timeout-minutes: 30\n    steps:\n      - name: Check out clean execution lineage\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: recovery/wp-mvp-0005-clean-exec\n          fetch-depth: 0\n\n      - name: Configure commit identity\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n\n      - name: Restore exact reviewed parser source\n        run: |\n          git fetch origin 561b24d1296ba26426dc1f817d22f280ba927f3d\n          git checkout 561b24d1296ba26426dc1f817d22f280ba927f3d -- crates/monad-core/src/config.rs\n\n      - name: Validate parser source\n        run: |\n          cargo fmt --all\n          cargo fmt --all -- --check\n          cargo test -p monad-core\n          cargo clippy -p monad-core --all-targets --all-features -- -D warnings -A clippy::large_enum_variant\n          git diff --check -- crates/monad-core/src/\n\n      - name: Regenerate deterministic projections\n        run: |\n          python3 tools/eos/trace_integrity.py --write\n          python3 scripts/sync-machine-docs.py --write\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n\n      - name: Enforce EXEC-0010 implementation boundary\n        shell: bash\n        run: |\n          set -Eeuo pipefail\n          BASE=12750d1ace8df46587be3d816ef8d4e09b31eda1\n          git add crates/monad-core/src machine\n          changed=\"$(git diff --name-only \"$BASE\" --; git diff --cached --name-only)\"\n          changed=\"$(printf '%s\\n' \"$changed\" | sed '/^$/d' | sort -u)\"\n          printf '%s\\n' \"$changed\"\n          if printf '%s\\n' \"$changed\" | grep -Eq '^\\.eos(/|$)|^(idea\\.md|vision/|product/|architecture/|specifications/|governance/|engineering/increments/|engineering/work-cycles/|engineering/work-packets/)'; then\n            echo \"EXEC-0010 baseline diff contains forbidden/governed implementation paths\" >&2\n            exit 1\n          fi\n          expected='crates/monad-core/src/config.rs|crates/monad-core/src/discovery.rs|crates/monad-core/src/identity.rs|crates/monad-core/src/lib.rs|crates/monad-core/src/workspace.rs|machine/'\n          unexpected=\"$(printf '%s\\n' \"$changed\" | grep -Ev \"^(${expected})\" || true)\"\n          if [ -n \"$unexpected\" ]; then\n            echo \"Unexpected EXEC-0010 implementation paths:\" >&2\n            printf '%s\\n' \"$unexpected\" >&2\n            exit 1\n          fi\n\n      - name: Commit clean reviewed result\n        run: |\n          git add crates/monad-core/src machine\n          git diff --cached --check -- crates/monad-core/src/\n          if ! git diff --cached --quiet; then\n            git commit -m \"fix(core): finalize reviewed structured config parser\"\n          fi\n          git push origin HEAD:recovery/wp-mvp-0005-clean-exec\n",
+  "document_id": "doc:.github%2Fworkflows%2Ftmp-wp-mvp-0005-clean-exec-rebuild.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/tmp-wp-mvp-0005-clean-exec-rebuild.yml.",
+    "title": "Tmp Wp Mvp 0005 Clean Exec Rebuild"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 77,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Temporary WP-MVP-0005 clean execution rebuild\n\non:\n  push:\n    branches:\n      - ops/wp-mvp-0005-clean-exec-rebuild\n\npermissions:\n  contents: write\n\njobs:\n  rebuild:\n    runs-on: ubuntu-24.04\n    timeout-minutes: 30\n    steps:\n      - name: Check out clean execution lineage\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: recovery/wp-mvp-0005-clean-exec\n          fetch-depth: 0\n\n      - name: Configure commit identity\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n\n      - name: Restore exact reviewed parser source\n        run: |\n          git fetch origin 561b24d1296ba26426dc1f817d22f280ba927f3d\n          git checkout 561b24d1296ba26426dc1f817d22f280ba927f3d -- crates/monad-core/src/config.rs\n\n      - name: Validate parser source\n        run: |\n          cargo fmt --all\n          cargo fmt --all -- --check\n          cargo test -p monad-core\n          cargo clippy -p monad-core --all-targets --all-features -- -D warnings -A clippy::large_enum_variant\n          git diff --check -- crates/monad-core/src/\n\n      - name: Regenerate deterministic projections\n        run: |\n          python3 tools/eos/trace_integrity.py --write\n          python3 scripts/sync-machine-docs.py --write\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n\n      - name: Enforce EXEC-0010 implementation boundary\n        shell: bash\n        run: |\n          set -Eeuo pipefail\n          BASE=12750d1ace8df46587be3d816ef8d4e09b31eda1\n          git add crates/monad-core/src machine\n          changed=\"$(git diff --name-only \"$BASE\" --; git diff --cached --name-only)\"\n          changed=\"$(printf '%s\\n' \"$changed\" | sed '/^$/d' | sort -u)\"\n          printf '%s\\n' \"$changed\"\n          if printf '%s\\n' \"$changed\" | grep -Eq '^\\.eos(/|$)|^(idea\\.md|vision/|product/|architecture/|specifications/|governance/|engineering/increments/|engineering/work-cycles/|engineering/work-packets/)'; then\n            echo \"EXEC-0010 baseline diff contains forbidden/governed implementation paths\" >&2\n            exit 1\n          fi\n          expected='crates/monad-core/src/config.rs|crates/monad-core/src/discovery.rs|crates/monad-core/src/identity.rs|crates/monad-core/src/lib.rs|crates/monad-core/src/workspace.rs|machine/'\n          unexpected=\"$(printf '%s\\n' \"$changed\" | grep -Ev \"^(${expected})\" || true)\"\n          if [ -n \"$unexpected\" ]; then\n            echo \"Unexpected EXEC-0010 implementation paths:\" >&2\n            printf '%s\\n' \"$unexpected\" >&2\n            exit 1\n          fi\n\n      - name: Commit clean reviewed result\n        run: |\n          git add crates/monad-core/src machine\n          git diff --cached --check -- crates/monad-core/src/\n          if ! git diff --cached --quiet; then\n            git commit -m \"fix(core): finalize reviewed structured config parser\"\n          fi\n          git push origin HEAD:recovery/wp-mvp-0005-clean-exec",
+      "title": "Tmp Wp Mvp 0005 Clean Exec Rebuild"
+    }
+  ],
+  "source": {
+    "bytes": 3188,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 77,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/tmp-wp-mvp-0005-clean-exec-rebuild.yml",
+    "sha256": "3ce494f248a1269fe44118a280873e900597cd23bf385e83f3e837639f8a6169"
+  }
+}
