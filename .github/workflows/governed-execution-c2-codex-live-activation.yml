@@ -26,13 +26,6 @@ jobs:
         run: cargo metadata --locked --no-deps > /dev/null
       - name: Check formatting
         run: cargo fmt --check
-      - name: Diagnose lock reconciliation
-        run: |
-          cp Cargo.lock /tmp/Cargo.lock.committed
-          rm Cargo.lock
-          cargo generate-lockfile
-          echo '--- regenerated Cargo.lock diff ---'
-          diff -u /tmp/Cargo.lock.committed Cargo.lock || true
       - name: Test live activation binding
         run: cargo test --locked -p monad-codex-live-activation
       - name: Regress confinement certification
