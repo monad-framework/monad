@@ -105,6 +105,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "monad-codex-confinement"
+version = "0.1.0"
+dependencies = [
+ "monad-codex-runtime",
+ "serde",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
 name = "monad-codex-runtime"
 version = "0.1.0"
 dependencies = [
