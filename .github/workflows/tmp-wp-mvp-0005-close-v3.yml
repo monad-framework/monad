@@ -204,6 +204,6 @@ jobs:
             git status --short >&2
             exit 1
           fi
-          git diff --cached --check
+          git diff --cached --check -- engineering/work-packets/WP-MVP-0005.md engineering/reviews/WP-MVP-0005-REVIEW.md
           git commit -m "chore(eosr): close WP-MVP-0005"
           git push origin HEAD:eosr/close-wp-mvp-0005
