@@ -16,6 +16,17 @@ import uuid
 from pathlib import Path
 from typing import Iterable
 
+TOOLS_EOS_DIR = Path(__file__).resolve().parent
+if str(TOOLS_EOS_DIR) not in sys.path:
+    sys.path.insert(0, str(TOOLS_EOS_DIR))
+
+from event_ledger import (
+    EventLedgerError,
+    is_git_repository,
+    validate_committed_history,
+    validate_working_history,
+)
+
 UTC = dt.timezone.utc
 SCHEMA_VERSION = "1.0.0"
 STATE_MODEL_ID = "EOS-SINGLE-CANONICAL-STATE-1"
@@ -87,6 +98,29 @@ EVENTS_PATH = EOS / "events.jsonl"
 
 TRANSACTION_BACKUP_ROOT = EOS / "cache" / "canonical-state-transactions"
 LAST_ROLLBACK_PATH = EOS / "cache" / "canonical-state-last-rollback.json"
+
+
+def event_history_failures() -> list[str]:
+    if not is_git_repository(ROOT):
+        return []
+    failures: list[str] = []
+    try:
+        validate_committed_history(ROOT)
+    except EventLedgerError as exc:
+        failures.append(f"committed event history invalid: {exc}")
+    try:
+        validate_working_history(ROOT)
+    except EventLedgerError as exc:
+        failures.append(f"working event history invalid: {exc}")
+    return failures
+
+
+def assert_event_history_integrity() -> None:
+    failures = event_history_failures()
+    if failures:
+        raise StateError(
+            "EOS event-history integrity failed:\n- " + "\n- ".join(failures)
+        )
 
 def now_iso() -> str:
     return dt.datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
@@ -885,6 +919,7 @@ def cmd_pre(args: argparse.Namespace) -> int:
         return 0
     is_github_sync = bool(command and command[0] == "github-sync")
     assert_clean(state, include_github_local=not is_github_sync)
+    assert_event_history_integrity()
     if is_github_sync and "--apply" in command:
         verify_github_receipts(state)
     save_transaction(command, state)
@@ -895,6 +930,7 @@ def cmd_post(args: argparse.Namespace) -> int:
     if command and command[0] == "--":
         command = command[1:]
 
+    assert_event_history_integrity()
     changed = capture_successful_transaction(command)
     state = load_state()
 
@@ -964,6 +1000,7 @@ def project_from_canonical(state: dict, *, apply: bool) -> list[str]:
 def cmd_status(args: argparse.Namespace) -> int:
     state = load_state()
     failures = projection_drift(state, include_github_local=True)
+    failures.extend(event_history_failures())
     if TRANSACTION_PATH.exists():
         failures.append(
             "interrupted canonical-state transaction receipt is present; explicit reconciliation required"
