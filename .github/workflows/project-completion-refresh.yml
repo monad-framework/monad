@@ -1,23 +1,22 @@
 name: Project completion projection refresh
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - chore/github-project-completion-automation
 
 permissions:
   contents: write
 
 jobs:
   refresh:
-    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'chore/github-project-completion-automation'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Check out completion branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: chore/github-project-completion-automation
           fetch-depth: 0
 
       - name: Remove one-shot workflow before projection
