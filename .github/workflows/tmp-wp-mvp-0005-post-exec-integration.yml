@@ -1,0 +1,110 @@
+name: Temporary WP-MVP-0005 post-exec integration
+
+on:
+  push:
+    branches:
+      - ops/wp-mvp-0005-post-exec-integration
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      EOS_ACTOR: eos-evidence-refresh
+    steps:
+      - name: Check out verified product branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: wp/mvp-0005
+          fetch-depth: 0
+
+      - name: Configure commit identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Merge exact current canonical main
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "913517ced543d6a244e4d15a1ec5ec197eae6053"
+          set +e
+          git merge --no-commit --no-ff origin/main
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then
+            conflicts="$(git diff --name-only --diff-filter=U)"
+            test -n "$conflicts"
+            while IFS= read -r path; do
+              case "$path" in
+                machine/*)
+                  git checkout --theirs -- "$path"
+                  git add -- "$path"
+                  ;;
+                *)
+                  echo "Unexpected non-derived merge conflict: $path" >&2
+                  exit 1
+                  ;;
+              esac
+            done <<< "$conflicts"
+          fi
+          test -z "$(git diff --name-only --diff-filter=U)"
+
+      - name: Validate combined product tree
+        run: |
+          cargo fmt --all
+          cargo fmt --all -- --check
+          cargo test -p monad-core
+          cargo clippy -p monad-core --all-targets --all-features -- -D warnings -A clippy::large_enum_variant
+          git diff --check -- crates/monad-core/src/
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+          python3 scripts/generate-mvp-work-packets.py --check
+          python3 scripts/populate-artifact-system.py --check
+          ./scripts/eos state status
+
+      - name: Commit post-execution integration merge
+        run: |
+          git add -A
+          git diff --cached --check -- crates/monad-core/src/
+          git commit -m "chore(core): integrate verified WP-MVP-0005 with current main"
+
+      - name: Recertify affected predecessor Work Packets
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          for target in WP-MVP-0001 WP-MVP-0002 WP-MVP-0003 WP-MVP-0004; do
+            ./scripts/eos validate "$target" --profile wp
+          done
+
+      - name: Regenerate and strictly verify recertified state
+        run: |
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+          python3 scripts/generate-mvp-work-packets.py --check
+          python3 scripts/populate-artifact-system.py --check
+          ./scripts/eos state status
+          ./scripts/eos verify --strict
+
+      - name: Commit recertification and publish product branch
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git add .eos engineering/evidence machine
+          if ! git diff --quiet; then
+            echo "Unexpected unstaged changes outside governed evidence/projection paths:" >&2
+            git status --short >&2
+            exit 1
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(eos): recertify predecessors after WP-MVP-0005 integration"
+          fi
+          git push origin HEAD:wp/mvp-0005
