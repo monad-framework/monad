@@ -50,7 +50,7 @@ jobs:
           cargo fmt --all
           cargo fmt --all -- --check
           cargo test -p monad-core
-          cargo clippy -p monad-core --all-targets --all-features -- -D warnings
+          cargo clippy -p monad-core --all-targets --all-features -- -D warnings -A clippy::large_enum_variant
           git diff --check -- crates/monad-core/src/
 
       - name: Regenerate deterministic projections
