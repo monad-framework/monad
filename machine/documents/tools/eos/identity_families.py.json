@@ -1,0 +1,46 @@
+{
+  "content": "#!/usr/bin/env python3\nfrom __future__ import annotations\n\nimport re\n\nREQUIREMENT_FAMILIES = (\"REQ\", \"FR\", \"QR\")\n\nSPECIFICATION_FAMILIES = (\n    \"SPEC\",\n    \"FUN\",\n    \"IFC\",\n    \"SEC\",\n    \"TECH\",\n    \"DATA\",\n    \"MKE\",\n)\n\n# Product requirement families have established fixed numeric identities.\n#\n# Examples:\n#   FR-043\n#   QR-010\n#\n# Generic REQ identities retain compatibility with both:\n#   REQ-0042\n#   REQ-FOO-0001\n#   REQ-AI-ENG-0001\n#\n# The final segment is therefore always the stable numeric identity rather\n# than arbitrary trailing identifier text.\nREQUIREMENT_ID_PATTERN = (\n    r\"(?:\"\n    r\"(?:FR|QR)-\\d{3}\"\n    r\"|\"\n    r\"REQ-(?:[A-Z0-9]+-)*\\d{4}\"\n    r\")\"\n)\n\n# Specification identities follow:\n#\n#   <CLASS>-<AREA...>-NNNN\n#\n# Examples:\n#   FUN-AIENG-0001\n#   IFC-AIENG-0001\n#   SEC-AIENG-0001\n#   TECH-HARNESS-0001\n#   DATA-SOURCE-0001\n#   MKE-CORE-0001\n#   SPEC-CORE-0001\n#\n# Requiring the terminal NNNN segment is important: identifiers such as\n# FUN-AIENG-V01 are verification-scenario identifiers, not specifications.\nSPECIFICATION_ID_PATTERN = (\n    r\"(?:SPEC|FUN|IFC|SEC|TECH|DATA|MKE)-\"\n    r\"(?:[A-Z0-9]+-)*\"\n    r\"\\d{4}\"\n)\n\nREQUIREMENT_ID_RE = re.compile(\n    rf\"^{REQUIREMENT_ID_PATTERN}$\"\n)\n\nSPECIFICATION_ID_RE = re.compile(\n    rf\"^{SPECIFICATION_ID_PATTERN}$\"\n)\n\n\ndef is_requirement_id(value: str) -> bool:\n    return REQUIREMENT_ID_RE.fullmatch(value) is not None\n\n\ndef is_specification_id(value: str) -> bool:\n    return SPECIFICATION_ID_RE.fullmatch(value) is not None\n\n\ndef is_requirement_or_specification_id(value: str) -> bool:\n    return is_requirement_id(value) or is_specification_id(value)\n",
+  "document_id": "doc:tools%2Feos%2Fidentity_families.py",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "FR-043",
+    "QR-010"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "tooling",
+    "normative": false,
+    "summary": "Canonical python source for tools/eos/identity_families.py.",
+    "title": "Identity Families"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "FR-043",
+        "QR-010"
+      ],
+      "level": 1,
+      "line_end": 78,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "#!/usr/bin/env python3\nfrom __future__ import annotations\n\nimport re\n\nREQUIREMENT_FAMILIES = (\"REQ\", \"FR\", \"QR\")\n\nSPECIFICATION_FAMILIES = (\n    \"SPEC\",\n    \"FUN\",\n    \"IFC\",\n    \"SEC\",\n    \"TECH\",\n    \"DATA\",\n    \"MKE\",\n)\n\n# Product requirement families have established fixed numeric identities.\n#\n# Examples:\n#   FR-043\n#   QR-010\n#\n# Generic REQ identities retain compatibility with both:\n#   REQ-0042\n#   REQ-FOO-0001\n#   REQ-AI-ENG-0001\n#\n# The final segment is therefore always the stable numeric identity rather\n# than arbitrary trailing identifier text.\nREQUIREMENT_ID_PATTERN = (\n    r\"(?:\"\n    r\"(?:FR|QR)-\\d{3}\"\n    r\"|\"\n    r\"REQ-(?:[A-Z0-9]+-)*\\d{4}\"\n    r\")\"\n)\n\n# Specification identities follow:\n#\n#   <CLASS>-<AREA...>-NNNN\n#\n# Examples:\n#   FUN-AIENG-0001\n#   IFC-AIENG-0001\n#   SEC-AIENG-0001\n#   TECH-HARNESS-0001\n#   DATA-SOURCE-0001\n#   MKE-CORE-0001\n#   SPEC-CORE-0001\n#\n# Requiring the terminal NNNN segment is important: identifiers such as\n# FUN-AIENG-V01 are verification-scenario identifiers, not specifications.\nSPECIFICATION_ID_PATTERN = (\n    r\"(?:SPEC|FUN|IFC|SEC|TECH|DATA|MKE)-\"\n    r\"(?:[A-Z0-9]+-)*\"\n    r\"\\d{4}\"\n)\n\nREQUIREMENT_ID_RE = re.compile(\n    rf\"^{REQUIREMENT_ID_PATTERN}$\"\n)\n\nSPECIFICATION_ID_RE = re.compile(\n    rf\"^{SPECIFICATION_ID_PATTERN}$\"\n)\n\n\ndef is_requirement_id(value: str) -> bool:\n    return REQUIREMENT_ID_RE.fullmatch(value) is not None\n\n\ndef is_specification_id(value: str) -> bool:\n    return SPECIFICATION_ID_RE.fullmatch(value) is not None\n\n\ndef is_requirement_or_specification_id(value: str) -> bool:\n    return is_requirement_id(value) or is_specification_id(value)",
+      "title": "Identity Families"
+    }
+  ],
+  "source": {
+    "bytes": 1633,
+    "canonical": true,
+    "language": "python",
+    "lines": 78,
+    "media_type": "text/x-python",
+    "path": "tools/eos/identity_families.py",
+    "sha256": "1bc4be8312b4960c84c96d7dfcbe9f63b0f09d24b1886f4e0637323bd94b5145"
+  }
+}

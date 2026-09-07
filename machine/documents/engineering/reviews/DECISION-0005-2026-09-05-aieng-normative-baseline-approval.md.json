@@ -1,0 +1,166 @@
+{
+  "content": "# DECISION-0005-2026-09-05 — AIENG Normative Specification Baseline Approval\n\n**Record type:** Governance authority decision\n**Date:** 2026-09-05\n**Subject:** AI-Driven Engineering Normative Specification Baseline\n**Authority:** Human Project Steward / Architecture Owner\n**Disposition:** **APPROVED**\n**Related:** CR-0003, ADR-0006, ADR-0008, EOS-AI-0001, SPEC-BASE-0001, FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001, AIENG-TRC-001\n\n## Decision\n\nThe AI-Driven Engineering normative specification baseline is **Approved**.\n\nThe explicit human authority statement was:\n\n> I approve the AIENG normative specification baseline.\n\nThe approved baseline consists of:\n\n* `SPEC-BASE-0001 — Specification Baseline`;\n* `FUN-AIENG-0001 — Adaptive Engineering Workflow`;\n* `IFC-AIENG-0001 — Engineering Agent Contract`;\n* `SEC-AIENG-0001 — Autonomy, Authority, and Approval Gates`.\n\n## Effect\n\nThis decision establishes the initial AIENG specifications as the approved normative contracts derived from:\n\n* accepted `ADR-0008`;\n* accepted `EOS-AI-0001`;\n* the AI-driven engineering requirement refinements in `product/product-requirements.md`;\n* the change authority granted by `CR-0003`.\n\nThe approved baseline establishes the following division of responsibility.\n\n### FUN-AIENG-0001\n\nNormatively owns:\n\n* adaptive engineering pathway derivation;\n* rigor adaptation;\n* material ambiguity handling;\n* clarification;\n* decision routing;\n* dependency-aware progression;\n* replanning;\n* evidence feedback;\n* governing-input drift behavior.\n\n### IFC-AIENG-0001\n\nNormatively owns:\n\n* provider-neutral engineering-participant interaction;\n* governed context exchange;\n* pathway proposals;\n* clarification and decision proposals;\n* candidate artifact proposals;\n* lifecycle requests;\n* execution requests;\n* evidence interpretation;\n* review participation;\n* replanning interaction.\n\n### SEC-AIENG-0001\n\nNormatively owns:\n\n* capability versus authority;\n* autonomy profiles;\n* delegation;\n* approval;\n* least privilege;\n* revocation;\n* fail-closed authorization;\n* prompt and instruction trust boundaries;\n* sensitive effects;\n* separation of duties;\n* independent review;\n* progressive trust.\n\n## Conformance effect\n\nThe baseline provides normative ownership for all ten required AIENG conformance scenarios:\n\n1. low-risk reversible change;\n2. ambiguous product intent;\n3. architecture change discovered during execution;\n4. bounded autonomous Work Packet;\n5. security-sensitive work;\n6. independent review;\n7. governing-input drift;\n8. provider failure;\n9. human denial;\n10. evidence invalidating a planning assumption.\n\nThis approval establishes normative ownership only.\n\nExecutable conformance assets and resulting verification evidence remain future governed work.\n\n## Existing execution-governance relationship\n\nThis approval does not replace or duplicate the existing governed-execution requirement tranche.\n\nThe relationship remains:\n\n```text\nAI-driven engineering intent\n        ↓\nFUN-AIENG-0001\nadaptive pathway\n        ↓\nIFC-AIENG-0001\nparticipant interaction\n        ↓\nSEC-AIENG-0001\nauthority / autonomy / approval constraints\n        ↓\nEOS readiness and authorization\n        ↓\nFR-037 .. FR-042\ngoverned execution semantics\n        ↓\nverification / review / change control\n```\n\n## AIENG-TRC-001\n\nApproval explicitly preserves the open traceability finding:\n\n**AIENG-TRC-001 — Requirement/specification identifier namespace mismatch**\n\nThe human-authored corpus uses:\n\n```text\nFR-*\nQR-*\n\nFUN-*\nIFC-*\nSEC-*\nTECH-*\n```\n\nwhile the EOS canonical domain model currently defines canonical Requirement and Specification entity identities as:\n\n```text\nREQ-*\nSPEC-*\n```\n\nThe baseline approval does not choose a resolution and does not waive the mismatch.\n\nThe eventual resolution MUST:\n\n* preserve established artifact identity and history;\n* avoid silent renumbering;\n* preserve deterministic traceability;\n* preserve existing semantic classifications;\n* establish an explicit relationship between human-authored identifiers and canonical EOS requirement/specification entities.\n\n`AIENG-TRC-001` MUST be resolved or formally dispositioned before AIENG runtime implementation planning is authorized.\n\n## Non-effect\n\nThis approval does **not**:\n\n* authorize runtime implementation;\n* authorize an implementation Work Cycle;\n* authorize an implementation Work Packet;\n* broaden an existing MVP Work Packet;\n* accept ADR-0007;\n* create a ninth EOS lifecycle layer;\n* create a second canonical state authority;\n* create AI-specific lifecycle, decision, approval, evidence, or authority systems;\n* waive `AIENG-TRC-001`;\n* resolve MNT-0003;\n* close CR-0003;\n* establish complete machine-level REQ-to-SPEC traceability;\n* make draft executable conformance tests authoritative evidence.\n\n## Remaining pre-implementation obligations\n\nBefore AIENG runtime implementation planning may be authorized, the program must:\n\n1. resolve or formally disposition `AIENG-TRC-001`;\n2. establish the required executable conformance assets;\n3. rebuild and inspect EOS traceability from canonical sources;\n4. run the stable normative checkpoint verification;\n5. resolve or refresh stale verification evidence as required;\n6. perform a normative-baseline closure review;\n7. enter EOSP implementation planning only after those gates are satisfied.\n\n## Evidence\n\n* `architecture/decisions/ADR-0008-ai-driven-engineering-as-default-eos-operating-model.md`\n* `engineering/lifecycle/EOS-AI-0001-ai-driven-engineering-operating-model.md`\n* `product/product-requirements.md`\n* `specifications/baseline.md`\n* `specifications/functional/FUN-AIENG-0001-adaptive-engineering-workflow.md`\n* `specifications/interfaces/IFC-AIENG-0001-engineering-agent-contract.md`\n* `specifications/security/SEC-AIENG-0001-autonomy-authority-and-approval-gates.md`\n* `engineering/reviews/AIENG-NORMATIVE-TRACEABILITY-AND-CONFORMANCE-REVIEW.md`\n* explicit human approval in the governing interaction on 2026-09-05.\n\n## Decision status\n\n**APPROVED — effective 2026-09-05.**\n",
+  "document_id": "doc:engineering%2Freviews%2FDECISION-0005-2026-09-05-aieng-normative-baseline-approval.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006",
+    "ADR-0007",
+    "ADR-0008",
+    "FR-037",
+    "FR-042"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Record type: Governance authority decision Date: 2026-09-05 Subject: AI-Driven Engineering Normative Specification Baseline Authority: Human Project Steward / Architecture Owner Disposition: APPROVED Related: CR-0003, ADR-0006, ADR-0008, EOS-AI-0001, SPEC-BASE-0001, FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001, AIENG-TRC-001",
+    "title": "DECISION-0005-2026-09-05 — AIENG Normative Specification Baseline Approval"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0006",
+        "ADR-0008"
+      ],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "decision-0005-2026-09-05-aieng-normative-specification-baseline-approval",
+      "text": "# DECISION-0005-2026-09-05 — AIENG Normative Specification Baseline Approval\n\n**Record type:** Governance authority decision\n**Date:** 2026-09-05\n**Subject:** AI-Driven Engineering Normative Specification Baseline\n**Authority:** Human Project Steward / Architecture Owner\n**Disposition:** **APPROVED**\n**Related:** CR-0003, ADR-0006, ADR-0008, EOS-AI-0001, SPEC-BASE-0001, FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001, AIENG-TRC-001",
+      "title": "DECISION-0005-2026-09-05 — AIENG Normative Specification Baseline Approval"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 24,
+      "line_start": 10,
+      "section_id": "decision",
+      "text": "## Decision\n\nThe AI-Driven Engineering normative specification baseline is **Approved**.\n\nThe explicit human authority statement was:\n\n> I approve the AIENG normative specification baseline.\n\nThe approved baseline consists of:\n\n* `SPEC-BASE-0001 — Specification Baseline`;\n* `FUN-AIENG-0001 — Adaptive Engineering Workflow`;\n* `IFC-AIENG-0001 — Engineering Agent Contract`;\n* `SEC-AIENG-0001 — Autonomy, Authority, and Approval Gates`.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [
+        "ADR-0008"
+      ],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 25,
+      "section_id": "effect",
+      "text": "## Effect\n\nThis decision establishes the initial AIENG specifications as the approved normative contracts derived from:\n\n* accepted `ADR-0008`;\n* accepted `EOS-AI-0001`;\n* the AI-driven engineering requirement refinements in `product/product-requirements.md`;\n* the change authority granted by `CR-0003`.\n\nThe approved baseline establishes the following division of responsibility.",
+      "title": "Effect"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 49,
+      "line_start": 36,
+      "section_id": "fun-aieng-0001",
+      "text": "### FUN-AIENG-0001\n\nNormatively owns:\n\n* adaptive engineering pathway derivation;\n* rigor adaptation;\n* material ambiguity handling;\n* clarification;\n* decision routing;\n* dependency-aware progression;\n* replanning;\n* evidence feedback;\n* governing-input drift behavior.",
+      "title": "FUN-AIENG-0001"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 64,
+      "line_start": 50,
+      "section_id": "ifc-aieng-0001",
+      "text": "### IFC-AIENG-0001\n\nNormatively owns:\n\n* provider-neutral engineering-participant interaction;\n* governed context exchange;\n* pathway proposals;\n* clarification and decision proposals;\n* candidate artifact proposals;\n* lifecycle requests;\n* execution requests;\n* evidence interpretation;\n* review participation;\n* replanning interaction.",
+      "title": "IFC-AIENG-0001"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 81,
+      "line_start": 65,
+      "section_id": "sec-aieng-0001",
+      "text": "### SEC-AIENG-0001\n\nNormatively owns:\n\n* capability versus authority;\n* autonomy profiles;\n* delegation;\n* approval;\n* least privilege;\n* revocation;\n* fail-closed authorization;\n* prompt and instruction trust boundaries;\n* sensitive effects;\n* separation of duties;\n* independent review;\n* progressive trust.",
+      "title": "SEC-AIENG-0001"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 100,
+      "line_start": 82,
+      "section_id": "conformance-effect",
+      "text": "## Conformance effect\n\nThe baseline provides normative ownership for all ten required AIENG conformance scenarios:\n\n1. low-risk reversible change;\n2. ambiguous product intent;\n3. architecture change discovered during execution;\n4. bounded autonomous Work Packet;\n5. security-sensitive work;\n6. independent review;\n7. governing-input drift;\n8. provider failure;\n9. human denial;\n10. evidence invalidating a planning assumption.\n\nThis approval establishes normative ownership only.\n\nExecutable conformance assets and resulting verification evidence remain future governed work.",
+      "title": "Conformance effect"
+    },
+    {
+      "identifiers": [
+        "FR-037",
+        "FR-042"
+      ],
+      "level": 2,
+      "line_end": 126,
+      "line_start": 101,
+      "section_id": "existing-execution-governance-relationship",
+      "text": "## Existing execution-governance relationship\n\nThis approval does not replace or duplicate the existing governed-execution requirement tranche.\n\nThe relationship remains:\n\n```text\nAI-driven engineering intent\n        ↓\nFUN-AIENG-0001\nadaptive pathway\n        ↓\nIFC-AIENG-0001\nparticipant interaction\n        ↓\nSEC-AIENG-0001\nauthority / autonomy / approval constraints\n        ↓\nEOS readiness and authorization\n        ↓\nFR-037 .. FR-042\ngoverned execution semantics\n        ↓\nverification / review / change control\n```",
+      "title": "Existing execution-governance relationship"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 163,
+      "line_start": 127,
+      "section_id": "aieng-trc-001",
+      "text": "## AIENG-TRC-001\n\nApproval explicitly preserves the open traceability finding:\n\n**AIENG-TRC-001 — Requirement/specification identifier namespace mismatch**\n\nThe human-authored corpus uses:\n\n```text\nFR-*\nQR-*\n\nFUN-*\nIFC-*\nSEC-*\nTECH-*\n```\n\nwhile the EOS canonical domain model currently defines canonical Requirement and Specification entity identities as:\n\n```text\nREQ-*\nSPEC-*\n```\n\nThe baseline approval does not choose a resolution and does not waive the mismatch.\n\nThe eventual resolution MUST:\n\n* preserve established artifact identity and history;\n* avoid silent renumbering;\n* preserve deterministic traceability;\n* preserve existing semantic classifications;\n* establish an explicit relationship between human-authored identifiers and canonical EOS requirement/specification entities.\n\n`AIENG-TRC-001` MUST be resolved or formally dispositioned before AIENG runtime implementation planning is authorized.",
+      "title": "AIENG-TRC-001"
+    },
+    {
+      "identifiers": [
+        "ADR-0007"
+      ],
+      "level": 2,
+      "line_end": 181,
+      "line_start": 164,
+      "section_id": "non-effect",
+      "text": "## Non-effect\n\nThis approval does **not**:\n\n* authorize runtime implementation;\n* authorize an implementation Work Cycle;\n* authorize an implementation Work Packet;\n* broaden an existing MVP Work Packet;\n* accept ADR-0007;\n* create a ninth EOS lifecycle layer;\n* create a second canonical state authority;\n* create AI-specific lifecycle, decision, approval, evidence, or authority systems;\n* waive `AIENG-TRC-001`;\n* resolve MNT-0003;\n* close CR-0003;\n* establish complete machine-level REQ-to-SPEC traceability;\n* make draft executable conformance tests authoritative evidence.",
+      "title": "Non-effect"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 193,
+      "line_start": 182,
+      "section_id": "remaining-pre-implementation-obligations",
+      "text": "## Remaining pre-implementation obligations\n\nBefore AIENG runtime implementation planning may be authorized, the program must:\n\n1. resolve or formally disposition `AIENG-TRC-001`;\n2. establish the required executable conformance assets;\n3. rebuild and inspect EOS traceability from canonical sources;\n4. run the stable normative checkpoint verification;\n5. resolve or refresh stale verification evidence as required;\n6. perform a normative-baseline closure review;\n7. enter EOSP implementation planning only after those gates are satisfied.",
+      "title": "Remaining pre-implementation obligations"
+    },
+    {
+      "identifiers": [
+        "ADR-0008"
+      ],
+      "level": 2,
+      "line_end": 205,
+      "line_start": 194,
+      "section_id": "evidence",
+      "text": "## Evidence\n\n* `architecture/decisions/ADR-0008-ai-driven-engineering-as-default-eos-operating-model.md`\n* `engineering/lifecycle/EOS-AI-0001-ai-driven-engineering-operating-model.md`\n* `product/product-requirements.md`\n* `specifications/baseline.md`\n* `specifications/functional/FUN-AIENG-0001-adaptive-engineering-workflow.md`\n* `specifications/interfaces/IFC-AIENG-0001-engineering-agent-contract.md`\n* `specifications/security/SEC-AIENG-0001-autonomy-authority-and-approval-gates.md`\n* `engineering/reviews/AIENG-NORMATIVE-TRACEABILITY-AND-CONFORMANCE-REVIEW.md`\n* explicit human approval in the governing interaction on 2026-09-05.",
+      "title": "Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 208,
+      "line_start": 206,
+      "section_id": "decision-status",
+      "text": "## Decision status\n\n**APPROVED — effective 2026-09-05.**",
+      "title": "Decision status"
+    }
+  ],
+  "source": {
+    "bytes": 6032,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 208,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md",
+    "sha256": "8c22d70e82f50787aa84ffdf38f9ec78aa5c14878d4919bf5276f2bcfcccf559"
+  }
+}

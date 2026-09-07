@@ -1,0 +1,94 @@
+{
+  "content": "# DECISION-0010-2026-09-07 — MNT-0003 Closure Approval\n\n**Record type:** Governance authority decision\n**Date:** 2026-09-07\n**Subject:** MNT-0003 closure authorization\n**Authority:** Human Project Steward / Architecture Owner\n**Disposition:** **APPROVED**\n**Related:** MNT-0003, MNT-0003-VERIFICATION, REV-MNT-0003, DECISION-0009, MNT-0006\n\n## Decision\n\nClosure of:\n\n`MNT-0003 — EOS event ledger is not merge-safe across divergent append histories`\n\nis **APPROVED**.\n\nThe explicit human authority statement was:\n\n> I approve MNT-0003 closure.\n\n## Basis\n\nThe approval follows:\n\n- implementation of repository-native loss-resistant event-ledger merge behavior;\n- deterministic inherited-event and event-identity validation;\n- fail-closed handling of conflicting immutable event payloads;\n- fail-closed handling of same-entity divergent lifecycle histories;\n- successful preservation of independent divergent histories;\n- canonical-state and evidence-consensus reconciliation integration;\n- EOSV event-history integrity integration;\n- real Git-history scenario validation reproducing the historical-loss failure class;\n- successful canonical-state, reconciliation, wrapper-dispatch, and identifier-family regression suites;\n- deterministic trace-projection convergence;\n- `PASS — RECOMMEND MNT-0003 CLOSURE` from the dedicated verification review;\n- acceptance of the formal MNT-0003 engineering closure review.\n\n## Accepted Governing Invariant\n\n> A merge, synchronization, or reconciliation operation MUST NOT silently remove a previously recorded valid EOS event.\n\nFor a resulting history `R` and immediate parent histories `P1...Pn`:\n\n```text\nevents(P1) ∪ ... ∪ events(Pn) ⊆ events(R)\n```\n\nInherited event identity and immutable event content remain preserved. A result that cannot satisfy the invariant must fail closed.\n\n## Accepted Scope\n\nThe accepted result establishes that:\n\n- `.eos/events.jsonl` remains append-only mutation history rather than canonical current state;\n- `.eos/state/current.json` remains the sole canonical current operational state;\n- Git `merge=union` provides first-line preservation for ordinary divergent append histories;\n- EOS semantic validation remains authoritative for event-history integrity;\n- contradictory same-entity lifecycle histories remain blocked pending explicit governed reconciliation;\n- independent divergent histories may coexist when semantically compatible;\n- MNT-0006 transaction-local atomicity remains a separate invariant.\n\n## Scope Boundary\n\nThis approval does not authorize:\n\n- replacement of Git;\n- replacement of the event ledger with a database;\n- distributed consensus or distributed transaction semantics;\n- external-side-effect atomicity;\n- automatic authority-bearing resolution of contradictory lifecycle histories;\n- event deletion as conflict resolution;\n- unrelated EOS redesign.\n\n## Authority Consequence\n\nEOS may transition:\n\n```text\nMNT-0003\nVERIFYING\n    ↓\nCLOSED\n```\n\nthrough the ordinary `MNT_CLOSE` gate.\n\nNo override is authorized or required.\n\nThis decision grants closure authority only. It does not expand implementation authority beyond DECISION-0009 or alter any independent governance boundary.\n",
+  "document_id": "doc:engineering%2Freviews%2FDECISION-0010-2026-09-07-mnt-0003-closure-approval.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Record type: Governance authority decision Date: 2026-09-07 Subject: MNT-0003 closure authorization Authority: Human Project Steward / Architecture Owner Disposition: APPROVED Related: MNT-0003, MNT-0003-VERIFICATION, REV-MNT-0003, DECISION-0009, MNT-0006",
+    "title": "DECISION-0010-2026-09-07 — MNT-0003 Closure Approval"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "decision-0010-2026-09-07-mnt-0003-closure-approval",
+      "text": "# DECISION-0010-2026-09-07 — MNT-0003 Closure Approval\n\n**Record type:** Governance authority decision\n**Date:** 2026-09-07\n**Subject:** MNT-0003 closure authorization\n**Authority:** Human Project Steward / Architecture Owner\n**Disposition:** **APPROVED**\n**Related:** MNT-0003, MNT-0003-VERIFICATION, REV-MNT-0003, DECISION-0009, MNT-0006",
+      "title": "DECISION-0010-2026-09-07 — MNT-0003 Closure Approval"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 10,
+      "section_id": "decision",
+      "text": "## Decision\n\nClosure of:\n\n`MNT-0003 — EOS event ledger is not merge-safe across divergent append histories`\n\nis **APPROVED**.\n\nThe explicit human authority statement was:\n\n> I approve MNT-0003 closure.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 22,
+      "section_id": "basis",
+      "text": "## Basis\n\nThe approval follows:\n\n- implementation of repository-native loss-resistant event-ledger merge behavior;\n- deterministic inherited-event and event-identity validation;\n- fail-closed handling of conflicting immutable event payloads;\n- fail-closed handling of same-entity divergent lifecycle histories;\n- successful preservation of independent divergent histories;\n- canonical-state and evidence-consensus reconciliation integration;\n- EOSV event-history integrity integration;\n- real Git-history scenario validation reproducing the historical-loss failure class;\n- successful canonical-state, reconciliation, wrapper-dispatch, and identifier-family regression suites;\n- deterministic trace-projection convergence;\n- `PASS — RECOMMEND MNT-0003 CLOSURE` from the dedicated verification review;\n- acceptance of the formal MNT-0003 engineering closure review.",
+      "title": "Basis"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 50,
+      "line_start": 39,
+      "section_id": "accepted-governing-invariant",
+      "text": "## Accepted Governing Invariant\n\n> A merge, synchronization, or reconciliation operation MUST NOT silently remove a previously recorded valid EOS event.\n\nFor a resulting history `R` and immediate parent histories `P1...Pn`:\n\n```text\nevents(P1) ∪ ... ∪ events(Pn) ⊆ events(R)\n```\n\nInherited event identity and immutable event content remain preserved. A result that cannot satisfy the invariant must fail closed.",
+      "title": "Accepted Governing Invariant"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 62,
+      "line_start": 51,
+      "section_id": "accepted-scope",
+      "text": "## Accepted Scope\n\nThe accepted result establishes that:\n\n- `.eos/events.jsonl` remains append-only mutation history rather than canonical current state;\n- `.eos/state/current.json` remains the sole canonical current operational state;\n- Git `merge=union` provides first-line preservation for ordinary divergent append histories;\n- EOS semantic validation remains authoritative for event-history integrity;\n- contradictory same-entity lifecycle histories remain blocked pending explicit governed reconciliation;\n- independent divergent histories may coexist when semantically compatible;\n- MNT-0006 transaction-local atomicity remains a separate invariant.",
+      "title": "Accepted Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 74,
+      "line_start": 63,
+      "section_id": "scope-boundary",
+      "text": "## Scope Boundary\n\nThis approval does not authorize:\n\n- replacement of Git;\n- replacement of the event ledger with a database;\n- distributed consensus or distributed transaction semantics;\n- external-side-effect atomicity;\n- automatic authority-bearing resolution of contradictory lifecycle histories;\n- event deletion as conflict resolution;\n- unrelated EOS redesign.",
+      "title": "Scope Boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 90,
+      "line_start": 75,
+      "section_id": "authority-consequence",
+      "text": "## Authority Consequence\n\nEOS may transition:\n\n```text\nMNT-0003\nVERIFYING\n    ↓\nCLOSED\n```\n\nthrough the ordinary `MNT_CLOSE` gate.\n\nNo override is authorized or required.\n\nThis decision grants closure authority only. It does not expand implementation authority beyond DECISION-0009 or alter any independent governance boundary.",
+      "title": "Authority Consequence"
+    }
+  ],
+  "source": {
+    "bytes": 3193,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 90,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/DECISION-0010-2026-09-07-mnt-0003-closure-approval.md",
+    "sha256": "7ddfc763391ac5b56e9b9282fc9d4304ed56094ea8327d2b2c2120dbeb477940"
+  }
+}

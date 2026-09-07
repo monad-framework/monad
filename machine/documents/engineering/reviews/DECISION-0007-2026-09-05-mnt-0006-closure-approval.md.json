@@ -1,0 +1,94 @@
+{
+  "content": "# DECISION-0007-2026-09-05 — MNT-0006 Closure Approval\n\n**Record type:** Governance authority decision\n**Date:** 2026-09-05\n**Subject:** MNT-0006 closure authorization\n**Authority:** Human Project Steward / Architecture Owner\n**Disposition:** **APPROVED**\n**Related:** DECISION-0006, MNT-0006, MNT-0003, MNT-0005, MNT-0006-VERIFICATION, REV-MNT-0006\n\n## Decision\n\nClosure of:\n\n`MNT-0006 — EOS canonical transaction failure leaves rejected projection and event mutations`\n\nis **APPROVED**.\n\nThe explicit human authority statement was:\n\n> I approve MNT-0006 closure.\n\n## Basis\n\nThe approval follows:\n\n- implementation of local canonical-transaction atomicity;\n- automated canonical-state transaction testing;\n- wrapper failure and rollback testing;\n- canonical reconciliation testing;\n- independent isolated post-validation-failure verification;\n- independent isolated runtime-failure-after-mutation verification;\n- successful preservation of pre-existing dirty governance bytes;\n- successful verification of rollback-failure fail-closed behavior;\n- `PASS — RECOMMEND MNT-0006 CLOSURE` from the dedicated verification review;\n- preparation of the formal MNT-0006 engineering closure review.\n\n## Accepted Scope\n\nThe accepted result establishes local EOS transaction semantics in which a transaction has one of two valid outcomes:\n\n```text\nCOMMITTED\n````\n\nor:\n\n```text\nROLLED_BACK\n```\n\nA rejected transaction must not leave accepted transaction-local canonical, registry, event, Markdown, or governed-artifact mutations behind.\n\n## Scope Boundary\n\nThis approval does not assert distributed atomicity for external effects such as:\n\n* GitHub mutations;\n* release publication;\n* external APIs;\n* third-party systems;\n* other irreversible remote effects.\n\nThose concerns require their own idempotency, compensation, reconciliation, or prepare/commit semantics.\n\n## Related Open Work\n\nThis decision does not close or supersede:\n\n* `MNT-0003`, which concerns divergent committed event-ledger merge safety.\n\nFollowing formal MNT-0006 closure, the approved sequence proceeds to:\n\n* `MNT-0005`, canonical requirement/specification identity resolution.\n\n## Authority Consequence\n\nEOS may transition:\n\n```text\nMNT-0006\nVERIFYING\n    ↓\nCLOSED\n```\n\nthrough the ordinary `MNT_CLOSE` gate.\n\nNo override is authorized or required.\n\nThis decision does not grant implementation authority beyond the previously approved scope in DECISION-0006.\n",
+  "document_id": "doc:engineering%2Freviews%2FDECISION-0007-2026-09-05-mnt-0006-closure-approval.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Record type: Governance authority decision Date: 2026-09-05 Subject: MNT-0006 closure authorization Authority: Human Project Steward / Architecture Owner Disposition: APPROVED Related: DECISION-0006, MNT-0006, MNT-0003, MNT-0005, MNT-0006-VERIFICATION, REV-MNT-0006",
+    "title": "DECISION-0007-2026-09-05 — MNT-0006 Closure Approval"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "decision-0007-2026-09-05-mnt-0006-closure-approval",
+      "text": "# DECISION-0007-2026-09-05 — MNT-0006 Closure Approval\n\n**Record type:** Governance authority decision\n**Date:** 2026-09-05\n**Subject:** MNT-0006 closure authorization\n**Authority:** Human Project Steward / Architecture Owner\n**Disposition:** **APPROVED**\n**Related:** DECISION-0006, MNT-0006, MNT-0003, MNT-0005, MNT-0006-VERIFICATION, REV-MNT-0006",
+      "title": "DECISION-0007-2026-09-05 — MNT-0006 Closure Approval"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 10,
+      "section_id": "decision",
+      "text": "## Decision\n\nClosure of:\n\n`MNT-0006 — EOS canonical transaction failure leaves rejected projection and event mutations`\n\nis **APPROVED**.\n\nThe explicit human authority statement was:\n\n> I approve MNT-0006 closure.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 36,
+      "line_start": 22,
+      "section_id": "basis",
+      "text": "## Basis\n\nThe approval follows:\n\n- implementation of local canonical-transaction atomicity;\n- automated canonical-state transaction testing;\n- wrapper failure and rollback testing;\n- canonical reconciliation testing;\n- independent isolated post-validation-failure verification;\n- independent isolated runtime-failure-after-mutation verification;\n- successful preservation of pre-existing dirty governance bytes;\n- successful verification of rollback-failure fail-closed behavior;\n- `PASS — RECOMMEND MNT-0006 CLOSURE` from the dedicated verification review;\n- preparation of the formal MNT-0006 engineering closure review.",
+      "title": "Basis"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 52,
+      "line_start": 37,
+      "section_id": "accepted-scope",
+      "text": "## Accepted Scope\n\nThe accepted result establishes local EOS transaction semantics in which a transaction has one of two valid outcomes:\n\n```text\nCOMMITTED\n````\n\nor:\n\n```text\nROLLED_BACK\n```\n\nA rejected transaction must not leave accepted transaction-local canonical, registry, event, Markdown, or governed-artifact mutations behind.",
+      "title": "Accepted Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 64,
+      "line_start": 53,
+      "section_id": "scope-boundary",
+      "text": "## Scope Boundary\n\nThis approval does not assert distributed atomicity for external effects such as:\n\n* GitHub mutations;\n* release publication;\n* external APIs;\n* third-party systems;\n* other irreversible remote effects.\n\nThose concerns require their own idempotency, compensation, reconciliation, or prepare/commit semantics.",
+      "title": "Scope Boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 74,
+      "line_start": 65,
+      "section_id": "related-open-work",
+      "text": "## Related Open Work\n\nThis decision does not close or supersede:\n\n* `MNT-0003`, which concerns divergent committed event-ledger merge safety.\n\nFollowing formal MNT-0006 closure, the approved sequence proceeds to:\n\n* `MNT-0005`, canonical requirement/specification identity resolution.",
+      "title": "Related Open Work"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 90,
+      "line_start": 75,
+      "section_id": "authority-consequence",
+      "text": "## Authority Consequence\n\nEOS may transition:\n\n```text\nMNT-0006\nVERIFYING\n    ↓\nCLOSED\n```\n\nthrough the ordinary `MNT_CLOSE` gate.\n\nNo override is authorized or required.\n\nThis decision does not grant implementation authority beyond the previously approved scope in DECISION-0006.",
+      "title": "Authority Consequence"
+    }
+  ],
+  "source": {
+    "bytes": 2429,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 90,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/DECISION-0007-2026-09-05-mnt-0006-closure-approval.md",
+    "sha256": "8cb7b9d6ff31fa05b027244b4bfb1c55bfe95283b789764f85af364a2d4c0f45"
+  }
+}

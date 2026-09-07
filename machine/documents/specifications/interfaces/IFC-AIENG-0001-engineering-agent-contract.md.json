@@ -1,0 +1,1055 @@
+{
+  "content": "# IFC-AIENG-0001: Engineering Agent Contract\n\n**Status:** approved\n**Version:** 0.1.0\n**Owner:** Monad Core / EOS\n**Reviewers:** Product Owner, Architecture Owner, Engineering Owner, Security Owner, Operations Owner, Verification Owner as affected\n**Related requirements:** FR-007, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-023, FR-024, FR-043, QR-008, QR-010\n**Related execution requirements:** FR-037, FR-038, FR-039, FR-040, FR-041, FR-042\n**Governing ADRs:** ADR-0006, ADR-0008\n**Governing operating model:** EOS-AI-0001\n**Related specifications:** FUN-AIENG-0001, IFC-HARNESS-0001, TECH-HARNESS-0001\n**Change authority:** CR-0003\n**Approval evidence:** `engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md`\n\n## Purpose and scope\n\nThis specification defines the provider-neutral semantic contract between Monad's Engineering Operating System and an AI engineering participant.\n\nAn AI engineering participant may inspect governed context, reason about engineering state, propose pathways, request clarification, recommend decisions, draft candidate artifacts, recommend execution, interpret evidence, participate in review where authorized, and propose replanning.\n\nThis interface governs those interactions without making the AI participant an independent lifecycle, state, authority, decision, evidence, or execution system.\n\nThe core relationship is:\n\n```text\nMonad governed engineering state\n        ↓\nbounded context\n        ↓\nengineering participant\n        ↓\nproposal / question / recommendation / candidate artifact\n        ↓\nEOS authority / policy / decision semantics\n        ↓\nauthorized execution where applicable\n```\n\nThe interface is transport-neutral.\n\nA conforming implementation MAY use:\n\n* local process invocation;\n* embedded library calls;\n* MCP;\n* JSON-RPC;\n* HTTP;\n* message queues;\n* provider APIs;\n* IDE integration;\n* CLI mediation;\n* another transport.\n\nTransport choice MUST NOT alter the semantic authority model.\n\n## Relationship to IFC-HARNESS-0001\n\n`IFC-HARNESS-0001` defines the interface between the Governed Execution Harness and an executor/harness after governed execution has been bound.\n\n`IFC-AIENG-0001` has a broader and earlier responsibility.\n\nIt governs AI engineering participation including:\n\n* context consumption;\n* engineering analysis;\n* adaptive-pathway proposal;\n* clarification;\n* decision recommendation;\n* candidate artifact generation;\n* requested lifecycle progression;\n* requested execution;\n* evidence interpretation;\n* review participation;\n* replanning.\n\nThe boundary is:\n\n```text\nIFC-AIENG-0001\nengineering participation\n        ↓\nEOS decisions / authority / readiness\n        ↓\nexecution authorization\n        ↓\nFR-037..FR-042\n        ↓\nIFC-HARNESS-0001\ngoverned executor interaction\n```\n\n`IFC-AIENG-0001` MUST NOT redefine:\n\n* Execution Envelope semantics;\n* Tool Gateway operation mediation;\n* harness run lifecycle;\n* governed operation requests;\n* execution checkpoints;\n* execution completion semantics.\n\nThose concerns remain owned by the governed-execution contracts.\n\n## Definitions\n\n### Engineering participant\n\nA human, AI model, agent, agent harness, composite agent system, script-assisted intelligence layer, or future Monad-native participant capable of contributing engineering reasoning or candidate work.\n\nThis specification primarily governs AI participants.\n\n### Participant adapter\n\nThe integration component that converts a provider/model/harness-specific API into the semantic operations defined by this interface.\n\n### Engineering session\n\nA bounded interaction between Monad and an engineering participant concerning one or more governed subjects.\n\nAn engineering session is transient operational context.\n\nIt is not EOS lifecycle state.\n\n### Governing context\n\nA bounded projection of applicable engineering knowledge and state supplied to or made queryable by a participant.\n\n### Context identity\n\nAn identifier, digest, revision, or equivalent reference sufficient to identify the materially governing inputs represented in a context projection.\n\n### Proposal\n\nA non-binding candidate engineering outcome submitted by a participant.\n\nExamples include:\n\n* pathway proposal;\n* decision recommendation;\n* artifact draft;\n* execution request;\n* replanning proposal.\n\n### Material question\n\nA question whose answer could change consequential engineering meaning, authority, risk, scope, architecture, security, operations, acceptance, or irreversible effect.\n\n### Candidate artifact\n\nParticipant-generated content that may become a governed artifact only through the artifact's applicable authority and lifecycle process.\n\n### Authority disposition\n\nThe governed result of evaluating whether an actor or proposal possesses or has received sufficient authority for a particular action.\n\n### Engineering observation\n\nInformation returned to or produced by a participant that does not itself change governing authority.\n\n## Interface invariants\n\n### AIENG-IFC-I01 — EOS sovereignty\n\nThe interface MUST NOT establish a parallel lifecycle or control plane.\n\n### AIENG-IFC-I02 — Canonical-state sovereignty\n\nParticipant session state, memory, caches, transcripts, provider state, or internal plans MUST NOT override canonical Monad/EOS state.\n\n### AIENG-IFC-I03 — Proposal non-authority\n\nA participant message MUST NOT become authoritative merely because it is validly formatted, high-confidence, repeated, or generated by a preferred model.\n\n### AIENG-IFC-I04 — Explicit authority separation\n\nThe interface MUST preserve the distinction among:\n\n```text\nrecommend\npropose\ndecide\napprove\nauthorize\nexecute\nverify\nreview\naccept\n```\n\n### AIENG-IFC-I05 — Context provenance\n\nMaterial governing context supplied to a participant MUST remain attributable to its source or governing identity.\n\n### AIENG-IFC-I06 — Stale-context safety\n\nA participant MUST NOT be allowed to represent materially stale context as current without explicit stale-state handling.\n\n### AIENG-IFC-I07 — No private-reasoning dependency\n\nThe interface MUST NOT require private model chain-of-thought for governance, auditability, or conformance.\n\n### AIENG-IFC-I08 — Provider neutrality\n\nProvider, model, or harness identity MUST NOT confer semantic authority.\n\n### AIENG-IFC-I09 — Native decision routing\n\nMaterial decisions MUST route through existing Monad decision/approval/governance semantics rather than an AI-specific authority mechanism.\n\n### AIENG-IFC-I10 — Execution handoff\n\nA participant request for consequential execution MUST route into the applicable governed execution boundary.\n\n### AIENG-IFC-I11 — Human denial integrity\n\nA governed denial MUST be communicated as an authoritative constraint within its scope and MUST NOT be silently reinterpreted as approval.\n\n### AIENG-IFC-I12 — Revocability\n\nParticipant capability, autonomy, or authorization represented through this interface MUST support revocation or invalidation according to governing policy.\n\n## Participant descriptor\n\nBefore material engineering interaction, a participant adapter SHOULD expose a descriptor.\n\nThe descriptor MUST be capable of identifying:\n\n* `participant_adapter_id`;\n* adapter version;\n* supported interface version(s);\n* provider family where applicable;\n* model/harness family where applicable;\n* declared engineering capabilities;\n* supported context modes;\n* streaming support;\n* structured-output support;\n* tool/execution handoff support;\n* checkpoint or resumable-session support where applicable;\n* review participation support;\n* delegation/subagent support where applicable;\n* declared limitations;\n* extension namespaces.\n\nThe descriptor is descriptive.\n\nIt does not grant capabilities or authority.\n\n## Capability classes\n\nThe contract distinguishes the following logical classes.\n\n### Inspect\n\nConsume authorized engineering information.\n\n### Analyze\n\nReason about engineering meaning, relationships, risks, alternatives, contradictions, or likely consequences.\n\n### Recommend\n\nRecommend an engineering action or decision.\n\n### Propose\n\nConstruct a candidate pathway, artifact, change, decision, or other governed object.\n\n### Request\n\nRequest context, clarification, decision, authorization, execution, verification, or review.\n\n### Execute\n\nPerform governed effects only through an applicable separately authorized execution boundary.\n\n### Verify\n\nInvoke or assist verification where policy permits.\n\n### Review\n\nParticipate in review where applicable independence and authority requirements are satisfied.\n\n### Approve or accept\n\nPerform a binding approval/acceptance only where explicit governance delegates that authority.\n\nA participant's descriptor MAY declare technical ability to support any class.\n\nTechnical ability MUST NOT be interpreted as authority.\n\n## Common message envelope\n\nEvery consequential semantic exchange SHOULD support a common envelope containing equivalent fields to:\n\n```text\nmessage_id\nmessage_type\ninterface_version\nsession_id\nsubject_id\nactor_or_participant_id\ntimestamp_or_logical_time\ncausal_parent_id\ncontext_identity\nautonomy_profile\nauthority_classification\npayload\n```\n\nNot every field is mandatory for every transport.\n\nHowever, implementations MUST retain sufficient identity and causality to reconstruct consequential exchanges.\n\n## Session initialization\n\n### `session.initialize`\n\nEstablishes a bounded engineering interaction.\n\n#### Input\n\nThe initialization request SHOULD provide:\n\n* session identity;\n* engineering subject or intent;\n* interface version;\n* participant descriptor requirements;\n* current autonomy profile;\n* authorized context-access mode;\n* relevant policy constraints;\n* relevant confidentiality/data-handling constraints;\n* initial governing-context identity where available.\n\n#### Output\n\nThe participant adapter MUST return:\n\n* accepted or rejected;\n* negotiated interface version;\n* participant/session identity;\n* declared capability profile;\n* material compatibility limitations;\n* supported extension namespaces;\n* any initialization diagnostics.\n\nInitialization success does not authorize execution.\n\n## Context interface\n\n### `context.offer`\n\nProvides a bounded context projection to the participant.\n\nThe projection SHOULD preserve sufficient information to distinguish:\n\n* canonical material;\n* derived material;\n* proposed material;\n* accepted decisions;\n* approvals;\n* evidence;\n* observations;\n* stale material;\n* contradictory material;\n* informative material.\n\nThe context MUST identify its governing basis or context identity where consequential reasoning depends on it.\n\n### `context.request`\n\nAllows a participant to request additional context.\n\nThe request SHOULD identify:\n\n* information sought;\n* relevance to the engineering subject;\n* whether absence blocks progress;\n* desired granularity where applicable.\n\nMonad MAY:\n\n* provide the context;\n* provide a reduced/redacted projection;\n* deny the request;\n* require escalation;\n* identify that the information does not exist.\n\nMissing information MUST NOT be interpreted as unrestricted freedom.\n\n### `context.result`\n\nThe result MUST distinguish at least:\n\n* supplied;\n* supplied-redacted;\n* unavailable;\n* denied-policy;\n* denied-authority;\n* not-found;\n* stale;\n* contradictory;\n* escalation-required.\n\n## Pathway proposal\n\n### `pathway.propose`\n\nAllows an engineering participant to propose an adaptive engineering pathway.\n\nThe proposal SHOULD include:\n\n* subject;\n* context identity;\n* proposed activities;\n* ordering/dependencies;\n* mandatory activities identified;\n* optional activities identified;\n* unresolved material questions;\n* expected decisions;\n* proposed authority boundaries;\n* expected verification obligations;\n* expected review obligations;\n* escalation conditions;\n* autonomy assumptions;\n* structured rationale for material rigor adaptation.\n\nThe proposal is non-binding.\n\nMonad evaluates it against `FUN-AIENG-0001`, EOS lifecycle state, authority, and policy.\n\n### `pathway.disposition`\n\nMonad MUST be able to return a disposition equivalent to:\n\n* accepted-for-planning;\n* accepted-with-modification;\n* clarification-required;\n* decision-required;\n* blocked;\n* stale-context;\n* rejected-policy;\n* rejected-authority;\n* invalid;\n* superseded.\n\n`accepted-for-planning` MUST NOT mean execution-authorized.\n\n## Clarification interface\n\n### `clarification.request`\n\nThe participant uses this operation when information or meaning cannot safely be inferred.\n\nA material clarification request SHOULD contain:\n\n* question;\n* affected subject;\n* relevant governing sources;\n* known alternatives;\n* material consequences;\n* recommendation if one exists;\n* authority believed necessary;\n* whether other work can safely continue.\n\n### `clarification.response`\n\nA response MUST identify whether it is:\n\n* informative;\n* governing;\n* provisional;\n* rejected;\n* unresolved;\n* superseded.\n\nIf a response constitutes a consequential decision, the canonical decision MUST be persisted through the applicable native mechanism.\n\nThe conversational response alone MUST NOT replace required decision persistence.\n\n## Decision proposal interface\n\n### `decision.propose`\n\nA participant MAY recommend a decision.\n\nThe proposal SHOULD identify:\n\n* decision question;\n* alternatives considered;\n* relevant evidence;\n* relevant constraints;\n* recommendation;\n* expected consequences;\n* required accountable authority.\n\nA decision proposal MUST be clearly distinguishable from an actual decision.\n\n### `decision.disposition`\n\nMonad may respond with:\n\n* recorded;\n* approved;\n* rejected;\n* deferred;\n* clarification-required;\n* escalation-required;\n* insufficient-authority;\n* superseded.\n\nWhen a native `DEC`, `APR`, ADR, CR, or other record is created, its identifier SHOULD be returned to the participant.\n\n## Candidate artifact interface\n\n### `artifact.propose`\n\nThe participant MAY submit:\n\n* full candidate content;\n* patch/diff;\n* structured artifact model;\n* reference to generated content.\n\nThe request SHOULD identify:\n\n* proposed artifact type;\n* proposed canonical path where applicable;\n* governing subject;\n* relevant requirements/decisions;\n* context identity;\n* claimed purpose.\n\nSubmission does not make the artifact canonical or accepted.\n\n### `artifact.disposition`\n\nMonad MUST be able to distinguish:\n\n* candidate-received;\n* validation-failed;\n* review-required;\n* authority-required;\n* accepted-into-governed-workflow;\n* rejected;\n* superseded.\n\nCanonical artifact creation or lifecycle transition remains owned by the applicable Monad/EOS mechanism.\n\n## Lifecycle-action proposal\n\n### `lifecycle.propose`\n\nA participant MAY recommend that EOS perform a lifecycle action such as:\n\n* create planning work;\n* mark readiness;\n* request authorization;\n* begin execution;\n* enter verification;\n* request review;\n* enter change control;\n* create maintenance;\n* prepare release.\n\nThe proposal MUST contain:\n\n* target;\n* requested action;\n* rationale;\n* context identity;\n* known prerequisite status;\n* evidence references where relevant.\n\nThe proposal MUST NOT directly mutate EOS lifecycle state.\n\n### `lifecycle.disposition`\n\nMonad MUST return an explicit governed result such as:\n\n* accepted;\n* rejected;\n* blocked-prerequisite;\n* insufficient-authority;\n* policy-denied;\n* invalid-transition;\n* stale-context;\n* escalation-required.\n\n## Execution request and handoff\n\n### `execution.request`\n\nAn engineering participant MAY request governed execution.\n\nThe request SHOULD identify:\n\n* work subject;\n* intended outcome;\n* applicable pathway reference;\n* governing context identity;\n* candidate scope;\n* known constraints;\n* required capabilities if known;\n* relevant decisions/approvals;\n* requested executor profile.\n\nThis message is an execution request, not an Execution Envelope.\n\nMonad MUST independently determine whether:\n\n* the work is ready;\n* authority exists;\n* required decisions are resolved;\n* policy permits execution;\n* an Execution Envelope can be compiled;\n* the requested executor/harness is compatible.\n\n### `execution.disposition`\n\nPossible dispositions include:\n\n* authorized-for-envelope-compilation;\n* clarification-required;\n* decision-required;\n* approval-required;\n* blocked-dependency;\n* policy-denied;\n* authority-denied;\n* stale-context;\n* invalid-scope;\n* rejected.\n\nIf execution proceeds, subsequent executor interaction SHALL use the applicable governed-execution contracts, including `IFC-HARNESS-0001` where that architecture applies.\n\n## Evidence interpretation\n\n### `evidence.interpret`\n\nA participant MAY analyze governed evidence.\n\nInput MAY include:\n\n* evidence identifiers;\n* verification results;\n* review findings;\n* operational observations;\n* incident or maintenance records.\n\nOutput MAY include:\n\n* interpretation;\n* inferred implications;\n* changed risk recommendation;\n* replanning recommendation;\n* proposed follow-up work.\n\nInterpretation MUST remain distinguishable from the underlying evidence.\n\nAI interpretation MUST NOT alter evidence state or result.\n\n## Verification assistance\n\n### `verification.recommend`\n\nA participant MAY recommend:\n\n* validators;\n* validation profiles;\n* additional evidence;\n* likely failure causes;\n* remediation.\n\n### `verification.request`\n\nWhere permitted, a participant MAY request invocation of verification.\n\nActual validator execution and authoritative verification state remain governed by EOSV.\n\n### `verification.result`\n\nThe participant MAY receive authoritative or projected results including:\n\n* passed;\n* failed;\n* incomplete;\n* stale;\n* blocked;\n* skipped;\n* indeterminate.\n\nThe participant MUST NOT convert a failed or stale result into success.\n\n## Review participation\n\n### `review.request`\n\nMonad MAY request AI review of a governed subject.\n\nThe request SHOULD provide:\n\n* review subject;\n* review criteria;\n* context identity;\n* required independence properties;\n* expected output shape.\n\n### `review.result`\n\nA participant MAY return:\n\n* findings;\n* severity;\n* evidence references;\n* recommendation;\n* unresolved concerns.\n\nA participant's result MUST identify enough participant/provider/harness context to evaluate required independence.\n\nAn AI review recommendation does not itself constitute reserved human acceptance.\n\n## Replanning interface\n\n### `replan.propose`\n\nA participant SHOULD use replanning when material evidence or governing change invalidates the current pathway.\n\nThe proposal SHOULD identify:\n\n* prior pathway or plan;\n* triggering evidence/change;\n* assumptions invalidated;\n* proposed revised activities;\n* changed decision/approval needs;\n* changed verification/review needs;\n* changed execution implications.\n\n### `replan.disposition`\n\nMonad may return:\n\n* accepted-for-planning;\n* change-control-required;\n* clarification-required;\n* decision-required;\n* blocked;\n* rejected;\n* superseded.\n\nReplanning MUST NOT silently modify an authorized Work Packet's governing scope.\n\n## Governing-input drift\n\nA context or pathway exchange SHOULD be bound to a context identity where material correctness depends on governing inputs.\n\nWhen Monad determines that context has materially drifted, it MUST be able to communicate a stale-context disposition.\n\nThe participant MUST then:\n\n* stop representing the prior context as current;\n* refresh context;\n* reassess affected recommendations;\n* replan where necessary;\n* request reauthorization where required.\n\nThe interface MUST NOT permit a participant to override a stale-context determination based solely on model confidence.\n\n## Autonomy profile interaction\n\nThe session MUST be capable of communicating the applicable autonomy profile:\n\n```text\nAI-assisted\nAI-driven\nbounded-AI-autonomous\n```\n\nThe autonomy profile controls what classes of progression may occur without synchronous human interaction.\n\nIt does not redefine authority.\n\nA participant MUST NOT self-promote to a stronger autonomy profile.\n\nA changed profile MUST originate from governed authority/policy.\n\n## Human denial semantics\n\nA denial MUST be represented as a durable or attributable governed disposition when consequential.\n\nThe participant MUST treat the denial as binding within its scope.\n\nThe participant MAY:\n\n* accept the denial;\n* propose a different conforming approach;\n* request clarification about its scope;\n* revisit only when new material governed evidence justifies reevaluation.\n\nThe participant MUST NOT repeatedly resubmit the same materially unchanged rejected proposal in an attempt to obtain a different answer.\n\n## Provider failure\n\nProvider or participant failure MUST NOT corrupt EOS state.\n\nA session may terminate or become unavailable while:\n\n* canonical state remains valid;\n* material decisions remain persisted;\n* evidence remains preserved;\n* lifecycle state remains authoritative;\n* another compatible participant may resume from governed context.\n\nProvider-local memory MUST NOT be required for authoritative recovery.\n\n## Session completion\n\n### `session.yield`\n\nA participant MAY indicate that it has no currently authorized useful action.\n\nYield is not failure.\n\n### `session.close`\n\nCloses the transient engineering session.\n\nClosing a session MUST NOT:\n\n* close a Work Packet;\n* accept an artifact;\n* verify execution;\n* approve a decision;\n* release software;\n* alter canonical lifecycle state.\n\n## Event identity and causality\n\nConsequential messages MUST have identity sufficient for:\n\n* deduplication;\n* correlation;\n* causal reconstruction;\n* auditability.\n\nA conforming implementation SHOULD provide either:\n\n* monotonic session sequence numbers;\n* causal parent references;\n* another deterministic causal mechanism.\n\nRetries MUST NOT create duplicate governed decisions or effects.\n\n## Error model\n\nThe interface MUST distinguish protocol errors from governed outcomes.\n\n### Protocol errors\n\nExamples:\n\n* unsupported interface version;\n* malformed message;\n* unknown mandatory message type;\n* invalid session identity;\n* unsupported mandatory extension;\n* incompatible participant adapter;\n* serialization failure;\n* transport failure.\n\n### Governed outcomes\n\nExamples:\n\n* insufficient authority;\n* policy denial;\n* material ambiguity;\n* stale context;\n* decision required;\n* approval required;\n* blocked dependency;\n* verification failure;\n* review rejection;\n* human denial.\n\nA governed denial MUST NOT be collapsed into a generic technical error.\n\n## Extension model\n\nExtensions MUST:\n\n1. use a namespace;\n2. declare version;\n3. declare whether optional or mandatory;\n4. be negotiated where necessary;\n5. preserve all core invariants.\n\nExtensions MUST NOT:\n\n* create hidden authority;\n* bypass EOS lifecycle gates;\n* bypass execution mediation;\n* convert proposals into approvals;\n* weaken evidence obligations.\n\n## Security and data\n\nThe interface MUST support least-context operation.\n\nImplementations MUST be able to enforce:\n\n* authorized context access;\n* sensitive-data minimization;\n* secret exclusion;\n* provider data-handling constraints;\n* repository/path access limits;\n* retention policy;\n* participant identity;\n* audit attribution.\n\nThe interface MUST NOT treat a participant's request for more context as permission to disclose it.\n\nDetailed authority, delegation, capability, approval, revocation, and security requirements are owned by `SEC-AIENG-0001`.\n\n## Transcript policy\n\nImplementations MAY retain transcripts according to configured policy.\n\nTranscripts are noncanonical by default.\n\nConformance and auditability MUST NOT depend on preserving private chain-of-thought.\n\nMaterial outcomes MUST instead be reconstructable from structured records such as:\n\n```text\ncontext identity\nproposal\nmaterial question\ndecision\napproval or denial\nauthorization\nexecution handoff\nevidence\nverification\nreview\nreplanning\nacceptance\n```\n\n## Compatibility\n\nInterface compatibility MUST be explicit.\n\nA participant adapter SHOULD advertise:\n\n* supported interface versions;\n* required extensions;\n* optional extensions;\n* context capabilities;\n* structured-output capabilities;\n* known limitations.\n\nAn adapter unable to preserve a mandatory semantic obligation MUST fail compatibility rather than silently weaken the contract.\n\nMinor implementation variation is allowed where observable semantics remain compatible.\n\n## Versioning\n\nBreaking changes include changes that materially alter:\n\n* authority semantics;\n* message meaning;\n* required fields;\n* context classification;\n* execution handoff;\n* denial behavior;\n* lifecycle proposal semantics;\n* compatibility obligations.\n\nBreaking changes require an interface version change and governed consumer-impact analysis.\n\n## Observability\n\nConsequential sessions SHOULD expose:\n\n* session identity;\n* participant identity;\n* provider/model/harness identity where applicable;\n* subject;\n* context identity;\n* autonomy profile;\n* proposal identities;\n* clarification events;\n* decision references;\n* lifecycle requests/dispositions;\n* execution handoffs;\n* evidence interpretation;\n* review participation;\n* replanning;\n* terminal session state.\n\nObservability MUST NOT require private chain-of-thought.\n\n## Verification\n\n### AIENG-IFC-V01 — Proposal is not authority\n\nSubmit a pathway or lifecycle proposal and verify that no binding state change occurs solely from receipt.\n\n### AIENG-IFC-V02 — Material clarification\n\nGiven materially ambiguous intent, verify that `clarification.request` can surface the question without silently choosing a consequential interpretation.\n\nContributes to `AIENG-CONF-B`.\n\n### AIENG-IFC-V03 — Native decision routing\n\nSubmit a consequential decision proposal and verify that the canonical outcome is represented through native decision/approval semantics.\n\n### AIENG-IFC-V04 — Execution handoff\n\nSubmit `execution.request` and verify that consequential execution does not begin until EOS authorization and downstream governed execution requirements are satisfied.\n\n### AIENG-IFC-V05 — Stale context\n\nChange a materially governing input after context issuance and verify that stale-context handling invalidates current-use assumptions.\n\nContributes to `AIENG-CONF-G`.\n\n### AIENG-IFC-V06 — Human denial\n\nReturn a governed denial and verify that the participant does not treat it as approval or repeatedly resubmit the unchanged rejected action.\n\nCovers the interface portion of `AIENG-CONF-I`.\n\n### AIENG-IFC-V07 — Provider replacement\n\nTerminate one participant/provider and verify another compatible participant can resume from governed context without provider-local state becoming authoritative.\n\nContributes to `AIENG-CONF-H`.\n\n### AIENG-IFC-V08 — Evidence interpretation\n\nProvide failed verification evidence and verify that AI interpretation cannot mutate the failure into a passing authoritative result.\n\nContributes to `AIENG-CONF-J`.\n\n### AIENG-IFC-V09 — Review independence metadata\n\nGiven an AI review request, verify that enough participant identity/context metadata is retained to evaluate applicable independence policy.\n\nContributes to `AIENG-CONF-F`.\n\n### AIENG-IFC-V10 — Autonomy non-self-promotion\n\nVerify that a participant cannot change itself from AI-driven to bounded AI-autonomous through its own message.\n\nContributes to `AIENG-CONF-D`.\n\n## Traceability\n\nPrimary relationships:\n\n```text\nFR-043\n  → FUN-AIENG-0001\n  → IFC-AIENG-0001\n```\n\nContext relationships:\n\n```text\nFR-007\nFR-012\nFR-013\nFR-014\nFR-015\nFR-016\nFR-017\nFR-023\nFR-024\nQR-008\nQR-010\n  → IFC-AIENG-0001\n```\n\nExecution handoff:\n\n```text\nIFC-AIENG-0001\n  → EOS authority/readiness\n  → FR-037\n  → FR-038\n  → IFC-HARNESS-0001 / conforming execution boundary\n  → FR-040\n```\n\nSecurity refinement:\n\n```text\nIFC-AIENG-0001\n  → SEC-AIENG-0001\n```\n\n## Implementation boundary\n\nThis specification defines the semantic interface required for conforming AI engineering participation.\n\nIt does not authorize implementation.\n\nProvider adapters, APIs, MCP tools, CLI commands, schemas, runtime services, or harness integrations MUST be planned through EOSP and implemented only through separately authorized Work Cycles and Work Packets.\n",
+  "document_id": "doc:specifications%2Finterfaces%2FIFC-AIENG-0001-engineering-agent-contract.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006",
+    "ADR-0008",
+    "FR-007",
+    "FR-012",
+    "FR-013",
+    "FR-014",
+    "FR-015",
+    "FR-016",
+    "FR-017",
+    "FR-023",
+    "FR-024",
+    "FR-037",
+    "FR-038",
+    "FR-039",
+    "FR-040",
+    "FR-041",
+    "FR-042",
+    "FR-043",
+    "QR-008",
+    "QR-010"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "specification",
+    "normative": true,
+    "summary": "Status: approved Version: 0.1.0 Owner: Monad Core / EOS Reviewers: Product Owner, Architecture Owner, Engineering Owner, Security Owner, Operations Owner, Verification Owner as affected Related requirements: FR-007, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-023, FR-024, FR-043, QR-008, QR-010 Related execution requirements: FR-037, FR-038, FR-039, FR-040, FR-041, FR-042 Governing ADRs: ADR-0006, ADR-0008 Governing operating model: EOS-AI-0001 Related specifications: FUN-AIENG-0001, IFC-HARNESS-0001, TECH-HARNESS-0001 Change authority: CR-0003 Approval evidence: engineering/reviews/DEC",
+    "title": "IFC-AIENG-0001: Engineering Agent Contract"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0006",
+        "ADR-0008",
+        "FR-007",
+        "FR-012",
+        "FR-013",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-023",
+        "FR-024",
+        "FR-037",
+        "FR-038",
+        "FR-039",
+        "FR-040",
+        "FR-041",
+        "FR-042",
+        "FR-043",
+        "QR-008",
+        "QR-010"
+      ],
+      "level": 1,
+      "line_end": 14,
+      "line_start": 1,
+      "section_id": "ifc-aieng-0001-engineering-agent-contract",
+      "text": "# IFC-AIENG-0001: Engineering Agent Contract\n\n**Status:** approved\n**Version:** 0.1.0\n**Owner:** Monad Core / EOS\n**Reviewers:** Product Owner, Architecture Owner, Engineering Owner, Security Owner, Operations Owner, Verification Owner as affected\n**Related requirements:** FR-007, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-023, FR-024, FR-043, QR-008, QR-010\n**Related execution requirements:** FR-037, FR-038, FR-039, FR-040, FR-041, FR-042\n**Governing ADRs:** ADR-0006, ADR-0008\n**Governing operating model:** EOS-AI-0001\n**Related specifications:** FUN-AIENG-0001, IFC-HARNESS-0001, TECH-HARNESS-0001\n**Change authority:** CR-0003\n**Approval evidence:** `engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md`",
+      "title": "IFC-AIENG-0001: Engineering Agent Contract"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 55,
+      "line_start": 15,
+      "section_id": "purpose-and-scope",
+      "text": "## Purpose and scope\n\nThis specification defines the provider-neutral semantic contract between Monad's Engineering Operating System and an AI engineering participant.\n\nAn AI engineering participant may inspect governed context, reason about engineering state, propose pathways, request clarification, recommend decisions, draft candidate artifacts, recommend execution, interpret evidence, participate in review where authorized, and propose replanning.\n\nThis interface governs those interactions without making the AI participant an independent lifecycle, state, authority, decision, evidence, or execution system.\n\nThe core relationship is:\n\n```text\nMonad governed engineering state\n        ↓\nbounded context\n        ↓\nengineering participant\n        ↓\nproposal / question / recommendation / candidate artifact\n        ↓\nEOS authority / policy / decision semantics\n        ↓\nauthorized execution where applicable\n```\n\nThe interface is transport-neutral.\n\nA conforming implementation MAY use:\n\n* local process invocation;\n* embedded library calls;\n* MCP;\n* JSON-RPC;\n* HTTP;\n* message queues;\n* provider APIs;\n* IDE integration;\n* CLI mediation;\n* another transport.\n\nTransport choice MUST NOT alter the semantic authority model.",
+      "title": "Purpose and scope"
+    },
+    {
+      "identifiers": [
+        "FR-037",
+        "FR-042"
+      ],
+      "level": 2,
+      "line_end": 102,
+      "line_start": 56,
+      "section_id": "relationship-to-ifc-harness-0001",
+      "text": "## Relationship to IFC-HARNESS-0001\n\n`IFC-HARNESS-0001` defines the interface between the Governed Execution Harness and an executor/harness after governed execution has been bound.\n\n`IFC-AIENG-0001` has a broader and earlier responsibility.\n\nIt governs AI engineering participation including:\n\n* context consumption;\n* engineering analysis;\n* adaptive-pathway proposal;\n* clarification;\n* decision recommendation;\n* candidate artifact generation;\n* requested lifecycle progression;\n* requested execution;\n* evidence interpretation;\n* review participation;\n* replanning.\n\nThe boundary is:\n\n```text\nIFC-AIENG-0001\nengineering participation\n        ↓\nEOS decisions / authority / readiness\n        ↓\nexecution authorization\n        ↓\nFR-037..FR-042\n        ↓\nIFC-HARNESS-0001\ngoverned executor interaction\n```\n\n`IFC-AIENG-0001` MUST NOT redefine:\n\n* Execution Envelope semantics;\n* Tool Gateway operation mediation;\n* harness run lifecycle;\n* governed operation requests;\n* execution checkpoints;\n* execution completion semantics.\n\nThose concerns remain owned by the governed-execution contracts.",
+      "title": "Relationship to IFC-HARNESS-0001"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 104,
+      "line_start": 103,
+      "section_id": "definitions",
+      "text": "## Definitions",
+      "title": "Definitions"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 110,
+      "line_start": 105,
+      "section_id": "engineering-participant",
+      "text": "### Engineering participant\n\nA human, AI model, agent, agent harness, composite agent system, script-assisted intelligence layer, or future Monad-native participant capable of contributing engineering reasoning or candidate work.\n\nThis specification primarily governs AI participants.",
+      "title": "Engineering participant"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 114,
+      "line_start": 111,
+      "section_id": "participant-adapter",
+      "text": "### Participant adapter\n\nThe integration component that converts a provider/model/harness-specific API into the semantic operations defined by this interface.",
+      "title": "Participant adapter"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 122,
+      "line_start": 115,
+      "section_id": "engineering-session",
+      "text": "### Engineering session\n\nA bounded interaction between Monad and an engineering participant concerning one or more governed subjects.\n\nAn engineering session is transient operational context.\n\nIt is not EOS lifecycle state.",
+      "title": "Engineering session"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 126,
+      "line_start": 123,
+      "section_id": "governing-context",
+      "text": "### Governing context\n\nA bounded projection of applicable engineering knowledge and state supplied to or made queryable by a participant.",
+      "title": "Governing context"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 130,
+      "line_start": 127,
+      "section_id": "context-identity",
+      "text": "### Context identity\n\nAn identifier, digest, revision, or equivalent reference sufficient to identify the materially governing inputs represented in a context projection.",
+      "title": "Context identity"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 142,
+      "line_start": 131,
+      "section_id": "proposal",
+      "text": "### Proposal\n\nA non-binding candidate engineering outcome submitted by a participant.\n\nExamples include:\n\n* pathway proposal;\n* decision recommendation;\n* artifact draft;\n* execution request;\n* replanning proposal.",
+      "title": "Proposal"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 146,
+      "line_start": 143,
+      "section_id": "material-question",
+      "text": "### Material question\n\nA question whose answer could change consequential engineering meaning, authority, risk, scope, architecture, security, operations, acceptance, or irreversible effect.",
+      "title": "Material question"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 150,
+      "line_start": 147,
+      "section_id": "candidate-artifact",
+      "text": "### Candidate artifact\n\nParticipant-generated content that may become a governed artifact only through the artifact's applicable authority and lifecycle process.",
+      "title": "Candidate artifact"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 154,
+      "line_start": 151,
+      "section_id": "authority-disposition",
+      "text": "### Authority disposition\n\nThe governed result of evaluating whether an actor or proposal possesses or has received sufficient authority for a particular action.",
+      "title": "Authority disposition"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 158,
+      "line_start": 155,
+      "section_id": "engineering-observation",
+      "text": "### Engineering observation\n\nInformation returned to or produced by a participant that does not itself change governing authority.",
+      "title": "Engineering observation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 160,
+      "line_start": 159,
+      "section_id": "interface-invariants",
+      "text": "## Interface invariants",
+      "title": "Interface invariants"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 164,
+      "line_start": 161,
+      "section_id": "aieng-ifc-i01-eos-sovereignty",
+      "text": "### AIENG-IFC-I01 — EOS sovereignty\n\nThe interface MUST NOT establish a parallel lifecycle or control plane.",
+      "title": "AIENG-IFC-I01 — EOS sovereignty"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 168,
+      "line_start": 165,
+      "section_id": "aieng-ifc-i02-canonical-state-sovereignty",
+      "text": "### AIENG-IFC-I02 — Canonical-state sovereignty\n\nParticipant session state, memory, caches, transcripts, provider state, or internal plans MUST NOT override canonical Monad/EOS state.",
+      "title": "AIENG-IFC-I02 — Canonical-state sovereignty"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 172,
+      "line_start": 169,
+      "section_id": "aieng-ifc-i03-proposal-non-authority",
+      "text": "### AIENG-IFC-I03 — Proposal non-authority\n\nA participant message MUST NOT become authoritative merely because it is validly formatted, high-confidence, repeated, or generated by a preferred model.",
+      "title": "AIENG-IFC-I03 — Proposal non-authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 188,
+      "line_start": 173,
+      "section_id": "aieng-ifc-i04-explicit-authority-separation",
+      "text": "### AIENG-IFC-I04 — Explicit authority separation\n\nThe interface MUST preserve the distinction among:\n\n```text\nrecommend\npropose\ndecide\napprove\nauthorize\nexecute\nverify\nreview\naccept\n```",
+      "title": "AIENG-IFC-I04 — Explicit authority separation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 192,
+      "line_start": 189,
+      "section_id": "aieng-ifc-i05-context-provenance",
+      "text": "### AIENG-IFC-I05 — Context provenance\n\nMaterial governing context supplied to a participant MUST remain attributable to its source or governing identity.",
+      "title": "AIENG-IFC-I05 — Context provenance"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 196,
+      "line_start": 193,
+      "section_id": "aieng-ifc-i06-stale-context-safety",
+      "text": "### AIENG-IFC-I06 — Stale-context safety\n\nA participant MUST NOT be allowed to represent materially stale context as current without explicit stale-state handling.",
+      "title": "AIENG-IFC-I06 — Stale-context safety"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 200,
+      "line_start": 197,
+      "section_id": "aieng-ifc-i07-no-private-reasoning-dependency",
+      "text": "### AIENG-IFC-I07 — No private-reasoning dependency\n\nThe interface MUST NOT require private model chain-of-thought for governance, auditability, or conformance.",
+      "title": "AIENG-IFC-I07 — No private-reasoning dependency"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 204,
+      "line_start": 201,
+      "section_id": "aieng-ifc-i08-provider-neutrality",
+      "text": "### AIENG-IFC-I08 — Provider neutrality\n\nProvider, model, or harness identity MUST NOT confer semantic authority.",
+      "title": "AIENG-IFC-I08 — Provider neutrality"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 208,
+      "line_start": 205,
+      "section_id": "aieng-ifc-i09-native-decision-routing",
+      "text": "### AIENG-IFC-I09 — Native decision routing\n\nMaterial decisions MUST route through existing Monad decision/approval/governance semantics rather than an AI-specific authority mechanism.",
+      "title": "AIENG-IFC-I09 — Native decision routing"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 212,
+      "line_start": 209,
+      "section_id": "aieng-ifc-i10-execution-handoff",
+      "text": "### AIENG-IFC-I10 — Execution handoff\n\nA participant request for consequential execution MUST route into the applicable governed execution boundary.",
+      "title": "AIENG-IFC-I10 — Execution handoff"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 216,
+      "line_start": 213,
+      "section_id": "aieng-ifc-i11-human-denial-integrity",
+      "text": "### AIENG-IFC-I11 — Human denial integrity\n\nA governed denial MUST be communicated as an authoritative constraint within its scope and MUST NOT be silently reinterpreted as approval.",
+      "title": "AIENG-IFC-I11 — Human denial integrity"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 220,
+      "line_start": 217,
+      "section_id": "aieng-ifc-i12-revocability",
+      "text": "### AIENG-IFC-I12 — Revocability\n\nParticipant capability, autonomy, or authorization represented through this interface MUST support revocation or invalidation according to governing policy.",
+      "title": "AIENG-IFC-I12 — Revocability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 246,
+      "line_start": 221,
+      "section_id": "participant-descriptor",
+      "text": "## Participant descriptor\n\nBefore material engineering interaction, a participant adapter SHOULD expose a descriptor.\n\nThe descriptor MUST be capable of identifying:\n\n* `participant_adapter_id`;\n* adapter version;\n* supported interface version(s);\n* provider family where applicable;\n* model/harness family where applicable;\n* declared engineering capabilities;\n* supported context modes;\n* streaming support;\n* structured-output support;\n* tool/execution handoff support;\n* checkpoint or resumable-session support where applicable;\n* review participation support;\n* delegation/subagent support where applicable;\n* declared limitations;\n* extension namespaces.\n\nThe descriptor is descriptive.\n\nIt does not grant capabilities or authority.",
+      "title": "Participant descriptor"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 250,
+      "line_start": 247,
+      "section_id": "capability-classes",
+      "text": "## Capability classes\n\nThe contract distinguishes the following logical classes.",
+      "title": "Capability classes"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 254,
+      "line_start": 251,
+      "section_id": "inspect",
+      "text": "### Inspect\n\nConsume authorized engineering information.",
+      "title": "Inspect"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 258,
+      "line_start": 255,
+      "section_id": "analyze",
+      "text": "### Analyze\n\nReason about engineering meaning, relationships, risks, alternatives, contradictions, or likely consequences.",
+      "title": "Analyze"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 262,
+      "line_start": 259,
+      "section_id": "recommend",
+      "text": "### Recommend\n\nRecommend an engineering action or decision.",
+      "title": "Recommend"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 266,
+      "line_start": 263,
+      "section_id": "propose",
+      "text": "### Propose\n\nConstruct a candidate pathway, artifact, change, decision, or other governed object.",
+      "title": "Propose"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 270,
+      "line_start": 267,
+      "section_id": "request",
+      "text": "### Request\n\nRequest context, clarification, decision, authorization, execution, verification, or review.",
+      "title": "Request"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 274,
+      "line_start": 271,
+      "section_id": "execute",
+      "text": "### Execute\n\nPerform governed effects only through an applicable separately authorized execution boundary.",
+      "title": "Execute"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 278,
+      "line_start": 275,
+      "section_id": "verify",
+      "text": "### Verify\n\nInvoke or assist verification where policy permits.",
+      "title": "Verify"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 282,
+      "line_start": 279,
+      "section_id": "review",
+      "text": "### Review\n\nParticipate in review where applicable independence and authority requirements are satisfied.",
+      "title": "Review"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 290,
+      "line_start": 283,
+      "section_id": "approve-or-accept",
+      "text": "### Approve or accept\n\nPerform a binding approval/acceptance only where explicit governance delegates that authority.\n\nA participant's descriptor MAY declare technical ability to support any class.\n\nTechnical ability MUST NOT be interpreted as authority.",
+      "title": "Approve or accept"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 313,
+      "line_start": 291,
+      "section_id": "common-message-envelope",
+      "text": "## Common message envelope\n\nEvery consequential semantic exchange SHOULD support a common envelope containing equivalent fields to:\n\n```text\nmessage_id\nmessage_type\ninterface_version\nsession_id\nsubject_id\nactor_or_participant_id\ntimestamp_or_logical_time\ncausal_parent_id\ncontext_identity\nautonomy_profile\nauthority_classification\npayload\n```\n\nNot every field is mandatory for every transport.\n\nHowever, implementations MUST retain sufficient identity and causality to reconstruct consequential exchanges.",
+      "title": "Common message envelope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 315,
+      "line_start": 314,
+      "section_id": "session-initialization",
+      "text": "## Session initialization",
+      "title": "Session initialization"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 319,
+      "line_start": 316,
+      "section_id": "session-initialize",
+      "text": "### `session.initialize`\n\nEstablishes a bounded engineering interaction.",
+      "title": "`session.initialize`"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 333,
+      "line_start": 320,
+      "section_id": "input",
+      "text": "#### Input\n\nThe initialization request SHOULD provide:\n\n* session identity;\n* engineering subject or intent;\n* interface version;\n* participant descriptor requirements;\n* current autonomy profile;\n* authorized context-access mode;\n* relevant policy constraints;\n* relevant confidentiality/data-handling constraints;\n* initial governing-context identity where available.",
+      "title": "Input"
+    },
+    {
+      "identifiers": [],
+      "level": 4,
+      "line_end": 347,
+      "line_start": 334,
+      "section_id": "output",
+      "text": "#### Output\n\nThe participant adapter MUST return:\n\n* accepted or rejected;\n* negotiated interface version;\n* participant/session identity;\n* declared capability profile;\n* material compatibility limitations;\n* supported extension namespaces;\n* any initialization diagnostics.\n\nInitialization success does not authorize execution.",
+      "title": "Output"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 349,
+      "line_start": 348,
+      "section_id": "context-interface",
+      "text": "## Context interface",
+      "title": "Context interface"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 368,
+      "line_start": 350,
+      "section_id": "context-offer",
+      "text": "### `context.offer`\n\nProvides a bounded context projection to the participant.\n\nThe projection SHOULD preserve sufficient information to distinguish:\n\n* canonical material;\n* derived material;\n* proposed material;\n* accepted decisions;\n* approvals;\n* evidence;\n* observations;\n* stale material;\n* contradictory material;\n* informative material.\n\nThe context MUST identify its governing basis or context identity where consequential reasoning depends on it.",
+      "title": "`context.offer`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 389,
+      "line_start": 369,
+      "section_id": "context-request",
+      "text": "### `context.request`\n\nAllows a participant to request additional context.\n\nThe request SHOULD identify:\n\n* information sought;\n* relevance to the engineering subject;\n* whether absence blocks progress;\n* desired granularity where applicable.\n\nMonad MAY:\n\n* provide the context;\n* provide a reduced/redacted projection;\n* deny the request;\n* require escalation;\n* identify that the information does not exist.\n\nMissing information MUST NOT be interpreted as unrestricted freedom.",
+      "title": "`context.request`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 403,
+      "line_start": 390,
+      "section_id": "context-result",
+      "text": "### `context.result`\n\nThe result MUST distinguish at least:\n\n* supplied;\n* supplied-redacted;\n* unavailable;\n* denied-policy;\n* denied-authority;\n* not-found;\n* stale;\n* contradictory;\n* escalation-required.",
+      "title": "`context.result`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 405,
+      "line_start": 404,
+      "section_id": "pathway-proposal",
+      "text": "## Pathway proposal",
+      "title": "Pathway proposal"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 430,
+      "line_start": 406,
+      "section_id": "pathway-propose",
+      "text": "### `pathway.propose`\n\nAllows an engineering participant to propose an adaptive engineering pathway.\n\nThe proposal SHOULD include:\n\n* subject;\n* context identity;\n* proposed activities;\n* ordering/dependencies;\n* mandatory activities identified;\n* optional activities identified;\n* unresolved material questions;\n* expected decisions;\n* proposed authority boundaries;\n* expected verification obligations;\n* expected review obligations;\n* escalation conditions;\n* autonomy assumptions;\n* structured rationale for material rigor adaptation.\n\nThe proposal is non-binding.\n\nMonad evaluates it against `FUN-AIENG-0001`, EOS lifecycle state, authority, and policy.",
+      "title": "`pathway.propose`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 447,
+      "line_start": 431,
+      "section_id": "pathway-disposition",
+      "text": "### `pathway.disposition`\n\nMonad MUST be able to return a disposition equivalent to:\n\n* accepted-for-planning;\n* accepted-with-modification;\n* clarification-required;\n* decision-required;\n* blocked;\n* stale-context;\n* rejected-policy;\n* rejected-authority;\n* invalid;\n* superseded.\n\n`accepted-for-planning` MUST NOT mean execution-authorized.",
+      "title": "`pathway.disposition`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 449,
+      "line_start": 448,
+      "section_id": "clarification-interface",
+      "text": "## Clarification interface",
+      "title": "Clarification interface"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 464,
+      "line_start": 450,
+      "section_id": "clarification-request",
+      "text": "### `clarification.request`\n\nThe participant uses this operation when information or meaning cannot safely be inferred.\n\nA material clarification request SHOULD contain:\n\n* question;\n* affected subject;\n* relevant governing sources;\n* known alternatives;\n* material consequences;\n* recommendation if one exists;\n* authority believed necessary;\n* whether other work can safely continue.",
+      "title": "`clarification.request`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 479,
+      "line_start": 465,
+      "section_id": "clarification-response",
+      "text": "### `clarification.response`\n\nA response MUST identify whether it is:\n\n* informative;\n* governing;\n* provisional;\n* rejected;\n* unresolved;\n* superseded.\n\nIf a response constitutes a consequential decision, the canonical decision MUST be persisted through the applicable native mechanism.\n\nThe conversational response alone MUST NOT replace required decision persistence.",
+      "title": "`clarification.response`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 481,
+      "line_start": 480,
+      "section_id": "decision-proposal-interface",
+      "text": "## Decision proposal interface",
+      "title": "Decision proposal interface"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 497,
+      "line_start": 482,
+      "section_id": "decision-propose",
+      "text": "### `decision.propose`\n\nA participant MAY recommend a decision.\n\nThe proposal SHOULD identify:\n\n* decision question;\n* alternatives considered;\n* relevant evidence;\n* relevant constraints;\n* recommendation;\n* expected consequences;\n* required accountable authority.\n\nA decision proposal MUST be clearly distinguishable from an actual decision.",
+      "title": "`decision.propose`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 512,
+      "line_start": 498,
+      "section_id": "decision-disposition",
+      "text": "### `decision.disposition`\n\nMonad may respond with:\n\n* recorded;\n* approved;\n* rejected;\n* deferred;\n* clarification-required;\n* escalation-required;\n* insufficient-authority;\n* superseded.\n\nWhen a native `DEC`, `APR`, ADR, CR, or other record is created, its identifier SHOULD be returned to the participant.",
+      "title": "`decision.disposition`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 514,
+      "line_start": 513,
+      "section_id": "candidate-artifact-interface",
+      "text": "## Candidate artifact interface",
+      "title": "Candidate artifact interface"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 534,
+      "line_start": 515,
+      "section_id": "artifact-propose",
+      "text": "### `artifact.propose`\n\nThe participant MAY submit:\n\n* full candidate content;\n* patch/diff;\n* structured artifact model;\n* reference to generated content.\n\nThe request SHOULD identify:\n\n* proposed artifact type;\n* proposed canonical path where applicable;\n* governing subject;\n* relevant requirements/decisions;\n* context identity;\n* claimed purpose.\n\nSubmission does not make the artifact canonical or accepted.",
+      "title": "`artifact.propose`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 548,
+      "line_start": 535,
+      "section_id": "artifact-disposition",
+      "text": "### `artifact.disposition`\n\nMonad MUST be able to distinguish:\n\n* candidate-received;\n* validation-failed;\n* review-required;\n* authority-required;\n* accepted-into-governed-workflow;\n* rejected;\n* superseded.\n\nCanonical artifact creation or lifecycle transition remains owned by the applicable Monad/EOS mechanism.",
+      "title": "`artifact.disposition`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 550,
+      "line_start": 549,
+      "section_id": "lifecycle-action-proposal",
+      "text": "## Lifecycle-action proposal",
+      "title": "Lifecycle-action proposal"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 575,
+      "line_start": 551,
+      "section_id": "lifecycle-propose",
+      "text": "### `lifecycle.propose`\n\nA participant MAY recommend that EOS perform a lifecycle action such as:\n\n* create planning work;\n* mark readiness;\n* request authorization;\n* begin execution;\n* enter verification;\n* request review;\n* enter change control;\n* create maintenance;\n* prepare release.\n\nThe proposal MUST contain:\n\n* target;\n* requested action;\n* rationale;\n* context identity;\n* known prerequisite status;\n* evidence references where relevant.\n\nThe proposal MUST NOT directly mutate EOS lifecycle state.",
+      "title": "`lifecycle.propose`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 588,
+      "line_start": 576,
+      "section_id": "lifecycle-disposition",
+      "text": "### `lifecycle.disposition`\n\nMonad MUST return an explicit governed result such as:\n\n* accepted;\n* rejected;\n* blocked-prerequisite;\n* insufficient-authority;\n* policy-denied;\n* invalid-transition;\n* stale-context;\n* escalation-required.",
+      "title": "`lifecycle.disposition`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 590,
+      "line_start": 589,
+      "section_id": "execution-request-and-handoff",
+      "text": "## Execution request and handoff",
+      "title": "Execution request and handoff"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 617,
+      "line_start": 591,
+      "section_id": "execution-request",
+      "text": "### `execution.request`\n\nAn engineering participant MAY request governed execution.\n\nThe request SHOULD identify:\n\n* work subject;\n* intended outcome;\n* applicable pathway reference;\n* governing context identity;\n* candidate scope;\n* known constraints;\n* required capabilities if known;\n* relevant decisions/approvals;\n* requested executor profile.\n\nThis message is an execution request, not an Execution Envelope.\n\nMonad MUST independently determine whether:\n\n* the work is ready;\n* authority exists;\n* required decisions are resolved;\n* policy permits execution;\n* an Execution Envelope can be compiled;\n* the requested executor/harness is compatible.",
+      "title": "`execution.request`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 634,
+      "line_start": 618,
+      "section_id": "execution-disposition",
+      "text": "### `execution.disposition`\n\nPossible dispositions include:\n\n* authorized-for-envelope-compilation;\n* clarification-required;\n* decision-required;\n* approval-required;\n* blocked-dependency;\n* policy-denied;\n* authority-denied;\n* stale-context;\n* invalid-scope;\n* rejected.\n\nIf execution proceeds, subsequent executor interaction SHALL use the applicable governed-execution contracts, including `IFC-HARNESS-0001` where that architecture applies.",
+      "title": "`execution.disposition`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 636,
+      "line_start": 635,
+      "section_id": "evidence-interpretation",
+      "text": "## Evidence interpretation",
+      "title": "Evidence interpretation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 660,
+      "line_start": 637,
+      "section_id": "evidence-interpret",
+      "text": "### `evidence.interpret`\n\nA participant MAY analyze governed evidence.\n\nInput MAY include:\n\n* evidence identifiers;\n* verification results;\n* review findings;\n* operational observations;\n* incident or maintenance records.\n\nOutput MAY include:\n\n* interpretation;\n* inferred implications;\n* changed risk recommendation;\n* replanning recommendation;\n* proposed follow-up work.\n\nInterpretation MUST remain distinguishable from the underlying evidence.\n\nAI interpretation MUST NOT alter evidence state or result.",
+      "title": "`evidence.interpret`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 662,
+      "line_start": 661,
+      "section_id": "verification-assistance",
+      "text": "## Verification assistance",
+      "title": "Verification assistance"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 672,
+      "line_start": 663,
+      "section_id": "verification-recommend",
+      "text": "### `verification.recommend`\n\nA participant MAY recommend:\n\n* validators;\n* validation profiles;\n* additional evidence;\n* likely failure causes;\n* remediation.",
+      "title": "`verification.recommend`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 678,
+      "line_start": 673,
+      "section_id": "verification-request",
+      "text": "### `verification.request`\n\nWhere permitted, a participant MAY request invocation of verification.\n\nActual validator execution and authoritative verification state remain governed by EOSV.",
+      "title": "`verification.request`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 692,
+      "line_start": 679,
+      "section_id": "verification-result",
+      "text": "### `verification.result`\n\nThe participant MAY receive authoritative or projected results including:\n\n* passed;\n* failed;\n* incomplete;\n* stale;\n* blocked;\n* skipped;\n* indeterminate.\n\nThe participant MUST NOT convert a failed or stale result into success.",
+      "title": "`verification.result`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 694,
+      "line_start": 693,
+      "section_id": "review-participation",
+      "text": "## Review participation",
+      "title": "Review participation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 706,
+      "line_start": 695,
+      "section_id": "review-request",
+      "text": "### `review.request`\n\nMonad MAY request AI review of a governed subject.\n\nThe request SHOULD provide:\n\n* review subject;\n* review criteria;\n* context identity;\n* required independence properties;\n* expected output shape.",
+      "title": "`review.request`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 720,
+      "line_start": 707,
+      "section_id": "review-result",
+      "text": "### `review.result`\n\nA participant MAY return:\n\n* findings;\n* severity;\n* evidence references;\n* recommendation;\n* unresolved concerns.\n\nA participant's result MUST identify enough participant/provider/harness context to evaluate required independence.\n\nAn AI review recommendation does not itself constitute reserved human acceptance.",
+      "title": "`review.result`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 722,
+      "line_start": 721,
+      "section_id": "replanning-interface",
+      "text": "## Replanning interface",
+      "title": "Replanning interface"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 736,
+      "line_start": 723,
+      "section_id": "replan-propose",
+      "text": "### `replan.propose`\n\nA participant SHOULD use replanning when material evidence or governing change invalidates the current pathway.\n\nThe proposal SHOULD identify:\n\n* prior pathway or plan;\n* triggering evidence/change;\n* assumptions invalidated;\n* proposed revised activities;\n* changed decision/approval needs;\n* changed verification/review needs;\n* changed execution implications.",
+      "title": "`replan.propose`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 750,
+      "line_start": 737,
+      "section_id": "replan-disposition",
+      "text": "### `replan.disposition`\n\nMonad may return:\n\n* accepted-for-planning;\n* change-control-required;\n* clarification-required;\n* decision-required;\n* blocked;\n* rejected;\n* superseded.\n\nReplanning MUST NOT silently modify an authorized Work Packet's governing scope.",
+      "title": "`replan.disposition`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 766,
+      "line_start": 751,
+      "section_id": "governing-input-drift",
+      "text": "## Governing-input drift\n\nA context or pathway exchange SHOULD be bound to a context identity where material correctness depends on governing inputs.\n\nWhen Monad determines that context has materially drifted, it MUST be able to communicate a stale-context disposition.\n\nThe participant MUST then:\n\n* stop representing the prior context as current;\n* refresh context;\n* reassess affected recommendations;\n* replan where necessary;\n* request reauthorization where required.\n\nThe interface MUST NOT permit a participant to override a stale-context determination based solely on model confidence.",
+      "title": "Governing-input drift"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 784,
+      "line_start": 767,
+      "section_id": "autonomy-profile-interaction",
+      "text": "## Autonomy profile interaction\n\nThe session MUST be capable of communicating the applicable autonomy profile:\n\n```text\nAI-assisted\nAI-driven\nbounded-AI-autonomous\n```\n\nThe autonomy profile controls what classes of progression may occur without synchronous human interaction.\n\nIt does not redefine authority.\n\nA participant MUST NOT self-promote to a stronger autonomy profile.\n\nA changed profile MUST originate from governed authority/policy.",
+      "title": "Autonomy profile interaction"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 799,
+      "line_start": 785,
+      "section_id": "human-denial-semantics",
+      "text": "## Human denial semantics\n\nA denial MUST be represented as a durable or attributable governed disposition when consequential.\n\nThe participant MUST treat the denial as binding within its scope.\n\nThe participant MAY:\n\n* accept the denial;\n* propose a different conforming approach;\n* request clarification about its scope;\n* revisit only when new material governed evidence justifies reevaluation.\n\nThe participant MUST NOT repeatedly resubmit the same materially unchanged rejected proposal in an attempt to obtain a different answer.",
+      "title": "Human denial semantics"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 813,
+      "line_start": 800,
+      "section_id": "provider-failure",
+      "text": "## Provider failure\n\nProvider or participant failure MUST NOT corrupt EOS state.\n\nA session may terminate or become unavailable while:\n\n* canonical state remains valid;\n* material decisions remain persisted;\n* evidence remains preserved;\n* lifecycle state remains authoritative;\n* another compatible participant may resume from governed context.\n\nProvider-local memory MUST NOT be required for authoritative recovery.",
+      "title": "Provider failure"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 815,
+      "line_start": 814,
+      "section_id": "session-completion",
+      "text": "## Session completion",
+      "title": "Session completion"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 821,
+      "line_start": 816,
+      "section_id": "session-yield",
+      "text": "### `session.yield`\n\nA participant MAY indicate that it has no currently authorized useful action.\n\nYield is not failure.",
+      "title": "`session.yield`"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 834,
+      "line_start": 822,
+      "section_id": "session-close",
+      "text": "### `session.close`\n\nCloses the transient engineering session.\n\nClosing a session MUST NOT:\n\n* close a Work Packet;\n* accept an artifact;\n* verify execution;\n* approve a decision;\n* release software;\n* alter canonical lifecycle state.",
+      "title": "`session.close`"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 851,
+      "line_start": 835,
+      "section_id": "event-identity-and-causality",
+      "text": "## Event identity and causality\n\nConsequential messages MUST have identity sufficient for:\n\n* deduplication;\n* correlation;\n* causal reconstruction;\n* auditability.\n\nA conforming implementation SHOULD provide either:\n\n* monotonic session sequence numbers;\n* causal parent references;\n* another deterministic causal mechanism.\n\nRetries MUST NOT create duplicate governed decisions or effects.",
+      "title": "Event identity and causality"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 855,
+      "line_start": 852,
+      "section_id": "error-model",
+      "text": "## Error model\n\nThe interface MUST distinguish protocol errors from governed outcomes.",
+      "title": "Error model"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 868,
+      "line_start": 856,
+      "section_id": "protocol-errors",
+      "text": "### Protocol errors\n\nExamples:\n\n* unsupported interface version;\n* malformed message;\n* unknown mandatory message type;\n* invalid session identity;\n* unsupported mandatory extension;\n* incompatible participant adapter;\n* serialization failure;\n* transport failure.",
+      "title": "Protocol errors"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 885,
+      "line_start": 869,
+      "section_id": "governed-outcomes",
+      "text": "### Governed outcomes\n\nExamples:\n\n* insufficient authority;\n* policy denial;\n* material ambiguity;\n* stale context;\n* decision required;\n* approval required;\n* blocked dependency;\n* verification failure;\n* review rejection;\n* human denial.\n\nA governed denial MUST NOT be collapsed into a generic technical error.",
+      "title": "Governed outcomes"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 903,
+      "line_start": 886,
+      "section_id": "extension-model",
+      "text": "## Extension model\n\nExtensions MUST:\n\n1. use a namespace;\n2. declare version;\n3. declare whether optional or mandatory;\n4. be negotiated where necessary;\n5. preserve all core invariants.\n\nExtensions MUST NOT:\n\n* create hidden authority;\n* bypass EOS lifecycle gates;\n* bypass execution mediation;\n* convert proposals into approvals;\n* weaken evidence obligations.",
+      "title": "Extension model"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 922,
+      "line_start": 904,
+      "section_id": "security-and-data",
+      "text": "## Security and data\n\nThe interface MUST support least-context operation.\n\nImplementations MUST be able to enforce:\n\n* authorized context access;\n* sensitive-data minimization;\n* secret exclusion;\n* provider data-handling constraints;\n* repository/path access limits;\n* retention policy;\n* participant identity;\n* audit attribution.\n\nThe interface MUST NOT treat a participant's request for more context as permission to disclose it.\n\nDetailed authority, delegation, capability, approval, revocation, and security requirements are owned by `SEC-AIENG-0001`.",
+      "title": "Security and data"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 947,
+      "line_start": 923,
+      "section_id": "transcript-policy",
+      "text": "## Transcript policy\n\nImplementations MAY retain transcripts according to configured policy.\n\nTranscripts are noncanonical by default.\n\nConformance and auditability MUST NOT depend on preserving private chain-of-thought.\n\nMaterial outcomes MUST instead be reconstructable from structured records such as:\n\n```text\ncontext identity\nproposal\nmaterial question\ndecision\napproval or denial\nauthorization\nexecution handoff\nevidence\nverification\nreview\nreplanning\nacceptance\n```",
+      "title": "Transcript policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 964,
+      "line_start": 948,
+      "section_id": "compatibility",
+      "text": "## Compatibility\n\nInterface compatibility MUST be explicit.\n\nA participant adapter SHOULD advertise:\n\n* supported interface versions;\n* required extensions;\n* optional extensions;\n* context capabilities;\n* structured-output capabilities;\n* known limitations.\n\nAn adapter unable to preserve a mandatory semantic obligation MUST fail compatibility rather than silently weaken the contract.\n\nMinor implementation variation is allowed where observable semantics remain compatible.",
+      "title": "Compatibility"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 979,
+      "line_start": 965,
+      "section_id": "versioning",
+      "text": "## Versioning\n\nBreaking changes include changes that materially alter:\n\n* authority semantics;\n* message meaning;\n* required fields;\n* context classification;\n* execution handoff;\n* denial behavior;\n* lifecycle proposal semantics;\n* compatibility obligations.\n\nBreaking changes require an interface version change and governed consumer-impact analysis.",
+      "title": "Versioning"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 1001,
+      "line_start": 980,
+      "section_id": "observability",
+      "text": "## Observability\n\nConsequential sessions SHOULD expose:\n\n* session identity;\n* participant identity;\n* provider/model/harness identity where applicable;\n* subject;\n* context identity;\n* autonomy profile;\n* proposal identities;\n* clarification events;\n* decision references;\n* lifecycle requests/dispositions;\n* execution handoffs;\n* evidence interpretation;\n* review participation;\n* replanning;\n* terminal session state.\n\nObservability MUST NOT require private chain-of-thought.",
+      "title": "Observability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 1003,
+      "line_start": 1002,
+      "section_id": "verification",
+      "text": "## Verification",
+      "title": "Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 1007,
+      "line_start": 1004,
+      "section_id": "aieng-ifc-v01-proposal-is-not-authority",
+      "text": "### AIENG-IFC-V01 — Proposal is not authority\n\nSubmit a pathway or lifecycle proposal and verify that no binding state change occurs solely from receipt.",
+      "title": "AIENG-IFC-V01 — Proposal is not authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 1013,
+      "line_start": 1008,
+      "section_id": "aieng-ifc-v02-material-clarification",
+      "text": "### AIENG-IFC-V02 — Material clarification\n\nGiven materially ambiguous intent, verify that `clarification.request` can surface the question without silently choosing a consequential interpretation.\n\nContributes to `AIENG-CONF-B`.",
+      "title": "AIENG-IFC-V02 — Material clarification"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 1017,
+      "line_start": 1014,
+      "section_id": "aieng-ifc-v03-native-decision-routing",
+      "text": "### AIENG-IFC-V03 — Native decision routing\n\nSubmit a consequential decision proposal and verify that the canonical outcome is represented through native decision/approval semantics.",
+      "title": "AIENG-IFC-V03 — Native decision routing"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 1021,
+      "line_start": 1018,
+      "section_id": "aieng-ifc-v04-execution-handoff",
+      "text": "### AIENG-IFC-V04 — Execution handoff\n\nSubmit `execution.request` and verify that consequential execution does not begin until EOS authorization and downstream governed execution requirements are satisfied.",
+      "title": "AIENG-IFC-V04 — Execution handoff"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 1027,
+      "line_start": 1022,
+      "section_id": "aieng-ifc-v05-stale-context",
+      "text": "### AIENG-IFC-V05 — Stale context\n\nChange a materially governing input after context issuance and verify that stale-context handling invalidates current-use assumptions.\n\nContributes to `AIENG-CONF-G`.",
+      "title": "AIENG-IFC-V05 — Stale context"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 1033,
+      "line_start": 1028,
+      "section_id": "aieng-ifc-v06-human-denial",
+      "text": "### AIENG-IFC-V06 — Human denial\n\nReturn a governed denial and verify that the participant does not treat it as approval or repeatedly resubmit the unchanged rejected action.\n\nCovers the interface portion of `AIENG-CONF-I`.",
+      "title": "AIENG-IFC-V06 — Human denial"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 1039,
+      "line_start": 1034,
+      "section_id": "aieng-ifc-v07-provider-replacement",
+      "text": "### AIENG-IFC-V07 — Provider replacement\n\nTerminate one participant/provider and verify another compatible participant can resume from governed context without provider-local state becoming authoritative.\n\nContributes to `AIENG-CONF-H`.",
+      "title": "AIENG-IFC-V07 — Provider replacement"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 1045,
+      "line_start": 1040,
+      "section_id": "aieng-ifc-v08-evidence-interpretation",
+      "text": "### AIENG-IFC-V08 — Evidence interpretation\n\nProvide failed verification evidence and verify that AI interpretation cannot mutate the failure into a passing authoritative result.\n\nContributes to `AIENG-CONF-J`.",
+      "title": "AIENG-IFC-V08 — Evidence interpretation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 1051,
+      "line_start": 1046,
+      "section_id": "aieng-ifc-v09-review-independence-metadata",
+      "text": "### AIENG-IFC-V09 — Review independence metadata\n\nGiven an AI review request, verify that enough participant identity/context metadata is retained to evaluate applicable independence policy.\n\nContributes to `AIENG-CONF-F`.",
+      "title": "AIENG-IFC-V09 — Review independence metadata"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 1057,
+      "line_start": 1052,
+      "section_id": "aieng-ifc-v10-autonomy-non-self-promotion",
+      "text": "### AIENG-IFC-V10 — Autonomy non-self-promotion\n\nVerify that a participant cannot change itself from AI-driven to bounded AI-autonomous through its own message.\n\nContributes to `AIENG-CONF-D`.",
+      "title": "AIENG-IFC-V10 — Autonomy non-self-promotion"
+    },
+    {
+      "identifiers": [
+        "FR-007",
+        "FR-012",
+        "FR-013",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-023",
+        "FR-024",
+        "FR-037",
+        "FR-038",
+        "FR-040",
+        "FR-043",
+        "QR-008",
+        "QR-010"
+      ],
+      "level": 2,
+      "line_end": 1102,
+      "line_start": 1058,
+      "section_id": "traceability",
+      "text": "## Traceability\n\nPrimary relationships:\n\n```text\nFR-043\n  → FUN-AIENG-0001\n  → IFC-AIENG-0001\n```\n\nContext relationships:\n\n```text\nFR-007\nFR-012\nFR-013\nFR-014\nFR-015\nFR-016\nFR-017\nFR-023\nFR-024\nQR-008\nQR-010\n  → IFC-AIENG-0001\n```\n\nExecution handoff:\n\n```text\nIFC-AIENG-0001\n  → EOS authority/readiness\n  → FR-037\n  → FR-038\n  → IFC-HARNESS-0001 / conforming execution boundary\n  → FR-040\n```\n\nSecurity refinement:\n\n```text\nIFC-AIENG-0001\n  → SEC-AIENG-0001\n```",
+      "title": "Traceability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 1109,
+      "line_start": 1103,
+      "section_id": "implementation-boundary",
+      "text": "## Implementation boundary\n\nThis specification defines the semantic interface required for conforming AI engineering participation.\n\nIt does not authorize implementation.\n\nProvider adapters, APIs, MCP tools, CLI commands, schemas, runtime services, or harness integrations MUST be planned through EOSP and implemented only through separately authorized Work Cycles and Work Packets.",
+      "title": "Implementation boundary"
+    }
+  ],
+  "source": {
+    "bytes": 28027,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 1109,
+    "media_type": "text/markdown",
+    "path": "specifications/interfaces/IFC-AIENG-0001-engineering-agent-contract.md",
+    "sha256": "dfd3199956d80a2fd79441f04f58f9816ba6277181e02edfcffd58a6a46f43fd"
+  }
+}

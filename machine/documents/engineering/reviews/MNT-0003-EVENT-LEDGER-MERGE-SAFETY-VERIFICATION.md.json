@@ -1,0 +1,148 @@
+{
+  "content": "---\nartifact_id: \"MNT-0003-VERIFICATION\"\ntitle: \"MNT-0003 Event Ledger Merge-Safety Verification\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"COMPLETE\"\nauthority: \"verification-authoritative\"\ncreated: \"2026-09-07\"\nupdated: \"2026-09-07\"\ntarget: \"MNT-0003\"\ndisposition: \"PASS\"\n---\n\n# MNT-0003 — Event Ledger Merge-Safety Verification\n\n**Disposition:** PASS — RECOMMEND MNT-0003 CLOSURE\n\n## Target\n\n`engineering/maintenance/MNT-0003.md`\n\n## Verification Baseline\n\nClean verification baseline:\n\n`2d2247c673dd7f48c210a8063afe9135e4cd7ea8`\n\nRelevant production checkpoints:\n\n- `3fb8b8995e3d92ddab28115190fd6ad21ac4cd4c` — enforce event-history integrity;\n- `0072d7f4bed954f2832db7403933b5fb9bf37e31` — remove temporary integration machinery;\n- `8a9deb9fbc5c49458605aa8e1a73e63947263ab8` — synchronize normal machine projection after integration;\n- `2d2247c673dd7f48c210a8063afe9135e4cd7ea8` — separately refresh the pre-existing deterministic trace projection before formal verification.\n\n## Invariant Under Review\n\n> Merge, synchronization, or reconciliation MUST NOT silently remove a previously recorded valid EOS event.\n\n## Verified Controls\n\nPASS:\n\n- `.eos/events.jsonl` uses Git `merge=union` for ordinary divergent append preservation;\n- inherited event identity is immutable;\n- a child or working ledger cannot silently delete an event inherited from `HEAD`;\n- a merge result must preserve every event from each parent ledger;\n- conflicting immutable payloads for one `event_id` fail closed;\n- independent divergent lifecycle histories are preserved;\n- divergent lifecycle changes to the same EOS entity fail closed for explicit governed reconciliation;\n- octopus event-history merges fail closed rather than guessing reconciliation semantics;\n- committed merge history is checked against immediate parents and merge base;\n- in-progress Git merge history is checked against `HEAD`, `MERGE_HEAD`, and merge base;\n- canonical-state pre, post, and status paths enforce event-history integrity;\n- evidence-consensus canonical reconciliation enforces event-history integrity;\n- EOSV exposes event-history integrity as a first-class verification dimension.\n\n## Deterministic Regression Evidence\n\nPASS:\n\n- event-ledger merge-safety suite: 16 tests;\n- canonical-state suite: 12 tests;\n- canonical reconciliation suite: 3 tests;\n- EOS wrapper dispatch: PASS;\n- identifier-family suite: 20 tests;\n- Git merge attribute: `.eos/events.jsonl merge=union`;\n- canonical operational state: CONSISTENT;\n- evidence-consensus reconciliation: converged;\n- clean-baseline trace projection: byte-stable before lifecycle verification;\n- EOSV core verification: PASS;\n- EOSV event-history integrity: PASS;\n- verification-artifact trace projection converges and remains byte-stable on the subsequent identical verification pass;\n- EOSV overall result: PASS.\n\n## Real Git-History Scenarios\n\nPASS:\n\n1. Independent branch appends survive an actual Git merge.\n2. A descendant commit that removes an inherited event is rejected.\n3. Same-entity concurrent lifecycle changes are retained by Git but rejected semantically as ambiguous.\n4. Independent concurrent lifecycle changes remain acceptable.\n5. Working-tree deletion of a committed event is rejected before a later EOS transaction can normalize over it.\n\n## Canonical-State / Reconciliation Findings\n\nPASS.\n\n`.eos/state/current.json` remains the sole canonical operational state. The event ledger remains append-only mutation history plus Git provenance. The repair does not make event history a second current-state authority.\n\nEvidence reconciliation cannot bypass this invariant: unsafe event history fails before accepted lifecycle evidence can be reconciled into canonical state.\n\n## Scope Findings\n\nPASS.\n\nMNT-0003 remains distinct from MNT-0006:\n\n- MNT-0003 governs preservation and semantic reconciliation of divergent committed event histories;\n- MNT-0006 governs atomic rollback of one failed local EOS transaction.\n\nThe pre-existing trace projection drift discovered during verification was refreshed in its own projection-only commit before this baseline and is not folded into MNT-0003 verification scope.\n\n## Blocking Findings\n\nNone.\n\n## Non-Blocking Findings\n\n1. Same-entity divergent lifecycle histories intentionally require explicit governed reconciliation; automatic merge does not invent authority.\n2. Git union merge is a preservation mechanism, not sufficient semantic reconciliation by itself; EOS semantic validation remains authoritative.\n3. Existing unrelated EOSV stale-evidence warnings remain outside MNT-0003 scope and do not invalidate event-history verification.\n\n## Recommendation\n\n**PASS — RECOMMEND MNT-0003 CLOSURE**\n\nFormal closure remains subject to ordinary EOS maintenance closure gates and an explicit Human Project Steward decision.\n",
+  "document_id": "doc:engineering%2Freviews%2FMNT-0003-EVENT-LEDGER-MERGE-SAFETY-VERIFICATION.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"MNT-0003-VERIFICATION\" title: \"MNT-0003 Event Ledger Merge-Safety Verification\" type: \"review\" version: \"0.1.0\" status: \"COMPLETE\" authority: \"verification-authoritative\" created: \"2026-09-07\" updated: \"2026-09-07\" target: \"MNT-0003\" disposition: \"PASS\" ---",
+    "title": "MNT-0003 — Event Ledger Merge-Safety Verification"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 13,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"MNT-0003-VERIFICATION\"\ntitle: \"MNT-0003 Event Ledger Merge-Safety Verification\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"COMPLETE\"\nauthority: \"verification-authoritative\"\ncreated: \"2026-09-07\"\nupdated: \"2026-09-07\"\ntarget: \"MNT-0003\"\ndisposition: \"PASS\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 17,
+      "line_start": 14,
+      "section_id": "mnt-0003-event-ledger-merge-safety-verification",
+      "text": "# MNT-0003 — Event Ledger Merge-Safety Verification\n\n**Disposition:** PASS — RECOMMEND MNT-0003 CLOSURE",
+      "title": "MNT-0003 — Event Ledger Merge-Safety Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 18,
+      "section_id": "target",
+      "text": "## Target\n\n`engineering/maintenance/MNT-0003.md`",
+      "title": "Target"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 22,
+      "section_id": "verification-baseline",
+      "text": "## Verification Baseline\n\nClean verification baseline:\n\n`2d2247c673dd7f48c210a8063afe9135e4cd7ea8`\n\nRelevant production checkpoints:\n\n- `3fb8b8995e3d92ddab28115190fd6ad21ac4cd4c` — enforce event-history integrity;\n- `0072d7f4bed954f2832db7403933b5fb9bf37e31` — remove temporary integration machinery;\n- `8a9deb9fbc5c49458605aa8e1a73e63947263ab8` — synchronize normal machine projection after integration;\n- `2d2247c673dd7f48c210a8063afe9135e4cd7ea8` — separately refresh the pre-existing deterministic trace projection before formal verification.",
+      "title": "Verification Baseline"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 35,
+      "section_id": "invariant-under-review",
+      "text": "## Invariant Under Review\n\n> Merge, synchronization, or reconciliation MUST NOT silently remove a previously recorded valid EOS event.",
+      "title": "Invariant Under Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 39,
+      "section_id": "verified-controls",
+      "text": "## Verified Controls\n\nPASS:\n\n- `.eos/events.jsonl` uses Git `merge=union` for ordinary divergent append preservation;\n- inherited event identity is immutable;\n- a child or working ledger cannot silently delete an event inherited from `HEAD`;\n- a merge result must preserve every event from each parent ledger;\n- conflicting immutable payloads for one `event_id` fail closed;\n- independent divergent lifecycle histories are preserved;\n- divergent lifecycle changes to the same EOS entity fail closed for explicit governed reconciliation;\n- octopus event-history merges fail closed rather than guessing reconciliation semantics;\n- committed merge history is checked against immediate parents and merge base;\n- in-progress Git merge history is checked against `HEAD`, `MERGE_HEAD`, and merge base;\n- canonical-state pre, post, and status paths enforce event-history integrity;\n- evidence-consensus canonical reconciliation enforces event-history integrity;\n- EOSV exposes event-history integrity as a first-class verification dimension.",
+      "title": "Verified Controls"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 74,
+      "line_start": 57,
+      "section_id": "deterministic-regression-evidence",
+      "text": "## Deterministic Regression Evidence\n\nPASS:\n\n- event-ledger merge-safety suite: 16 tests;\n- canonical-state suite: 12 tests;\n- canonical reconciliation suite: 3 tests;\n- EOS wrapper dispatch: PASS;\n- identifier-family suite: 20 tests;\n- Git merge attribute: `.eos/events.jsonl merge=union`;\n- canonical operational state: CONSISTENT;\n- evidence-consensus reconciliation: converged;\n- clean-baseline trace projection: byte-stable before lifecycle verification;\n- EOSV core verification: PASS;\n- EOSV event-history integrity: PASS;\n- verification-artifact trace projection converges and remains byte-stable on the subsequent identical verification pass;\n- EOSV overall result: PASS.",
+      "title": "Deterministic Regression Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 84,
+      "line_start": 75,
+      "section_id": "real-git-history-scenarios",
+      "text": "## Real Git-History Scenarios\n\nPASS:\n\n1. Independent branch appends survive an actual Git merge.\n2. A descendant commit that removes an inherited event is rejected.\n3. Same-entity concurrent lifecycle changes are retained by Git but rejected semantically as ambiguous.\n4. Independent concurrent lifecycle changes remain acceptable.\n5. Working-tree deletion of a committed event is rejected before a later EOS transaction can normalize over it.",
+      "title": "Real Git-History Scenarios"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 92,
+      "line_start": 85,
+      "section_id": "canonical-state-reconciliation-findings",
+      "text": "## Canonical-State / Reconciliation Findings\n\nPASS.\n\n`.eos/state/current.json` remains the sole canonical operational state. The event ledger remains append-only mutation history plus Git provenance. The repair does not make event history a second current-state authority.\n\nEvidence reconciliation cannot bypass this invariant: unsafe event history fails before accepted lifecycle evidence can be reconciled into canonical state.",
+      "title": "Canonical-State / Reconciliation Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 103,
+      "line_start": 93,
+      "section_id": "scope-findings",
+      "text": "## Scope Findings\n\nPASS.\n\nMNT-0003 remains distinct from MNT-0006:\n\n- MNT-0003 governs preservation and semantic reconciliation of divergent committed event histories;\n- MNT-0006 governs atomic rollback of one failed local EOS transaction.\n\nThe pre-existing trace projection drift discovered during verification was refreshed in its own projection-only commit before this baseline and is not folded into MNT-0003 verification scope.",
+      "title": "Scope Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 107,
+      "line_start": 104,
+      "section_id": "blocking-findings",
+      "text": "## Blocking Findings\n\nNone.",
+      "title": "Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 113,
+      "line_start": 108,
+      "section_id": "non-blocking-findings",
+      "text": "## Non-Blocking Findings\n\n1. Same-entity divergent lifecycle histories intentionally require explicit governed reconciliation; automatic merge does not invent authority.\n2. Git union merge is a preservation mechanism, not sufficient semantic reconciliation by itself; EOS semantic validation remains authoritative.\n3. Existing unrelated EOSV stale-evidence warnings remain outside MNT-0003 scope and do not invalidate event-history verification.",
+      "title": "Non-Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 118,
+      "line_start": 114,
+      "section_id": "recommendation",
+      "text": "## Recommendation\n\n**PASS — RECOMMEND MNT-0003 CLOSURE**\n\nFormal closure remains subject to ordinary EOS maintenance closure gates and an explicit Human Project Steward decision.",
+      "title": "Recommendation"
+    }
+  ],
+  "source": {
+    "bytes": 4812,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 118,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/MNT-0003-EVENT-LEDGER-MERGE-SAFETY-VERIFICATION.md",
+    "sha256": "1b815d41922d3d0bd8a387006c701d9e5a888c347d4e6cc155b50aa786507375"
+  }
+}
