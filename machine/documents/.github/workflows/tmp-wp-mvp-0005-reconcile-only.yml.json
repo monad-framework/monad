@@ -1,0 +1,40 @@
+{
+  "content": "name: Temporary WP-MVP-0005 reconcile only\n\non:\n  push:\n    branches:\n      - ops/wp-mvp-0005-reconcile-review\n\npermissions:\n  contents: write\n\nconcurrency:\n  group: wp-mvp-0005-reconcile-only\n  cancel-in-progress: true\n\njobs:\n  reconcile:\n    runs-on: ubuntu-24.04\n    timeout-minutes: 15\n    steps:\n      - name: Check out product branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: wp/mvp-0005\n          fetch-depth: 0\n\n      - name: Merge canonical main and regenerate derived projections\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git fetch origin main\n          set +e\n          git merge --no-commit --no-ff origin/main\n          status=$?\n          set -e\n          if [ \"$status\" -ne 0 ]; then\n            conflicts=\"$(git diff --name-only --diff-filter=U)\"\n            test -n \"$conflicts\"\n            while IFS= read -r path; do\n              case \"$path\" in\n                .eos/trace-edges.tsv|machine/*)\n                  git checkout --theirs -- \"$path\"\n                  git add -- \"$path\"\n                  ;;\n                *)\n                  echo \"Unexpected non-derived conflict: $path\" >&2\n                  exit 1\n                  ;;\n              esac\n            done <<< \"$conflicts\"\n          fi\n          test -z \"$(git diff --name-only --diff-filter=U)\"\n          python3 tools/eos/trace_integrity.py --write\n          python3 scripts/sync-machine-docs.py --write\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n          ./scripts/eos state status\n          ./scripts/eos verify --strict\n          git add -A\n          git diff --cached --check\n          git commit -m \"chore(core): reconcile WP-MVP-0005 with canonical execution state\"\n          git push origin HEAD:wp/mvp-0005\n",
+  "document_id": "doc:.github%2Fworkflows%2Ftmp-wp-mvp-0005-reconcile-only.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/tmp-wp-mvp-0005-reconcile-only.yml.",
+    "title": "Tmp Wp Mvp 0005 Reconcile Only"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 61,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Temporary WP-MVP-0005 reconcile only\n\non:\n  push:\n    branches:\n      - ops/wp-mvp-0005-reconcile-review\n\npermissions:\n  contents: write\n\nconcurrency:\n  group: wp-mvp-0005-reconcile-only\n  cancel-in-progress: true\n\njobs:\n  reconcile:\n    runs-on: ubuntu-24.04\n    timeout-minutes: 15\n    steps:\n      - name: Check out product branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: wp/mvp-0005\n          fetch-depth: 0\n\n      - name: Merge canonical main and regenerate derived projections\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git fetch origin main\n          set +e\n          git merge --no-commit --no-ff origin/main\n          status=$?\n          set -e\n          if [ \"$status\" -ne 0 ]; then\n            conflicts=\"$(git diff --name-only --diff-filter=U)\"\n            test -n \"$conflicts\"\n            while IFS= read -r path; do\n              case \"$path\" in\n                .eos/trace-edges.tsv|machine/*)\n                  git checkout --theirs -- \"$path\"\n                  git add -- \"$path\"\n                  ;;\n                *)\n                  echo \"Unexpected non-derived conflict: $path\" >&2\n                  exit 1\n                  ;;\n              esac\n            done <<< \"$conflicts\"\n          fi\n          test -z \"$(git diff --name-only --diff-filter=U)\"\n          python3 tools/eos/trace_integrity.py --write\n          python3 scripts/sync-machine-docs.py --write\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n          ./scripts/eos state status\n          ./scripts/eos verify --strict\n          git add -A\n          git diff --cached --check\n          git commit -m \"chore(core): reconcile WP-MVP-0005 with canonical execution state\"\n          git push origin HEAD:wp/mvp-0005",
+      "title": "Tmp Wp Mvp 0005 Reconcile Only"
+    }
+  ],
+  "source": {
+    "bytes": 1946,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 61,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/tmp-wp-mvp-0005-reconcile-only.yml",
+    "sha256": "e9bd14d9c0d816517ffdb14f3562eaf0b308a9c53448be6474dab8bcf581d3b7"
+  }
+}
