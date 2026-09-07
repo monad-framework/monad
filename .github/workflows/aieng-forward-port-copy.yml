@@ -73,7 +73,7 @@ jobs:
       - name: Validate bounded copy
         run: |
           git diff --check
-          python3 tools/eos/test_identifier_families.py
+          python3 -m py_compile tools/eos/identity_families.py tools/eos/test_identifier_families.py
           python3 - <<'PY'
           import subprocess
           prohibited_prefixes = (
