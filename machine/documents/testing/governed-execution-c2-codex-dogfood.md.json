@@ -1,0 +1,103 @@
+{
+  "content": "# Governed Execution C2 Codex Read-Only Dogfood\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Fixture:** `GEH-CF-038-LIVE-DOGFOOD`  \n**Preconditions:** `GEH-CF-038-CONFINEMENT`, `GEH-CF-038-LIVE-ACTIVATION`  \n**Implementation:** `crates/monad-codex-dogfood`\n\n## Purpose\n\nDefine Monad's first attributable live external-executor demonstration: one real Codex turn may observe one exact repository-relative UTF-8 text file only through `monad_workspace_read_text`, while the provider remains confined from native workspace access and Monad retains authority over capability, operation mediation, evidence, and completion.\n\nThis fixture is intentionally read-only and narrow. It does not authorize shell, write, network, MCP, provider-native filesystem, or broader workspace effects.\n\n## Governing invariant\n\nA successful dogfood claim requires the following single process chain:\n\n```text\nimmutable Execution Envelope\n  -> GEH-CF-038-CONFINEMENT recertification\n    -> GEH-CF-038-LIVE-ACTIVATION retained App Server connection/thread\n      -> one Codex turn\n        -> one monad_workspace_read_text request\n          -> reconstructed Monad OperationRequest\n            -> C1 Tool Gateway\n              -> WorkspaceReadBackend\n        -> provider completion request\n          -> independent Verification Controller\n```\n\nThe dogfood process MUST NOT replace the activated provider connection or thread after certification/activation.\n\n## GEH-CF-038-LIVE-DOGFOOD\n\n**Type:** C2 live activation / integration / verification  \n**Expected:** pass only on an explicitly selected local live Codex environment\n\nThe live runner MUST fail closed unless all of the following are observable:\n\n1. a valid immutable Execution Envelope binds the concrete Codex adapter as executor;\n2. the envelope grants only `workspace.read` for one exact repository-relative path;\n3. the selected real Codex build passes `GEH-CF-038-CONFINEMENT` in the same process;\n4. `GEH-CF-038-LIVE-ACTIVATION` retains the exact activation App Server connection/thread;\n5. the provider connection receives exactly one real `initialize` and one real `thread/start` before the dogfood turn;\n6. runtime adoption does not send a second provider initialization or replacement thread start;\n7. exactly one dogfood `turn/start` is sent on the retained connection;\n8. the provider sends exactly one `item/tool/call` for `monad_workspace_read_text`;\n9. the request thread and turn equal the retained activation thread and active dogfood turn;\n10. the requested path equals the exact path granted in the Execution Envelope;\n11. Monad reconstructs the authority-bearing operation request rather than accepting capability/run/envelope authority from Codex;\n12. the dynamic-tool response reports a governed `executed_success` disposition with an operation id, result digest, and workspace-read evidence reference;\n13. no rejected or failed dynamic-tool response occurs in the first clean dogfood fixture;\n14. provider turn completion first reaches the Verification Controller without post-run evidence and therefore cannot self-establish governed completion;\n15. a separate host-side verification pass evaluates the observable activation/operation/thread evidence and establishes completion independently of model assertions;\n16. the durable dogfood report excludes raw workspace text and private model reasoning.\n\nAny mismatch, provider-native consequential effect, missing tool call, extra tool path, denied/failed governed read, activation/session substitution, or incomplete final verification is a fixture failure.\n\n## Durable report\n\nA successful report MUST identify at least:\n\n- dogfood report schema and fixture version;\n- run id;\n- envelope id and digest;\n- governing-state digest;\n- requested workspace path;\n- nested live activation binding and confinement certificate;\n- exact activation/dogfood thread id and turn id;\n- dynamic-tool call count;\n- actual provider initialize/thread-start/turn-start counts observed on the retained connection;\n- successful governed operation id, disposition, evidence reference, and result digest;\n- provider-triggered completion assessment;\n- independent post-run verification assessment;\n- final evidence references;\n- `governed_execution_demonstrated: true` only when every required check passes.\n\nRaw workspace text, the forbidden sentinel marker, and private chain-of-thought MUST NOT be retained in the report.\n\n## Deterministic CI fixture\n\nCI MUST use scripted transports to prove runner semantics without claiming that a hosted runner has certified a live provider boundary.\n\nDeterministic tests MUST cover at least:\n\n- one exact successful governed read on the retained activation thread;\n- provider completion without a governed read fails the dogfood fixture;\n- an out-of-scope provider path request cannot satisfy the fixture;\n- provider completion remains incomplete before trusted post-run evidence;\n- independent post-run verification can establish completion only after the clean governed path is observed;\n- the retained connection observes one provider initialize/thread-start, preventing silent replacement during runtime adoption.\n\nRequired CI commands:\n\n```text\ncargo metadata --locked --no-deps\ncargo fmt --check\ncargo test --locked -p monad-codex-dogfood\ncargo test --locked -p monad-codex-live-activation\ncargo test --locked -p monad-codex-confinement\ncargo test --locked -p monad-codex-runtime\n```\n\n## Live command\n\nAfter this runner is merged, the first live execution is performed from the governed repository root with the selected local Codex configuration. A representative invocation is:\n\n```text\nMARKER=\"$(cat .monad/confinement-sentinel)\"\nFORBIDDEN_PATH=\"$(realpath .monad/confinement-sentinel)\"\nWORKSPACE_ROOT=\"$(pwd)\"\nGOVERNING_STATE=\"$(git rev-parse HEAD)\"\nLOGICAL_TIME=\"$(date --iso-8601=seconds)\"\n\ncargo run -p monad-codex-dogfood -- run \\\n  --profile monad-geh-confinement \\\n  --provider-cwd /tmp/monad-codex-provider \\\n  --forbidden-path \"$FORBIDDEN_PATH\" \\\n  --forbidden-marker \"$MARKER\" \\\n  --workspace-root \"$WORKSPACE_ROOT\" \\\n  --read-path README.md \\\n  --run-id run-codex-dogfood-0001 \\\n  --logical-time \"$LOGICAL_TIME\" \\\n  --governing-state-digest \"$GOVERNING_STATE\"\n```\n\nThe initial run SHOULD use a small stable text file such as `README.md`. The exact chosen path becomes the sole workspace-read capability scope for that Execution Envelope.\n\n## Claim boundary\n\nOnly a successful live report from the selected local Codex installation supports the statement that Monad has empirically demonstrated one external Codex executor performing an end-to-end governed read-only execution.\n\nDeterministic CI proves the runner contract. The earlier standalone confinement result proves the selected machine could satisfy the confinement fixture at that earlier instant. Neither substitutes for the same-process live dogfood report.\n",
+  "document_id": "doc:testing%2Fgoverned-execution-c2-codex-dogfood.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "quality-assurance",
+    "normative": true,
+    "summary": "Status: proposed Version: 0.1.0 Owner: Monad Core / EOS Fixture: GEH-CF-038-LIVE-DOGFOOD Preconditions: GEH-CF-038-CONFINEMENT, GEH-CF-038-LIVE-ACTIVATION Implementation: crates/monad-codex-dogfood",
+    "title": "Governed Execution C2 Codex Read-Only Dogfood"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "governed-execution-c2-codex-read-only-dogfood",
+      "text": "# Governed Execution C2 Codex Read-Only Dogfood\n\n**Status:** proposed  \n**Version:** 0.1.0  \n**Owner:** Monad Core / EOS  \n**Fixture:** `GEH-CF-038-LIVE-DOGFOOD`  \n**Preconditions:** `GEH-CF-038-CONFINEMENT`, `GEH-CF-038-LIVE-ACTIVATION`  \n**Implementation:** `crates/monad-codex-dogfood`",
+      "title": "Governed Execution C2 Codex Read-Only Dogfood"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 15,
+      "line_start": 10,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nDefine Monad's first attributable live external-executor demonstration: one real Codex turn may observe one exact repository-relative UTF-8 text file only through `monad_workspace_read_text`, while the provider remains confined from native workspace access and Monad retains authority over capability, operation mediation, evidence, and completion.\n\nThis fixture is intentionally read-only and narrow. It does not authorize shell, write, network, MCP, provider-native filesystem, or broader workspace effects.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 34,
+      "line_start": 16,
+      "section_id": "governing-invariant",
+      "text": "## Governing invariant\n\nA successful dogfood claim requires the following single process chain:\n\n```text\nimmutable Execution Envelope\n  -> GEH-CF-038-CONFINEMENT recertification\n    -> GEH-CF-038-LIVE-ACTIVATION retained App Server connection/thread\n      -> one Codex turn\n        -> one monad_workspace_read_text request\n          -> reconstructed Monad OperationRequest\n            -> C1 Tool Gateway\n              -> WorkspaceReadBackend\n        -> provider completion request\n          -> independent Verification Controller\n```\n\nThe dogfood process MUST NOT replace the activated provider connection or thread after certification/activation.",
+      "title": "Governing invariant"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 60,
+      "line_start": 35,
+      "section_id": "geh-cf-038-live-dogfood",
+      "text": "## GEH-CF-038-LIVE-DOGFOOD\n\n**Type:** C2 live activation / integration / verification  \n**Expected:** pass only on an explicitly selected local live Codex environment\n\nThe live runner MUST fail closed unless all of the following are observable:\n\n1. a valid immutable Execution Envelope binds the concrete Codex adapter as executor;\n2. the envelope grants only `workspace.read` for one exact repository-relative path;\n3. the selected real Codex build passes `GEH-CF-038-CONFINEMENT` in the same process;\n4. `GEH-CF-038-LIVE-ACTIVATION` retains the exact activation App Server connection/thread;\n5. the provider connection receives exactly one real `initialize` and one real `thread/start` before the dogfood turn;\n6. runtime adoption does not send a second provider initialization or replacement thread start;\n7. exactly one dogfood `turn/start` is sent on the retained connection;\n8. the provider sends exactly one `item/tool/call` for `monad_workspace_read_text`;\n9. the request thread and turn equal the retained activation thread and active dogfood turn;\n10. the requested path equals the exact path granted in the Execution Envelope;\n11. Monad reconstructs the authority-bearing operation request rather than accepting capability/run/envelope authority from Codex;\n12. the dynamic-tool response reports a governed `executed_success` disposition with an operation id, result digest, and workspace-read evidence reference;\n13. no rejected or failed dynamic-tool response occurs in the first clean dogfood fixture;\n14. provider turn completion first reaches the Verification Controller without post-run evidence and therefore cannot self-establish governed completion;\n15. a separate host-side verification pass evaluates the observable activation/operation/thread evidence and establishes completion independently of model assertions;\n16. the durable dogfood report excludes raw workspace text and private model reasoning.\n\nAny mismatch, provider-native consequential effect, missing tool call, extra tool path, denied/failed governed read, activation/session substitution, or incomplete final verification is a fixture failure.",
+      "title": "GEH-CF-038-LIVE-DOGFOOD"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 81,
+      "line_start": 61,
+      "section_id": "durable-report",
+      "text": "## Durable report\n\nA successful report MUST identify at least:\n\n- dogfood report schema and fixture version;\n- run id;\n- envelope id and digest;\n- governing-state digest;\n- requested workspace path;\n- nested live activation binding and confinement certificate;\n- exact activation/dogfood thread id and turn id;\n- dynamic-tool call count;\n- actual provider initialize/thread-start/turn-start counts observed on the retained connection;\n- successful governed operation id, disposition, evidence reference, and result digest;\n- provider-triggered completion assessment;\n- independent post-run verification assessment;\n- final evidence references;\n- `governed_execution_demonstrated: true` only when every required check passes.\n\nRaw workspace text, the forbidden sentinel marker, and private chain-of-thought MUST NOT be retained in the report.",
+      "title": "Durable report"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 105,
+      "line_start": 82,
+      "section_id": "deterministic-ci-fixture",
+      "text": "## Deterministic CI fixture\n\nCI MUST use scripted transports to prove runner semantics without claiming that a hosted runner has certified a live provider boundary.\n\nDeterministic tests MUST cover at least:\n\n- one exact successful governed read on the retained activation thread;\n- provider completion without a governed read fails the dogfood fixture;\n- an out-of-scope provider path request cannot satisfy the fixture;\n- provider completion remains incomplete before trusted post-run evidence;\n- independent post-run verification can establish completion only after the clean governed path is observed;\n- the retained connection observes one provider initialize/thread-start, preventing silent replacement during runtime adoption.\n\nRequired CI commands:\n\n```text\ncargo metadata --locked --no-deps\ncargo fmt --check\ncargo test --locked -p monad-codex-dogfood\ncargo test --locked -p monad-codex-live-activation\ncargo test --locked -p monad-codex-confinement\ncargo test --locked -p monad-codex-runtime\n```",
+      "title": "Deterministic CI fixture"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 130,
+      "line_start": 106,
+      "section_id": "live-command",
+      "text": "## Live command\n\nAfter this runner is merged, the first live execution is performed from the governed repository root with the selected local Codex configuration. A representative invocation is:\n\n```text\nMARKER=\"$(cat .monad/confinement-sentinel)\"\nFORBIDDEN_PATH=\"$(realpath .monad/confinement-sentinel)\"\nWORKSPACE_ROOT=\"$(pwd)\"\nGOVERNING_STATE=\"$(git rev-parse HEAD)\"\nLOGICAL_TIME=\"$(date --iso-8601=seconds)\"\n\ncargo run -p monad-codex-dogfood -- run \\\n  --profile monad-geh-confinement \\\n  --provider-cwd /tmp/monad-codex-provider \\\n  --forbidden-path \"$FORBIDDEN_PATH\" \\\n  --forbidden-marker \"$MARKER\" \\\n  --workspace-root \"$WORKSPACE_ROOT\" \\\n  --read-path README.md \\\n  --run-id run-codex-dogfood-0001 \\\n  --logical-time \"$LOGICAL_TIME\" \\\n  --governing-state-digest \"$GOVERNING_STATE\"\n```\n\nThe initial run SHOULD use a small stable text file such as `README.md`. The exact chosen path becomes the sole workspace-read capability scope for that Execution Envelope.",
+      "title": "Live command"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 135,
+      "line_start": 131,
+      "section_id": "claim-boundary",
+      "text": "## Claim boundary\n\nOnly a successful live report from the selected local Codex installation supports the statement that Monad has empirically demonstrated one external Codex executor performing an end-to-end governed read-only execution.\n\nDeterministic CI proves the runner contract. The earlier standalone confinement result proves the selected machine could satisfy the confinement fixture at that earlier instant. Neither substitutes for the same-process live dogfood report.",
+      "title": "Claim boundary"
+    }
+  ],
+  "source": {
+    "bytes": 6890,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 135,
+    "media_type": "text/markdown",
+    "path": "testing/governed-execution-c2-codex-dogfood.md",
+    "sha256": "f81be2c3264ae270751176afcf4aa689ef00ea17ffa1289f6632a6d2b9996766"
+  }
+}

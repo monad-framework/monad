@@ -12169,6 +12169,14 @@
     },
     {
       "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Fgoverned-execution-c2-codex-dogfood.yml",
+      "normative": false,
+      "source_path": ".github/workflows/governed-execution-c2-codex-dogfood.yml",
+      "title": "Governed Execution C2 Codex Dogfood",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
       "id": "doc:.github%2Fworkflows%2Fgoverned-execution-c2-codex-live-activation.yml",
       "normative": false,
       "source_path": ".github/workflows/governed-execution-c2-codex-live-activation.yml",
@@ -18905,6 +18913,30 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:crates%2Fmonad-codex-dogfood%2FCargo.toml",
+      "normative": false,
+      "source_path": "crates/monad-codex-dogfood/Cargo.toml",
+      "title": "Cargo",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:crates%2Fmonad-codex-dogfood%2Fsrc%2Flib.rs",
+      "normative": false,
+      "source_path": "crates/monad-codex-dogfood/src/lib.rs",
+      "title": "Lib",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:crates%2Fmonad-codex-dogfood%2Fsrc%2Fmain.rs",
+      "normative": false,
+      "source_path": "crates/monad-codex-dogfood/src/main.rs",
+      "title": "Main",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:crates%2Fmonad-codex-live-activation%2FCargo.toml",
       "normative": false,
       "source_path": "crates/monad-codex-live-activation/Cargo.toml",
@@ -24569,6 +24601,14 @@
     },
     {
       "document_type": "quality-assurance",
+      "id": "doc:testing%2Fgoverned-execution-c2-codex-dogfood.md",
+      "normative": true,
+      "source_path": "testing/governed-execution-c2-codex-dogfood.md",
+      "title": "Governed Execution C2 Codex Read-Only Dogfood",
+      "type": "document"
+    },
+    {
+      "document_type": "quality-assurance",
       "id": "doc:testing%2Fgoverned-execution-c2-codex-live-activation.md",
       "normative": true,
       "source_path": "testing/governed-execution-c2-codex-live-activation.md",
@@ -26272,5 +26312,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "5cdaeef5f1cb95c5d164759108489de60afef36c3614e4297572ea6d31cb3367"
+  "source_tree_sha256": "ed44bcce3271ebfb54eb9ed0b080138901b847157808cca07a065c7c48e090e7"
 }
