@@ -184,6 +184,7 @@ pub fn detect_duplicate_governed_identifiers(
 fn source_kind_name(kind: &SourceKindCandidate) -> &'static str {
     match kind {
         SourceKindCandidate::Markdown => "markdown",
+        SourceKindCandidate::Toml => "toml",
         SourceKindCandidate::Yaml => "yaml",
     }
 }
