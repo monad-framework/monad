@@ -105,6 +105,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "monad-codex-confinement"
+version = "0.1.0"
+dependencies = [
+ "monad-codex-runtime",
+ "serde",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
 name = "monad-codex-runtime"
 version = "0.1.0"
 dependencies = [
@@ -127,7 +137,7 @@ dependencies = [
 name = "proc-macro2"
 version = "1.0.107"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "985e7ec9bb745e6ce6535b544d84d6cd6f7ad8bd711c398938ae983b91a766d9"
+checksum = "985e7ec9bb745e6ce6535b544d84d6cd8bdd5b10b7f1542aa2fa15e2289105a"
 dependencies = [
  "unicode-ident",
 ]
