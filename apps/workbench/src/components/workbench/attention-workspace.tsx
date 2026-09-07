@@ -9,7 +9,7 @@ import {
   ShieldAlert,
 } from "lucide-react";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import type {
   AttentionCondition,
@@ -179,7 +179,10 @@ function AttentionConditionCard({
 
       <div className="attention-condition-actions">
         {condition.action ? (
-          <Link className="attention-primary-action" href={condition.action.href}>
+          <Link
+            className="attention-primary-action"
+            href={condition.action.href}
+          >
             {condition.action.label}
           </Link>
         ) : null}
@@ -252,8 +255,12 @@ export function AttentionWorkspace({
   attention,
   snapshot,
 }: AttentionWorkspaceProps) {
-  const [store, setStore] = useState<AttentionUiStore>(loadStore);
+  const [store, setStore] = useState<AttentionUiStore>(DEFAULT_STORE);
   const now = Date.now();
+
+  useEffect(() => {
+    setStore(loadStore());
+  }, []);
 
   const needsAttention = useMemo(
     () =>
@@ -276,7 +283,8 @@ export function AttentionWorkspace({
   ).length;
   const visibleAttention = needsAttention.filter(
     (condition) =>
-      store.showHidden || !isConditionHidden(store.conditions[condition.id], now),
+      store.showHidden ||
+      !isConditionHidden(store.conditions[condition.id], now),
   );
   const unreadCount = visibleAttention.filter(
     (condition) => !store.conditions[condition.id]?.readAt,
@@ -324,8 +332,8 @@ export function AttentionWorkspace({
           <p className="workspace-description">
             Answers whether trusted Monad sources currently project anything
             that requires awareness or operator action. Attention records are
-            projections; local read, dismiss, and snooze state never changes
-            EOS lifecycle or engineering authority.
+            projections; local read, dismiss, and snooze state never changes EOS
+            lifecycle or engineering authority.
           </p>
         </div>
         <div className="branch-chip">
@@ -338,7 +346,10 @@ export function AttentionWorkspace({
         <div className="summary-card">
           <p className="card-label">Operator action</p>
           <strong>{attention.summary.operatorAction}</strong>
-          <p>Explicit blocked, failed, integration-ready, or human-gated conditions.</p>
+          <p>
+            Explicit blocked, failed, integration-ready, or human-gated
+            conditions.
+          </p>
         </div>
         <div className="summary-card">
           <p className="card-label">Attention</p>
@@ -348,16 +359,26 @@ export function AttentionWorkspace({
         <div className="summary-card">
           <p className="card-label">Unread visible</p>
           <strong>{unreadCount}</strong>
-          <p>Local presentation state only; it is not engineering lifecycle state.</p>
+          <p>
+            Local presentation state only; it is not engineering lifecycle
+            state.
+          </p>
         </div>
         <div className="summary-card">
           <p className="card-label">Autonomous running</p>
           <strong>{attention.summary.running}</strong>
-          <p>Current workstreams whose trusted projection indicates active execution.</p>
+          <p>
+            Current workstreams whose trusted projection indicates active
+            execution.
+          </p>
         </div>
       </div>
 
-      <div className="attention-toolbar" aria-label="Attention Center view filters">
+      <div
+        aria-label="Attention Center view filters"
+        className="attention-toolbar"
+        role="group"
+      >
         <div>
           {(["active", "activity", "all"] as const).map((view) => (
             <button
@@ -382,12 +403,17 @@ export function AttentionWorkspace({
           onClick={() => setShowHidden(!store.showHidden)}
           type="button"
         >
-          {store.showHidden ? "Hide local dismissals" : `Show hidden (${hiddenCount})`}
+          {store.showHidden
+            ? "Hide local dismissals"
+            : `Show hidden (${hiddenCount})`}
         </button>
       </div>
 
       {store.view !== "activity" ? (
-        <section className="panel attention-section" aria-labelledby="needs-attention-heading">
+        <section
+          aria-labelledby="needs-attention-heading"
+          className="panel attention-section"
+        >
           <div className="panel-heading">
             <div>
               <p className="section-label">Current conditions</p>
@@ -443,7 +469,9 @@ export function AttentionWorkspace({
             <div className="empty-state attention-empty-state">
               <ShieldAlert size={18} />
               <div>
-                <strong>No visible active condition requires operator attention.</strong>
+                <strong>
+                  No visible active condition requires operator attention.
+                </strong>
                 <p>
                   Workbench is not claiming there is no work. It is reporting
                   that its trusted providers currently project no non-hidden
@@ -456,7 +484,10 @@ export function AttentionWorkspace({
       ) : null}
 
       {store.view !== "activity" ? (
-        <section className="panel attention-section" aria-labelledby="autonomous-work-heading">
+        <section
+          aria-labelledby="autonomous-work-heading"
+          className="panel attention-section"
+        >
           <div className="panel-heading">
             <div>
               <p className="section-label">Autonomous work</p>
@@ -475,7 +506,9 @@ export function AttentionWorkspace({
             <div className="empty-state attention-empty-state">
               <Activity size={18} />
               <div>
-                <strong>No autonomous workstream is currently observable.</strong>
+                <strong>
+                  No autonomous workstream is currently observable.
+                </strong>
                 <p>
                   Workstreams appear when trusted execution/lifecycle providers
                   expose non-terminal governed work.
@@ -487,7 +520,10 @@ export function AttentionWorkspace({
       ) : null}
 
       {store.view !== "active" ? (
-        <section className="panel attention-section" aria-labelledby="attention-activity-heading">
+        <section
+          aria-labelledby="attention-activity-heading"
+          className="panel attention-section"
+        >
           <div className="panel-heading">
             <div>
               <p className="section-label">Historical and informational</p>
@@ -512,12 +548,17 @@ export function AttentionWorkspace({
               ))}
             </div>
           ) : (
-            <div className="empty-state">No historical activity is projected.</div>
+            <div className="empty-state">
+              No historical activity is projected.
+            </div>
           )}
         </section>
       ) : null}
 
-      <section className="panel attention-section attention-providers" aria-labelledby="attention-providers-heading">
+      <section
+        aria-labelledby="attention-providers-heading"
+        className="panel attention-section attention-providers"
+      >
         <div className="panel-heading">
           <div>
             <p className="section-label">Projection provenance</p>
