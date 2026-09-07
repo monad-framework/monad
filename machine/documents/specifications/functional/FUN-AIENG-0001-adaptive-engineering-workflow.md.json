@@ -1,0 +1,734 @@
+{
+  "content": "# FUN-AIENG-0001: Adaptive Engineering Workflow\n\n**Status:** approved\n**Version:** 0.1.0\n**Owner:** Monad Core / EOS\n**Reviewers:** Product Owner, Architecture Owner, Engineering Owner, Security Owner, Operations Owner, Verification Owner as affected\n**Related requirements:** FR-007, FR-012, FR-013, FR-014, FR-015, FR-016, FR-023, FR-024, FR-043, QR-008, QR-010\n**Governing ADRs:** ADR-0006, ADR-0008\n**Governing operating model:** EOS-AI-0001\n**Change authority:** CR-0003\n**Approval evidence:** `engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md`\n\n## Purpose and scope\n\nThis specification defines the functional behavior by which Monad derives, presents, revises, and governs an adaptive engineering pathway for AI-driven engineering work.\n\nThe adaptive workflow converts governed engineering intent and repository knowledge into an inspectable proposal for how work should progress through the existing Monad Engineering Operating System.\n\nIt defines:\n\n* pathway derivation inputs;\n* workflow initiative;\n* activity selection;\n* rigor adaptation;\n* clarification behavior;\n* consequential decision routing;\n* dependency-aware sequencing;\n* escalation;\n* replanning;\n* evidence feedback;\n* governing-input drift behavior;\n* interaction with EOS lifecycle layers;\n* observable pathway rationale;\n* conformance behavior.\n\nThis specification does not define:\n\n* a new EOS lifecycle;\n* a second canonical state machine;\n* Execution Envelope serialization;\n* tool mediation internals;\n* provider-specific prompting;\n* private model reasoning;\n* model-selection algorithms;\n* detailed capability semantics;\n* detailed approval security rules.\n\nThose concerns remain owned by existing EOS governance or subsequent AIENG/interface/security specifications.\n\n## Definitions\n\n### Engineering intent\n\nA governed statement of desired engineering outcome, requirement, change, Work Packet objective, maintenance concern, operational need, or other authorized engineering purpose.\n\n### Engineering pathway\n\nAn inspectable proposed sequence and set of engineering activities sufficient to move governed intent toward an EOS-governed outcome.\n\nA pathway is a plan or projection. It is not canonical lifecycle state.\n\n### Activity\n\nA meaningful engineering action or gate such as:\n\n* inspect;\n* analyze;\n* clarify;\n* decide;\n* design;\n* specify;\n* plan;\n* authorize;\n* execute;\n* validate;\n* verify;\n* review;\n* integrate;\n* release;\n* observe;\n* maintain;\n* replan.\n\n### Mandatory activity\n\nAn activity required by EOS lifecycle state, authority, policy, accepted architecture, specification, security requirement, dependency condition, or other governing rule.\n\n### Optional activity\n\nAn activity that may be omitted, reordered, combined, or deepened when doing so preserves all governing obligations.\n\n### Material ambiguity\n\nUncertainty for which plausible interpretations may change consequential product meaning, architecture, security, privacy, legal/compliance posture, operations, accepted risk, irreversible effects, authority, scope, or acceptance obligations.\n\n### Pathway rationale\n\nStructured, inspectable information sufficient to explain why material engineering activities were selected, omitted, reordered, added, or deepened.\n\nPathway rationale is not private chain-of-thought.\n\n### Governing-input set\n\nThe authoritative and materially relevant inputs on which a pathway depends, including applicable requirements, specifications, ADRs, decisions, approvals, policy, lifecycle state, Work Packet scope, dependencies, security constraints, evidence, and acceptance criteria.\n\n### Governing drift\n\nA material change in the governing-input set after a pathway or authorization was derived.\n\n### Autonomy profile\n\nThe currently authorized participation mode governing how proactively AI may progress work:\n\n* AI-assisted;\n* AI-driven;\n* bounded AI-autonomous.\n\n## Architectural invariant\n\nThe adaptive workflow MUST preserve:\n\n> **AI drives the work. EOS governs the work. Humans govern consequential meaning and authority. Evidence governs acceptance.**\n\nThe workflow engine MAY exercise initiative.\n\nIt MUST NOT manufacture authority.\n\n## Preconditions\n\nPathway derivation requires:\n\n1. a resolvable engineering subject or intent;\n2. readable applicable repository/EOS state;\n3. sufficient identity to attribute the pathway request or initiating actor;\n4. sufficient governing context to identify known mandatory constraints;\n5. explicit representation of unresolved material ambiguity where applicable.\n\nPathway derivation MAY occur before execution authorization.\n\nExecution-ready progression MUST NOT occur merely because a pathway can be generated.\n\nIf required governing context cannot be resolved, the workflow MUST surface that condition rather than silently treating missing information as permission.\n\n## Core invariants\n\n### AIENG-FUN-I01 — EOS sovereignty\n\nAdaptive workflow MUST operate inside EOS.\n\nIt MUST NOT create a ninth EOS lifecycle layer.\n\n### AIENG-FUN-I02 — Pathway non-authority\n\nA pathway is a proposal until applicable EOS authority, decision, readiness, and authorization semantics make its actions executable.\n\n### AIENG-FUN-I03 — Initiative without approval authority\n\nAI MAY proactively identify and recommend next useful engineering actions.\n\nProactivity MUST NOT itself grant approval or execution authority.\n\n### AIENG-FUN-I04 — Mandatory-gate preservation\n\nNo pathway adaptation may omit or bypass a mandatory EOS gate.\n\n### AIENG-FUN-I05 — Material ambiguity escalation\n\nMaterial ambiguity MUST be surfaced through clarification or native decision semantics.\n\n### AIENG-FUN-I06 — Explainable adaptation\n\nMaterial changes to normal pathway rigor MUST have structured rationale.\n\n### AIENG-FUN-I07 — Governing freshness\n\nA pathway derived from materially stale governing inputs MUST NOT be represented as current.\n\n### AIENG-FUN-I08 — Evidence classification\n\nEvidence may change recommendations and planning assumptions while retaining its actual authority class.\n\n### AIENG-FUN-I09 — Native semantic reuse\n\nThe workflow MUST reuse native EOS entities and relationships where their semantics are sufficient.\n\n### AIENG-FUN-I10 — No transcript authority\n\nConversation history alone MUST NOT become a canonical decision, approval, or lifecycle transition when native governed persistence is required.\n\n## Pathway derivation inputs\n\nThe workflow SHOULD evaluate all materially applicable inputs available to it, including:\n\n### Intent and scope\n\n* desired outcome;\n* subject;\n* Work Packet scope where applicable;\n* explicit exclusions;\n* acceptance criteria.\n\n### Repository knowledge\n\n* requirements;\n* architecture;\n* specifications;\n* ADRs;\n* decisions;\n* approvals;\n* authoritative explanatory context.\n\n### Lifecycle state\n\n* PI state;\n* WC state;\n* WP state;\n* CR state;\n* maintenance state;\n* release state;\n* relevant EOS gates.\n\n### Authority and policy\n\n* accountable owner;\n* delegated authority;\n* approval requirements;\n* prohibited actions;\n* autonomy profile;\n* capability constraints.\n\n### Dependency state\n\n* prerequisites;\n* blockers;\n* sequencing constraints;\n* conflicting work;\n* parallelizable work.\n\n### Risk and consequence\n\n* security sensitivity;\n* privacy sensitivity;\n* operational consequence;\n* reversibility;\n* blast radius;\n* novelty;\n* uncertainty;\n* migration impact;\n* external commitment.\n\n### Evidence\n\n* current verification evidence;\n* stale evidence;\n* failed evidence;\n* review findings;\n* incidents;\n* operational observations;\n* maintenance findings;\n* performance results.\n\nUnresolved or contradictory inputs MUST remain visible when they are material to pathway behavior.\n\n## Pathway output\n\nA pathway representation MUST be able to communicate at least:\n\n1. pathway subject;\n2. governing-input identity or equivalent references;\n3. proposed activities;\n4. proposed sequencing/dependencies;\n5. mandatory activities/gates;\n6. optional activities;\n7. material unresolved questions;\n8. required decision points;\n9. applicable authority/approval boundaries;\n10. expected verification obligations;\n11. expected review obligations;\n12. escalation conditions;\n13. material rationale for adapted rigor;\n14. current autonomy profile;\n15. freshness or drift state.\n\nThe representation MAY be transient until persistence is required.\n\nA persisted pathway MUST NOT become a competing lifecycle authority.\n\n## Adaptive rigor\n\nThe workflow MAY vary engineering rigor according to consequence and governing constraints.\n\n### Lightweight pathway\n\nLow-risk, reversible, well-understood work MAY omit unnecessary optional ceremony.\n\nA lightweight pathway MUST still preserve:\n\n* required scope;\n* applicable authority;\n* mandatory gates;\n* required validation;\n* required evidence;\n* required review.\n\n### Deepened pathway\n\nThe workflow SHOULD increase rigor when relevant conditions include:\n\n* architecture impact;\n* security sensitivity;\n* privacy sensitivity;\n* irreversible effect;\n* production impact;\n* high uncertainty;\n* novel technology;\n* weak evidence;\n* unresolved dependencies;\n* broad blast radius;\n* legal/compliance consequence;\n* high autonomy;\n* difficult rollback.\n\nDeepened rigor MAY introduce:\n\n* research;\n* explicit decision records;\n* additional design;\n* threat analysis;\n* operational planning;\n* migration planning;\n* rollback planning;\n* additional verification;\n* independent review;\n* human approval.\n\n### Adaptation boundaries\n\nThe workflow MUST NOT classify a mandatory activity as optional merely to shorten the pathway.\n\nCost, latency, model preference, user impatience, or executor confidence alone MUST NOT justify bypassing governance.\n\n## Workflow initiative\n\nUnder AI-driven operation, the workflow MAY proactively:\n\n* inspect current governed state;\n* identify the next useful action;\n* identify missing information;\n* detect contradictions;\n* propose an engineering pathway;\n* identify dependent or parallel work;\n* request clarification;\n* recommend a decision;\n* draft candidate artifacts;\n* recommend validation;\n* analyze evidence;\n* identify a changed assumption;\n* propose replanning.\n\nSuch initiative does not authorize consequential effects.\n\n## Clarification\n\nThe workflow MUST distinguish ordinary implementation discretion from material ambiguity.\n\n### Ordinary discretion\n\nThe workflow MAY resolve a detail without additional human decision when:\n\n* it remains within authorized scope;\n* all plausible choices satisfy governing artifacts;\n* the choice is reversible within delegated limits;\n* policy permits the discretion;\n* no additional authority is required.\n\n### Material clarification\n\nWhen ambiguity is material, the workflow MUST surface:\n\n* the question;\n* relevant governing sources;\n* plausible alternatives when known;\n* material consequences;\n* required authority;\n* a recommendation if appropriate.\n\nThe workflow MUST NOT fabricate agreement or infer consequential consent from silence.\n\n## Decision routing\n\nWhen a material question requires a governed decision, the workflow MUST route it to an existing appropriate Monad mechanism.\n\nPossible mechanisms include:\n\n* `DEC`;\n* `APR`;\n* ADR;\n* CR;\n* EOS review;\n* accountable-owner escalation.\n\nThe workflow MUST NOT create an AI-specific decision system when native semantics are sufficient.\n\n## Human denial\n\nA governed denial is an authoritative input within its scope.\n\nAfter denial:\n\n1. the rejected pathway/action MUST NOT continue as though approved;\n2. the workflow MAY propose a materially different conforming alternative;\n3. the workflow MUST NOT repeatedly pressure for the same rejected outcome without new material governed evidence;\n4. new evidence MAY legitimately trigger reevaluation according to existing authority and change-control rules.\n\n## Dependency-aware progression\n\nThe workflow SHOULD determine:\n\n* prerequisites;\n* blocked activities;\n* activities eligible for parallel work;\n* sequencing constraints;\n* downstream impact.\n\nProposed concurrency MUST preserve:\n\n* dependency correctness;\n* scope boundaries;\n* resource limits;\n* isolation requirements;\n* authority;\n* evidence attribution.\n\nEmergent independent work MUST route to EOSP rather than silently becoming part of an active Work Packet.\n\n## Handoff to execution\n\nWhen a pathway reaches an executable action, it MUST hand off through existing EOS readiness, authorization, and execution semantics.\n\nThe workflow MUST NOT treat the pathway itself as an Execution Envelope.\n\nWhere governed execution applies:\n\n```text\nadaptive pathway\n    ↓\nEOS readiness / decisions / authorization\n    ↓\nExecution Envelope compilation\n    ↓\ngoverned execution boundary\n```\n\nExisting requirements `FR-037` through `FR-042` remain authoritative for the downstream governed-execution behavior they own.\n\n## Replanning\n\nReplanning MUST occur when material new information invalidates or materially changes the current pathway assumptions.\n\nTriggers MAY include:\n\n* failed verification;\n* review findings;\n* governing-input drift;\n* new dependency;\n* new risk;\n* denied approval;\n* changed architecture;\n* changed requirement;\n* security finding;\n* provider/executor failure;\n* operational evidence.\n\nReplanning MUST preserve the history or traceability required to explain why the pathway changed.\n\n## Governing-input drift\n\nThe workflow MUST be able to distinguish at least:\n\n* unchanged governing inputs;\n* changed but immaterial inputs;\n* materially changed governing inputs;\n* unresolved freshness.\n\nFor material drift, the workflow MUST NOT silently continue to present the old pathway or authorization as current.\n\nApplicable outcomes include:\n\n* pathway recomputation;\n* execution suspension;\n* clarification;\n* reauthorization;\n* EOSC;\n* cancellation.\n\nExact fingerprint representation is delegated to technical/interface specifications.\n\n## Evidence feedback\n\nEvidence MAY influence:\n\n* risk assessment;\n* recommended rigor;\n* sequencing;\n* autonomy recommendations;\n* validation recommendations;\n* replanning.\n\nEvidence MUST retain its provenance and status.\n\nExamples:\n\n* failed evidence remains failed evidence;\n* stale evidence remains stale until superseded or refreshed;\n* operational observation remains observation unless governed elevation occurs;\n* AI interpretation of evidence remains interpretation.\n\n## Failure behavior\n\n### Missing context\n\nIf required context cannot be resolved, the workflow MUST report the missing dependency and MUST NOT represent the pathway as execution-ready.\n\n### Contradictory authority\n\nIf applicable authorities conflict or cannot be resolved, the workflow MUST escalate.\n\n### Policy denial\n\nA denied action MUST remain denied. The workflow MAY replan around the denial only if the alternative is independently conforming.\n\n### Provider failure\n\nFailure of one AI provider or model MUST NOT corrupt canonical state.\n\nAnother conforming reasoning/execution participant MAY resume from governed state.\n\n### Invalid pathway output\n\nMalformed or incomplete AI output MUST be treated as candidate output and rejected or repaired before governed use.\n\n### Excessive uncertainty\n\nWhere consequence is material and uncertainty remains too high to safely select a path, the workflow MUST request clarification, research, evidence, or accountable decision.\n\n## Security and data\n\nThe adaptive workflow MUST apply least-context principles.\n\nIt SHOULD:\n\n* minimize sensitive information supplied to external providers;\n* preserve classification metadata;\n* respect secret-exclusion rules;\n* respect repository/path access restrictions;\n* avoid unnecessary raw transcript persistence.\n\nThe workflow MUST NOT:\n\n* grant capabilities;\n* expose secrets merely because they are contextually relevant;\n* infer authority from tool availability;\n* allow untrusted prompt content to redefine governing policy.\n\nDetailed control requirements are owned by `SEC-AIENG-0001`.\n\n## Compatibility\n\nThe semantic meaning of a pathway MUST remain provider-neutral.\n\nDifferent conforming AI systems MAY produce different recommendations from the same non-deterministic reasoning problem.\n\nHowever:\n\n* mandatory gates MUST remain equivalent;\n* governing sources MUST remain identifiable;\n* denied authority MUST remain denied;\n* required decisions MUST remain required;\n* required evidence/review obligations MUST remain intact.\n\nProvider/model change MUST NOT require changes to canonical Monad authority semantics.\n\n## Observability\n\nFor materially consequential pathways, the system SHOULD expose:\n\n* pathway identity if persisted;\n* governing-input identity;\n* autonomy profile;\n* major pathway activities;\n* material rationale;\n* clarification events;\n* decision/approval references;\n* replanning events;\n* drift state;\n* executor/harness/provider identity where relevant.\n\nObservability MUST NOT require private chain-of-thought.\n\n## Verification\n\n### FUN-AIENG-V01 — Lightweight pathway\n\nGiven low-risk reversible work with satisfied prerequisites, verify that the workflow can propose reduced optional ceremony while preserving mandatory gates.\n\nCovers `AIENG-CONF-A`.\n\n### FUN-AIENG-V02 — Material ambiguity\n\nGiven two consequentially different interpretations of product intent, verify that the workflow surfaces a clarification/decision instead of selecting one silently.\n\nCovers `AIENG-CONF-B`.\n\n### FUN-AIENG-V03 — Architecture change during execution\n\nGiven execution evidence that implementation requires a governing architecture change, verify routing to EOSC rather than silent scope broadening.\n\nCovers `AIENG-CONF-C`.\n\n### FUN-AIENG-V04 — Bounded autonomous progression\n\nGiven explicit bounded-autonomous authority for a low-risk work subject, verify that the workflow can progress optional actions without unnecessary synchronous approval while stopping at boundaries it cannot cross.\n\nContributes to `AIENG-CONF-D`.\n\n### FUN-AIENG-V05 — Increased rigor\n\nGiven security-sensitive or irreversible work, verify that the pathway increases appropriate review, authority, evidence, or planning obligations.\n\nContributes to `AIENG-CONF-E`.\n\n### FUN-AIENG-V06 — Governing drift\n\nGiven a material governing requirement change after pathway derivation, verify that the old pathway is marked stale/suspect and replanning or reauthorization occurs.\n\nCovers `AIENG-CONF-G`.\n\n### FUN-AIENG-V07 — Provider failure\n\nGiven loss of the reasoning provider, verify that canonical state remains valid and another conforming participant can continue from governed state.\n\nContributes to `AIENG-CONF-H`.\n\n### FUN-AIENG-V08 — Human denial\n\nGiven an authorized human denial, verify that the rejected action is not continued and that replanning respects the denial.\n\nCovers `AIENG-CONF-I`.\n\n### FUN-AIENG-V09 — Evidence invalidates assumption\n\nGiven verification or operational evidence invalidating a pathway assumption, verify that the workflow routes to replanning or change control.\n\nCovers `AIENG-CONF-J`.\n\n## Traceability\n\nPrimary requirement ownership:\n\n```text\nFR-043\n  → FUN-AIENG-0001\n```\n\nSupporting requirements:\n\n```text\nFR-007\nFR-012\nFR-013\nFR-014\nFR-015\nFR-016\nFR-023\nFR-024\nQR-008\nQR-010\n```\n\nDownstream governed-execution handoff:\n\n```text\nFUN-AIENG-0001\n  → FR-037\n  → FR-038\n  → FR-039\n  → FR-040\n  → FR-041\n  → FR-042\n```\n\n## Implementation boundary\n\nThis specification defines required behavior.\n\nIt does not authorize implementation.\n\nImplementation MUST be decomposed through EOSP and executed only through separately authorized Work Cycles and Work Packets after the AIENG normative baseline and conformance traceability are accepted.\n",
+  "document_id": "doc:specifications%2Ffunctional%2FFUN-AIENG-0001-adaptive-engineering-workflow.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006",
+    "ADR-0008",
+    "FR-007",
+    "FR-012",
+    "FR-013",
+    "FR-014",
+    "FR-015",
+    "FR-016",
+    "FR-023",
+    "FR-024",
+    "FR-037",
+    "FR-038",
+    "FR-039",
+    "FR-040",
+    "FR-041",
+    "FR-042",
+    "FR-043",
+    "QR-008",
+    "QR-010"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "specification",
+    "normative": true,
+    "summary": "Status: approved Version: 0.1.0 Owner: Monad Core / EOS Reviewers: Product Owner, Architecture Owner, Engineering Owner, Security Owner, Operations Owner, Verification Owner as affected Related requirements: FR-007, FR-012, FR-013, FR-014, FR-015, FR-016, FR-023, FR-024, FR-043, QR-008, QR-010 Governing ADRs: ADR-0006, ADR-0008 Governing operating model: EOS-AI-0001 Change authority: CR-0003 Approval evidence: engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md",
+    "title": "FUN-AIENG-0001: Adaptive Engineering Workflow"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0006",
+        "ADR-0008",
+        "FR-007",
+        "FR-012",
+        "FR-013",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-023",
+        "FR-024",
+        "FR-043",
+        "QR-008",
+        "QR-010"
+      ],
+      "level": 1,
+      "line_end": 12,
+      "line_start": 1,
+      "section_id": "fun-aieng-0001-adaptive-engineering-workflow",
+      "text": "# FUN-AIENG-0001: Adaptive Engineering Workflow\n\n**Status:** approved\n**Version:** 0.1.0\n**Owner:** Monad Core / EOS\n**Reviewers:** Product Owner, Architecture Owner, Engineering Owner, Security Owner, Operations Owner, Verification Owner as affected\n**Related requirements:** FR-007, FR-012, FR-013, FR-014, FR-015, FR-016, FR-023, FR-024, FR-043, QR-008, QR-010\n**Governing ADRs:** ADR-0006, ADR-0008\n**Governing operating model:** EOS-AI-0001\n**Change authority:** CR-0003\n**Approval evidence:** `engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md`",
+      "title": "FUN-AIENG-0001: Adaptive Engineering Workflow"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 13,
+      "section_id": "purpose-and-scope",
+      "text": "## Purpose and scope\n\nThis specification defines the functional behavior by which Monad derives, presents, revises, and governs an adaptive engineering pathway for AI-driven engineering work.\n\nThe adaptive workflow converts governed engineering intent and repository knowledge into an inspectable proposal for how work should progress through the existing Monad Engineering Operating System.\n\nIt defines:\n\n* pathway derivation inputs;\n* workflow initiative;\n* activity selection;\n* rigor adaptation;\n* clarification behavior;\n* consequential decision routing;\n* dependency-aware sequencing;\n* escalation;\n* replanning;\n* evidence feedback;\n* governing-input drift behavior;\n* interaction with EOS lifecycle layers;\n* observable pathway rationale;\n* conformance behavior.\n\nThis specification does not define:\n\n* a new EOS lifecycle;\n* a second canonical state machine;\n* Execution Envelope serialization;\n* tool mediation internals;\n* provider-specific prompting;\n* private model reasoning;\n* model-selection algorithms;\n* detailed capability semantics;\n* detailed approval security rules.\n\nThose concerns remain owned by existing EOS governance or subsequent AIENG/interface/security specifications.",
+      "title": "Purpose and scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 51,
+      "line_start": 50,
+      "section_id": "definitions",
+      "text": "## Definitions",
+      "title": "Definitions"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 55,
+      "line_start": 52,
+      "section_id": "engineering-intent",
+      "text": "### Engineering intent\n\nA governed statement of desired engineering outcome, requirement, change, Work Packet objective, maintenance concern, operational need, or other authorized engineering purpose.",
+      "title": "Engineering intent"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 61,
+      "line_start": 56,
+      "section_id": "engineering-pathway",
+      "text": "### Engineering pathway\n\nAn inspectable proposed sequence and set of engineering activities sufficient to move governed intent toward an EOS-governed outcome.\n\nA pathway is a plan or projection. It is not canonical lifecycle state.",
+      "title": "Engineering pathway"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 83,
+      "line_start": 62,
+      "section_id": "activity",
+      "text": "### Activity\n\nA meaningful engineering action or gate such as:\n\n* inspect;\n* analyze;\n* clarify;\n* decide;\n* design;\n* specify;\n* plan;\n* authorize;\n* execute;\n* validate;\n* verify;\n* review;\n* integrate;\n* release;\n* observe;\n* maintain;\n* replan.",
+      "title": "Activity"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 87,
+      "line_start": 84,
+      "section_id": "mandatory-activity",
+      "text": "### Mandatory activity\n\nAn activity required by EOS lifecycle state, authority, policy, accepted architecture, specification, security requirement, dependency condition, or other governing rule.",
+      "title": "Mandatory activity"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 91,
+      "line_start": 88,
+      "section_id": "optional-activity",
+      "text": "### Optional activity\n\nAn activity that may be omitted, reordered, combined, or deepened when doing so preserves all governing obligations.",
+      "title": "Optional activity"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 95,
+      "line_start": 92,
+      "section_id": "material-ambiguity",
+      "text": "### Material ambiguity\n\nUncertainty for which plausible interpretations may change consequential product meaning, architecture, security, privacy, legal/compliance posture, operations, accepted risk, irreversible effects, authority, scope, or acceptance obligations.",
+      "title": "Material ambiguity"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 101,
+      "line_start": 96,
+      "section_id": "pathway-rationale",
+      "text": "### Pathway rationale\n\nStructured, inspectable information sufficient to explain why material engineering activities were selected, omitted, reordered, added, or deepened.\n\nPathway rationale is not private chain-of-thought.",
+      "title": "Pathway rationale"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 105,
+      "line_start": 102,
+      "section_id": "governing-input-set",
+      "text": "### Governing-input set\n\nThe authoritative and materially relevant inputs on which a pathway depends, including applicable requirements, specifications, ADRs, decisions, approvals, policy, lifecycle state, Work Packet scope, dependencies, security constraints, evidence, and acceptance criteria.",
+      "title": "Governing-input set"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 109,
+      "line_start": 106,
+      "section_id": "governing-drift",
+      "text": "### Governing drift\n\nA material change in the governing-input set after a pathway or authorization was derived.",
+      "title": "Governing drift"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 117,
+      "line_start": 110,
+      "section_id": "autonomy-profile",
+      "text": "### Autonomy profile\n\nThe currently authorized participation mode governing how proactively AI may progress work:\n\n* AI-assisted;\n* AI-driven;\n* bounded AI-autonomous.",
+      "title": "Autonomy profile"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 127,
+      "line_start": 118,
+      "section_id": "architectural-invariant",
+      "text": "## Architectural invariant\n\nThe adaptive workflow MUST preserve:\n\n> **AI drives the work. EOS governs the work. Humans govern consequential meaning and authority. Evidence governs acceptance.**\n\nThe workflow engine MAY exercise initiative.\n\nIt MUST NOT manufacture authority.",
+      "title": "Architectural invariant"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 143,
+      "line_start": 128,
+      "section_id": "preconditions",
+      "text": "## Preconditions\n\nPathway derivation requires:\n\n1. a resolvable engineering subject or intent;\n2. readable applicable repository/EOS state;\n3. sufficient identity to attribute the pathway request or initiating actor;\n4. sufficient governing context to identify known mandatory constraints;\n5. explicit representation of unresolved material ambiguity where applicable.\n\nPathway derivation MAY occur before execution authorization.\n\nExecution-ready progression MUST NOT occur merely because a pathway can be generated.\n\nIf required governing context cannot be resolved, the workflow MUST surface that condition rather than silently treating missing information as permission.",
+      "title": "Preconditions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 145,
+      "line_start": 144,
+      "section_id": "core-invariants",
+      "text": "## Core invariants",
+      "title": "Core invariants"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 151,
+      "line_start": 146,
+      "section_id": "aieng-fun-i01-eos-sovereignty",
+      "text": "### AIENG-FUN-I01 — EOS sovereignty\n\nAdaptive workflow MUST operate inside EOS.\n\nIt MUST NOT create a ninth EOS lifecycle layer.",
+      "title": "AIENG-FUN-I01 — EOS sovereignty"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 155,
+      "line_start": 152,
+      "section_id": "aieng-fun-i02-pathway-non-authority",
+      "text": "### AIENG-FUN-I02 — Pathway non-authority\n\nA pathway is a proposal until applicable EOS authority, decision, readiness, and authorization semantics make its actions executable.",
+      "title": "AIENG-FUN-I02 — Pathway non-authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 161,
+      "line_start": 156,
+      "section_id": "aieng-fun-i03-initiative-without-approval-authority",
+      "text": "### AIENG-FUN-I03 — Initiative without approval authority\n\nAI MAY proactively identify and recommend next useful engineering actions.\n\nProactivity MUST NOT itself grant approval or execution authority.",
+      "title": "AIENG-FUN-I03 — Initiative without approval authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 165,
+      "line_start": 162,
+      "section_id": "aieng-fun-i04-mandatory-gate-preservation",
+      "text": "### AIENG-FUN-I04 — Mandatory-gate preservation\n\nNo pathway adaptation may omit or bypass a mandatory EOS gate.",
+      "title": "AIENG-FUN-I04 — Mandatory-gate preservation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 169,
+      "line_start": 166,
+      "section_id": "aieng-fun-i05-material-ambiguity-escalation",
+      "text": "### AIENG-FUN-I05 — Material ambiguity escalation\n\nMaterial ambiguity MUST be surfaced through clarification or native decision semantics.",
+      "title": "AIENG-FUN-I05 — Material ambiguity escalation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 173,
+      "line_start": 170,
+      "section_id": "aieng-fun-i06-explainable-adaptation",
+      "text": "### AIENG-FUN-I06 — Explainable adaptation\n\nMaterial changes to normal pathway rigor MUST have structured rationale.",
+      "title": "AIENG-FUN-I06 — Explainable adaptation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 177,
+      "line_start": 174,
+      "section_id": "aieng-fun-i07-governing-freshness",
+      "text": "### AIENG-FUN-I07 — Governing freshness\n\nA pathway derived from materially stale governing inputs MUST NOT be represented as current.",
+      "title": "AIENG-FUN-I07 — Governing freshness"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 181,
+      "line_start": 178,
+      "section_id": "aieng-fun-i08-evidence-classification",
+      "text": "### AIENG-FUN-I08 — Evidence classification\n\nEvidence may change recommendations and planning assumptions while retaining its actual authority class.",
+      "title": "AIENG-FUN-I08 — Evidence classification"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 185,
+      "line_start": 182,
+      "section_id": "aieng-fun-i09-native-semantic-reuse",
+      "text": "### AIENG-FUN-I09 — Native semantic reuse\n\nThe workflow MUST reuse native EOS entities and relationships where their semantics are sufficient.",
+      "title": "AIENG-FUN-I09 — Native semantic reuse"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 189,
+      "line_start": 186,
+      "section_id": "aieng-fun-i10-no-transcript-authority",
+      "text": "### AIENG-FUN-I10 — No transcript authority\n\nConversation history alone MUST NOT become a canonical decision, approval, or lifecycle transition when native governed persistence is required.",
+      "title": "AIENG-FUN-I10 — No transcript authority"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 193,
+      "line_start": 190,
+      "section_id": "pathway-derivation-inputs",
+      "text": "## Pathway derivation inputs\n\nThe workflow SHOULD evaluate all materially applicable inputs available to it, including:",
+      "title": "Pathway derivation inputs"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 201,
+      "line_start": 194,
+      "section_id": "intent-and-scope",
+      "text": "### Intent and scope\n\n* desired outcome;\n* subject;\n* Work Packet scope where applicable;\n* explicit exclusions;\n* acceptance criteria.",
+      "title": "Intent and scope"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 211,
+      "line_start": 202,
+      "section_id": "repository-knowledge",
+      "text": "### Repository knowledge\n\n* requirements;\n* architecture;\n* specifications;\n* ADRs;\n* decisions;\n* approvals;\n* authoritative explanatory context.",
+      "title": "Repository knowledge"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 221,
+      "line_start": 212,
+      "section_id": "lifecycle-state",
+      "text": "### Lifecycle state\n\n* PI state;\n* WC state;\n* WP state;\n* CR state;\n* maintenance state;\n* release state;\n* relevant EOS gates.",
+      "title": "Lifecycle state"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 230,
+      "line_start": 222,
+      "section_id": "authority-and-policy",
+      "text": "### Authority and policy\n\n* accountable owner;\n* delegated authority;\n* approval requirements;\n* prohibited actions;\n* autonomy profile;\n* capability constraints.",
+      "title": "Authority and policy"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 238,
+      "line_start": 231,
+      "section_id": "dependency-state",
+      "text": "### Dependency state\n\n* prerequisites;\n* blockers;\n* sequencing constraints;\n* conflicting work;\n* parallelizable work.",
+      "title": "Dependency state"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 250,
+      "line_start": 239,
+      "section_id": "risk-and-consequence",
+      "text": "### Risk and consequence\n\n* security sensitivity;\n* privacy sensitivity;\n* operational consequence;\n* reversibility;\n* blast radius;\n* novelty;\n* uncertainty;\n* migration impact;\n* external commitment.",
+      "title": "Risk and consequence"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 263,
+      "line_start": 251,
+      "section_id": "evidence",
+      "text": "### Evidence\n\n* current verification evidence;\n* stale evidence;\n* failed evidence;\n* review findings;\n* incidents;\n* operational observations;\n* maintenance findings;\n* performance results.\n\nUnresolved or contradictory inputs MUST remain visible when they are material to pathway behavior.",
+      "title": "Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 287,
+      "line_start": 264,
+      "section_id": "pathway-output",
+      "text": "## Pathway output\n\nA pathway representation MUST be able to communicate at least:\n\n1. pathway subject;\n2. governing-input identity or equivalent references;\n3. proposed activities;\n4. proposed sequencing/dependencies;\n5. mandatory activities/gates;\n6. optional activities;\n7. material unresolved questions;\n8. required decision points;\n9. applicable authority/approval boundaries;\n10. expected verification obligations;\n11. expected review obligations;\n12. escalation conditions;\n13. material rationale for adapted rigor;\n14. current autonomy profile;\n15. freshness or drift state.\n\nThe representation MAY be transient until persistence is required.\n\nA persisted pathway MUST NOT become a competing lifecycle authority.",
+      "title": "Pathway output"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 291,
+      "line_start": 288,
+      "section_id": "adaptive-rigor",
+      "text": "## Adaptive rigor\n\nThe workflow MAY vary engineering rigor according to consequence and governing constraints.",
+      "title": "Adaptive rigor"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 304,
+      "line_start": 292,
+      "section_id": "lightweight-pathway",
+      "text": "### Lightweight pathway\n\nLow-risk, reversible, well-understood work MAY omit unnecessary optional ceremony.\n\nA lightweight pathway MUST still preserve:\n\n* required scope;\n* applicable authority;\n* mandatory gates;\n* required validation;\n* required evidence;\n* required review.",
+      "title": "Lightweight pathway"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 335,
+      "line_start": 305,
+      "section_id": "deepened-pathway",
+      "text": "### Deepened pathway\n\nThe workflow SHOULD increase rigor when relevant conditions include:\n\n* architecture impact;\n* security sensitivity;\n* privacy sensitivity;\n* irreversible effect;\n* production impact;\n* high uncertainty;\n* novel technology;\n* weak evidence;\n* unresolved dependencies;\n* broad blast radius;\n* legal/compliance consequence;\n* high autonomy;\n* difficult rollback.\n\nDeepened rigor MAY introduce:\n\n* research;\n* explicit decision records;\n* additional design;\n* threat analysis;\n* operational planning;\n* migration planning;\n* rollback planning;\n* additional verification;\n* independent review;\n* human approval.",
+      "title": "Deepened pathway"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 341,
+      "line_start": 336,
+      "section_id": "adaptation-boundaries",
+      "text": "### Adaptation boundaries\n\nThe workflow MUST NOT classify a mandatory activity as optional merely to shorten the pathway.\n\nCost, latency, model preference, user impatience, or executor confidence alone MUST NOT justify bypassing governance.",
+      "title": "Adaptation boundaries"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 361,
+      "line_start": 342,
+      "section_id": "workflow-initiative",
+      "text": "## Workflow initiative\n\nUnder AI-driven operation, the workflow MAY proactively:\n\n* inspect current governed state;\n* identify the next useful action;\n* identify missing information;\n* detect contradictions;\n* propose an engineering pathway;\n* identify dependent or parallel work;\n* request clarification;\n* recommend a decision;\n* draft candidate artifacts;\n* recommend validation;\n* analyze evidence;\n* identify a changed assumption;\n* propose replanning.\n\nSuch initiative does not authorize consequential effects.",
+      "title": "Workflow initiative"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 365,
+      "line_start": 362,
+      "section_id": "clarification",
+      "text": "## Clarification\n\nThe workflow MUST distinguish ordinary implementation discretion from material ambiguity.",
+      "title": "Clarification"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 375,
+      "line_start": 366,
+      "section_id": "ordinary-discretion",
+      "text": "### Ordinary discretion\n\nThe workflow MAY resolve a detail without additional human decision when:\n\n* it remains within authorized scope;\n* all plausible choices satisfy governing artifacts;\n* the choice is reversible within delegated limits;\n* policy permits the discretion;\n* no additional authority is required.",
+      "title": "Ordinary discretion"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 388,
+      "line_start": 376,
+      "section_id": "material-clarification",
+      "text": "### Material clarification\n\nWhen ambiguity is material, the workflow MUST surface:\n\n* the question;\n* relevant governing sources;\n* plausible alternatives when known;\n* material consequences;\n* required authority;\n* a recommendation if appropriate.\n\nThe workflow MUST NOT fabricate agreement or infer consequential consent from silence.",
+      "title": "Material clarification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 403,
+      "line_start": 389,
+      "section_id": "decision-routing",
+      "text": "## Decision routing\n\nWhen a material question requires a governed decision, the workflow MUST route it to an existing appropriate Monad mechanism.\n\nPossible mechanisms include:\n\n* `DEC`;\n* `APR`;\n* ADR;\n* CR;\n* EOS review;\n* accountable-owner escalation.\n\nThe workflow MUST NOT create an AI-specific decision system when native semantics are sufficient.",
+      "title": "Decision routing"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 414,
+      "line_start": 404,
+      "section_id": "human-denial",
+      "text": "## Human denial\n\nA governed denial is an authoritative input within its scope.\n\nAfter denial:\n\n1. the rejected pathway/action MUST NOT continue as though approved;\n2. the workflow MAY propose a materially different conforming alternative;\n3. the workflow MUST NOT repeatedly pressure for the same rejected outcome without new material governed evidence;\n4. new evidence MAY legitimately trigger reevaluation according to existing authority and change-control rules.",
+      "title": "Human denial"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 435,
+      "line_start": 415,
+      "section_id": "dependency-aware-progression",
+      "text": "## Dependency-aware progression\n\nThe workflow SHOULD determine:\n\n* prerequisites;\n* blocked activities;\n* activities eligible for parallel work;\n* sequencing constraints;\n* downstream impact.\n\nProposed concurrency MUST preserve:\n\n* dependency correctness;\n* scope boundaries;\n* resource limits;\n* isolation requirements;\n* authority;\n* evidence attribution.\n\nEmergent independent work MUST route to EOSP rather than silently becoming part of an active Work Packet.",
+      "title": "Dependency-aware progression"
+    },
+    {
+      "identifiers": [
+        "FR-037",
+        "FR-042"
+      ],
+      "level": 2,
+      "line_end": 455,
+      "line_start": 436,
+      "section_id": "handoff-to-execution",
+      "text": "## Handoff to execution\n\nWhen a pathway reaches an executable action, it MUST hand off through existing EOS readiness, authorization, and execution semantics.\n\nThe workflow MUST NOT treat the pathway itself as an Execution Envelope.\n\nWhere governed execution applies:\n\n```text\nadaptive pathway\n    ↓\nEOS readiness / decisions / authorization\n    ↓\nExecution Envelope compilation\n    ↓\ngoverned execution boundary\n```\n\nExisting requirements `FR-037` through `FR-042` remain authoritative for the downstream governed-execution behavior they own.",
+      "title": "Handoff to execution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 475,
+      "line_start": 456,
+      "section_id": "replanning",
+      "text": "## Replanning\n\nReplanning MUST occur when material new information invalidates or materially changes the current pathway assumptions.\n\nTriggers MAY include:\n\n* failed verification;\n* review findings;\n* governing-input drift;\n* new dependency;\n* new risk;\n* denied approval;\n* changed architecture;\n* changed requirement;\n* security finding;\n* provider/executor failure;\n* operational evidence.\n\nReplanning MUST preserve the history or traceability required to explain why the pathway changed.",
+      "title": "Replanning"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 497,
+      "line_start": 476,
+      "section_id": "governing-input-drift",
+      "text": "## Governing-input drift\n\nThe workflow MUST be able to distinguish at least:\n\n* unchanged governing inputs;\n* changed but immaterial inputs;\n* materially changed governing inputs;\n* unresolved freshness.\n\nFor material drift, the workflow MUST NOT silently continue to present the old pathway or authorization as current.\n\nApplicable outcomes include:\n\n* pathway recomputation;\n* execution suspension;\n* clarification;\n* reauthorization;\n* EOSC;\n* cancellation.\n\nExact fingerprint representation is delegated to technical/interface specifications.",
+      "title": "Governing-input drift"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 517,
+      "line_start": 498,
+      "section_id": "evidence-feedback",
+      "text": "## Evidence feedback\n\nEvidence MAY influence:\n\n* risk assessment;\n* recommended rigor;\n* sequencing;\n* autonomy recommendations;\n* validation recommendations;\n* replanning.\n\nEvidence MUST retain its provenance and status.\n\nExamples:\n\n* failed evidence remains failed evidence;\n* stale evidence remains stale until superseded or refreshed;\n* operational observation remains observation unless governed elevation occurs;\n* AI interpretation of evidence remains interpretation.",
+      "title": "Evidence feedback"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 519,
+      "line_start": 518,
+      "section_id": "failure-behavior",
+      "text": "## Failure behavior",
+      "title": "Failure behavior"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 523,
+      "line_start": 520,
+      "section_id": "missing-context",
+      "text": "### Missing context\n\nIf required context cannot be resolved, the workflow MUST report the missing dependency and MUST NOT represent the pathway as execution-ready.",
+      "title": "Missing context"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 527,
+      "line_start": 524,
+      "section_id": "contradictory-authority",
+      "text": "### Contradictory authority\n\nIf applicable authorities conflict or cannot be resolved, the workflow MUST escalate.",
+      "title": "Contradictory authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 531,
+      "line_start": 528,
+      "section_id": "policy-denial",
+      "text": "### Policy denial\n\nA denied action MUST remain denied. The workflow MAY replan around the denial only if the alternative is independently conforming.",
+      "title": "Policy denial"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 537,
+      "line_start": 532,
+      "section_id": "provider-failure",
+      "text": "### Provider failure\n\nFailure of one AI provider or model MUST NOT corrupt canonical state.\n\nAnother conforming reasoning/execution participant MAY resume from governed state.",
+      "title": "Provider failure"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 541,
+      "line_start": 538,
+      "section_id": "invalid-pathway-output",
+      "text": "### Invalid pathway output\n\nMalformed or incomplete AI output MUST be treated as candidate output and rejected or repaired before governed use.",
+      "title": "Invalid pathway output"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 545,
+      "line_start": 542,
+      "section_id": "excessive-uncertainty",
+      "text": "### Excessive uncertainty\n\nWhere consequence is material and uncertainty remains too high to safely select a path, the workflow MUST request clarification, research, evidence, or accountable decision.",
+      "title": "Excessive uncertainty"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 566,
+      "line_start": 546,
+      "section_id": "security-and-data",
+      "text": "## Security and data\n\nThe adaptive workflow MUST apply least-context principles.\n\nIt SHOULD:\n\n* minimize sensitive information supplied to external providers;\n* preserve classification metadata;\n* respect secret-exclusion rules;\n* respect repository/path access restrictions;\n* avoid unnecessary raw transcript persistence.\n\nThe workflow MUST NOT:\n\n* grant capabilities;\n* expose secrets merely because they are contextually relevant;\n* infer authority from tool availability;\n* allow untrusted prompt content to redefine governing policy.\n\nDetailed control requirements are owned by `SEC-AIENG-0001`.",
+      "title": "Security and data"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 582,
+      "line_start": 567,
+      "section_id": "compatibility",
+      "text": "## Compatibility\n\nThe semantic meaning of a pathway MUST remain provider-neutral.\n\nDifferent conforming AI systems MAY produce different recommendations from the same non-deterministic reasoning problem.\n\nHowever:\n\n* mandatory gates MUST remain equivalent;\n* governing sources MUST remain identifiable;\n* denied authority MUST remain denied;\n* required decisions MUST remain required;\n* required evidence/review obligations MUST remain intact.\n\nProvider/model change MUST NOT require changes to canonical Monad authority semantics.",
+      "title": "Compatibility"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 599,
+      "line_start": 583,
+      "section_id": "observability",
+      "text": "## Observability\n\nFor materially consequential pathways, the system SHOULD expose:\n\n* pathway identity if persisted;\n* governing-input identity;\n* autonomy profile;\n* major pathway activities;\n* material rationale;\n* clarification events;\n* decision/approval references;\n* replanning events;\n* drift state;\n* executor/harness/provider identity where relevant.\n\nObservability MUST NOT require private chain-of-thought.",
+      "title": "Observability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 601,
+      "line_start": 600,
+      "section_id": "verification",
+      "text": "## Verification",
+      "title": "Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 607,
+      "line_start": 602,
+      "section_id": "fun-aieng-v01-lightweight-pathway",
+      "text": "### FUN-AIENG-V01 — Lightweight pathway\n\nGiven low-risk reversible work with satisfied prerequisites, verify that the workflow can propose reduced optional ceremony while preserving mandatory gates.\n\nCovers `AIENG-CONF-A`.",
+      "title": "FUN-AIENG-V01 — Lightweight pathway"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 613,
+      "line_start": 608,
+      "section_id": "fun-aieng-v02-material-ambiguity",
+      "text": "### FUN-AIENG-V02 — Material ambiguity\n\nGiven two consequentially different interpretations of product intent, verify that the workflow surfaces a clarification/decision instead of selecting one silently.\n\nCovers `AIENG-CONF-B`.",
+      "title": "FUN-AIENG-V02 — Material ambiguity"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 619,
+      "line_start": 614,
+      "section_id": "fun-aieng-v03-architecture-change-during-execution",
+      "text": "### FUN-AIENG-V03 — Architecture change during execution\n\nGiven execution evidence that implementation requires a governing architecture change, verify routing to EOSC rather than silent scope broadening.\n\nCovers `AIENG-CONF-C`.",
+      "title": "FUN-AIENG-V03 — Architecture change during execution"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 625,
+      "line_start": 620,
+      "section_id": "fun-aieng-v04-bounded-autonomous-progression",
+      "text": "### FUN-AIENG-V04 — Bounded autonomous progression\n\nGiven explicit bounded-autonomous authority for a low-risk work subject, verify that the workflow can progress optional actions without unnecessary synchronous approval while stopping at boundaries it cannot cross.\n\nContributes to `AIENG-CONF-D`.",
+      "title": "FUN-AIENG-V04 — Bounded autonomous progression"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 631,
+      "line_start": 626,
+      "section_id": "fun-aieng-v05-increased-rigor",
+      "text": "### FUN-AIENG-V05 — Increased rigor\n\nGiven security-sensitive or irreversible work, verify that the pathway increases appropriate review, authority, evidence, or planning obligations.\n\nContributes to `AIENG-CONF-E`.",
+      "title": "FUN-AIENG-V05 — Increased rigor"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 637,
+      "line_start": 632,
+      "section_id": "fun-aieng-v06-governing-drift",
+      "text": "### FUN-AIENG-V06 — Governing drift\n\nGiven a material governing requirement change after pathway derivation, verify that the old pathway is marked stale/suspect and replanning or reauthorization occurs.\n\nCovers `AIENG-CONF-G`.",
+      "title": "FUN-AIENG-V06 — Governing drift"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 643,
+      "line_start": 638,
+      "section_id": "fun-aieng-v07-provider-failure",
+      "text": "### FUN-AIENG-V07 — Provider failure\n\nGiven loss of the reasoning provider, verify that canonical state remains valid and another conforming participant can continue from governed state.\n\nContributes to `AIENG-CONF-H`.",
+      "title": "FUN-AIENG-V07 — Provider failure"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 649,
+      "line_start": 644,
+      "section_id": "fun-aieng-v08-human-denial",
+      "text": "### FUN-AIENG-V08 — Human denial\n\nGiven an authorized human denial, verify that the rejected action is not continued and that replanning respects the denial.\n\nCovers `AIENG-CONF-I`.",
+      "title": "FUN-AIENG-V08 — Human denial"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 655,
+      "line_start": 650,
+      "section_id": "fun-aieng-v09-evidence-invalidates-assumption",
+      "text": "### FUN-AIENG-V09 — Evidence invalidates assumption\n\nGiven verification or operational evidence invalidating a pathway assumption, verify that the workflow routes to replanning or change control.\n\nCovers `AIENG-CONF-J`.",
+      "title": "FUN-AIENG-V09 — Evidence invalidates assumption"
+    },
+    {
+      "identifiers": [
+        "FR-007",
+        "FR-012",
+        "FR-013",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-023",
+        "FR-024",
+        "FR-037",
+        "FR-038",
+        "FR-039",
+        "FR-040",
+        "FR-041",
+        "FR-042",
+        "FR-043",
+        "QR-008",
+        "QR-010"
+      ],
+      "level": 2,
+      "line_end": 691,
+      "line_start": 656,
+      "section_id": "traceability",
+      "text": "## Traceability\n\nPrimary requirement ownership:\n\n```text\nFR-043\n  → FUN-AIENG-0001\n```\n\nSupporting requirements:\n\n```text\nFR-007\nFR-012\nFR-013\nFR-014\nFR-015\nFR-016\nFR-023\nFR-024\nQR-008\nQR-010\n```\n\nDownstream governed-execution handoff:\n\n```text\nFUN-AIENG-0001\n  → FR-037\n  → FR-038\n  → FR-039\n  → FR-040\n  → FR-041\n  → FR-042\n```",
+      "title": "Traceability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 698,
+      "line_start": 692,
+      "section_id": "implementation-boundary",
+      "text": "## Implementation boundary\n\nThis specification defines required behavior.\n\nIt does not authorize implementation.\n\nImplementation MUST be decomposed through EOSP and executed only through separately authorized Work Cycles and Work Packets after the AIENG normative baseline and conformance traceability are accepted.",
+      "title": "Implementation boundary"
+    }
+  ],
+  "source": {
+    "bytes": 19609,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 698,
+    "media_type": "text/markdown",
+    "path": "specifications/functional/FUN-AIENG-0001-adaptive-engineering-workflow.md",
+    "sha256": "742c5edeec929cdd262907000f764087b8bc7bda88f004654953e1d493880652"
+  }
+}

@@ -1,0 +1,346 @@
+{
+  "content": "---\nartifact_id: \"MNT-0006\"\ntitle: \"EOS canonical transaction failure leaves rejected projection and event mutations\"\ntype: \"maintenance\"\nversion: \"0.1.0\"\nstatus: \"CLOSED\"\nauthority: \"planning-authoritative\"\ncreated: \"2026-09-05\"\nupdated: \"2026-09-05\"\n---\n\n# MNT-0006 — EOS canonical transaction failure leaves rejected projection and event mutations\n\n**State:** CLOSED\n\n## Type\n\nbug\n\n## Summary\n\nEOS canonical transactions are fail-closed with respect to advancement of `.eos/state/current.json`, but they are not currently atomic with respect to mutations made by the selected EOS runtime before canonical post-validation.\n\nA command whose runtime returns success can mutate event history and compatibility projections, then fail canonical capture and leave those rejected mutations in the working tree.\n\n## Observed Failure\n\nThe defect was demonstrated during:\n\n```text\n./scripts/eos maintain plan MNT-0005\n```\n\nThe command performed the intended legacy/runtime mutation:\n\n```text\nMNT-0005\nOPEN -> PLANNED\n```\n\nand changed:\n\n* `.eos/maintenance.tsv`;\n* `.eos/events.jsonl`;\n* the visible lifecycle state in `engineering/maintenance/MNT-0005.md`.\n\nBecause malformed Markdown frontmatter prevented the frontmatter lifecycle projection from changing, canonical post-validation observed:\n\n```text\nTSV=PLANNED\nfrontmatter=OPEN\n```\n\nand correctly refused to advance canonical state.\n\nHowever, after refusal:\n\n* canonical MNT-0005 state remained `OPEN`;\n* TSV state remained `PLANNED`;\n* event history contained the rejected `OPEN -> PLANNED` event;\n* Markdown visible state remained `PLANNED`;\n* the canonical transaction receipt remained present.\n\nThe repository therefore entered explicit projection drift despite the canonical transaction having been rejected.\n\n## Governing Invariant\n\nA rejected EOS canonical transaction MUST have no authoritative or projected effect equivalent to a committed successful mutation.\n\nThe required invariant is:\n\n> **Either the entire EOS mutation is captured as one consistent canonical transaction, or all transaction-local mutations are automatically returned to their exact pre-transaction state.**\n\nThis applies to:\n\n* canonical state;\n* lifecycle registries;\n* append-only event history;\n* Markdown lifecycle metadata;\n* generated projections;\n* transaction-local generated artifacts;\n* other mutation surfaces governed by the canonical transaction.\n\n## Current Architecture\n\nThe wrapper currently performs:\n\n```text\ncanonical pre\n    ↓\nselected runtime mutates live repository projections\n    ↓\nruntime returns success\n    ↓\ncanonical post validates/captures\n```\n\nThis creates a vulnerability window:\n\n```text\nruntime mutation succeeds\n    +\ncanonical post fails\n    =\npartial rejected transaction remains on disk\n```\n\nFailing to advance canonical state is correct but insufficient.\n\n## Risk\n\nIf deferred, a failed EOS command may leave:\n\n* lifecycle TSV drift;\n* event-history drift;\n* Markdown-state drift;\n* orphaned newly created lifecycle artifacts;\n* generated artifact drift;\n* stale transaction receipts;\n* misleading Git diffs;\n* human confusion regarding whether an action actually occurred.\n\nMore importantly, operators may respond by manually repairing individual projections and accidentally:\n\n* lose legitimate event history;\n* retain rejected events;\n* overwrite canonical state;\n* create duplicate lifecycle operations;\n* commit inconsistent history.\n\nThis is especially significant because EOS is the control plane for AI-driven engineering.\n\nAn AI executor must not be able to leave partial governance mutations merely because canonical validation catches an error late.\n\n## Scope\n\nAt minimum inspect:\n\n```text\nscripts/eos\ntools/eos/canonical_state.py\ntools/eos/eos.py\ntools/eos/execution_v2.py\ntools/eos/verification_v2.py\n```\n\nAdditional mutation surfaces discovered during implementation are in scope only where they participate in canonical EOS transactions.\n\n## Required Semantics\n\n### Atomic outcome\n\nAn EOS mutation transaction MUST have exactly one of two terminal outcomes:\n\n```text\nCOMMITTED\n```\n\nor:\n\n```text\nROLLED_BACK\n```\n\nA failed transaction MUST NOT leave a third state equivalent to:\n\n```text\nCANONICAL_REJECTED_BUT_PROJECTIONS_MUTATED\n```\n\n### Pre-transaction identity\n\nThe transaction mechanism MUST retain sufficient information to prove and restore the exact pre-transaction state of every mutation surface it allows the selected runtime to change.\n\n### Event history\n\nEvents produced by a transaction MUST not become durable accepted EOS history unless the corresponding transaction commits.\n\nA rejected transaction MUST NOT require unsafe manual deletion of event history.\n\n### Newly created entities\n\nIf a rejected transaction created a new lifecycle entity, rollback MUST prevent it from remaining as an unmanaged or apparently valid entity.\n\nThe implementation must define safe treatment for transaction-local:\n\n* Markdown artifacts;\n* registry rows;\n* events;\n* generated contracts;\n* projection metadata.\n\n### Existing entities\n\nIf a rejected transaction modified an existing entity, rollback MUST return lifecycle projections to the exact pre-transaction values.\n\n### User-authored unrelated changes\n\nRollback MUST NOT erase unrelated pre-existing working-tree changes.\n\nTherefore a blanket:\n\n```text\ngit reset --hard\n```\n\nor equivalent repository-wide destructive rollback is forbidden.\n\n## Preferred Architectural Direction\n\nThe preferred long-term model is transactional staging rather than mutation-then-repair.\n\nConceptually:\n\n```text\ncanonical pre\n    ↓\ncreate isolated transaction staging area\n    ↓\nruntime writes proposed mutations to staging\n    ↓\nvalidate complete staged mutation\n    ↓\natomically publish canonical state + projections + accepted events\n```\n\nThis prevents rejected events and projections from becoming live in the first place.\n\nIf immediate full staging is disproportionate, an interim rollback implementation MAY be used only if it is:\n\n* deterministic;\n* exact;\n* transaction-scoped;\n* safe in a dirty working tree;\n* able to distinguish transaction-created changes from pre-existing changes;\n* tested against lifecycle creation and transitions;\n* unable to erase unrelated user work.\n\n## Transaction Receipt\n\nThe existing transaction receipt already records useful pre-transaction information, including:\n\n* canonical revision;\n* canonical digest;\n* command;\n* pre-command event count.\n\nThe repair MAY extend this receipt with additional transaction-scoped restoration metadata.\n\nThe receipt MUST remain insufficient by itself to authorize canonical advancement.\n\n## Recovery Behavior\n\nIf canonical post-validation fails, EOS SHOULD:\n\n1. identify the transaction being rejected;\n2. restore transaction-owned mutation surfaces to their pre-transaction state;\n3. retain diagnostic information explaining the rejection;\n4. remove or terminally disposition the active transaction receipt;\n5. verify canonical/projection consistency after rollback;\n6. exit non-zero.\n\nIf automatic rollback itself fails, EOS MUST fail closed and provide an explicit recovery artifact/instruction without pretending consistency.\n\n## Required Tests\n\n### Existing lifecycle transition\n\nForce post-validation failure after an existing entity transition.\n\nVerify:\n\n```text\ncanonical before == canonical after\nTSV before == TSV after\nMarkdown lifecycle before == Markdown lifecycle after\nevent ledger before == event ledger after\n```\n\nfor transaction-owned mutations.\n\n### Entity creation\n\nForce post-validation failure after `maintain create`, `create-wp`, or an equivalent entity creation.\n\nVerify no rejected entity remains represented as committed lifecycle state.\n\n### Dirty working tree\n\nBegin with unrelated modified files.\n\nForce transaction failure.\n\nVerify unrelated modifications remain byte-identical.\n\n### Event rollback\n\nVerify transaction-local rejected events do not remain in the accepted event ledger.\n\n### Transaction receipt\n\nVerify successful rollback does not leave an active interrupted-transaction receipt.\n\n### Rollback failure\n\nSimulate a failure while restoring one transaction surface.\n\nVerify EOS reports inconsistent/recovery-required state and never reports transaction success.\n\n### Successful transaction\n\nVerify ordinary successful transactions remain behaviorally unchanged.\n\n### Determinism\n\nGiven identical pre-state and failed command behavior, rollback produces identical repository-governance state.\n\n## Relationship to MNT-0003\n\nMNT-0003 concerns loss of legitimate committed event history during Git merge/reconciliation.\n\nMNT-0006 concerns retention of rejected transaction-local event history following failed canonical capture.\n\nThe two defects are distinct but jointly demonstrate that event-ledger integrity requires explicit transactional semantics.\n\n## Relationship to MNT-0005\n\nMNT-0005 exposed MNT-0006 but does not depend on MNT-0006 for its semantic identity resolution.\n\nMNT-0005 implementation may proceed only after its own authority gate.\n\nMNT-0006 should be resolved before materially increasing automated EOS mutation autonomy because failed automated governance mutations must be safely recoverable.\n\n## Completion Criteria\n\n* [ ] Rejected canonical transactions automatically roll back transaction-owned mutations.\n* [ ] Rejected event records do not remain in accepted event history.\n* [ ] Existing lifecycle transitions roll back exactly.\n* [ ] Rejected entity creation leaves no committed lifecycle entity.\n* [ ] Unrelated working-tree changes are preserved.\n* [ ] Rollback failure itself fails closed.\n* [ ] Successful transactions remain unchanged.\n* [ ] Deterministic tests cover successful and failed transaction paths.\n* [ ] EOS state status reports consistent after successfully rolled-back failure.\n* [ ] Required verification evidence is captured.\n* [ ] Maintenance closure review is accepted.\n\n## Validation\n\nAt minimum:\n\n```text\ntargeted canonical transaction tests\ncanonical reconciliation tests\nwrapper dispatch tests\n./scripts/eos state status\n./scripts/eos verify\n```\n\nStrict verification and evidence refresh remain stable-checkpoint activities.\n\n## Closure Evidence\n\nMNT-0006 implementation and verification completed successfully.\n\nImplementation:\n\n- `2672b6969ed4cf258cf5851acf6f9d6e51364062` — local canonical transaction atomicity\n- `3a1f67b825a4c7b1184a6e5a7fbd791488501ef2` — transaction rollback verification correction\n\nEvidence checkpoint:\n\n- `c186ff4c00fd9961e30fdccd57db26a44a493a8d`\n\nVerification checkpoint:\n\n- `24f68e95ba1586928e26fea3394b0b3dde0426b0`\n\nVerification review:\n\n- `engineering/reviews/MNT-0006-CANONICAL-TRANSACTION-ATOMICITY-VERIFICATION.md`\n- Disposition: `PASS — RECOMMEND MNT-0006 CLOSURE`\n\nFormal closure review:\n\n- `engineering/reviews/MNT-0006-REVIEW.md`\n- Decision: `ACCEPTED`\n\nHuman closure authority:\n\n- `engineering/reviews/DECISION-0007-2026-09-05-mnt-0006-closure-approval.md`\n- Explicit approval: `I approve MNT-0006 closure.`\n\nThe verified scope is local EOS canonical-transaction atomicity. Distributed\nexternal-side-effect atomicity remains outside MNT-0006 scope.\n\n## Implementation Approval\n\n**APPROVED — 2026-09-05**\n\nApproval evidence:\n\n`engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md`\n\nThe Human Project Steward / Architecture Owner explicitly approved this\nmaintenance plan for implementation.\n\nImplementation remains bounded by this maintenance artifact, the approval\ndecision, applicable EOS authority, and required verification/review.\n\n## Implementation Authorization\n\nImplementation authority was explicitly granted by:\n\n`engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md`\n\nThat implementation authority was bounded to MNT-0006 and did not grant broader\nEOS runtime authority.\n\nFormal closure was subsequently approved by:\n\n`engineering/reviews/DECISION-0007-2026-09-05-mnt-0006-closure-approval.md`\n",
+  "document_id": "doc:engineering%2Fmaintenance%2FMNT-0006.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"MNT-0006\" title: \"EOS canonical transaction failure leaves rejected projection and event mutations\" type: \"maintenance\" version: \"0.1.0\" status: \"CLOSED\" authority: \"planning-authoritative\" created: \"2026-09-05\" updated: \"2026-09-05\" ---",
+    "title": "MNT-0006 — EOS canonical transaction failure leaves rejected projection and event mutations"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"MNT-0006\"\ntitle: \"EOS canonical transaction failure leaves rejected projection and event mutations\"\ntype: \"maintenance\"\nversion: \"0.1.0\"\nstatus: \"CLOSED\"\nauthority: \"planning-authoritative\"\ncreated: \"2026-09-05\"\nupdated: \"2026-09-05\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "mnt-0006-eos-canonical-transaction-failure-leaves-rejected-projection-and-event-mutations",
+      "text": "# MNT-0006 — EOS canonical transaction failure leaves rejected projection and event mutations\n\n**State:** CLOSED",
+      "title": "MNT-0006 — EOS canonical transaction failure leaves rejected projection and event mutations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 16,
+      "section_id": "type",
+      "text": "## Type\n\nbug",
+      "title": "Type"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 25,
+      "line_start": 20,
+      "section_id": "summary",
+      "text": "## Summary\n\nEOS canonical transactions are fail-closed with respect to advancement of `.eos/state/current.json`, but they are not currently atomic with respect to mutations made by the selected EOS runtime before canonical post-validation.\n\nA command whose runtime returns success can mutate event history and compatibility projections, then fail canonical capture and leave those rejected mutations in the working tree.",
+      "title": "Summary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 65,
+      "line_start": 26,
+      "section_id": "observed-failure",
+      "text": "## Observed Failure\n\nThe defect was demonstrated during:\n\n```text\n./scripts/eos maintain plan MNT-0005\n```\n\nThe command performed the intended legacy/runtime mutation:\n\n```text\nMNT-0005\nOPEN -> PLANNED\n```\n\nand changed:\n\n* `.eos/maintenance.tsv`;\n* `.eos/events.jsonl`;\n* the visible lifecycle state in `engineering/maintenance/MNT-0005.md`.\n\nBecause malformed Markdown frontmatter prevented the frontmatter lifecycle projection from changing, canonical post-validation observed:\n\n```text\nTSV=PLANNED\nfrontmatter=OPEN\n```\n\nand correctly refused to advance canonical state.\n\nHowever, after refusal:\n\n* canonical MNT-0005 state remained `OPEN`;\n* TSV state remained `PLANNED`;\n* event history contained the rejected `OPEN -> PLANNED` event;\n* Markdown visible state remained `PLANNED`;\n* the canonical transaction receipt remained present.\n\nThe repository therefore entered explicit projection drift despite the canonical transaction having been rejected.",
+      "title": "Observed Failure"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 83,
+      "line_start": 66,
+      "section_id": "governing-invariant",
+      "text": "## Governing Invariant\n\nA rejected EOS canonical transaction MUST have no authoritative or projected effect equivalent to a committed successful mutation.\n\nThe required invariant is:\n\n> **Either the entire EOS mutation is captured as one consistent canonical transaction, or all transaction-local mutations are automatically returned to their exact pre-transaction state.**\n\nThis applies to:\n\n* canonical state;\n* lifecycle registries;\n* append-only event history;\n* Markdown lifecycle metadata;\n* generated projections;\n* transaction-local generated artifacts;\n* other mutation surfaces governed by the canonical transaction.",
+      "title": "Governing Invariant"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 109,
+      "line_start": 84,
+      "section_id": "current-architecture",
+      "text": "## Current Architecture\n\nThe wrapper currently performs:\n\n```text\ncanonical pre\n    ↓\nselected runtime mutates live repository projections\n    ↓\nruntime returns success\n    ↓\ncanonical post validates/captures\n```\n\nThis creates a vulnerability window:\n\n```text\nruntime mutation succeeds\n    +\ncanonical post fails\n    =\npartial rejected transaction remains on disk\n```\n\nFailing to advance canonical state is correct but insufficient.",
+      "title": "Current Architecture"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 134,
+      "line_start": 110,
+      "section_id": "risk",
+      "text": "## Risk\n\nIf deferred, a failed EOS command may leave:\n\n* lifecycle TSV drift;\n* event-history drift;\n* Markdown-state drift;\n* orphaned newly created lifecycle artifacts;\n* generated artifact drift;\n* stale transaction receipts;\n* misleading Git diffs;\n* human confusion regarding whether an action actually occurred.\n\nMore importantly, operators may respond by manually repairing individual projections and accidentally:\n\n* lose legitimate event history;\n* retain rejected events;\n* overwrite canonical state;\n* create duplicate lifecycle operations;\n* commit inconsistent history.\n\nThis is especially significant because EOS is the control plane for AI-driven engineering.\n\nAn AI executor must not be able to leave partial governance mutations merely because canonical validation catches an error late.",
+      "title": "Risk"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 148,
+      "line_start": 135,
+      "section_id": "scope",
+      "text": "## Scope\n\nAt minimum inspect:\n\n```text\nscripts/eos\ntools/eos/canonical_state.py\ntools/eos/eos.py\ntools/eos/execution_v2.py\ntools/eos/verification_v2.py\n```\n\nAdditional mutation surfaces discovered during implementation are in scope only where they participate in canonical EOS transactions.",
+      "title": "Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 150,
+      "line_start": 149,
+      "section_id": "required-semantics",
+      "text": "## Required Semantics",
+      "title": "Required Semantics"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 170,
+      "line_start": 151,
+      "section_id": "atomic-outcome",
+      "text": "### Atomic outcome\n\nAn EOS mutation transaction MUST have exactly one of two terminal outcomes:\n\n```text\nCOMMITTED\n```\n\nor:\n\n```text\nROLLED_BACK\n```\n\nA failed transaction MUST NOT leave a third state equivalent to:\n\n```text\nCANONICAL_REJECTED_BUT_PROJECTIONS_MUTATED\n```",
+      "title": "Atomic outcome"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 174,
+      "line_start": 171,
+      "section_id": "pre-transaction-identity",
+      "text": "### Pre-transaction identity\n\nThe transaction mechanism MUST retain sufficient information to prove and restore the exact pre-transaction state of every mutation surface it allows the selected runtime to change.",
+      "title": "Pre-transaction identity"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 180,
+      "line_start": 175,
+      "section_id": "event-history",
+      "text": "### Event history\n\nEvents produced by a transaction MUST not become durable accepted EOS history unless the corresponding transaction commits.\n\nA rejected transaction MUST NOT require unsafe manual deletion of event history.",
+      "title": "Event history"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 192,
+      "line_start": 181,
+      "section_id": "newly-created-entities",
+      "text": "### Newly created entities\n\nIf a rejected transaction created a new lifecycle entity, rollback MUST prevent it from remaining as an unmanaged or apparently valid entity.\n\nThe implementation must define safe treatment for transaction-local:\n\n* Markdown artifacts;\n* registry rows;\n* events;\n* generated contracts;\n* projection metadata.",
+      "title": "Newly created entities"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 196,
+      "line_start": 193,
+      "section_id": "existing-entities",
+      "text": "### Existing entities\n\nIf a rejected transaction modified an existing entity, rollback MUST return lifecycle projections to the exact pre-transaction values.",
+      "title": "Existing entities"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 208,
+      "line_start": 197,
+      "section_id": "user-authored-unrelated-changes",
+      "text": "### User-authored unrelated changes\n\nRollback MUST NOT erase unrelated pre-existing working-tree changes.\n\nTherefore a blanket:\n\n```text\ngit reset --hard\n```\n\nor equivalent repository-wide destructive rollback is forbidden.",
+      "title": "User-authored unrelated changes"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 238,
+      "line_start": 209,
+      "section_id": "preferred-architectural-direction",
+      "text": "## Preferred Architectural Direction\n\nThe preferred long-term model is transactional staging rather than mutation-then-repair.\n\nConceptually:\n\n```text\ncanonical pre\n    ↓\ncreate isolated transaction staging area\n    ↓\nruntime writes proposed mutations to staging\n    ↓\nvalidate complete staged mutation\n    ↓\natomically publish canonical state + projections + accepted events\n```\n\nThis prevents rejected events and projections from becoming live in the first place.\n\nIf immediate full staging is disproportionate, an interim rollback implementation MAY be used only if it is:\n\n* deterministic;\n* exact;\n* transaction-scoped;\n* safe in a dirty working tree;\n* able to distinguish transaction-created changes from pre-existing changes;\n* tested against lifecycle creation and transitions;\n* unable to erase unrelated user work.",
+      "title": "Preferred Architectural Direction"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 251,
+      "line_start": 239,
+      "section_id": "transaction-receipt",
+      "text": "## Transaction Receipt\n\nThe existing transaction receipt already records useful pre-transaction information, including:\n\n* canonical revision;\n* canonical digest;\n* command;\n* pre-command event count.\n\nThe repair MAY extend this receipt with additional transaction-scoped restoration metadata.\n\nThe receipt MUST remain insufficient by itself to authorize canonical advancement.",
+      "title": "Transaction Receipt"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 264,
+      "line_start": 252,
+      "section_id": "recovery-behavior",
+      "text": "## Recovery Behavior\n\nIf canonical post-validation fails, EOS SHOULD:\n\n1. identify the transaction being rejected;\n2. restore transaction-owned mutation surfaces to their pre-transaction state;\n3. retain diagnostic information explaining the rejection;\n4. remove or terminally disposition the active transaction receipt;\n5. verify canonical/projection consistency after rollback;\n6. exit non-zero.\n\nIf automatic rollback itself fails, EOS MUST fail closed and provide an explicit recovery artifact/instruction without pretending consistency.",
+      "title": "Recovery Behavior"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 266,
+      "line_start": 265,
+      "section_id": "required-tests",
+      "text": "## Required Tests",
+      "title": "Required Tests"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 281,
+      "line_start": 267,
+      "section_id": "existing-lifecycle-transition",
+      "text": "### Existing lifecycle transition\n\nForce post-validation failure after an existing entity transition.\n\nVerify:\n\n```text\ncanonical before == canonical after\nTSV before == TSV after\nMarkdown lifecycle before == Markdown lifecycle after\nevent ledger before == event ledger after\n```\n\nfor transaction-owned mutations.",
+      "title": "Existing lifecycle transition"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 287,
+      "line_start": 282,
+      "section_id": "entity-creation",
+      "text": "### Entity creation\n\nForce post-validation failure after `maintain create`, `create-wp`, or an equivalent entity creation.\n\nVerify no rejected entity remains represented as committed lifecycle state.",
+      "title": "Entity creation"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 295,
+      "line_start": 288,
+      "section_id": "dirty-working-tree",
+      "text": "### Dirty working tree\n\nBegin with unrelated modified files.\n\nForce transaction failure.\n\nVerify unrelated modifications remain byte-identical.",
+      "title": "Dirty working tree"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 299,
+      "line_start": 296,
+      "section_id": "event-rollback",
+      "text": "### Event rollback\n\nVerify transaction-local rejected events do not remain in the accepted event ledger.",
+      "title": "Event rollback"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 303,
+      "line_start": 300,
+      "section_id": "transaction-receipt-2",
+      "text": "### Transaction receipt\n\nVerify successful rollback does not leave an active interrupted-transaction receipt.",
+      "title": "Transaction receipt"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 309,
+      "line_start": 304,
+      "section_id": "rollback-failure",
+      "text": "### Rollback failure\n\nSimulate a failure while restoring one transaction surface.\n\nVerify EOS reports inconsistent/recovery-required state and never reports transaction success.",
+      "title": "Rollback failure"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 313,
+      "line_start": 310,
+      "section_id": "successful-transaction",
+      "text": "### Successful transaction\n\nVerify ordinary successful transactions remain behaviorally unchanged.",
+      "title": "Successful transaction"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 317,
+      "line_start": 314,
+      "section_id": "determinism",
+      "text": "### Determinism\n\nGiven identical pre-state and failed command behavior, rollback produces identical repository-governance state.",
+      "title": "Determinism"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 325,
+      "line_start": 318,
+      "section_id": "relationship-to-mnt-0003",
+      "text": "## Relationship to MNT-0003\n\nMNT-0003 concerns loss of legitimate committed event history during Git merge/reconciliation.\n\nMNT-0006 concerns retention of rejected transaction-local event history following failed canonical capture.\n\nThe two defects are distinct but jointly demonstrate that event-ledger integrity requires explicit transactional semantics.",
+      "title": "Relationship to MNT-0003"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 333,
+      "line_start": 326,
+      "section_id": "relationship-to-mnt-0005",
+      "text": "## Relationship to MNT-0005\n\nMNT-0005 exposed MNT-0006 but does not depend on MNT-0006 for its semantic identity resolution.\n\nMNT-0005 implementation may proceed only after its own authority gate.\n\nMNT-0006 should be resolved before materially increasing automated EOS mutation autonomy because failed automated governance mutations must be safely recoverable.",
+      "title": "Relationship to MNT-0005"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 347,
+      "line_start": 334,
+      "section_id": "completion-criteria",
+      "text": "## Completion Criteria\n\n* [ ] Rejected canonical transactions automatically roll back transaction-owned mutations.\n* [ ] Rejected event records do not remain in accepted event history.\n* [ ] Existing lifecycle transitions roll back exactly.\n* [ ] Rejected entity creation leaves no committed lifecycle entity.\n* [ ] Unrelated working-tree changes are preserved.\n* [ ] Rollback failure itself fails closed.\n* [ ] Successful transactions remain unchanged.\n* [ ] Deterministic tests cover successful and failed transaction paths.\n* [ ] EOS state status reports consistent after successfully rolled-back failure.\n* [ ] Required verification evidence is captured.\n* [ ] Maintenance closure review is accepted.",
+      "title": "Completion Criteria"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 361,
+      "line_start": 348,
+      "section_id": "validation",
+      "text": "## Validation\n\nAt minimum:\n\n```text\ntargeted canonical transaction tests\ncanonical reconciliation tests\nwrapper dispatch tests\n./scripts/eos state status\n./scripts/eos verify\n```\n\nStrict verification and evidence refresh remain stable-checkpoint activities.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 396,
+      "line_start": 362,
+      "section_id": "closure-evidence",
+      "text": "## Closure Evidence\n\nMNT-0006 implementation and verification completed successfully.\n\nImplementation:\n\n- `2672b6969ed4cf258cf5851acf6f9d6e51364062` — local canonical transaction atomicity\n- `3a1f67b825a4c7b1184a6e5a7fbd791488501ef2` — transaction rollback verification correction\n\nEvidence checkpoint:\n\n- `c186ff4c00fd9961e30fdccd57db26a44a493a8d`\n\nVerification checkpoint:\n\n- `24f68e95ba1586928e26fea3394b0b3dde0426b0`\n\nVerification review:\n\n- `engineering/reviews/MNT-0006-CANONICAL-TRANSACTION-ATOMICITY-VERIFICATION.md`\n- Disposition: `PASS — RECOMMEND MNT-0006 CLOSURE`\n\nFormal closure review:\n\n- `engineering/reviews/MNT-0006-REVIEW.md`\n- Decision: `ACCEPTED`\n\nHuman closure authority:\n\n- `engineering/reviews/DECISION-0007-2026-09-05-mnt-0006-closure-approval.md`\n- Explicit approval: `I approve MNT-0006 closure.`\n\nThe verified scope is local EOS canonical-transaction atomicity. Distributed\nexternal-side-effect atomicity remains outside MNT-0006 scope.",
+      "title": "Closure Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 410,
+      "line_start": 397,
+      "section_id": "implementation-approval",
+      "text": "## Implementation Approval\n\n**APPROVED — 2026-09-05**\n\nApproval evidence:\n\n`engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md`\n\nThe Human Project Steward / Architecture Owner explicitly approved this\nmaintenance plan for implementation.\n\nImplementation remains bounded by this maintenance artifact, the approval\ndecision, applicable EOS authority, and required verification/review.",
+      "title": "Implementation Approval"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 422,
+      "line_start": 411,
+      "section_id": "implementation-authorization",
+      "text": "## Implementation Authorization\n\nImplementation authority was explicitly granted by:\n\n`engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md`\n\nThat implementation authority was bounded to MNT-0006 and did not grant broader\nEOS runtime authority.\n\nFormal closure was subsequently approved by:\n\n`engineering/reviews/DECISION-0007-2026-09-05-mnt-0006-closure-approval.md`",
+      "title": "Implementation Authorization"
+    }
+  ],
+  "source": {
+    "bytes": 11950,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 422,
+    "media_type": "text/markdown",
+    "path": "engineering/maintenance/MNT-0006.md",
+    "sha256": "4e70a8d893f92fd874c7f4f82132488b2569fd772e536653867fed493055a476"
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "content": "---\nartifact_id: \"REV-MNT-0006\"\ntitle: \"MNT-0006 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"Accepted\"\nauthority: \"review-authoritative\"\ncreated: \"2026-09-05\"\nupdated: \"2026-09-05\"\n---\n\n# MNT-0006 — Engineering Review\n\n**Decision:** ACCEPTED\n\n## Target\n\n- Maintenance item: `engineering/maintenance/MNT-0006.md`\n- Verification review: `engineering/reviews/MNT-0006-CANONICAL-TRANSACTION-ATOMICITY-VERIFICATION.md`\n- Current lifecycle state: `VERIFYING`\n\n## Review Basis\n\nThis review evaluates whether MNT-0006 may be formally closed after implementation and verification of local EOS canonical-transaction atomicity.\n\nImplementation commits:\n\n- `2672b6969ed4cf258cf5851acf6f9d6e51364062` — make canonical transactions locally atomic\n- `3a1f67b825a4c7b1184a6e5a7fbd791488501ef2` — correct transaction rollback verification\n\nEvidence checkpoint:\n\n- `c186ff4c00fd9961e30fdccd57db26a44a493a8d`\n\nVerification checkpoint:\n\n- `24f68e95ba1586928e26fea3394b0b3dde0426b0`\n\n## Deterministic Verification\n\n**Result:** PASS\n\nVerified test surfaces:\n\n- canonical transaction tests;\n- canonical reconciliation tests;\n- wrapper dispatch tests;\n- runtime-failure rollback;\n- post-validation-failure rollback;\n- rollback-failure fail-closed behavior;\n- successful transaction cleanup;\n- exact before-image restoration.\n\n## Scope Conformance\n\n**PASS**\n\nThe implementation remains bounded to local EOS canonical transaction atomicity.\n\nIt does not claim distributed atomicity for:\n\n- GitHub writes;\n- release publication;\n- external APIs;\n- irreversible third-party operations.\n\nThat boundary matches the approved MNT-0006 scope.\n\n## Requirements / Governing Conformance\n\n**PASS**\n\nThe implementation conforms to the MNT-0006 governing invariant:\n\n> Either the entire EOS mutation is captured as one consistent canonical transaction, or all transaction-local mutations are automatically returned to their exact pre-transaction state.\n\nImplementation authority derives from:\n\n- `engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md`\n\nNo additional runtime authority is inferred.\n\n## Architecture Conformance\n\n**PASS**\n\nThe implementation preserves:\n\n- `.eos/state/current.json` as canonical operational state;\n- TSV and Markdown lifecycle representations as projections;\n- rejected transaction-local events as non-durable;\n- fail-closed rollback behavior;\n- exact preservation of pre-existing dirty governance work.\n\nThe preferred long-term staged-transaction architecture remains valid as future evolution and is not required for MNT-0006 closure.\n\n## Acceptance / Completion Evidence\n\nVerified:\n\n- rejected canonical transactions roll back transaction-owned mutations;\n- rejected event records do not remain in accepted event history;\n- existing lifecycle transitions restore exactly;\n- rejected entity creation leaves no committed lifecycle entity;\n- unrelated working-tree changes remain byte-identical;\n- rollback failure itself fails closed;\n- successful transactions retain expected behavior;\n- deterministic successful and failed paths are covered by automated tests;\n- post-rollback EOS status reports consistent;\n- verification evidence has been captured.\n\nRemaining authority condition:\n\n- final maintenance closure must be explicitly accepted by the Human Project Steward.\n\n## Test / Validation Evidence\n\nAutomated verification:\n\n```text\nCanonical state tests: PASS\nCanonical reconciliation tests: PASS\nEOS wrapper dispatch: PASS\n```\n\nIndependent isolated verification:\n\n### Scenario A — Canonical post-validation rejection\n\nResult:\n\n```text\nSCENARIO A: PASS\nRESULT: CONSISTENT\n```\n\n### Scenario B — Runtime failure after local mutation\n\nResult:\n\n```text\nSCENARIO B: PASS\nRESULT: CONSISTENT\n```\n\nBoth scenarios restored canonical state, projections, event history, governed Markdown, and pre-existing dirty bytes to the exact pre-transaction state.\n\n## Security / Reliability Findings\n\nNo blocking reliability finding remains within MNT-0006 scope.\n\nVerified fail-closed properties include:\n\n* corrupted before-images prevent false rollback success;\n* recovery state is retained if rollback cannot complete;\n* wrapper-level rollback failure returns a dedicated non-success status;\n* no repository-wide destructive reset is used.\n\n## Traceability Findings\n\nRelevant chain:\n\n```text\nDECISION-0006\n    ↓\nMNT-0006\n    ↓\n2672b696 implementation\n    ↓\n3a1f67b8 correction\n    ↓\nc186ff4c evidence checkpoint\n    ↓\n24f68e95 verification checkpoint\n```\n\nMNT-0003 remains separate and unresolved.\n\nMNT-0005 remains sequenced immediately after MNT-0006 closure.\n\n## Blocking Findings\n\nNone.\n\n## Non-Blocking Findings\n\n1. Distributed external-side-effect atomicity is outside MNT-0006 scope.\n2. The preferred staged-write architecture remains a future architectural improvement.\n3. MNT-0003 continues to govern divergent committed event-ledger merge safety.\n\n## Recommendation\n\n**RECOMMEND ACCEPTED / CLOSED**\n\nThe technical and verification evidence supports closure of MNT-0006.\n\n## Decision\n\n**ACCEPTED — HUMAN PROJECT STEWARD — 2026-09-05**\n\nPermitted final disposition:\n\n* `ACCEPTED` — authorize formal MNT-0006 closure;\n* `REJECTED` — return MNT-0006 to implementation;\n* `BLOCKED` — retain VERIFYING pending additional evidence.\n\nClosure authority was explicitly granted by the Human Project Steward:\n\n> I approve MNT-0006 closure.\n\nDurable authority record:\n\n`engineering/reviews/DECISION-0007-2026-09-05-mnt-0006-closure-approval.md`\n",
+  "document_id": "doc:engineering%2Freviews%2FMNT-0006-REVIEW.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"REV-MNT-0006\" title: \"MNT-0006 Engineering Review\" type: \"review\" version: \"0.1.0\" status: \"Accepted\" authority: \"review-authoritative\" created: \"2026-09-05\" updated: \"2026-09-05\" ---",
+    "title": "MNT-0006 — Engineering Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"REV-MNT-0006\"\ntitle: \"MNT-0006 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"Accepted\"\nauthority: \"review-authoritative\"\ncreated: \"2026-09-05\"\nupdated: \"2026-09-05\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "mnt-0006-engineering-review",
+      "text": "# MNT-0006 — Engineering Review\n\n**Decision:** ACCEPTED",
+      "title": "MNT-0006 — Engineering Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 16,
+      "section_id": "target",
+      "text": "## Target\n\n- Maintenance item: `engineering/maintenance/MNT-0006.md`\n- Verification review: `engineering/reviews/MNT-0006-CANONICAL-TRANSACTION-ATOMICITY-VERIFICATION.md`\n- Current lifecycle state: `VERIFYING`",
+      "title": "Target"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 38,
+      "line_start": 22,
+      "section_id": "review-basis",
+      "text": "## Review Basis\n\nThis review evaluates whether MNT-0006 may be formally closed after implementation and verification of local EOS canonical-transaction atomicity.\n\nImplementation commits:\n\n- `2672b6969ed4cf258cf5851acf6f9d6e51364062` — make canonical transactions locally atomic\n- `3a1f67b825a4c7b1184a6e5a7fbd791488501ef2` — correct transaction rollback verification\n\nEvidence checkpoint:\n\n- `c186ff4c00fd9961e30fdccd57db26a44a493a8d`\n\nVerification checkpoint:\n\n- `24f68e95ba1586928e26fea3394b0b3dde0426b0`",
+      "title": "Review Basis"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 39,
+      "section_id": "deterministic-verification",
+      "text": "## Deterministic Verification\n\n**Result:** PASS\n\nVerified test surfaces:\n\n- canonical transaction tests;\n- canonical reconciliation tests;\n- wrapper dispatch tests;\n- runtime-failure rollback;\n- post-validation-failure rollback;\n- rollback-failure fail-closed behavior;\n- successful transaction cleanup;\n- exact before-image restoration.",
+      "title": "Deterministic Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 68,
+      "line_start": 54,
+      "section_id": "scope-conformance",
+      "text": "## Scope Conformance\n\n**PASS**\n\nThe implementation remains bounded to local EOS canonical transaction atomicity.\n\nIt does not claim distributed atomicity for:\n\n- GitHub writes;\n- release publication;\n- external APIs;\n- irreversible third-party operations.\n\nThat boundary matches the approved MNT-0006 scope.",
+      "title": "Scope Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 82,
+      "line_start": 69,
+      "section_id": "requirements-governing-conformance",
+      "text": "## Requirements / Governing Conformance\n\n**PASS**\n\nThe implementation conforms to the MNT-0006 governing invariant:\n\n> Either the entire EOS mutation is captured as one consistent canonical transaction, or all transaction-local mutations are automatically returned to their exact pre-transaction state.\n\nImplementation authority derives from:\n\n- `engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md`\n\nNo additional runtime authority is inferred.",
+      "title": "Requirements / Governing Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 96,
+      "line_start": 83,
+      "section_id": "architecture-conformance",
+      "text": "## Architecture Conformance\n\n**PASS**\n\nThe implementation preserves:\n\n- `.eos/state/current.json` as canonical operational state;\n- TSV and Markdown lifecycle representations as projections;\n- rejected transaction-local events as non-durable;\n- fail-closed rollback behavior;\n- exact preservation of pre-existing dirty governance work.\n\nThe preferred long-term staged-transaction architecture remains valid as future evolution and is not required for MNT-0006 closure.",
+      "title": "Architecture Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 115,
+      "line_start": 97,
+      "section_id": "acceptance-completion-evidence",
+      "text": "## Acceptance / Completion Evidence\n\nVerified:\n\n- rejected canonical transactions roll back transaction-owned mutations;\n- rejected event records do not remain in accepted event history;\n- existing lifecycle transitions restore exactly;\n- rejected entity creation leaves no committed lifecycle entity;\n- unrelated working-tree changes remain byte-identical;\n- rollback failure itself fails closed;\n- successful transactions retain expected behavior;\n- deterministic successful and failed paths are covered by automated tests;\n- post-rollback EOS status reports consistent;\n- verification evidence has been captured.\n\nRemaining authority condition:\n\n- final maintenance closure must be explicitly accepted by the Human Project Steward.",
+      "title": "Acceptance / Completion Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 127,
+      "line_start": 116,
+      "section_id": "test-validation-evidence",
+      "text": "## Test / Validation Evidence\n\nAutomated verification:\n\n```text\nCanonical state tests: PASS\nCanonical reconciliation tests: PASS\nEOS wrapper dispatch: PASS\n```\n\nIndependent isolated verification:",
+      "title": "Test / Validation Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 136,
+      "line_start": 128,
+      "section_id": "scenario-a-canonical-post-validation-rejection",
+      "text": "### Scenario A — Canonical post-validation rejection\n\nResult:\n\n```text\nSCENARIO A: PASS\nRESULT: CONSISTENT\n```",
+      "title": "Scenario A — Canonical post-validation rejection"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 147,
+      "line_start": 137,
+      "section_id": "scenario-b-runtime-failure-after-local-mutation",
+      "text": "### Scenario B — Runtime failure after local mutation\n\nResult:\n\n```text\nSCENARIO B: PASS\nRESULT: CONSISTENT\n```\n\nBoth scenarios restored canonical state, projections, event history, governed Markdown, and pre-existing dirty bytes to the exact pre-transaction state.",
+      "title": "Scenario B — Runtime failure after local mutation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 158,
+      "line_start": 148,
+      "section_id": "security-reliability-findings",
+      "text": "## Security / Reliability Findings\n\nNo blocking reliability finding remains within MNT-0006 scope.\n\nVerified fail-closed properties include:\n\n* corrupted before-images prevent false rollback success;\n* recovery state is retained if rollback cannot complete;\n* wrapper-level rollback failure returns a dedicated non-success status;\n* no repository-wide destructive reset is used.",
+      "title": "Security / Reliability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 180,
+      "line_start": 159,
+      "section_id": "traceability-findings",
+      "text": "## Traceability Findings\n\nRelevant chain:\n\n```text\nDECISION-0006\n    ↓\nMNT-0006\n    ↓\n2672b696 implementation\n    ↓\n3a1f67b8 correction\n    ↓\nc186ff4c evidence checkpoint\n    ↓\n24f68e95 verification checkpoint\n```\n\nMNT-0003 remains separate and unresolved.\n\nMNT-0005 remains sequenced immediately after MNT-0006 closure.",
+      "title": "Traceability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 184,
+      "line_start": 181,
+      "section_id": "blocking-findings",
+      "text": "## Blocking Findings\n\nNone.",
+      "title": "Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 190,
+      "line_start": 185,
+      "section_id": "non-blocking-findings",
+      "text": "## Non-Blocking Findings\n\n1. Distributed external-side-effect atomicity is outside MNT-0006 scope.\n2. The preferred staged-write architecture remains a future architectural improvement.\n3. MNT-0003 continues to govern divergent committed event-ledger merge safety.",
+      "title": "Non-Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 196,
+      "line_start": 191,
+      "section_id": "recommendation",
+      "text": "## Recommendation\n\n**RECOMMEND ACCEPTED / CLOSED**\n\nThe technical and verification evidence supports closure of MNT-0006.",
+      "title": "Recommendation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 213,
+      "line_start": 197,
+      "section_id": "decision",
+      "text": "## Decision\n\n**ACCEPTED — HUMAN PROJECT STEWARD — 2026-09-05**\n\nPermitted final disposition:\n\n* `ACCEPTED` — authorize formal MNT-0006 closure;\n* `REJECTED` — return MNT-0006 to implementation;\n* `BLOCKED` — retain VERIFYING pending additional evidence.\n\nClosure authority was explicitly granted by the Human Project Steward:\n\n> I approve MNT-0006 closure.\n\nDurable authority record:\n\n`engineering/reviews/DECISION-0007-2026-09-05-mnt-0006-closure-approval.md`",
+      "title": "Decision"
+    }
+  ],
+  "source": {
+    "bytes": 5514,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 213,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/MNT-0006-REVIEW.md",
+    "sha256": "6c6ae998f15fc57d079eb82b28017acd499345b2b88a1d4e2e072b110250eb2f"
+  }
+}

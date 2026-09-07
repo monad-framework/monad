@@ -1,0 +1,197 @@
+{
+  "content": "---\nartifact_id: \"REV-AIENG-FORWARD-PORT-20260907\"\ntitle: \"AI-Driven Engineering Forward-Port Reconciliation Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"Accepted\"\nauthority: \"review-authoritative\"\ncreated: \"2026-09-07\"\nupdated: \"2026-09-07\"\n---\n\n# AI-Driven Engineering Forward-Port Reconciliation Review\n\n**Disposition:** PASS — READY FOR CONTROL-TOWER INTEGRATION WINDOW\n\n## Purpose\n\nThis review evaluates the authored-source reconciliation of the accepted AI-driven engineering operating model and EOS hardening work from the legacy `eosp/ai-driven-engineering-operating-model` lineage onto a branch derived from the current-line `main` lineage.\n\nThe review does **not** authorize immediate merge into `main`. Final integration-sensitive reconciliation is intentionally deferred until the Monad Control Tower explicitly opens this workstream's integration window.\n\n## Authority\n\nForward-port reconciliation was explicitly authorized by the Human Project Steward and is durably recorded in:\n\n`engineering/reviews/DECISION-0011-2026-09-07-ai-driven-forward-port-reconciliation-approval.md`\n\nThe governing policy is:\n\n- `main` remains the canonical integration lineage;\n- the legacy PR #278 is not to be merged directly;\n- accepted authored AIENG and EOS-hardening substance is forward-ported onto the current-line lineage;\n- conflicting legacy generated state, evidence identities, and event history are not imported as canonical integration state;\n- final exact-main state/projection/evidence reconciliation occurs only in the Control Tower integration window.\n\n## Source Lineages\n\nOriginal reconciliation base:\n\n`15ddd23626be8045d30cf3a7fa35cd2ba9a694f3`\n\nLegacy accepted/closed source lineage:\n\n`eosp/ai-driven-engineering-operating-model`\n\nLegacy MNT-0003 closure baseline:\n\n`def83da3706882669e92b3de4f1bc1ee8475f8b8`\n\nReplacement reconciliation branch:\n\n`reconcile/ai-driven-engineering-forward-port-20260907`\n\n## Reconciled Authored Scope\n\nThe forward-port preserves the accepted AIENG normative layer, including:\n\n- ADR-0008;\n- EOS-AI-0001;\n- approved AIENG functional, interface, and security specifications;\n- approved AIENG requirements and governing lifecycle/governance contracts;\n- AIENG traceability/conformance reviews and durable authority decisions.\n\nIt also forward-ports the authored EOS hardening implemented and accepted through:\n\n- MNT-0005 — canonical repository-native Requirement/Specification identity families;\n- MNT-0006 — canonical transaction-local atomic rollback;\n- MNT-0003 — append-only event-history merge safety and fail-closed divergent-history validation.\n\n## Current-Line Preservation\n\nThe reconciliation deliberately preserves newer current-line behavior rather than replacing it wholesale.\n\nIn particular:\n\n- the newer scope-sensitive `tools/eos/verification_v2.py` compatibility facade is retained;\n- the accepted legacy EOSV implementation is forward-ported into `tools/eos/verification_v2_impl.py` behind that facade;\n- newer current-line Workbench, governed-execution, publication, WP-MVP-0005, WP-MVP-0006, and GitHub Project work are outside this authored reconciliation scope;\n- no authority is inferred to modify or interrupt those workstreams.\n\n## Generated-State Exclusions\n\nThe forward-port intentionally does **not** import or regenerate integration-sensitive state merely to keep pace with moving `main`.\n\nThe authored reconciliation excludes changes to:\n\n- `.eos/events.jsonl`;\n- `.eos/evidence.tsv`;\n- `.eos/evidence-links.tsv`;\n- `.eos/maintenance.tsv`;\n- `.eos/state/current.json`;\n- `.eos/state/projections.json`;\n- `.eos/trace-edges.tsv`;\n- `.eos/evidence/`;\n- `engineering/evidence/`;\n- `machine/` generated corpus, graph, manifest, and document projections.\n\nThis exclusion is deliberate, not an omission.\n\n## Legacy Identity Conflict Disposition\n\nThe legacy branch independently allocated evidence identities that now collide with canonical identities on the modern `main` lineage, including the `EVID-0304` through `EVID-0315` range.\n\nThose legacy evidence records are retained in Git history for audit but are **not** imported into the replacement branch as canonical evidence.\n\nLikewise, the legacy `.eos/events.jsonl` is not union-merged wholesale into modern canonical history. This preserves the MNT-0003 invariant that divergent semantic histories must not be made authoritative through arbitrary line ordering or branch precedence.\n\n## Authored Reconciliation Checkpoints\n\nAuthoritative-artifact forward-port:\n\n`7fcbd3d64cf4cb158f1ead98c56131015be887e9`\n\nShared normative current-line reconciliation:\n\n`0cbffe7d4f8e2bd9aab479fd24718311ec5b6ad4`\n\nValidated EOS implementation forward-port:\n\n`d2365d140c23e34812dded4fb8fa1d44e8d6620a`\n\nThe EOS implementation checkpoint is directly parented on the normative reconciliation checkpoint and contains only the bounded authored EOS source/schema/test changes.\n\n## Validation Evidence\n\nThe isolated authored-source validation proved pre-fix ancestry equivalence before replacement and then executed the final forward-ported implementation against the reconciliation lineage.\n\nStatic validation:\n\n- `git diff --check` — PASS;\n- `bash -n scripts/eos` — PASS;\n- Python compilation of reconciled EOS source and regression modules — PASS;\n- authored-only mutation boundary — PASS, 13 implementation paths;\n- post-test no-generated-state-churn boundary — PASS.\n\nRegression suites:\n\n- Requirement/Specification identity-family regression suite — 20 tests, PASS;\n- event-ledger identity, parent-preservation, real-Git divergence, and working-merge suite — 16 tests, PASS;\n- canonical-state transaction/rollback suite — 12 tests, PASS;\n- canonical reconciliation suite — 3 tests, PASS;\n- EOS wrapper dispatch / rollback behavior — PASS.\n\nTotal explicitly counted unit tests: **51 PASS**, plus wrapper-dispatch PASS.\n\nValidation workflow:\n\n`AIENG EOS Authored-Source Reconciliation V2`\n\nRun:\n\n`34145421983`\n\nImmutable validated implementation result:\n\n`d2365d140c23e34812dded4fb8fa1d44e8d6620a`\n\n## Review Findings\n\n### Blocking authored findings\n\nNone.\n\n### Remediation completed\n\nThe first isolated validation harness incorrectly attempted to compare modern `verification_v2_impl.py` with a legacy path that did not yet exist. The harness was corrected to compare that modern implementation file against the legacy pre-fix `verification_v2.py` blob. The corrected ancestry proof passed before any source replacement occurred.\n\nNo product/EOS implementation defect was found by that failed harness attempt.\n\n### Non-blocking integration findings\n\nThe replacement branch is intentionally not claimed to be exact-current against continuously moving `main`.\n\nExact-main generated-state convergence remains integration-window work.\n\n## Integration-Window Work Intentionally Deferred\n\nWhen Monad Control Tower opens the integration window, the integrator must:\n\n1. reconcile the replacement branch once against the then-current `main` tip without discarding either valid current-line behavior or the accepted forward-ported authored behavior;\n2. resolve any newly introduced authored semantic conflict discovered at that time;\n3. rebuild/reconcile canonical EOS lifecycle state from the then-authoritative `main` lineage as required;\n4. regenerate trace projection from the settled authored corpus;\n5. regenerate `machine/` projections from the settled authored corpus;\n6. allocate and capture fresh evidence using the then-current canonical evidence namespace rather than legacy colliding IDs;\n7. run strict EOS verification and repository integrity checks against the settled integration candidate;\n8. verify generated outputs are deterministic and bounded;\n9. merge only after those integration-sensitive gates are green.\n\nThese tasks are intentionally deferred to avoid churn while WP-MVP-0005, WP-MVP-0006, GitHub Project completion, and other Control Tower integrations advance `main`.\n\n## PR Disposition\n\nPR #278 represents the divergent legacy lineage and must not be merged directly.\n\nAfter a validated replacement PR is opened from the reconciliation branch against `main`, PR #278 should be explicitly marked **SUPERSEDED**, pointed to the replacement PR, and closed without merge.\n\n## Final Review Disposition\n\n**PASS — READY FOR CONTROL-TOWER INTEGRATION WINDOW**\n\nThe authored AIENG/MNT reconciliation is complete within the approved boundary.\n\nThere is no known remaining authored defect in the reconciled scope.\n\nFinal exact-main state/evidence/trace/machine convergence remains intentionally deferred and is not a blocker to authored-work readiness.",
+  "document_id": "doc:engineering%2Freviews%2FAIENG-FORWARD-PORT-RECONCILIATION-REVIEW.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0008"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"REV-AIENG-FORWARD-PORT-20260907\" title: \"AI-Driven Engineering Forward-Port Reconciliation Review\" type: \"review\" version: \"0.1.0\" status: \"Accepted\" authority: \"review-authoritative\" created: \"2026-09-07\" updated: \"2026-09-07\" ---",
+    "title": "AI-Driven Engineering Forward-Port Reconciliation Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"REV-AIENG-FORWARD-PORT-20260907\"\ntitle: \"AI-Driven Engineering Forward-Port Reconciliation Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"Accepted\"\nauthority: \"review-authoritative\"\ncreated: \"2026-09-07\"\nupdated: \"2026-09-07\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "ai-driven-engineering-forward-port-reconciliation-review",
+      "text": "# AI-Driven Engineering Forward-Port Reconciliation Review\n\n**Disposition:** PASS — READY FOR CONTROL-TOWER INTEGRATION WINDOW",
+      "title": "AI-Driven Engineering Forward-Port Reconciliation Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 16,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nThis review evaluates the authored-source reconciliation of the accepted AI-driven engineering operating model and EOS hardening work from the legacy `eosp/ai-driven-engineering-operating-model` lineage onto a branch derived from the current-line `main` lineage.\n\nThe review does **not** authorize immediate merge into `main`. Final integration-sensitive reconciliation is intentionally deferred until the Monad Control Tower explicitly opens this workstream's integration window.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 22,
+      "section_id": "authority",
+      "text": "## Authority\n\nForward-port reconciliation was explicitly authorized by the Human Project Steward and is durably recorded in:\n\n`engineering/reviews/DECISION-0011-2026-09-07-ai-driven-forward-port-reconciliation-approval.md`\n\nThe governing policy is:\n\n- `main` remains the canonical integration lineage;\n- the legacy PR #278 is not to be merged directly;\n- accepted authored AIENG and EOS-hardening substance is forward-ported onto the current-line lineage;\n- conflicting legacy generated state, evidence identities, and event history are not imported as canonical integration state;\n- final exact-main state/projection/evidence reconciliation occurs only in the Control Tower integration window.",
+      "title": "Authority"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 53,
+      "line_start": 36,
+      "section_id": "source-lineages",
+      "text": "## Source Lineages\n\nOriginal reconciliation base:\n\n`15ddd23626be8045d30cf3a7fa35cd2ba9a694f3`\n\nLegacy accepted/closed source lineage:\n\n`eosp/ai-driven-engineering-operating-model`\n\nLegacy MNT-0003 closure baseline:\n\n`def83da3706882669e92b3de4f1bc1ee8475f8b8`\n\nReplacement reconciliation branch:\n\n`reconcile/ai-driven-engineering-forward-port-20260907`",
+      "title": "Source Lineages"
+    },
+    {
+      "identifiers": [
+        "ADR-0008"
+      ],
+      "level": 2,
+      "line_end": 69,
+      "line_start": 54,
+      "section_id": "reconciled-authored-scope",
+      "text": "## Reconciled Authored Scope\n\nThe forward-port preserves the accepted AIENG normative layer, including:\n\n- ADR-0008;\n- EOS-AI-0001;\n- approved AIENG functional, interface, and security specifications;\n- approved AIENG requirements and governing lifecycle/governance contracts;\n- AIENG traceability/conformance reviews and durable authority decisions.\n\nIt also forward-ports the authored EOS hardening implemented and accepted through:\n\n- MNT-0005 — canonical repository-native Requirement/Specification identity families;\n- MNT-0006 — canonical transaction-local atomic rollback;\n- MNT-0003 — append-only event-history merge safety and fail-closed divergent-history validation.",
+      "title": "Reconciled Authored Scope"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 80,
+      "line_start": 70,
+      "section_id": "current-line-preservation",
+      "text": "## Current-Line Preservation\n\nThe reconciliation deliberately preserves newer current-line behavior rather than replacing it wholesale.\n\nIn particular:\n\n- the newer scope-sensitive `tools/eos/verification_v2.py` compatibility facade is retained;\n- the accepted legacy EOSV implementation is forward-ported into `tools/eos/verification_v2_impl.py` behind that facade;\n- newer current-line Workbench, governed-execution, publication, WP-MVP-0005, WP-MVP-0006, and GitHub Project work are outside this authored reconciliation scope;\n- no authority is inferred to modify or interrupt those workstreams.",
+      "title": "Current-Line Preservation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 99,
+      "line_start": 81,
+      "section_id": "generated-state-exclusions",
+      "text": "## Generated-State Exclusions\n\nThe forward-port intentionally does **not** import or regenerate integration-sensitive state merely to keep pace with moving `main`.\n\nThe authored reconciliation excludes changes to:\n\n- `.eos/events.jsonl`;\n- `.eos/evidence.tsv`;\n- `.eos/evidence-links.tsv`;\n- `.eos/maintenance.tsv`;\n- `.eos/state/current.json`;\n- `.eos/state/projections.json`;\n- `.eos/trace-edges.tsv`;\n- `.eos/evidence/`;\n- `engineering/evidence/`;\n- `machine/` generated corpus, graph, manifest, and document projections.\n\nThis exclusion is deliberate, not an omission.",
+      "title": "Generated-State Exclusions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 107,
+      "line_start": 100,
+      "section_id": "legacy-identity-conflict-disposition",
+      "text": "## Legacy Identity Conflict Disposition\n\nThe legacy branch independently allocated evidence identities that now collide with canonical identities on the modern `main` lineage, including the `EVID-0304` through `EVID-0315` range.\n\nThose legacy evidence records are retained in Git history for audit but are **not** imported into the replacement branch as canonical evidence.\n\nLikewise, the legacy `.eos/events.jsonl` is not union-merged wholesale into modern canonical history. This preserves the MNT-0003 invariant that divergent semantic histories must not be made authoritative through arbitrary line ordering or branch precedence.",
+      "title": "Legacy Identity Conflict Disposition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 123,
+      "line_start": 108,
+      "section_id": "authored-reconciliation-checkpoints",
+      "text": "## Authored Reconciliation Checkpoints\n\nAuthoritative-artifact forward-port:\n\n`7fcbd3d64cf4cb158f1ead98c56131015be887e9`\n\nShared normative current-line reconciliation:\n\n`0cbffe7d4f8e2bd9aab479fd24718311ec5b6ad4`\n\nValidated EOS implementation forward-port:\n\n`d2365d140c23e34812dded4fb8fa1d44e8d6620a`\n\nThe EOS implementation checkpoint is directly parented on the normative reconciliation checkpoint and contains only the bounded authored EOS source/schema/test changes.",
+      "title": "Authored Reconciliation Checkpoints"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 157,
+      "line_start": 124,
+      "section_id": "validation-evidence",
+      "text": "## Validation Evidence\n\nThe isolated authored-source validation proved pre-fix ancestry equivalence before replacement and then executed the final forward-ported implementation against the reconciliation lineage.\n\nStatic validation:\n\n- `git diff --check` — PASS;\n- `bash -n scripts/eos` — PASS;\n- Python compilation of reconciled EOS source and regression modules — PASS;\n- authored-only mutation boundary — PASS, 13 implementation paths;\n- post-test no-generated-state-churn boundary — PASS.\n\nRegression suites:\n\n- Requirement/Specification identity-family regression suite — 20 tests, PASS;\n- event-ledger identity, parent-preservation, real-Git divergence, and working-merge suite — 16 tests, PASS;\n- canonical-state transaction/rollback suite — 12 tests, PASS;\n- canonical reconciliation suite — 3 tests, PASS;\n- EOS wrapper dispatch / rollback behavior — PASS.\n\nTotal explicitly counted unit tests: **51 PASS**, plus wrapper-dispatch PASS.\n\nValidation workflow:\n\n`AIENG EOS Authored-Source Reconciliation V2`\n\nRun:\n\n`34145421983`\n\nImmutable validated implementation result:\n\n`d2365d140c23e34812dded4fb8fa1d44e8d6620a`",
+      "title": "Validation Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 159,
+      "line_start": 158,
+      "section_id": "review-findings",
+      "text": "## Review Findings",
+      "title": "Review Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 163,
+      "line_start": 160,
+      "section_id": "blocking-authored-findings",
+      "text": "### Blocking authored findings\n\nNone.",
+      "title": "Blocking authored findings"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 169,
+      "line_start": 164,
+      "section_id": "remediation-completed",
+      "text": "### Remediation completed\n\nThe first isolated validation harness incorrectly attempted to compare modern `verification_v2_impl.py` with a legacy path that did not yet exist. The harness was corrected to compare that modern implementation file against the legacy pre-fix `verification_v2.py` blob. The corrected ancestry proof passed before any source replacement occurred.\n\nNo product/EOS implementation defect was found by that failed harness attempt.",
+      "title": "Remediation completed"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 175,
+      "line_start": 170,
+      "section_id": "non-blocking-integration-findings",
+      "text": "### Non-blocking integration findings\n\nThe replacement branch is intentionally not claimed to be exact-current against continuously moving `main`.\n\nExact-main generated-state convergence remains integration-window work.",
+      "title": "Non-blocking integration findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 191,
+      "line_start": 176,
+      "section_id": "integration-window-work-intentionally-deferred",
+      "text": "## Integration-Window Work Intentionally Deferred\n\nWhen Monad Control Tower opens the integration window, the integrator must:\n\n1. reconcile the replacement branch once against the then-current `main` tip without discarding either valid current-line behavior or the accepted forward-ported authored behavior;\n2. resolve any newly introduced authored semantic conflict discovered at that time;\n3. rebuild/reconcile canonical EOS lifecycle state from the then-authoritative `main` lineage as required;\n4. regenerate trace projection from the settled authored corpus;\n5. regenerate `machine/` projections from the settled authored corpus;\n6. allocate and capture fresh evidence using the then-current canonical evidence namespace rather than legacy colliding IDs;\n7. run strict EOS verification and repository integrity checks against the settled integration candidate;\n8. verify generated outputs are deterministic and bounded;\n9. merge only after those integration-sensitive gates are green.\n\nThese tasks are intentionally deferred to avoid churn while WP-MVP-0005, WP-MVP-0006, GitHub Project completion, and other Control Tower integrations advance `main`.",
+      "title": "Integration-Window Work Intentionally Deferred"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 197,
+      "line_start": 192,
+      "section_id": "pr-disposition",
+      "text": "## PR Disposition\n\nPR #278 represents the divergent legacy lineage and must not be merged directly.\n\nAfter a validated replacement PR is opened from the reconciliation branch against `main`, PR #278 should be explicitly marked **SUPERSEDED**, pointed to the replacement PR, and closed without merge.",
+      "title": "PR Disposition"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 206,
+      "line_start": 198,
+      "section_id": "final-review-disposition",
+      "text": "## Final Review Disposition\n\n**PASS — READY FOR CONTROL-TOWER INTEGRATION WINDOW**\n\nThe authored AIENG/MNT reconciliation is complete within the approved boundary.\n\nThere is no known remaining authored defect in the reconciled scope.\n\nFinal exact-main state/evidence/trace/machine convergence remains intentionally deferred and is not a blocker to authored-work readiness.",
+      "title": "Final Review Disposition"
+    }
+  ],
+  "source": {
+    "bytes": 8601,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 206,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/AIENG-FORWARD-PORT-RECONCILIATION-REVIEW.md",
+    "sha256": "4afa5c6868a728f06aa129fe2e6ae13f26c0f926d490d7983991d5e483e50004"
+  }
+}

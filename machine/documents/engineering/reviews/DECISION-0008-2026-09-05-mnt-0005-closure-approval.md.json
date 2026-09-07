@@ -1,0 +1,76 @@
+{
+  "content": "# DECISION-0008-2026-09-05 — MNT-0005 Closure Approval\n\n**Record type:** Governance authority decision\n**Date:** 2026-09-05\n**Subject:** MNT-0005 closure authorization\n**Authority:** Human Project Steward / Architecture Owner\n**Disposition:** **APPROVED**\n**Related:** DECISION-0006, MNT-0005, MNT-0005-VERIFICATION, REV-MNT-0005, AIENG-TRC-001, ADR-0003\n\n## Decision\n\nClosure of:\n\n`MNT-0005 — EOS canonical REQ/SPEC identity model excludes repository-native requirement and specification identifiers`\n\nis **APPROVED**.\n\nThe explicit human authority statement was:\n\n> I approve MNT-0005 closure.\n\n## Basis\n\nThe approval follows:\n\n- implementation of repository-native Requirement and Specification identity families;\n- correction and tightening of canonical identifier grammar;\n- deterministic identifier-family regression testing;\n- canonical Requirement and Specification schema verification;\n- EOS domain-model verification;\n- EOSE native identifier recognition verification;\n- EOSV native identifier and evidence-reference verification;\n- stable identity and duplicate-definition verification;\n- deterministic generated-trace verification;\n- trace identity-hygiene verification;\n- impact and trace-coverage verification;\n- canonical EOS state consistency;\n- resolution of `AIENG-TRC-001`;\n- `PASS — RECOMMEND MNT-0005 CLOSURE` from the dedicated verification review;\n- preparation of the formal MNT-0005 engineering closure review.\n\n## Accepted Result\n\nThe canonical Requirement families are:\n\n```text\nREQ-*\nFR-*\nQR-*\n\nThe canonical Specification families are:\n\nSPEC-*\nFUN-*\nIFC-*\nSEC-*\nTECH-*\nDATA-*\nMKE-*\n\nEstablished repository-native IDs remain their own canonical identities.\n\nExamples include:\n\nFR-043\nQR-010\nFUN-AIENG-0001\nIFC-AIENG-0001\nSEC-AIENG-0001\nTECH-HARNESS-0001\nDATA-SOURCE-0001\nMKE-CORE-0001\n\nNo parallel REQ-* or SPEC-* aliases are created.\n\nTraceability Consequence\n\nThe finding:\n\nAIENG-TRC-001 — Requirement/specification identifier namespace mismatch\n\nis accepted as RESOLVED.\n\nMachine traceability now recognizes the governed relationships between FR-043 and the approved AIENG specification family, including:\n\nFUN-AIENG-0001 --satisfies--> FR-043\nIFC-AIENG-0001 --satisfies--> FR-043\nSEC-AIENG-0001 --satisfies--> FR-043\nScope Boundary\n\nThis approval does not:\n\nauthorize renumbering of governed artifacts;\nauthorize a second identity or alias registry;\nweaken stable or duplicate identity controls;\nauthorize manually manufactured trace edges;\nmodify unrelated EOS lifecycle or authority semantics;\nauthorize AIENG runtime implementation;\naccept or close unrelated maintenance work.\n\nMNT-0003 remains independently open.\n\nAuthority Consequence\n\nEOS may transition:\n\nMNT-0005\nVERIFYING\n    ↓\nCLOSED\n\nthrough the ordinary MNT_CLOSE gate.\n\nNo override is authorized or required.\n\nThis decision supplies the Human Project Steward closure authority required by the accepted engineering review.\n",
+  "document_id": "doc:engineering%2Freviews%2FDECISION-0008-2026-09-05-mnt-0005-closure-approval.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0003",
+    "FR-043",
+    "QR-010"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Record type: Governance authority decision Date: 2026-09-05 Subject: MNT-0005 closure authorization Authority: Human Project Steward / Architecture Owner Disposition: APPROVED Related: DECISION-0006, MNT-0005, MNT-0005-VERIFICATION, REV-MNT-0005, AIENG-TRC-001, ADR-0003",
+    "title": "DECISION-0008-2026-09-05 — MNT-0005 Closure Approval"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0003"
+      ],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "decision-0008-2026-09-05-mnt-0005-closure-approval",
+      "text": "# DECISION-0008-2026-09-05 — MNT-0005 Closure Approval\n\n**Record type:** Governance authority decision\n**Date:** 2026-09-05\n**Subject:** MNT-0005 closure authorization\n**Authority:** Human Project Steward / Architecture Owner\n**Disposition:** **APPROVED**\n**Related:** DECISION-0006, MNT-0005, MNT-0005-VERIFICATION, REV-MNT-0005, AIENG-TRC-001, ADR-0003",
+      "title": "DECISION-0008-2026-09-05 — MNT-0005 Closure Approval"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 10,
+      "section_id": "decision",
+      "text": "## Decision\n\nClosure of:\n\n`MNT-0005 — EOS canonical REQ/SPEC identity model excludes repository-native requirement and specification identifiers`\n\nis **APPROVED**.\n\nThe explicit human authority statement was:\n\n> I approve MNT-0005 closure.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 41,
+      "line_start": 22,
+      "section_id": "basis",
+      "text": "## Basis\n\nThe approval follows:\n\n- implementation of repository-native Requirement and Specification identity families;\n- correction and tightening of canonical identifier grammar;\n- deterministic identifier-family regression testing;\n- canonical Requirement and Specification schema verification;\n- EOS domain-model verification;\n- EOSE native identifier recognition verification;\n- EOSV native identifier and evidence-reference verification;\n- stable identity and duplicate-definition verification;\n- deterministic generated-trace verification;\n- trace identity-hygiene verification;\n- impact and trace-coverage verification;\n- canonical EOS state consistency;\n- resolution of `AIENG-TRC-001`;\n- `PASS — RECOMMEND MNT-0005 CLOSURE` from the dedicated verification review;\n- preparation of the formal MNT-0005 engineering closure review.",
+      "title": "Basis"
+    },
+    {
+      "identifiers": [
+        "FR-043",
+        "QR-010"
+      ],
+      "level": 2,
+      "line_end": 116,
+      "line_start": 42,
+      "section_id": "accepted-result",
+      "text": "## Accepted Result\n\nThe canonical Requirement families are:\n\n```text\nREQ-*\nFR-*\nQR-*\n\nThe canonical Specification families are:\n\nSPEC-*\nFUN-*\nIFC-*\nSEC-*\nTECH-*\nDATA-*\nMKE-*\n\nEstablished repository-native IDs remain their own canonical identities.\n\nExamples include:\n\nFR-043\nQR-010\nFUN-AIENG-0001\nIFC-AIENG-0001\nSEC-AIENG-0001\nTECH-HARNESS-0001\nDATA-SOURCE-0001\nMKE-CORE-0001\n\nNo parallel REQ-* or SPEC-* aliases are created.\n\nTraceability Consequence\n\nThe finding:\n\nAIENG-TRC-001 — Requirement/specification identifier namespace mismatch\n\nis accepted as RESOLVED.\n\nMachine traceability now recognizes the governed relationships between FR-043 and the approved AIENG specification family, including:\n\nFUN-AIENG-0001 --satisfies--> FR-043\nIFC-AIENG-0001 --satisfies--> FR-043\nSEC-AIENG-0001 --satisfies--> FR-043\nScope Boundary\n\nThis approval does not:\n\nauthorize renumbering of governed artifacts;\nauthorize a second identity or alias registry;\nweaken stable or duplicate identity controls;\nauthorize manually manufactured trace edges;\nmodify unrelated EOS lifecycle or authority semantics;\nauthorize AIENG runtime implementation;\naccept or close unrelated maintenance work.\n\nMNT-0003 remains independently open.\n\nAuthority Consequence\n\nEOS may transition:\n\nMNT-0005\nVERIFYING\n    ↓\nCLOSED\n\nthrough the ordinary MNT_CLOSE gate.\n\nNo override is authorized or required.\n\nThis decision supplies the Human Project Steward closure authority required by the accepted engineering review.",
+      "title": "Accepted Result"
+    }
+  ],
+  "source": {
+    "bytes": 2928,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 116,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/DECISION-0008-2026-09-05-mnt-0005-closure-approval.md",
+    "sha256": "cacae35e0c602f03948f8ae9572727e44a3240c47b7092458682fffbcb9ce5fd"
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "content": "# DECISION-0006-2026-09-05 — EOS Hardening Maintenance Implementation Approval\n\n**Record type:** Governance authority decision\n**Date:** 2026-09-05\n**Subject:** MNT-0005 and MNT-0006 implementation authorization\n**Authority:** Human Project Steward / Architecture Owner\n**Disposition:** **APPROVED**\n**Related:** CR-0003, ADR-0003, ADR-0006, ADR-0008, EOS-AI-0001, MNT-0003, MNT-0005, MNT-0006, AIENG-TRC-001\n\n## Decision\n\nImplementation of the following planned EOS maintenance work is **Approved**:\n\n1. `MNT-0005 — EOS canonical REQ/SPEC identity model excludes repository-native requirement and specification identifiers`;\n2. `MNT-0006 — EOS canonical transaction failure leaves rejected projection and event mutations`.\n\nThe explicit human authority statement was:\n\n> I approve the MNT-0005 identity-resolution plan and the MNT-0006 canonical-transaction atomicity plan for implementation.\n\n## MNT-0005 Approved Resolution Principle\n\nThe implementation SHALL preserve established repository-native requirement and\nspecification identifiers as their canonical governed identities.\n\nThe repair SHALL NOT create parallel `REQ-*` or `SPEC-*` shadow identities for\nartifacts that already possess stable governed identifiers.\n\nRequirement entity identity shall support the established requirement families,\nincluding:\n\n```text\nREQ-*\nFR-*\nQR-*\n```\n\nSpecification entity identity shall support established specification families,\nincluding the currently identified:\n\n```text\nSPEC-*\nFUN-*\nIFC-*\nSEC-*\nTECH-*\nDATA-*\nMKE-*\n```\n\nImplementation MUST deterministically inspect the existing repository before\nfreezing the complete accepted family set.\n\nThe entity type and identifier family SHALL remain distinct concepts.\n\nExisting artifact IDs and history MUST remain unchanged.\n\n## MNT-0006 Approved Resolution Principle\n\nRejected canonical EOS transactions SHALL become transactionally atomic.\n\nThe required external semantic contract is:\n\n```text\nsuccessful transaction\n    -> COMMITTED\n\nrejected transaction\n    -> ROLLED_BACK\n```\n\nThe system SHALL NOT retain a third externally observable state equivalent to:\n\n```text\ncanonical rejected\n+\ntransaction-owned projections/events remain mutated\n```\n\nRollback MUST be:\n\n* transaction-scoped;\n* deterministic;\n* exact for transaction-owned mutations;\n* safe in a dirty working tree;\n* incapable of deleting unrelated user work;\n* fail-closed if rollback itself cannot complete.\n\nThe implementation SHOULD prefer staged mutation followed by atomic publication\nwhere practical.\n\nAn interim exact transaction-scoped rollback mechanism is acceptable if it\nsatisfies all MNT-0006 completion criteria and does not establish conflicting\narchitecture.\n\n## Execution Order\n\nThe approved execution order is:\n\n```text\nMNT-0006\ntransaction atomicity\n        ↓\nverification\n        ↓\nreview / closure\n        ↓\nMNT-0005\nidentity and traceability\n        ↓\nverification\n        ↓\nreview / closure\n```\n\nThe rationale is that MNT-0005 changes EOS schemas and trace semantics.\n\nRepairing failed-transaction behavior first reduces governance risk while\nperforming those later machine-model changes.\n\nMNT-0005 is authorized now but SHOULD remain `PLANNED` until MNT-0006 reaches\nan accepted terminal disposition unless a new governed decision explicitly\nchanges the sequence.\n\n## Scope Authority\n\n### MNT-0006\n\nImplementation authority includes only changes necessary to satisfy the\napproved MNT-0006 transaction-atomicity contract.\n\nLikely affected areas include:\n\n```text\nscripts/eos\ntools/eos/canonical_state.py\ntools/eos/eos.py\ntools/eos/execution_v2.py\ntools/eos/verification_v2.py\n```\n\nOnly files demonstrated to participate in the defect should be changed.\n\nTests and narrowly necessary fixtures are included.\n\n### MNT-0005\n\nAfter MNT-0006 closure, implementation authority includes only changes required\nto reconcile canonical Requirement/Specification identity and trace behavior.\n\nLikely affected areas include:\n\n```text\n.eos/domain-model.json\n.eos/schemas/core/requirement.schema.json\n.eos/schemas/core/specification.schema.json\ntools/eos/eos.py\n```\n\nand any additional files demonstrated by repository inspection to contain the\nsame hard-coded identity assumption.\n\n## Non-Effect\n\nThis approval does **not**:\n\n* authorize general AIENG runtime implementation;\n* authorize an AIENG implementation Work Cycle;\n* authorize an AIENG implementation Work Packet;\n* accept ADR-0007;\n* close CR-0003;\n* close MNT-0003;\n* permit unrelated EOS refactoring;\n* authorize silent requirement/specification renumbering;\n* create a second canonical state authority;\n* create a parallel event or trace system;\n* waive verification or review;\n* permit MNT-0005 to broaden beyond the approved identity/traceability defect;\n* permit MNT-0006 to replace unrelated EOS architecture.\n\n## Verification Requirement\n\nEach maintenance item requires its own:\n\n1. bounded implementation;\n2. deterministic tests;\n3. EOS consistency check;\n4. verification evidence;\n5. engineering review;\n6. accepted closure.\n\nApproval of implementation is not approval of completion.\n\n## Decision Status\n\n**APPROVED — effective 2026-09-05.**\n",
+  "document_id": "doc:engineering%2Freviews%2FDECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0003",
+    "ADR-0006",
+    "ADR-0007",
+    "ADR-0008"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Record type: Governance authority decision Date: 2026-09-05 Subject: MNT-0005 and MNT-0006 implementation authorization Authority: Human Project Steward / Architecture Owner Disposition: APPROVED Related: CR-0003, ADR-0003, ADR-0006, ADR-0008, EOS-AI-0001, MNT-0003, MNT-0005, MNT-0006, AIENG-TRC-001",
+    "title": "DECISION-0006-2026-09-05 — EOS Hardening Maintenance Implementation Approval"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0003",
+        "ADR-0006",
+        "ADR-0008"
+      ],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "decision-0006-2026-09-05-eos-hardening-maintenance-implementation-approval",
+      "text": "# DECISION-0006-2026-09-05 — EOS Hardening Maintenance Implementation Approval\n\n**Record type:** Governance authority decision\n**Date:** 2026-09-05\n**Subject:** MNT-0005 and MNT-0006 implementation authorization\n**Authority:** Human Project Steward / Architecture Owner\n**Disposition:** **APPROVED**\n**Related:** CR-0003, ADR-0003, ADR-0006, ADR-0008, EOS-AI-0001, MNT-0003, MNT-0005, MNT-0006, AIENG-TRC-001",
+      "title": "DECISION-0006-2026-09-05 — EOS Hardening Maintenance Implementation Approval"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 20,
+      "line_start": 10,
+      "section_id": "decision",
+      "text": "## Decision\n\nImplementation of the following planned EOS maintenance work is **Approved**:\n\n1. `MNT-0005 — EOS canonical REQ/SPEC identity model excludes repository-native requirement and specification identifiers`;\n2. `MNT-0006 — EOS canonical transaction failure leaves rejected projection and event mutations`.\n\nThe explicit human authority statement was:\n\n> I approve the MNT-0005 identity-resolution plan and the MNT-0006 canonical-transaction atomicity plan for implementation.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 57,
+      "line_start": 21,
+      "section_id": "mnt-0005-approved-resolution-principle",
+      "text": "## MNT-0005 Approved Resolution Principle\n\nThe implementation SHALL preserve established repository-native requirement and\nspecification identifiers as their canonical governed identities.\n\nThe repair SHALL NOT create parallel `REQ-*` or `SPEC-*` shadow identities for\nartifacts that already possess stable governed identifiers.\n\nRequirement entity identity shall support the established requirement families,\nincluding:\n\n```text\nREQ-*\nFR-*\nQR-*\n```\n\nSpecification entity identity shall support established specification families,\nincluding the currently identified:\n\n```text\nSPEC-*\nFUN-*\nIFC-*\nSEC-*\nTECH-*\nDATA-*\nMKE-*\n```\n\nImplementation MUST deterministically inspect the existing repository before\nfreezing the complete accepted family set.\n\nThe entity type and identifier family SHALL remain distinct concepts.\n\nExisting artifact IDs and history MUST remain unchanged.",
+      "title": "MNT-0005 Approved Resolution Principle"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 95,
+      "line_start": 58,
+      "section_id": "mnt-0006-approved-resolution-principle",
+      "text": "## MNT-0006 Approved Resolution Principle\n\nRejected canonical EOS transactions SHALL become transactionally atomic.\n\nThe required external semantic contract is:\n\n```text\nsuccessful transaction\n    -> COMMITTED\n\nrejected transaction\n    -> ROLLED_BACK\n```\n\nThe system SHALL NOT retain a third externally observable state equivalent to:\n\n```text\ncanonical rejected\n+\ntransaction-owned projections/events remain mutated\n```\n\nRollback MUST be:\n\n* transaction-scoped;\n* deterministic;\n* exact for transaction-owned mutations;\n* safe in a dirty working tree;\n* incapable of deleting unrelated user work;\n* fail-closed if rollback itself cannot complete.\n\nThe implementation SHOULD prefer staged mutation followed by atomic publication\nwhere practical.\n\nAn interim exact transaction-scoped rollback mechanism is acceptable if it\nsatisfies all MNT-0006 completion criteria and does not establish conflicting\narchitecture.",
+      "title": "MNT-0006 Approved Resolution Principle"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 124,
+      "line_start": 96,
+      "section_id": "execution-order",
+      "text": "## Execution Order\n\nThe approved execution order is:\n\n```text\nMNT-0006\ntransaction atomicity\n        ↓\nverification\n        ↓\nreview / closure\n        ↓\nMNT-0005\nidentity and traceability\n        ↓\nverification\n        ↓\nreview / closure\n```\n\nThe rationale is that MNT-0005 changes EOS schemas and trace semantics.\n\nRepairing failed-transaction behavior first reduces governance risk while\nperforming those later machine-model changes.\n\nMNT-0005 is authorized now but SHOULD remain `PLANNED` until MNT-0006 reaches\nan accepted terminal disposition unless a new governed decision explicitly\nchanges the sequence.",
+      "title": "Execution Order"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 126,
+      "line_start": 125,
+      "section_id": "scope-authority",
+      "text": "## Scope Authority",
+      "title": "Scope Authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 145,
+      "line_start": 127,
+      "section_id": "mnt-0006",
+      "text": "### MNT-0006\n\nImplementation authority includes only changes necessary to satisfy the\napproved MNT-0006 transaction-atomicity contract.\n\nLikely affected areas include:\n\n```text\nscripts/eos\ntools/eos/canonical_state.py\ntools/eos/eos.py\ntools/eos/execution_v2.py\ntools/eos/verification_v2.py\n```\n\nOnly files demonstrated to participate in the defect should be changed.\n\nTests and narrowly necessary fixtures are included.",
+      "title": "MNT-0006"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 162,
+      "line_start": 146,
+      "section_id": "mnt-0005",
+      "text": "### MNT-0005\n\nAfter MNT-0006 closure, implementation authority includes only changes required\nto reconcile canonical Requirement/Specification identity and trace behavior.\n\nLikely affected areas include:\n\n```text\n.eos/domain-model.json\n.eos/schemas/core/requirement.schema.json\n.eos/schemas/core/specification.schema.json\ntools/eos/eos.py\n```\n\nand any additional files demonstrated by repository inspection to contain the\nsame hard-coded identity assumption.",
+      "title": "MNT-0005"
+    },
+    {
+      "identifiers": [
+        "ADR-0007"
+      ],
+      "level": 2,
+      "line_end": 180,
+      "line_start": 163,
+      "section_id": "non-effect",
+      "text": "## Non-Effect\n\nThis approval does **not**:\n\n* authorize general AIENG runtime implementation;\n* authorize an AIENG implementation Work Cycle;\n* authorize an AIENG implementation Work Packet;\n* accept ADR-0007;\n* close CR-0003;\n* close MNT-0003;\n* permit unrelated EOS refactoring;\n* authorize silent requirement/specification renumbering;\n* create a second canonical state authority;\n* create a parallel event or trace system;\n* waive verification or review;\n* permit MNT-0005 to broaden beyond the approved identity/traceability defect;\n* permit MNT-0006 to replace unrelated EOS architecture.",
+      "title": "Non-Effect"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 193,
+      "line_start": 181,
+      "section_id": "verification-requirement",
+      "text": "## Verification Requirement\n\nEach maintenance item requires its own:\n\n1. bounded implementation;\n2. deterministic tests;\n3. EOS consistency check;\n4. verification evidence;\n5. engineering review;\n6. accepted closure.\n\nApproval of implementation is not approval of completion.",
+      "title": "Verification Requirement"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 196,
+      "line_start": 194,
+      "section_id": "decision-status",
+      "text": "## Decision Status\n\n**APPROVED — effective 2026-09-05.**",
+      "title": "Decision Status"
+    }
+  ],
+  "source": {
+    "bytes": 5148,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 196,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/DECISION-0006-2026-09-05-eos-hardening-maintenance-implementation-approval.md",
+    "sha256": "16c3631a402f480a1ee98934eb0a78597664c77c4b58c004d82e630176dec5e3"
+  }
+}

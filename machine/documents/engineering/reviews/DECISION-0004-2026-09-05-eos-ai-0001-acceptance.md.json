@@ -1,0 +1,108 @@
+{
+  "content": "# DECISION-0004-2026-09-05 — EOS-AI-0001 Acceptance\n\n**Record type:** Governance authority decision\n**Date:** 2026-09-05\n**Subject:** EOS-AI-0001 — AI-Driven Engineering Operating Model\n**Authority:** Human Project Steward / Architecture Owner\n**Disposition:** **ACCEPTED**\n**Related:** ADR-0006, ADR-0008, CR-0003, EOS-AI-0001, REV-EOS-AI-0001-0001\n\n## Decision\n\n`EOS-AI-0001 — AI-Driven Engineering Operating Model` is **Accepted**.\n\nThe explicit human authority statement was:\n\n> I accept EOS-AI-0001.\n\n## Effect\n\nThis decision makes `EOS-AI-0001` the governance-authoritative cross-layer operating-model baseline for AI participation in the Monad Engineering Operating System.\n\nThe accepted operating model establishes that:\n\n* AI-driven, human-governed, evidence-closed engineering is the default operating model where suitable AI capability is available;\n* AI may proactively inspect, reason, recommend, propose, plan, clarify, generate candidate artifacts, perform bounded authorized execution, assist verification and review, interpret evidence, and propose replanning;\n* AI initiative does not itself confer engineering authority;\n* EOS remains Monad's sole engineering lifecycle and control plane;\n* the permanent EOS lifecycle remains EOSB, EOSP, EOSE, EOSV, EOSR, EOSC, EOSL, and EOSM;\n* `.eos/state/current.json` remains the sole current EOS operational authority;\n* human sovereignty remains grounded in accountability, delegated authority, accepted risk, mission, irreversible commitments, revocation, and escalation;\n* adaptive engineering pathways may vary rigor but may not bypass mandatory EOS gates, required authority, policy, verification, review independence, or change control;\n* material ambiguity must be surfaced rather than silently converted into governing engineering meaning;\n* execution remains bounded by authorized scope, capability, environment, policy, and autonomy;\n* executor completion remains a claim until required evidence, verification, review, and acceptance are satisfied;\n* governing-input drift may invalidate or suspend stale execution authority;\n* raw AI transcripts and private model reasoning are not canonical engineering state;\n* provider, model, and harness identity do not confer semantic authority;\n* AI-assisted, AI-driven, and bounded AI-autonomous operation are profiles within one operating model;\n* progressive autonomy remains explicit, bounded, evidence-backed, observable, policy-controlled, attributable, and revocable;\n* engineering and operational evidence may inform future reasoning while retaining its actual authority classification.\n\n## Non-effect\n\nThis acceptance does **not**:\n\n* accept ADR-0007;\n* create a ninth EOS lifecycle layer;\n* create a second canonical state authority;\n* authorize unrestricted AI autonomy;\n* authorize AI self-approval or self-acceptance;\n* make model confidence or consensus authoritative;\n* authorize product-runtime implementation;\n* create or authorize implementation Work Cycles or Work Packets;\n* broaden any currently authorized MVP Work Packet;\n* close CR-0003;\n* close MNT-0003.\n\n## Normative follow-on\n\nThe accepted operating-model baseline now governs derivation of the remaining CR-0003 normative tranche:\n\n1. product requirement refinements;\n2. `FR-037 — Provide Adaptive AI-Driven Engineering Workflow Planning`;\n3. specification-baseline amendment;\n4. `FUN-AIENG-0001 — Adaptive Engineering Workflow`;\n5. `IFC-AIENG-0001 — Engineering Agent Contract`;\n6. `SEC-AIENG-0001 — Autonomy, Authority, and Approval Gates`;\n7. targeted EOS lifecycle and governance contract refinements;\n8. explicit traceability;\n9. required AIENG conformance scenarios;\n10. EOSP implementation planning only after the normative baseline stabilizes.\n\nNo item in this sequence constitutes implementation authorization.\n\n## Evidence\n\n* `architecture/decisions/ADR-0008-ai-driven-engineering-as-default-eos-operating-model.md`\n* `engineering/lifecycle/EOS-AI-0001-ai-driven-engineering-operating-model.md`\n* `engineering/reviews/EOS-AI-0001-OPERATING-MODEL-REVIEW.md`\n* `engineering/changes/CR-0003.md`\n* explicit human acceptance in the governing interaction on 2026-09-05.\n\n## Decision status\n\n**ACCEPTED — effective 2026-09-05.**\n",
+  "document_id": "doc:engineering%2Freviews%2FDECISION-0004-2026-09-05-eos-ai-0001-acceptance.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006",
+    "ADR-0007",
+    "ADR-0008",
+    "FR-037"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Record type: Governance authority decision Date: 2026-09-05 Subject: EOS-AI-0001 — AI-Driven Engineering Operating Model Authority: Human Project Steward / Architecture Owner Disposition: ACCEPTED Related: ADR-0006, ADR-0008, CR-0003, EOS-AI-0001, REV-EOS-AI-0001-0001",
+    "title": "DECISION-0004-2026-09-05 — EOS-AI-0001 Acceptance"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0006",
+        "ADR-0008"
+      ],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "decision-0004-2026-09-05-eos-ai-0001-acceptance",
+      "text": "# DECISION-0004-2026-09-05 — EOS-AI-0001 Acceptance\n\n**Record type:** Governance authority decision\n**Date:** 2026-09-05\n**Subject:** EOS-AI-0001 — AI-Driven Engineering Operating Model\n**Authority:** Human Project Steward / Architecture Owner\n**Disposition:** **ACCEPTED**\n**Related:** ADR-0006, ADR-0008, CR-0003, EOS-AI-0001, REV-EOS-AI-0001-0001",
+      "title": "DECISION-0004-2026-09-05 — EOS-AI-0001 Acceptance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 17,
+      "line_start": 10,
+      "section_id": "decision",
+      "text": "## Decision\n\n`EOS-AI-0001 — AI-Driven Engineering Operating Model` is **Accepted**.\n\nThe explicit human authority statement was:\n\n> I accept EOS-AI-0001.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 41,
+      "line_start": 18,
+      "section_id": "effect",
+      "text": "## Effect\n\nThis decision makes `EOS-AI-0001` the governance-authoritative cross-layer operating-model baseline for AI participation in the Monad Engineering Operating System.\n\nThe accepted operating model establishes that:\n\n* AI-driven, human-governed, evidence-closed engineering is the default operating model where suitable AI capability is available;\n* AI may proactively inspect, reason, recommend, propose, plan, clarify, generate candidate artifacts, perform bounded authorized execution, assist verification and review, interpret evidence, and propose replanning;\n* AI initiative does not itself confer engineering authority;\n* EOS remains Monad's sole engineering lifecycle and control plane;\n* the permanent EOS lifecycle remains EOSB, EOSP, EOSE, EOSV, EOSR, EOSC, EOSL, and EOSM;\n* `.eos/state/current.json` remains the sole current EOS operational authority;\n* human sovereignty remains grounded in accountability, delegated authority, accepted risk, mission, irreversible commitments, revocation, and escalation;\n* adaptive engineering pathways may vary rigor but may not bypass mandatory EOS gates, required authority, policy, verification, review independence, or change control;\n* material ambiguity must be surfaced rather than silently converted into governing engineering meaning;\n* execution remains bounded by authorized scope, capability, environment, policy, and autonomy;\n* executor completion remains a claim until required evidence, verification, review, and acceptance are satisfied;\n* governing-input drift may invalidate or suspend stale execution authority;\n* raw AI transcripts and private model reasoning are not canonical engineering state;\n* provider, model, and harness identity do not confer semantic authority;\n* AI-assisted, AI-driven, and bounded AI-autonomous operation are profiles within one operating model;\n* progressive autonomy remains explicit, bounded, evidence-backed, observable, policy-controlled, attributable, and revocable;\n* engineering and operational evidence may inform future reasoning while retaining its actual authority classification.",
+      "title": "Effect"
+    },
+    {
+      "identifiers": [
+        "ADR-0007"
+      ],
+      "level": 2,
+      "line_end": 57,
+      "line_start": 42,
+      "section_id": "non-effect",
+      "text": "## Non-effect\n\nThis acceptance does **not**:\n\n* accept ADR-0007;\n* create a ninth EOS lifecycle layer;\n* create a second canonical state authority;\n* authorize unrestricted AI autonomy;\n* authorize AI self-approval or self-acceptance;\n* make model confidence or consensus authoritative;\n* authorize product-runtime implementation;\n* create or authorize implementation Work Cycles or Work Packets;\n* broaden any currently authorized MVP Work Packet;\n* close CR-0003;\n* close MNT-0003.",
+      "title": "Non-effect"
+    },
+    {
+      "identifiers": [
+        "FR-037"
+      ],
+      "level": 2,
+      "line_end": 74,
+      "line_start": 58,
+      "section_id": "normative-follow-on",
+      "text": "## Normative follow-on\n\nThe accepted operating-model baseline now governs derivation of the remaining CR-0003 normative tranche:\n\n1. product requirement refinements;\n2. `FR-037 — Provide Adaptive AI-Driven Engineering Workflow Planning`;\n3. specification-baseline amendment;\n4. `FUN-AIENG-0001 — Adaptive Engineering Workflow`;\n5. `IFC-AIENG-0001 — Engineering Agent Contract`;\n6. `SEC-AIENG-0001 — Autonomy, Authority, and Approval Gates`;\n7. targeted EOS lifecycle and governance contract refinements;\n8. explicit traceability;\n9. required AIENG conformance scenarios;\n10. EOSP implementation planning only after the normative baseline stabilizes.\n\nNo item in this sequence constitutes implementation authorization.",
+      "title": "Normative follow-on"
+    },
+    {
+      "identifiers": [
+        "ADR-0008"
+      ],
+      "level": 2,
+      "line_end": 82,
+      "line_start": 75,
+      "section_id": "evidence",
+      "text": "## Evidence\n\n* `architecture/decisions/ADR-0008-ai-driven-engineering-as-default-eos-operating-model.md`\n* `engineering/lifecycle/EOS-AI-0001-ai-driven-engineering-operating-model.md`\n* `engineering/reviews/EOS-AI-0001-OPERATING-MODEL-REVIEW.md`\n* `engineering/changes/CR-0003.md`\n* explicit human acceptance in the governing interaction on 2026-09-05.",
+      "title": "Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 85,
+      "line_start": 83,
+      "section_id": "decision-status",
+      "text": "## Decision status\n\n**ACCEPTED — effective 2026-09-05.**",
+      "title": "Decision status"
+    }
+  ],
+  "source": {
+    "bytes": 4237,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 85,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/DECISION-0004-2026-09-05-eos-ai-0001-acceptance.md",
+    "sha256": "644a9dbdd3da8b486924319775441dd8d7b9f4c648cffa21c2f36d624a57c77f"
+  }
+}

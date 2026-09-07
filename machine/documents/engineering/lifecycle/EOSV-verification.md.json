@@ -1,5 +1,5 @@
 {
-  "content": "---\nartifact_id: \"EOSV\"\ntitle: \"EOSV Verification\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSV — Verification\n\n## Purpose\n\nProduce reproducible evidence that work satisfies governing requirements,\nspecifications, quality attributes, and acceptance criteria.\n\n## Evidence Sources\n\n- EOS integrity checks;\n- repository build/test/lint/type/security commands;\n- work-packet-specific validation;\n- CI results;\n- automated traceability;\n- benchmarks and operational evidence when required.\n\n## Primary Commands\n\n```bash\n./scripts/eos validate WP-CORE-0001\n./scripts/eos verify\n./scripts/eos trace REQ-0042\n```\n\nRepository validation commands are configured in `.eos/validation.commands`.\n",
+  "content": "---\nartifact_id: \"EOSV\"\ntitle: \"EOSV Verification\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSV — Verification\n\n## Purpose\n\nProduce reproducible evidence that work satisfies governing requirements,\nspecifications, quality attributes, and acceptance criteria.\n\n## Evidence Sources\n\n- EOS integrity checks;\n- repository build/test/lint/type/security commands;\n- work-packet-specific validation;\n- CI results;\n- automated traceability;\n- benchmarks and operational evidence when required.\n\n## Primary Commands\n\n```bash\n./scripts/eos validate WP-CORE-0001\n./scripts/eos verify\n./scripts/eos trace REQ-0042\n```\n\nRepository validation commands are configured in `.eos/validation.commands`.\n\n## AI-Driven Verification Participation\n\nAI MAY assist EOSV by:\n\n- recommending validators or validation profiles;\n- invoking authorized validators;\n- analyzing failures;\n- identifying likely causes;\n- recommending additional evidence;\n- interpreting verification results.\n\nAI interpretation is not verification authority.\n\nAn AI participant MUST NOT:\n\n- fabricate verification evidence;\n- rewrite failed evidence into passing evidence;\n- promote stale evidence to current;\n- override deterministic validator results because the model disagrees;\n- use executor self-report as sufficient independent proof where independent\n  evidence is required.\n\nVerification evidence retains its actual provenance, freshness, validator,\nscope, and result.\n\nEvidence MAY influence replanning while remaining evidence rather than silently\nbecoming requirements, policy, architecture, or approval.\n",
   "document_id": "doc:engineering%2Flifecycle%2FEOSV-verification.md",
   "generation": {
     "deterministic": true,
@@ -57,20 +57,29 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 36,
+      "line_end": 37,
       "line_start": 28,
       "section_id": "primary-commands",
       "text": "## Primary Commands\n\n```bash\n./scripts/eos validate WP-CORE-0001\n./scripts/eos verify\n./scripts/eos trace REQ-0042\n```\n\nRepository validation commands are configured in `.eos/validation.commands`.",
       "title": "Primary Commands"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 64,
+      "line_start": 38,
+      "section_id": "ai-driven-verification-participation",
+      "text": "## AI-Driven Verification Participation\n\nAI MAY assist EOSV by:\n\n- recommending validators or validation profiles;\n- invoking authorized validators;\n- analyzing failures;\n- identifying likely causes;\n- recommending additional evidence;\n- interpreting verification results.\n\nAI interpretation is not verification authority.\n\nAn AI participant MUST NOT:\n\n- fabricate verification evidence;\n- rewrite failed evidence into passing evidence;\n- promote stale evidence to current;\n- override deterministic validator results because the model disagrees;\n- use executor self-report as sufficient independent proof where independent\n  evidence is required.\n\nVerification evidence retains its actual provenance, freshness, validator,\nscope, and result.\n\nEvidence MAY influence replanning while remaining evidence rather than silently\nbecoming requirements, policy, architecture, or approval.",
+      "title": "AI-Driven Verification Participation"
     }
   ],
   "source": {
-    "bytes": 792,
+    "bytes": 1674,
     "canonical": true,
     "language": "markdown",
-    "lines": 36,
+    "lines": 64,
     "media_type": "text/markdown",
     "path": "engineering/lifecycle/EOSV-verification.md",
-    "sha256": "d3aba671ed9bae445ec8fb7ad83a53de95b436db96dd2433ab3235cae627a4f7"
+    "sha256": "461d746438861ccb2640edf6a41780a15607489f769f61ee849aab19d1de1227"
   }
 }

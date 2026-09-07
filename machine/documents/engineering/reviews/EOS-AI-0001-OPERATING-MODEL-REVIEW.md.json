@@ -1,0 +1,273 @@
+{
+  "content": "# EOS-AI-0001 — AI-Driven Engineering Operating Model Review\n\n**Review date:** 2026-09-05\n**Subject:** `engineering/lifecycle/EOS-AI-0001-ai-driven-engineering-operating-model.md`\n**Governing ADR:** ADR-0008 — AI-Driven Engineering as the Default EOS Operating Model\n**Change authority:** CR-0003 — Establish Monad AI-Driven Engineering Operating Model\n**Disposition:** **PASS — ACCEPTED**\n\n## Purpose\n\nReview `EOS-AI-0001` for consistency with accepted ADR-0008, ADR-0006, existing EOS lifecycle semantics, canonical-state authority, evidence-based acceptance, human sovereignty, and the scope authorized by CR-0003.\n\nThis review determines whether `EOS-AI-0001` is suitable to become the governance-authoritative cross-layer operating contract for AI-driven engineering before requirements and detailed AIENG specifications are derived from it.\n\n## Review findings\n\n### 1. EOS lifecycle sovereignty\n\n**PASS**\n\n`EOS-AI-0001` explicitly preserves the existing eight permanent EOS layers:\n\n* EOSB — Bootstrap;\n* EOSP — Planning;\n* EOSE — Execution;\n* EOSV — Verification;\n* EOSR — Review;\n* EOSC — Change Control;\n* EOSL — Release Lifecycle;\n* EOSM — Maintenance.\n\nThe document defines AI participation across those layers rather than introducing an additional lifecycle or competing state machine.\n\nThis satisfies the controlling constraint established by ADR-0006 and ADR-0008.\n\n### 2. Canonical-state sovereignty\n\n**PASS**\n\n`EOS-AI-0001` explicitly preserves `.eos/state/current.json` as the sole current EOS operational authority.\n\nCompiled context, conversation state, execution checkpoints, embeddings, caches, model memory, temporary plans, and other AI working state are correctly classified as derived or transient state rather than competing canonical engineering authority.\n\n### 3. AI initiative versus authority\n\n**PASS**\n\nThe document distinguishes:\n\n* inspect;\n* reason;\n* recommend;\n* propose;\n* execute;\n* verify;\n* review;\n* approve;\n* accept.\n\nIt explicitly prevents AI initiative, analytical capability, model confidence, provider identity, or repeated agreement from creating binding authority.\n\nThis correctly operationalizes the ADR-0008 rule:\n\n> AI initiative != AI authority.\n\n### 4. Human sovereignty\n\n**PASS**\n\nHuman sovereignty is defined through accountable authority, delegation, accepted risk, irreversible commitment, mission, and escalation rather than mandatory human execution of routine work.\n\nThe contract allows bounded delegation while preserving the rule that delegated AI authority cannot exceed the delegator's authority.\n\nThis supports increasing automation without collapsing accountability.\n\n### 5. Adaptive engineering pathway\n\n**PASS**\n\nThe document permits engineering pathway rigor to vary according to risk, consequence, complexity, uncertainty, reversibility, lifecycle state, dependencies, evidence, security sensitivity, and delegated autonomy.\n\nIt also explicitly prohibits adaptive pathways from bypassing:\n\n* mandatory EOS gates;\n* required authority;\n* required policy;\n* required verification;\n* required review independence;\n* unresolved blocking decisions;\n* change-control obligations.\n\nAdaptive planning therefore changes pathway depth, not lifecycle authority.\n\n### 6. Ambiguity handling\n\n**PASS**\n\nMaterial ambiguity affecting product behavior, requirements, architecture, security, privacy, operations, legal posture, accepted risk, irreversible action, authority, or acceptance criteria must be surfaced.\n\nOrdinary implementation discretion remains delegable.\n\nConsequential ambiguity routes to native Monad decision, approval, ADR, Change Request, or escalation semantics.\n\nThis prevents AI-generated assumptions from silently becoming governed engineering meaning.\n\n### 7. Execution boundary\n\n**PASS**\n\nEOSE remains authoritative for execution.\n\nExecutor completion is explicitly treated as a claim rather than accepted completion.\n\nUnexpected work is classified into:\n\n* authorized implementation discretion;\n* decision-required work;\n* EOSC-governed change;\n* EOSP-governed new work;\n* security or operational escalation.\n\nThis preserves authorized Work Packet scope and prevents execution convenience from redefining governing intent.\n\n### 8. Verification and evidence\n\n**PASS**\n\nEOSV remains authoritative for verification evidence.\n\nThe operating model explicitly prohibits AI from:\n\n* fabricating evidence;\n* rewriting failed evidence into passing evidence;\n* overriding deterministic validator output;\n* treating self-report as independent verification;\n* treating stale evidence as current.\n\nAcceptance remains evidence-driven rather than executor-driven.\n\n### 9. Review independence\n\n**PASS**\n\nEOSR remains authoritative for review.\n\nThe contract correctly avoids defining a second model invocation as automatically independent.\n\nIt identifies executor identity, model, provider, harness, context isolation, prompt isolation, organizational role, and human participation as possible independence dimensions while delegating exact predicates to later policy/specification work.\n\n### 10. Governing-input drift\n\n**PASS**\n\nThe model requires material governing-input drift to invalidate, suspend, or trigger reevaluation of stale execution authority.\n\nRequirements, specifications, ADRs, decisions, approvals, policies, Work Packet scope, dependencies, security constraints, and acceptance criteria are correctly treated as possible governing inputs.\n\nThis establishes the required basis for later execution-contract fingerprinting.\n\n### 11. Provider and harness neutrality\n\n**PASS**\n\nAI providers, models, harnesses, scripts, humans, and future executors remain replaceable execution participants rather than sources of semantic authority.\n\nProvider failure is treated as an execution failure rather than canonical-state failure.\n\nADR-0007 is referenced conditionally and remains independently governed.\n\n`EOS-AI-0001` does not implicitly accept ADR-0007.\n\n### 12. Transcript and reasoning boundary\n\n**PASS**\n\nPrivate model chain-of-thought is not required as governance evidence.\n\nRaw AI transcripts are noncanonical by default.\n\nAuditability instead depends on material structured records including intent, material questions, decisions, approvals, authorization, executor identity, observable effects, evidence, verification, review, change, and acceptance.\n\nThis produces reconstructability without making provider-specific cognition part of Monad's normative model.\n\n### 13. Native semantic reuse\n\n**PASS**\n\nThe operating model explicitly reuses native Monad concepts including:\n\n* PI;\n* WC;\n* WP;\n* CR;\n* DEC;\n* APR;\n* DEP;\n* REV;\n* EVID;\n* TRC;\n* MNT.\n\nIt prohibits creating parallel AI-specific plan, task, decision, approval, evidence, workflow, context, or state stores merely because AI participates.\n\nThis satisfies the one-model/one-control-plane constraint.\n\n### 14. Progressive autonomy\n\n**PASS**\n\nThe three participation profiles are correctly represented as modes within one operating model:\n\n1. AI-assisted;\n2. AI-driven;\n3. bounded AI-autonomous.\n\nHigher autonomy remains explicit, bounded, evidence-backed, observable, consequence-aware, policy-controlled, and revocable.\n\nTrust is scoped to relevant classes of work rather than generalized automatically.\n\n### 15. Conformance scenarios\n\n**PASS**\n\nAll ten conformance scenarios required by CR-0003 and ADR-0008 are represented:\n\n* low-risk reversible change;\n* ambiguous product intent;\n* architecture change discovered during execution;\n* bounded autonomous Work Packet;\n* security-sensitive work;\n* independent review;\n* governing-input drift;\n* provider failure;\n* human denial;\n* evidence invalidating a planning assumption.\n\nDetailed behavioral ownership is correctly deferred to the AIENG specification tranche.\n\n### 16. Implementation authorization boundary\n\n**PASS**\n\n`EOS-AI-0001` explicitly states that normative definition does not authorize machine implementation.\n\nPossible machine implications are listed as future implementation surfaces only.\n\nActive MVP Work Packets retain their current scope.\n\nImplementation still requires EOSP planning and separately authorized Work Cycles and Work Packets.\n\n## Identified follow-on work\n\nThe review confirms the next normative tranche should include:\n\n1. product requirement refinements;\n2. FR-037 — Adaptive AI-Driven Engineering Workflow Planning;\n3. specification-baseline amendment;\n4. FUN-AIENG-0001 — Adaptive Engineering Workflow;\n5. IFC-AIENG-0001 — Engineering Agent Contract;\n6. SEC-AIENG-0001 — Autonomy, Authority, and Approval Gates;\n7. targeted EOS/governance contract amendments;\n8. explicit traceability;\n9. executable conformance scenarios;\n10. EOSP implementation planning only after the normative baseline stabilizes.\n\nThese are follow-on obligations, not blockers to accepting `EOS-AI-0001`.\n\n## Blocking findings\n\nNone.\n\n## Review conclusion\n\n`EOS-AI-0001` is consistent with ADR-0008, preserves ADR-0006, preserves EOS as the sole engineering lifecycle/control plane, preserves one canonical operational state, distinguishes AI initiative from authority, maintains evidence-based acceptance, supports bounded progressive autonomy, and provides a coherent cross-layer contract for AI-driven engineering.\n\nNo material architectural contradiction or authority bypass was identified.\n\n## Recommendation\n\n**ACCEPT `EOS-AI-0001` as the governance-authoritative AI-Driven Engineering Operating Model baseline.**\n\nAcceptance should not authorize product-runtime implementation and should not alter the independent Proposed status of ADR-0007.\n\n## Decision\n\n**ACCEPTED — Human Project Steward / Architecture Owner, 2026-09-05.**\n\nAcceptance evidence: `engineering/reviews/DECISION-0004-2026-09-05-eos-ai-0001-acceptance.md`\n",
+  "document_id": "doc:engineering%2Freviews%2FEOS-AI-0001-OPERATING-MODEL-REVIEW.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0006",
+    "ADR-0007",
+    "ADR-0008",
+    "FR-037"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Review date: 2026-09-05 Subject: engineering/lifecycle/EOS-AI-0001-ai-driven-engineering-operating-model.md Governing ADR: ADR-0008 — AI-Driven Engineering as the Default EOS Operating Model Change authority: CR-0003 — Establish Monad AI-Driven Engineering Operating Model Disposition: PASS — ACCEPTED",
+    "title": "EOS-AI-0001 — AI-Driven Engineering Operating Model Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0008"
+      ],
+      "level": 1,
+      "line_end": 8,
+      "line_start": 1,
+      "section_id": "eos-ai-0001-ai-driven-engineering-operating-model-review",
+      "text": "# EOS-AI-0001 — AI-Driven Engineering Operating Model Review\n\n**Review date:** 2026-09-05\n**Subject:** `engineering/lifecycle/EOS-AI-0001-ai-driven-engineering-operating-model.md`\n**Governing ADR:** ADR-0008 — AI-Driven Engineering as the Default EOS Operating Model\n**Change authority:** CR-0003 — Establish Monad AI-Driven Engineering Operating Model\n**Disposition:** **PASS — ACCEPTED**",
+      "title": "EOS-AI-0001 — AI-Driven Engineering Operating Model Review"
+    },
+    {
+      "identifiers": [
+        "ADR-0006",
+        "ADR-0008"
+      ],
+      "level": 2,
+      "line_end": 14,
+      "line_start": 9,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nReview `EOS-AI-0001` for consistency with accepted ADR-0008, ADR-0006, existing EOS lifecycle semantics, canonical-state authority, evidence-based acceptance, human sovereignty, and the scope authorized by CR-0003.\n\nThis review determines whether `EOS-AI-0001` is suitable to become the governance-authoritative cross-layer operating contract for AI-driven engineering before requirements and detailed AIENG specifications are derived from it.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 16,
+      "line_start": 15,
+      "section_id": "review-findings",
+      "text": "## Review findings",
+      "title": "Review findings"
+    },
+    {
+      "identifiers": [
+        "ADR-0006",
+        "ADR-0008"
+      ],
+      "level": 3,
+      "line_end": 35,
+      "line_start": 17,
+      "section_id": "1-eos-lifecycle-sovereignty",
+      "text": "### 1. EOS lifecycle sovereignty\n\n**PASS**\n\n`EOS-AI-0001` explicitly preserves the existing eight permanent EOS layers:\n\n* EOSB — Bootstrap;\n* EOSP — Planning;\n* EOSE — Execution;\n* EOSV — Verification;\n* EOSR — Review;\n* EOSC — Change Control;\n* EOSL — Release Lifecycle;\n* EOSM — Maintenance.\n\nThe document defines AI participation across those layers rather than introducing an additional lifecycle or competing state machine.\n\nThis satisfies the controlling constraint established by ADR-0006 and ADR-0008.",
+      "title": "1. EOS lifecycle sovereignty"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 43,
+      "line_start": 36,
+      "section_id": "2-canonical-state-sovereignty",
+      "text": "### 2. Canonical-state sovereignty\n\n**PASS**\n\n`EOS-AI-0001` explicitly preserves `.eos/state/current.json` as the sole current EOS operational authority.\n\nCompiled context, conversation state, execution checkpoints, embeddings, caches, model memory, temporary plans, and other AI working state are correctly classified as derived or transient state rather than competing canonical engineering authority.",
+      "title": "2. Canonical-state sovereignty"
+    },
+    {
+      "identifiers": [
+        "ADR-0008"
+      ],
+      "level": 3,
+      "line_end": 65,
+      "line_start": 44,
+      "section_id": "3-ai-initiative-versus-authority",
+      "text": "### 3. AI initiative versus authority\n\n**PASS**\n\nThe document distinguishes:\n\n* inspect;\n* reason;\n* recommend;\n* propose;\n* execute;\n* verify;\n* review;\n* approve;\n* accept.\n\nIt explicitly prevents AI initiative, analytical capability, model confidence, provider identity, or repeated agreement from creating binding authority.\n\nThis correctly operationalizes the ADR-0008 rule:\n\n> AI initiative != AI authority.",
+      "title": "3. AI initiative versus authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 75,
+      "line_start": 66,
+      "section_id": "4-human-sovereignty",
+      "text": "### 4. Human sovereignty\n\n**PASS**\n\nHuman sovereignty is defined through accountable authority, delegation, accepted risk, irreversible commitment, mission, and escalation rather than mandatory human execution of routine work.\n\nThe contract allows bounded delegation while preserving the rule that delegated AI authority cannot exceed the delegator's authority.\n\nThis supports increasing automation without collapsing accountability.",
+      "title": "4. Human sovereignty"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 93,
+      "line_start": 76,
+      "section_id": "5-adaptive-engineering-pathway",
+      "text": "### 5. Adaptive engineering pathway\n\n**PASS**\n\nThe document permits engineering pathway rigor to vary according to risk, consequence, complexity, uncertainty, reversibility, lifecycle state, dependencies, evidence, security sensitivity, and delegated autonomy.\n\nIt also explicitly prohibits adaptive pathways from bypassing:\n\n* mandatory EOS gates;\n* required authority;\n* required policy;\n* required verification;\n* required review independence;\n* unresolved blocking decisions;\n* change-control obligations.\n\nAdaptive planning therefore changes pathway depth, not lifecycle authority.",
+      "title": "5. Adaptive engineering pathway"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 105,
+      "line_start": 94,
+      "section_id": "6-ambiguity-handling",
+      "text": "### 6. Ambiguity handling\n\n**PASS**\n\nMaterial ambiguity affecting product behavior, requirements, architecture, security, privacy, operations, legal posture, accepted risk, irreversible action, authority, or acceptance criteria must be surfaced.\n\nOrdinary implementation discretion remains delegable.\n\nConsequential ambiguity routes to native Monad decision, approval, ADR, Change Request, or escalation semantics.\n\nThis prevents AI-generated assumptions from silently becoming governed engineering meaning.",
+      "title": "6. Ambiguity handling"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 123,
+      "line_start": 106,
+      "section_id": "7-execution-boundary",
+      "text": "### 7. Execution boundary\n\n**PASS**\n\nEOSE remains authoritative for execution.\n\nExecutor completion is explicitly treated as a claim rather than accepted completion.\n\nUnexpected work is classified into:\n\n* authorized implementation discretion;\n* decision-required work;\n* EOSC-governed change;\n* EOSP-governed new work;\n* security or operational escalation.\n\nThis preserves authorized Work Packet scope and prevents execution convenience from redefining governing intent.",
+      "title": "7. Execution boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 139,
+      "line_start": 124,
+      "section_id": "8-verification-and-evidence",
+      "text": "### 8. Verification and evidence\n\n**PASS**\n\nEOSV remains authoritative for verification evidence.\n\nThe operating model explicitly prohibits AI from:\n\n* fabricating evidence;\n* rewriting failed evidence into passing evidence;\n* overriding deterministic validator output;\n* treating self-report as independent verification;\n* treating stale evidence as current.\n\nAcceptance remains evidence-driven rather than executor-driven.",
+      "title": "8. Verification and evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 149,
+      "line_start": 140,
+      "section_id": "9-review-independence",
+      "text": "### 9. Review independence\n\n**PASS**\n\nEOSR remains authoritative for review.\n\nThe contract correctly avoids defining a second model invocation as automatically independent.\n\nIt identifies executor identity, model, provider, harness, context isolation, prompt isolation, organizational role, and human participation as possible independence dimensions while delegating exact predicates to later policy/specification work.",
+      "title": "9. Review independence"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 159,
+      "line_start": 150,
+      "section_id": "10-governing-input-drift",
+      "text": "### 10. Governing-input drift\n\n**PASS**\n\nThe model requires material governing-input drift to invalidate, suspend, or trigger reevaluation of stale execution authority.\n\nRequirements, specifications, ADRs, decisions, approvals, policies, Work Packet scope, dependencies, security constraints, and acceptance criteria are correctly treated as possible governing inputs.\n\nThis establishes the required basis for later execution-contract fingerprinting.",
+      "title": "10. Governing-input drift"
+    },
+    {
+      "identifiers": [
+        "ADR-0007"
+      ],
+      "level": 3,
+      "line_end": 171,
+      "line_start": 160,
+      "section_id": "11-provider-and-harness-neutrality",
+      "text": "### 11. Provider and harness neutrality\n\n**PASS**\n\nAI providers, models, harnesses, scripts, humans, and future executors remain replaceable execution participants rather than sources of semantic authority.\n\nProvider failure is treated as an execution failure rather than canonical-state failure.\n\nADR-0007 is referenced conditionally and remains independently governed.\n\n`EOS-AI-0001` does not implicitly accept ADR-0007.",
+      "title": "11. Provider and harness neutrality"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 183,
+      "line_start": 172,
+      "section_id": "12-transcript-and-reasoning-boundary",
+      "text": "### 12. Transcript and reasoning boundary\n\n**PASS**\n\nPrivate model chain-of-thought is not required as governance evidence.\n\nRaw AI transcripts are noncanonical by default.\n\nAuditability instead depends on material structured records including intent, material questions, decisions, approvals, authorization, executor identity, observable effects, evidence, verification, review, change, and acceptance.\n\nThis produces reconstructability without making provider-specific cognition part of Monad's normative model.",
+      "title": "12. Transcript and reasoning boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 205,
+      "line_start": 184,
+      "section_id": "13-native-semantic-reuse",
+      "text": "### 13. Native semantic reuse\n\n**PASS**\n\nThe operating model explicitly reuses native Monad concepts including:\n\n* PI;\n* WC;\n* WP;\n* CR;\n* DEC;\n* APR;\n* DEP;\n* REV;\n* EVID;\n* TRC;\n* MNT.\n\nIt prohibits creating parallel AI-specific plan, task, decision, approval, evidence, workflow, context, or state stores merely because AI participates.\n\nThis satisfies the one-model/one-control-plane constraint.",
+      "title": "13. Native semantic reuse"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 219,
+      "line_start": 206,
+      "section_id": "14-progressive-autonomy",
+      "text": "### 14. Progressive autonomy\n\n**PASS**\n\nThe three participation profiles are correctly represented as modes within one operating model:\n\n1. AI-assisted;\n2. AI-driven;\n3. bounded AI-autonomous.\n\nHigher autonomy remains explicit, bounded, evidence-backed, observable, consequence-aware, policy-controlled, and revocable.\n\nTrust is scoped to relevant classes of work rather than generalized automatically.",
+      "title": "14. Progressive autonomy"
+    },
+    {
+      "identifiers": [
+        "ADR-0008"
+      ],
+      "level": 3,
+      "line_end": 238,
+      "line_start": 220,
+      "section_id": "15-conformance-scenarios",
+      "text": "### 15. Conformance scenarios\n\n**PASS**\n\nAll ten conformance scenarios required by CR-0003 and ADR-0008 are represented:\n\n* low-risk reversible change;\n* ambiguous product intent;\n* architecture change discovered during execution;\n* bounded autonomous Work Packet;\n* security-sensitive work;\n* independent review;\n* governing-input drift;\n* provider failure;\n* human denial;\n* evidence invalidating a planning assumption.\n\nDetailed behavioral ownership is correctly deferred to the AIENG specification tranche.",
+      "title": "15. Conformance scenarios"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 250,
+      "line_start": 239,
+      "section_id": "16-implementation-authorization-boundary",
+      "text": "### 16. Implementation authorization boundary\n\n**PASS**\n\n`EOS-AI-0001` explicitly states that normative definition does not authorize machine implementation.\n\nPossible machine implications are listed as future implementation surfaces only.\n\nActive MVP Work Packets retain their current scope.\n\nImplementation still requires EOSP planning and separately authorized Work Cycles and Work Packets.",
+      "title": "16. Implementation authorization boundary"
+    },
+    {
+      "identifiers": [
+        "FR-037"
+      ],
+      "level": 2,
+      "line_end": 267,
+      "line_start": 251,
+      "section_id": "identified-follow-on-work",
+      "text": "## Identified follow-on work\n\nThe review confirms the next normative tranche should include:\n\n1. product requirement refinements;\n2. FR-037 — Adaptive AI-Driven Engineering Workflow Planning;\n3. specification-baseline amendment;\n4. FUN-AIENG-0001 — Adaptive Engineering Workflow;\n5. IFC-AIENG-0001 — Engineering Agent Contract;\n6. SEC-AIENG-0001 — Autonomy, Authority, and Approval Gates;\n7. targeted EOS/governance contract amendments;\n8. explicit traceability;\n9. executable conformance scenarios;\n10. EOSP implementation planning only after the normative baseline stabilizes.\n\nThese are follow-on obligations, not blockers to accepting `EOS-AI-0001`.",
+      "title": "Identified follow-on work"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 271,
+      "line_start": 268,
+      "section_id": "blocking-findings",
+      "text": "## Blocking findings\n\nNone.",
+      "title": "Blocking findings"
+    },
+    {
+      "identifiers": [
+        "ADR-0006",
+        "ADR-0008"
+      ],
+      "level": 2,
+      "line_end": 277,
+      "line_start": 272,
+      "section_id": "review-conclusion",
+      "text": "## Review conclusion\n\n`EOS-AI-0001` is consistent with ADR-0008, preserves ADR-0006, preserves EOS as the sole engineering lifecycle/control plane, preserves one canonical operational state, distinguishes AI initiative from authority, maintains evidence-based acceptance, supports bounded progressive autonomy, and provides a coherent cross-layer contract for AI-driven engineering.\n\nNo material architectural contradiction or authority bypass was identified.",
+      "title": "Review conclusion"
+    },
+    {
+      "identifiers": [
+        "ADR-0007"
+      ],
+      "level": 2,
+      "line_end": 283,
+      "line_start": 278,
+      "section_id": "recommendation",
+      "text": "## Recommendation\n\n**ACCEPT `EOS-AI-0001` as the governance-authoritative AI-Driven Engineering Operating Model baseline.**\n\nAcceptance should not authorize product-runtime implementation and should not alter the independent Proposed status of ADR-0007.",
+      "title": "Recommendation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 288,
+      "line_start": 284,
+      "section_id": "decision",
+      "text": "## Decision\n\n**ACCEPTED — Human Project Steward / Architecture Owner, 2026-09-05.**\n\nAcceptance evidence: `engineering/reviews/DECISION-0004-2026-09-05-eos-ai-0001-acceptance.md`",
+      "title": "Decision"
+    }
+  ],
+  "source": {
+    "bytes": 9769,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 288,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/EOS-AI-0001-OPERATING-MODEL-REVIEW.md",
+    "sha256": "2d8156403a943b2ea2bcbabf5b3748dfed57dce3577cc8541c30ae1971bd7ab3"
+  }
+}
