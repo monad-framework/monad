@@ -1,0 +1,62 @@
+name: EOSP Main Merge Probe
+
+on:
+  push:
+    branches:
+      - automation/eosp-main-merge-probe-20260907
+    paths:
+      - .github/workflows/eosp-main-merge-probe.yml
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout closed branch baseline
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: def83da3706882669e92b3de4f1bc1ee8475f8b8
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "Monad EOS Automation"
+          git config user.email "eos-automation@users.noreply.github.com"
+
+      - name: Probe merge from main
+        run: |
+          git fetch origin main
+          set +e
+          git merge --no-ff --no-commit origin/main
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ]; then
+            echo "MERGE_CONFLICTS_BEGIN"
+            git diff --name-only --diff-filter=U | sort
+            echo "MERGE_CONFLICTS_END"
+            git status --short
+            exit 20
+          fi
+          echo "MERGE_PROBE: CLEAN"
+
+      - name: Validate merged EOS state
+        run: |
+          python3 tools/eos/test_event_ledger_merge.py
+          python3 tools/eos/test_canonical_state.py
+          python3 tools/eos/test_canonical_reconciliation.py
+          python3 tools/eos/test_wrapper_dispatch.py
+          python3 tools/eos/test_identifier_families.py
+          ./scripts/eos state status
+          ./scripts/eos verify
+          git diff --check -- . ':!.eos/*.tsv'
+
+      - name: Commit validated merge result
+        run: |
+          git add -A
+          git commit -m "merge: reconcile main into AI-driven engineering branch"
+
+      - name: Publish immutable merge result
+        run: |
+          git push origin HEAD:refs/heads/automation/eosp-main-merge-result-20260907
