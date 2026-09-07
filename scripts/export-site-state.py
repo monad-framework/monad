@@ -458,6 +458,23 @@ def frontmatter_block(source_path: str, source_commit: str, source_blob: str, mo
     ]
 
 
+def publication_title(text: str, source_path: str) -> str:
+    for line in text.splitlines():
+        match = re.match(r"^#\s+(.+?)\s*$", line)
+        if match:
+            title = strip_md(match.group(1)).strip().strip("#").strip()
+            if title:
+                return title
+    stem = PurePosixPath(source_path).stem
+    if stem.lower() in {"index", "readme"}:
+        parent = PurePosixPath(source_path).parent.name
+        stem = parent or stem
+    title = re.sub(r"[-_]+", " ", stem).strip()
+    if not title:
+        raise ExportError(f"cannot derive publication title for {source_path}")
+    return title
+
+
 def inject_frontmatter(text: str, source_path: str, source_commit: str, source_blob: str) -> str:
     fields = frontmatter_block(source_path, source_commit, source_blob)
     lines = text.splitlines()
@@ -479,10 +496,24 @@ def inject_frontmatter(text: str, source_path: str, source_commit: str, source_b
             raise ExportError(
                 f"source frontmatter uses projection-reserved keys in {source_path}: {', '.join(sorted(conflict))}"
             )
+        if "title" not in existing_keys:
+            fields.insert(0, f"title: {json.dumps(publication_title(text, source_path))}")
         merged = lines[:closing] + fields + lines[closing:]
         return "\n".join(merged) + ("\n" if text.endswith("\n") else "")
+    fields.insert(0, f"title: {json.dumps(publication_title(text, source_path))}")
     block = ["---", *fields, "---", ""]
     return "\n".join(block) + text
+
+
+def make_markdown_mdx_safe(text: str, source_path: str) -> str:
+    """Apply syntax-only rewrites required by MDX without changing prose meaning."""
+    def replace_comment(match: re.Match[str]) -> str:
+        body = match.group(1)
+        if "*/" in body:
+            raise ExportError(f"HTML comment cannot be represented safely in MDX: {source_path}")
+        return "{/*" + body + "*/}"
+
+    return re.sub(r"<!--(.*?)-->", replace_comment, text, flags=re.DOTALL)
 
 
 def relative_link(from_destination: str, to_destination: str) -> str:
@@ -542,6 +573,7 @@ def rewrite_markdown_links(text: str, source_path: str, destination: str, mirror
 
 def render_plain_text_mdx(text: str, source_path: str, commit: str, blob: str) -> str:
     fields = frontmatter_block(source_path, commit, blob)
+    fields.insert(0, f"title: {json.dumps(publication_title('', source_path))}")
     fence = "````"
     return "\n".join(["---", *fields, "---", "", f"# {PurePosixPath(source_path).name}", "", f"{fence}text", text.rstrip("\n"), fence, ""])
 
@@ -722,6 +754,7 @@ class Exporter:
             elif transformation == "markdown_mirror":
                 text = raw.decode("utf-8")
                 text = rewrite_markdown_links(text, entry.path, destination, self.mirror_source_to_destination)
+                text = make_markdown_mdx_safe(text, entry.path)
                 content = inject_frontmatter(text, entry.path, self.snapshot.commit, entry.blob).encode("utf-8")
             elif transformation == "plain_text_to_mdx":
                 content = render_plain_text_mdx(

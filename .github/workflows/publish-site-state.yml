@@ -1,0 +1,98 @@
+name: Publish Monad site projection
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      source_sha:
+        description: Exact Monad main SHA; blank resolves current main
+        required: false
+        type: string
+
+concurrency:
+  group: monad-publication-dispatch
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve requested source SHA
+        id: source
+        env:
+          PUSH_SHA: ${{ github.event_name == 'push' && github.sha || '' }}
+          MANUAL_SHA: ${{ inputs.source_sha }}
+        run: |
+          requested="${PUSH_SHA:-${MANUAL_SHA:-}}"
+          if [ -z "$requested" ]; then
+            requested="$(git ls-remote https://github.com/monad-framework/monad.git refs/heads/main | cut -f1)"
+          fi
+          case "$requested" in
+            [0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]) ;;
+            *) echo "Invalid source SHA" >&2; exit 1 ;;
+          esac
+          echo "sha=$requested" >> "$GITHUB_OUTPUT"
+
+      - name: Check out exact source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.source.outputs.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Require current authoritative main
+        id: freshness
+        env:
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          git fetch origin main
+          current="$(git rev-parse origin/main)"
+          actual="$(git rev-parse HEAD)"
+          test "$actual" = "$SOURCE_SHA"
+          if [ "$actual" != "$current" ]; then
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+            echo "Ignoring stale publication request $actual; current main is $current" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Python
+        if: steps.freshness.outputs.stale == 'false'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: scripts/requirements/publication-validation.txt
+
+      - name: Validate deterministic source export
+        if: steps.freshness.outputs.stale == 'false'
+        env:
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          python -m pip install -r scripts/requirements/publication-validation.txt
+          python scripts/validate-publication.py
+          python scripts/export-site-state.py --root . --ref "$SOURCE_SHA" --output .tmp/publication-export --verify-determinism
+
+      - name: Create destination-scoped GitHub App token
+        if: steps.freshness.outputs.stale == 'false'
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.MONAD_PUBLICATION_APP_ID }}
+          private-key: ${{ secrets.MONAD_PUBLICATION_APP_PRIVATE_KEY }}
+          owner: monad-framework
+          repositories: aic-fumadocs-app
+
+      - name: Dispatch exact source identity
+        if: steps.freshness.outputs.stale == 'false'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          jq -n --arg sha "$SOURCE_SHA" '{event_type:"monad-publication",client_payload:{repository:"monad-framework/monad",sha:$sha,projectionVersion:1}}' |
+            gh api --method POST repos/monad-framework/aic-fumadocs-app/dispatches --input -
+          echo "Dispatched Monad publication for $SOURCE_SHA" >> "$GITHUB_STEP_SUMMARY"

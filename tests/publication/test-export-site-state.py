@@ -60,6 +60,33 @@ class ExporterUnitTests(unittest.TestCase):
         with self.assertRaises(exporter.ExportError):
             exporter.inject_frontmatter(source, "example.md", "a" * 40, "b" * 40)
 
+    def test_frontmatter_injection_adds_deterministic_fumadocs_title(self) -> None:
+        source = "# Deterministic Projection\n\nBody.\n"
+        result = exporter.inject_frontmatter(source, "docs/example.md", "a" * 40, "b" * 40)
+        self.assertIn('title: "Deterministic Projection"', result)
+
+    def test_frontmatter_injection_falls_back_to_filename_for_title(self) -> None:
+        source = "Body without a heading.\n"
+        result = exporter.inject_frontmatter(source, "docs/safe-publication.md", "a" * 40, "b" * 40)
+        self.assertIn('title: "safe publication"', result)
+
+    def test_frontmatter_injection_preserves_existing_title(self) -> None:
+        source = '---\ntitle: "Existing"\n---\n\n# Different\n'
+        result = exporter.inject_frontmatter(source, "docs/example.md", "a" * 40, "b" * 40)
+        self.assertEqual(result.count('title: "Existing"'), 1)
+        self.assertNotIn('title: "Different"', result)
+
+    def test_markdown_to_mdx_rewrites_html_comments_without_semantic_loss(self) -> None:
+        source = "Before <!-- ownership:v1 --> after\n"
+        self.assertEqual(
+            exporter.make_markdown_mdx_safe(source, "docs/example.md"),
+            "Before {/* ownership:v1 */} after\n",
+        )
+
+    def test_plain_text_mdx_has_required_title(self) -> None:
+        result = exporter.render_plain_text_mdx("license", "LICENSE", "a" * 40, "b" * 40)
+        self.assertIn('title: "LICENSE"', result)
+
     def test_markdown_table_parser(self) -> None:
         text = """# Risks
 
