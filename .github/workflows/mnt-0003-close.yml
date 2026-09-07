@@ -1,0 +1,164 @@
+name: MNT-0003 Formal Closure
+
+on:
+  push:
+    branches:
+      - automation/mnt-0003-close-20260907
+    paths:
+      - .github/workflows/mnt-0003-close.yml
+
+permissions:
+  contents: write
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout approved closure baseline
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: 209ad92b2fce9032949ad4053ca07fd7911a6817
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "Monad EOS Automation"
+          git config user.email "eos-automation@users.noreply.github.com"
+
+      - name: Confirm closure authority and verification state
+        run: |
+          ./scripts/eos state status
+          grep '^status: "VERIFYING"' engineering/maintenance/MNT-0003.md
+          grep '^\*\*State:\*\* VERIFYING' engineering/maintenance/MNT-0003.md
+          grep '^status: "Accepted"' engineering/reviews/MNT-0003-REVIEW.md
+          grep '^\*\*Decision:\*\* ACCEPTED' engineering/reviews/MNT-0003-REVIEW.md
+          grep '^\*\*Disposition:\*\* \*\*APPROVED\*\*' engineering/reviews/DECISION-0010-2026-09-07-mnt-0003-closure-approval.md
+          grep '> I approve MNT-0003 closure\.' engineering/reviews/DECISION-0010-2026-09-07-mnt-0003-closure-approval.md
+          grep '^\*\*Disposition:\*\* PASS — RECOMMEND MNT-0003 CLOSURE' engineering/reviews/MNT-0003-EVENT-LEDGER-MERGE-SAFETY-VERIFICATION.md
+
+      - name: Finalize maintenance closure evidence
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('engineering/maintenance/MNT-0003.md')
+          text = path.read_text(encoding='utf-8')
+          old = '## Closure Evidence\n\nPending implementation and verification.'
+          new = '''## Closure Evidence
+
+Implementation and verification are complete.
+
+Production integration checkpoints:
+
+- `3fb8b8995e3d92ddab28115190fd6ad21ac4cd4c` — event-history integrity implementation;
+- `0072d7f4bed954f2832db7403933b5fb9bf37e31` — removal of temporary integration machinery;
+- `8a9deb9fbc5c49458605aa8e1a73e63947263ab8` — synchronized post-integration machine projection;
+- `2d2247c673dd7f48c210a8063afe9135e4cd7ea8` — independently refreshed deterministic trace projection;
+- `7dfe8323153f1d4bbbd93183f932b194e216775b` — formal MNT-0003 verification checkpoint.
+
+Dedicated verification:
+
+`engineering/reviews/MNT-0003-EVENT-LEDGER-MERGE-SAFETY-VERIFICATION.md`
+
+Verification disposition:
+
+**PASS — RECOMMEND MNT-0003 CLOSURE**
+
+Engineering closure review:
+
+`engineering/reviews/MNT-0003-REVIEW.md`
+
+Review disposition:
+
+**ACCEPTED**
+
+Human closure authority:
+
+`engineering/reviews/DECISION-0010-2026-09-07-mnt-0003-closure-approval.md`
+
+Explicit Human Project Steward authority statement:
+
+> I approve MNT-0003 closure.
+
+Formal lifecycle closure proceeds through the ordinary `MNT_CLOSE` gate with no override.'''
+          if old not in text:
+              raise SystemExit('expected pending Closure Evidence marker not found')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+          git diff --check -- engineering/maintenance/MNT-0003.md
+
+      - name: Converge generated trace before closure
+        run: |
+          ./scripts/eos verify >/tmp/mnt-0003-pre-close-eosv.txt
+          grep 'EOSV RESULT: PASS' /tmp/mnt-0003-pre-close-eosv.txt
+          before="$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)"
+          ./scripts/eos verify >/tmp/mnt-0003-pre-close-repeat.txt
+          after="$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)"
+          test "$before" = "$after"
+          grep 'EOSV RESULT: PASS' /tmp/mnt-0003-pre-close-repeat.txt
+
+      - name: Execute ordinary MNT close gate
+        run: |
+          ./scripts/eos maintain close MNT-0003
+          ./scripts/eos state status
+          grep '^MNT-0003' .eos/maintenance.tsv | grep 'CLOSED'
+          grep '^status: "CLOSED"' engineering/maintenance/MNT-0003.md
+          grep '^\*\*State:\*\* CLOSED' engineering/maintenance/MNT-0003.md
+
+      - name: Reverify closed state and trace determinism
+        run: |
+          ./scripts/eos verify >/tmp/mnt-0003-post-close-eosv.txt
+          grep 'EOSV RESULT: PASS' /tmp/mnt-0003-post-close-eosv.txt
+          before="$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)"
+          ./scripts/eos verify >/tmp/mnt-0003-post-close-repeat.txt
+          after="$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)"
+          test "$before" = "$after"
+          grep 'EOSV RESULT: PASS' /tmp/mnt-0003-post-close-repeat.txt
+          ./scripts/eos state status
+
+      - name: Enforce bounded closure diff
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          allowed = {
+              '.eos/events.jsonl',
+              '.eos/maintenance.tsv',
+              '.eos/state/current.json',
+              '.eos/state/projections.json',
+              '.eos/trace-edges.tsv',
+              'engineering/maintenance/MNT-0003.md',
+          }
+          changed = set(subprocess.check_output(['git','diff','--name-only'], text=True).splitlines())
+          untracked = set(subprocess.check_output(['git','ls-files','--others','--exclude-standard'], text=True).splitlines())
+          observed = changed | untracked
+          unexpected = sorted(observed - allowed)
+          if unexpected:
+              raise SystemExit('unexpected closure changes: ' + ', '.join(unexpected))
+          required = {
+              '.eos/events.jsonl',
+              '.eos/maintenance.tsv',
+              '.eos/state/current.json',
+              '.eos/state/projections.json',
+              'engineering/maintenance/MNT-0003.md',
+          }
+          missing = sorted(required - observed)
+          if missing:
+              raise SystemExit('missing expected closure changes: ' + ', '.join(missing))
+          print('bounded closure diff: PASS')
+          PY
+          git diff --check -- . ':!.eos/*.tsv'
+
+      - name: Commit formal closure
+        run: |
+          git add \
+            .eos/events.jsonl \
+            .eos/maintenance.tsv \
+            .eos/state/current.json \
+            .eos/state/projections.json \
+            .eos/trace-edges.tsv \
+            engineering/maintenance/MNT-0003.md
+          git diff --cached --check -- . ':!.eos/*.tsv'
+          git commit -m "chore(eos): close MNT-0003"
+
+      - name: Publish immutable closure result
+        run: |
+          git push origin HEAD:refs/heads/automation/mnt-0003-close-result-20260907
