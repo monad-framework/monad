@@ -381,6 +381,46 @@
       "type": "declares"
     },
     {
+      "source": "doc:.eos%2Fcontracts%2FEXEC-0010-WP-MVP-0005.codex.md",
+      "target": "identifier:ADR-0002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fcontracts%2FEXEC-0010-WP-MVP-0005.codex.md",
+      "target": "identifier:ADR-0003",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fcontracts%2FEXEC-0010-WP-MVP-0005.codex.md",
+      "target": "identifier:ADR-0004",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fcontracts%2FEXEC-0010-WP-MVP-0005.codex.md",
+      "target": "identifier:ADR-0005",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fcontracts%2FEXEC-0010-WP-MVP-0005.codex.md",
+      "target": "identifier:FR-001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fcontracts%2FEXEC-0010-WP-MVP-0005.codex.md",
+      "target": "identifier:FR-002",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fcontracts%2FEXEC-0010-WP-MVP-0005.codex.md",
+      "target": "identifier:QR-001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Fcontracts%2FEXEC-0010-WP-MVP-0005.codex.md",
+      "target": "identifier:QR-003",
+      "type": "declares"
+    },
+    {
       "source": "doc:.eos%2Fcontracts%2FWC-MVP-0001.review.md",
       "target": "identifier:ADR-0002",
       "type": "declares"
@@ -6784,6 +6824,22 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fcontracts%2FEXEC-0010-WP-MVP-0005.codex.json",
+      "normative": false,
+      "source_path": ".eos/contracts/EXEC-0010-WP-MVP-0005.codex.json",
+      "title": "Exec 0010 Wp Mvp 0005.Codex",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:.eos%2Fcontracts%2FEXEC-0010-WP-MVP-0005.codex.md",
+      "normative": false,
+      "source_path": ".eos/contracts/EXEC-0010-WP-MVP-0005.codex.md",
+      "title": "Codex Execution Contract v2 — WP-MVP-0005",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fcontracts%2FWC-MVP-0001.review.md",
       "normative": false,
       "source_path": ".eos/contracts/WC-MVP-0001.review.md",
@@ -10584,6 +10640,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:.eos%2Fexecutions%2FEXEC-0010.json",
+      "normative": false,
+      "source_path": ".eos/executions/EXEC-0010.json",
+      "title": "Exec 0010",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:.eos%2Fexecutions.tsv",
       "normative": false,
       "source_path": ".eos/executions.tsv",
@@ -11804,14 +11868,6 @@
       "normative": false,
       "source_path": ".github/workflows/governed-execution-c2-codex-confinement.yml",
       "title": "Governed Execution C2 Codex Confinement",
-      "type": "document"
-    },
-    {
-      "document_type": "continuous-integration",
-      "id": "doc:.github%2Fworkflows%2Fgoverned-execution-c2-codex-live-activation.yml",
-      "normative": false,
-      "source_path": ".github/workflows/governed-execution-c2-codex-live-activation.yml",
-      "title": "Governed Execution C2 Codex Live Activation",
       "type": "document"
     },
     {
@@ -18416,30 +18472,6 @@
     },
     {
       "document_type": "project-source",
-      "id": "doc:crates%2Fmonad-codex-live-activation%2FCargo.toml",
-      "normative": false,
-      "source_path": "crates/monad-codex-live-activation/Cargo.toml",
-      "title": "Cargo",
-      "type": "document"
-    },
-    {
-      "document_type": "project-source",
-      "id": "doc:crates%2Fmonad-codex-live-activation%2Fsrc%2Flib.rs",
-      "normative": false,
-      "source_path": "crates/monad-codex-live-activation/src/lib.rs",
-      "title": "Lib",
-      "type": "document"
-    },
-    {
-      "document_type": "project-source",
-      "id": "doc:crates%2Fmonad-codex-live-activation%2Fsrc%2Fmain.rs",
-      "normative": false,
-      "source_path": "crates/monad-codex-live-activation/src/main.rs",
-      "title": "Main",
-      "type": "document"
-    },
-    {
-      "document_type": "project-source",
       "id": "doc:crates%2Fmonad-codex-runtime%2FCargo.toml",
       "normative": false,
       "source_path": "crates/monad-codex-runtime/Cargo.toml",
@@ -23872,14 +23904,6 @@
     },
     {
       "document_type": "quality-assurance",
-      "id": "doc:testing%2Fgoverned-execution-c2-codex-live-activation.md",
-      "normative": true,
-      "source_path": "testing/governed-execution-c2-codex-live-activation.md",
-      "title": "Governed Execution C2 Codex Live Activation Binding",
-      "type": "document"
-    },
-    {
-      "document_type": "quality-assurance",
       "id": "doc:testing%2Fgoverned-execution-c2-codex-runtime.md",
       "normative": true,
       "source_path": "testing/governed-execution-c2-codex-runtime.md",
@@ -25565,5 +25589,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "451956d2d6327660e1854256f30535b1b9d7e04f25bd50d8c65345ca73d4a319"
+  "source_tree_sha256": "a299e41fc130e889d616d74559ed999f1725e3d2d314fa8c1a50ee100e5f6a26"
 }
