@@ -434,8 +434,8 @@ impl<T: AppServerTransport> CodexConfinementVerifier<T> {
                             "command/exec response omitted integer exitCode".into(),
                         )
                     })?;
-                let stdout = required_string(&result, "stdout")?;
-                let stderr = required_string(&result, "stderr")?;
+                let stdout = required_text(&result, "stdout")?;
+                let stderr = required_text(&result, "stderr")?;
                 Ok(CommandProbeOutcome::Response {
                     exit_code,
                     stdout,
@@ -555,6 +555,18 @@ fn required_string(value: &Value, key: &str) -> Result<String, CodexConfinementE
         .ok_or_else(|| {
             CodexConfinementError::Protocol(format!(
                 "response omitted required non-empty string {key:?}"
+            ))
+        })
+}
+
+fn required_text(value: &Value, key: &str) -> Result<String, CodexConfinementError> {
+    value
+        .get(key)
+        .and_then(Value::as_str)
+        .map(str::to_owned)
+        .ok_or_else(|| {
+            CodexConfinementError::Protocol(format!(
+                "response omitted required string field {key:?}"
             ))
         })
 }
