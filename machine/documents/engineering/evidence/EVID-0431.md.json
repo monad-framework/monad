@@ -1,5 +1,5 @@
 {
-  "content": "---\nartifact_id: \"EVID-0431\"\ntitle: \"Verification Evidence EVID-0431\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"VALIDATED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-09-07\"\nupdated: \"2026-09-07\"\n---\n\n# EVID-0431 — Verification Evidence\n\n- Target: WP-MVP-0003\n- Execution: (none)\n- Profile: wp\n- Validator: repository\n- Kind: repository\n- Result: SKIPPED\n- Exit code: 0\n- Source fingerprint: `ea612237b7c7d5ac7d6bd16c47a1f5db825483b625bd7dd19609cefb521102db`\n- Environment fingerprint: `11bcf4c634e2ec82018de43045a23419f542a10d1e6fc30598e37643eef21e4e`\n- Machine evidence: `.eos/evidence/EVID-0431.json`\n- Machine evidence SHA-256: `080737b6be334c2babf5b9368c4546f716d1ad83792c898dbfb8eb99c4248ed6`\n- Covers: (not explicitly mapped)\n\n## Command\n\n`legacy:.eos/validation.commands`\n\n## Output Digest\n\n`fae3e53fb62a416d7890478ca9e34727182f11b1f627e6e32b2f51b62e35d4f7`\n\nThe full bounded output and structured details are retained in the machine evidence artifact.\n",
+  "content": "---\nartifact_id: \"EVID-0431\"\ntitle: \"Verification Evidence EVID-0431\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"SUPERSEDED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-09-07\"\nupdated: \"2026-09-07\"\n---\n\n# EVID-0431 — Verification Evidence\n\n- Target: WP-MVP-0003\n- Execution: (none)\n- Profile: wp\n- Validator: repository\n- Kind: repository\n- Result: SKIPPED\n- Exit code: 0\n- Source fingerprint: `ea612237b7c7d5ac7d6bd16c47a1f5db825483b625bd7dd19609cefb521102db`\n- Environment fingerprint: `11bcf4c634e2ec82018de43045a23419f542a10d1e6fc30598e37643eef21e4e`\n- Machine evidence: `.eos/evidence/EVID-0431.json`\n- Machine evidence SHA-256: `080737b6be334c2babf5b9368c4546f716d1ad83792c898dbfb8eb99c4248ed6`\n- Covers: (not explicitly mapped)\n\n## Command\n\n`legacy:.eos/validation.commands`\n\n## Output Digest\n\n`fae3e53fb62a416d7890478ca9e34727182f11b1f627e6e32b2f51b62e35d4f7`\n\nThe full bounded output and structured details are retained in the machine evidence artifact.\n",
   "document_id": "doc:engineering%2Fevidence%2FEVID-0431.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "--- artifactid: \"EVID-0431\" title: \"Verification Evidence EVID-0431\" type: \"verification-evidence\" version: \"1.0.0\" status: \"VALIDATED\" authority: \"evidence-authoritative\" created: \"2026-09-07\" updated: \"2026-09-07\" ---",
+    "summary": "--- artifactid: \"EVID-0431\" title: \"Verification Evidence EVID-0431\" type: \"verification-evidence\" version: \"1.0.0\" status: \"SUPERSEDED\" authority: \"evidence-authoritative\" created: \"2026-09-07\" updated: \"2026-09-07\" ---",
     "title": "EVID-0431 — Verification Evidence"
   },
   "relations": [],
@@ -24,7 +24,7 @@
       "line_end": 11,
       "line_start": 1,
       "section_id": "preamble",
-      "text": "---\nartifact_id: \"EVID-0431\"\ntitle: \"Verification Evidence EVID-0431\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"VALIDATED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-09-07\"\nupdated: \"2026-09-07\"\n---",
+      "text": "---\nartifact_id: \"EVID-0431\"\ntitle: \"Verification Evidence EVID-0431\"\ntype: \"verification-evidence\"\nversion: \"1.0.0\"\nstatus: \"SUPERSEDED\"\nauthority: \"evidence-authoritative\"\ncreated: \"2026-09-07\"\nupdated: \"2026-09-07\"\n---",
       "title": "Preamble"
     },
     {
@@ -56,12 +56,12 @@
     }
   ],
   "source": {
-    "bytes": 984,
+    "bytes": 985,
     "canonical": true,
     "language": "markdown",
     "lines": 35,
     "media_type": "text/markdown",
     "path": "engineering/evidence/EVID-0431.md",
-    "sha256": "faf03b60faaf0e0c49bbb9077dfddb87092b36fb111cf5c689ad8b97750bf20b"
+    "sha256": "f984f051d04a987e4ba20f1f23bc4ba058c51a407d1ab9cbc977d81261bf555a"
   }
 }
