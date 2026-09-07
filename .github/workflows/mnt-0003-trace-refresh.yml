@@ -1,0 +1,64 @@
+name: MNT-0003 Trace Projection Refresh
+
+on:
+  push:
+    branches:
+      - automation/mnt-0003-trace-refresh-20260907
+    paths:
+      - .github/workflows/mnt-0003-trace-refresh.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout stable baseline
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: 8a9deb9fbc5c49458605aa8e1a73e63947263ab8
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "Monad EOS Automation"
+          git config user.email "eos-automation@users.noreply.github.com"
+
+      - name: Refresh trace projection
+        run: |
+          ./scripts/eos verify >/tmp/eosv-refresh.txt
+          grep 'EOSV RESULT: PASS' /tmp/eosv-refresh.txt
+          git diff --name-only
+
+      - name: Prove refresh determinism
+        run: |
+          first="$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)"
+          ./scripts/eos verify >/tmp/eosv-repeat.txt
+          grep 'EOSV RESULT: PASS' /tmp/eosv-repeat.txt
+          second="$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)"
+          test "$first" = "$second" || {
+            echo "Trace projection remains unstable: $first -> $second" >&2
+            exit 71
+          }
+          echo "trace projection deterministic: $second"
+
+      - name: Enforce projection-only diff
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          changed = set(subprocess.check_output(['git','diff','--name-only'], text=True).splitlines())
+          if changed != {'.eos/trace-edges.tsv'}:
+              raise SystemExit('unexpected trace refresh diff: ' + ', '.join(sorted(changed)))
+          PY
+          git diff --check -- .eos/trace-edges.tsv
+
+      - name: Commit deterministic trace refresh
+        run: |
+          git add .eos/trace-edges.tsv
+          git diff --cached --check
+          git commit -m "chore(eos): refresh deterministic trace projection"
+
+      - name: Publish immutable trace refresh result
+        run: |
+          git push origin HEAD:refs/heads/automation/mnt-0003-trace-refresh-result-20260907
