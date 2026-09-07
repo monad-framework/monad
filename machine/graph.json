@@ -2342,6 +2342,11 @@
     },
     {
       "source": "doc:.eos%2Ftrace-edges.tsv",
+      "target": "identifier:ADR-0008",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.eos%2Ftrace-edges.tsv",
       "target": "identifier:ADR-0014",
       "type": "declares"
     },
@@ -2643,6 +2648,11 @@
     {
       "source": "doc:.eos%2Fworkflow.tsv",
       "target": "identifier:WP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:.github%2Fworkflows%2Faieng-forward-port-copy.yml",
+      "target": "identifier:ADR-0008",
       "type": "declares"
     },
     {
@@ -11957,6 +11967,14 @@
       "normative": false,
       "source_path": ".github/PULL_REQUEST_TEMPLATE.md",
       "title": "Pull Request Template",
+      "type": "document"
+    },
+    {
+      "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Faieng-forward-port-copy.yml",
+      "normative": false,
+      "source_path": ".github/workflows/aieng-forward-port-copy.yml",
+      "title": "Aieng Forward Port Copy",
       "type": "document"
     },
     {
@@ -23001,6 +23019,14 @@
     },
     {
       "document_type": "engineering-control",
+      "id": "doc:engineering%2Freviews%2FDECISION-0011-2026-09-07-ai-driven-forward-port-reconciliation-approval.md",
+      "normative": true,
+      "source_path": "engineering/reviews/DECISION-0011-2026-09-07-ai-driven-forward-port-reconciliation-approval.md",
+      "title": "DECISION-0011 — AI-Driven Engineering Forward-Port Reconciliation Approval",
+      "type": "document"
+    },
+    {
+      "document_type": "engineering-control",
       "id": "doc:engineering%2Freviews%2FDESIGN-0001-2026-08-13-eos-0.9-assimilation.md",
       "normative": true,
       "source_path": "engineering/reviews/DESIGN-0001-2026-08-13-eos-0.9-assimilation.md",
@@ -24794,6 +24820,11 @@
       "value": "ADR-0007"
     },
     {
+      "id": "identifier:ADR-0008",
+      "type": "identifier",
+      "value": "ADR-0008"
+    },
+    {
       "id": "identifier:ADR-0014",
       "type": "identifier",
       "value": "ADR-0014"
@@ -26040,5 +26071,5 @@
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "9360d660922723c68c6a8d5b8a4bd44804b01525b37c064b2d907d3b7a8760e4"
+  "source_tree_sha256": "17f0153ef8d75c0bd83263401a34d1730ede74827ee79c9a5ffea25fe4d3ca5e"
 }

@@ -1,0 +1,103 @@
+{
+  "content": "---\nartifact_id: \"DECISION-0011\"\ntitle: \"AI-Driven Engineering Forward-Port Reconciliation Approval\"\ntype: \"decision\"\nversion: \"1.0.0\"\nstatus: \"Accepted\"\nauthority: \"decision-authoritative\"\ncreated: \"2026-09-07\"\nupdated: \"2026-09-07\"\n---\n\n# DECISION-0011 — AI-Driven Engineering Forward-Port Reconciliation Approval\n\n**Disposition:** **APPROVED**\n\n## Decision\n\nThe Human Project Steward authorizes forward-port reconciliation of the AI-driven engineering branch onto current `main` under the following governing policy:\n\n> I approve forward-port reconciliation of the AI-driven engineering branch onto current main, with main as the canonical integration base and PR #278 to be superseded after successful validation.\n\n## Canonical Integration Base\n\nThe canonical integration base is current `main` at the time this reconciliation begins:\n\n`15ddd23626be8045d30cf3a7fa35cd2ba9a694f3`\n\nThe legacy source branch is:\n\n`eosp/ai-driven-engineering-operating-model`\n\nThe source branch was formally closed through MNT-0003 at:\n\n`def83da3706882669e92b3de4f1bc1ee8475f8b8`\n\nThe legacy pull request is:\n\n`#278 — eosp/ai-driven-engineering-operating-model → main`\n\n## Approved Reconciliation Policy\n\nThe reconciliation SHALL:\n\n1. preserve current `main` as the canonical integration lineage;\n2. forward-port governed AIENG architecture, lifecycle, requirements, specifications, reviews, decisions, maintenance outcomes, and stronger EOS implementation behavior where still applicable;\n3. semantically integrate branch implementation changes into newer `main` implementations rather than replacing newer code wholesale;\n4. preserve valid event history without union-merging incompatible canonical lifecycle histories;\n5. exclude branch-local colliding evidence identities `EVID-0304` through `EVID-0315` from direct import;\n6. exclude stale branch-local generated canonical projections from direct import;\n7. regenerate canonical state, projections, trace, and fresh evidence from the current `main` lineage after substantive forward-porting;\n8. fail closed on unresolved canonical identity, lifecycle, event-history, or authority conflicts;\n9. validate the reconciled result using current EOS, repository integrity, governed-execution, Workbench, publication, and relevant regression suites;\n10. use a clean replacement pull request for integration into `main`;\n11. supersede and close PR #278 only after the replacement reconciliation has been successfully validated and is ready to replace it.\n\n## Explicit Exclusions\n\nThis approval does not authorize:\n\n- rewriting or discarding valid `main` history;\n- force-updating `main`;\n- importing duplicate canonical evidence identities from the legacy branch;\n- treating generated projections as source authority;\n- bypassing EOS validation or maintenance invariants;\n- changing previously accepted AIENG normative meaning merely to make reconciliation easier;\n- granting any new AI runtime authority beyond separately governed approvals already present on `main`.\n\n## Authority Boundary\n\nThis decision authorizes the reconciliation workflow and the creation of a replacement integration pull request.\n\nIt does not itself authorize merging that replacement pull request if repository policy or EOS governance requires a separate merge/acceptance decision.\n\n## Outcome\n\n**APPROVED — HUMAN PROJECT STEWARD — 2026-09-07**\n",
+  "document_id": "doc:engineering%2Freviews%2FDECISION-0011-2026-09-07-ai-driven-forward-port-reconciliation-approval.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "--- artifactid: \"DECISION-0011\" title: \"AI-Driven Engineering Forward-Port Reconciliation Approval\" type: \"decision\" version: \"1.0.0\" status: \"Accepted\" authority: \"decision-authoritative\" created: \"2026-09-07\" updated: \"2026-09-07\" ---",
+    "title": "DECISION-0011 — AI-Driven Engineering Forward-Port Reconciliation Approval"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"DECISION-0011\"\ntitle: \"AI-Driven Engineering Forward-Port Reconciliation Approval\"\ntype: \"decision\"\nversion: \"1.0.0\"\nstatus: \"Accepted\"\nauthority: \"decision-authoritative\"\ncreated: \"2026-09-07\"\nupdated: \"2026-09-07\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "decision-0011-ai-driven-engineering-forward-port-reconciliation-approval",
+      "text": "# DECISION-0011 — AI-Driven Engineering Forward-Port Reconciliation Approval\n\n**Disposition:** **APPROVED**",
+      "title": "DECISION-0011 — AI-Driven Engineering Forward-Port Reconciliation Approval"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 21,
+      "line_start": 16,
+      "section_id": "decision",
+      "text": "## Decision\n\nThe Human Project Steward authorizes forward-port reconciliation of the AI-driven engineering branch onto current `main` under the following governing policy:\n\n> I approve forward-port reconciliation of the AI-driven engineering branch onto current main, with main as the canonical integration base and PR #278 to be superseded after successful validation.",
+      "title": "Decision"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 22,
+      "section_id": "canonical-integration-base",
+      "text": "## Canonical Integration Base\n\nThe canonical integration base is current `main` at the time this reconciliation begins:\n\n`15ddd23626be8045d30cf3a7fa35cd2ba9a694f3`\n\nThe legacy source branch is:\n\n`eosp/ai-driven-engineering-operating-model`\n\nThe source branch was formally closed through MNT-0003 at:\n\n`def83da3706882669e92b3de4f1bc1ee8475f8b8`\n\nThe legacy pull request is:\n\n`#278 — eosp/ai-driven-engineering-operating-model → main`",
+      "title": "Canonical Integration Base"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 55,
+      "line_start": 40,
+      "section_id": "approved-reconciliation-policy",
+      "text": "## Approved Reconciliation Policy\n\nThe reconciliation SHALL:\n\n1. preserve current `main` as the canonical integration lineage;\n2. forward-port governed AIENG architecture, lifecycle, requirements, specifications, reviews, decisions, maintenance outcomes, and stronger EOS implementation behavior where still applicable;\n3. semantically integrate branch implementation changes into newer `main` implementations rather than replacing newer code wholesale;\n4. preserve valid event history without union-merging incompatible canonical lifecycle histories;\n5. exclude branch-local colliding evidence identities `EVID-0304` through `EVID-0315` from direct import;\n6. exclude stale branch-local generated canonical projections from direct import;\n7. regenerate canonical state, projections, trace, and fresh evidence from the current `main` lineage after substantive forward-porting;\n8. fail closed on unresolved canonical identity, lifecycle, event-history, or authority conflicts;\n9. validate the reconciled result using current EOS, repository integrity, governed-execution, Workbench, publication, and relevant regression suites;\n10. use a clean replacement pull request for integration into `main`;\n11. supersede and close PR #278 only after the replacement reconciliation has been successfully validated and is ready to replace it.",
+      "title": "Approved Reconciliation Policy"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 56,
+      "section_id": "explicit-exclusions",
+      "text": "## Explicit Exclusions\n\nThis approval does not authorize:\n\n- rewriting or discarding valid `main` history;\n- force-updating `main`;\n- importing duplicate canonical evidence identities from the legacy branch;\n- treating generated projections as source authority;\n- bypassing EOS validation or maintenance invariants;\n- changing previously accepted AIENG normative meaning merely to make reconciliation easier;\n- granting any new AI runtime authority beyond separately governed approvals already present on `main`.",
+      "title": "Explicit Exclusions"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 73,
+      "line_start": 68,
+      "section_id": "authority-boundary",
+      "text": "## Authority Boundary\n\nThis decision authorizes the reconciliation workflow and the creation of a replacement integration pull request.\n\nIt does not itself authorize merging that replacement pull request if repository policy or EOS governance requires a separate merge/acceptance decision.",
+      "title": "Authority Boundary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 76,
+      "line_start": 74,
+      "section_id": "outcome",
+      "text": "## Outcome\n\n**APPROVED — HUMAN PROJECT STEWARD — 2026-09-07**",
+      "title": "Outcome"
+    }
+  ],
+  "source": {
+    "bytes": 3362,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 76,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/DECISION-0011-2026-09-07-ai-driven-forward-port-reconciliation-approval.md",
+    "sha256": "f9054ce33cd64fc0fdcac3a1d2225254e88e5b2c137b00487aad9278d0ecf4fe"
+  }
+}
