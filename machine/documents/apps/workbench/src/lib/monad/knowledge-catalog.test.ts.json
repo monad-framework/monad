@@ -1,0 +1,44 @@
+{
+  "content": "import { afterEach, expect, test } from \"bun:test\";\nimport { mkdir, mkdtemp, rm, writeFile } from \"node:fs/promises\";\nimport os from \"node:os\";\nimport path from \"node:path\";\n\nimport { readKnowledgeCatalogProjection } from \"./knowledge-catalog\";\n\nconst roots: string[] = [];\n\nafterEach(async () => {\n  await Promise.all(\n    roots.splice(0).map((root) => rm(root, { recursive: true, force: true })),\n  );\n});\n\ntest(\"ingests repository ADRs even when the EOS artifact registry has no ADR rows\", async () => {\n  const root = await mkdtemp(\n    path.join(os.tmpdir(), \"monad-workbench-knowledge-\"),\n  );\n  roots.push(root);\n\n  await mkdir(path.join(root, \"product\"), { recursive: true });\n  await mkdir(path.join(root, \".eos\"), { recursive: true });\n  await mkdir(path.join(root, \"architecture\", \"decisions\"), {\n    recursive: true,\n  });\n\n  await writeFile(\n    path.join(root, \"product\", \"product-requirements.md\"),\n    \"# Requirements\\n\",\n    \"utf8\",\n  );\n  await writeFile(\n    path.join(root, \".eos\", \"artifacts.tsv\"),\n    \"artifact_id\\tpath\\ttype\\tauthority\\n\",\n    \"utf8\",\n  );\n  await writeFile(\n    path.join(root, \".eos\", \"evidence.tsv\"),\n    \"id\\tpath\\ttarget\\texecution\\tvalidator\\tprofile\\tkind\\tstatus\\tresult\\tcreated\\tupdated\\n\",\n    \"utf8\",\n  );\n  await writeFile(\n    path.join(root, \"architecture\", \"decisions\", \"ADR-0004-safe-ingestion.md\"),\n    \"# ADR-0004 — Safe deterministic ingestion boundary\\n\",\n    \"utf8\",\n  );\n\n  const projection = await readKnowledgeCatalogProjection(root);\n\n  expect(projection.counts.adrs).toBe(1);\n  expect(projection.adrs[0]?.id).toBe(\"ADR-0004\");\n  expect(projection.adrs[0]?.title).toBe(\n    \"Safe deterministic ingestion boundary\",\n  );\n  expect(projection.adrs[0]?.path).toBe(\n    \"architecture/decisions/ADR-0004-safe-ingestion.md\",\n  );\n});\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fknowledge-catalog.test.ts",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0004"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript source for apps/workbench/src/lib/monad/knowledge-catalog.test.ts.",
+    "title": "Knowledge Catalog.Test"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0004"
+      ],
+      "level": 1,
+      "line_end": 59,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { afterEach, expect, test } from \"bun:test\";\nimport { mkdir, mkdtemp, rm, writeFile } from \"node:fs/promises\";\nimport os from \"node:os\";\nimport path from \"node:path\";\n\nimport { readKnowledgeCatalogProjection } from \"./knowledge-catalog\";\n\nconst roots: string[] = [];\n\nafterEach(async () => {\n  await Promise.all(\n    roots.splice(0).map((root) => rm(root, { recursive: true, force: true })),\n  );\n});\n\ntest(\"ingests repository ADRs even when the EOS artifact registry has no ADR rows\", async () => {\n  const root = await mkdtemp(\n    path.join(os.tmpdir(), \"monad-workbench-knowledge-\"),\n  );\n  roots.push(root);\n\n  await mkdir(path.join(root, \"product\"), { recursive: true });\n  await mkdir(path.join(root, \".eos\"), { recursive: true });\n  await mkdir(path.join(root, \"architecture\", \"decisions\"), {\n    recursive: true,\n  });\n\n  await writeFile(\n    path.join(root, \"product\", \"product-requirements.md\"),\n    \"# Requirements\\n\",\n    \"utf8\",\n  );\n  await writeFile(\n    path.join(root, \".eos\", \"artifacts.tsv\"),\n    \"artifact_id\\tpath\\ttype\\tauthority\\n\",\n    \"utf8\",\n  );\n  await writeFile(\n    path.join(root, \".eos\", \"evidence.tsv\"),\n    \"id\\tpath\\ttarget\\texecution\\tvalidator\\tprofile\\tkind\\tstatus\\tresult\\tcreated\\tupdated\\n\",\n    \"utf8\",\n  );\n  await writeFile(\n    path.join(root, \"architecture\", \"decisions\", \"ADR-0004-safe-ingestion.md\"),\n    \"# ADR-0004 — Safe deterministic ingestion boundary\\n\",\n    \"utf8\",\n  );\n\n  const projection = await readKnowledgeCatalogProjection(root);\n\n  expect(projection.counts.adrs).toBe(1);\n  expect(projection.adrs[0]?.id).toBe(\"ADR-0004\");\n  expect(projection.adrs[0]?.title).toBe(\n    \"Safe deterministic ingestion boundary\",\n  );\n  expect(projection.adrs[0]?.path).toBe(\n    \"architecture/decisions/ADR-0004-safe-ingestion.md\",\n  );\n});",
+      "title": "Knowledge Catalog.Test"
+    }
+  ],
+  "source": {
+    "bytes": 1796,
+    "canonical": true,
+    "language": "typescript",
+    "lines": 59,
+    "media_type": "text/vnd.trolltech.linguist",
+    "path": "apps/workbench/src/lib/monad/knowledge-catalog.test.ts",
+    "sha256": "b323105f41c4d18abe0e2eb3413997c4d227c2ada9d461f0434b6361f907f090"
+  }
+}

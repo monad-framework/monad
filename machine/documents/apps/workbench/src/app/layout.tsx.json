@@ -1,5 +1,5 @@
 {
-  "content": "import type { Metadata } from \"next\";\n\nimport \"./globals.css\";\n\nexport const metadata: Metadata = {\n  title: \"Monad Workbench\",\n  description:\n    \"Internal cognitive workbench for planning and developing Monad.\",\n};\n\nexport default function RootLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n  return (\n    <html lang=\"en\">\n      <body>{children}</body>\n    </html>\n  );\n}\n",
+  "content": "import type { Metadata } from \"next\";\n\nimport \"./globals.css\";\nimport \"./workbench-v0.css\";\n\nexport const metadata: Metadata = {\n  title: \"Monad Workbench\",\n  description:\n    \"Local-first read-only engineering workbench for governed Monad projections.\",\n};\n\nexport default function RootLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n  return (\n    <html lang=\"en\">\n      <body>{children}</body>\n    </html>\n  );\n}\n",
   "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Flayout.tsx",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 21,
+      "line_end": 22,
       "line_start": 1,
       "section_id": "content",
-      "text": "import type { Metadata } from \"next\";\n\nimport \"./globals.css\";\n\nexport const metadata: Metadata = {\n  title: \"Monad Workbench\",\n  description:\n    \"Internal cognitive workbench for planning and developing Monad.\",\n};\n\nexport default function RootLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n  return (\n    <html lang=\"en\">\n      <body>{children}</body>\n    </html>\n  );\n}",
+      "text": "import type { Metadata } from \"next\";\n\nimport \"./globals.css\";\nimport \"./workbench-v0.css\";\n\nexport const metadata: Metadata = {\n  title: \"Monad Workbench\",\n  description:\n    \"Local-first read-only engineering workbench for governed Monad projections.\",\n};\n\nexport default function RootLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n  return (\n    <html lang=\"en\">\n      <body>{children}</body>\n    </html>\n  );\n}",
       "title": "Layout"
     }
   ],
   "source": {
-    "bytes": 397,
+    "bytes": 438,
     "canonical": true,
     "language": "typescript-jsx",
-    "lines": 21,
+    "lines": 22,
     "media_type": "text/plain",
     "path": "apps/workbench/src/app/layout.tsx",
-    "sha256": "39e86333a8cd3dc67744a046edda1344bfdea9411d3281c462e69931c8262bb7"
+    "sha256": "ac950f8068a8e560810e10427c37f71332e88cedccc00b890a05f6a4e503fff1"
   }
 }

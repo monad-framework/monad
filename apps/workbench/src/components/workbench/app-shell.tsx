@@ -17,6 +17,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { RepositorySnapshot } from "@/lib/monad/model";
 
+import { CommandPalette } from "./command-palette";
 import { Inspector } from "./inspector";
 import { Navigator } from "./navigator";
 
@@ -34,41 +35,41 @@ type ContextMenuState = {
 type MenuName = "file" | "edit" | "view" | "navigate" | "help";
 
 const LEFT_PANEL_KEY = "monad-workbench:left-collapsed";
-
 const RIGHT_PANEL_KEY = "monad-workbench:right-collapsed";
+
+function routeLabel(pathname: string, focusId?: string): string {
+  if (pathname.startsWith("/focus/") && focusId) return focusId;
+  if (pathname.startsWith("/plan")) return "Plan";
+  if (pathname.startsWith("/execution")) return "Execution";
+  if (pathname.startsWith("/knowledge")) return "Knowledge";
+  if (pathname.startsWith("/control")) return "Control";
+  return "Now";
+}
 
 export function AppShell({ snapshot, children }: AppShellProps) {
   const router = useRouter();
   const pathname = usePathname();
-
   const [leftCollapsed, setLeftCollapsed] = useState(false);
-
   const [rightCollapsed, setRightCollapsed] = useState(false);
-
   const [activeMenu, setActiveMenu] = useState<MenuName | null>(null);
-
+  const [searchOpen, setSearchOpen] = useState(false);
   const [contextMenu, setContextMenu] = useState<ContextMenuState>({
     open: false,
     x: 0,
     y: 0,
   });
-
   const menuRef = useRef<HTMLDivElement>(null);
-
   const focus = snapshot.focus.object;
 
   useEffect(() => {
     setLeftCollapsed(window.localStorage.getItem(LEFT_PANEL_KEY) === "true");
-
     setRightCollapsed(window.localStorage.getItem(RIGHT_PANEL_KEY) === "true");
   }, []);
 
   const toggleLeft = useCallback(() => {
     setLeftCollapsed((current) => {
       const next = !current;
-
       window.localStorage.setItem(LEFT_PANEL_KEY, String(next));
-
       return next;
     });
   }, []);
@@ -76,35 +77,23 @@ export function AppShell({ snapshot, children }: AppShellProps) {
   const toggleRight = useCallback(() => {
     setRightCollapsed((current) => {
       const next = !current;
-
       window.localStorage.setItem(RIGHT_PANEL_KEY, String(next));
-
       return next;
     });
   }, []);
 
   const closeMenus = useCallback(() => {
     setActiveMenu(null);
-
-    setContextMenu((current) => ({
-      ...current,
-      open: false,
-    }));
+    setContextMenu((current) => ({ ...current, open: false }));
   }, []);
 
   const copyText = useCallback(async (value?: string) => {
-    if (!value) {
-      return;
-    }
-
+    if (!value) return;
     await navigator.clipboard.writeText(value);
   }, []);
 
   const openCurrentFocus = useCallback(() => {
-    if (!focus) {
-      return;
-    }
-
+    if (!focus) return;
     router.push(`/focus/${encodeURIComponent(focus.id)}`);
   }, [focus, router]);
 
@@ -114,36 +103,37 @@ export function AppShell({ snapshot, children }: AppShellProps) {
 
       const width = 238;
       const height = 290;
-
       const x = Math.max(
         8,
         Math.min(event.clientX, window.innerWidth - width - 8),
       );
-
       const y = Math.max(
         8,
         Math.min(event.clientY, window.innerHeight - height - 8),
       );
 
       setActiveMenu(null);
-
-      setContextMenu({
-        open: true,
-        x,
-        y,
-      });
+      setContextMenu({ open: true, x, y });
     },
     [],
   );
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
+      const command = event.metaKey || event.ctrlKey;
+
+      if (command && event.key.toLowerCase() === "k") {
+        event.preventDefault();
         closeMenus();
+        setSearchOpen(true);
         return;
       }
 
-      const command = event.metaKey || event.ctrlKey;
+      if (event.key === "Escape") {
+        closeMenus();
+        setSearchOpen(false);
+        return;
+      }
 
       if (command && !event.shiftKey && event.key.toLowerCase() === "b") {
         event.preventDefault();
@@ -159,32 +149,22 @@ export function AppShell({ snapshot, children }: AppShellProps) {
     function handlePointerDown(event: MouseEvent) {
       const target = event.target instanceof Element ? event.target : null;
 
-      if (target?.closest(".context-menu")) {
-        return;
-      }
-
-      if (menuRef.current?.contains(event.target as Node)) {
-        return;
-      }
+      if (target?.closest(".context-menu")) return;
+      if (target?.closest(".command-palette")) return;
+      if (menuRef.current?.contains(event.target as Node)) return;
 
       closeMenus();
     }
 
     window.addEventListener("keydown", handleKeyDown);
-
     window.addEventListener("mousedown", handlePointerDown);
-
     window.addEventListener("resize", closeMenus);
-
     window.addEventListener("scroll", closeMenus, true);
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-
       window.removeEventListener("mousedown", handlePointerDown);
-
       window.removeEventListener("resize", closeMenus);
-
       window.removeEventListener("scroll", closeMenus, true);
     };
   }, [closeMenus, toggleLeft, toggleRight]);
@@ -197,12 +177,7 @@ export function AppShell({ snapshot, children }: AppShellProps) {
     .filter(Boolean)
     .join(" ");
 
-  const activeTab =
-    pathname === "/plan"
-      ? "Plan"
-      : pathname.startsWith("/focus/") && focus
-        ? focus.id
-        : "Now";
+  const activeTab = routeLabel(pathname, focus?.id);
 
   return (
     <div
@@ -219,7 +194,6 @@ export function AppShell({ snapshot, children }: AppShellProps) {
               setActiveMenu((current) => (current === "file" ? null : "file"))
             }
           />
-
           <MenuButton
             active={activeMenu === "edit"}
             label="Edit"
@@ -227,7 +201,6 @@ export function AppShell({ snapshot, children }: AppShellProps) {
               setActiveMenu((current) => (current === "edit" ? null : "edit"))
             }
           />
-
           <MenuButton
             active={activeMenu === "view"}
             label="View"
@@ -235,7 +208,6 @@ export function AppShell({ snapshot, children }: AppShellProps) {
               setActiveMenu((current) => (current === "view" ? null : "view"))
             }
           />
-
           <MenuButton
             active={activeMenu === "navigate"}
             label="Navigate"
@@ -245,7 +217,6 @@ export function AppShell({ snapshot, children }: AppShellProps) {
               )
             }
           />
-
           <MenuButton
             active={activeMenu === "help"}
             label="Help"
@@ -265,9 +236,9 @@ export function AppShell({ snapshot, children }: AppShellProps) {
                 copyText(focus?.artifactPath ?? focus?.source)
               }
               onFocus={openCurrentFocus}
-              onNow={() => router.push("/")}
-              onPlan={() => router.push("/plan")}
+              onNavigate={(href) => router.push(href)}
               onRefresh={() => router.refresh()}
+              onSearch={() => setSearchOpen(true)}
               onToggleLeft={toggleLeft}
               onToggleRight={toggleRight}
               rightCollapsed={rightCollapsed}
@@ -289,7 +260,7 @@ export function AppShell({ snapshot, children }: AppShellProps) {
         <button
           aria-label="New tab"
           className="new-tab-button"
-          title="Tab support will be added later"
+          title="Persistent multi-tab workspaces are deferred beyond v0"
           type="button"
         >
           +
@@ -299,7 +270,6 @@ export function AppShell({ snapshot, children }: AppShellProps) {
       <header className="topbar">
         <div className="brand">
           <span className="brand-mark">M</span>
-
           <div className="brand-text">
             <strong>Monad</strong>
             <span>Workbench</span>
@@ -308,24 +278,28 @@ export function AppShell({ snapshot, children }: AppShellProps) {
 
         <div className="topbar-context">
           <span>Monad</span>
-
           <span className="context-separator">/</span>
-
           <strong>{activeTab}</strong>
-
           <span className="context-separator">/</span>
-
           <span>{snapshot.branch}</span>
         </div>
 
-        <button className="command-button" type="button">
+        <button
+          className="command-button"
+          onClick={() => setSearchOpen(true)}
+          type="button"
+        >
           Search
           <kbd>⌘K</kbd>
         </button>
       </header>
 
       <div className="workbench-body">
-        <Navigator collapsed={leftCollapsed} onToggle={toggleLeft} />
+        <Navigator
+          collapsed={leftCollapsed}
+          focusId={focus?.id}
+          onToggle={toggleLeft}
+        />
 
         {children}
 
@@ -338,9 +312,7 @@ export function AppShell({ snapshot, children }: AppShellProps) {
 
       <footer className="statusbar">
         <span>Monad Workbench v0</span>
-
         <span>{snapshot.branch}</span>
-
         <span>{snapshot.gitStatus.length} working-tree changes</span>
       </footer>
 
@@ -352,7 +324,7 @@ export function AppShell({ snapshot, children }: AppShellProps) {
           onCopyFocus={() => copyText(focus?.id)}
           onCopySource={() => copyText(focus?.artifactPath ?? focus?.source)}
           onFocus={openCurrentFocus}
-          onNow={() => router.push("/")}
+          onNavigate={(href) => router.push(href)}
           onRefresh={() => router.refresh()}
           onToggleLeft={toggleLeft}
           onToggleRight={toggleRight}
@@ -361,6 +333,8 @@ export function AppShell({ snapshot, children }: AppShellProps) {
           y={contextMenu.y}
         />
       ) : null}
+
+      <CommandPalette open={searchOpen} onClose={() => setSearchOpen(false)} />
     </div>
   );
 }
@@ -391,10 +365,10 @@ type ApplicationMenuProps = {
   leftCollapsed: boolean;
   rightCollapsed: boolean;
   onClose: () => void;
-  onNow: () => void;
-  onPlan: () => void;
+  onNavigate: (href: string) => void;
   onFocus: () => void;
   onRefresh: () => void;
+  onSearch: () => void;
   onCopyFocus: () => void;
   onCopySource: () => void;
   onToggleLeft: () => void;
@@ -405,14 +379,9 @@ function ApplicationMenu(props: ApplicationMenuProps) {
   const items =
     props.menu === "file"
       ? [
-          {
-            label: "Go to Now",
-            action: props.onNow,
-          },
-          {
-            label: "Refresh Workspace",
-            action: props.onRefresh,
-          },
+          { label: "Go to Now", action: () => props.onNavigate("/") },
+          { label: "Search Objects", action: props.onSearch },
+          { label: "Refresh Workspace", action: props.onRefresh },
         ]
       : props.menu === "edit"
         ? [
@@ -444,13 +413,19 @@ function ApplicationMenu(props: ApplicationMenuProps) {
             ]
           : props.menu === "navigate"
             ? [
+                { label: "Now", action: () => props.onNavigate("/") },
+                { label: "Plan", action: () => props.onNavigate("/plan") },
                 {
-                  label: "Now",
-                  action: props.onNow,
+                  label: "Execution",
+                  action: () => props.onNavigate("/execution"),
                 },
                 {
-                  label: "Plan",
-                  action: props.onPlan,
+                  label: "Knowledge",
+                  action: () => props.onNavigate("/knowledge"),
+                },
+                {
+                  label: "Control",
+                  action: () => props.onNavigate("/control"),
                 },
                 {
                   label: "Open Focus",
@@ -460,7 +435,8 @@ function ApplicationMenu(props: ApplicationMenuProps) {
               ]
             : [
                 {
-                  label: "Monad Workbench v0",
+                  label:
+                    "Monad Workbench v0 · read-only projection environment",
                   disabled: true,
                   action: () => {},
                 },
@@ -493,7 +469,7 @@ type ContextMenuProps = {
   leftCollapsed: boolean;
   rightCollapsed: boolean;
   onClose: () => void;
-  onNow: () => void;
+  onNavigate: (href: string) => void;
   onFocus: () => void;
   onRefresh: () => void;
   onCopyFocus: () => void;
@@ -509,7 +485,7 @@ function ContextMenu({
   leftCollapsed,
   rightCollapsed,
   onClose,
-  onNow,
+  onNavigate,
   onFocus,
   onRefresh,
   onCopyFocus,
@@ -527,10 +503,7 @@ function ContextMenu({
       className="context-menu"
       onContextMenu={(event) => event.preventDefault()}
       role="menu"
-      style={{
-        left: x,
-        top: y,
-      }}
+      style={{ left: x, top: y }}
     >
       <button
         disabled={!focusId}
@@ -542,7 +515,11 @@ function ContextMenu({
         Open in Focus
       </button>
 
-      <button onClick={() => run(onNow)} role="menuitem" type="button">
+      <button
+        onClick={() => run(() => onNavigate("/"))}
+        role="menuitem"
+        type="button"
+      >
         <RotateCcw size={14} />
         Back to Now
       </button>
@@ -577,7 +554,6 @@ function ContextMenu({
         ) : (
           <PanelLeftClose size={14} />
         )}
-
         {leftCollapsed ? "Show Navigator" : "Hide Navigator"}
       </button>
 
@@ -587,7 +563,6 @@ function ContextMenu({
         ) : (
           <PanelRightClose size={14} />
         )}
-
         {rightCollapsed ? "Show Inspector" : "Hide Inspector"}
       </button>
 

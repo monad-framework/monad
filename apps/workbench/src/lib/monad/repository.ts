@@ -21,7 +21,7 @@ async function exists(target: string): Promise<boolean> {
   }
 }
 
-async function findMonadRoot(start: string): Promise<string> {
+export async function findMonadRoot(start: string): Promise<string> {
   let current = path.resolve(start);
 
   while (true) {
@@ -136,7 +136,6 @@ export async function getRepositorySnapshot(
   focusId?: string,
 ): Promise<RepositorySnapshot> {
   const root = await findMonadRoot(process.cwd());
-
   const execution = await readCurrentExecutionContext(root);
 
   const [branch, rawStatus, version, sources, product, knowledge] =
@@ -156,6 +155,13 @@ export async function getRepositorySnapshot(
   });
 
   focus.document = await readFocusDocument(root, focus.object);
+
+  if (focus.object?.type === "work-packet") {
+    focus.knowledge =
+      focus.object.id === execution.workPacket?.id
+        ? knowledge
+        : await readCurrentKnowledgeContext(root, focus.object);
+  }
 
   return {
     rootPath: root,

@@ -2716,6 +2716,31 @@
       "type": "references"
     },
     {
+      "source": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fcontrol.test.ts",
+      "target": "identifier:R-001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fknowledge-catalog.test.ts",
+      "target": "identifier:ADR-0004",
+      "type": "declares"
+    },
+    {
+      "source": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fplan.test.ts",
+      "target": "identifier:EXP-0001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ftsv.test.ts",
+      "target": "identifier:WP-001",
+      "type": "declares"
+    },
+    {
+      "source": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ftsv.test.ts",
+      "target": "identifier:WP-002",
+      "type": "declares"
+    },
+    {
       "source": "doc:architecture%2Fdecisions%2FADR-0001-knowledge-engine-core.md",
       "target": "identifier:ADR-0001",
       "type": "declares"
@@ -12071,6 +12096,14 @@
       "type": "document"
     },
     {
+      "document_type": "continuous-integration",
+      "id": "doc:.github%2Fworkflows%2Fworkbench.yml",
+      "normative": false,
+      "source_path": ".github/workflows/workbench.yml",
+      "title": "Workbench",
+      "type": "document"
+    },
+    {
       "document_type": "repository-configuration",
       "id": "doc:.githubignore",
       "normative": true,
@@ -12195,7 +12228,7 @@
       "id": "doc:apps%2Fworkbench%2FREADME.md",
       "normative": false,
       "source_path": "apps/workbench/README.md",
-      "title": "Readme",
+      "title": "Monad Workbench",
       "type": "document"
     },
     {
@@ -12240,42 +12273,26 @@
     },
     {
       "document_type": "project-source",
-      "id": "doc:apps%2Fworkbench%2Fpublic%2Ffile.svg",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fapi%2Fsearch%2Froute.ts",
       "normative": false,
-      "source_path": "apps/workbench/public/file.svg",
-      "title": "File",
+      "source_path": "apps/workbench/src/app/api/search/route.ts",
+      "title": "Route",
       "type": "document"
     },
     {
       "document_type": "project-source",
-      "id": "doc:apps%2Fworkbench%2Fpublic%2Fglobe.svg",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fcontrol%2Fpage.tsx",
       "normative": false,
-      "source_path": "apps/workbench/public/globe.svg",
-      "title": "Globe",
+      "source_path": "apps/workbench/src/app/control/page.tsx",
+      "title": "Page",
       "type": "document"
     },
     {
       "document_type": "project-source",
-      "id": "doc:apps%2Fworkbench%2Fpublic%2Fnext.svg",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fexecution%2Fpage.tsx",
       "normative": false,
-      "source_path": "apps/workbench/public/next.svg",
-      "title": "Next",
-      "type": "document"
-    },
-    {
-      "document_type": "project-source",
-      "id": "doc:apps%2Fworkbench%2Fpublic%2Fvercel.svg",
-      "normative": false,
-      "source_path": "apps/workbench/public/vercel.svg",
-      "title": "Vercel",
-      "type": "document"
-    },
-    {
-      "document_type": "project-source",
-      "id": "doc:apps%2Fworkbench%2Fpublic%2Fwindow.svg",
-      "normative": false,
-      "source_path": "apps/workbench/public/window.svg",
-      "title": "Window",
+      "source_path": "apps/workbench/src/app/execution/page.tsx",
+      "title": "Page",
       "type": "document"
     },
     {
@@ -12292,6 +12309,14 @@
       "normative": false,
       "source_path": "apps/workbench/src/app/globals.css",
       "title": "Globals",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fknowledge%2Fpage.tsx",
+      "normative": false,
+      "source_path": "apps/workbench/src/app/knowledge/page.tsx",
+      "title": "Page",
       "type": "document"
     },
     {
@@ -12320,10 +12345,42 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fworkbench-v0.css",
+      "normative": false,
+      "source_path": "apps/workbench/src/app/workbench-v0.css",
+      "title": "Workbench V0",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:apps%2Fworkbench%2Fsrc%2Fcomponents%2Fworkbench%2Fapp-shell.tsx",
       "normative": false,
       "source_path": "apps/workbench/src/components/workbench/app-shell.tsx",
       "title": "App Shell",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Fcomponents%2Fworkbench%2Fcommand-palette.tsx",
+      "normative": false,
+      "source_path": "apps/workbench/src/components/workbench/command-palette.tsx",
+      "title": "Command Palette",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Fcomponents%2Fworkbench%2Fcontrol-workspace.tsx",
+      "normative": false,
+      "source_path": "apps/workbench/src/components/workbench/control-workspace.tsx",
+      "title": "Control Workspace",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Fcomponents%2Fworkbench%2Fexecution-workspace.tsx",
+      "normative": false,
+      "source_path": "apps/workbench/src/components/workbench/execution-workspace.tsx",
+      "title": "Execution Workspace",
       "type": "document"
     },
     {
@@ -12352,6 +12409,14 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Fcomponents%2Fworkbench%2Fknowledge-workspace.tsx",
+      "normative": false,
+      "source_path": "apps/workbench/src/components/workbench/knowledge-workspace.tsx",
+      "title": "Knowledge Workspace",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:apps%2Fworkbench%2Fsrc%2Fcomponents%2Fworkbench%2Fnavigator.tsx",
       "normative": false,
       "source_path": "apps/workbench/src/components/workbench/navigator.tsx",
@@ -12376,6 +12441,22 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fcontrol.test.ts",
+      "normative": false,
+      "source_path": "apps/workbench/src/lib/monad/control.test.ts",
+      "title": "Control.Test",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fcontrol.ts",
+      "normative": false,
+      "source_path": "apps/workbench/src/lib/monad/control.ts",
+      "title": "Control",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Feos.ts",
       "normative": false,
       "source_path": "apps/workbench/src/lib/monad/eos.ts",
@@ -12384,10 +12465,34 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fexecution.test.ts",
+      "normative": false,
+      "source_path": "apps/workbench/src/lib/monad/execution.test.ts",
+      "title": "Execution.Test",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fexecution.ts",
+      "normative": false,
+      "source_path": "apps/workbench/src/lib/monad/execution.ts",
+      "title": "Execution",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ffocus-blocks.ts",
       "normative": false,
       "source_path": "apps/workbench/src/lib/monad/focus-blocks.ts",
       "title": "Focus Blocks",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ffocus-document.test.ts",
+      "normative": false,
+      "source_path": "apps/workbench/src/lib/monad/focus-document.test.ts",
+      "title": "Focus Document.Test",
       "type": "document"
     },
     {
@@ -12408,6 +12513,22 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fknowledge-catalog.test.ts",
+      "normative": false,
+      "source_path": "apps/workbench/src/lib/monad/knowledge-catalog.test.ts",
+      "title": "Knowledge Catalog.Test",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fknowledge-catalog.ts",
+      "normative": false,
+      "source_path": "apps/workbench/src/lib/monad/knowledge-catalog.ts",
+      "title": "Knowledge Catalog",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fknowledge.ts",
       "normative": false,
       "source_path": "apps/workbench/src/lib/monad/knowledge.ts",
@@ -12420,6 +12541,22 @@
       "normative": false,
       "source_path": "apps/workbench/src/lib/monad/model.ts",
       "title": "Model",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fobject-index.ts",
+      "normative": false,
+      "source_path": "apps/workbench/src/lib/monad/object-index.ts",
+      "title": "Object Index",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fplan.test.ts",
+      "normative": false,
+      "source_path": "apps/workbench/src/lib/monad/plan.test.ts",
+      "title": "Plan.Test",
       "type": "document"
     },
     {
@@ -12440,10 +12577,26 @@
     },
     {
       "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Frepository.test.ts",
+      "normative": false,
+      "source_path": "apps/workbench/src/lib/monad/repository.test.ts",
+      "title": "Repository.Test",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
       "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Frepository.ts",
       "normative": false,
       "source_path": "apps/workbench/src/lib/monad/repository.ts",
       "title": "Repository",
+      "type": "document"
+    },
+    {
+      "document_type": "project-source",
+      "id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ftsv.test.ts",
+      "normative": false,
+      "source_path": "apps/workbench/src/lib/monad/tsv.test.ts",
+      "title": "Tsv.Test",
       "type": "document"
     },
     {
@@ -25874,8 +26027,18 @@
       "id": "identifier:WP-0004",
       "type": "identifier",
       "value": "WP-0004"
+    },
+    {
+      "id": "identifier:WP-001",
+      "type": "identifier",
+      "value": "WP-001"
+    },
+    {
+      "id": "identifier:WP-002",
+      "type": "identifier",
+      "value": "WP-002"
     }
   ],
   "schema_version": "1.0.0",
-  "source_tree_sha256": "ed398203457d416fa00cc957a5e779f9f80d4ab16fdc6ba0d386aeb4f250e56a"
+  "source_tree_sha256": "9360d660922723c68c6a8d5b8a4bd44804b01525b37c064b2d907d3b7a8760e4"
 }

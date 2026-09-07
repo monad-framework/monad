@@ -10,6 +10,10 @@ import type {
   MonadObject,
   MonadObjectType,
 } from "./model";
+import {
+  readWorkbenchObjectIndex,
+  type WorkbenchIndexItem,
+} from "./object-index";
 import { parseTsv } from "./tsv";
 
 type FocusInputs = {
@@ -50,62 +54,28 @@ function currentObjects(inputs: FocusInputs): MonadObject[] {
 }
 
 function objectTypeForId(id: string): MonadObjectType {
-  if (id.startsWith("PG-")) {
-    return "product-goal";
-  }
-
-  if (id.startsWith("INIT-")) {
-    return "initiative";
-  }
-
-  if (id.startsWith("EPIC-")) {
-    return "epic";
-  }
-
-  if (id.startsWith("F-")) {
-    return "feature";
-  }
-
-  if (id.startsWith("US-")) {
-    return "story";
-  }
-
-  if (id.startsWith("EN-")) {
-    return "enabler";
-  }
-
-  if (id.startsWith("PI-")) {
-    return "program-increment";
-  }
-
-  if (id.startsWith("WC-")) {
-    return "work-cycle";
-  }
-
-  if (id.startsWith("WP-")) {
-    return "work-packet";
-  }
-
-  if (id.startsWith("ADR-")) {
-    return "adr";
-  }
-
-  if (id.startsWith("CR-")) {
-    return "change-request";
-  }
-
-  if (id.startsWith("EVID-")) {
-    return "evidence";
-  }
-
-  if (id.startsWith("FR-") || id.startsWith("QR-")) {
-    return "requirement";
-  }
+  if (id.startsWith("PG-")) return "product-goal";
+  if (id.startsWith("INIT-")) return "initiative";
+  if (id.startsWith("EPIC-")) return "epic";
+  if (id.startsWith("F-")) return "feature";
+  if (id.startsWith("US-")) return "story";
+  if (id.startsWith("EN-")) return "enabler";
+  if (id.startsWith("PI-")) return "program-increment";
+  if (id.startsWith("WC-")) return "work-cycle";
+  if (id.startsWith("WP-")) return "work-packet";
+  if (id.startsWith("EXEC-")) return "execution";
+  if (id.startsWith("ADR-")) return "adr";
+  if (id.startsWith("CR-")) return "change-request";
+  if (id.startsWith("EVID-")) return "evidence";
+  if (id.startsWith("REV-")) return "review";
+  if (id.startsWith("RISK-")) return "risk";
+  if (id.startsWith("FR-") || id.startsWith("QR-")) return "requirement";
 
   if (
     id.startsWith("IFC-") ||
     id.startsWith("DATA-") ||
-    id.startsWith("TECH-")
+    id.startsWith("TECH-") ||
+    id.startsWith("SPEC-")
   ) {
     return "specification";
   }
@@ -130,7 +100,6 @@ function resolveRepositoryPath(
   relativePath: string,
 ): string | undefined {
   const repositoryRoot = path.resolve(root);
-
   const candidate = path.resolve(
     path.join(
       /* turbopackIgnore: true */
@@ -157,7 +126,6 @@ function titleFromMarkdown(markdown: string, id: string): string | undefined {
   }
 
   const escapedId = id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
   const withoutId = heading
     .replace(new RegExp(`^${escapedId}\\s*`), "")
     .replace(/^[—–:-]\s*/, "")
@@ -174,7 +142,6 @@ async function findAdrPath(
 
   try {
     const files = await readdir(directory);
-
     const match = files.find((file) => file.startsWith(`${id}-`));
 
     return match ? path.join("architecture", "decisions", match) : undefined;
@@ -227,16 +194,37 @@ async function resolvePath(
   return undefined;
 }
 
+function indexedObject(item: WorkbenchIndexItem): MonadObject {
+  return {
+    id: item.id,
+    type: item.type,
+    title: item.title,
+    description: item.description,
+    status: item.status,
+    authority: item.authority,
+    source: item.source,
+    artifactPath: item.artifactPath,
+    relationships: [],
+  };
+}
+
 async function resolveObject(
   root: string,
   id: string,
   inputs: FocusInputs,
   artifacts: Map<string, ArtifactRow>,
+  index: WorkbenchIndexItem[],
 ): Promise<MonadObject> {
   const current = currentObjects(inputs).find((object) => object.id === id);
 
   if (current) {
     return current;
+  }
+
+  const indexed = index.find((item) => item.id === id);
+
+  if (indexed) {
+    return indexedObject(indexed);
   }
 
   const knowledgeReference = [
@@ -271,38 +259,14 @@ async function resolveObject(
 }
 
 function classifyReference(id: string): KnowledgeReference["kind"] {
-  if (id.startsWith("ADR-")) {
-    return "adr";
-  }
-
-  if (id.startsWith("WP-")) {
-    return "work-packet";
-  }
-
-  if (id.startsWith("CR-")) {
-    return "change-request";
-  }
-
-  if (id.startsWith("FR-")) {
-    return "requirement";
-  }
-
-  if (id.startsWith("QR-")) {
-    return "quality-requirement";
-  }
-
-  if (id.startsWith("IFC-")) {
-    return "interface";
-  }
-
-  if (id.startsWith("DATA-")) {
-    return "data";
-  }
-
-  if (id.startsWith("TECH-")) {
-    return "technical";
-  }
-
+  if (id.startsWith("ADR-")) return "adr";
+  if (id.startsWith("WP-")) return "work-packet";
+  if (id.startsWith("CR-")) return "change-request";
+  if (id.startsWith("FR-")) return "requirement";
+  if (id.startsWith("QR-")) return "quality-requirement";
+  if (id.startsWith("IFC-")) return "interface";
+  if (id.startsWith("DATA-")) return "data";
+  if (id.startsWith("TECH-")) return "technical";
   return "other";
 }
 
@@ -343,7 +307,6 @@ async function readTraceContext(
     outgoing: rows
       .filter((row) => row.source_id === id)
       .map((row) => traceReference(row.target_id, row.edge_type, row, false)),
-
     incoming: rows
       .filter((row) => row.target_id === id)
       .map((row) => traceReference(row.source_id, row.edge_type, row, true)),
@@ -361,7 +324,6 @@ export async function readFocusContext(
     inputs.product.productGoal?.id;
 
   const requested = requestedId?.trim();
-
   const id = requested && SAFE_FOCUS_ID.test(requested) ? requested : defaultId;
 
   if (!id) {
@@ -371,12 +333,19 @@ export async function readFocusContext(
     };
   }
 
-  const artifacts = await readArtifactIndex(root);
-
-  const [object, trace] = await Promise.all([
-    resolveObject(root, id, inputs, artifacts),
+  const [artifacts, objectIndex, trace] = await Promise.all([
+    readArtifactIndex(root),
+    readWorkbenchObjectIndex(root),
     readTraceContext(root, id),
   ]);
+
+  const object = await resolveObject(
+    root,
+    id,
+    inputs,
+    artifacts,
+    objectIndex.items,
+  );
 
   return {
     requestedId: id,

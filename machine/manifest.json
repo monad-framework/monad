@@ -8855,6 +8855,19 @@
       "title": "Stabilization Generation"
     },
     {
+      "companion_path": "machine/documents/.github/workflows/workbench.yml.json",
+      "companion_sha256": "f7eaf4772c8a94a047d4cc93c16f078c16a345e3ceff7fef8776da351b16c30d",
+      "document_id": "doc:.github%2Fworkflows%2Fworkbench.yml",
+      "document_type": "continuous-integration",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": ".github/workflows/workbench.yml",
+      "source_sha256": "2a1bf61a0d3627a92a1ba1bbdf668daa08b7bb16a586fd23bca96a98d8bf38fd",
+      "title": "Workbench"
+    },
+    {
       "companion_path": "machine/documents/.githubignore.json",
       "companion_sha256": "41781f919612f4b108988f735d438d75e85772bf581e78e551a6ab265ab99347",
       "document_id": "doc:.githubignore",
@@ -9051,16 +9064,16 @@
     },
     {
       "companion_path": "machine/documents/apps/workbench/README.md.json",
-      "companion_sha256": "6383130a4494e66ae1d8e36e2d2739518054f3a3e028ce877e25f994f0b26265",
+      "companion_sha256": "dae00bbfceebf3e7fa2f7537201682c71ef7bbc19893ba7815c85924e9f73ce1",
       "document_id": "doc:apps%2Fworkbench%2FREADME.md",
       "document_type": "project-source",
       "identifier_count": 0,
       "normative": false,
       "relation_count": 0,
-      "section_count": 4,
+      "section_count": 11,
       "source_path": "apps/workbench/README.md",
-      "source_sha256": "60b55ff7df79af72590f9524208e46642bc32bdc175cdad41349681c0e2f958f",
-      "title": "Readme"
+      "source_sha256": "e020aa500073b5105506764c0815f6811bd33ff144d87f3449ec2125cc3b5cad",
+      "title": "Monad Workbench"
     },
     {
       "companion_path": "machine/documents/apps/workbench/biome.json.json",
@@ -9103,7 +9116,7 @@
     },
     {
       "companion_path": "machine/documents/apps/workbench/package.json.json",
-      "companion_sha256": "f65a4a2c1c14a1f4ebbb58b82b888a8df34f2a19167fa8b7e4bad84d585d97cd",
+      "companion_sha256": "3cc799fd8f30084fb16cb8da9d6d2686a877f5693f10276416f981ee1f36845a",
       "document_id": "doc:apps%2Fworkbench%2Fpackage.json",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -9111,7 +9124,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "apps/workbench/package.json",
-      "source_sha256": "a4b56762548939f60a4621b139ca404848c48d7d4593ba885f81e8787bfda28a",
+      "source_sha256": "96b178a286e39dfd10bbe2af4f0365c8f764352e11f79e3860402c1961daeabe",
       "title": "Package"
     },
     {
@@ -9128,69 +9141,43 @@
       "title": "Postcss.Config"
     },
     {
-      "companion_path": "machine/documents/apps/workbench/public/file.svg.json",
-      "companion_sha256": "94b0334ceb0a818d6426ff7b24c8e8148f927020b7df0d8c8bfa4d3d9b1adf5d",
-      "document_id": "doc:apps%2Fworkbench%2Fpublic%2Ffile.svg",
+      "companion_path": "machine/documents/apps/workbench/src/app/api/search/route.ts.json",
+      "companion_sha256": "a5f53f862a94f4dad0d18258ed592c000200588958108481a77af15d558c9f9a",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fapi%2Fsearch%2Froute.ts",
       "document_type": "project-source",
       "identifier_count": 0,
       "normative": false,
       "relation_count": 0,
       "section_count": 1,
-      "source_path": "apps/workbench/public/file.svg",
-      "source_sha256": "2b67812c325c199a02536cdbeea0c593a72f707d323b72ee3e08dbab06753bd4",
-      "title": "File"
+      "source_path": "apps/workbench/src/app/api/search/route.ts",
+      "source_sha256": "8503f26769d045e76eaf5e2fb5ebff6d084b8652ae5a3184b008aacb6ba8909f",
+      "title": "Route"
     },
     {
-      "companion_path": "machine/documents/apps/workbench/public/globe.svg.json",
-      "companion_sha256": "85e1644ebbb135fe9fa129f946c8bde9be765b30a73774f9b889d03b9b724572",
-      "document_id": "doc:apps%2Fworkbench%2Fpublic%2Fglobe.svg",
+      "companion_path": "machine/documents/apps/workbench/src/app/control/page.tsx.json",
+      "companion_sha256": "47be131c3a1c6c3fcc60b078fec77ef49a1cfd911f2dc6ad2a9010a484eb8275",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fcontrol%2Fpage.tsx",
       "document_type": "project-source",
       "identifier_count": 0,
       "normative": false,
       "relation_count": 0,
       "section_count": 1,
-      "source_path": "apps/workbench/public/globe.svg",
-      "source_sha256": "b614b9bf183925957661ac851498fe1d8029fd43a62fbfed86f9e2624a57e7cf",
-      "title": "Globe"
+      "source_path": "apps/workbench/src/app/control/page.tsx",
+      "source_sha256": "51e2d7f3dcab39e0fd924c69727be54bcef74396fd6d3311ebd9937ce039c7a6",
+      "title": "Page"
     },
     {
-      "companion_path": "machine/documents/apps/workbench/public/next.svg.json",
-      "companion_sha256": "8ae9f0e8dad0337a33117b5cf8822fddcf9366a17603f0f93efbd081e3429f5d",
-      "document_id": "doc:apps%2Fworkbench%2Fpublic%2Fnext.svg",
+      "companion_path": "machine/documents/apps/workbench/src/app/execution/page.tsx.json",
+      "companion_sha256": "d65ae77b367fa2c79dcb8124be1d2b54931aebeed1bbba34bb073c8d90824549",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fexecution%2Fpage.tsx",
       "document_type": "project-source",
       "identifier_count": 0,
       "normative": false,
       "relation_count": 0,
       "section_count": 1,
-      "source_path": "apps/workbench/public/next.svg",
-      "source_sha256": "55995dfad6ecb4945a1e856ddca03c5e16aa5bf13fd21b4df6a74ae79357bcfc",
-      "title": "Next"
-    },
-    {
-      "companion_path": "machine/documents/apps/workbench/public/vercel.svg.json",
-      "companion_sha256": "577e0e70a84604337aceff4adf7f55945180cd3c8bf9f32c2a139da08ca6a2d5",
-      "document_id": "doc:apps%2Fworkbench%2Fpublic%2Fvercel.svg",
-      "document_type": "project-source",
-      "identifier_count": 0,
-      "normative": false,
-      "relation_count": 0,
-      "section_count": 1,
-      "source_path": "apps/workbench/public/vercel.svg",
-      "source_sha256": "f081337b2fee635b455b63275406a3e7f39d6a014e25ad90dab5a67e62a12ac4",
-      "title": "Vercel"
-    },
-    {
-      "companion_path": "machine/documents/apps/workbench/public/window.svg.json",
-      "companion_sha256": "70c1736e9ea5d2299f171bf2f001e267bd405e62bd5f1b249e6a8b4295db922b",
-      "document_id": "doc:apps%2Fworkbench%2Fpublic%2Fwindow.svg",
-      "document_type": "project-source",
-      "identifier_count": 0,
-      "normative": false,
-      "relation_count": 0,
-      "section_count": 1,
-      "source_path": "apps/workbench/public/window.svg",
-      "source_sha256": "644768c4aaeb4767bce293344eeb0c125fb804a94d801440424072202d85e3a1",
-      "title": "Window"
+      "source_path": "apps/workbench/src/app/execution/page.tsx",
+      "source_sha256": "fab3b59d77a11f2f926157b0ec8b45a0be4f4dbe81f9e575d2f07219d9c53a8d",
+      "title": "Page"
     },
     {
       "companion_path": "machine/documents/apps/workbench/src/app/focus/[id]/page.tsx.json",
@@ -9219,8 +9206,21 @@
       "title": "Globals"
     },
     {
+      "companion_path": "machine/documents/apps/workbench/src/app/knowledge/page.tsx.json",
+      "companion_sha256": "7fa0e33cc2262896aea630cde490571ecf5698d26c61118d8cd87b841db29bb2",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fknowledge%2Fpage.tsx",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/app/knowledge/page.tsx",
+      "source_sha256": "2a058422ba7d8145d9bb2b22a12c9cf4818ef0feea794d8a9c302f427b6875ac",
+      "title": "Page"
+    },
+    {
       "companion_path": "machine/documents/apps/workbench/src/app/layout.tsx.json",
-      "companion_sha256": "f6776b25723d5a41a4f8ec8412a70ac38cd1f1b85222c5e20eb656270329c4d0",
+      "companion_sha256": "03173e8877d8661d05524d494232e8a876832c69741c9a900403445449c1bf50",
       "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Flayout.tsx",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -9228,7 +9228,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "apps/workbench/src/app/layout.tsx",
-      "source_sha256": "39e86333a8cd3dc67744a046edda1344bfdea9411d3281c462e69931c8262bb7",
+      "source_sha256": "ac950f8068a8e560810e10427c37f71332e88cedccc00b890a05f6a4e503fff1",
       "title": "Layout"
     },
     {
@@ -9258,8 +9258,21 @@
       "title": "Page"
     },
     {
+      "companion_path": "machine/documents/apps/workbench/src/app/workbench-v0.css.json",
+      "companion_sha256": "ff7d7e52fa8fae11e51f96f1a54e47fe7c5c7c8bff5f16f31b660affcd0ca792",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fworkbench-v0.css",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/app/workbench-v0.css",
+      "source_sha256": "2d31192c3339b2adc897e7290bffe18415d18b460dab638edce8da76d9ab3b14",
+      "title": "Workbench V0"
+    },
+    {
       "companion_path": "machine/documents/apps/workbench/src/components/workbench/app-shell.tsx.json",
-      "companion_sha256": "2c383fc327a428c8d8a7fed58d9e3ef3468fceaa604575d82f0c823f367ebf86",
+      "companion_sha256": "c1546136951d59f36ddbb9b0010a4f4f7e1a821e94b2f81c302053cf93d1c066",
       "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fcomponents%2Fworkbench%2Fapp-shell.tsx",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -9267,8 +9280,47 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "apps/workbench/src/components/workbench/app-shell.tsx",
-      "source_sha256": "cbb2e490c1af0587090cb2aef42861bc3cf20b1f455bfd4345b6e5f9cde84ca4",
+      "source_sha256": "24ebc235242acc274c82b36323dd31ebfcd34707dbe9f0f1d5f6b21bf84c34e2",
       "title": "App Shell"
+    },
+    {
+      "companion_path": "machine/documents/apps/workbench/src/components/workbench/command-palette.tsx.json",
+      "companion_sha256": "db11eec8395f0b91d2d59f976a33346c278ab394bb6169aaa69a6f9f67ef676c",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fcomponents%2Fworkbench%2Fcommand-palette.tsx",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/components/workbench/command-palette.tsx",
+      "source_sha256": "11d94618fbfd5f43c8f5f3b8b3b19cf9331d0bf899a9b571786d67f129241ee2",
+      "title": "Command Palette"
+    },
+    {
+      "companion_path": "machine/documents/apps/workbench/src/components/workbench/control-workspace.tsx.json",
+      "companion_sha256": "2bad8fcf869a877c63d5a94afecf49e26679d63d80e4fb95373c8dfe3bd49a9a",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fcomponents%2Fworkbench%2Fcontrol-workspace.tsx",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/components/workbench/control-workspace.tsx",
+      "source_sha256": "b50cda5b1a2ebcce189ad87cb80e7d19742d165ec2ade7b705bc1fb2cd6c1215",
+      "title": "Control Workspace"
+    },
+    {
+      "companion_path": "machine/documents/apps/workbench/src/components/workbench/execution-workspace.tsx.json",
+      "companion_sha256": "6dd6a03e9c971fdb48aea4d275809ff3b8a6ee88e36e847b0474f5a01a61d0b9",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fcomponents%2Fworkbench%2Fexecution-workspace.tsx",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/components/workbench/execution-workspace.tsx",
+      "source_sha256": "7db673248a318a9c316b0696bef0ee1c7cbfdc0582f385d6e99d616ab7459e09",
+      "title": "Execution Workspace"
     },
     {
       "companion_path": "machine/documents/apps/workbench/src/components/workbench/focus-workspace.tsx.json",
@@ -9310,8 +9362,21 @@
       "title": "Knowledge Context"
     },
     {
+      "companion_path": "machine/documents/apps/workbench/src/components/workbench/knowledge-workspace.tsx.json",
+      "companion_sha256": "087623c5d47e90e25d520dd8316a7086d1549d45ea17e6ac8d1062ceee787d63",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fcomponents%2Fworkbench%2Fknowledge-workspace.tsx",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/components/workbench/knowledge-workspace.tsx",
+      "source_sha256": "c0c30eef8f1c4c1d66546b9980549dfbb94f7dfb86f2818345c481da9b503cc0",
+      "title": "Knowledge Workspace"
+    },
+    {
       "companion_path": "machine/documents/apps/workbench/src/components/workbench/navigator.tsx.json",
-      "companion_sha256": "f40183667b9c52abdcd5f6ee3151e66b0c6009be8cd3ad29d5590128b68c69d2",
+      "companion_sha256": "389537026596561a3f6bd036a1def08b4bdc396f78443de24eb6f19193aeacf0",
       "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fcomponents%2Fworkbench%2Fnavigator.tsx",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -9319,7 +9384,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "apps/workbench/src/components/workbench/navigator.tsx",
-      "source_sha256": "cddd7095a3f6fec0b2b1720e8fbd09f6b0b86a9ffa734806c56ac13d6a5bdbca",
+      "source_sha256": "cd569255ea314336d9d17fd3cc2280371c61774812755cfa78d24fd1c0add155",
       "title": "Navigator"
     },
     {
@@ -9349,6 +9414,32 @@
       "title": "Workspace"
     },
     {
+      "companion_path": "machine/documents/apps/workbench/src/lib/monad/control.test.ts.json",
+      "companion_sha256": "126d2534d277a15143f447ecbb8f7c7e9e58336ef9af5a0bc6ad778ee4ddd9f3",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fcontrol.test.ts",
+      "document_type": "project-source",
+      "identifier_count": 1,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/lib/monad/control.test.ts",
+      "source_sha256": "26082c68b6f9927d8fa85dc8ab6f025fb356f97c7ca1b51df43742835916a935",
+      "title": "Control.Test"
+    },
+    {
+      "companion_path": "machine/documents/apps/workbench/src/lib/monad/control.ts.json",
+      "companion_sha256": "c75f1f71e4baf9ebcd5b7c65b9d946f35590168e0965359599e313be7177e571",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fcontrol.ts",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/lib/monad/control.ts",
+      "source_sha256": "a4ad5974ca096e5ba9d9dc036af6dead2b1812bb81266b53b9e240f8d75f31f1",
+      "title": "Control"
+    },
+    {
       "companion_path": "machine/documents/apps/workbench/src/lib/monad/eos.ts.json",
       "companion_sha256": "8a367cf2cc45f89572a74bb83c0718c3e14470253e0ab8724e585a472cb82ef5",
       "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Feos.ts",
@@ -9362,8 +9453,34 @@
       "title": "Eos"
     },
     {
+      "companion_path": "machine/documents/apps/workbench/src/lib/monad/execution.test.ts.json",
+      "companion_sha256": "1754d2374e7ba3af757d22c97c98445714a3ae4a6b2dd4c2650a3b9b34a441da",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fexecution.test.ts",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/lib/monad/execution.test.ts",
+      "source_sha256": "1404a7e25f192eef603706aff33b27a6111fee2adbbd351972023ca4fdaa502a",
+      "title": "Execution.Test"
+    },
+    {
+      "companion_path": "machine/documents/apps/workbench/src/lib/monad/execution.ts.json",
+      "companion_sha256": "fdf117300a433e9848d070345e4615315b5749953e1792da82274716edea93df",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fexecution.ts",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/lib/monad/execution.ts",
+      "source_sha256": "28ca83edfb3fd838c7b9629a1ba131fd668776651eb07ecf279f03c1f2081321",
+      "title": "Execution"
+    },
+    {
       "companion_path": "machine/documents/apps/workbench/src/lib/monad/focus-blocks.ts.json",
-      "companion_sha256": "bf6c444d0d169fa790aae13a82da0c04d191a0bc0d65129a8ef1d942ac444e66",
+      "companion_sha256": "db0e0ed83262080ae966cd34798303fc9635b86400d6f948905f63280d81217d",
       "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ffocus-blocks.ts",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -9371,8 +9488,21 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "apps/workbench/src/lib/monad/focus-blocks.ts",
-      "source_sha256": "3efcc082754fc3a4e6be002666f2d32778df5dad17f8be29a937d2d65b64dd2d",
+      "source_sha256": "22664774c2745a00296f704161378df5cd95ce99e07c39e787282c10f7849898",
       "title": "Focus Blocks"
+    },
+    {
+      "companion_path": "machine/documents/apps/workbench/src/lib/monad/focus-document.test.ts.json",
+      "companion_sha256": "db1e656b5ed5df696ef7fae4cea0817841db54fa1318c9b42fabf03642f9dfe6",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ffocus-document.test.ts",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/lib/monad/focus-document.test.ts",
+      "source_sha256": "332ccff56e6e9359c31aa80b1b6452c9c3cc063fa2a6a19bc7a1da7c5726096b",
+      "title": "Focus Document.Test"
     },
     {
       "companion_path": "machine/documents/apps/workbench/src/lib/monad/focus-document.ts.json",
@@ -9389,7 +9519,7 @@
     },
     {
       "companion_path": "machine/documents/apps/workbench/src/lib/monad/focus.ts.json",
-      "companion_sha256": "3d811f1bdebaa830f1e99888dd97cfed382144a79fd3cf7acf43ac666c489fe5",
+      "companion_sha256": "d7477ac6782a109963f0161daf6d26e6a01fcd9f0ee882d5ccef2744823ee407",
       "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ffocus.ts",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -9397,8 +9527,34 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "apps/workbench/src/lib/monad/focus.ts",
-      "source_sha256": "80784ad3e43120565025315cafcc60acf6c91426e059980fcdc5ddd1ec3e65b7",
+      "source_sha256": "f115597547b9e9be172680c184a8fb2ef3b7851bfaf6596d02ab7da8054f7fd5",
       "title": "Focus"
+    },
+    {
+      "companion_path": "machine/documents/apps/workbench/src/lib/monad/knowledge-catalog.test.ts.json",
+      "companion_sha256": "ca22fe6dff9cb8c8685c7dff19d3993b176ce1488b985a1c2bafa99532dc405e",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fknowledge-catalog.test.ts",
+      "document_type": "project-source",
+      "identifier_count": 1,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/lib/monad/knowledge-catalog.test.ts",
+      "source_sha256": "b323105f41c4d18abe0e2eb3413997c4d227c2ada9d461f0434b6361f907f090",
+      "title": "Knowledge Catalog.Test"
+    },
+    {
+      "companion_path": "machine/documents/apps/workbench/src/lib/monad/knowledge-catalog.ts.json",
+      "companion_sha256": "c452f0509daaa8d8008616b1dca46d14491d1599f4dcecb9e0142c556396de48",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fknowledge-catalog.ts",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/lib/monad/knowledge-catalog.ts",
+      "source_sha256": "68350e96303230189a01dd5cb58b5946221c30ac7ddf1b2537f53fb31c2e8a64",
+      "title": "Knowledge Catalog"
     },
     {
       "companion_path": "machine/documents/apps/workbench/src/lib/monad/knowledge.ts.json",
@@ -9415,7 +9571,7 @@
     },
     {
       "companion_path": "machine/documents/apps/workbench/src/lib/monad/model.ts.json",
-      "companion_sha256": "c93681d1d714abd36da93ce1fb452c5aeeb40f51aef95b15a8ef8b16840a65f3",
+      "companion_sha256": "90ac0c4e5c6f8a27ad961e28147afc38823309694124715f81365d0a03008c3f",
       "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fmodel.ts",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -9423,8 +9579,34 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "apps/workbench/src/lib/monad/model.ts",
-      "source_sha256": "8847e060cabfccce25c31d1ebba25873764f9a57ed10bbefcef6421b2c39d624",
+      "source_sha256": "20772f5f7765ddbe8df3a3a987896877b25f7ecd5149db0e14a1190b2a84d0b0",
       "title": "Model"
+    },
+    {
+      "companion_path": "machine/documents/apps/workbench/src/lib/monad/object-index.ts.json",
+      "companion_sha256": "6a50c0e0a6a2d6bdd9cd816d0a773939be257fc54df59dc6904d6f5c4b1f5062",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fobject-index.ts",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/lib/monad/object-index.ts",
+      "source_sha256": "3062143a91040892f7f3647b7d3a81a83e1abfee57c1644540b93ecf56a9e165",
+      "title": "Object Index"
+    },
+    {
+      "companion_path": "machine/documents/apps/workbench/src/lib/monad/plan.test.ts.json",
+      "companion_sha256": "3019389d5faeed9f29b7b8a97e7fcf0da14107be6c6a077a1bcdd4710a055f73",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Fplan.test.ts",
+      "document_type": "project-source",
+      "identifier_count": 1,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/lib/monad/plan.test.ts",
+      "source_sha256": "c9269afe6df653f3a01ce086c789b390a304e9cbb9749c517dd6dce47285f1d2",
+      "title": "Plan.Test"
     },
     {
       "companion_path": "machine/documents/apps/workbench/src/lib/monad/plan.ts.json",
@@ -9453,8 +9635,21 @@
       "title": "Planning"
     },
     {
+      "companion_path": "machine/documents/apps/workbench/src/lib/monad/repository.test.ts.json",
+      "companion_sha256": "a0e563289945052ecccca630358532bce8baa35b89c5c6267b7bc42bb1d31cd0",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Frepository.test.ts",
+      "document_type": "project-source",
+      "identifier_count": 0,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/lib/monad/repository.test.ts",
+      "source_sha256": "3a00505f77121f0ec07b5f779f455918fdea3f8366087ff0fc44fe601a69c3ef",
+      "title": "Repository.Test"
+    },
+    {
       "companion_path": "machine/documents/apps/workbench/src/lib/monad/repository.ts.json",
-      "companion_sha256": "d36c4576c4e38ee2649c600a5cfd483a93c5889e80b15a9600c11367797856bd",
+      "companion_sha256": "df555fc5c095e827ffdf5c6ac3f8ca23d37e93f0ba31b48996c71df46cad75d6",
       "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Frepository.ts",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -9462,8 +9657,21 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "apps/workbench/src/lib/monad/repository.ts",
-      "source_sha256": "6310da28442374bf274b21b11e2f14d0fe9277c8c3838d44b62ed59785186787",
+      "source_sha256": "1dbd303127cdb48a94d48f89fdfcc3b2317d6bf9b56f92a8deabbdafed49567d",
       "title": "Repository"
+    },
+    {
+      "companion_path": "machine/documents/apps/workbench/src/lib/monad/tsv.test.ts.json",
+      "companion_sha256": "bc6d32edf1efee50a3c574063d4d26cd7a274935a52f34f00fc39b9ca8f029af",
+      "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ftsv.test.ts",
+      "document_type": "project-source",
+      "identifier_count": 2,
+      "normative": false,
+      "relation_count": 0,
+      "section_count": 1,
+      "source_path": "apps/workbench/src/lib/monad/tsv.test.ts",
+      "source_sha256": "6aaf01c43dfdf12d6170f2ebcfcb1f23d4277a64f2e854fd5f3677bac2032bc7",
+      "title": "Tsv.Test"
     },
     {
       "companion_path": "machine/documents/apps/workbench/src/lib/monad/tsv.ts.json",
@@ -9480,7 +9688,7 @@
     },
     {
       "companion_path": "machine/documents/apps/workbench/tsconfig.json.json",
-      "companion_sha256": "00095ff93affa51cd92292252ed265257ee88bb65194ba18f72ea364fcf95324",
+      "companion_sha256": "14712c2a87c3b689e1780d8bd72c941ec4d7a4a457763942a3f3e835e75c3a9b",
       "document_id": "doc:apps%2Fworkbench%2Ftsconfig.json",
       "document_type": "project-source",
       "identifier_count": 0,
@@ -9488,7 +9696,7 @@
       "relation_count": 0,
       "section_count": 1,
       "source_path": "apps/workbench/tsconfig.json",
-      "source_sha256": "5c51df4c59f4510d8c7dadf07a5c32132228826a3b331da5e286207b4df7ef9c",
+      "source_sha256": "7da5d316e67e4007332627a41945dbf9f6ea0848205a717f1ac6d6d57d321c1f",
       "title": "Tsconfig"
     },
     {
@@ -19802,15 +20010,15 @@
     },
     {
       "companion_path": "machine/documents/docs/implementation/workbench-v0.md.json",
-      "companion_sha256": "f89e52c436a502dd52dd21830a1b9edc69a6d1c56d703b3f7e97fb88d94e0edb",
+      "companion_sha256": "bb20d195e9daadda1a478f8dab0fd3acd767c9792d75d566d222b8c09db07b83",
       "document_id": "doc:docs%2Fimplementation%2Fworkbench-v0.md",
       "document_type": "published-documentation",
       "identifier_count": 0,
       "normative": false,
       "relation_count": 0,
-      "section_count": 46,
+      "section_count": 38,
       "source_path": "docs/implementation/workbench-v0.md",
-      "source_sha256": "71c9224524d78285c18aa881c4f068f501211c81285a91cf028d52a4efb47903",
+      "source_sha256": "8eef938d345f341e7fff969bc5699a3ca62e24cbb1a550702030007c589181a4",
       "title": "Monad Workbench v0"
     },
     {
@@ -29142,7 +29350,7 @@
   },
   "schema": "machine/schemas/manifest.schema.json",
   "schema_version": "1.0.0",
-  "source_count": 2241,
+  "source_count": 2257,
   "source_root": ".",
-  "source_tree_sha256": "ed398203457d416fa00cc957a5e779f9f80d4ab16fdc6ba0d386aeb4f250e56a"
+  "source_tree_sha256": "9360d660922723c68c6a8d5b8a4bd44804b01525b37c064b2d907d3b7a8760e4"
 }

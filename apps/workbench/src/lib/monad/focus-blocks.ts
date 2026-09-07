@@ -130,97 +130,85 @@ function eyebrowForKind(kind: FocusProjectionBlockKind): string {
   switch (kind) {
     case "summary":
       return "Purpose";
-
     case "context":
       return "Context";
-
     case "decision":
       return "Decision";
-
     case "consequences":
       return "Impact";
-
     case "authority":
       return "Governance";
-
     case "dependencies":
       return "Prerequisites";
-
     case "acceptance":
       return "Acceptance";
-
     case "lifecycle":
       return "State";
-
     case "execution":
       return "Evidence";
-
     case "validation":
       return "Verification";
-
     case "implementation":
       return "Implementation";
-
     default:
       return "Artifact block";
   }
 }
 
-function isCurrentWorkPacket(snapshot: RepositorySnapshot): boolean {
-  const focus = snapshot.focus.object;
-
-  const current = snapshot.execution.workPacket;
-
-  return Boolean(focus && current && focus.id === current.id);
+function isWorkPacket(snapshot: RepositorySnapshot): boolean {
+  return snapshot.focus.object?.type === "work-packet";
 }
 
-function buildCurrentWorkPacketBlocks(
+function buildWorkPacketBlocks(
   snapshot: RepositorySnapshot,
 ): FocusProjectionBlock[] {
   const blocks: FocusProjectionBlock[] = [];
-
   const document = snapshot.focus.document;
-
+  const knowledge = snapshot.focus.knowledge ?? snapshot.knowledge;
   const sections = sectionMap(document);
-
   const objective = sections.get("objective");
 
-  if (objective?.body || document?.introduction) {
+  if (
+    objective?.body ||
+    document?.introduction ||
+    snapshot.focus.object?.description
+  ) {
     blocks.push({
       id: "summary",
       kind: "summary",
       eyebrow: "Purpose",
       title: "Objective",
-      body: objective?.body ?? document?.introduction,
+      body:
+        objective?.body ??
+        document?.introduction ??
+        snapshot.focus.object?.description,
     });
   }
 
-  if (snapshot.knowledge.governing.length > 0) {
+  if (knowledge.governing.length > 0) {
     blocks.push({
       id: "governing-authority",
       kind: "authority",
       eyebrow: "Governance",
       title: "Governing authority",
-      references: snapshot.knowledge.governing,
+      references: knowledge.governing,
     });
   }
 
-  if (snapshot.knowledge.dependencies.length > 0) {
+  if (knowledge.dependencies.length > 0) {
     blocks.push({
       id: "dependencies",
       kind: "dependencies",
       eyebrow: "Prerequisites",
       title: "Dependencies",
-      references: snapshot.knowledge.dependencies,
+      references: knowledge.dependencies,
     });
   }
 
-  const acceptanceFromModel = snapshot.knowledge.acceptanceCriteria;
-
+  const acceptanceFromModel = knowledge.acceptanceCriteria;
   const acceptanceFromDocument = parseChecklist(
     sections.get("acceptance criteria")?.body,
   );
-
   const acceptance =
     acceptanceFromModel.length > 0
       ? acceptanceFromModel
@@ -237,13 +225,10 @@ function buildCurrentWorkPacketBlocks(
   }
 
   const canonicalStatus = snapshot.focus.object?.status;
-
   const documentStatus = findMetadata(document, "Status");
-
   const authorizationDisposition = sections.get(
     "authorization disposition",
   )?.body;
-
   const lifecycleFields: FocusProjectionField[] = [];
 
   if (canonicalStatus) {
@@ -262,7 +247,7 @@ function buildCurrentWorkPacketBlocks(
 
   lifecycleFields.push({
     label: "Lifecycle authority",
-    value: ".eos/state/current.json",
+    value: ".eos/state/current.json / .eos/work-packets.tsv",
   });
 
   let lifecycleBody: string | undefined;
@@ -270,7 +255,7 @@ function buildCurrentWorkPacketBlocks(
   if (canonicalStatus && documentStatus && canonicalStatus !== documentStatus) {
     lifecycleBody = [
       "Canonical EOS state and artifact metadata do not currently match.",
-      "Workbench treats canonical EOS current state as authoritative for lifecycle projection.",
+      "Workbench treats canonical EOS lifecycle state as authoritative for lifecycle projection.",
       authorizationDisposition,
     ]
       .filter(Boolean)
@@ -279,7 +264,7 @@ function buildCurrentWorkPacketBlocks(
     lifecycleBody = authorizationDisposition;
   } else if (canonicalStatus) {
     lifecycleBody =
-      "Canonical EOS lifecycle state and the current focus projection are aligned.";
+      "Canonical EOS lifecycle state and artifact metadata are aligned.";
   }
 
   if (lifecycleFields.length > 0 || lifecycleBody) {
@@ -293,9 +278,8 @@ function buildCurrentWorkPacketBlocks(
     });
   }
 
-  const executionCount = snapshot.knowledge.executions.length;
-
-  const evidenceCount = snapshot.knowledge.evidence.length;
+  const executionCount = knowledge.executions.length;
+  const evidenceCount = knowledge.evidence.length;
 
   blocks.push({
     id: "execution-evidence",
@@ -307,14 +291,8 @@ function buildCurrentWorkPacketBlocks(
         ? "No execution or verification evidence is currently registered for this Work Packet."
         : undefined,
     fields: [
-      {
-        label: "Executions",
-        value: String(executionCount),
-      },
-      {
-        label: "Evidence records",
-        value: String(evidenceCount),
-      },
+      { label: "Executions", value: String(executionCount) },
+      { label: "Evidence records", value: String(evidenceCount) },
     ],
   });
 
@@ -351,22 +329,21 @@ function buildGenericFocusBlocks(
   snapshot: RepositorySnapshot,
 ): FocusProjectionBlock[] {
   const document = snapshot.focus.document;
-
   const blocks: FocusProjectionBlock[] = [];
+  const summary = document?.introduction ?? snapshot.focus.object?.description;
 
-  if (document?.introduction) {
+  if (summary) {
     blocks.push({
       id: "summary",
       kind: "summary",
       eyebrow: "Purpose",
       title: "Summary",
-      body: document.introduction,
+      body: summary,
     });
   }
 
   for (const section of document?.sections ?? []) {
     const kind = classifyDocumentSection(section);
-
     const criteria =
       normalizeHeading(section.title) === "acceptance criteria"
         ? parseChecklist(section.body)
@@ -380,7 +357,6 @@ function buildGenericFocusBlocks(
         title: section.title,
         criteria,
       });
-
       continue;
     }
 
@@ -393,14 +369,31 @@ function buildGenericFocusBlocks(
     });
   }
 
+  if (blocks.length === 0 && snapshot.focus.object?.status) {
+    blocks.push({
+      id: "state",
+      kind: "lifecycle",
+      eyebrow: "State",
+      title: "Current state",
+      fields: [
+        { label: "Lifecycle", value: snapshot.focus.object.status },
+        {
+          label: "Authority",
+          value: snapshot.focus.object.authority ?? "—",
+        },
+        { label: "Source", value: snapshot.focus.object.source },
+      ],
+    });
+  }
+
   return blocks;
 }
 
 export function buildFocusProjectionBlocks(
   snapshot: RepositorySnapshot,
 ): FocusProjectionBlock[] {
-  if (isCurrentWorkPacket(snapshot)) {
-    return buildCurrentWorkPacketBlocks(snapshot);
+  if (isWorkPacket(snapshot)) {
+    return buildWorkPacketBlocks(snapshot);
   }
 
   return buildGenericFocusBlocks(snapshot);

@@ -1,0 +1,40 @@
+{
+  "content": "import { connection } from \"next/server\";\n\nimport { AppShell } from \"@/components/workbench/app-shell\";\nimport { ControlWorkspace } from \"@/components/workbench/control-workspace\";\nimport { readControlProjection } from \"@/lib/monad/control\";\nimport { getRepositorySnapshot } from \"@/lib/monad/repository\";\n\nexport default async function ControlPage() {\n  await connection();\n\n  const snapshot = await getRepositorySnapshot();\n  const control = await readControlProjection(snapshot.rootPath);\n\n  return (\n    <AppShell snapshot={snapshot}>\n      <ControlWorkspace control={control} snapshot={snapshot} />\n    </AppShell>\n  );\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fcontrol%2Fpage.tsx",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript-jsx source for apps/workbench/src/app/control/page.tsx.",
+    "title": "Page"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 19,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { connection } from \"next/server\";\n\nimport { AppShell } from \"@/components/workbench/app-shell\";\nimport { ControlWorkspace } from \"@/components/workbench/control-workspace\";\nimport { readControlProjection } from \"@/lib/monad/control\";\nimport { getRepositorySnapshot } from \"@/lib/monad/repository\";\n\nexport default async function ControlPage() {\n  await connection();\n\n  const snapshot = await getRepositorySnapshot();\n  const control = await readControlProjection(snapshot.rootPath);\n\n  return (\n    <AppShell snapshot={snapshot}>\n      <ControlWorkspace control={control} snapshot={snapshot} />\n    </AppShell>\n  );\n}",
+      "title": "Page"
+    }
+  ],
+  "source": {
+    "bytes": 627,
+    "canonical": true,
+    "language": "typescript-jsx",
+    "lines": 19,
+    "media_type": "text/plain",
+    "path": "apps/workbench/src/app/control/page.tsx",
+    "sha256": "51e2d7f3dcab39e0fd924c69727be54bcef74396fd6d3311ebd9937ce039c7a6"
+  }
+}

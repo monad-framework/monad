@@ -1,0 +1,40 @@
+{
+  "content": "import { afterEach, describe, expect, test } from \"bun:test\";\nimport { mkdir, mkdtemp, rm, writeFile } from \"node:fs/promises\";\nimport os from \"node:os\";\nimport path from \"node:path\";\n\nimport { findMonadRoot } from \"./repository\";\n\nconst roots: string[] = [];\n\nasync function fixtureRoot(): Promise<string> {\n  const root = await mkdtemp(path.join(os.tmpdir(), \"monad-workbench-root-\"));\n  roots.push(root);\n  await writeFile(\n    path.join(root, \"monad.toml\"),\n    '[workspace]\\nname = \"fixture\"\\n',\n    \"utf8\",\n  );\n  return root;\n}\n\nafterEach(async () => {\n  await Promise.all(\n    roots.splice(0).map((root) => rm(root, { recursive: true, force: true })),\n  );\n});\n\ndescribe(\"findMonadRoot\", () => {\n  test(\"walks upward from apps/workbench to the repository manifest\", async () => {\n    const root = await fixtureRoot();\n    const nested = path.join(root, \"apps\", \"workbench\", \"src\", \"app\");\n    await mkdir(nested, { recursive: true });\n\n    await expect(findMonadRoot(nested)).resolves.toBe(root);\n  });\n\n  test(\"fails explicitly when no Monad manifest is reachable\", async () => {\n    const root = await mkdtemp(path.join(os.tmpdir(), \"not-monad-\"));\n    roots.push(root);\n\n    await expect(findMonadRoot(root)).rejects.toThrow(\n      \"Unable to locate Monad repository root\",\n    );\n  });\n});\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Frepository.test.ts",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript source for apps/workbench/src/lib/monad/repository.test.ts.",
+    "title": "Repository.Test"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 44,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { afterEach, describe, expect, test } from \"bun:test\";\nimport { mkdir, mkdtemp, rm, writeFile } from \"node:fs/promises\";\nimport os from \"node:os\";\nimport path from \"node:path\";\n\nimport { findMonadRoot } from \"./repository\";\n\nconst roots: string[] = [];\n\nasync function fixtureRoot(): Promise<string> {\n  const root = await mkdtemp(path.join(os.tmpdir(), \"monad-workbench-root-\"));\n  roots.push(root);\n  await writeFile(\n    path.join(root, \"monad.toml\"),\n    '[workspace]\\nname = \"fixture\"\\n',\n    \"utf8\",\n  );\n  return root;\n}\n\nafterEach(async () => {\n  await Promise.all(\n    roots.splice(0).map((root) => rm(root, { recursive: true, force: true })),\n  );\n});\n\ndescribe(\"findMonadRoot\", () => {\n  test(\"walks upward from apps/workbench to the repository manifest\", async () => {\n    const root = await fixtureRoot();\n    const nested = path.join(root, \"apps\", \"workbench\", \"src\", \"app\");\n    await mkdir(nested, { recursive: true });\n\n    await expect(findMonadRoot(nested)).resolves.toBe(root);\n  });\n\n  test(\"fails explicitly when no Monad manifest is reachable\", async () => {\n    const root = await mkdtemp(path.join(os.tmpdir(), \"not-monad-\"));\n    roots.push(root);\n\n    await expect(findMonadRoot(root)).rejects.toThrow(\n      \"Unable to locate Monad repository root\",\n    );\n  });\n});",
+      "title": "Repository.Test"
+    }
+  ],
+  "source": {
+    "bytes": 1302,
+    "canonical": true,
+    "language": "typescript",
+    "lines": 44,
+    "media_type": "text/vnd.trolltech.linguist",
+    "path": "apps/workbench/src/lib/monad/repository.test.ts",
+    "sha256": "3a00505f77121f0ec07b5f779f455918fdea3f8366087ff0fc44fe601a69c3ef"
+  }
+}
