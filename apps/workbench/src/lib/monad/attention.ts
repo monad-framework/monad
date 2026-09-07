@@ -283,17 +283,97 @@ function lifecycleDriftObservation(input: {
   });
 }
 
+function isPacketTerminal(value: string): boolean {
+  const status = normalizeStatus(value);
+  return ["CLOSED", "COMPLETED", "SUPERSEDED", "CANCELLED"].includes(status);
+}
+
+function isExecutionTerminal(value: string): boolean {
+  const status = normalizeStatus(value);
+  return [
+    "CLOSED",
+    "COMPLETED",
+    "ABORTED",
+    "FAILED",
+    "INVALIDATED",
+    "CANCELLED",
+  ].includes(status);
+}
+
+function latestExecution(
+  executions: ExecutionProjectionRecord[],
+): ExecutionProjectionRecord | undefined {
+  return [...executions].sort((left, right) =>
+    right.updated.localeCompare(left.updated),
+  )[0];
+}
+
+function historicalExecutionObservation(
+  execution: ExecutionProjectionRecord,
+): AttentionObservation {
+  const normalized = normalizeStatus(execution.status);
+  const state: AttentionState =
+    normalized === "FAILED"
+      ? "FAILED"
+      : normalized === "CLOSED" || normalized === "COMPLETED"
+        ? "COMPLETED"
+        : "INFORMATIONAL";
+
+  return observation({
+    dedupeKey: `execution-history:${execution.id}:${normalized}`,
+    profile: {
+      state,
+      classification: "activity",
+      severity: "info",
+      current: false,
+    },
+    provider: "eos-lifecycle",
+    source: ".eos/executions.tsv",
+    sourceKind: "execution-history",
+    objectId: execution.id,
+    objectType: "execution",
+    objectTitle: execution.id,
+    href: `/focus/${encodeURIComponent(execution.id)}`,
+    observedAt: execution.updated,
+    title: `${execution.id} · historical ${normalized.toLowerCase().replaceAll("_", " ")}`,
+    reason: `${execution.id} ended ${execution.status}. A newer execution for the same Work Packet supersedes it for current Attention evaluation.`,
+  });
+}
+
+function currentExecutionObservation(
+  execution: ExecutionProjectionRecord,
+): AttentionObservation | undefined {
+  const projected = statusObservation({
+    rawStatus: execution.status,
+    provider: "eos-lifecycle",
+    source: ".eos/executions.tsv",
+    sourceKind: "execution",
+    objectId: execution.id,
+    objectType: "execution",
+    objectTitle: execution.id,
+    reason: `${execution.id} is ${execution.status} as the latest execution for its Work Packet.`,
+    observedAt: execution.updated,
+    href: `/focus/${encodeURIComponent(execution.id)}`,
+  });
+
+  if (projected) {
+    return projected;
+  }
+
+  if (isExecutionTerminal(execution.status)) {
+    return historicalExecutionObservation(execution);
+  }
+
+  return undefined;
+}
+
 function executionConditions(
   execution: ExecutionProjection,
 ): AttentionObservation[] {
   const conditions: AttentionObservation[] = [];
 
   const addLifecycle = (
-    item:
-      | ExecutionProgramIncrement
-      | ExecutionWorkCycle
-      | ExecutionWorkPacket
-      | ExecutionProjectionRecord,
+    item: ExecutionProgramIncrement | ExecutionWorkCycle | ExecutionWorkPacket,
     type: string,
     title: string,
     registrySource: string,
@@ -349,13 +429,32 @@ function executionConditions(
           ".eos/work-packets.tsv",
         );
 
+        const latest = latestExecution(packet.executions);
+
         for (const executionRecord of packet.executions) {
-          addLifecycle(
-            executionRecord,
-            "execution",
-            executionRecord.id,
-            ".eos/executions.tsv",
-          );
+          if (executionRecord.registryStatus) {
+            conditions.push(
+              lifecycleDriftObservation({
+                id: executionRecord.id,
+                type: "execution",
+                title: executionRecord.id,
+                status: executionRecord.status,
+                registryStatus: executionRecord.registryStatus,
+                updated: executionRecord.updated,
+                registrySource: ".eos/executions.tsv",
+              }),
+            );
+          }
+
+          if (executionRecord.id === latest?.id) {
+            const projected = currentExecutionObservation(executionRecord);
+            if (projected) conditions.push(projected);
+            continue;
+          }
+
+          if (isExecutionTerminal(executionRecord.status)) {
+            conditions.push(historicalExecutionObservation(executionRecord));
+          }
         }
       }
     }
@@ -364,24 +463,11 @@ function executionConditions(
   return conditions;
 }
 
-function isTerminal(value: string): boolean {
-  const status = normalizeStatus(value);
-  return ["CLOSED", "COMPLETED", "SUPERSEDED", "CANCELLED"].includes(status);
-}
-
-function latestExecution(
-  executions: ExecutionProjectionRecord[],
-): ExecutionProjectionRecord | undefined {
-  return [...executions].sort((left, right) =>
-    right.updated.localeCompare(left.updated),
-  )[0];
-}
-
 function deriveWorkstreamState(
   packet: ExecutionWorkPacket,
   execution?: ExecutionProjectionRecord,
 ): { state: string; reason: string } {
-  if (execution && !isTerminal(execution.status)) {
+  if (execution && !isExecutionTerminal(execution.status)) {
     return {
       state: normalizeStatus(execution.status),
       reason: `${execution.id} is ${execution.status}; the execution currently determines the observable autonomous-work state.`,
@@ -390,7 +476,7 @@ function deriveWorkstreamState(
 
   if (
     execution &&
-    isTerminal(execution.status) &&
+    isExecutionTerminal(execution.status) &&
     normalizeStatus(packet.status) === "IN_PROGRESS"
   ) {
     return {
@@ -427,8 +513,8 @@ function workstreams(execution: ExecutionProjection): AutonomousWorkstream[] {
       for (const packet of cycle.workPackets) {
         const latest = latestExecution(packet.executions);
         const current =
-          !isTerminal(packet.status) ||
-          (latest ? !isTerminal(latest.status) : false);
+          !isPacketTerminal(packet.status) ||
+          (latest ? !isExecutionTerminal(latest.status) : false);
 
         if (!current) {
           continue;
