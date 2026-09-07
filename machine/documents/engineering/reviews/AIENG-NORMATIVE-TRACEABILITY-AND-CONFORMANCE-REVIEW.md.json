@@ -1,0 +1,449 @@
+{
+  "content": "# AIENG Normative Traceability and Conformance Review\n\n**Review date:** 2026-09-05\n**Change authority:** CR-0003\n**Architecture authority:** ADR-0008 — Accepted\n**Operating-model authority:** EOS-AI-0001 — Accepted\n**Specifications reviewed:** FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001\n**Disposition:** **PASS — APPROVED WITH TRACEABILITY FOLLOW-UP**\n\n## Purpose\n\nDetermine whether the AI-driven engineering normative tranche is internally\nconsistent, traceable from accepted architecture through product requirements\ninto specifications, covers all required AIENG conformance scenarios, preserves\nEOS sovereignty, and is ready for human approval.\n\nThis review does not authorize implementation.\n\n## Governing chain\n\nThe normative derivation chain is:\n\n```text\nCR-0003\napproved change authority\n    ↓\nADR-0008\naccepted architecture\n    ↓\nEOS-AI-0001\naccepted cross-layer operating model\n    ↓\nproduct/product-requirements.md\n    ↓\nFUN-AIENG-0001\nIFC-AIENG-0001\nSEC-AIENG-0001\n    ↓\nAIENG conformance scenarios\n    ↓\nfuture verification assets\n    ↓\nEOSP implementation planning\n    ↓\nseparately authorized WC/WP\n```\n\n## Architectural consistency\n\n### EOS sovereignty\n\n**PASS**\n\nThe tranche preserves the permanent eight-layer EOS:\n\n* EOSB;\n* EOSP;\n* EOSE;\n* EOSV;\n* EOSR;\n* EOSC;\n* EOSL;\n* EOSM.\n\nNo ninth AI lifecycle has been created.\n\n### Canonical-state sovereignty\n\n**PASS**\n\nNo AIENG specification establishes an alternative canonical operational state.\n\nAI contexts, sessions, pathways, model memory, transcripts, checkpoints, and\nprovider-local state remain projections or transient state.\n\n### Authority sovereignty\n\n**PASS**\n\nThe specifications preserve the distinction among:\n\n```text\ninspect\nanalyze\nrecommend\npropose\ndecide\napprove\nauthorize\nexecute\nverify\nreview\naccept\n```\n\nAI initiative and analytical capability do not themselves create binding\nauthority.\n\n### Native semantic reuse\n\n**PASS**\n\nThe tranche reuses existing EOS planning, decision, approval, execution,\nverification, review, change-control, evidence, maintenance, and release\nsemantics.\n\nNo parallel AI-specific lifecycle, decision, approval, evidence, or authority\nstore is introduced.\n\n## Requirement-to-specification traceability\n\n| Requirement | Primary AIENG ownership                                               |\n| ----------- | --------------------------------------------------------------------- |\n| FR-007      | FUN-AIENG-0001, IFC-AIENG-0001                                        |\n| FR-012      | FUN-AIENG-0001, IFC-AIENG-0001                                        |\n| FR-013      | FUN-AIENG-0001, IFC-AIENG-0001                                        |\n| FR-014      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| FR-015      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| FR-016      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| FR-017      | IFC-AIENG-0001                                                        |\n| FR-022      | SEC-AIENG-0001                                                        |\n| FR-023      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| FR-024      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| FR-037      | SEC-AIENG-0001 plus existing execution specifications                 |\n| FR-038      | SEC-AIENG-0001 plus existing execution specifications                 |\n| FR-039      | existing execution/interface specifications                           |\n| FR-040      | IFC-AIENG-0001, SEC-AIENG-0001 plus existing execution specifications |\n| FR-041      | IFC-AIENG-0001, SEC-AIENG-0001 plus existing execution specifications |\n| FR-042      | existing harness/model conformance specifications                     |\n| FR-043      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| QR-003      | SEC-AIENG-0001                                                        |\n| QR-008      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| QR-010      | all three AIENG specifications                                        |\n| QR-011      | SEC-AIENG-0001                                                        |\n\nThe existing FR-037 through FR-042 Governed Execution Harness tranche is\ncomplementary rather than duplicated.\n\nFR-043 owns adaptive AI-driven engineering workflow planning and hands\nauthorized execution into the existing governed execution boundary.\n\n## Specification responsibility boundaries\n\n### FUN-AIENG-0001\n\nOwns:\n\n* adaptive engineering pathway derivation;\n* rigor adaptation;\n* material ambiguity detection;\n* clarification;\n* decision routing;\n* dependency-aware progression;\n* replanning;\n* evidence feedback;\n* governing-input drift behavior.\n\n### IFC-AIENG-0001\n\nOwns:\n\n* provider-neutral engineering participant interaction;\n* context exchange;\n* pathway proposals;\n* clarification requests;\n* decision proposals;\n* candidate artifact proposals;\n* lifecycle proposals;\n* execution requests;\n* evidence interpretation;\n* review participation;\n* replanning messages.\n\nIt does not redefine execution-harness mediation.\n\n### SEC-AIENG-0001\n\nOwns:\n\n* capability versus authority;\n* autonomy profiles;\n* delegation;\n* approval;\n* revocation;\n* fail-closed authorization;\n* least privilege;\n* prompt/instruction trust boundaries;\n* sensitive effects;\n* separation of duties;\n* independent review;\n* progressive trust.\n\n## Conformance coverage\n\n### AIENG-CONF-A — Low-risk reversible change\n\n**Owned by:**\n\n* FUN-AIENG-V01.\n\n**Coverage:** complete.\n\n### AIENG-CONF-B — Ambiguous product intent\n\n**Owned by:**\n\n* FUN-AIENG-V02;\n* AIENG-IFC-V02.\n\n**Coverage:** complete.\n\n### AIENG-CONF-C — Architecture change discovered during execution\n\n**Owned by:**\n\n* FUN-AIENG-V03.\n\n**Coverage:** complete.\n\n### AIENG-CONF-D — Bounded autonomous Work Packet\n\n**Owned by:**\n\n* FUN-AIENG-V04;\n* AIENG-IFC-V10;\n* AIENG-SEC-V01;\n* AIENG-SEC-V02.\n\n**Coverage:** complete.\n\n### AIENG-CONF-E — Security-sensitive work\n\n**Owned by:**\n\n* FUN-AIENG-V05;\n* AIENG-SEC-V06.\n\n**Coverage:** complete.\n\n### AIENG-CONF-F — Independent review\n\n**Owned by:**\n\n* AIENG-IFC-V09;\n* AIENG-SEC-V07.\n\n**Coverage:** complete.\n\n### AIENG-CONF-G — Governing-input drift\n\n**Owned by:**\n\n* FUN-AIENG-V06;\n* AIENG-IFC-V05;\n* AIENG-SEC-V04.\n\n**Coverage:** complete.\n\n### AIENG-CONF-H — Provider failure\n\n**Owned by:**\n\n* FUN-AIENG-V07;\n* AIENG-IFC-V07;\n* AIENG-SEC-V11.\n\n**Coverage:** complete.\n\n### AIENG-CONF-I — Human denial\n\n**Owned by:**\n\n* FUN-AIENG-V08;\n* AIENG-IFC-V06;\n* AIENG-SEC-V08.\n\n**Coverage:** complete.\n\n### AIENG-CONF-J — Evidence invalidates assumption\n\n**Owned by:**\n\n* FUN-AIENG-V09;\n* AIENG-IFC-V08.\n\n**Coverage:** complete.\n\n## Cross-cutting invariants\n\n### Initiative without authority\n\n**PASS**\n\nAI may proactively reason, plan, clarify, recommend, draft, and request\nprogression without acquiring approval authority.\n\n### Adaptive workflow without gate bypass\n\n**PASS**\n\nOptional engineering rigor may adapt while mandatory EOS gates remain binding.\n\n### Bounded autonomy\n\n**PASS**\n\nAI-assisted, AI-driven, and bounded AI-autonomous operation remain profiles of\none governed model.\n\n### Governing drift\n\n**PASS**\n\nMaterial governing-input changes cause stale authority/pathway treatment rather\nthan silent continuation.\n\n### Evidence-based closure\n\n**PASS**\n\nExecutor completion remains a claim until required evidence, verification,\nreview, and acceptance obligations are satisfied.\n\n### Review independence\n\n**PASS**\n\nTrivial self-review is explicitly insufficient where independent review is\nrequired.\n\n### Provider neutrality\n\n**PASS**\n\nProvider, model, and harness identity do not confer authority.\n\n### Transcript non-authority\n\n**PASS**\n\nRaw transcript and private chain-of-thought retention are not required for\ncanonical auditability.\n\n## Machine-traceability finding\n\n### Finding AIENG-TRC-001 — Requirement/specification identifier namespace mismatch\n\n**Status:** OPEN FOLLOW-UP\n\nThe human-authored product requirements use identifiers including:\n\n```text\nFR-*\nQR-*\n```\n\nThe human-authored specification convention uses class-specific identifiers\nincluding:\n\n```text\nFUN-*\nIFC-*\nSEC-*\nTECH-*\n```\n\nThe EOS canonical domain model currently defines canonical Requirement and\nSpecification identities as:\n\n```text\nREQ-*\nSPEC-*\n```\n\nThis creates an identity-model mismatch between the current human-authored\nproduct/specification corpus and the canonical EOS entity model.\n\nThis review does not determine that either convention should replace the other.\n\nA governed reconciliation is required.\n\nAcceptable future solutions may include, subject to architecture review:\n\n* canonical REQ/SPEC entities that retain FR/QR/FUN/IFC/SEC identifiers as\n  stable native aliases;\n* extension of canonical namespace semantics to recognize the existing\n  class-specific identifiers;\n* an explicit mapping layer between human artifact identifiers and canonical\n  REQ/SPEC entities;\n* another solution preserving identity, history, and deterministic traceability.\n\nThe resolution MUST NOT silently renumber existing requirements or\nspecifications.\n\n### Effect of AIENG-TRC-001\n\nThe finding does **not** invalidate the semantic AIENG requirements or\nspecifications.\n\nIt does prevent the program from claiming complete canonical machine-level\nREQ-to-SPEC traceability until reconciled.\n\nThe finding MUST be resolved or formally dispositioned before AIENG runtime\nimplementation planning is authorized.\n\n## Generated trace projection\n\n`.eos/trace-edges.tsv` is a generated, rebuildable EOS projection.\n\nIt MUST NOT be manually edited to manufacture AIENG trace coverage.\n\nAt the stable normative checkpoint EOS should rebuild/inspect traceability from\ncanonical artifacts and report actual coverage.\n\nAny missing edges after deterministic rebuild are evidence of a traceability\ngap, not permission to hand-author generated state.\n\n## Remaining normative gaps\n\nNo additional AIENG functional, interface, security, lifecycle, authority, or\npolicy specification is currently required.\n\nThe remaining pre-implementation concerns are:\n\n1. resolve or formally disposition `AIENG-TRC-001`;\n2. approve the AIENG specification baseline;\n3. establish executable conformance assets from the verification clauses;\n4. rebuild and inspect EOS traceability;\n5. run the stable-checkpoint EOS verification;\n6. refresh stale evidence once;\n7. only then enter EOSP implementation planning.\n\n## Review conclusion\n\nThe AI-driven engineering normative tranche is semantically coherent and\ncomplete enough for governance approval.\n\nAll ten required AIENG conformance scenarios have normative specification\nownership.\n\nNo ninth lifecycle, parallel canonical state, AI-specific authority system, or\ngate-bypass mechanism was identified.\n\nThe existing identifier namespace mismatch is a real machine-traceability\nfollow-up and must not be hidden.\n\n## Recommendation\n\n**APPROVE:**\n\n* `SPEC-BASE-0001`;\n* `FUN-AIENG-0001`;\n* `IFC-AIENG-0001`;\n* `SEC-AIENG-0001`;\n\nas the normative AI-driven engineering specification baseline.\n\nApproval does not authorize runtime implementation.\n\n`AIENG-TRC-001` remains an explicit pre-implementation traceability follow-up.\n\n## Decision\n\n**APPROVED — Human Project Steward / Architecture Owner, 2026-09-05.**\n\nApproval evidence: `engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md`\n\n`AIENG-TRC-001` remains OPEN FOLLOW-UP.\n",
+  "document_id": "doc:engineering%2Freviews%2FAIENG-NORMATIVE-TRACEABILITY-AND-CONFORMANCE-REVIEW.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "ADR-0008",
+    "FR-007",
+    "FR-012",
+    "FR-013",
+    "FR-014",
+    "FR-015",
+    "FR-016",
+    "FR-017",
+    "FR-022",
+    "FR-023",
+    "FR-024",
+    "FR-037",
+    "FR-038",
+    "FR-039",
+    "FR-040",
+    "FR-041",
+    "FR-042",
+    "FR-043",
+    "QR-003",
+    "QR-008",
+    "QR-010",
+    "QR-011"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "engineering-control",
+    "normative": true,
+    "summary": "Review date: 2026-09-05 Change authority: CR-0003 Architecture authority: ADR-0008 — Accepted Operating-model authority: EOS-AI-0001 — Accepted Specifications reviewed: FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001 Disposition: PASS — APPROVED WITH TRACEABILITY FOLLOW-UP",
+    "title": "AIENG Normative Traceability and Conformance Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [
+        "ADR-0008"
+      ],
+      "level": 1,
+      "line_end": 9,
+      "line_start": 1,
+      "section_id": "aieng-normative-traceability-and-conformance-review",
+      "text": "# AIENG Normative Traceability and Conformance Review\n\n**Review date:** 2026-09-05\n**Change authority:** CR-0003\n**Architecture authority:** ADR-0008 — Accepted\n**Operating-model authority:** EOS-AI-0001 — Accepted\n**Specifications reviewed:** FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001\n**Disposition:** **PASS — APPROVED WITH TRACEABILITY FOLLOW-UP**",
+      "title": "AIENG Normative Traceability and Conformance Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 18,
+      "line_start": 10,
+      "section_id": "purpose",
+      "text": "## Purpose\n\nDetermine whether the AI-driven engineering normative tranche is internally\nconsistent, traceable from accepted architecture through product requirements\ninto specifications, covers all required AIENG conformance scenarios, preserves\nEOS sovereignty, and is ready for human approval.\n\nThis review does not authorize implementation.",
+      "title": "Purpose"
+    },
+    {
+      "identifiers": [
+        "ADR-0008"
+      ],
+      "level": 2,
+      "line_end": 47,
+      "line_start": 19,
+      "section_id": "governing-chain",
+      "text": "## Governing chain\n\nThe normative derivation chain is:\n\n```text\nCR-0003\napproved change authority\n    ↓\nADR-0008\naccepted architecture\n    ↓\nEOS-AI-0001\naccepted cross-layer operating model\n    ↓\nproduct/product-requirements.md\n    ↓\nFUN-AIENG-0001\nIFC-AIENG-0001\nSEC-AIENG-0001\n    ↓\nAIENG conformance scenarios\n    ↓\nfuture verification assets\n    ↓\nEOSP implementation planning\n    ↓\nseparately authorized WC/WP\n```",
+      "title": "Governing chain"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 49,
+      "line_start": 48,
+      "section_id": "architectural-consistency",
+      "text": "## Architectural consistency",
+      "title": "Architectural consistency"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 66,
+      "line_start": 50,
+      "section_id": "eos-sovereignty",
+      "text": "### EOS sovereignty\n\n**PASS**\n\nThe tranche preserves the permanent eight-layer EOS:\n\n* EOSB;\n* EOSP;\n* EOSE;\n* EOSV;\n* EOSR;\n* EOSC;\n* EOSL;\n* EOSM.\n\nNo ninth AI lifecycle has been created.",
+      "title": "EOS sovereignty"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 75,
+      "line_start": 67,
+      "section_id": "canonical-state-sovereignty",
+      "text": "### Canonical-state sovereignty\n\n**PASS**\n\nNo AIENG specification establishes an alternative canonical operational state.\n\nAI contexts, sessions, pathways, model memory, transcripts, checkpoints, and\nprovider-local state remain projections or transient state.",
+      "title": "Canonical-state sovereignty"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 98,
+      "line_start": 76,
+      "section_id": "authority-sovereignty",
+      "text": "### Authority sovereignty\n\n**PASS**\n\nThe specifications preserve the distinction among:\n\n```text\ninspect\nanalyze\nrecommend\npropose\ndecide\napprove\nauthorize\nexecute\nverify\nreview\naccept\n```\n\nAI initiative and analytical capability do not themselves create binding\nauthority.",
+      "title": "Authority sovereignty"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 109,
+      "line_start": 99,
+      "section_id": "native-semantic-reuse",
+      "text": "### Native semantic reuse\n\n**PASS**\n\nThe tranche reuses existing EOS planning, decision, approval, execution,\nverification, review, change-control, evidence, maintenance, and release\nsemantics.\n\nNo parallel AI-specific lifecycle, decision, approval, evidence, or authority\nstore is introduced.",
+      "title": "Native semantic reuse"
+    },
+    {
+      "identifiers": [
+        "FR-007",
+        "FR-012",
+        "FR-013",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-022",
+        "FR-023",
+        "FR-024",
+        "FR-037",
+        "FR-038",
+        "FR-039",
+        "FR-040",
+        "FR-041",
+        "FR-042",
+        "FR-043",
+        "QR-003",
+        "QR-008",
+        "QR-010",
+        "QR-011"
+      ],
+      "level": 2,
+      "line_end": 141,
+      "line_start": 110,
+      "section_id": "requirement-to-specification-traceability",
+      "text": "## Requirement-to-specification traceability\n\n| Requirement | Primary AIENG ownership                                               |\n| ----------- | --------------------------------------------------------------------- |\n| FR-007      | FUN-AIENG-0001, IFC-AIENG-0001                                        |\n| FR-012      | FUN-AIENG-0001, IFC-AIENG-0001                                        |\n| FR-013      | FUN-AIENG-0001, IFC-AIENG-0001                                        |\n| FR-014      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| FR-015      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| FR-016      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| FR-017      | IFC-AIENG-0001                                                        |\n| FR-022      | SEC-AIENG-0001                                                        |\n| FR-023      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| FR-024      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| FR-037      | SEC-AIENG-0001 plus existing execution specifications                 |\n| FR-038      | SEC-AIENG-0001 plus existing execution specifications                 |\n| FR-039      | existing execution/interface specifications                           |\n| FR-040      | IFC-AIENG-0001, SEC-AIENG-0001 plus existing execution specifications |\n| FR-041      | IFC-AIENG-0001, SEC-AIENG-0001 plus existing execution specifications |\n| FR-042      | existing harness/model conformance specifications                     |\n| FR-043      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| QR-003      | SEC-AIENG-0001                                                        |\n| QR-008      | FUN-AIENG-0001, IFC-AIENG-0001, SEC-AIENG-0001                        |\n| QR-010      | all three AIENG specifications                                        |\n| QR-011      | SEC-AIENG-0001                                                        |\n\nThe existing FR-037 through FR-042 Governed Execution Harness tranche is\ncomplementary rather than duplicated.\n\nFR-043 owns adaptive AI-driven engineering workflow planning and hands\nauthorized execution into the existing governed execution boundary.",
+      "title": "Requirement-to-specification traceability"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 143,
+      "line_start": 142,
+      "section_id": "specification-responsibility-boundaries",
+      "text": "## Specification responsibility boundaries",
+      "title": "Specification responsibility boundaries"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 157,
+      "line_start": 144,
+      "section_id": "fun-aieng-0001",
+      "text": "### FUN-AIENG-0001\n\nOwns:\n\n* adaptive engineering pathway derivation;\n* rigor adaptation;\n* material ambiguity detection;\n* clarification;\n* decision routing;\n* dependency-aware progression;\n* replanning;\n* evidence feedback;\n* governing-input drift behavior.",
+      "title": "FUN-AIENG-0001"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 175,
+      "line_start": 158,
+      "section_id": "ifc-aieng-0001",
+      "text": "### IFC-AIENG-0001\n\nOwns:\n\n* provider-neutral engineering participant interaction;\n* context exchange;\n* pathway proposals;\n* clarification requests;\n* decision proposals;\n* candidate artifact proposals;\n* lifecycle proposals;\n* execution requests;\n* evidence interpretation;\n* review participation;\n* replanning messages.\n\nIt does not redefine execution-harness mediation.",
+      "title": "IFC-AIENG-0001"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 192,
+      "line_start": 176,
+      "section_id": "sec-aieng-0001",
+      "text": "### SEC-AIENG-0001\n\nOwns:\n\n* capability versus authority;\n* autonomy profiles;\n* delegation;\n* approval;\n* revocation;\n* fail-closed authorization;\n* least privilege;\n* prompt/instruction trust boundaries;\n* sensitive effects;\n* separation of duties;\n* independent review;\n* progressive trust.",
+      "title": "SEC-AIENG-0001"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 194,
+      "line_start": 193,
+      "section_id": "conformance-coverage",
+      "text": "## Conformance coverage",
+      "title": "Conformance coverage"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 202,
+      "line_start": 195,
+      "section_id": "aieng-conf-a-low-risk-reversible-change",
+      "text": "### AIENG-CONF-A — Low-risk reversible change\n\n**Owned by:**\n\n* FUN-AIENG-V01.\n\n**Coverage:** complete.",
+      "title": "AIENG-CONF-A — Low-risk reversible change"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 211,
+      "line_start": 203,
+      "section_id": "aieng-conf-b-ambiguous-product-intent",
+      "text": "### AIENG-CONF-B — Ambiguous product intent\n\n**Owned by:**\n\n* FUN-AIENG-V02;\n* AIENG-IFC-V02.\n\n**Coverage:** complete.",
+      "title": "AIENG-CONF-B — Ambiguous product intent"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 219,
+      "line_start": 212,
+      "section_id": "aieng-conf-c-architecture-change-discovered-during-execution",
+      "text": "### AIENG-CONF-C — Architecture change discovered during execution\n\n**Owned by:**\n\n* FUN-AIENG-V03.\n\n**Coverage:** complete.",
+      "title": "AIENG-CONF-C — Architecture change discovered during execution"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 230,
+      "line_start": 220,
+      "section_id": "aieng-conf-d-bounded-autonomous-work-packet",
+      "text": "### AIENG-CONF-D — Bounded autonomous Work Packet\n\n**Owned by:**\n\n* FUN-AIENG-V04;\n* AIENG-IFC-V10;\n* AIENG-SEC-V01;\n* AIENG-SEC-V02.\n\n**Coverage:** complete.",
+      "title": "AIENG-CONF-D — Bounded autonomous Work Packet"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 239,
+      "line_start": 231,
+      "section_id": "aieng-conf-e-security-sensitive-work",
+      "text": "### AIENG-CONF-E — Security-sensitive work\n\n**Owned by:**\n\n* FUN-AIENG-V05;\n* AIENG-SEC-V06.\n\n**Coverage:** complete.",
+      "title": "AIENG-CONF-E — Security-sensitive work"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 248,
+      "line_start": 240,
+      "section_id": "aieng-conf-f-independent-review",
+      "text": "### AIENG-CONF-F — Independent review\n\n**Owned by:**\n\n* AIENG-IFC-V09;\n* AIENG-SEC-V07.\n\n**Coverage:** complete.",
+      "title": "AIENG-CONF-F — Independent review"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 258,
+      "line_start": 249,
+      "section_id": "aieng-conf-g-governing-input-drift",
+      "text": "### AIENG-CONF-G — Governing-input drift\n\n**Owned by:**\n\n* FUN-AIENG-V06;\n* AIENG-IFC-V05;\n* AIENG-SEC-V04.\n\n**Coverage:** complete.",
+      "title": "AIENG-CONF-G — Governing-input drift"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 268,
+      "line_start": 259,
+      "section_id": "aieng-conf-h-provider-failure",
+      "text": "### AIENG-CONF-H — Provider failure\n\n**Owned by:**\n\n* FUN-AIENG-V07;\n* AIENG-IFC-V07;\n* AIENG-SEC-V11.\n\n**Coverage:** complete.",
+      "title": "AIENG-CONF-H — Provider failure"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 278,
+      "line_start": 269,
+      "section_id": "aieng-conf-i-human-denial",
+      "text": "### AIENG-CONF-I — Human denial\n\n**Owned by:**\n\n* FUN-AIENG-V08;\n* AIENG-IFC-V06;\n* AIENG-SEC-V08.\n\n**Coverage:** complete.",
+      "title": "AIENG-CONF-I — Human denial"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 287,
+      "line_start": 279,
+      "section_id": "aieng-conf-j-evidence-invalidates-assumption",
+      "text": "### AIENG-CONF-J — Evidence invalidates assumption\n\n**Owned by:**\n\n* FUN-AIENG-V09;\n* AIENG-IFC-V08.\n\n**Coverage:** complete.",
+      "title": "AIENG-CONF-J — Evidence invalidates assumption"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 289,
+      "line_start": 288,
+      "section_id": "cross-cutting-invariants",
+      "text": "## Cross-cutting invariants",
+      "title": "Cross-cutting invariants"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 296,
+      "line_start": 290,
+      "section_id": "initiative-without-authority",
+      "text": "### Initiative without authority\n\n**PASS**\n\nAI may proactively reason, plan, clarify, recommend, draft, and request\nprogression without acquiring approval authority.",
+      "title": "Initiative without authority"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 302,
+      "line_start": 297,
+      "section_id": "adaptive-workflow-without-gate-bypass",
+      "text": "### Adaptive workflow without gate bypass\n\n**PASS**\n\nOptional engineering rigor may adapt while mandatory EOS gates remain binding.",
+      "title": "Adaptive workflow without gate bypass"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 309,
+      "line_start": 303,
+      "section_id": "bounded-autonomy",
+      "text": "### Bounded autonomy\n\n**PASS**\n\nAI-assisted, AI-driven, and bounded AI-autonomous operation remain profiles of\none governed model.",
+      "title": "Bounded autonomy"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 316,
+      "line_start": 310,
+      "section_id": "governing-drift",
+      "text": "### Governing drift\n\n**PASS**\n\nMaterial governing-input changes cause stale authority/pathway treatment rather\nthan silent continuation.",
+      "title": "Governing drift"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 323,
+      "line_start": 317,
+      "section_id": "evidence-based-closure",
+      "text": "### Evidence-based closure\n\n**PASS**\n\nExecutor completion remains a claim until required evidence, verification,\nreview, and acceptance obligations are satisfied.",
+      "title": "Evidence-based closure"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 330,
+      "line_start": 324,
+      "section_id": "review-independence",
+      "text": "### Review independence\n\n**PASS**\n\nTrivial self-review is explicitly insufficient where independent review is\nrequired.",
+      "title": "Review independence"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 336,
+      "line_start": 331,
+      "section_id": "provider-neutrality",
+      "text": "### Provider neutrality\n\n**PASS**\n\nProvider, model, and harness identity do not confer authority.",
+      "title": "Provider neutrality"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 343,
+      "line_start": 337,
+      "section_id": "transcript-non-authority",
+      "text": "### Transcript non-authority\n\n**PASS**\n\nRaw transcript and private chain-of-thought retention are not required for\ncanonical auditability.",
+      "title": "Transcript non-authority"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 345,
+      "line_start": 344,
+      "section_id": "machine-traceability-finding",
+      "text": "## Machine-traceability finding",
+      "title": "Machine-traceability finding"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 394,
+      "line_start": 346,
+      "section_id": "finding-aieng-trc-001-requirement-specification-identifier-namespace-mismatch",
+      "text": "### Finding AIENG-TRC-001 — Requirement/specification identifier namespace mismatch\n\n**Status:** OPEN FOLLOW-UP\n\nThe human-authored product requirements use identifiers including:\n\n```text\nFR-*\nQR-*\n```\n\nThe human-authored specification convention uses class-specific identifiers\nincluding:\n\n```text\nFUN-*\nIFC-*\nSEC-*\nTECH-*\n```\n\nThe EOS canonical domain model currently defines canonical Requirement and\nSpecification identities as:\n\n```text\nREQ-*\nSPEC-*\n```\n\nThis creates an identity-model mismatch between the current human-authored\nproduct/specification corpus and the canonical EOS entity model.\n\nThis review does not determine that either convention should replace the other.\n\nA governed reconciliation is required.\n\nAcceptable future solutions may include, subject to architecture review:\n\n* canonical REQ/SPEC entities that retain FR/QR/FUN/IFC/SEC identifiers as\n  stable native aliases;\n* extension of canonical namespace semantics to recognize the existing\n  class-specific identifiers;\n* an explicit mapping layer between human artifact identifiers and canonical\n  REQ/SPEC entities;\n* another solution preserving identity, history, and deterministic traceability.\n\nThe resolution MUST NOT silently renumber existing requirements or\nspecifications.",
+      "title": "Finding AIENG-TRC-001 — Requirement/specification identifier namespace mismatch"
+    },
+    {
+      "identifiers": [],
+      "level": 3,
+      "line_end": 405,
+      "line_start": 395,
+      "section_id": "effect-of-aieng-trc-001",
+      "text": "### Effect of AIENG-TRC-001\n\nThe finding does **not** invalidate the semantic AIENG requirements or\nspecifications.\n\nIt does prevent the program from claiming complete canonical machine-level\nREQ-to-SPEC traceability until reconciled.\n\nThe finding MUST be resolved or formally dispositioned before AIENG runtime\nimplementation planning is authorized.",
+      "title": "Effect of AIENG-TRC-001"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 417,
+      "line_start": 406,
+      "section_id": "generated-trace-projection",
+      "text": "## Generated trace projection\n\n`.eos/trace-edges.tsv` is a generated, rebuildable EOS projection.\n\nIt MUST NOT be manually edited to manufacture AIENG trace coverage.\n\nAt the stable normative checkpoint EOS should rebuild/inspect traceability from\ncanonical artifacts and report actual coverage.\n\nAny missing edges after deterministic rebuild are evidence of a traceability\ngap, not permission to hand-author generated state.",
+      "title": "Generated trace projection"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 432,
+      "line_start": 418,
+      "section_id": "remaining-normative-gaps",
+      "text": "## Remaining normative gaps\n\nNo additional AIENG functional, interface, security, lifecycle, authority, or\npolicy specification is currently required.\n\nThe remaining pre-implementation concerns are:\n\n1. resolve or formally disposition `AIENG-TRC-001`;\n2. approve the AIENG specification baseline;\n3. establish executable conformance assets from the verification clauses;\n4. rebuild and inspect EOS traceability;\n5. run the stable-checkpoint EOS verification;\n6. refresh stale evidence once;\n7. only then enter EOSP implementation planning.",
+      "title": "Remaining normative gaps"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 446,
+      "line_start": 433,
+      "section_id": "review-conclusion",
+      "text": "## Review conclusion\n\nThe AI-driven engineering normative tranche is semantically coherent and\ncomplete enough for governance approval.\n\nAll ten required AIENG conformance scenarios have normative specification\nownership.\n\nNo ninth lifecycle, parallel canonical state, AI-specific authority system, or\ngate-bypass mechanism was identified.\n\nThe existing identifier namespace mismatch is a real machine-traceability\nfollow-up and must not be hidden.",
+      "title": "Review conclusion"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 461,
+      "line_start": 447,
+      "section_id": "recommendation",
+      "text": "## Recommendation\n\n**APPROVE:**\n\n* `SPEC-BASE-0001`;\n* `FUN-AIENG-0001`;\n* `IFC-AIENG-0001`;\n* `SEC-AIENG-0001`;\n\nas the normative AI-driven engineering specification baseline.\n\nApproval does not authorize runtime implementation.\n\n`AIENG-TRC-001` remains an explicit pre-implementation traceability follow-up.",
+      "title": "Recommendation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 468,
+      "line_start": 462,
+      "section_id": "decision",
+      "text": "## Decision\n\n**APPROVED — Human Project Steward / Architecture Owner, 2026-09-05.**\n\nApproval evidence: `engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md`\n\n`AIENG-TRC-001` remains OPEN FOLLOW-UP.",
+      "title": "Decision"
+    }
+  ],
+  "source": {
+    "bytes": 11530,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 468,
+    "media_type": "text/markdown",
+    "path": "engineering/reviews/AIENG-NORMATIVE-TRACEABILITY-AND-CONFORMANCE-REVIEW.md",
+    "sha256": "1744a64758b87da1a390873ba2cbb77936471a613ed1ab7698a6269f061678cd"
+  }
+}

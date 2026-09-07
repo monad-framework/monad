@@ -1,12 +1,14 @@
 {
-  "content": "# Specifications\n\nSpecifications turn approved product and architecture intent into precise,\ntestable contracts. They describe required behavior at a boundary or within an\nowned concern without duplicating implementation code.\n\n## Classification\n\n- `functional/` — domain behavior, rules, states, and user-visible outcomes.\n- `technical/` — runtime protocols, algorithms, resource budgets, and platform\n  constraints.\n- `interfaces/` — synchronous APIs, events, files, commands, and compatibility.\n- `data/` — canonical models, ownership, classification, retention, and quality.\n- `security/` — control behavior, identities, permissions, crypto, and evidence.\n- `operations/` — deployment, telemetry, service objectives, backup, and\n  recovery contracts.\n\n## Identifier and filename\n\nUse `<CLASS>-<AREA>-NNNN-short-title.md`, for example\n`FUN-WORKFLOW-0001-state-model.md`. IDs are never reused. A specification states\nits status, owner, reviewers, version, related requirements, decisions, risks,\nand verification assets.\n\n## Required anatomy\n\n1. **Purpose and scope** — the contract and what it excludes.\n2. **Definitions** — precise terms, units, and identifiers.\n3. **Preconditions and invariants** — truths required before and during use.\n4. **Normative behavior** — inputs, outputs, states, rules, errors, and timing.\n5. **Security and data** — classification, authority, privacy, and evidence.\n6. **Failure and recovery** — invalid, denied, transient, partial, unknown, and\n   terminal behavior.\n7. **Compatibility** — versioning, consumer obligations, and migration.\n8. **Verification** — tests, examples, telemetry, and acceptance mapping.\n\n## Normative language\n\n`MUST` and `MUST NOT` are mandatory; `SHOULD` and `SHOULD NOT` require a\ndocumented reason for deviation; `MAY` is optional. Use these terms only for\nverifiable behavior. Examples clarify a rule but do not silently expand it.\n\n## Lifecycle\n\nStatuses are `draft`, `review`, `approved`, `implemented`, `deprecated`, and\n`retired`. Approved meaning changes require version impact, affected-consumer\nanalysis, updated verification, and change approval. Code and tests may reveal\na specification defect, but they do not silently supersede the approved text.\n\n## Traceability\n\nEvery committed product requirement maps to at least one specification or a\ndocumented reason none is needed. Each normative rule maps to automated or\nmanual evidence. Release review reports missing, failed, or waived evidence.\n",
+  "content": "# Specifications\n\nSpecifications turn approved product and architecture intent into precise,\ntestable contracts. They describe required behavior at a boundary or within an\nowned concern without duplicating implementation code.\n\n## Classification\n\n- `functional/` — domain behavior, rules, states, and user-visible outcomes.\n- `technical/` — runtime protocols, algorithms, resource budgets, and platform\n  constraints.\n- `interfaces/` — synchronous APIs, events, files, commands, and compatibility.\n- `data/` — canonical models, ownership, classification, retention, and quality.\n- `security/` — control behavior, identities, permissions, crypto, and evidence.\n- `operations/` — deployment, telemetry, service objectives, backup, and\n  recovery contracts.\n\n## Identifier and filename\n\nUse `<CLASS>-<AREA>-NNNN-short-title.md`, for example\n`FUN-WORKFLOW-0001-state-model.md`. IDs are never reused. A specification states\nits status, owner, reviewers, version, related requirements, decisions, risks,\nand verification assets.\n\n## Required anatomy\n\n1. **Purpose and scope** — the contract and what it excludes.\n2. **Definitions** — precise terms, units, and identifiers.\n3. **Preconditions and invariants** — truths required before and during use.\n4. **Normative behavior** — inputs, outputs, states, rules, errors, and timing.\n5. **Security and data** — classification, authority, privacy, and evidence.\n6. **Failure and recovery** — invalid, denied, transient, partial, unknown, and\n   terminal behavior.\n7. **Compatibility** — versioning, consumer obligations, and migration.\n8. **Verification** — tests, examples, telemetry, and acceptance mapping.\n\n## Normative language\n\n`MUST` and `MUST NOT` are mandatory; `SHOULD` and `SHOULD NOT` require a\ndocumented reason for deviation; `MAY` is optional. Use these terms only for\nverifiable behavior. Examples clarify a rule but do not silently expand it.\n\n## Lifecycle\n\nStatuses are `draft`, `review`, `approved`, `implemented`, `deprecated`, and\n`retired`. Approved meaning changes require version impact, affected-consumer\nanalysis, updated verification, and change approval. Code and tests may reveal\na specification defect, but they do not silently supersede the approved text.\n\n## Traceability\n\nEvery committed product requirement maps to at least one specification or a\ndocumented reason none is needed. Each normative rule maps to automated or\nmanual evidence. Release review reports missing, failed, or waived evidence.\n\n## AI-Driven Engineering Specification Family\n\nThe current AI-driven engineering normative tranche is:\n\n| ID | Class | Contract | Status |\n| --- | --- | --- | --- |\n| `FUN-AIENG-0001` | Functional | Adaptive Engineering Workflow | Approved |\n| `IFC-AIENG-0001` | Interface | Engineering Agent Contract | Approved |\n| `SEC-AIENG-0001` | Security | Autonomy, Authority, and Approval Gates | Approved |\n\nThe family is governed by accepted `ADR-0008` and `EOS-AI-0001`.\n\nThe three specifications form one operating-model contract:\n\n```text\nFUN-AIENG-0001\nadaptive planning and replanning\n        │\n        ├───────────────┐\n        ↓               ↓\nIFC-AIENG-0001     SEC-AIENG-0001\nparticipant        autonomy / authority /\ninterface          approval / revocation\n        │               │\n        └───────┬───────┘\n                ↓\n       existing EOS governance\n                ↓\n       governed execution\n\nThe AIENG family does not create a new lifecycle, authority system, canonical\nstate, decision system, approval system, or evidence system.\n",
   "document_id": "doc:specifications%2FREADME.md",
   "generation": {
     "deterministic": true,
     "tool": "sync-machine-docs",
     "version": "1.0.0"
   },
-  "identifiers": [],
+  "identifiers": [
+    "ADR-0008"
+  ],
   "links": [],
   "metadata": {
     "document_type": "specification",
@@ -75,20 +77,31 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 54,
+      "line_end": 55,
       "line_start": 50,
       "section_id": "traceability",
       "text": "## Traceability\n\nEvery committed product requirement maps to at least one specification or a\ndocumented reason none is needed. Each normative rule maps to automated or\nmanual evidence. Release review reports missing, failed, or waived evidence.",
       "title": "Traceability"
+    },
+    {
+      "identifiers": [
+        "ADR-0008"
+      ],
+      "level": 2,
+      "line_end": 87,
+      "line_start": 56,
+      "section_id": "ai-driven-engineering-specification-family",
+      "text": "## AI-Driven Engineering Specification Family\n\nThe current AI-driven engineering normative tranche is:\n\n| ID | Class | Contract | Status |\n| --- | --- | --- | --- |\n| `FUN-AIENG-0001` | Functional | Adaptive Engineering Workflow | Approved |\n| `IFC-AIENG-0001` | Interface | Engineering Agent Contract | Approved |\n| `SEC-AIENG-0001` | Security | Autonomy, Authority, and Approval Gates | Approved |\n\nThe family is governed by accepted `ADR-0008` and `EOS-AI-0001`.\n\nThe three specifications form one operating-model contract:\n\n```text\nFUN-AIENG-0001\nadaptive planning and replanning\n        │\n        ├───────────────┐\n        ↓               ↓\nIFC-AIENG-0001     SEC-AIENG-0001\nparticipant        autonomy / authority /\ninterface          approval / revocation\n        │               │\n        └───────┬───────┘\n                ↓\n       existing EOS governance\n                ↓\n       governed execution\n\nThe AIENG family does not create a new lifecycle, authority system, canonical\nstate, decision system, approval system, or evidence system.",
+      "title": "AI-Driven Engineering Specification Family"
     }
   ],
   "source": {
-    "bytes": 2500,
+    "bytes": 3631,
     "canonical": true,
     "language": "markdown",
-    "lines": 54,
+    "lines": 87,
     "media_type": "text/markdown",
     "path": "specifications/README.md",
-    "sha256": "c12d29a8b32d9d341c4b24eca9b0e8cb7272ebf5e720537dedf1b788d12ac1ab"
+    "sha256": "ce494f51149a9664c84b5a2aa1e425fd5a50c07b1726514cdc6aaaf5c2094cdf"
   }
 }

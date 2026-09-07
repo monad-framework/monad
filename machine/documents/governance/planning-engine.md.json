@@ -1,5 +1,5 @@
 {
-  "content": "---\nartifact_id: \"GOV-PLAN-0001\"\ntitle: \"EOS Planning and Dependency Engine\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOS Planning and Dependency Engine\n\nEOSP treats PI/WC/WP planning as a dependency graph rather than a flat backlog.\n\nWork-packet dependencies may be declared explicitly:\n\n```markdown\n- depends-on: WP-CORE-0006\n```\n\n## Commands\n\n```bash\n./scripts/eos planning check PI-002\n./scripts/eos planning order PI-002\n./scripts/eos planning critical-path PI-002\n./scripts/eos planning graph PI-002 --format mermaid\n./scripts/eos planning size WP-CORE-0007\n```\n\n## Planning Invariants\n\n- work-packet dependency cycles are invalid;\n- referenced dependency WPs must exist;\n- dependency execution order must place prerequisites first;\n- READY or later work packets must have bounded, non-TBD definitions;\n- authorization state must be consistent with parent lifecycle state;\n- oversized work packets should be decomposed before execution where practical.\n\nSizing is heuristic advisory evidence, not a substitute for engineering\njudgment.\n",
+  "content": "---\nartifact_id: \"GOV-PLAN-0001\"\ntitle: \"EOS Planning and Dependency Engine\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-09-05\"\n---\n# EOS Planning and Dependency Engine\n\nEOSP treats PI/WC/WP planning as a dependency graph rather than a flat backlog.\n\nWork-packet dependencies may be declared explicitly:\n\n```markdown\n- depends-on: WP-CORE-0006\n```\n\n## Commands\n\n```bash\n./scripts/eos planning check PI-002\n./scripts/eos planning order PI-002\n./scripts/eos planning critical-path PI-002\n./scripts/eos planning graph PI-002 --format mermaid\n./scripts/eos planning size WP-CORE-0007\n```\n\n## Planning Invariants\n\n- work-packet dependency cycles are invalid;\n- referenced dependency WPs must exist;\n- dependency execution order must place prerequisites first;\n- READY or later work packets must have bounded, non-TBD definitions;\n- authorization state must be consistent with parent lifecycle state;\n- oversized work packets should be decomposed before execution where practical.\n\nSizing is heuristic advisory evidence, not a substitute for engineering\njudgment.\n\n## Adaptive AI-Driven Pathway Planning\n\nThe planning engine MAY derive or accept an inspectable adaptive engineering\npathway under `EOS-AI-0001` and `FUN-AIENG-0001`.\n\nPathway derivation SHOULD consider materially applicable:\n\n- governed intent;\n- lifecycle state;\n- requirements and specifications;\n- ADRs and decisions;\n- authority and policy;\n- dependencies and blockers;\n- risk and consequence;\n- uncertainty and novelty;\n- reversibility;\n- evidence;\n- unresolved decisions;\n- autonomy profile.\n\nA pathway SHOULD identify:\n\n- proposed activities and sequencing;\n- mandatory versus optional activities;\n- unresolved material questions;\n- required decisions and approvals;\n- expected verification and review obligations;\n- escalation conditions;\n- structured rationale for material changes in rigor.\n\nThe pathway is a derived planning projection.\n\nIt MUST NOT become a second lifecycle state authority, and pathway optimization\nMUST NOT bypass mandatory EOS gates.\n\nLow-risk reversible work MAY receive a lightweight pathway. Higher-consequence,\nsecurity-sensitive, uncertain, or difficult-to-reverse work SHOULD receive\ndeeper planning, evidence, authority, and review where applicable.\n",
   "document_id": "doc:governance%2Fplanning-engine.md",
   "generation": {
     "deterministic": true,
@@ -11,7 +11,7 @@
   "metadata": {
     "document_type": "governance",
     "normative": true,
-    "summary": "--- artifactid: \"GOV-PLAN-0001\" title: \"EOS Planning and Dependency Engine\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "summary": "--- artifactid: \"GOV-PLAN-0001\" title: \"EOS Planning and Dependency Engine\" type: \"governance\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-09-05\" ---",
     "title": "EOS Planning and Dependency Engine"
   },
   "relations": [],
@@ -21,17 +21,17 @@
     {
       "identifiers": [],
       "level": 0,
-      "line_end": 11,
+      "line_end": 10,
       "line_start": 1,
       "section_id": "preamble",
-      "text": "---\nartifact_id: \"GOV-PLAN-0001\"\ntitle: \"EOS Planning and Dependency Engine\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "text": "---\nartifact_id: \"GOV-PLAN-0001\"\ntitle: \"EOS Planning and Dependency Engine\"\ntype: \"governance\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-09-05\"\n---",
       "title": "Preamble"
     },
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 21,
-      "line_start": 12,
+      "line_end": 20,
+      "line_start": 11,
       "section_id": "eos-planning-and-dependency-engine",
       "text": "# EOS Planning and Dependency Engine\n\nEOSP treats PI/WC/WP planning as a dependency graph rather than a flat backlog.\n\nWork-packet dependencies may be declared explicitly:\n\n```markdown\n- depends-on: WP-CORE-0006\n```",
       "title": "EOS Planning and Dependency Engine"
@@ -39,8 +39,8 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 31,
-      "line_start": 22,
+      "line_end": 30,
+      "line_start": 21,
       "section_id": "commands",
       "text": "## Commands\n\n```bash\n./scripts/eos planning check PI-002\n./scripts/eos planning order PI-002\n./scripts/eos planning critical-path PI-002\n./scripts/eos planning graph PI-002 --format mermaid\n./scripts/eos planning size WP-CORE-0007\n```",
       "title": "Commands"
@@ -49,19 +49,28 @@
       "identifiers": [],
       "level": 2,
       "line_end": 42,
-      "line_start": 32,
+      "line_start": 31,
       "section_id": "planning-invariants",
       "text": "## Planning Invariants\n\n- work-packet dependency cycles are invalid;\n- referenced dependency WPs must exist;\n- dependency execution order must place prerequisites first;\n- READY or later work packets must have bounded, non-TBD definitions;\n- authorization state must be consistent with parent lifecycle state;\n- oversized work packets should be decomposed before execution where practical.\n\nSizing is heuristic advisory evidence, not a substitute for engineering\njudgment.",
       "title": "Planning Invariants"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 80,
+      "line_start": 43,
+      "section_id": "adaptive-ai-driven-pathway-planning",
+      "text": "## Adaptive AI-Driven Pathway Planning\n\nThe planning engine MAY derive or accept an inspectable adaptive engineering\npathway under `EOS-AI-0001` and `FUN-AIENG-0001`.\n\nPathway derivation SHOULD consider materially applicable:\n\n- governed intent;\n- lifecycle state;\n- requirements and specifications;\n- ADRs and decisions;\n- authority and policy;\n- dependencies and blockers;\n- risk and consequence;\n- uncertainty and novelty;\n- reversibility;\n- evidence;\n- unresolved decisions;\n- autonomy profile.\n\nA pathway SHOULD identify:\n\n- proposed activities and sequencing;\n- mandatory versus optional activities;\n- unresolved material questions;\n- required decisions and approvals;\n- expected verification and review obligations;\n- escalation conditions;\n- structured rationale for material changes in rigor.\n\nThe pathway is a derived planning projection.\n\nIt MUST NOT become a second lifecycle state authority, and pathway optimization\nMUST NOT bypass mandatory EOS gates.\n\nLow-risk reversible work MAY receive a lightweight pathway. Higher-consequence,\nsecurity-sensitive, uncertain, or difficult-to-reverse work SHOULD receive\ndeeper planning, evidence, authority, and review where applicable.",
+      "title": "Adaptive AI-Driven Pathway Planning"
     }
   ],
   "source": {
-    "bytes": 1142,
+    "bytes": 2332,
     "canonical": true,
     "language": "markdown",
-    "lines": 42,
+    "lines": 80,
     "media_type": "text/markdown",
     "path": "governance/planning-engine.md",
-    "sha256": "6d46aefe4ffe379494f21d6867f5260e9befe167b92539aadf2f4499a9f830d2"
+    "sha256": "325b686b06f07c4364693b8b04f72190bda38f4560522ff826c49e45b7b92224"
   }
 }

@@ -1,18 +1,39 @@
 {
-  "content": "---\nartifact_id: \"SPEC-BASE-0001\"\ntitle: \"Initial Specification Baseline\"\ntype: \"specification\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"specification-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# Initial Specification Baseline\n\n## Purpose\n\nIdentify the minimum set of specifications required to authorize PI-001 and its\nfirst work cycle.\n\n## Governing Requirements\n\nTBD.\n\n## Required Specifications\n\nTBD.\n\n## Traceability Expectations\n\nEvery implementation work packet should identify the requirements,\nspecifications, ADRs, and quality attributes it satisfies.\n",
+  "content": "---\n\nartifact_id: \"SPEC-BASE-0001\"\ntitle: \"Specification Baseline\"\ntype: \"specification\"\nversion: \"0.1.0\"\nstatus: \"Approved\"\nauthority: \"specification-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-09-05\"\napproval_evidence: \"engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md\"\n---------------------\n\n# Specification Baseline\n\n## Purpose\n\nDefine the current governed specification baseline for Monad and the traceability expectations that connect accepted product requirements and architecture to implementation work.\n\nThis baseline is a catalog and governance boundary. It does not itself authorize implementation.\n\nThe current AI-driven engineering tranche is authorized for normative definition by `CR-0003`, governed architecturally by accepted `ADR-0008`, and operationalized by accepted `EOS-AI-0001`.\n\n## Governing sources\n\nThe AI-driven engineering specification tranche is governed by:\n\n* `ADR-0006` — EOS Sovereignty and External SDLC Assimilation;\n* `ADR-0008` — AI-Driven Engineering as the Default EOS Operating Model;\n* `CR-0003` — Establish Monad AI-Driven Engineering Operating Model;\n* `EOS-AI-0001` — AI-Driven Engineering Operating Model;\n* `product/product-requirements.md`;\n* `governance/authority.md`;\n* `governance/canonical-state-model.md`;\n* `governance/decision-process.md`;\n* `governance/planning-engine.md`;\n* `governance/policy-engine.md`;\n* `governance/execution-engine.md`;\n* the permanent EOS lifecycle contracts.\n\n`ADR-0007` remains independently governed and Proposed. Specifications derived from or related to its Governed Execution Harness architecture do not become accepted merely by inclusion in this baseline.\n\n## AI-driven engineering requirement ownership\n\nThe initial AIENG specification family refines the following committed product requirements:\n\n* `FR-007` — bounded governed context;\n* `FR-012` — memory, intelligence, and execution loop;\n* `FR-013` — anti-hallucination engineering memory;\n* `FR-014` — dependency-aware agent work;\n* `FR-015` — progressive autonomy;\n* `FR-016` — cross-harness review;\n* `FR-023` — governance, change control, and audit;\n* `FR-024` — operational health and execution observability;\n* `FR-043` — Adaptive AI-Driven Engineering Workflow Planning;\n* `QR-008` — progressive trust;\n* `QR-010` — auditability.\n\nThe existing governed-execution requirements remain complementary:\n\n* `FR-037` — Execution Envelope compilation;\n* `FR-038` — fail-closed governed execution;\n* `FR-039` — replaceable agent harness adapters;\n* `FR-040` — independent completion verification;\n* `FR-041` — recovery without loss of governing identity;\n* `FR-042` — governed harness/model conformance evaluation.\n\n## Required AIENG specifications\n\nThe initial normative AIENG tranche consists of:\n\n| Specification    | Class      | Responsibility                                                                    | Initial status |\n| ---------------- | ---------- | --------------------------------------------------------------------------------- | -------------- |\n| `FUN-AIENG-0001` | Functional | Adaptive engineering pathway, clarification, replanning, and workflow progression | Draft          |\n| `IFC-AIENG-0001` | Interface  | Provider-neutral engineering-agent interaction contract                           | Draft          |\n| `SEC-AIENG-0001` | Security   | Autonomy, authority, delegation, approval, revocation, and fail-closed boundaries | Draft          |\n\nThese specifications refine one operating model. They MUST NOT create separate lifecycle, decision, approval, evidence, authority, or canonical-state systems.\n\n## Relationship to governed execution specifications\n\nThe AIENG specifications operate upstream of and across the existing execution-governance boundary.\n\nThe intended composition is:\n\n```text\ngoverned intent\n    ↓\nFUN-AIENG-0001\nadaptive pathway / clarification / decision routing\n    ↓\nEOSP + native authority/policy\n    ↓\nFR-037..FR-042 governed execution semantics\n    ↓\nreplaceable executor / harness\n    ↓\nEOSV verification\n    ↓\nEOSR review\n    ↓\nEOSC / EOSL / EOSM as applicable\n```\n\n`TECH-HARNESS-0001` and `IFC-HARNESS-0001` are related execution-governance specifications and retain the status and architectural dependencies declared in their own artifacts.\n\n## Specification invariants\n\nEvery AIENG specification MUST preserve these cross-family invariants:\n\n1. EOS remains the sole engineering lifecycle/control plane.\n2. `.eos/state/current.json` remains the sole current EOS operational authority.\n3. AI initiative does not imply AI authority.\n4. AI output does not become canonical merely through model confidence or consensus.\n5. Human accountability and consequential authority remain explicit.\n6. Adaptive workflow cannot bypass mandatory EOS gates.\n7. Material ambiguity routes to native clarification, decision, approval, or change semantics.\n8. Execution remains bounded by explicit authority and capability.\n9. Governing-input drift can invalidate or suspend stale authorization.\n10. Evidence controls acceptance.\n11. Required review independence is policy-governed.\n12. Raw transcripts and private chain-of-thought are noncanonical.\n13. Model, provider, and harness identity are non-authoritative.\n14. Autonomy is explicit, bounded, observable, attributable, policy-controlled, and revocable.\n15. Existing Monad entities are reused unless a separately governed semantic gap is established.\n16. Product-runtime implementation requires separately planned and authorized EOS work.\n\n## Required conformance coverage\n\nThe AIENG specification family MUST collectively own verification for:\n\n* `AIENG-CONF-A` — low-risk reversible change;\n* `AIENG-CONF-B` — ambiguous product intent;\n* `AIENG-CONF-C` — architecture change discovered during execution;\n* `AIENG-CONF-D` — bounded autonomous Work Packet;\n* `AIENG-CONF-E` — security-sensitive work;\n* `AIENG-CONF-F` — independent review;\n* `AIENG-CONF-G` — governing-input drift;\n* `AIENG-CONF-H` — provider failure;\n* `AIENG-CONF-I` — human denial;\n* `AIENG-CONF-J` — evidence invalidates an assumption.\n\nA later traceability review MUST demonstrate that every scenario has one or more normative specification owners and corresponding verification assets or explicitly planned verification assets.\n\n## Traceability expectations\n\nEvery implementation Work Packet derived from this baseline MUST identify:\n\n* governing requirement IDs;\n* applicable specification IDs;\n* applicable ADRs;\n* applicable authority/policy constraints;\n* acceptance criteria;\n* required verification evidence;\n* required review obligations.\n\nSpecifications MUST trace upward to requirements and architecture and downward to verification/conformance assets.\n\nMissing traceability is a baseline defect, not permission to infer intent from implementation.\n\n## Implementation authorization\n\nThis baseline does not authorize runtime implementation.\n\nThe sequence remains:\n\n```text\naccepted architecture\n→ accepted operating model\n→ requirements\n→ specifications\n→ traceability/conformance review\n→ EOSP planning\n→ separately authorized WC/WP\n→ implementation\n```\n\n## Known Machine-Traceability Identity Gap\n\nThe human-authored product and specification conventions currently identify\nrequirements as `FR-*` / `QR-*` and specifications as class-specific\n`FUN-*` / `IFC-*` / `SEC-*` identifiers.\n\nThe EOS canonical domain model currently defines canonical Requirement and\nSpecification entity namespaces as `REQ-*` and `SPEC-*`.\n\nThis mismatch does not invalidate the semantic requirement/specification\nrelationships established by this baseline, but it prevents this baseline from\nclaiming complete canonical machine-level REQ/SPEC identity coverage until the\nnamespace/convention relationship is explicitly reconciled.\n\nThe reconciliation MUST preserve existing human-authored identifiers and\nhistory and MUST NOT silently renumber accepted requirements or specifications.\n\nResolution of this gap is required before the AIENG tranche claims complete\nmachine-level traceability or proceeds into implementation planning.\n",
   "document_id": "doc:specifications%2Fbaseline.md",
   "generation": {
     "deterministic": true,
     "tool": "sync-machine-docs",
     "version": "1.0.0"
   },
-  "identifiers": [],
+  "identifiers": [
+    "ADR-0006",
+    "ADR-0007",
+    "ADR-0008",
+    "FR-007",
+    "FR-012",
+    "FR-013",
+    "FR-014",
+    "FR-015",
+    "FR-016",
+    "FR-023",
+    "FR-024",
+    "FR-037",
+    "FR-038",
+    "FR-039",
+    "FR-040",
+    "FR-041",
+    "FR-042",
+    "FR-043",
+    "QR-008",
+    "QR-010"
+  ],
   "links": [],
   "metadata": {
     "document_type": "specification",
     "normative": true,
-    "summary": "--- artifactid: \"SPEC-BASE-0001\" title: \"Initial Specification Baseline\" type: \"specification\" version: \"0.1.0\" status: \"Draft\" authority: \"specification-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
-    "title": "Initial Specification Baseline"
+    "summary": "---",
+    "title": "Specification Baseline"
   },
   "relations": [],
   "schema": "machine/schemas/document.schema.json",
@@ -21,65 +42,146 @@
     {
       "identifiers": [],
       "level": 0,
-      "line_end": 11,
+      "line_end": 13,
       "line_start": 1,
       "section_id": "preamble",
-      "text": "---\nartifact_id: \"SPEC-BASE-0001\"\ntitle: \"Initial Specification Baseline\"\ntype: \"specification\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"specification-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "text": "---\n\nartifact_id: \"SPEC-BASE-0001\"\ntitle: \"Specification Baseline\"\ntype: \"specification\"\nversion: \"0.1.0\"\nstatus: \"Approved\"\nauthority: \"specification-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-09-05\"\napproval_evidence: \"engineering/reviews/DECISION-0005-2026-09-05-aieng-normative-baseline-approval.md\"\n---------------------",
       "title": "Preamble"
     },
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 13,
-      "line_start": 12,
-      "section_id": "initial-specification-baseline",
-      "text": "# Initial Specification Baseline",
-      "title": "Initial Specification Baseline"
+      "line_end": 15,
+      "line_start": 14,
+      "section_id": "specification-baseline",
+      "text": "# Specification Baseline",
+      "title": "Specification Baseline"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "ADR-0008"
+      ],
       "level": 2,
-      "line_end": 18,
-      "line_start": 14,
+      "line_end": 23,
+      "line_start": 16,
       "section_id": "purpose",
-      "text": "## Purpose\n\nIdentify the minimum set of specifications required to authorize PI-001 and its\nfirst work cycle.",
+      "text": "## Purpose\n\nDefine the current governed specification baseline for Monad and the traceability expectations that connect accepted product requirements and architecture to implementation work.\n\nThis baseline is a catalog and governance boundary. It does not itself authorize implementation.\n\nThe current AI-driven engineering tranche is authorized for normative definition by `CR-0003`, governed architecturally by accepted `ADR-0008`, and operationalized by accepted `EOS-AI-0001`.",
       "title": "Purpose"
     },
     {
-      "identifiers": [],
+      "identifiers": [
+        "ADR-0006",
+        "ADR-0007",
+        "ADR-0008"
+      ],
       "level": 2,
-      "line_end": 22,
-      "line_start": 19,
-      "section_id": "governing-requirements",
-      "text": "## Governing Requirements\n\nTBD.",
-      "title": "Governing Requirements"
+      "line_end": 42,
+      "line_start": 24,
+      "section_id": "governing-sources",
+      "text": "## Governing sources\n\nThe AI-driven engineering specification tranche is governed by:\n\n* `ADR-0006` — EOS Sovereignty and External SDLC Assimilation;\n* `ADR-0008` — AI-Driven Engineering as the Default EOS Operating Model;\n* `CR-0003` — Establish Monad AI-Driven Engineering Operating Model;\n* `EOS-AI-0001` — AI-Driven Engineering Operating Model;\n* `product/product-requirements.md`;\n* `governance/authority.md`;\n* `governance/canonical-state-model.md`;\n* `governance/decision-process.md`;\n* `governance/planning-engine.md`;\n* `governance/policy-engine.md`;\n* `governance/execution-engine.md`;\n* the permanent EOS lifecycle contracts.\n\n`ADR-0007` remains independently governed and Proposed. Specifications derived from or related to its Governed Execution Harness architecture do not become accepted merely by inclusion in this baseline.",
+      "title": "Governing sources"
+    },
+    {
+      "identifiers": [
+        "FR-007",
+        "FR-012",
+        "FR-013",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-023",
+        "FR-024",
+        "FR-037",
+        "FR-038",
+        "FR-039",
+        "FR-040",
+        "FR-041",
+        "FR-042",
+        "FR-043",
+        "QR-008",
+        "QR-010"
+      ],
+      "level": 2,
+      "line_end": 67,
+      "line_start": 43,
+      "section_id": "ai-driven-engineering-requirement-ownership",
+      "text": "## AI-driven engineering requirement ownership\n\nThe initial AIENG specification family refines the following committed product requirements:\n\n* `FR-007` — bounded governed context;\n* `FR-012` — memory, intelligence, and execution loop;\n* `FR-013` — anti-hallucination engineering memory;\n* `FR-014` — dependency-aware agent work;\n* `FR-015` — progressive autonomy;\n* `FR-016` — cross-harness review;\n* `FR-023` — governance, change control, and audit;\n* `FR-024` — operational health and execution observability;\n* `FR-043` — Adaptive AI-Driven Engineering Workflow Planning;\n* `QR-008` — progressive trust;\n* `QR-010` — auditability.\n\nThe existing governed-execution requirements remain complementary:\n\n* `FR-037` — Execution Envelope compilation;\n* `FR-038` — fail-closed governed execution;\n* `FR-039` — replaceable agent harness adapters;\n* `FR-040` — independent completion verification;\n* `FR-041` — recovery without loss of governing identity;\n* `FR-042` — governed harness/model conformance evaluation.",
+      "title": "AI-driven engineering requirement ownership"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 26,
-      "line_start": 23,
-      "section_id": "required-specifications",
-      "text": "## Required Specifications\n\nTBD.",
-      "title": "Required Specifications"
+      "line_end": 79,
+      "line_start": 68,
+      "section_id": "required-aieng-specifications",
+      "text": "## Required AIENG specifications\n\nThe initial normative AIENG tranche consists of:\n\n| Specification    | Class      | Responsibility                                                                    | Initial status |\n| ---------------- | ---------- | --------------------------------------------------------------------------------- | -------------- |\n| `FUN-AIENG-0001` | Functional | Adaptive engineering pathway, clarification, replanning, and workflow progression | Draft          |\n| `IFC-AIENG-0001` | Interface  | Provider-neutral engineering-agent interaction contract                           | Draft          |\n| `SEC-AIENG-0001` | Security   | Autonomy, authority, delegation, approval, revocation, and fail-closed boundaries | Draft          |\n\nThese specifications refine one operating model. They MUST NOT create separate lifecycle, decision, approval, evidence, authority, or canonical-state systems.",
+      "title": "Required AIENG specifications"
+    },
+    {
+      "identifiers": [
+        "FR-037",
+        "FR-042"
+      ],
+      "level": 2,
+      "line_end": 106,
+      "line_start": 80,
+      "section_id": "relationship-to-governed-execution-specifications",
+      "text": "## Relationship to governed execution specifications\n\nThe AIENG specifications operate upstream of and across the existing execution-governance boundary.\n\nThe intended composition is:\n\n```text\ngoverned intent\n    ↓\nFUN-AIENG-0001\nadaptive pathway / clarification / decision routing\n    ↓\nEOSP + native authority/policy\n    ↓\nFR-037..FR-042 governed execution semantics\n    ↓\nreplaceable executor / harness\n    ↓\nEOSV verification\n    ↓\nEOSR review\n    ↓\nEOSC / EOSL / EOSM as applicable\n```\n\n`TECH-HARNESS-0001` and `IFC-HARNESS-0001` are related execution-governance specifications and retain the status and architectural dependencies declared in their own artifacts.",
+      "title": "Relationship to governed execution specifications"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 30,
-      "line_start": 27,
+      "line_end": 127,
+      "line_start": 107,
+      "section_id": "specification-invariants",
+      "text": "## Specification invariants\n\nEvery AIENG specification MUST preserve these cross-family invariants:\n\n1. EOS remains the sole engineering lifecycle/control plane.\n2. `.eos/state/current.json` remains the sole current EOS operational authority.\n3. AI initiative does not imply AI authority.\n4. AI output does not become canonical merely through model confidence or consensus.\n5. Human accountability and consequential authority remain explicit.\n6. Adaptive workflow cannot bypass mandatory EOS gates.\n7. Material ambiguity routes to native clarification, decision, approval, or change semantics.\n8. Execution remains bounded by explicit authority and capability.\n9. Governing-input drift can invalidate or suspend stale authorization.\n10. Evidence controls acceptance.\n11. Required review independence is policy-governed.\n12. Raw transcripts and private chain-of-thought are noncanonical.\n13. Model, provider, and harness identity are non-authoritative.\n14. Autonomy is explicit, bounded, observable, attributable, policy-controlled, and revocable.\n15. Existing Monad entities are reused unless a separately governed semantic gap is established.\n16. Product-runtime implementation requires separately planned and authorized EOS work.",
+      "title": "Specification invariants"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 144,
+      "line_start": 128,
+      "section_id": "required-conformance-coverage",
+      "text": "## Required conformance coverage\n\nThe AIENG specification family MUST collectively own verification for:\n\n* `AIENG-CONF-A` — low-risk reversible change;\n* `AIENG-CONF-B` — ambiguous product intent;\n* `AIENG-CONF-C` — architecture change discovered during execution;\n* `AIENG-CONF-D` — bounded autonomous Work Packet;\n* `AIENG-CONF-E` — security-sensitive work;\n* `AIENG-CONF-F` — independent review;\n* `AIENG-CONF-G` — governing-input drift;\n* `AIENG-CONF-H` — provider failure;\n* `AIENG-CONF-I` — human denial;\n* `AIENG-CONF-J` — evidence invalidates an assumption.\n\nA later traceability review MUST demonstrate that every scenario has one or more normative specification owners and corresponding verification assets or explicitly planned verification assets.",
+      "title": "Required conformance coverage"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 160,
+      "line_start": 145,
       "section_id": "traceability-expectations",
-      "text": "## Traceability Expectations\n\nEvery implementation work packet should identify the requirements,\nspecifications, ADRs, and quality attributes it satisfies.",
-      "title": "Traceability Expectations"
+      "text": "## Traceability expectations\n\nEvery implementation Work Packet derived from this baseline MUST identify:\n\n* governing requirement IDs;\n* applicable specification IDs;\n* applicable ADRs;\n* applicable authority/policy constraints;\n* acceptance criteria;\n* required verification evidence;\n* required review obligations.\n\nSpecifications MUST trace upward to requirements and architecture and downward to verification/conformance assets.\n\nMissing traceability is a baseline defect, not permission to infer intent from implementation.",
+      "title": "Traceability expectations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 177,
+      "line_start": 161,
+      "section_id": "implementation-authorization",
+      "text": "## Implementation authorization\n\nThis baseline does not authorize runtime implementation.\n\nThe sequence remains:\n\n```text\naccepted architecture\n→ accepted operating model\n→ requirements\n→ specifications\n→ traceability/conformance review\n→ EOSP planning\n→ separately authorized WC/WP\n→ implementation\n```",
+      "title": "Implementation authorization"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 196,
+      "line_start": 178,
+      "section_id": "known-machine-traceability-identity-gap",
+      "text": "## Known Machine-Traceability Identity Gap\n\nThe human-authored product and specification conventions currently identify\nrequirements as `FR-*` / `QR-*` and specifications as class-specific\n`FUN-*` / `IFC-*` / `SEC-*` identifiers.\n\nThe EOS canonical domain model currently defines canonical Requirement and\nSpecification entity namespaces as `REQ-*` and `SPEC-*`.\n\nThis mismatch does not invalidate the semantic requirement/specification\nrelationships established by this baseline, but it prevents this baseline from\nclaiming complete canonical machine-level REQ/SPEC identity coverage until the\nnamespace/convention relationship is explicitly reconciled.\n\nThe reconciliation MUST preserve existing human-authored identifiers and\nhistory and MUST NOT silently renumber accepted requirements or specifications.\n\nResolution of this gap is required before the AIENG tranche claims complete\nmachine-level traceability or proceeds into implementation planning.",
+      "title": "Known Machine-Traceability Identity Gap"
     }
   ],
   "source": {
-    "bytes": 587,
+    "bytes": 8163,
     "canonical": true,
     "language": "markdown",
-    "lines": 30,
+    "lines": 196,
     "media_type": "text/markdown",
     "path": "specifications/baseline.md",
-    "sha256": "8a7c4750f2574821db406cd46e87e56dab6eb3427968cdd17e0e23d0776edc99"
+    "sha256": "9139440f18e0b8f566199a2e7dcb7e03c684bd82d679b15ab195ffa20dd8b7ae"
   }
 }

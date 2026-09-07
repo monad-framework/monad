@@ -1,0 +1,163 @@
+{
+  "content": "---\nartifact_id: \"REV-MNT-0006\"\ntitle: \"MNT-0006 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"In Review\"\nauthority: \"review-authoritative\"\ncreated: \"2026-09-05\"\nupdated: \"2026-09-05\"\n---\n\n# MNT-0006 — Engineering Review\n\n**Decision:** PENDING\n\n## Target\n\n- Artifact: `engineering/maintenance/MNT-0006.md`\n- State at review start: VERIFYING\n- Review generated: 2026-09-05T09:51:37Z\n- Git HEAD: 24f68e95ba1586928e26fea3394b0b3dde0426b0\n\n## Deterministic Verification\n\n**Result:** PASS\n\n```text\nregistered artifacts: 360\nevents: 1121\noverrides: 0\ntrace edges: 1211\nprogram increments: 2\nwork cycles: 3\nwork packets: 6\nopen stale records: 0\ntrace coverage: 62.5%\nwarnings:\n  WARN registered Markdown artifact has no EOS front matter: governance/terminology.md\n  WARN registered Markdown artifact has no EOS front matter: vision/problem-statement.md\n  WARN registered Markdown artifact has no EOS front matter: vision/product-vision.md\n  WARN registered Markdown artifact has no EOS front matter: vision/principles.md\n  WARN registered Markdown artifact has no EOS front matter: vision/goals.md\n  WARN registered Markdown artifact has no EOS front matter: vision/non-goals.md\n  WARN registered Markdown artifact has no EOS front matter: product/personas.md\n  WARN registered Markdown artifact has no EOS front matter: product/use-cases.md\n  WARN registered Markdown artifact has no EOS front matter: product/user-journeys.md\n  WARN registered Markdown artifact has no EOS front matter: product/capabilities.md\n  WARN registered Markdown artifact has no EOS front matter: product/product-requirements.md\n  WARN registered Markdown artifact has no EOS front matter: product/constraints.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/quality-attributes.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/context.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/system-boundaries.md\n  WARN registered Markdown artifact has no EOS front matter: research/questions.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/overview.md\n  WARN registered Markdown artifact has no EOS front matter: specifications/baseline.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/increments/PI-001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-cycles/WC-0001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-packets/WP-0001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/reviews/EOS-AI-0001-OPERATING-MODEL-REVIEW.md\nRESULT: PASS\n```\n\n## Scope Conformance\n\nTBD.\n\n## Requirements / Specification Conformance\n\nTBD.\n\n## Architecture Conformance\n\nTBD.\n\n## Acceptance Criteria Evidence\n\nTBD.\n\n## Test / Validation Evidence\n\nTBD.\n\n## Security / Reliability Findings\n\nTBD.\n\n## Traceability Findings\n\nTBD.\n\n## Blocking Findings\n\nTBD.\n\n## Non-Blocking Findings\n\nTBD.\n\n## Decision\n\nSet the top-level `**Decision:**` to one of:\n\n- ACCEPTED\n- ACCEPTED_WITH_FOLLOW_UP\n- REJECTED\n- BLOCKED\n",
+  "document_id": "doc:.eos%2Fhistory%2Fengineering%2Freviews%2FMNT-0006-REVIEW%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [
+    "WC-0001",
+    "WP-0001"
+  ],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"REV-MNT-0006\" title: \"MNT-0006 Engineering Review\" type: \"review\" version: \"0.1.0\" status: \"In Review\" authority: \"review-authoritative\" created: \"2026-09-05\" updated: \"2026-09-05\" ---",
+    "title": "MNT-0006 — Engineering Review"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"REV-MNT-0006\"\ntitle: \"MNT-0006 Engineering Review\"\ntype: \"review\"\nversion: \"0.1.0\"\nstatus: \"In Review\"\nauthority: \"review-authoritative\"\ncreated: \"2026-09-05\"\nupdated: \"2026-09-05\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "mnt-0006-engineering-review",
+      "text": "# MNT-0006 — Engineering Review\n\n**Decision:** PENDING",
+      "title": "MNT-0006 — Engineering Review"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 22,
+      "line_start": 16,
+      "section_id": "target",
+      "text": "## Target\n\n- Artifact: `engineering/maintenance/MNT-0006.md`\n- State at review start: VERIFYING\n- Review generated: 2026-09-05T09:51:37Z\n- Git HEAD: 24f68e95ba1586928e26fea3394b0b3dde0426b0",
+      "title": "Target"
+    },
+    {
+      "identifiers": [
+        "WC-0001",
+        "WP-0001"
+      ],
+      "level": 2,
+      "line_end": 62,
+      "line_start": 23,
+      "section_id": "deterministic-verification",
+      "text": "## Deterministic Verification\n\n**Result:** PASS\n\n```text\nregistered artifacts: 360\nevents: 1121\noverrides: 0\ntrace edges: 1211\nprogram increments: 2\nwork cycles: 3\nwork packets: 6\nopen stale records: 0\ntrace coverage: 62.5%\nwarnings:\n  WARN registered Markdown artifact has no EOS front matter: governance/terminology.md\n  WARN registered Markdown artifact has no EOS front matter: vision/problem-statement.md\n  WARN registered Markdown artifact has no EOS front matter: vision/product-vision.md\n  WARN registered Markdown artifact has no EOS front matter: vision/principles.md\n  WARN registered Markdown artifact has no EOS front matter: vision/goals.md\n  WARN registered Markdown artifact has no EOS front matter: vision/non-goals.md\n  WARN registered Markdown artifact has no EOS front matter: product/personas.md\n  WARN registered Markdown artifact has no EOS front matter: product/use-cases.md\n  WARN registered Markdown artifact has no EOS front matter: product/user-journeys.md\n  WARN registered Markdown artifact has no EOS front matter: product/capabilities.md\n  WARN registered Markdown artifact has no EOS front matter: product/product-requirements.md\n  WARN registered Markdown artifact has no EOS front matter: product/constraints.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/quality-attributes.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/context.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/system-boundaries.md\n  WARN registered Markdown artifact has no EOS front matter: research/questions.md\n  WARN registered Markdown artifact has no EOS front matter: architecture/overview.md\n  WARN registered Markdown artifact has no EOS front matter: specifications/baseline.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/increments/PI-001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-cycles/WC-0001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/work-packets/WP-0001.md\n  WARN registered Markdown artifact has no EOS front matter: engineering/reviews/EOS-AI-0001-OPERATING-MODEL-REVIEW.md\nRESULT: PASS\n```",
+      "title": "Deterministic Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 66,
+      "line_start": 63,
+      "section_id": "scope-conformance",
+      "text": "## Scope Conformance\n\nTBD.",
+      "title": "Scope Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 70,
+      "line_start": 67,
+      "section_id": "requirements-specification-conformance",
+      "text": "## Requirements / Specification Conformance\n\nTBD.",
+      "title": "Requirements / Specification Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 74,
+      "line_start": 71,
+      "section_id": "architecture-conformance",
+      "text": "## Architecture Conformance\n\nTBD.",
+      "title": "Architecture Conformance"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 78,
+      "line_start": 75,
+      "section_id": "acceptance-criteria-evidence",
+      "text": "## Acceptance Criteria Evidence\n\nTBD.",
+      "title": "Acceptance Criteria Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 82,
+      "line_start": 79,
+      "section_id": "test-validation-evidence",
+      "text": "## Test / Validation Evidence\n\nTBD.",
+      "title": "Test / Validation Evidence"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 86,
+      "line_start": 83,
+      "section_id": "security-reliability-findings",
+      "text": "## Security / Reliability Findings\n\nTBD.",
+      "title": "Security / Reliability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 90,
+      "line_start": 87,
+      "section_id": "traceability-findings",
+      "text": "## Traceability Findings\n\nTBD.",
+      "title": "Traceability Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 94,
+      "line_start": 91,
+      "section_id": "blocking-findings",
+      "text": "## Blocking Findings\n\nTBD.",
+      "title": "Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 98,
+      "line_start": 95,
+      "section_id": "non-blocking-findings",
+      "text": "## Non-Blocking Findings\n\nTBD.",
+      "title": "Non-Blocking Findings"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 106,
+      "line_start": 99,
+      "section_id": "decision",
+      "text": "## Decision\n\nSet the top-level `**Decision:**` to one of:\n\n- ACCEPTED\n- ACCEPTED_WITH_FOLLOW_UP\n- REJECTED\n- BLOCKED",
+      "title": "Decision"
+    }
+  ],
+  "source": {
+    "bytes": 3098,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 106,
+    "media_type": "text/markdown",
+    "path": ".eos/history/engineering/reviews/MNT-0006-REVIEW/v0.1.0.md",
+    "sha256": "c9bda5927836740748f7b9851e21d9c043f02ddd56efc2d2248fac87b77115e4"
+  }
+}

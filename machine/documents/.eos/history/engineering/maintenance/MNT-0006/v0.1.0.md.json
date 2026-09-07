@@ -1,0 +1,121 @@
+{
+  "content": "---\nartifact_id: \"MNT-0006\"\ntitle: \"EOS canonical transaction failure leaves rejected projection and event mutations\"\ntype: \"maintenance\"\nversion: \"0.1.0\"\nstatus: \"Open\"\nauthority: \"planning-authoritative\"\ncreated: \"2026-09-05\"\nupdated: \"2026-09-05\"\n---\n\n# MNT-0006 — EOS canonical transaction failure leaves rejected projection and event mutations\n\n**State:** OPEN\n\n## Type\n\nbug\n\n## Summary\n\nEOS canonical transaction failure leaves rejected projection and event mutations\n\n## Context\n\nDuring MNT-0005 planning, the legacy EOS mutation completed and changed .eos/maintenance.tsv, engineering/maintenance/MNT-0005.md, and .eos/events.jsonl. Canonical post-validation then rejected capture because the projections disagreed, leaving canonical state unchanged but the rejected mutations and transaction receipt present. Recovery required explicitly truncating the rejected event tail and reconciling local projections from canonical state.\n\n## Affected Artifacts / Components\n\nTBD.\n\n## Risk if Deferred\n\nTBD.\n\n## Proposed Resolution\n\nTBD.\n\n## Validation\n\nTBD.\n\n## Closure Evidence\n\nTBD.\n",
+  "document_id": "doc:.eos%2Fhistory%2Fengineering%2Fmaintenance%2FMNT-0006%2Fv0.1.0.md",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "--- artifactid: \"MNT-0006\" title: \"EOS canonical transaction failure leaves rejected projection and event mutations\" type: \"maintenance\" version: \"0.1.0\" status: \"Open\" authority: \"planning-authoritative\" created: \"2026-09-05\" updated: \"2026-09-05\" ---",
+    "title": "MNT-0006 — EOS canonical transaction failure leaves rejected projection and event mutations"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 0,
+      "line_end": 11,
+      "line_start": 1,
+      "section_id": "preamble",
+      "text": "---\nartifact_id: \"MNT-0006\"\ntitle: \"EOS canonical transaction failure leaves rejected projection and event mutations\"\ntype: \"maintenance\"\nversion: \"0.1.0\"\nstatus: \"Open\"\nauthority: \"planning-authoritative\"\ncreated: \"2026-09-05\"\nupdated: \"2026-09-05\"\n---",
+      "title": "Preamble"
+    },
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 15,
+      "line_start": 12,
+      "section_id": "mnt-0006-eos-canonical-transaction-failure-leaves-rejected-projection-and-event-mutations",
+      "text": "# MNT-0006 — EOS canonical transaction failure leaves rejected projection and event mutations\n\n**State:** OPEN",
+      "title": "MNT-0006 — EOS canonical transaction failure leaves rejected projection and event mutations"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 19,
+      "line_start": 16,
+      "section_id": "type",
+      "text": "## Type\n\nbug",
+      "title": "Type"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 23,
+      "line_start": 20,
+      "section_id": "summary",
+      "text": "## Summary\n\nEOS canonical transaction failure leaves rejected projection and event mutations",
+      "title": "Summary"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 27,
+      "line_start": 24,
+      "section_id": "context",
+      "text": "## Context\n\nDuring MNT-0005 planning, the legacy EOS mutation completed and changed .eos/maintenance.tsv, engineering/maintenance/MNT-0005.md, and .eos/events.jsonl. Canonical post-validation then rejected capture because the projections disagreed, leaving canonical state unchanged but the rejected mutations and transaction receipt present. Recovery required explicitly truncating the rejected event tail and reconciling local projections from canonical state.",
+      "title": "Context"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 31,
+      "line_start": 28,
+      "section_id": "affected-artifacts-components",
+      "text": "## Affected Artifacts / Components\n\nTBD.",
+      "title": "Affected Artifacts / Components"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 35,
+      "line_start": 32,
+      "section_id": "risk-if-deferred",
+      "text": "## Risk if Deferred\n\nTBD.",
+      "title": "Risk if Deferred"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 39,
+      "line_start": 36,
+      "section_id": "proposed-resolution",
+      "text": "## Proposed Resolution\n\nTBD.",
+      "title": "Proposed Resolution"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 43,
+      "line_start": 40,
+      "section_id": "validation",
+      "text": "## Validation\n\nTBD.",
+      "title": "Validation"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 44,
+      "section_id": "closure-evidence",
+      "text": "## Closure Evidence\n\nTBD.",
+      "title": "Closure Evidence"
+    }
+  ],
+  "source": {
+    "bytes": 1087,
+    "canonical": true,
+    "language": "markdown",
+    "lines": 46,
+    "media_type": "text/markdown",
+    "path": ".eos/history/engineering/maintenance/MNT-0006/v0.1.0.md",
+    "sha256": "504ec52157a15ee7c9c109541d139b99815f0783e10a534c6def11b6cd8b0f50"
+  }
+}

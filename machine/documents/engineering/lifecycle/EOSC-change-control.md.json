@@ -1,5 +1,5 @@
 {
-  "content": "---\nartifact_id: \"EOSC\"\ntitle: \"EOSC Change Control\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---\n\n# EOSC — Change Control\n\n## Purpose\n\nAllow requirements, architecture, specifications, plans, and scope to evolve\nwithout silently rewriting history or invalidating downstream work.\n\n## Flow\n\n`discovery -> impact analysis -> change request -> review -> approval ->\nversioned artifact updates -> dependent replanning/reverification -> closure`\n\n## Primary Commands\n\n```bash\n./scripts/eos impact ADR-0014\n./scripts/eos change create ADR-0014 \"Revise persistence boundary\"\n./scripts/eos change approve CR-0001\n./scripts/eos change close CR-0001\n```\n",
+  "content": "---\nartifact_id: \"EOSC\"\ntitle: \"EOSC Change Control\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-09-05\"\n---\n# EOSC — Change Control\n\n## Purpose\n\nAllow requirements, architecture, specifications, plans, and scope to evolve\nwithout silently rewriting history or invalidating downstream work.\n\n## Flow\n\n`discovery -> impact analysis -> change request -> review -> approval ->\nversioned artifact updates -> dependent replanning/reverification -> closure`\n\n## Primary Commands\n\n```bash\n./scripts/eos impact ADR-0014\n./scripts/eos change create ADR-0014 \"Revise persistence boundary\"\n./scripts/eos change approve CR-0001\n./scripts/eos change close CR-0001\n```\n\n## AI-Driven Replanning and Governing Drift\n\nAI-driven work MUST enter EOSC when execution, verification, review, operational\nevidence, or newly compiled context reveals that governing engineering meaning\nmust change.\n\nExamples include changes to:\n\n- requirements;\n- accepted architecture;\n- specifications;\n- security constraints;\n- accepted risk;\n- operational commitments;\n- authorized scope;\n- acceptance criteria;\n- release obligations.\n\nAn AI participant MAY identify the need for change, perform impact analysis,\nrecommend alternatives, and draft a Change Request.\n\nIt MUST NOT silently mutate governing meaning in order to keep execution\nmoving.\n\nWhen material governing-input drift invalidates an existing pathway or\nauthorization, dependent work MUST be suspended, replanned, reauthorized,\nreverified, or otherwise explicitly dispositioned before relying on stale\nauthority.\n\nEvidence that invalidates a planning assumption is a trigger for replanning or\nchange control, not permission to bypass governance.\n",
   "document_id": "doc:engineering%2Flifecycle%2FEOSC-change-control.md",
   "generation": {
     "deterministic": true,
@@ -13,7 +13,7 @@
   "metadata": {
     "document_type": "engineering-control",
     "normative": true,
-    "summary": "--- artifactid: \"EOSC\" title: \"EOSC Change Control\" type: \"lifecycle-layer\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-08-12\" ---",
+    "summary": "--- artifactid: \"EOSC\" title: \"EOSC Change Control\" type: \"lifecycle-layer\" version: \"0.1.0\" status: \"Draft\" authority: \"governance-authoritative\" created: \"2026-08-12\" updated: \"2026-09-05\" ---",
     "title": "EOSC — Change Control"
   },
   "relations": [],
@@ -23,17 +23,17 @@
     {
       "identifiers": [],
       "level": 0,
-      "line_end": 11,
+      "line_end": 10,
       "line_start": 1,
       "section_id": "preamble",
-      "text": "---\nartifact_id: \"EOSC\"\ntitle: \"EOSC Change Control\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-08-12\"\n---",
+      "text": "---\nartifact_id: \"EOSC\"\ntitle: \"EOSC Change Control\"\ntype: \"lifecycle-layer\"\nversion: \"0.1.0\"\nstatus: \"Draft\"\nauthority: \"governance-authoritative\"\ncreated: \"2026-08-12\"\nupdated: \"2026-09-05\"\n---",
       "title": "Preamble"
     },
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 13,
-      "line_start": 12,
+      "line_end": 12,
+      "line_start": 11,
       "section_id": "eosc-change-control",
       "text": "# EOSC — Change Control",
       "title": "EOSC — Change Control"
@@ -41,8 +41,8 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 18,
-      "line_start": 14,
+      "line_end": 17,
+      "line_start": 13,
       "section_id": "purpose",
       "text": "## Purpose\n\nAllow requirements, architecture, specifications, plans, and scope to evolve\nwithout silently rewriting history or invalidating downstream work.",
       "title": "Purpose"
@@ -50,8 +50,8 @@
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 23,
-      "line_start": 19,
+      "line_end": 22,
+      "line_start": 18,
       "section_id": "flow",
       "text": "## Flow\n\n`discovery -> impact analysis -> change request -> review -> approval ->\nversioned artifact updates -> dependent replanning/reverification -> closure`",
       "title": "Flow"
@@ -62,19 +62,28 @@
       ],
       "level": 2,
       "line_end": 31,
-      "line_start": 24,
+      "line_start": 23,
       "section_id": "primary-commands",
       "text": "## Primary Commands\n\n```bash\n./scripts/eos impact ADR-0014\n./scripts/eos change create ADR-0014 \"Revise persistence boundary\"\n./scripts/eos change approve CR-0001\n./scripts/eos change close CR-0001\n```",
       "title": "Primary Commands"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 62,
+      "line_start": 32,
+      "section_id": "ai-driven-replanning-and-governing-drift",
+      "text": "## AI-Driven Replanning and Governing Drift\n\nAI-driven work MUST enter EOSC when execution, verification, review, operational\nevidence, or newly compiled context reveals that governing engineering meaning\nmust change.\n\nExamples include changes to:\n\n- requirements;\n- accepted architecture;\n- specifications;\n- security constraints;\n- accepted risk;\n- operational commitments;\n- authorized scope;\n- acceptance criteria;\n- release obligations.\n\nAn AI participant MAY identify the need for change, perform impact analysis,\nrecommend alternatives, and draft a Change Request.\n\nIt MUST NOT silently mutate governing meaning in order to keep execution\nmoving.\n\nWhen material governing-input drift invalidates an existing pathway or\nauthorization, dependent work MUST be suspended, replanned, reauthorized,\nreverified, or otherwise explicitly dispositioned before relying on stale\nauthority.\n\nEvidence that invalidates a planning assumption is a trigger for replanning or\nchange control, not permission to bypass governance.",
+      "title": "AI-Driven Replanning and Governing Drift"
     }
   ],
   "source": {
-    "bytes": 745,
+    "bytes": 1763,
     "canonical": true,
     "language": "markdown",
-    "lines": 31,
+    "lines": 62,
     "media_type": "text/markdown",
     "path": "engineering/lifecycle/EOSC-change-control.md",
-    "sha256": "bc208af92e18c8e693d57fa014bdaef325f4d3f2239ffd69407a29be2ebcb8be"
+    "sha256": "a61910a68274487ba4c921b96760aafe65052df8ddf58466ac03eb2ee9687a30"
   }
 }
