@@ -1,0 +1,61 @@
+name: Temporary WP-MVP-0005 reconcile only
+
+on:
+  push:
+    branches:
+      - ops/wp-mvp-0005-reconcile-review
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wp-mvp-0005-reconcile-only
+  cancel-in-progress: true
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out product branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: wp/mvp-0005
+          fetch-depth: 0
+
+      - name: Merge canonical main and regenerate derived projections
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          set +e
+          git merge --no-commit --no-ff origin/main
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then
+            conflicts="$(git diff --name-only --diff-filter=U)"
+            test -n "$conflicts"
+            while IFS= read -r path; do
+              case "$path" in
+                .eos/trace-edges.tsv|machine/*)
+                  git checkout --theirs -- "$path"
+                  git add -- "$path"
+                  ;;
+                *)
+                  echo "Unexpected non-derived conflict: $path" >&2
+                  exit 1
+                  ;;
+              esac
+            done <<< "$conflicts"
+          fi
+          test -z "$(git diff --name-only --diff-filter=U)"
+          python3 tools/eos/trace_integrity.py --write
+          python3 scripts/sync-machine-docs.py --write
+          python3 tools/eos/trace_integrity.py
+          python3 scripts/sync-machine-docs.py --check
+          ./scripts/eos state status
+          ./scripts/eos verify --strict
+          git add -A
+          git diff --cached --check
+          git commit -m "chore(core): reconcile WP-MVP-0005 with canonical execution state"
+          git push origin HEAD:wp/mvp-0005
