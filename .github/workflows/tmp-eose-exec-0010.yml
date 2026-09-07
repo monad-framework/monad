@@ -38,7 +38,7 @@ jobs:
           ./scripts/eos execute WP-MVP-0005 --base origin/main --actor chatgpt --json | tee /tmp/eose-exec-0010.json
           test -f .eos/executions/EXEC-0010.json
           grep -q $'EXEC-0010\t' .eos/executions.tsv
-          grep -q $'EXEC-0010\t.eos/executions/EXEC-0010.json\tWP-MVP-0005\tPREPARED\twp/mvp-0005\t' .eos/executions.tsv
+          grep -q $'EXEC-0010\t.eos/executions/EXEC-0010.json\tWP-MVP-0005\tRUNNING\twp/mvp-0005\t' .eos/executions.tsv
 
       - name: Publish implementation baseline branch
         run: git push origin wp/mvp-0005:wp/mvp-0005
