@@ -1,0 +1,40 @@
+{
+  "content": "name: Temporary WP-MVP-0005 validate review corrections\n\non:\n  push:\n    branches:\n      - ops/wp-mvp-0005-validate-review-fix\n\npermissions:\n  contents: write\n\njobs:\n  validate:\n    runs-on: ubuntu-24.04\n    timeout-minutes: 25\n    steps:\n      - name: Check out product branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: wp/mvp-0005\n          fetch-depth: 0\n\n      - name: Configure commit identity\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n\n      - name: Format and validate monad-core\n        run: |\n          cargo fmt --all\n          cargo fmt --all -- --check\n          cargo test -p monad-core\n          cargo clippy -p monad-core --all-targets --all-features -- -D warnings\n          git diff --check -- crates/monad-core/src/\n\n      - name: Regenerate deterministic projections\n        run: |\n          python3 tools/eos/trace_integrity.py --write\n          python3 scripts/sync-machine-docs.py --write\n\n      - name: Validate governed tree\n        run: |\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n          ./scripts/eos state status\n          ./scripts/eos verify --strict\n\n      - name: Publish validated formatting and projections\n        run: |\n          git add -A\n          if git diff --cached --quiet; then\n            echo \"No formatter or projection changes required.\"\n          else\n            git commit -m \"chore(core): refresh WP-MVP-0005 validated projections\"\n            git push origin HEAD:wp/mvp-0005\n          fi\n",
+  "document_id": "doc:.github%2Fworkflows%2Ftmp-wp-mvp-0005-validate-review-fix.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/tmp-wp-mvp-0005-validate-review-fix.yml.",
+    "title": "Tmp Wp Mvp 0005 Validate Review Fix"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 57,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Temporary WP-MVP-0005 validate review corrections\n\non:\n  push:\n    branches:\n      - ops/wp-mvp-0005-validate-review-fix\n\npermissions:\n  contents: write\n\njobs:\n  validate:\n    runs-on: ubuntu-24.04\n    timeout-minutes: 25\n    steps:\n      - name: Check out product branch\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: wp/mvp-0005\n          fetch-depth: 0\n\n      - name: Configure commit identity\n        run: |\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n\n      - name: Format and validate monad-core\n        run: |\n          cargo fmt --all\n          cargo fmt --all -- --check\n          cargo test -p monad-core\n          cargo clippy -p monad-core --all-targets --all-features -- -D warnings\n          git diff --check -- crates/monad-core/src/\n\n      - name: Regenerate deterministic projections\n        run: |\n          python3 tools/eos/trace_integrity.py --write\n          python3 scripts/sync-machine-docs.py --write\n\n      - name: Validate governed tree\n        run: |\n          python3 tools/eos/trace_integrity.py\n          python3 scripts/sync-machine-docs.py --check\n          python3 scripts/generate-mvp-work-packets.py --check\n          python3 scripts/populate-artifact-system.py --check\n          ./scripts/eos state status\n          ./scripts/eos verify --strict\n\n      - name: Publish validated formatting and projections\n        run: |\n          git add -A\n          if git diff --cached --quiet; then\n            echo \"No formatter or projection changes required.\"\n          else\n            git commit -m \"chore(core): refresh WP-MVP-0005 validated projections\"\n            git push origin HEAD:wp/mvp-0005\n          fi",
+      "title": "Tmp Wp Mvp 0005 Validate Review Fix"
+    }
+  ],
+  "source": {
+    "bytes": 1801,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 57,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/tmp-wp-mvp-0005-validate-review-fix.yml",
+    "sha256": "377be9267f5d7c45393955a95a092c17eef76d9593ce3f4a77e49c5811b032fd"
+  }
+}
