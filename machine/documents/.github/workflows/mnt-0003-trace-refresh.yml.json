@@ -1,0 +1,40 @@
+{
+  "content": "name: MNT-0003 Trace Projection Refresh\n\non:\n  push:\n    branches:\n      - automation/mnt-0003-trace-refresh-20260907\n    paths:\n      - .github/workflows/mnt-0003-trace-refresh.yml\n\npermissions:\n  contents: write\n\njobs:\n  refresh:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout stable baseline\n        uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n          ref: 8a9deb9fbc5c49458605aa8e1a73e63947263ab8\n\n      - name: Configure Git identity\n        run: |\n          git config user.name \"Monad EOS Automation\"\n          git config user.email \"eos-automation@users.noreply.github.com\"\n\n      - name: Refresh trace projection\n        run: |\n          ./scripts/eos verify >/tmp/eosv-refresh.txt\n          grep 'EOSV RESULT: PASS' /tmp/eosv-refresh.txt\n          git diff --name-only\n\n      - name: Prove refresh determinism\n        run: |\n          first=\"$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)\"\n          ./scripts/eos verify >/tmp/eosv-repeat.txt\n          grep 'EOSV RESULT: PASS' /tmp/eosv-repeat.txt\n          second=\"$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)\"\n          test \"$first\" = \"$second\" || {\n            echo \"Trace projection remains unstable: $first -> $second\" >&2\n            exit 71\n          }\n          echo \"trace projection deterministic: $second\"\n\n      - name: Enforce projection-only diff\n        run: |\n          python3 - <<'PY'\n          import subprocess\n          changed = set(subprocess.check_output(['git','diff','--name-only'], text=True).splitlines())\n          if changed != {'.eos/trace-edges.tsv'}:\n              raise SystemExit('unexpected trace refresh diff: ' + ', '.join(sorted(changed)))\n          PY\n          git diff --check -- .eos/trace-edges.tsv\n\n      - name: Commit deterministic trace refresh\n        run: |\n          git add .eos/trace-edges.tsv\n          git diff --cached --check\n          git commit -m \"chore(eos): refresh deterministic trace projection\"\n\n      - name: Publish immutable trace refresh result\n        run: |\n          git push origin HEAD:refs/heads/automation/mnt-0003-trace-refresh-result-20260907\n",
+  "document_id": "doc:.github%2Fworkflows%2Fmnt-0003-trace-refresh.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/mnt-0003-trace-refresh.yml.",
+    "title": "Mnt 0003 Trace Refresh"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 64,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: MNT-0003 Trace Projection Refresh\n\non:\n  push:\n    branches:\n      - automation/mnt-0003-trace-refresh-20260907\n    paths:\n      - .github/workflows/mnt-0003-trace-refresh.yml\n\npermissions:\n  contents: write\n\njobs:\n  refresh:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout stable baseline\n        uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n          ref: 8a9deb9fbc5c49458605aa8e1a73e63947263ab8\n\n      - name: Configure Git identity\n        run: |\n          git config user.name \"Monad EOS Automation\"\n          git config user.email \"eos-automation@users.noreply.github.com\"\n\n      - name: Refresh trace projection\n        run: |\n          ./scripts/eos verify >/tmp/eosv-refresh.txt\n          grep 'EOSV RESULT: PASS' /tmp/eosv-refresh.txt\n          git diff --name-only\n\n      - name: Prove refresh determinism\n        run: |\n          first=\"$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)\"\n          ./scripts/eos verify >/tmp/eosv-repeat.txt\n          grep 'EOSV RESULT: PASS' /tmp/eosv-repeat.txt\n          second=\"$(sha256sum .eos/trace-edges.tsv | cut -d' ' -f1)\"\n          test \"$first\" = \"$second\" || {\n            echo \"Trace projection remains unstable: $first -> $second\" >&2\n            exit 71\n          }\n          echo \"trace projection deterministic: $second\"\n\n      - name: Enforce projection-only diff\n        run: |\n          python3 - <<'PY'\n          import subprocess\n          changed = set(subprocess.check_output(['git','diff','--name-only'], text=True).splitlines())\n          if changed != {'.eos/trace-edges.tsv'}:\n              raise SystemExit('unexpected trace refresh diff: ' + ', '.join(sorted(changed)))\n          PY\n          git diff --check -- .eos/trace-edges.tsv\n\n      - name: Commit deterministic trace refresh\n        run: |\n          git add .eos/trace-edges.tsv\n          git diff --cached --check\n          git commit -m \"chore(eos): refresh deterministic trace projection\"\n\n      - name: Publish immutable trace refresh result\n        run: |\n          git push origin HEAD:refs/heads/automation/mnt-0003-trace-refresh-result-20260907",
+      "title": "Mnt 0003 Trace Refresh"
+    }
+  ],
+  "source": {
+    "bytes": 2128,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 64,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/mnt-0003-trace-refresh.yml",
+    "sha256": "c882ba1792c32b8fc546076be7ec2297f81b35845cfe1781af024b7152568a7f"
+  }
+}
