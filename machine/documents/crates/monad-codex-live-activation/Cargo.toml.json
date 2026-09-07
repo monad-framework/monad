@@ -1,5 +1,5 @@
 {
-  "content": "[package]\nname = \"monad-codex-live-activation\"\nversion = \"0.1.0\"\nedition.workspace = true\nrust-version.workspace = true\nlicense.workspace = true\n\n[dependencies]\nmonad-codex-confinement = { path = \"../monad-codex-confinement\" }\nmonad-codex-runtime = { path = \"../monad-codex-runtime\" }\nserde.workspace = true\nserde_json.workspace = true\nsha2.workspace = true\n",
+  "content": "[package]\nname = \"monad-codex-live-activation\"\nversion = \"0.1.0\"\nedition.workspace = true\nrust-version.workspace = true\nlicense.workspace = true\n\n[lib]\npath = \"src/root.rs\"\n\n[dependencies]\nmonad-core = { path = \"../monad-core\" }\nmonad-codex-confinement = { path = \"../monad-codex-confinement\" }\nmonad-codex-runtime = { path = \"../monad-codex-runtime\" }\nserde.workspace = true\nserde_json.workspace = true\nsha2.workspace = true\n",
   "document_id": "doc:crates%2Fmonad-codex-live-activation%2FCargo.toml",
   "generation": {
     "deterministic": true,
@@ -21,20 +21,20 @@
     {
       "identifiers": [],
       "level": 1,
-      "line_end": 13,
+      "line_end": 17,
       "line_start": 1,
       "section_id": "content",
-      "text": "[package]\nname = \"monad-codex-live-activation\"\nversion = \"0.1.0\"\nedition.workspace = true\nrust-version.workspace = true\nlicense.workspace = true\n\n[dependencies]\nmonad-codex-confinement = { path = \"../monad-codex-confinement\" }\nmonad-codex-runtime = { path = \"../monad-codex-runtime\" }\nserde.workspace = true\nserde_json.workspace = true\nsha2.workspace = true",
+      "text": "[package]\nname = \"monad-codex-live-activation\"\nversion = \"0.1.0\"\nedition.workspace = true\nrust-version.workspace = true\nlicense.workspace = true\n\n[lib]\npath = \"src/root.rs\"\n\n[dependencies]\nmonad-core = { path = \"../monad-core\" }\nmonad-codex-confinement = { path = \"../monad-codex-confinement\" }\nmonad-codex-runtime = { path = \"../monad-codex-runtime\" }\nserde.workspace = true\nserde_json.workspace = true\nsha2.workspace = true",
       "title": "Cargo"
     }
   ],
   "source": {
-    "bytes": 358,
+    "bytes": 426,
     "canonical": true,
     "language": "toml",
-    "lines": 13,
+    "lines": 17,
     "media_type": "application/toml",
     "path": "crates/monad-codex-live-activation/Cargo.toml",
-    "sha256": "ab91c3502a20b7d37992f4f6a393bc18f031619b803381f0a5fea12d9b4cdd84"
+    "sha256": "b0114fb1c3394d4ad0daeb3c13a1985e8641ab902de694b47472527235bf3254"
   }
 }
