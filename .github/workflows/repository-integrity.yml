@@ -33,7 +33,9 @@ jobs:
           python3 scripts/generate-mvp-work-packets.py --check
           python3 scripts/populate-artifact-system.py --check
       - name: Validate GitHub Project projection invariants
-        run: python3 scripts/test-github-project-metadata.py
+        run: |
+          python3 scripts/test-github-project-metadata.py
+          python3 scripts/test-github-project-metadata-review.py
       - name: Validate EOSV evidence freshness
         run: |
           python3 scripts/test-eosv-evidence-freshness.py

@@ -325,6 +325,37 @@ def project_query_count(org:str, number:int, query:str)->int:
     return len(result.get("items",[]))
 
 
+def project_issue_urls(org:str, number:int, repo_full_name:str)->set[str]:
+    urls:set[str]=set()
+    after:str|None=None
+    while True:
+        data=graphql("""
+        query($org:String!,$number:Int!,$after:String){organization(login:$org){projectV2(number:$number){
+          items(first:100,after:$after){
+            nodes{content{... on Issue{url repository{nameWithOwner}}}}
+            pageInfo{hasNextPage endCursor}
+          }
+        }}}""",{"org":org,"number":number,"after":after})
+        project=(data.get("organization") or {}).get("projectV2")
+        if not project:
+            raise RuntimeError(f"Could not resolve organization Project {org}#{number}")
+        connection=project["items"]
+        for item in connection["nodes"]:
+            content=item.get("content") or {}
+            repository=(content.get("repository") or {}).get("nameWithOwner") or ""
+            url=content.get("url") or ""
+            if repository.casefold()==repo_full_name.casefold() and url:
+                urls.add(url)
+        page_info=connection["pageInfo"]
+        if not page_info.get("hasNextPage"):
+            return urls
+        after=page_info.get("endCursor")
+
+
+def missing_issue_urls(repository_urls:set[str], project_urls:set[str])->list[str]:
+    return sorted(repository_urls-project_urls)
+
+
 def verify(org:str, repo:str, number:int)->int:
     failures:list[str]=[]
     warnings:list[str]=[]
@@ -359,10 +390,17 @@ def verify(org:str, repo:str, number:int)->int:
         if current_filter and current_filter!=spec["filter"]:
             warnings.append(f"View {spec['name']!r} preserves custom filter {current_filter!r}; canonical default is {spec['filter']!r}")
 
-    total_issues=len(gh_json("issue","list","-R",f"{org}/{repo}","--state","all","--limit","1000","--json","number"))
+    repository_rows=gh_json("issue","list","-R",f"{org}/{repo}","--state","all","--limit","1000","--json","url")
+    repository_urls={row.get("url") or "" for row in repository_rows if row.get("url")}
+    projected_urls=project_issue_urls(org,number,f"{org}/{repo}")
+    missing_urls=missing_issue_urls(repository_urls,projected_urls)
+    if missing_urls:
+        sample=", ".join(missing_urls[:5])
+        suffix="" if len(missing_urls)<=5 else f" (+{len(missing_urls)-5} more)"
+        failures.append(f"Project is missing {len(missing_urls)} repository issue(s): {sample}{suffix}")
+
+    total_issues=len(repository_urls)
     total_items=len(gh_json("project","item-list",str(number),"--owner",org,"--limit","1000","--format","json").get("items",[]))
-    if total_items<total_issues:
-        failures.append(f"Project has {total_items} items but repository has {total_issues} issues")
 
     checks=(
         ("initiatives",'label:"type:initiative"',1),
@@ -389,7 +427,7 @@ def verify(org:str, repo:str, number:int)->int:
         for failure in failures:
             print(f"  - {failure}",file=sys.stderr)
         return 1
-    print(f"GitHub Project verification passed: {total_items} project items, {total_issues} repository issues, {len(REQUIRED_VIEWS)} required views, canonical fields/options present.")
+    print(f"GitHub Project verification passed: {total_items} project items, {total_issues} repository issues covered, {len(REQUIRED_VIEWS)} required views, canonical fields/options present.")
     return 0
 
 

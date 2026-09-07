@@ -40,6 +40,15 @@ MANAGED_FIELDS = (
     "Target Release",
 )
 SINGLE_SELECT_FIELDS = {"Item Type", "Priority", "Lifecycle"}
+CORE_TYPES = {
+    "Initiative",
+    "Epic",
+    "Feature",
+    "Work Packet",
+    "Defect",
+    "Bug",
+    "Change Request",
+}
 
 WORK_PACKET_LIFECYCLE = {
     "BACKLOG": "Backlog",
@@ -237,6 +246,9 @@ def projected_lifecycle(
         if mapped:
             return mapped
 
+    if (row.get("state") or "").upper() == "CLOSED":
+        return "Closed"
+
     labels = {name.casefold() for name in label_names(row)}
     for label, value in LABEL_LIFECYCLE.items():
         if label in labels:
@@ -275,6 +287,10 @@ def derive(
     title = row.get("title") or ""
     body = row.get("body") or ""
     kind = item_type(title)
+
+    if not kind:
+        cleared = {name: "" for name in MANAGED_FIELDS}
+        return {"url": row.get("url") or "", **cleared}
 
     initiative = match(r"(INIT-\d{3})", title) if kind == "Initiative" else ""
     epic = (
@@ -327,6 +343,17 @@ def derive(
         "Lifecycle": projected_lifecycle(row, work_packet, work_packets),
         "Target Release": release_from_labels(row),
     }
+
+
+def projection_rows(
+    issues: list[dict[str, Any]],
+    work_packets: dict[str, dict[str, str]],
+    mode: str,
+) -> list[dict[str, str]]:
+    rows = [derive(row, work_packets) for row in issues]
+    if mode == "core":
+        return [row for row in rows if row["Item Type"] in CORE_TYPES]
+    return rows
 
 
 def graphql(query: str, variables: dict[str, Any]) -> dict[str, Any]:
@@ -506,19 +533,7 @@ def main() -> int:
         "title,body,url,state,labels",
     )
 
-    core_types = {
-        "Initiative",
-        "Epic",
-        "Feature",
-        "Work Packet",
-        "Defect",
-        "Bug",
-        "Change Request",
-    }
-    rows = [derive(row, work_packets) for row in issues]
-    rows = [row for row in rows if row["Item Type"]]
-    if mode == "core":
-        rows = [row for row in rows if row["Item Type"] in core_types]
+    rows = projection_rows(issues, work_packets, mode)
 
     failures = 0
     missing_options: set[tuple[str, str]] = set()
