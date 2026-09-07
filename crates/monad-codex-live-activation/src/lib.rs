@@ -611,10 +611,7 @@ mod tests {
             &plan(&boundary),
         )
         .unwrap_err();
-        assert!(matches!(
-            error,
-            LiveActivationError::CertificateMismatch(_)
-        ));
+        assert!(matches!(error, LiveActivationError::CertificateMismatch(_)));
     }
 
     #[test]
@@ -626,10 +623,7 @@ mod tests {
             &plan(&boundary),
         )
         .unwrap_err();
-        assert!(matches!(
-            error,
-            LiveActivationError::CertificateMismatch(_)
-        ));
+        assert!(matches!(error, LiveActivationError::CertificateMismatch(_)));
     }
 
     #[test]
