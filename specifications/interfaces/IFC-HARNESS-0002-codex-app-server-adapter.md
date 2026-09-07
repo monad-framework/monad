@@ -1,7 +1,7 @@
 # IFC-HARNESS-0002: Codex App Server Adapter Profile
 
 **Status:** proposed  
-**Version:** 0.1.1  
+**Version:** 0.1.2  
 **Owner:** Monad Core / EOS  
 **Parent interface:** IFC-HARNESS-0001  
 **Governing ADR:** ADR-0007  
@@ -53,7 +53,13 @@ Required provider-specific extension:
 org.monad.codex.app-server.dynamic-tools@0.1.0
 ```
 
-This namespaced extension means that the connected Codex integration can provide the dynamic-tool semantics required by this Monad adapter profile. It does not claim that OpenAI versions the upstream experimental API using this Monad profile version.
+The read-only live-activation profile additionally requires a machine-verifiable confinement certificate conforming to:
+
+```text
+org.monad.codex.provider-effect-confinement@0.1.0
+```
+
+This namespaced confinement extension is a Monad activation contract. It identifies the tested certificate semantics; it does not claim that OpenAI versions the upstream permissions API using Monad's extension version.
 
 ## Initialization and App Server capability negotiation
 
@@ -270,7 +276,31 @@ The initial App Server runtime profile MUST:
 - reject unexpected provider approval/server requests rather than interpreting them as Monad grants;
 - fail closed when an observed provider-native consequential item starts outside the Monad Tool Gateway.
 
-These runtime controls are necessary defense in depth. They MUST NOT be treated as sufficient activation evidence until the selected live provider build passes the separate provider-effect confinement gate described below.
+These runtime controls are necessary defense in depth. They MUST NOT be treated as sufficient activation evidence until the selected live provider build passes the provider-effect confinement gate below.
+
+## Provider-effect confinement certificate
+
+The deterministic certification implementation is `crates/monad-codex-confinement` and its activation fixture is `GEH-CF-038-CONFINEMENT`.
+
+For the initial Linux profile, a successful certificate MUST bind all of the following in one App Server verifier connection:
+
+1. a non-empty Codex/App Server user-agent identity and Linux platform identity;
+2. an isolated absolute provider runtime working directory;
+3. an absolute forbidden sentinel path whose marker existence is first established by the verifier host;
+4. a named Codex permission-profile identifier;
+5. a successful harmless `command/exec` positive control under that exact profile;
+6. a provider-native `/bin/cat` attempt against the forbidden sentinel under that exact profile that is rejected or exits nonzero without leaking the marker;
+7. an ephemeral `thread/start` request selecting that exact named profile;
+8. `activePermissionProfile.id` returned by App Server equal to the candidate profile;
+9. registration of `monad_workspace_read_text` on the certified thread setup.
+
+A denied sentinel read by itself is insufficient. The positive command control MUST first demonstrate that the candidate profile exists and is usable; otherwise an invalid profile could create a false confinement pass.
+
+The certificate MUST retain digests/classifications rather than the forbidden marker or raw forbidden content. A certificate is attributable activation evidence for the tested build/profile/platform/path boundary. It is not a capability grant, approval, authority token, or perpetual authorization.
+
+A material change to Codex/App Server build, sandbox behavior, permission profile, platform, provider runtime path model, or relevant configuration invalidates reuse of the prior activation proof and requires recertification.
+
+Version 0.1.0 of the confinement certificate supports Linux only. Other platforms MUST fail closed until a platform-specific confinement profile is defined and verified.
 
 ## Conformance fixtures
 
@@ -286,17 +316,23 @@ The effectful runtime refines those scenarios with:
 - **GEH-CF-038-RUNTIME** — App Server wire request mediation plus fail-closed handling of unexpected or provider-native alternate effect paths;
 - **GEH-CF-039-RUNTIME** — App Server turn completion remains subordinate to independent Monad verification.
 
-The complete generic C2 foundation fixtures GEH-CF-030 through GEH-CF-036 remain required for this adapter version. Runtime subfixtures are specified in `testing/governed-execution-c2-codex-runtime.md`.
+The activation layer additionally requires:
+
+- **GEH-CF-038-CONFINEMENT** — positive-control validation of a named permission profile, adversarial provider-native sentinel-read denial without content leakage, and exact active-profile identity binding on the provider thread.
+
+The complete generic C2 foundation fixtures GEH-CF-030 through GEH-CF-036 remain required for this adapter version. Runtime subfixtures are specified in `testing/governed-execution-c2-codex-runtime.md`; the activation fixture is specified in `testing/governed-execution-c2-codex-confinement.md`.
 
 ## Live governed-execution activation gate
 
-Passing deterministic adapter tests and effectful runtime protocol tests is necessary but not sufficient to certify a live Codex run as governed execution.
+Passing deterministic adapter tests, effectful runtime protocol tests, and deterministic tests of the confinement verifier implementation is necessary but not sufficient to certify a live Codex run as governed execution.
 
-Before the first read-only live dogfood run may carry a governed-execution claim, the selected Codex/App Server build MUST pass a machine-verifiable provider-effect confinement activation fixture under adversarial attempts to observe or mutate governed repository content through provider-native paths.
+Before the first read-only live dogfood run may carry a governed-execution claim, the selected real Codex/App Server build and named permission profile MUST produce a successful `GEH-CF-038-CONFINEMENT` certificate under an adversarial provider-native read attempt.
 
-The activation proof MAY use a Codex permission profile, process-level filesystem isolation, or another enforceable mechanism. It MUST demonstrate that the selected mechanism is actually effective for the launched runtime. Prompt instructions or a configuration request that is not verified at runtime are insufficient.
+Prompt instructions, a requested sandbox setting, or a verifier unit test are insufficient substitutes for a certificate produced against the selected live build/profile boundary.
 
-If the activation proof is unavailable, incompatible, ambiguous, or fails, the runtime MUST remain blocked from live governed dogfood activation.
+If live certification is unavailable, incompatible, ambiguous, or fails, the runtime MUST remain blocked from live governed dogfood activation.
+
+The actual dogfood run MUST use the same certified profile semantics and MUST continue to route governed workspace observations through `monad_workspace_read_text`. Provider turn completion remains advisory and independent Monad verification remains authoritative.
 
 ## Explicit exclusions
 
@@ -315,12 +351,14 @@ Version 0.1.x does not authorize or implement:
 
 ## Next implementation layer
 
-With the deterministic adapter kernel and effectful App Server runtime bridge in place, the next slice SHOULD establish provider-effect confinement and then perform the first attributable read-only dogfood run:
+With the deterministic adapter kernel, effectful App Server runtime bridge, and machine-verifiable confinement verifier in place, the next slice is live activation and first attributable read-only dogfood:
 
-1. select and identify the Codex/App Server build under test;
-2. define an enforceable provider-effect confinement profile independent of prompt behavior;
-3. attempt adversarial provider-native reads/effects against governed repository content;
-4. prove those alternate paths are denied while the Monad dynamic read path remains functional;
-5. retain the activation/conformance evidence;
-6. only after that proof, execute one real read-only governed dogfood task through `monad_workspace_read_text`;
-7. route provider completion through Monad verification and retain attributable execution evidence.
+1. select and identify the concrete Codex/App Server build to run;
+2. configure a dedicated named permission profile that excludes the governed repository and permits only runtime-essential reads;
+3. create a unique non-secret sentinel inside the governed repository;
+4. run `GEH-CF-038-CONFINEMENT` against that exact live build/profile/path boundary;
+5. retain the successful activation certificate as attributable evidence without retaining sentinel contents;
+6. execute one real read-only governed dogfood task using the certified confinement semantics and `monad_workspace_read_text`;
+7. prove the workspace observation traversed Monad's Tool Gateway;
+8. route provider completion through Monad verification and retain attributable execution evidence;
+9. fail closed and recertify after any material provider build/profile/confinement change.
