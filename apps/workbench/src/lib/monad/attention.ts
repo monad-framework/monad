@@ -1,21 +1,6 @@
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-
-import {
-  readControlProjection,
-  type ControlArtifactItem,
-  type ControlProjection,
-  type ReleaseItem,
-} from "./control";
-import {
-  readExecutionProjection,
-  type ExecutionProgramIncrement,
-  type ExecutionProjection,
-  type ExecutionProjectionRecord,
-  type ExecutionWorkCycle,
-  type ExecutionWorkPacket,
-} from "./execution";
 import type {
   AttentionClassification,
   AttentionCondition,
@@ -25,6 +10,20 @@ import type {
   AttentionSummary,
   AutonomousWorkstream,
 } from "./attention-model";
+import {
+  type ControlArtifactItem,
+  type ControlProjection,
+  type ReleaseItem,
+  readControlProjection,
+} from "./control";
+import {
+  type ExecutionProgramIncrement,
+  type ExecutionProjection,
+  type ExecutionProjectionRecord,
+  type ExecutionWorkCycle,
+  type ExecutionWorkPacket,
+  readExecutionProjection,
+} from "./execution";
 import { parseTsv } from "./tsv";
 
 export type AttentionEvidenceRow = {
@@ -249,8 +248,7 @@ function statusObservation(input: {
     ...input,
     profile,
     dedupeKey:
-      input.dedupeKey ??
-      `${input.sourceKind}:${input.objectId}:${profile.state}`,
+      input.dedupeKey ?? `${input.sourceKind}:${input.objectId}:${profile.state}`,
   });
 }
 
@@ -428,7 +426,8 @@ function workstreams(execution: ExecutionProjection): AutonomousWorkstream[] {
       for (const packet of cycle.workPackets) {
         const latest = latestExecution(packet.executions);
         const current =
-          !isTerminal(packet.status) || (latest ? !isTerminal(latest.status) : false);
+          !isTerminal(packet.status) ||
+          (latest ? !isTerminal(latest.status) : false);
 
         if (!current) {
           continue;
@@ -466,7 +465,9 @@ function workstreams(execution: ExecutionProjection): AutonomousWorkstream[] {
   );
 }
 
-function latestCurrentEvidence(rows: AttentionEvidenceRow[]): AttentionEvidenceRow[] {
+function latestCurrentEvidence(
+  rows: AttentionEvidenceRow[],
+): AttentionEvidenceRow[] {
   const latest = new Map<string, AttentionEvidenceRow>();
 
   for (const row of rows) {
@@ -485,7 +486,9 @@ function latestCurrentEvidence(rows: AttentionEvidenceRow[]): AttentionEvidenceR
   return [...latest.values()];
 }
 
-function evidenceConditions(rows: AttentionEvidenceRow[]): AttentionObservation[] {
+function evidenceConditions(
+  rows: AttentionEvidenceRow[],
+): AttentionObservation[] {
   const conditions: AttentionObservation[] = [];
 
   for (const row of latestCurrentEvidence(rows)) {
@@ -735,7 +738,8 @@ function summarize(
       (stream) => normalizeStatus(stream.state) === "RUNNING",
     ).length,
     historical: conditions.filter(
-      (condition) => !condition.current || condition.classification === "activity",
+      (condition) =>
+        !condition.current || condition.classification === "activity",
     ).length,
   };
 }
