@@ -1,8 +1,7 @@
 import { describe, expect, test } from "bun:test";
-
+import { type AttentionEvidenceRow, projectAttention } from "./attention";
 import type { ControlProjection } from "./control";
 import type { ExecutionProjection } from "./execution";
-import { projectAttention, type AttentionEvidenceRow } from "./attention";
 
 function executionProjection(): ExecutionProjection {
   return {
@@ -197,7 +196,8 @@ describe("Attention projection", () => {
 
   test("classifies blocked executions as operator action required", async () => {
     const execution = executionProjection();
-    const packet = execution.programIncrements[0]?.workCycles[0]?.workPackets[0];
+    const packet =
+      execution.programIncrements[0]?.workCycles[0]?.workPackets[0];
     if (!packet) throw new Error("fixture packet missing");
 
     packet.executions = [
