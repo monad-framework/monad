@@ -283,9 +283,11 @@ paths = ["vendor/**"]
 
     #[test]
     fn exact_bytes_become_stable_toml_source_and_document_identity() {
-        let effective = effective(VALID, &CliOverrides::default());
-        let first = parse_monad_configuration(VALID.as_bytes(), &effective).expect("parse");
-        let second = parse_monad_configuration(VALID.as_bytes(), &effective).expect("parse");
+        let baseline_effective = effective(VALID, &CliOverrides::default());
+        let first =
+            parse_monad_configuration(VALID.as_bytes(), &baseline_effective).expect("parse");
+        let second =
+            parse_monad_configuration(VALID.as_bytes(), &baseline_effective).expect("parse");
 
         assert_eq!(first, second);
         assert_eq!(first.identity.source.canonical_path, "monad.toml");
@@ -295,13 +297,16 @@ paths = ["vendor/**"]
             content_sha256(VALID.as_bytes())
         );
         assert_eq!(first.identity.source.byte_length, VALID.len() as u64);
-        assert_eq!(first.identity.source.parser_contract, config_parser_contract());
+        assert_eq!(
+            first.identity.source.parser_contract,
+            config_parser_contract()
+        );
         assert_eq!(first.identity.document_kind, CONFIG_DOCUMENT_KIND);
 
         let changed = format!("{VALID}\n");
         let changed_effective = effective(&changed, &CliOverrides::default());
-        let changed_doc = parse_monad_configuration(changed.as_bytes(), &changed_effective)
-            .expect("changed");
+        let changed_doc =
+            parse_monad_configuration(changed.as_bytes(), &changed_effective).expect("changed");
         assert_eq!(
             first.identity.source.source_id,
             changed_doc.identity.source.source_id
@@ -485,9 +490,7 @@ source = ["$(touch should-not-run)/**/*.md"]
             assert_eq!(serde_json::to_vec(&document).expect("serialize"), first);
         }
         let text = String::from_utf8(first).expect("utf8");
-        assert!(
-            text.find("\"alpha\"").expect("alpha") < text.find("\"zeta\"").expect("zeta")
-        );
+        assert!(text.find("\"alpha\"").expect("alpha") < text.find("\"zeta\"").expect("zeta"));
         assert!(text.contains("\"source_kind\":\"toml\""));
         assert!(text.contains("\"source\":\"monad.toml:project.name\""));
         assert!(text.contains("\"source_ranges\""));
