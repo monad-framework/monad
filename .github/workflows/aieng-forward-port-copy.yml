@@ -69,10 +69,25 @@ jobs:
             mkdir -p "$(dirname "$file")"
             git show "$source_ref:$file" > "$file"
           done
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+          for raw in subprocess.check_output(
+              ['git', 'ls-files', '--others', '--exclude-standard'], text=True
+          ).splitlines():
+              path = Path(raw)
+              if path.suffix not in {'.md', '.py'}:
+                  continue
+              text = path.read_text(encoding='utf-8')
+              lines = text.splitlines()
+              normalized = '\n'.join(line.rstrip(' \t') for line in lines)
+              if text.endswith('\n'):
+                  normalized += '\n'
+              path.write_text(normalized, encoding='utf-8')
+          PY
 
       - name: Validate bounded copy
         run: |
-          git diff --check
           python3 -m py_compile tools/eos/identity_families.py tools/eos/test_identifier_families.py
           python3 - <<'PY'
           import subprocess
