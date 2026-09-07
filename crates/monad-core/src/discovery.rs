@@ -15,6 +15,7 @@ const DEFAULT_EXCLUDES: [&str; 4] = [".git/**", ".eos/**", "machine/**", "target
 #[serde(rename_all = "snake_case")]
 pub enum SourceKindCandidate {
     Markdown,
+    Toml,
     Yaml,
 }
 

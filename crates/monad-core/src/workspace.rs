@@ -214,7 +214,7 @@ fn discover_root(start: &Path) -> Result<PathBuf, BootstrapError> {
     )))
 }
 
-fn parse_effective_configuration(
+pub(crate) fn parse_effective_configuration(
     text: &str,
     overrides: &CliOverrides,
 ) -> Result<EffectiveConfiguration, BootstrapError> {

@@ -6,6 +6,7 @@
 //! distinct boundaries so transport or executor behavior cannot silently create
 //! authority.
 
+pub mod config;
 pub mod discovery;
 pub mod harness;
 pub mod harness_adapter;
