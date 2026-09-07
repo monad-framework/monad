@@ -42,9 +42,15 @@ jobs:
           grep '^status:' engineering/maintenance/MNT-0003.md
           grep '^\*\*State:\*\*' engineering/maintenance/MNT-0003.md
 
-      - name: Start MNT-0003 through EOS
+      - name: Plan and start MNT-0003 through EOS
         run: |
-          ./scripts/eos start MNT-0003
+          ./scripts/eos maintain plan MNT-0003
+          ./scripts/eos state status
+          grep '^MNT-0003' .eos/maintenance.tsv | grep 'PLANNED'
+          grep '^status: "PLANNED"' engineering/maintenance/MNT-0003.md
+          grep '^\*\*State:\*\* PLANNED' engineering/maintenance/MNT-0003.md
+
+          ./scripts/eos maintain start MNT-0003
           ./scripts/eos state status
           grep '^MNT-0003' .eos/maintenance.tsv | grep 'IN_PROGRESS'
           grep '^status: "IN_PROGRESS"' engineering/maintenance/MNT-0003.md
