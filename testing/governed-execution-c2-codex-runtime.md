@@ -1,12 +1,13 @@
 # Governed Execution C2 Codex Runtime Conformance
 
 **Status:** proposed  
-**Version:** 0.1.1  
+**Version:** 0.1.2  
 **Owner:** Monad Core / EOS  
 **Parent matrix:** `testing/governed-execution-conformance.md`  
 **Adapter profile:** `IFC-HARNESS-0002`  
 **Implementation:** `crates/monad-codex-runtime`  
-**Activation verifier:** `crates/monad-codex-confinement`
+**Activation verifier:** `crates/monad-codex-confinement`  
+**Live activation layer:** `crates/monad-codex-live-activation`
 
 ## Purpose
 
@@ -143,9 +144,11 @@ This prevents an invalid permission profile from false-passing merely because al
 
 A deterministic test of the verifier implementation is not a live activation certificate. The selected real Codex/App Server build/profile must itself pass the fixture before the run may be represented as governed.
 
-The runtime's existing `require_live_governed_dogfood_eligibility()` remains intentionally fail-closed until the live activation slice supplies and binds such proof. This runtime tranche does not silently turn the presence of the verifier crate into activation authority.
+The raw runtime's existing `require_live_governed_dogfood_eligibility()` remains intentionally fail-closed. The live activation layer does not toggle that raw-runtime guard. Instead, `LiveActivatedRuntime` owns the exact App Server connection/thread that passed activation and is the only wrapper allowed to expose positive live-dogfood eligibility for the initial profile.
 
-A successful confinement certificate is evidence for the exact tested provider build/profile/platform/path boundary. It MUST NOT broaden the Execution Envelope, grant an approval, authorize a new tool, or establish completion. Material provider or confinement changes require recertification.
+Runtime adoption of that exact connection MAY replay initialize/thread metadata locally to construct existing `CodexAppServerRuntime` bookkeeping, but it MUST NOT send a second provider `initialize` or `thread/start`. The adopted runtime session thread MUST equal the activation binding thread before eligibility succeeds.
+
+A successful confinement certificate and live activation binding are evidence for the exact tested provider build/profile/platform/path/connection/thread boundary. They MUST NOT broaden the Execution Envelope, grant an approval, authorize a new tool, or establish completion. Material provider or confinement changes, or replacement of the bound provider connection/thread, require recertification/rebinding.
 
 ## Required commands
 
@@ -155,6 +158,7 @@ cargo test -p monad-codex-runtime
 cargo test -p monad-core harness_codex_adapter
 cargo test -p monad-core harness_workspace_read
 cargo test -p monad-codex-confinement
+cargo test -p monad-codex-live-activation
 ```
 
 The repository-wide C0, C1, generic C2, EOS, machine-projection, and repository-integrity gates remain required.
@@ -167,9 +171,10 @@ The runtime bridge remains conforming when:
 2. the generic Codex adapter fixtures remain green;
 3. workspace-read regressions remain green;
 4. confinement-verifier deterministic fixtures remain green;
-5. generated machine projections are current;
-6. EOS evidence is current on the settled source/projection tree;
-7. the final exact PR head is green;
-8. no unresolved substantive review thread remains.
+5. retained-session activation fixtures remain green and prove no second provider handshake/thread creation during adoption;
+6. generated machine projections are current;
+7. EOS evidence is current on the settled source/projection tree;
+8. the final exact PR head is green;
+9. no unresolved substantive review thread remains.
 
-Completion of the confinement-verifier tranche means the **mechanism for live provider-effect certification exists and conforms**. It does not mean a live external Codex build has yet been certified as governed; that claim requires an actual successful `GEH-CF-038-CONFINEMENT` run against the selected live build/profile and the subsequent attributable dogfood execution.
+Completion of the confinement-verifier and retained-session activation tranches means the **mechanisms for live provider-effect certification and exact-session runtime binding exist and conform**. It does not mean a live external Codex turn has yet completed governed dogfood; that claim requires an actual successful `GEH-CF-038-CONFINEMENT` plus in-process `GEH-CF-038-LIVE-ACTIVATION` against the selected live build/profile and the subsequent attributable dogfood execution.
