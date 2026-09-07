@@ -21,7 +21,8 @@ export type KnowledgeObjectType =
   | "review"
   | "risk"
   | "change-request"
-  | "evidence";
+  | "evidence"
+  | "release";
 
 export type MonadObjectType =
   | ProductObjectType
@@ -125,6 +126,7 @@ export type FocusContext = {
   requestedId?: string;
   object?: MonadObject;
   document?: FocusDocument;
+  knowledge?: CurrentKnowledgeContext;
   incoming: KnowledgeReference[];
   outgoing: KnowledgeReference[];
 };

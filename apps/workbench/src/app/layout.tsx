@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
+import "./workbench-v0.css";
 
 export const metadata: Metadata = {
   title: "Monad Workbench",
   description:
-    "Internal cognitive workbench for planning and developing Monad.",
+    "Local-first read-only engineering workbench for governed Monad projections.",
 };
 
 export default function RootLayout({
