@@ -37,13 +37,15 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Verify locked workspace graph
+        run: cargo metadata --locked --no-deps --format-version 1 >/dev/null
       - name: Verify formatting
         run: cargo fmt --check
       - name: Run Codex confinement certification fixtures
-        run: cargo test -p monad-codex-confinement
+        run: cargo test --locked -p monad-codex-confinement
       - name: Run Codex runtime regression fixtures
-        run: cargo test -p monad-codex-runtime
+        run: cargo test --locked -p monad-codex-runtime
       - name: Run deterministic Codex adapter fixtures
-        run: cargo test -p monad-core harness_codex_adapter
+        run: cargo test --locked -p monad-core harness_codex_adapter
       - name: Run workspace read regression fixtures
-        run: cargo test -p monad-core harness_workspace_read
+        run: cargo test --locked -p monad-core harness_workspace_read
