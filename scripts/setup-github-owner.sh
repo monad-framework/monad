@@ -101,7 +101,7 @@ field_name=field.get("name") or requested
 have={(o.get("name") or "").casefold() for o in field.get("options", []) or []}
 for option in wanted:
     if option.casefold() not in have:
-        print(f"NOTE: Project field {field_name!r} is missing single-select option {option!r}. Add it once in the Project UI and rerun the sync.", file=sys.stderr)
+        print(f"NOTE: Project field {field_name!r} is missing single-select option {option!r}.", file=sys.stderr)
 ' "$name" "$options" <<<"$fields_json"
   }
 
@@ -127,6 +127,9 @@ for option in wanted:
   ensure_field "Target Release" TEXT
   ensure_field "Start Date" DATE
   ensure_field "Target Date" DATE
+
+  python3 "$ROOT/scripts/configure-github-project.py" "$ORG" "$REPO" "$p" options
+  fields_json="$(gh project field-list "$p" --owner "$ORG" --format json --limit 100)"
   warn_missing_select_options "Item Type" "Initiative,Epic,Feature,Story,Enabler,Task,Work Packet,Bug,Defect,Change Request"
   warn_missing_select_options "Lifecycle" "Backlog,Refining,Ready,Authorized,Running,Review,Verified,Closed,Blocked"
   echo "Project fields OK."
@@ -135,7 +138,6 @@ for option in wanted:
   python3 "$ROOT/scripts/sync-github-project-metadata.py" "$ORG" "$REPO" "$p" "$mode"
 
   echo "Project #$p synchronized ($mode projection)."
-  echo "Create/verify views from engineering/github/PROJECT-V2-CONFIGURATION.md."
 }
 
 sync_project_items() {
@@ -178,6 +180,22 @@ sync_project_items() {
   rm -f "$issue_tmp" "$existing_tmp"
 }
 
+complete_project() {
+  local p
+  ensure_project full
+  p="$(project_number)"
+  python3 "$ROOT/scripts/configure-github-project.py" "$ORG" "$REPO" "$p" views
+  python3 "$ROOT/scripts/configure-github-project.py" "$ORG" "$REPO" "$p" verify
+  echo "GitHub Project #$p completion checks passed."
+}
+
+verify_project() {
+  local p
+  p="$(project_number)"
+  [[ -n "$p" ]] || { echo "Project '$PROJECT_TITLE' not found." >&2; return 3; }
+  python3 "$ROOT/scripts/configure-github-project.py" "$ORG" "$REPO" "$p" verify
+}
+
 sync_wiki() {
   local tmp rc
   tmp="$(mktemp -d)"
@@ -211,8 +229,10 @@ case "${1:-check}" in
   check) check ;;
   project) ensure_project core ;;
   project-full) ensure_project full ;;
+  project-complete) complete_project ;;
+  project-verify) verify_project ;;
   wiki) sync_wiki ;;
   ruleset) apply_ruleset ;;
   all-safe) check; ensure_project core; sync_wiki ;;
-  *) echo "Usage: $0 {check|project|project-full|wiki|ruleset|all-safe}" >&2; exit 2 ;;
+  *) echo "Usage: $0 {check|project|project-full|project-complete|project-verify|wiki|ruleset|all-safe}" >&2; exit 2 ;;
 esac
