@@ -1,0 +1,210 @@
+name: AIENG EOS Authored-Source Reconciliation V2
+
+on:
+  push:
+    branches:
+      - automation/aieng-eos-code-20260907
+    paths:
+      - .github/workflows/aieng-eos-code-v2.yml
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fixed authored baseline
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: 0cbffe7d4f8e2bd9aab479fd24718311ec5b6ad4
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "Monad EOS Automation"
+          git config user.email "eos-automation@users.noreply.github.com"
+
+      - name: Fetch legacy source branch
+        run: git fetch origin eosp/ai-driven-engineering-operating-model
+
+      - name: Prove replacement safety
+        run: |
+          set -euo pipefail
+          assert_pair() {
+            local current_path="$1"
+            local ref="$2"
+            local source_path="${3:-$1}"
+            local current source
+            current="$(git hash-object "$current_path")"
+            source="$(git rev-parse "$ref:$source_path")"
+            if [[ "$current" != "$source" ]]; then
+              echo "unsafe source replacement: $current_path" >&2
+              echo "current=$current expected=$source source=$ref:$source_path" >&2
+              exit 41
+            fi
+          }
+
+          pre_id=17dca2edf9156f4a20e8b87205bf27ed97355f3c
+          pre_tx=b1d3f7733aa1f547057d6372bd45f261f5b50b02
+          pre_evt=312c045df983f7d310caf6bfe1afc1e2113ceec3
+
+          assert_pair .eos/domain-model.json "$pre_id"
+          assert_pair .eos/schemas/core/requirement.schema.json "$pre_id"
+          assert_pair .eos/schemas/core/specification.schema.json "$pre_id"
+          assert_pair tools/eos/eos.py "$pre_id"
+          assert_pair tools/eos/execution_v2.py "$pre_id"
+          assert_pair tools/eos/verification_v2_impl.py "$pre_id" tools/eos/verification_v2.py
+
+          assert_pair scripts/eos "$pre_tx"
+          assert_pair tools/eos/canonical_state.py "$pre_tx"
+          assert_pair tools/eos/test_canonical_state.py "$pre_tx"
+          assert_pair tools/eos/test_wrapper_dispatch.py "$pre_tx"
+
+          assert_pair scripts/reconcile-eos-canonical-state.py "$pre_evt"
+          echo "pre-fix source equivalence: PASS"
+
+      - name: Forward-port final authored EOS implementations
+        run: |
+          set -euo pipefail
+          source_ref="origin/eosp/ai-driven-engineering-operating-model"
+          for path in \
+            .eos/domain-model.json \
+            .eos/schemas/core/requirement.schema.json \
+            .eos/schemas/core/specification.schema.json \
+            scripts/eos \
+            scripts/reconcile-eos-canonical-state.py \
+            tools/eos/canonical_state.py \
+            tools/eos/eos.py \
+            tools/eos/event_ledger.py \
+            tools/eos/execution_v2.py \
+            tools/eos/test_canonical_state.py \
+            tools/eos/test_event_ledger_merge.py \
+            tools/eos/test_wrapper_dispatch.py
+          do
+            git show "$source_ref:$path" > "$path"
+          done
+          git show "$source_ref:tools/eos/verification_v2.py" > tools/eos/verification_v2_impl.py
+
+      - name: Enforce authored-only boundary
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          allowed = {
+              '.eos/domain-model.json',
+              '.eos/schemas/core/requirement.schema.json',
+              '.eos/schemas/core/specification.schema.json',
+              'scripts/eos',
+              'scripts/reconcile-eos-canonical-state.py',
+              'tools/eos/canonical_state.py',
+              'tools/eos/eos.py',
+              'tools/eos/event_ledger.py',
+              'tools/eos/execution_v2.py',
+              'tools/eos/test_canonical_state.py',
+              'tools/eos/test_event_ledger_merge.py',
+              'tools/eos/test_wrapper_dispatch.py',
+              'tools/eos/verification_v2_impl.py',
+          }
+          changed = set(subprocess.check_output(['git','diff','--name-only'], text=True).splitlines())
+          unexpected = sorted(changed - allowed)
+          missing = sorted(allowed - changed)
+          if unexpected:
+              raise SystemExit('unexpected authored mutations: ' + ', '.join(unexpected))
+          if missing:
+              raise SystemExit('expected authored mutations absent: ' + ', '.join(missing))
+          prohibited = sorted(
+              p for p in changed
+              if p.startswith('machine/')
+              or p.startswith('engineering/evidence/')
+              or p.startswith('.eos/evidence/')
+              or p in {
+                  '.eos/events.jsonl',
+                  '.eos/evidence.tsv',
+                  '.eos/evidence-links.tsv',
+                  '.eos/maintenance.tsv',
+                  '.eos/state/current.json',
+                  '.eos/state/projections.json',
+                  '.eos/trace-edges.tsv',
+              }
+          )
+          if prohibited:
+              raise SystemExit('integration-sensitive mutation forbidden: ' + ', '.join(prohibited))
+          print(f'authored-only boundary: PASS ({len(changed)} paths)')
+          PY
+
+      - name: Static validation
+        run: |
+          set -euo pipefail
+          git diff --check
+          bash -n scripts/eos
+          python3 -m py_compile \
+            scripts/reconcile-eos-canonical-state.py \
+            tools/eos/canonical_state.py \
+            tools/eos/eos.py \
+            tools/eos/event_ledger.py \
+            tools/eos/execution_v2.py \
+            tools/eos/identity_families.py \
+            tools/eos/verification_v2.py \
+            tools/eos/verification_v2_impl.py \
+            tools/eos/test_canonical_state.py \
+            tools/eos/test_canonical_reconciliation.py \
+            tools/eos/test_event_ledger_merge.py \
+            tools/eos/test_identifier_families.py \
+            tools/eos/test_wrapper_dispatch.py
+
+      - name: Run bounded authored regression suites
+        run: |
+          set -euo pipefail
+          python3 tools/eos/test_identifier_families.py
+          python3 tools/eos/test_event_ledger_merge.py
+          python3 tools/eos/test_canonical_state.py
+          python3 tools/eos/test_canonical_reconciliation.py
+          python3 tools/eos/test_wrapper_dispatch.py
+
+      - name: Verify no test-generated churn
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          allowed = {
+              '.eos/domain-model.json',
+              '.eos/schemas/core/requirement.schema.json',
+              '.eos/schemas/core/specification.schema.json',
+              'scripts/eos',
+              'scripts/reconcile-eos-canonical-state.py',
+              'tools/eos/canonical_state.py',
+              'tools/eos/eos.py',
+              'tools/eos/event_ledger.py',
+              'tools/eos/execution_v2.py',
+              'tools/eos/test_canonical_state.py',
+              'tools/eos/test_event_ledger_merge.py',
+              'tools/eos/test_wrapper_dispatch.py',
+              'tools/eos/verification_v2_impl.py',
+          }
+          changed = set(subprocess.check_output(['git','diff','--name-only'], text=True).splitlines())
+          unexpected = sorted(changed - allowed)
+          if unexpected:
+              raise SystemExit('tests caused integration-sensitive churn: ' + ', '.join(unexpected))
+          print('post-test authored-only boundary: PASS')
+          PY
+
+      - name: Commit validated authored source
+        run: |
+          git add \
+            .eos/domain-model.json \
+            .eos/schemas/core/requirement.schema.json \
+            .eos/schemas/core/specification.schema.json \
+            scripts/eos \
+            scripts/reconcile-eos-canonical-state.py \
+            tools/eos/canonical_state.py \
+            tools/eos/eos.py \
+            tools/eos/event_ledger.py \
+            tools/eos/execution_v2.py \
+            tools/eos/test_canonical_state.py \
+            tools/eos/test_event_ledger_merge.py \
+            tools/eos/test_wrapper_dispatch.py \
+            tools/eos/verification_v2_impl.py
+          git diff --cached --check
+          git commit -m "fix(eos): forward-port AIENG maintenance hardening"
+
+      - name: Publish immutable result
+        run: git push origin HEAD:refs/heads/automation/aieng-eos-code-result-v2-20260907
