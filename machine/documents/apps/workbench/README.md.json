@@ -1,5 +1,5 @@
 {
-  "content": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).\n\n## Getting Started\n\nFirst, run the development server:\n\n```bash\nnpm run dev\n# or\nyarn dev\n# or\npnpm dev\n# or\nbun dev\n```\n\nOpen [http://localhost:3000](http://localhost:3000) with your browser to see the result.\n\nYou can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.\n\nThis project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.\n\n## Learn More\n\nTo learn more about Next.js, take a look at the following resources:\n\n- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.\n- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.\n\nYou can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!\n\n## Deploy on Vercel\n\nThe easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.\n\nCheck out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.\n",
+  "content": "# Monad Workbench\n\nMonad Workbench is the local-first, read-only engineering cockpit for the Monad repository.\n\nWorkbench v0 consumes existing canonical Monad and EOS state, normalizes it into an in-memory read model, and presents synchronized projections optimized for human comprehension. It is deliberately non-authoritative: the Workbench does not own product truth, lifecycle truth, evidence, or governance state.\n\n## v0 surfaces\n\n- **Now** — current Product Goal, Initiative, Epic, Feature, Stories/Enablers, Program Increment, Work Cycle, Work Packet, governing knowledge, repository state, and next-context cues.\n- **Plan** — canonical product hierarchy: `Product Goal → Initiative → Epic → Feature → Story / Enabler → Task`.\n- **Execution** — governed execution hierarchy: `Program Increment → Work Cycle → Work Packet → Execution → Verification / Evidence`.\n- **Knowledge** — requirements, specifications, ADRs, policies, and evidence.\n- **Control** — risks, change requests, reviews, verification, releases, and related control state.\n- **Focus** — object-centric projection for a selected Monad object, including source, relationships, semantic document blocks, provenance, and lifecycle context.\n- **Command palette** — `Ctrl/Cmd+K` search and navigation across indexed Monad objects.\n\nProduct planning and governed execution are intentionally orthogonal. A Feature may forecast or relate to one or more Work Packets, but a Work Packet is not a child level inside the product hierarchy.\n\n## Authority and source precedence\n\nWorkbench is a consumer of repository projections. When sources overlap, v0 follows this precedence:\n\n1. `.eos/state/current.json` for live EOS lifecycle state.\n2. Canonical product planning artifacts such as `product/PROGRAM-HIERARCHY.md`, `product/initiatives.md`, and the approved backlogs.\n3. Authoritative engineering artifacts such as Work Packet Markdown for objectives, acceptance criteria, dependencies, and governing references.\n4. EOS registries and trace/evidence projections such as `.eos/*.tsv`.\n5. Git workspace metadata for branch and working-tree context.\n\nIf an authored narrative and canonical EOS current state disagree, Workbench treats the canonical EOS state as lifecycle authority and presents the authored content as artifact narrative rather than silently promoting it.\n\n## Requirements\n\n- Bun 1.3.x\n- Node-compatible environment required by Next.js 16\n- a checkout of the Monad repository containing `monad.toml`\n\nWorkbench discovers the repository root by walking upward from its current working directory until it finds `monad.toml`.\n\n## Install\n\nFrom `apps/workbench`:\n\n```bash\nbun install --frozen-lockfile\n```\n\n## Development\n\n```bash\nbun run dev\n```\n\nOpen `http://localhost:3000`.\n\nThe application is intended to run inside a local Monad checkout. No database, authentication service, Supabase project, Payload instance, or cloud account is required for v0.\n\n## Verification\n\nRun the complete v0 gate:\n\n```bash\nbun run check\n```\n\nOr run each stage separately:\n\n```bash\nbun run lint\nbun run test\nbun run build\n```\n\n`bun run test` covers the highest-risk adapter boundaries, including product hierarchy parsing, EOS execution projection, TSV normalization, Focus document path containment, and repository-root discovery.\n\n## Keyboard and shell behavior\n\n- `Ctrl/Cmd+K` — open command palette.\n- `Ctrl/Cmd+B` — collapse/expand Navigator.\n- `Ctrl/Cmd+Shift+B` — collapse/expand Inspector.\n- `Escape` — close menus, context menus, or command palette.\n- Right-click — open the Workbench context menu.\n\nNavigator and Inspector collapsed state are local UI preferences persisted in browser `localStorage`; they are not Monad engineering state.\n\n## v0 non-goals\n\nWorkbench v0 intentionally does **not** provide:\n\n- authoritative state mutation;\n- EOS lifecycle transitions;\n- governed write/edit workflows;\n- AI execution control;\n- production authentication or tenancy;\n- cloud persistence;\n- realtime collaboration;\n- persistent multi-tab workspaces;\n- a generalized plugin system;\n- a graph database;\n- a replacement code editor.\n\nThose capabilities belong to later Workbench versions. The v0 contract is trustworthy local comprehension and navigation.\n\n## Architecture\n\n```text\nCanonical Monad / EOS sources\n            │\n            ▼\n     Workbench adapters\n            │\n            ▼\n      in-memory read model\n            │\n            ▼\n  projection/index functions\n            │\n            ▼\n     Next.js Workbench UI\n```\n\nThe intended evolution is for more of the temporary Workbench-specific ingestion layer to be replaced by stable Monad semantic-kernel/query interfaces while preserving the user-facing projection model.\n\n## Implementation specification\n\nSee `docs/implementation/workbench-v0.md` from the repository root.\n",
   "document_id": "doc:apps%2Fworkbench%2FREADME.md",
   "generation": {
     "deterministic": true,
@@ -7,53 +7,12 @@
     "version": "1.0.0"
   },
   "identifiers": [],
-  "links": [
-    {
-      "kind": "external",
-      "target": "https://nextjs.org"
-    },
-    {
-      "kind": "external",
-      "target": "https://nextjs.org/docs/app/api-reference/cli/create-next-app"
-    },
-    {
-      "kind": "external",
-      "target": "http://localhost:3000"
-    },
-    {
-      "kind": "external",
-      "target": "https://nextjs.org/docs/app/building-your-application/optimizing/fonts"
-    },
-    {
-      "kind": "external",
-      "target": "https://vercel.com/font"
-    },
-    {
-      "kind": "external",
-      "target": "https://nextjs.org/docs"
-    },
-    {
-      "kind": "external",
-      "target": "https://nextjs.org/learn"
-    },
-    {
-      "kind": "external",
-      "target": "https://github.com/vercel/next.js"
-    },
-    {
-      "kind": "external",
-      "target": "https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme"
-    },
-    {
-      "kind": "external",
-      "target": "https://nextjs.org/docs/app/building-your-application/deploying"
-    }
-  ],
+  "links": [],
   "metadata": {
     "document_type": "project-source",
     "normative": false,
-    "summary": "This is a Next.js project bootstrapped with create-next-app.",
-    "title": "Readme"
+    "summary": "Monad Workbench is the local-first, read-only engineering cockpit for the Monad repository.",
+    "title": "Monad Workbench"
   },
   "relations": [],
   "schema": "machine/schemas/document.schema.json",
@@ -61,48 +20,111 @@
   "sections": [
     {
       "identifiers": [],
-      "level": 0,
-      "line_end": 2,
+      "level": 1,
+      "line_end": 6,
       "line_start": 1,
-      "section_id": "preamble",
-      "text": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
-      "title": "Preamble"
+      "section_id": "monad-workbench",
+      "text": "# Monad Workbench\n\nMonad Workbench is the local-first, read-only engineering cockpit for the Monad repository.\n\nWorkbench v0 consumes existing canonical Monad and EOS state, normalizes it into an in-memory read model, and presents synchronized projections optimized for human comprehension. It is deliberately non-authoritative: the Workbench does not own product truth, lifecycle truth, evidence, or governance state.",
+      "title": "Monad Workbench"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 22,
-      "line_start": 3,
-      "section_id": "getting-started",
-      "text": "## Getting Started\n\nFirst, run the development server:\n\n```bash\nnpm run dev\n# or\nyarn dev\n# or\npnpm dev\n# or\nbun dev\n```\n\nOpen [http://localhost:3000](http://localhost:3000) with your browser to see the result.\n\nYou can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.\n\nThis project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.",
-      "title": "Getting Started"
+      "line_end": 18,
+      "line_start": 7,
+      "section_id": "v0-surfaces",
+      "text": "## v0 surfaces\n\n- **Now** — current Product Goal, Initiative, Epic, Feature, Stories/Enablers, Program Increment, Work Cycle, Work Packet, governing knowledge, repository state, and next-context cues.\n- **Plan** — canonical product hierarchy: `Product Goal → Initiative → Epic → Feature → Story / Enabler → Task`.\n- **Execution** — governed execution hierarchy: `Program Increment → Work Cycle → Work Packet → Execution → Verification / Evidence`.\n- **Knowledge** — requirements, specifications, ADRs, policies, and evidence.\n- **Control** — risks, change requests, reviews, verification, releases, and related control state.\n- **Focus** — object-centric projection for a selected Monad object, including source, relationships, semantic document blocks, provenance, and lifecycle context.\n- **Command palette** — `Ctrl/Cmd+K` search and navigation across indexed Monad objects.\n\nProduct planning and governed execution are intentionally orthogonal. A Feature may forecast or relate to one or more Work Packets, but a Work Packet is not a child level inside the product hierarchy.",
+      "title": "v0 surfaces"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 31,
-      "line_start": 23,
-      "section_id": "learn-more",
-      "text": "## Learn More\n\nTo learn more about Next.js, take a look at the following resources:\n\n- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.\n- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.\n\nYou can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!",
-      "title": "Learn More"
+      "line_end": 30,
+      "line_start": 19,
+      "section_id": "authority-and-source-precedence",
+      "text": "## Authority and source precedence\n\nWorkbench is a consumer of repository projections. When sources overlap, v0 follows this precedence:\n\n1. `.eos/state/current.json` for live EOS lifecycle state.\n2. Canonical product planning artifacts such as `product/PROGRAM-HIERARCHY.md`, `product/initiatives.md`, and the approved backlogs.\n3. Authoritative engineering artifacts such as Work Packet Markdown for objectives, acceptance criteria, dependencies, and governing references.\n4. EOS registries and trace/evidence projections such as `.eos/*.tsv`.\n5. Git workspace metadata for branch and working-tree context.\n\nIf an authored narrative and canonical EOS current state disagree, Workbench treats the canonical EOS state as lifecycle authority and presents the authored content as artifact narrative rather than silently promoting it.",
+      "title": "Authority and source precedence"
     },
     {
       "identifiers": [],
       "level": 2,
-      "line_end": 36,
-      "line_start": 32,
-      "section_id": "deploy-on-vercel",
-      "text": "## Deploy on Vercel\n\nThe easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.\n\nCheck out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.",
-      "title": "Deploy on Vercel"
+      "line_end": 38,
+      "line_start": 31,
+      "section_id": "requirements",
+      "text": "## Requirements\n\n- Bun 1.3.x\n- Node-compatible environment required by Next.js 16\n- a checkout of the Monad repository containing `monad.toml`\n\nWorkbench discovers the repository root by walking upward from its current working directory until it finds `monad.toml`.",
+      "title": "Requirements"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 46,
+      "line_start": 39,
+      "section_id": "install",
+      "text": "## Install\n\nFrom `apps/workbench`:\n\n```bash\nbun install --frozen-lockfile\n```",
+      "title": "Install"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 56,
+      "line_start": 47,
+      "section_id": "development",
+      "text": "## Development\n\n```bash\nbun run dev\n```\n\nOpen `http://localhost:3000`.\n\nThe application is intended to run inside a local Monad checkout. No database, authentication service, Supabase project, Payload instance, or cloud account is required for v0.",
+      "title": "Development"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 74,
+      "line_start": 57,
+      "section_id": "verification",
+      "text": "## Verification\n\nRun the complete v0 gate:\n\n```bash\nbun run check\n```\n\nOr run each stage separately:\n\n```bash\nbun run lint\nbun run test\nbun run build\n```\n\n`bun run test` covers the highest-risk adapter boundaries, including product hierarchy parsing, EOS execution projection, TSV normalization, Focus document path containment, and repository-root discovery.",
+      "title": "Verification"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 84,
+      "line_start": 75,
+      "section_id": "keyboard-and-shell-behavior",
+      "text": "## Keyboard and shell behavior\n\n- `Ctrl/Cmd+K` — open command palette.\n- `Ctrl/Cmd+B` — collapse/expand Navigator.\n- `Ctrl/Cmd+Shift+B` — collapse/expand Inspector.\n- `Escape` — close menus, context menus, or command palette.\n- Right-click — open the Workbench context menu.\n\nNavigator and Inspector collapsed state are local UI preferences persisted in browser `localStorage`; they are not Monad engineering state.",
+      "title": "Keyboard and shell behavior"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 102,
+      "line_start": 85,
+      "section_id": "v0-non-goals",
+      "text": "## v0 non-goals\n\nWorkbench v0 intentionally does **not** provide:\n\n- authoritative state mutation;\n- EOS lifecycle transitions;\n- governed write/edit workflows;\n- AI execution control;\n- production authentication or tenancy;\n- cloud persistence;\n- realtime collaboration;\n- persistent multi-tab workspaces;\n- a generalized plugin system;\n- a graph database;\n- a replacement code editor.\n\nThose capabilities belong to later Workbench versions. The v0 contract is trustworthy local comprehension and navigation.",
+      "title": "v0 non-goals"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 122,
+      "line_start": 103,
+      "section_id": "architecture",
+      "text": "## Architecture\n\n```text\nCanonical Monad / EOS sources\n            │\n            ▼\n     Workbench adapters\n            │\n            ▼\n      in-memory read model\n            │\n            ▼\n  projection/index functions\n            │\n            ▼\n     Next.js Workbench UI\n```\n\nThe intended evolution is for more of the temporary Workbench-specific ingestion layer to be replaced by stable Monad semantic-kernel/query interfaces while preserving the user-facing projection model.",
+      "title": "Architecture"
+    },
+    {
+      "identifiers": [],
+      "level": 2,
+      "line_end": 125,
+      "line_start": 123,
+      "section_id": "implementation-specification",
+      "text": "## Implementation specification\n\nSee `docs/implementation/workbench-v0.md` from the repository root.",
+      "title": "Implementation specification"
     }
   ],
   "source": {
-    "bytes": 1450,
+    "bytes": 4858,
     "canonical": true,
     "language": "markdown",
-    "lines": 36,
+    "lines": 125,
     "media_type": "text/markdown",
     "path": "apps/workbench/README.md",
-    "sha256": "60b55ff7df79af72590f9524208e46642bc32bdc175cdad41349681c0e2f958f"
+    "sha256": "e020aa500073b5105506764c0815f6811bd33ff144d87f3449ec2125cc3b5cad"
   }
 }

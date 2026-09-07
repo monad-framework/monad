@@ -1,0 +1,40 @@
+{
+  "content": "import { afterEach, describe, expect, test } from \"bun:test\";\nimport { mkdir, mkdtemp, rm, writeFile } from \"node:fs/promises\";\nimport os from \"node:os\";\nimport path from \"node:path\";\n\nimport { readFocusDocument } from \"./focus-document\";\nimport type { MonadObject } from \"./model\";\n\nconst roots: string[] = [];\n\nasync function fixtureRoot(): Promise<string> {\n  const root = await mkdtemp(path.join(os.tmpdir(), \"monad-workbench-focus-\"));\n  roots.push(root);\n  await mkdir(path.join(root, \"engineering\", \"work-packets\"), {\n    recursive: true,\n  });\n  return root;\n}\n\nfunction workPacket(artifactPath: string): MonadObject {\n  return {\n    id: \"WP-MVP-0005\",\n    type: \"work-packet\",\n    title: \"Structured Monad configuration parser\",\n    status: \"IN_PROGRESS\",\n    source: artifactPath,\n    artifactPath,\n    relationships: [],\n  };\n}\n\nafterEach(async () => {\n  await Promise.all(\n    roots.splice(0).map((root) => rm(root, { recursive: true, force: true })),\n  );\n});\n\ndescribe(\"readFocusDocument\", () => {\n  test(\"parses frontmatter, metadata, introduction, and semantic sections\", async () => {\n    const root = await fixtureRoot();\n    const artifactPath = \"engineering/work-packets/WP-MVP-0005.md\";\n\n    await writeFile(\n      path.join(root, artifactPath),\n      `---\\ntitle: \"Packet\"\\n---\\n\\n# WP-MVP-0005 — Structured Monad configuration parser\\n\\n**Status:** IN_PROGRESS\\n**Epic:** EPIC-003\\n\\nThis packet compiles canonical configuration.\\n\\n## Objective\\n\\nProduce deterministic semantic configuration.\\n\\n## Acceptance criteria\\n\\n- [ ] Parse valid configuration.\\n`,\n      \"utf8\",\n    );\n\n    const document = await readFocusDocument(root, workPacket(artifactPath));\n\n    expect(document?.heading).toBe(\n      \"WP-MVP-0005 — Structured Monad configuration parser\",\n    );\n    expect(document?.metadata).toEqual([\n      { label: \"Status\", value: \"IN_PROGRESS\" },\n      { label: \"Epic\", value: \"EPIC-003\" },\n    ]);\n    expect(document?.introduction).toBe(\n      \"This packet compiles canonical configuration.\",\n    );\n    expect(document?.sections.map((section) => section.title)).toEqual([\n      \"Objective\",\n      \"Acceptance criteria\",\n    ]);\n  });\n\n  test(\"refuses artifact paths outside the repository root\", async () => {\n    const root = await fixtureRoot();\n    const outside = path.join(path.dirname(root), \"outside-workbench.md\");\n    await writeFile(outside, \"# Outside\\n\", \"utf8\");\n\n    try {\n      const document = await readFocusDocument(\n        root,\n        workPacket(\"../outside-workbench.md\"),\n      );\n      expect(document).toBeUndefined();\n    } finally {\n      await rm(outside, { force: true });\n    }\n  });\n});\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Flib%2Fmonad%2Ffocus-document.test.ts",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript source for apps/workbench/src/lib/monad/focus-document.test.ts.",
+    "title": "Focus Document.Test"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 82,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { afterEach, describe, expect, test } from \"bun:test\";\nimport { mkdir, mkdtemp, rm, writeFile } from \"node:fs/promises\";\nimport os from \"node:os\";\nimport path from \"node:path\";\n\nimport { readFocusDocument } from \"./focus-document\";\nimport type { MonadObject } from \"./model\";\n\nconst roots: string[] = [];\n\nasync function fixtureRoot(): Promise<string> {\n  const root = await mkdtemp(path.join(os.tmpdir(), \"monad-workbench-focus-\"));\n  roots.push(root);\n  await mkdir(path.join(root, \"engineering\", \"work-packets\"), {\n    recursive: true,\n  });\n  return root;\n}\n\nfunction workPacket(artifactPath: string): MonadObject {\n  return {\n    id: \"WP-MVP-0005\",\n    type: \"work-packet\",\n    title: \"Structured Monad configuration parser\",\n    status: \"IN_PROGRESS\",\n    source: artifactPath,\n    artifactPath,\n    relationships: [],\n  };\n}\n\nafterEach(async () => {\n  await Promise.all(\n    roots.splice(0).map((root) => rm(root, { recursive: true, force: true })),\n  );\n});\n\ndescribe(\"readFocusDocument\", () => {\n  test(\"parses frontmatter, metadata, introduction, and semantic sections\", async () => {\n    const root = await fixtureRoot();\n    const artifactPath = \"engineering/work-packets/WP-MVP-0005.md\";\n\n    await writeFile(\n      path.join(root, artifactPath),\n      `---\\ntitle: \"Packet\"\\n---\\n\\n# WP-MVP-0005 — Structured Monad configuration parser\\n\\n**Status:** IN_PROGRESS\\n**Epic:** EPIC-003\\n\\nThis packet compiles canonical configuration.\\n\\n## Objective\\n\\nProduce deterministic semantic configuration.\\n\\n## Acceptance criteria\\n\\n- [ ] Parse valid configuration.\\n`,\n      \"utf8\",\n    );\n\n    const document = await readFocusDocument(root, workPacket(artifactPath));\n\n    expect(document?.heading).toBe(\n      \"WP-MVP-0005 — Structured Monad configuration parser\",\n    );\n    expect(document?.metadata).toEqual([\n      { label: \"Status\", value: \"IN_PROGRESS\" },\n      { label: \"Epic\", value: \"EPIC-003\" },\n    ]);\n    expect(document?.introduction).toBe(\n      \"This packet compiles canonical configuration.\",\n    );\n    expect(document?.sections.map((section) => section.title)).toEqual([\n      \"Objective\",\n      \"Acceptance criteria\",\n    ]);\n  });\n\n  test(\"refuses artifact paths outside the repository root\", async () => {\n    const root = await fixtureRoot();\n    const outside = path.join(path.dirname(root), \"outside-workbench.md\");\n    await writeFile(outside, \"# Outside\\n\", \"utf8\");\n\n    try {\n      const document = await readFocusDocument(\n        root,\n        workPacket(\"../outside-workbench.md\"),\n      );\n      expect(document).toBeUndefined();\n    } finally {\n      await rm(outside, { force: true });\n    }\n  });\n});",
+      "title": "Focus Document.Test"
+    }
+  ],
+  "source": {
+    "bytes": 2658,
+    "canonical": true,
+    "language": "typescript",
+    "lines": 82,
+    "media_type": "text/vnd.trolltech.linguist",
+    "path": "apps/workbench/src/lib/monad/focus-document.test.ts",
+    "sha256": "332ccff56e6e9359c31aa80b1b6452c9c3cc063fa2a6a19bc7a1da7c5726096b"
+  }
+}

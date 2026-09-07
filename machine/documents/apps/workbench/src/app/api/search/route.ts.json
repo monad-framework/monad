@@ -1,0 +1,40 @@
+{
+  "content": "import { NextResponse } from \"next/server\";\n\nimport { readWorkbenchObjectIndex } from \"@/lib/monad/object-index\";\nimport { findMonadRoot } from \"@/lib/monad/repository\";\n\nfunction score(query: string, id: string, title: string, type: string): number {\n  const normalizedId = id.toLowerCase();\n  const normalizedTitle = title.toLowerCase();\n  const normalizedType = type.toLowerCase();\n\n  if (normalizedId === query) return 100;\n  if (normalizedId.startsWith(query)) return 90;\n  if (normalizedTitle.startsWith(query)) return 80;\n  if (normalizedId.includes(query)) return 70;\n  if (normalizedTitle.includes(query)) return 60;\n  if (normalizedType.includes(query)) return 40;\n  return 0;\n}\n\nexport async function GET(request: Request) {\n  const url = new URL(request.url);\n  const query = (url.searchParams.get(\"q\") ?? \"\")\n    .trim()\n    .slice(0, 80)\n    .toLowerCase();\n\n  if (!query) {\n    return NextResponse.json({ results: [] });\n  }\n\n  const root = await findMonadRoot(process.cwd());\n  const index = await readWorkbenchObjectIndex(root);\n\n  const results = index.items\n    .map((item) => ({\n      ...item,\n      score: score(query, item.id, item.title, item.type),\n    }))\n    .filter((item) => item.score > 0)\n    .sort(\n      (left, right) =>\n        right.score - left.score || left.id.localeCompare(right.id),\n    )\n    .slice(0, 40)\n    .map(({ score: _score, ...item }) => item);\n\n  return NextResponse.json({ results });\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fapi%2Fsearch%2Froute.ts",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript source for apps/workbench/src/app/api/search/route.ts.",
+    "title": "Route"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 48,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { NextResponse } from \"next/server\";\n\nimport { readWorkbenchObjectIndex } from \"@/lib/monad/object-index\";\nimport { findMonadRoot } from \"@/lib/monad/repository\";\n\nfunction score(query: string, id: string, title: string, type: string): number {\n  const normalizedId = id.toLowerCase();\n  const normalizedTitle = title.toLowerCase();\n  const normalizedType = type.toLowerCase();\n\n  if (normalizedId === query) return 100;\n  if (normalizedId.startsWith(query)) return 90;\n  if (normalizedTitle.startsWith(query)) return 80;\n  if (normalizedId.includes(query)) return 70;\n  if (normalizedTitle.includes(query)) return 60;\n  if (normalizedType.includes(query)) return 40;\n  return 0;\n}\n\nexport async function GET(request: Request) {\n  const url = new URL(request.url);\n  const query = (url.searchParams.get(\"q\") ?? \"\")\n    .trim()\n    .slice(0, 80)\n    .toLowerCase();\n\n  if (!query) {\n    return NextResponse.json({ results: [] });\n  }\n\n  const root = await findMonadRoot(process.cwd());\n  const index = await readWorkbenchObjectIndex(root);\n\n  const results = index.items\n    .map((item) => ({\n      ...item,\n      score: score(query, item.id, item.title, item.type),\n    }))\n    .filter((item) => item.score > 0)\n    .sort(\n      (left, right) =>\n        right.score - left.score || left.id.localeCompare(right.id),\n    )\n    .slice(0, 40)\n    .map(({ score: _score, ...item }) => item);\n\n  return NextResponse.json({ results });\n}",
+      "title": "Route"
+    }
+  ],
+  "source": {
+    "bytes": 1438,
+    "canonical": true,
+    "language": "typescript",
+    "lines": 48,
+    "media_type": "text/vnd.trolltech.linguist",
+    "path": "apps/workbench/src/app/api/search/route.ts",
+    "sha256": "8503f26769d045e76eaf5e2fb5ebff6d084b8652ae5a3184b008aacb6ba8909f"
+  }
+}

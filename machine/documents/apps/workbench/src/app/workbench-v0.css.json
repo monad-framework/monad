@@ -1,0 +1,40 @@
+{
+  "content": "a.summary-card {\n  color: inherit;\n  text-decoration: none;\n}\n\na.summary-card:hover {\n  border-color: var(--accent);\n  background: var(--surface-hover);\n}\n\n.context-item.active {\n  background: var(--accent-muted);\n  color: var(--foreground);\n}\n\n.navigator details,\n.workspace details {\n  min-width: 0;\n}\n\n.workspace details > summary {\n  list-style: none;\n  cursor: pointer;\n}\n\n.workspace details > summary::-webkit-details-marker {\n  display: none;\n}\n\n.workspace details > summary::after {\n  margin-left: 8px;\n  color: var(--faint);\n  content: \"›\";\n  transition: transform 120ms ease;\n}\n\n.workspace details[open] > summary::after {\n  transform: rotate(90deg);\n}\n\n.knowledge-reference > strong {\n  grid-column: 1 / -1;\n  color: var(--foreground);\n  font-size: 11px;\n  font-weight: 550;\n}\n\n.command-palette-backdrop {\n  position: fixed;\n  inset: 0;\n  z-index: 1200;\n  display: grid;\n  place-items: start center;\n  background: rgb(0 0 0 / 46%);\n  padding-top: min(16vh, 140px);\n  backdrop-filter: blur(2px);\n}\n\n.command-palette {\n  width: min(680px, calc(100vw - 40px));\n  max-height: min(620px, calc(100vh - 180px));\n  overflow: hidden;\n  border: 1px solid var(--border);\n  border-radius: 10px;\n  background: var(--surface-raised);\n  box-shadow:\n    0 30px 80px rgb(0 0 0 / 55%),\n    0 4px 16px rgb(0 0 0 / 35%);\n}\n\n.command-palette-input-row {\n  display: grid;\n  grid-template-columns: auto minmax(0, 1fr) auto;\n  gap: 10px;\n  align-items: center;\n  min-height: 48px;\n  border-bottom: 1px solid var(--border);\n  padding: 0 13px;\n  color: var(--faint);\n}\n\n.command-palette-input-row input {\n  width: 100%;\n  border: 0;\n  outline: 0;\n  background: transparent;\n  color: var(--foreground);\n  font-size: 13px;\n}\n\n.command-palette-input-row input::placeholder {\n  color: var(--faint);\n}\n\n.command-palette-input-row kbd {\n  border: 1px solid var(--border);\n  border-radius: 4px;\n  background: var(--surface);\n  padding: 2px 6px;\n  color: var(--faint);\n  font-size: 9px;\n}\n\n.command-palette-results {\n  max-height: min(540px, calc(100vh - 240px));\n  overflow: auto;\n  padding: 6px;\n}\n\n.command-palette-item {\n  display: grid;\n  grid-template-columns: 26px minmax(0, 1fr);\n  gap: 8px;\n  align-items: center;\n  width: 100%;\n  min-height: 48px;\n  border: 0;\n  border-radius: 6px;\n  background: transparent;\n  padding: 6px 9px;\n  color: var(--muted);\n  text-align: left;\n  cursor: pointer;\n}\n\n.command-palette-item:hover,\n.command-palette-item.active {\n  background: var(--surface-hover);\n  color: var(--foreground);\n}\n\n.command-palette-item-icon {\n  display: grid;\n  place-items: center;\n  color: var(--faint);\n}\n\n.command-palette-item.active .command-palette-item-icon {\n  color: var(--accent);\n}\n\n.command-palette-item-copy {\n  display: grid;\n  gap: 4px;\n  min-width: 0;\n}\n\n.command-palette-item-copy strong,\n.command-palette-item-copy span {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.command-palette-item-copy strong {\n  font-size: 11px;\n  font-weight: 560;\n}\n\n.command-palette-item-copy span {\n  color: var(--faint);\n  font-size: 9px;\n}\n\n.command-palette-empty {\n  padding: 28px 16px;\n  color: var(--faint);\n  text-align: center;\n  font-size: 11px;\n}\n\n@media (max-width: 900px) {\n  .command-palette-backdrop {\n    padding-top: 58px;\n  }\n\n  .command-palette {\n    width: calc(100vw - 24px);\n    max-height: calc(100vh - 82px);\n  }\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fworkbench-v0.css",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical css source for apps/workbench/src/app/workbench-v0.css.",
+    "title": "Workbench V0"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 181,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "a.summary-card {\n  color: inherit;\n  text-decoration: none;\n}\n\na.summary-card:hover {\n  border-color: var(--accent);\n  background: var(--surface-hover);\n}\n\n.context-item.active {\n  background: var(--accent-muted);\n  color: var(--foreground);\n}\n\n.navigator details,\n.workspace details {\n  min-width: 0;\n}\n\n.workspace details > summary {\n  list-style: none;\n  cursor: pointer;\n}\n\n.workspace details > summary::-webkit-details-marker {\n  display: none;\n}\n\n.workspace details > summary::after {\n  margin-left: 8px;\n  color: var(--faint);\n  content: \"›\";\n  transition: transform 120ms ease;\n}\n\n.workspace details[open] > summary::after {\n  transform: rotate(90deg);\n}\n\n.knowledge-reference > strong {\n  grid-column: 1 / -1;\n  color: var(--foreground);\n  font-size: 11px;\n  font-weight: 550;\n}\n\n.command-palette-backdrop {\n  position: fixed;\n  inset: 0;\n  z-index: 1200;\n  display: grid;\n  place-items: start center;\n  background: rgb(0 0 0 / 46%);\n  padding-top: min(16vh, 140px);\n  backdrop-filter: blur(2px);\n}\n\n.command-palette {\n  width: min(680px, calc(100vw - 40px));\n  max-height: min(620px, calc(100vh - 180px));\n  overflow: hidden;\n  border: 1px solid var(--border);\n  border-radius: 10px;\n  background: var(--surface-raised);\n  box-shadow:\n    0 30px 80px rgb(0 0 0 / 55%),\n    0 4px 16px rgb(0 0 0 / 35%);\n}\n\n.command-palette-input-row {\n  display: grid;\n  grid-template-columns: auto minmax(0, 1fr) auto;\n  gap: 10px;\n  align-items: center;\n  min-height: 48px;\n  border-bottom: 1px solid var(--border);\n  padding: 0 13px;\n  color: var(--faint);\n}\n\n.command-palette-input-row input {\n  width: 100%;\n  border: 0;\n  outline: 0;\n  background: transparent;\n  color: var(--foreground);\n  font-size: 13px;\n}\n\n.command-palette-input-row input::placeholder {\n  color: var(--faint);\n}\n\n.command-palette-input-row kbd {\n  border: 1px solid var(--border);\n  border-radius: 4px;\n  background: var(--surface);\n  padding: 2px 6px;\n  color: var(--faint);\n  font-size: 9px;\n}\n\n.command-palette-results {\n  max-height: min(540px, calc(100vh - 240px));\n  overflow: auto;\n  padding: 6px;\n}\n\n.command-palette-item {\n  display: grid;\n  grid-template-columns: 26px minmax(0, 1fr);\n  gap: 8px;\n  align-items: center;\n  width: 100%;\n  min-height: 48px;\n  border: 0;\n  border-radius: 6px;\n  background: transparent;\n  padding: 6px 9px;\n  color: var(--muted);\n  text-align: left;\n  cursor: pointer;\n}\n\n.command-palette-item:hover,\n.command-palette-item.active {\n  background: var(--surface-hover);\n  color: var(--foreground);\n}\n\n.command-palette-item-icon {\n  display: grid;\n  place-items: center;\n  color: var(--faint);\n}\n\n.command-palette-item.active .command-palette-item-icon {\n  color: var(--accent);\n}\n\n.command-palette-item-copy {\n  display: grid;\n  gap: 4px;\n  min-width: 0;\n}\n\n.command-palette-item-copy strong,\n.command-palette-item-copy span {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.command-palette-item-copy strong {\n  font-size: 11px;\n  font-weight: 560;\n}\n\n.command-palette-item-copy span {\n  color: var(--faint);\n  font-size: 9px;\n}\n\n.command-palette-empty {\n  padding: 28px 16px;\n  color: var(--faint);\n  text-align: center;\n  font-size: 11px;\n}\n\n@media (max-width: 900px) {\n  .command-palette-backdrop {\n    padding-top: 58px;\n  }\n\n  .command-palette {\n    width: calc(100vw - 24px);\n    max-height: calc(100vh - 82px);\n  }\n}",
+      "title": "Workbench V0"
+    }
+  ],
+  "source": {
+    "bytes": 3360,
+    "canonical": true,
+    "language": "css",
+    "lines": 181,
+    "media_type": "text/css",
+    "path": "apps/workbench/src/app/workbench-v0.css",
+    "sha256": "2d31192c3339b2adc897e7290bffe18415d18b460dab638edce8da76d9ab3b14"
+  }
+}

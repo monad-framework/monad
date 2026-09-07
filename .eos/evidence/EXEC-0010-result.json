@@ -1,0 +1,139 @@
+{
+  "agent_result": {
+    "acceptance_criteria": [
+      {
+        "criterion": "US-015 valid monad.toml becomes a deterministic semantic document record.",
+        "evidence": "Semantic config parser tests establish stable TOML source/document identity, exact content hash and byte length, deterministic canonical path, and repeatable serialized output.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-016 schema/parse errors remain diagnostics and block a valid semantic config document.",
+        "evidence": "Malformed TOML, duplicate keys, unknown keys, unsupported schema versions, invalid UTF-8, and stale effective state fail closed through structured diagnostics.",
+        "status": "passed"
+      },
+      {
+        "criterion": "US-017 normalized semantic representation is deterministic and retains source/effective-value provenance distinctions.",
+        "evidence": "Canonical file/default values remain distinct from CLI-effective values; ordered maps and serialization are deterministic.",
+        "status": "passed"
+      },
+      {
+        "criterion": ".monad/manifest.yaml cannot override or become a competing semantic config source.",
+        "evidence": "Legacy-manifest non-authority regression passes and serialized semantic state contains no manifest authority.",
+        "status": "passed"
+      },
+      {
+        "criterion": "No environment interpolation, command substitution, network lookup, or include execution occurs.",
+        "evidence": "Executable-looking and interpolation/include/network-like strings remain inert parser data in regression coverage.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Effective configuration is bound to the exact source bytes identified by the semantic document.",
+        "evidence": "Rebound validation rejects stale or unrelated effective configuration for different monad.toml bytes.",
+        "status": "passed"
+      },
+      {
+        "criterion": "Reliable TOML source ranges are retained for downstream diagnostics and provenance explanations.",
+        "evidence": "Spanned TOML values are retained as deterministic semantic-path to byte-range mappings and verified against exact source slices.",
+        "status": "passed"
+      }
+    ],
+    "changed_files": [
+      "crates/monad-core/src/config.rs",
+      "crates/monad-core/src/discovery.rs",
+      "crates/monad-core/src/identity.rs",
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/workspace.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/crates/monad-core/src/config.rs.json",
+      "machine/documents/crates/monad-core/src/discovery.rs.json",
+      "machine/documents/crates/monad-core/src/identity.rs.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/documents/crates/monad-core/src/workspace.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "execution_id": "EXEC-0010",
+    "proposed_commit_message": "feat(core): parse canonical Monad configuration",
+    "risks": [
+      "The CLI-provenance rebinding helper must be intentionally extended if future bootstrap-supported CLI override fields are added."
+    ],
+    "status": "completed",
+    "summary": "Implemented the bounded semantic adapter for canonical monad.toml in monad-core, including deterministic source/document identity, canonical versus CLI-effective provenance, fail-closed invalid-input diagnostics, legacy-manifest non-authority, inert configuration text, exact-byte/effective-state binding, and retained reliable TOML byte ranges.",
+    "target": "WP-MVP-0005",
+    "unresolved_issues": [],
+    "validation": [
+      {
+        "command": "cargo fmt --all -- --check",
+        "exit_code": 0,
+        "summary": "Formatting check passed on the clean EXEC-0010 lineage."
+      },
+      {
+        "command": "cargo test -p monad-core",
+        "exit_code": 0,
+        "summary": "All 131 monad-core tests passed, including exact-byte provenance and TOML source-range regressions."
+      },
+      {
+        "command": "cargo clippy -p monad-core --all-targets --all-features -- -D warnings -A clippy::large_enum_variant",
+        "exit_code": 0,
+        "summary": "Scoped strict Clippy passed; only the explicitly excluded pre-existing unrelated large-enum lint is exempted."
+      },
+      {
+        "command": "python3 tools/eos/trace_integrity.py && python3 scripts/sync-machine-docs.py --check",
+        "exit_code": 0,
+        "summary": "Trace and deterministic machine projections are synchronized on the clean execution lineage."
+      },
+      {
+        "command": "EXEC-0010 baseline-diff scope audit",
+        "exit_code": 0,
+        "summary": "Baseline-to-result diff contains only five monad-core source files and eight machine projections; no .eos or governed artifact path is present."
+      }
+    ]
+  },
+  "eos_observation": {
+    "actual_changed_files": [
+      "crates/monad-core/src/config.rs",
+      "crates/monad-core/src/discovery.rs",
+      "crates/monad-core/src/identity.rs",
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/workspace.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/crates/monad-core/src/config.rs.json",
+      "machine/documents/crates/monad-core/src/discovery.rs.json",
+      "machine/documents/crates/monad-core/src/identity.rs.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/documents/crates/monad-core/src/workspace.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "declared_but_not_actual": [],
+    "declared_changed_files": [
+      "crates/monad-core/src/config.rs",
+      "crates/monad-core/src/discovery.rs",
+      "crates/monad-core/src/identity.rs",
+      "crates/monad-core/src/lib.rs",
+      "crates/monad-core/src/workspace.rs",
+      "machine/corpus.jsonl",
+      "machine/documents/crates/monad-core/src/config.rs.json",
+      "machine/documents/crates/monad-core/src/discovery.rs.json",
+      "machine/documents/crates/monad-core/src/identity.rs.json",
+      "machine/documents/crates/monad-core/src/lib.rs.json",
+      "machine/documents/crates/monad-core/src/workspace.rs.json",
+      "machine/graph.json",
+      "machine/manifest.json"
+    ],
+    "scope": {
+      "directives": {
+        "allowed": [
+          "*",
+          "**/*"
+        ],
+        "allowed_governed": [],
+        "forbidden": []
+      },
+      "passed": true,
+      "violations": []
+    },
+    "undeclared_actual": []
+  },
+  "ingested": "2026-09-07T16:37:38Z"
+}

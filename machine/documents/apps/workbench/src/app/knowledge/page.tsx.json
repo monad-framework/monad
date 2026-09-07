@@ -1,0 +1,40 @@
+{
+  "content": "import { connection } from \"next/server\";\n\nimport { AppShell } from \"@/components/workbench/app-shell\";\nimport { KnowledgeWorkspace } from \"@/components/workbench/knowledge-workspace\";\nimport {\n  type KnowledgeCatalogKind,\n  readKnowledgeCatalogProjection,\n} from \"@/lib/monad/knowledge-catalog\";\nimport { getRepositorySnapshot } from \"@/lib/monad/repository\";\n\nconst VALID_KINDS = new Set<KnowledgeCatalogKind>([\n  \"requirement\",\n  \"specification\",\n  \"adr\",\n  \"policy\",\n  \"evidence\",\n]);\n\ntype KnowledgePageProps = {\n  searchParams: Promise<{\n    kind?: string | string[];\n  }>;\n};\n\nexport default async function KnowledgePage({\n  searchParams,\n}: KnowledgePageProps) {\n  await connection();\n\n  const params = await searchParams;\n  const rawKind = Array.isArray(params.kind) ? params.kind[0] : params.kind;\n  const selectedKind =\n    rawKind && VALID_KINDS.has(rawKind as KnowledgeCatalogKind)\n      ? (rawKind as KnowledgeCatalogKind)\n      : undefined;\n\n  const snapshot = await getRepositorySnapshot();\n  const catalog = await readKnowledgeCatalogProjection(snapshot.rootPath);\n\n  return (\n    <AppShell snapshot={snapshot}>\n      <KnowledgeWorkspace\n        catalog={catalog}\n        selectedKind={selectedKind}\n        snapshot={snapshot}\n      />\n    </AppShell>\n  );\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fknowledge%2Fpage.tsx",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript-jsx source for apps/workbench/src/app/knowledge/page.tsx.",
+    "title": "Page"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 49,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { connection } from \"next/server\";\n\nimport { AppShell } from \"@/components/workbench/app-shell\";\nimport { KnowledgeWorkspace } from \"@/components/workbench/knowledge-workspace\";\nimport {\n  type KnowledgeCatalogKind,\n  readKnowledgeCatalogProjection,\n} from \"@/lib/monad/knowledge-catalog\";\nimport { getRepositorySnapshot } from \"@/lib/monad/repository\";\n\nconst VALID_KINDS = new Set<KnowledgeCatalogKind>([\n  \"requirement\",\n  \"specification\",\n  \"adr\",\n  \"policy\",\n  \"evidence\",\n]);\n\ntype KnowledgePageProps = {\n  searchParams: Promise<{\n    kind?: string | string[];\n  }>;\n};\n\nexport default async function KnowledgePage({\n  searchParams,\n}: KnowledgePageProps) {\n  await connection();\n\n  const params = await searchParams;\n  const rawKind = Array.isArray(params.kind) ? params.kind[0] : params.kind;\n  const selectedKind =\n    rawKind && VALID_KINDS.has(rawKind as KnowledgeCatalogKind)\n      ? (rawKind as KnowledgeCatalogKind)\n      : undefined;\n\n  const snapshot = await getRepositorySnapshot();\n  const catalog = await readKnowledgeCatalogProjection(snapshot.rootPath);\n\n  return (\n    <AppShell snapshot={snapshot}>\n      <KnowledgeWorkspace\n        catalog={catalog}\n        selectedKind={selectedKind}\n        snapshot={snapshot}\n      />\n    </AppShell>\n  );\n}",
+      "title": "Page"
+    }
+  ],
+  "source": {
+    "bytes": 1277,
+    "canonical": true,
+    "language": "typescript-jsx",
+    "lines": 49,
+    "media_type": "text/plain",
+    "path": "apps/workbench/src/app/knowledge/page.tsx",
+    "sha256": "2a058422ba7d8145d9bb2b22a12c9cf4818ef0feea794d8a9c302f427b6875ac"
+  }
+}

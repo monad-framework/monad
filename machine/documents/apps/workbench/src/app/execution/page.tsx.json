@@ -1,0 +1,40 @@
+{
+  "content": "import { connection } from \"next/server\";\n\nimport { AppShell } from \"@/components/workbench/app-shell\";\nimport { ExecutionWorkspace } from \"@/components/workbench/execution-workspace\";\nimport { readExecutionProjection } from \"@/lib/monad/execution\";\nimport { getRepositorySnapshot } from \"@/lib/monad/repository\";\n\nexport default async function ExecutionPage() {\n  await connection();\n\n  const snapshot = await getRepositorySnapshot();\n  const execution = await readExecutionProjection(snapshot.rootPath);\n\n  return (\n    <AppShell snapshot={snapshot}>\n      <ExecutionWorkspace execution={execution} snapshot={snapshot} />\n    </AppShell>\n  );\n}\n",
+  "document_id": "doc:apps%2Fworkbench%2Fsrc%2Fapp%2Fexecution%2Fpage.tsx",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "project-source",
+    "normative": false,
+    "summary": "Canonical typescript-jsx source for apps/workbench/src/app/execution/page.tsx.",
+    "title": "Page"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 19,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "import { connection } from \"next/server\";\n\nimport { AppShell } from \"@/components/workbench/app-shell\";\nimport { ExecutionWorkspace } from \"@/components/workbench/execution-workspace\";\nimport { readExecutionProjection } from \"@/lib/monad/execution\";\nimport { getRepositorySnapshot } from \"@/lib/monad/repository\";\n\nexport default async function ExecutionPage() {\n  await connection();\n\n  const snapshot = await getRepositorySnapshot();\n  const execution = await readExecutionProjection(snapshot.rootPath);\n\n  return (\n    <AppShell snapshot={snapshot}>\n      <ExecutionWorkspace execution={execution} snapshot={snapshot} />\n    </AppShell>\n  );\n}",
+      "title": "Page"
+    }
+  ],
+  "source": {
+    "bytes": 647,
+    "canonical": true,
+    "language": "typescript-jsx",
+    "lines": 19,
+    "media_type": "text/plain",
+    "path": "apps/workbench/src/app/execution/page.tsx",
+    "sha256": "fab3b59d77a11f2f926157b0ec8b45a0be4f4dbe81f9e575d2f07219d9c53a8d"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "content": "name: Workbench\n\n# Read-only verification gate for the local Workbench v0 projection environment.\non:\n  pull_request:\n    paths:\n      - \"apps/workbench/**\"\n      - \"docs/implementation/workbench-v0.md\"\n      - \".github/workflows/workbench.yml\"\n  push:\n    branches:\n      - main\n    paths:\n      - \"apps/workbench/**\"\n      - \"docs/implementation/workbench-v0.md\"\n      - \".github/workflows/workbench.yml\"\n\npermissions:\n  contents: read\n\nconcurrency:\n  group: workbench-${{ github.workflow }}-${{ github.ref }}\n  cancel-in-progress: true\n\njobs:\n  verify:\n    name: lint, test, build\n    runs-on: ubuntu-latest\n\n    steps:\n      - name: Check out repository\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n\n      - name: Set up Bun\n        uses: oven-sh/setup-bun@v2\n        with:\n          bun-version: 1.3.14\n\n      - name: Install Workbench dependencies\n        working-directory: apps/workbench\n        run: bun install --frozen-lockfile\n\n      - name: Verify Workbench\n        working-directory: apps/workbench\n        run: bun run check\n",
+  "document_id": "doc:.github%2Fworkflows%2Fworkbench.yml",
+  "generation": {
+    "deterministic": true,
+    "tool": "sync-machine-docs",
+    "version": "1.0.0"
+  },
+  "identifiers": [],
+  "links": [],
+  "metadata": {
+    "document_type": "continuous-integration",
+    "normative": false,
+    "summary": "Canonical yaml source for .github/workflows/workbench.yml.",
+    "title": "Workbench"
+  },
+  "relations": [],
+  "schema": "machine/schemas/document.schema.json",
+  "schema_version": "1.0.0",
+  "sections": [
+    {
+      "identifiers": [],
+      "level": 1,
+      "line_end": 45,
+      "line_start": 1,
+      "section_id": "content",
+      "text": "name: Workbench\n\n# Read-only verification gate for the local Workbench v0 projection environment.\non:\n  pull_request:\n    paths:\n      - \"apps/workbench/**\"\n      - \"docs/implementation/workbench-v0.md\"\n      - \".github/workflows/workbench.yml\"\n  push:\n    branches:\n      - main\n    paths:\n      - \"apps/workbench/**\"\n      - \"docs/implementation/workbench-v0.md\"\n      - \".github/workflows/workbench.yml\"\n\npermissions:\n  contents: read\n\nconcurrency:\n  group: workbench-${{ github.workflow }}-${{ github.ref }}\n  cancel-in-progress: true\n\njobs:\n  verify:\n    name: lint, test, build\n    runs-on: ubuntu-latest\n\n    steps:\n      - name: Check out repository\n        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n\n      - name: Set up Bun\n        uses: oven-sh/setup-bun@v2\n        with:\n          bun-version: 1.3.14\n\n      - name: Install Workbench dependencies\n        working-directory: apps/workbench\n        run: bun install --frozen-lockfile\n\n      - name: Verify Workbench\n        working-directory: apps/workbench\n        run: bun run check",
+      "title": "Workbench"
+    }
+  ],
+  "source": {
+    "bytes": 1067,
+    "canonical": true,
+    "language": "yaml",
+    "lines": 45,
+    "media_type": "application/yaml",
+    "path": ".github/workflows/workbench.yml",
+    "sha256": "2a1bf61a0d3627a92a1ba1bbdf668daa08b7bb16a586fd23bca96a98d8bf38fd"
+  }
+}
