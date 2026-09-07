@@ -98,6 +98,20 @@ At minimum preserve these semantic distinctions in the projected metadata and is
 
 Scheduling alone does not authorize implementation. A Work Packet may become Ready only after canonical readiness gates pass, and Ready does not imply Authorized.
 
+### Projection authority order
+
+For planning identifiers such as Product Goal, Initiative, Epic, Feature, and forecast Work Packet identity, the GitHub Issue projection is an accepted derivation source.
+
+For execution metadata, canonical EOS state wins whenever an Issue references a Work Packet registered in `.eos/work-packets.tsv`:
+
+1. registered Work Packet status determines projected `Lifecycle`;
+2. registered PI determines projected `Increment`;
+3. registered Work Cycle determines projected `Work Cycle`;
+4. registered domain determines projected `Domain` when present;
+5. Issue labels/body are fallback sources only when no registered Work Packet supplies the value.
+
+This prevents stale Issue prose or forecast labels from overriding live governed execution state. For example, a Feature issue whose template still says it remains Backlog must project as Running when its canonical Work Packet is `IN_PROGRESS`.
+
 ## Required views
 
 The required Project configuration contains 21 named views. The first six are the normal daily-use views; the rest are scoped projections for investigation and agent-assisted explanation.
@@ -164,11 +178,11 @@ Control-plane defects may be release relevant, but they should not be forced int
 
 ## Automation
 
-Organization Project configuration is a coordination projection and requires organization Project write authority. The repository provides two complementary automation layers:
+Organization Project configuration is a coordination projection and requires organization Project write authority. The repository provides three complementary automation layers:
 
 - `scripts/setup-github-owner.sh` is the owner-facing entry point;
 - `scripts/configure-github-project.py` manages Project-specific option, view, migration, and verification behavior;
-- `scripts/sync-github-project-metadata.py` derives and writes planning metadata from the GitHub Issue corpus.
+- `scripts/sync-github-project-metadata.py` derives planning metadata from projected Issues and execution metadata from canonical EOS Work Packet state when available.
 
 ### Core synchronization
 
@@ -184,7 +198,8 @@ The core pass:
 - canonicalizes safe punctuation-only field aliases;
 - adds missing required Item Type/Lifecycle options while preserving existing option identities;
 - adds repository Issues idempotently;
-- projects the hierarchy-first core surface: Initiatives, Epics, Features, Work Packets, defects, bugs, and change requests.
+- projects the hierarchy-first core surface: Initiatives, Epics, Features, Work Packets, defects, bugs, and change requests;
+- writes all managed fields for each Project item in one Project REST update rather than one mutation per field.
 
 ### Full synchronization
 
@@ -193,6 +208,8 @@ The core pass:
 ```
 
 The full pass additionally projects Story, Enabler, Task, and other deeper issue metadata. Formal Tasks remain rolling-wave objects and are projected only when such Task issues actually exist.
+
+Managed projection fields are convergent: when canonical derivation no longer supplies a managed value, the stale Project value is cleared rather than silently retained.
 
 ### Project completion
 
@@ -204,12 +221,14 @@ The completion pass is the acceptance path for the GitHub Project configuration.
 
 1. converges canonical fields and required single-select options;
 2. ensures every repository Issue is present;
-3. runs the full metadata projection;
+3. runs the full metadata projection with canonical EOS Work Packet execution state taking precedence over stale Issue prose;
 4. creates every missing required Project view through GitHub's supported Project view API;
 5. verifies canonical fields and options;
 6. verifies all 21 required view names;
 7. verifies repository-issue coverage;
-8. runs representative Project queries for Initiatives, MVP Release 1, Tasks, and Ready/active work.
+8. verifies Initiative and MVP Release 1 projections;
+9. verifies at least one projected Task exists;
+10. verifies at least one item is projected as Running from the active governed execution state.
 
 The command is idempotent: rerunning it MUST converge without creating duplicate fields, duplicate Project items, or duplicate named views.
 
