@@ -56,7 +56,7 @@ checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 name = "generic-array"
 version = "0.14.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "85649ca51fd72272d7821adaf274ad91c288277713d9c18820d8499a7ff69e9a"
+checksum = "85649ca51fd72272d7821adaf274ad91c288277713d9c18820d849a7ff69e9a"
 dependencies = [
  "typenum",
  "version_check",
@@ -108,6 +108,17 @@ dependencies = [
 name = "monad-codex-confinement"
 version = "0.1.0"
 dependencies = [
+ "monad-codex-runtime",
+ "serde",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
+name = "monad-codex-live-activation"
+version = "0.1.0"
+dependencies = [
+ "monad-codex-confinement",
  "monad-codex-runtime",
  "serde",
  "serde_json",
