@@ -17,6 +17,24 @@ import uuid
 from pathlib import Path
 from typing import Iterable
 
+
+TOOLS_EOS_DIR = Path(__file__).resolve().parent
+if str(TOOLS_EOS_DIR) not in sys.path:
+    sys.path.insert(0, str(TOOLS_EOS_DIR))
+
+from identity_families import (
+    REQUIREMENT_ID_PATTERN,
+    SPECIFICATION_ID_PATTERN,
+    is_requirement_id,
+    is_specification_id,
+)
+from event_ledger import (
+    EventLedgerError,
+    is_git_repository,
+    validate_committed_history,
+    validate_working_history,
+)
+
 UTC = dt.timezone.utc
 EVID_FIELDS = [
     "id", "path", "target", "execution", "validator", "profile", "kind",
@@ -25,8 +43,46 @@ EVID_FIELDS = [
 ]
 LINK_FIELDS = ["evidence_id", "reference", "relation", "created", "actor"]
 PERF_FIELDS = ["id", "name", "target", "unit", "direction", "baseline", "tolerance", "created", "updated"]
-ID_RE = re.compile(r"\b(?:REQ-[A-Z0-9][A-Z0-9-]*|SPEC-[A-Z0-9][A-Z0-9-]*|ADR-\d{4}|QA-[A-Z0-9][A-Z0-9-]*|CAP-[A-Z0-9][A-Z0-9-]*|PI(?:-[A-Z][A-Z0-9]*)?-\d{3}|WC(?:-[A-Z][A-Z0-9]*)?-\d{4}|WP(?:-[A-Z][A-Z0-9]*)?-\d{4}|EXEC-\d{4}|EVID-\d{4})\b")
-AC_RE = re.compile(r"^\s*-\s*\[[ xX]\]\s*(AC-[A-Z0-9][A-Z0-9-]*)\s*(?::|—|-)\s*(.+)$")
+ID_RE = re.compile(
+    r"\b(?:"
+    + REQUIREMENT_ID_PATTERN
+    + r"|"
+    + SPECIFICATION_ID_PATTERN
+    + r"|ADR-\d{4}"
+    + r"|QA-[A-Z0-9][A-Z0-9-]*"
+    + r"|CAP-[A-Z0-9][A-Z0-9-]*"
+    + r"|PI(?:-[A-Z][A-Z0-9]*)?-\d{3}"
+    + r"|WC(?:-[A-Z][A-Z0-9]*)?-\d{4}"
+    + r"|WP(?:-[A-Z][A-Z0-9]*)?-\d{4}"
+    + r"|EXEC-\d{4}"
+    + r"|EVID-\d{4}"
+    + r")\b"
+)
+AC_RE = re.compile(
+    r"^\s*-\s*\[[ xX]\]\s*"
+    r"(AC-[A-Z0-9][A-Z0-9-]*)\s*"
+    r"(?::|—|-)\s*(.+)$"
+)
+
+OTHER_EVIDENCE_REFERENCE_RE = re.compile(
+    r"^(?:"
+    r"AC-[A-Z0-9][A-Z0-9-]*|"
+    r"ADR-\d{4}|"
+    r"QA-[A-Z0-9][A-Z0-9-]*|"
+    r"CAP-[A-Z0-9][A-Z0-9-]*"
+    r")$"
+)
+
+
+def is_evidence_reference_id(value: str) -> bool:
+    return (
+        is_requirement_id(value)
+        or is_specification_id(value)
+        or OTHER_EVIDENCE_REFERENCE_RE.fullmatch(value)
+        is not None
+    )
+
+
 SECRET_PATTERNS = {
     "private-key": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----"),
     "aws-access-key": re.compile(r"\b(?:AKIA|ASIA)[A-Z0-9]{16}\b"),
@@ -631,15 +687,34 @@ def verify_evidence(strict: bool) -> tuple[bool,str]:
     return not failures,"\n".join(lines)
 
 
+def verify_event_history_integrity() -> tuple[bool, str]:
+    if not is_git_repository(ROOT):
+        return True, "SKIP — repository is not a Git work tree"
+    try:
+        validate_committed_history(ROOT)
+        validate_working_history(ROOT)
+        return True, "PASS — current and working event histories preserve inherited events"
+    except EventLedgerError as exc:
+        return False, f"FAIL — {exc}"
+
+
 def cmd_verify(args):
     p=core("verify",*( ["--strict"] if args.strict else [] )); ok_core=p.returncode==0
     ok_evid,evid_report=verify_evidence(args.strict)
-    report={"core":{"passed":ok_core,"output":p.stdout+p.stderr},"evidence":{"passed":ok_evid,"output":evid_report},"passed":ok_core and ok_evid}
+    ok_history,history_report=verify_event_history_integrity()
+    report={
+        "core":{"passed":ok_core,"output":p.stdout+p.stderr},
+        "event_history":{"passed":ok_history,"output":history_report},
+        "evidence":{"passed":ok_evid,"output":evid_report},
+        "passed":ok_core and ok_history and ok_evid,
+    }
     if args.json: print(json.dumps(report,indent=2,sort_keys=True))
     else:
-        print((p.stdout+p.stderr).rstrip()); print("\nEOSV EVIDENCE INTEGRITY\n"+evid_report); print(f"\nEOSV RESULT: {'PASS' if report['passed'] else 'FAIL'}")
+        print((p.stdout+p.stderr).rstrip())
+        print("\nEOSV EVENT HISTORY INTEGRITY\n"+history_report)
+        print("\nEOSV EVIDENCE INTEGRITY\n"+evid_report)
+        print(f"\nEOSV RESULT: {'PASS' if report['passed'] else 'FAIL'}")
     if not report["passed"]: raise EosvError("EOS verification failed")
-
 
 def cmd_validators(args):
     vals=merged_validators()
@@ -676,7 +751,7 @@ def cmd_evidence(args):
         evidence_row(args.evidence_id)
         links=read_tsv(LINK_REG); relation=args.relation
         for ref in args.references:
-            if not re.fullmatch(r"(?:AC-[A-Z0-9][A-Z0-9-]*|REQ-[A-Z0-9][A-Z0-9-]*|SPEC-[A-Z0-9][A-Z0-9-]*|ADR-\d{4}|QA-[A-Z0-9][A-Z0-9-]*|CAP-[A-Z0-9][A-Z0-9-]*)",ref): raise EosvError(f"Unsupported evidence reference: {ref}")
+            if not is_evidence_reference_id(ref): raise EosvError(f"Unsupported evidence reference: {ref}")
             if not any(x.get("evidence_id")==args.evidence_id and x.get("reference")==ref and x.get("relation")==relation for x in links):
                 links.append({"evidence_id":args.evidence_id,"reference":ref,"relation":relation,"created":now_iso(),"actor":args.actor or os.environ.get("USER","unknown")})
         write_tsv(LINK_REG,LINK_FIELDS,links); append_event("EVIDENCE_LINKED",args.evidence_id,action="link",metadata={"references":args.references,"relation":relation})
@@ -687,7 +762,16 @@ def cmd_evidence(args):
             er=exec_row(target); wp=er.get("target","") if er else ""
         criteria,unidentified=criteria_for_wp(wp); refs=[]
         p=artifact_path(wp)
-        if p: refs=[x for x in references_from(p) if x.startswith(("REQ-","SPEC-","ADR-","QA-","CAP-"))]
+        if p:
+          refs = [
+            x
+            for x in references_from(p)
+            if (
+                is_requirement_id(x)
+                or is_specification_id(x)
+                or x.startswith(("ADR-", "QA-", "CAP-"))
+            )
+        ]
         relevant=[r for r in rows if r.get("target")==wp and r.get("status")=="VALIDATED"]
         covered=set().union(*(evidence_covers(r) for r in relevant)) if relevant else set()
         items=[{"id":cid,"text":text,"covered":cid in covered} for cid,text in criteria]
